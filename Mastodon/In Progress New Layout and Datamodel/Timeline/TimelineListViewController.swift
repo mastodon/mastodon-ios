@@ -228,7 +228,7 @@ class TimelineListViewController: UIHostingController<TimelineListView>
         case .hashtag:
             showLocalTimelineAction.state = .off
             showFollowingAction.state = .off
-        case .discovery, .search, .userPosts, .thread, .myBookmarks, .myFavorites:
+        case .discovery, .search, .userPosts, .thread, .myBookmarks, .myFavorites, .notifications:
             assertionFailure()
         }
         
@@ -576,6 +576,8 @@ private class TimelineListViewModel: ObservableObject {
                         case .donePreparing:
                             return nil
                         }
+                    case .notification:
+                        return nil
                     }
                 }
                 self?.doPrepareForDisplay(needsPrep, contentWidth: 0, completion: {
@@ -744,6 +746,9 @@ extension TimelineListViewModel {
                 // not donePreparing, not included in currently preparing (inclusion in requested does not matter, because this batch may replace the current requested batch)
                 guard postViewModel.displayPrepStatus == .unprepared && currentlyPreparingForDisplay?.contains(postViewModel.initialDisplayInfo.id) != true else { return nil }
                 return postViewModel
+            case .notification:
+                // TODO: prep any enclosed view model, but without caching, this should not be necessary
+                return nil
             }
         }
         
@@ -1104,6 +1109,9 @@ struct TimelineListView: View {
                 .environment(viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID))
                 .padding(EdgeInsets(top: 0, leading: standardPadding, bottom: 0, trailing: doublePadding))
                 .frame(width: usableWidth)
+            case .notification(let groupedInfo):
+//                NotificationRowView()
+                Text("A NOTIFICATION")
             }
         }
         if viewModel.threadedConversationModel != nil {
@@ -1375,6 +1383,8 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                                 break
                             case .post(let viewModel):
                                 viewModel.isShowingTranslation = true
+                            case .notification:
+                                break
                             }
                         }
                     })
@@ -1386,6 +1396,8 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                                 break
                             case .post(let viewModel):
                                 viewModel.isShowingTranslation = false
+                            case .notification:
+                                break
                             }
                         }
                     })

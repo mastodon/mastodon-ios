@@ -98,7 +98,8 @@ final class UngroupedNotificationsFeedLoader: MastodonFeedLoader<GroupedNotifica
                 let sourceAccounts = NotificationSourceAccounts(myAccountID: user.domain, accounts: [notification.account], totalActorCount: 1)
                 let notificationType = GroupedNotificationType(notification, myAccountDomain: user.domain, sourceAccounts: sourceAccounts, adminReportID: nil)
                 let navigation = NotificationRowViewModel.defaultNavigation(notificationType, isGrouped: false, primaryAccount: notification.account)
-                let info = GroupedNotificationInfo(id: notification.id, timestamp: notification.createdAt, oldestNotificationID: notification.id, newestNotificationID: notification.id, groupedNotificationType: notificationType, sourceAccounts: sourceAccounts, status: notification.status, primaryNavigation: navigation)
+                let post = notification.status == nil ? nil : GenericMastodonPost.fromStatus(notification.status!)
+                let info = GroupedNotificationInfo(id: notification.id, timestamp: notification.createdAt, oldestNotificationID: notification.id, newestNotificationID: notification.id, groupedNotificationType: notificationType, sourceAccounts: sourceAccounts, post:  post, primaryNavigation: navigation)
                 return info
             })
     }
@@ -185,6 +186,8 @@ final class GroupedNotificationsFeedLoader: MastodonFeedLoader<GroupedNotificati
             let type = GroupedNotificationType(
                 group, myAccountDomain: user.domain, sourceAccounts: sourceAccounts, status: status, adminReportID: group.adminReport?.id)
             
+            let post = status == nil ? nil : GenericMastodonPost.fromStatus(status!)
+            
             return GroupedNotificationInfo(
                 id: group.id,
                 timestamp: group.latestPageNotificationAt,
@@ -192,7 +195,7 @@ final class GroupedNotificationsFeedLoader: MastodonFeedLoader<GroupedNotificati
                 newestNotificationID: group.pageOldestID ?? "",
                 groupedNotificationType: type,
                 sourceAccounts: sourceAccounts,
-                status: status,
+                post: post,
                 primaryNavigation: NotificationRowViewModel.defaultNavigation(
                     type, isGrouped: group.notificationsCount > 1,
                     primaryAccount: sourceAccounts.primaryAuthorAccount)

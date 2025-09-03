@@ -5,6 +5,34 @@ import Foundation
 import MastodonCore
 import MastodonSDK
 
+public enum NotificationsScope: Hashable {
+    case everything
+    case mentions
+    case fromAccount(Mastodon.Entity.Account)
+
+//    var title: String {
+//        switch self {
+//        case .everything:
+//            return L10n.Scene.Notification.Title.everything
+//        case .mentions:
+//            return L10n.Scene.Notification.Title.mentions
+//        case .fromAccount(let account):
+//            return "Notifications from \(account.displayName)"
+//        }
+//    }
+    
+//    var feedKind: MastodonFeedKind {
+//        switch self {
+//        case .everything:
+//            return .notificationsAll
+//        case .mentions:
+//            return .notificationsMentionsOnly
+//        case .fromAccount(let account):
+//            return .notificationsWithAccount(account.id)
+//        }
+//    }
+}
+
 public enum MastodonTimelineType: Equatable {
     case following
     case myBookmarks
@@ -16,6 +44,7 @@ public enum MastodonTimelineType: Equatable {
     case search(String)
     case userPosts(userID: String, queryFilter: TimelineQueryFilter)
     case thread(root: MastodonContentPost)
+    case notifications(scope: NotificationsScope)
 
     public static func == (lhs: MastodonTimelineType, rhs: MastodonTimelineType) -> Bool {
         switch (lhs, rhs) {
@@ -64,12 +93,15 @@ extension GenericMastodonPost {
 
 enum TimelineItem: Identifiable {
     case post(MastodonPostViewModel)
+    case notification(GroupedNotificationInfo)
     case loadingIndicator
     
     var id: String {
         switch self {
         case .post(let postViewModel):
             return postViewModel.initialDisplayInfo.id
+        case .notification(let groupedNotificationInfo):
+            return groupedNotificationInfo.id
         case .loadingIndicator:
             return "loading..."
         }
@@ -149,6 +181,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             self.filterContext = nil
         case .myFavorites:
             self.filterContext = nil
+        case .notifications(scope: let scope):
+            self.filterContext = .notifications
         }
         super.init(cacheManager)
     }
@@ -206,38 +240,46 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             itemsNoOlderThan = nil
             fetchOffset = nil
         }
+        
+        func timelineItem(fromStatus status: Mastodon.Entity.Status) -> TimelineItem {
+            let post = GenericMastodonPost.fromStatus(status)
+            let initialDisplayInfo = post.initialDisplayInfo(inContext: filterContext)
+            let viewModel = MastodonPostViewModel(initialDisplayInfo, filterContext: filterContext, threadedConversationContext: threadedConversationModel?.context(for: initialDisplayInfo.id))
+            viewModel.setFullPost(post)
+            return TimelineItem.post(viewModel)
+        }
 
-        let response: [Mastodon.Entity.Status]
+        let newBatch: [TimelineItem]
         switch timeline {
         case .following:
-            response = try await APIService.shared.homeTimeline(itemsNoOlderThan: itemsNoOlderThan, itemsImmediatelyAfter: itemsImmediatelyAfter, itemsImmediatelyBefore: itemsImmediatelyBefore, authenticationBox: authenticatedUser).value
+            newBatch = try await APIService.shared.homeTimeline(itemsNoOlderThan: itemsNoOlderThan, itemsImmediatelyAfter: itemsImmediatelyAfter, itemsImmediatelyBefore: itemsImmediatelyBefore, authenticationBox: authenticatedUser).value.map { timelineItem(fromStatus:$0) }
         case .local:
-            response = try await APIService.shared.publicTimeline(
+            newBatch = try await APIService.shared.publicTimeline(
                 query: .init(local: true, maxID: itemsImmediatelyBefore, sinceID: itemsNoOlderThan, minID: itemsImmediatelyAfter),
                 authenticationBox: authenticatedUser
-            ).value
+            ).value.map { timelineItem(fromStatus: $0) }
         case .list(let listId):
-            response = try await APIService.shared.listTimeline(
+            newBatch = try await APIService.shared.listTimeline(
                 id: listId,
                 query: .init(local: true, maxID: itemsImmediatelyBefore, sinceID: itemsNoOlderThan, minID: itemsImmediatelyAfter),
                 authenticationBox: authenticatedUser
-            ).value
+            ).value.map { timelineItem(fromStatus: $0) }
         case .hashtag(let hashtag):
-            response = try await APIService.shared.hashtagTimeline(
+            newBatch = try await APIService.shared.hashtagTimeline(
                 sinceID: itemsNoOlderThan,
                 maxID: itemsImmediatelyBefore,
                 hashtag: hashtag,
                 authenticationBox: authenticatedUser
-            ).value
+            ).value.map { timelineItem(fromStatus: $0) }
         case .discovery:
-            response = try await APIService.shared.trendStatuses(
+            newBatch = try await APIService.shared.trendStatuses(
                 domain: authenticatedUser.domain,
                 query: Mastodon.API.Trends.StatusQuery(
                     offset: fetchOffset,
                     limit: nil
                 ),
                 authenticationBox: authenticatedUser
-            ).value
+            ).value.map { timelineItem(fromStatus: $0) }
         case .search(let searchText):
             let query = Mastodon.API.V2.Search.Query(
                 q: searchText,
@@ -251,12 +293,12 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 offset: fetchOffset,
                 following: nil
             )
-            response = try await APIService.shared.search(
+            newBatch = try await APIService.shared.search(
                         query: query,
                         authenticationBox: authenticatedUser
-            ).value.statuses
+            ).value.statuses.map { timelineItem(fromStatus: $0) }
         case .userPosts(let userID, let queryFilter):
-            response = try await APIService.shared.userTimeline(
+            newBatch = try await APIService.shared.userTimeline(
                 accountID: userID,
                 maxID: itemsImmediatelyBefore,
                 sinceID: nil,
@@ -264,7 +306,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 excludeReblogs: queryFilter.excludeReblogs,
                 onlyMedia: queryFilter.onlyMedia,
                 authenticationBox: authenticatedUser
-            ).value
+            ).value.map { timelineItem(fromStatus: $0) }
         case .thread(let root):
             let context = try await APIService.shared.statusContext(
                 statusID: root.id,
@@ -272,31 +314,25 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             ).value
             let threadModel = ThreadedConversationModel(threadContext: context, focusedPost: root)
             threadedConversationModel = threadModel
-            response = threadModel.fullThread
+                newBatch = threadModel.fullThread.map { timelineItem(fromStatus: $0) }
         case .myBookmarks:
-            response = try await APIService.shared.bookmarkedStatuses(
+            newBatch = try await APIService.shared.bookmarkedStatuses(
                 maxID: itemsImmediatelyBefore,
                 authenticationBox: authenticatedUser
-            ).value
+            ).value.map { timelineItem(fromStatus: $0) }
         case .myFavorites:
-            response = try await APIService.shared.favoritedStatuses(
+            newBatch = try await APIService.shared.favoritedStatuses(
                 maxID: itemsImmediatelyBefore,
                 authenticationBox: authenticatedUser
-            ).value
+            ).value.map { timelineItem(fromStatus: $0) }
+        case .notifications(scope: let scope):
+            newBatch = []
+            // TODO: actually fetch and process the notifications, including filtered notifications
         }
-        
-        let newBatch = response.map { status in
-            let post = GenericMastodonPost.fromStatus(status)
-            let initialDisplayInfo = post.initialDisplayInfo(inContext: filterContext)
-            let viewModel = MastodonPostViewModel(initialDisplayInfo, filterContext: filterContext, threadedConversationContext: threadedConversationModel?.context(for: initialDisplayInfo.id))
-            viewModel.setFullPost(post)
-            return TimelineItem.post(viewModel)
-        }
-        
-        let associatedPolls = polls(response)
         
         let newCache: CacheableTimeline
 #if DEBUG && false
+        let associatedPolls = polls(response)
         if _createArtificialGapForTesting {
             _createArtificialGapForTesting = false
             let testingOldID = "" // insert useful postid for your purposes here
@@ -321,7 +357,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
     }
     
     override func filteredResults(fromCachedType cached: CacheableTimeline) -> [TimelineItem] {
-        cached.filteredPosts(inContext: filterContext)
+        cached.filteredItems(inContext: filterContext)
     }
     
 }
@@ -352,7 +388,7 @@ struct CacheableTimeline: CacheableFeed {
     let items: [TimelineItem]
     
     @MainActor
-    func filteredPosts(inContext context: Mastodon.Entity.FilterContext?) -> [TimelineItem] {
+    func filteredItems(inContext context: Mastodon.Entity.FilterContext?) -> [TimelineItem] {
         return items.filter { item in
             switch item {
             case .loadingIndicator:
@@ -365,6 +401,9 @@ struct CacheableTimeline: CacheableFeed {
                 } else {
                     return !postViewModel.initialDisplayInfo.shouldFilterOut
                 }
+            case .notification(let groupedInfo):
+                // TODO: filter based on contained statuses
+                return true
             }
         }
     }
@@ -381,6 +420,7 @@ struct CacheableTimeline: CacheableFeed {
             switch item {
             case .loadingIndicator: return false
             case .post: return true
+            case .notification: return true
             }
         })?.id
         
@@ -388,6 +428,8 @@ struct CacheableTimeline: CacheableFeed {
             let overlapIndex = older.firstIndex(where: { item in
                 switch item {
                 case .post:
+                    return item.id == oldestIdInNewBatch
+                case .notification:
                     return item.id == oldestIdInNewBatch
                 case .loadingIndicator:
                     return false
@@ -422,6 +464,8 @@ struct CacheableTimeline: CacheableFeed {
                 do {
                     try existingViewModel.update(from: updated)
                 } catch {}
+            case .notification(let info):
+                break
             }
         }
     }
@@ -434,6 +478,9 @@ struct CacheableTimeline: CacheableFeed {
                 return true
             case .post(let postViewModel):
                 return postViewModel.fullPost?.actionablePost?.id != postId
+            case .notification:
+                // TODO: anything?
+                return true
             }
         }
         
@@ -650,6 +697,9 @@ extension TimelineFeedLoader {
                 if let contentPost = postViewModel.fullPost?.actionablePost, contentConcealViewModels[contentPost.id] == nil {
                     contentConcealViewModels[contentPost.id] = ContentConcealViewModel(contentPost: contentPost, context: filterContext)
                 }
+            case .notification:
+                // TODO: create conceal models for summarized statuses?
+                break
             }
         }
     }

@@ -654,6 +654,7 @@ extension NotificationRowViewModel {
                 accounts: [notification.account], totalActorCount: 1)
             
             let status = notification.status
+            let post = status == nil ? nil : GenericMastodonPost.fromStatus(status!)
             
             let groupedNotificationType = GroupedNotificationType(
                 notification, myAccountDomain: myAccountDomain, sourceAccounts: sourceAccounts, adminReportID: notification.adminReport?.id)
@@ -664,7 +665,7 @@ extension NotificationRowViewModel {
                 newestNotificationID: notification.id,
                 groupedNotificationType: groupedNotificationType,
                 sourceAccounts: sourceAccounts,
-                status: status,
+                post: post,
                 primaryNavigation: defaultNavigation(
                     groupedNotificationType, isGrouped: false,
                                                 primaryAccount: notification.primaryAuthorAccount))

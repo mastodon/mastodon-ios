@@ -154,6 +154,9 @@ extension BodegaPersistence {
                 if let fullPost = await viewModel.fullPost {
                     posts.append((CacheKey(verbatim: fullPost.id), fullPost._legacyEntity))
                 }
+            case .notification:
+                // TODO: cache notifications?  Or give up on all caching.
+                break
             }
         }
         
@@ -165,7 +168,8 @@ extension BodegaPersistence {
             switch item {
             case .post(let viewModel):
                 return .cachedPost(viewModel.initialDisplayInfo)
-            case .loadingIndicator:
+            case .loadingIndicator, .notification:
+                // TODO: cache notifications? or give up on all caching?
                 return nil
             }
         }

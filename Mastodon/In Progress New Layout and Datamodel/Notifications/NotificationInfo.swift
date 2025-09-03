@@ -78,7 +78,7 @@ struct GroupedNotificationInfo: Identifiable {
         }
     }
 
-    let status: Mastodon.Entity.Status?
+    let post: GenericMastodonPost?
 
     let primaryNavigation: NotificationRowViewModel.NotificationNavigation?
 }
