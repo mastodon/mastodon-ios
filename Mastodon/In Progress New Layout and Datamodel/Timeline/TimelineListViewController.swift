@@ -1205,6 +1205,8 @@ struct TimelineListView: View {
     }
     
     @ViewBuilder func feedContents(_ geo: GeometryProxy) -> some View {
+        let usableWidth = geo.size.width - geo.safeAreaInsets.leading - geo.safeAreaInsets.trailing
+        let contentWidth = max(1, usableWidth - (standardPadding /*left margin*/ + spacingBetweenGutterAndContent /*avatar trailing to content leading*/ + doublePadding /*right margin*/) - avatarSize)
         ForEach(viewModel.currentDisplaySlice, id: \.self) { item in
             switch item {
             case .loadingIndicator:
@@ -1233,7 +1235,10 @@ struct TimelineListView: View {
                 
             case .filteredNotificationsInfo(_, let viewModel):
                 if let viewModel {
-                    FilteredNotificationsRowView(viewModel)
+                    FilteredNotificationsRowView(contentWidth: contentWidth)
+                        .environment(viewModel)
+                        .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
+                        .frame(width: usableWidth)
                         .accessibilityElement(children: .combine)
                         .accessibilityAction {
                             goToFilteredNotifications(viewModel)
@@ -1243,14 +1248,12 @@ struct TimelineListView: View {
                         }
                 } else {
                     Text("Some notifications have been filtered.")
+                        .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
+                        .frame(width: usableWidth)
                 }
+                Divider()
                 
             case .post(let postViewModel):
-                let usableWidth =
-                geo.size.width - geo.safeAreaInsets.leading
-                - geo.safeAreaInsets.trailing
-                let contentWidth = max(1, usableWidth - (standardPadding /*left margin*/ + spacingBetweenGutterAndContent /*avatar trailing to content leading*/ + doublePadding /*right margin*/) - avatarSize)
-                
 #if DEBUG && false
                 Text(postViewModel.initialDisplayInfo.id)
                     .foregroundStyle(.red)

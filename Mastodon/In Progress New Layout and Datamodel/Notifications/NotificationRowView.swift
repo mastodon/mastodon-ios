@@ -266,8 +266,8 @@ struct NotificationIconView: View {
             Image(systemName: systemName)
                 .foregroundStyle(color)
         }
-        .font(.system(size: 25))
-        .frame(width: AvatarSize.large)
+        .font(.system(size: 35))
+        .frame(width: AvatarSize.large, alignment: .center)
         .fontWeight(.semibold)
     }
 }
@@ -454,79 +454,74 @@ struct FilteredNotificationsRowView: View {
     
     let disclosureIndicatorSize = AvatarSize.large
     
-    class ViewModel: ObservableObject {
+    let contentWidth: CGFloat
+    
+    @Observable class ViewModel {
         var policy: Mastodon.Entity.NotificationPolicy? = nil {
             didSet {
                 update(policy: policy)
             }
         }
-        @Published var isPreparingToNavigate: Bool = false
-        @Published var componentViews: [NotificationViewComponent] = []
+        var isPreparingToNavigate: Bool = false
         var shouldShow: Bool = false
-
+        
         init(policy: Mastodon.Entity.NotificationPolicy?) {
             if let policy {
                 self.policy = policy
             }
         }
-
+        
         private func update(policy: Mastodon.Entity.NotificationPolicy?) {
             guard let policy else {
                 shouldShow = false
                 return
             }
-            componentViews = [
-                .weightedText(
-                    L10n.Scene.Notification.FilteredNotification.title, .bold),
-                .weightedText(
-                    L10n.Plural.FilteredNotificationBanner.subtitle(
-                        policy.summary.pendingRequestsCount), .regular),
-            ]
             shouldShow = policy.summary.pendingRequestsCount > 0
         }
     }
-
-    @ObservedObject var viewModel: ViewModel
-
-    init(_ viewModel: ViewModel) {
-        self.viewModel = viewModel
-    }
-
+    
+    @Environment(ViewModel.self) var viewModel
+    
     var body: some View {
-        HStack(spacing: avatarSpacing) {
-            // LEFT GUTTER WITH TOP-ALIGNED ICON
-            VStack {
-                Spacer()
+        
+        VStack(alignment: .gutterAlign, spacing: 0) {
+            HStack(alignment: .top, spacing: 0) {
+                // ICON
                 NotificationIconView(systemName: "archivebox", color: .secondary)
-                Spacer().frame(maxHeight: .infinity)
-            }
 
-            // TEXT COMPONENTS
-            VStack {
-                ForEach(viewModel.componentViews) { component in
-                    switch component {
-                    case .weightedText(let string, let weight):
-                        textComponent(string, fontWeight: weight)
-                    default:
-                        textComponent(component.id, fontWeight: .light)
+                Spacer()
+                    .frame(width: spacingBetweenGutterAndContent)
+                
+                HStack(spacing: 0) {
+                    // CONTENT
+                    VStack(spacing: 0) {
+                        Text(L10n.Scene.Notification.FilteredNotification.title)
+                            .fontWeight(.semibold)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        if let policy = viewModel.policy {
+                            Text(L10n.Plural.FilteredNotificationBanner.subtitle(policy.summary.pendingRequestsCount))
+                                .foregroundStyle(.secondary)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                    }
+                    .font(.subheadline)
+                    
+                    // DISCLOSURE INDICATOR (OR SPINNER)
+                    VStack {
+                        Spacer()
+                        if viewModel.isPreparingToNavigate {
+                            ProgressView().progressViewStyle(.circular)
+                        } else {
+                            Image(systemName: "chevron.forward")
+                                .foregroundStyle(.secondary)
+                                .font(.system(size: 20))
+                                .fontWeight(.light)
+                        }
+                        Spacer()
                     }
                 }
+                .frame(width: contentWidth)
             }
-
-            // DISCLOSURE INDICATOR (OR SPINNER)
-            VStack {
-                Spacer()
-                if viewModel.isPreparingToNavigate {
-                    ProgressView().progressViewStyle(.circular)
-                } else {
-                    Image(systemName: "chevron.forward")
-                        .foregroundStyle(.secondary)
-                        .font(.system(size: 20))
-                        .fontWeight(.light)
-                }
-                Spacer().frame(maxHeight: .infinity)
-            }
-            .frame(width: disclosureIndicatorSize)
         }
     }
 }

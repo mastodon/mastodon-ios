@@ -187,7 +187,8 @@ struct NotificationListView: View {
             }
         case .filteredNotificationsInfo(_, let viewModel):
             if let viewModel {
-                FilteredNotificationsRowView(viewModel)
+                FilteredNotificationsRowView(contentWidth: 300)
+                    .environment(viewModel)
                     .accessibilityElement(children: .combine)
                     .accessibilityAction {
                         didTap(item: notificationListItem)
