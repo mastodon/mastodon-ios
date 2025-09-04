@@ -905,17 +905,9 @@ extension TimelineListViewModel {
         currentlyPreparingForDisplay = batch.map { $0.initialDisplayInfo.id }
         
         Task {
-            // make sure we have the full posts to work with (if we are working from a cached timeline)
-            let needsCacheFetch = batch.compactMap { postModel in
-                return postModel.fullPost == nil ? postModel.initialDisplayInfo.id : nil
-            }
-            let cachedPosts = await feedLoader.fetchCachedPosts(needsCacheFetch)
             
             var needsRelationshipFetch = [GenericMastodonPost]()
             for postModel in batch {
-                if let cachedPost = cachedPosts[postModel.initialDisplayInfo.id] {
-                    postModel.setFullPost(cachedPost)
-                }
                 
                 if let fullPost = postModel.fullPost {
                     switch postModel.myRelationshipToAuthor {
