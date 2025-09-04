@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld people signed up</string>
+        <string>%ld 人已註冊</string>
       </dict>
     </dict>
     <key>a11y.plural.count.unread.notification</key>
