@@ -94,6 +94,9 @@ extension GenericMastodonPost {
 enum TimelineItem: Identifiable {
     case post(MastodonPostViewModel)
     case notification(GroupedNotificationInfo)
+    case filteredNotificationsInfo(
+        Mastodon.Entity.NotificationPolicy?,
+        FilteredNotificationsRowView.ViewModel?)
     case loadingIndicator
     
     var id: String {
@@ -102,6 +105,8 @@ enum TimelineItem: Identifiable {
             return postViewModel.initialDisplayInfo.id
         case .notification(let groupedNotificationInfo):
             return groupedNotificationInfo.id
+        case .filteredNotificationsInfo:
+            return "filteredNotifications"
         case .loadingIndicator:
             return "loading..."
         }
@@ -400,7 +405,7 @@ struct CacheableTimeline: CacheableFeed {
     func filteredItems(inContext context: Mastodon.Entity.FilterContext?) -> [TimelineItem] {
         return items.filter { item in
             switch item {
-            case .loadingIndicator:
+            case .loadingIndicator, .filteredNotificationsInfo:
                 return true
             case .post(let postViewModel):
                 if let contentPost = postViewModel.fullPost as? MastodonContentPost {
@@ -427,7 +432,7 @@ struct CacheableTimeline: CacheableFeed {
         
         let oldestIdInNewBatch = newer.last(where: { item in
             switch item {
-            case .loadingIndicator: return false
+            case .loadingIndicator, .filteredNotificationsInfo: return false
             case .post: return true
             case .notification: return true
             }
@@ -440,7 +445,7 @@ struct CacheableTimeline: CacheableFeed {
                     return item.id == oldestIdInNewBatch
                 case .notification:
                     return item.id == oldestIdInNewBatch
-                case .loadingIndicator:
+                case .loadingIndicator, .filteredNotificationsInfo:
                     return false
                 }
             })
@@ -467,7 +472,7 @@ struct CacheableTimeline: CacheableFeed {
     func update(fromPost updated: GenericMastodonPost) {
         for item in items {
             switch item {
-            case .loadingIndicator:
+            case .loadingIndicator, .filteredNotificationsInfo:
                 break
             case .post(let existingViewModel):
                 do {
@@ -483,7 +488,7 @@ struct CacheableTimeline: CacheableFeed {
     func byDeleting(postId: Mastodon.Entity.Status.ID) -> CacheableTimeline {
         let newItems = items.filter { item in
             switch item {
-            case .loadingIndicator:
+            case .loadingIndicator, .filteredNotificationsInfo:
                 return true
             case .post(let postViewModel):
                 return postViewModel.fullPost?.actionablePost?.id != postId
@@ -700,7 +705,7 @@ extension TimelineFeedLoader {
     private func createContentConcealViewModels(_ cache: CacheableTimeline) {
         for item in cache.items {
             switch item {
-            case .loadingIndicator:
+            case .loadingIndicator, .filteredNotificationsInfo:
                 break
             case .post(let postViewModel):
                 if let contentPost = postViewModel.fullPost?.actionablePost, contentConcealViewModels[contentPost.id] == nil {

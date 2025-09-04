@@ -148,7 +148,7 @@ extension BodegaPersistence {
         var posts = [(CacheKey, Mastodon.Entity.Status)]()
         for item in timeline {
             switch item {
-            case .loadingIndicator:
+            case .loadingIndicator, .filteredNotificationsInfo:
                 break
             case .post(let viewModel):
                 if let fullPost = await viewModel.fullPost {
@@ -168,7 +168,9 @@ extension BodegaPersistence {
             switch item {
             case .post(let viewModel):
                 return .cachedPost(viewModel.initialDisplayInfo)
-            case .loadingIndicator, .notification:
+            case .loadingIndicator, .filteredNotificationsInfo:
+                return nil
+            case .notification:
                 // TODO: cache notifications? or give up on all caching?
                 return nil
             }

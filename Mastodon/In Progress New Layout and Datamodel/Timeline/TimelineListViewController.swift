@@ -587,7 +587,16 @@ private class TimelineListViewModel: ObservableObject {
     @Published var currentDisplaySlice = ArraySlice<TimelineItem>()
     func setCurrentDisplaySlice(_ newSlice: ArraySlice<TimelineItem>) {
         // space to add any necessary bookkeeping before setting the slice
-        self.currentDisplaySlice = newSlice
+        switch timeline {
+        case .notifications(.everything), .notifications(.mentions):
+            if filteredNotificationsViewModel.shouldShow, newSlice.startIndex == 0 {
+                self.currentDisplaySlice = [.filteredNotificationsInfo(filteredNotificationsViewModel.policy, filteredNotificationsViewModel)] + newSlice
+            } else {
+                self.currentDisplaySlice = newSlice
+            }
+        default:
+            self.currentDisplaySlice = newSlice
+        }
     }
     
     private var fullFeed = MastodonFeedLoaderResult(allRecords: [TimelineItem](), canLoadOlder: false)
@@ -707,7 +716,7 @@ private class TimelineListViewModel: ObservableObject {
                 
                 let needsPrep: [MastodonPostViewModel] = results.allRecords.compactMap { item in
                     switch item {
-                    case .loadingIndicator:
+                    case .loadingIndicator, .filteredNotificationsInfo:
                         return nil
                     case .post(let viewModel):
                         switch viewModel.displayPrepStatus {
@@ -883,7 +892,7 @@ extension TimelineListViewModel {
         guard batchStart < feedLoaderRecords.count else { return nil }
         let batchItems = feedLoaderRecords[batchStart...].prefix(displayPrepBatchSize).compactMap { item -> MastodonPostViewModel? in
             switch item {
-            case .loadingIndicator:
+            case .loadingIndicator, .filteredNotificationsInfo:
                 return nil
             case .post(let postViewModel):
                 // not donePreparing, not included in currently preparing (inclusion in requested does not matter, because this batch may replace the current requested batch)
@@ -1222,6 +1231,20 @@ struct TimelineListView: View {
                                        visibleAreaHeight: geo.size.height)
                 .frame(width: 10, height: 1)
                 
+            case .filteredNotificationsInfo(_, let viewModel):
+                if let viewModel {
+                    FilteredNotificationsRowView(viewModel)
+                        .accessibilityElement(children: .combine)
+                        .accessibilityAction {
+                            goToFilteredNotifications(viewModel)
+                        }
+                        .onTapGesture {
+                            goToFilteredNotifications(viewModel)
+                        }
+                } else {
+                    Text("Some notifications have been filtered.")
+                }
+                
             case .post(let postViewModel):
                 let usableWidth =
                 geo.size.width - geo.safeAreaInsets.leading
@@ -1266,6 +1289,33 @@ struct TimelineListView: View {
             // include a spacer to indicate the end of the conversation and provide scrolling space so that if the focused post is at the end of the conversation it can still be scrolled to the top (or something near it)
             Color.secondary.opacity(0.2)
                 .frame(height: geo.size.height * 0.5)
+        }
+    }
+    
+    func goToFilteredNotifications(_ viewModel: FilteredNotificationsRowView.ViewModel) {
+        viewModel.isPreparingToNavigate = true
+        Task {
+            await navigateToFilteredNotifications()
+            viewModel.isPreparingToNavigate = false
+        }
+    }
+    
+    private func navigateToFilteredNotifications() async {
+        guard
+            let authBox = AuthenticationServiceProvider.shared.currentActiveUser
+                .value
+        else { return }
+
+        do {
+            let notificationRequests = try await APIService.shared
+                .notificationRequests(authenticationBox: authBox).value
+            let requestsViewModel = NotificationRequestsViewModel(
+                authenticationBox: authBox, requests: notificationRequests)
+
+            viewModel.presentScene(
+                .notificationRequests(viewModel: requestsViewModel), fromPost: nil, transition: .show)  // TODO: should be .modal(animated) on large screens?
+        } catch {
+            // TODO: handle error
         }
     }
     
@@ -1541,7 +1591,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     feedLoader?.updateCachedResults({ timeline in
                         for item in timeline.items {
                             switch item {
-                            case .loadingIndicator:
+                            case .loadingIndicator, .filteredNotificationsInfo:
                                 break
                             case .post(let viewModel):
                                 viewModel.isShowingTranslation = true
@@ -1554,7 +1604,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     feedLoader?.updateCachedResults({ timeline in
                         for item in timeline.items {
                             switch item {
-                            case .loadingIndicator:
+                            case .loadingIndicator, .filteredNotificationsInfo:
                                 break
                             case .post(let viewModel):
                                 viewModel.isShowingTranslation = false
