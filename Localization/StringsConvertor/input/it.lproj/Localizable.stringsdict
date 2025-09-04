@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>plural.count.new_signups</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_signups@</string>
+      <key>count_signups</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>one person signed up</string>
+        <key>other</key>
+        <string>%ld people signed up</string>
+      </dict>
+    </dict>
     <key>a11y.plural.count.unread.notification</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -80,22 +96,6 @@
         <string>un altro</string>
         <key>other</key>
         <string>altri %ld</string>
-      </dict>
-    </dict>
-    <key>plural.count.new_signups</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@count_signups@</string>
-      <key>count_signups</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>ld</string>
-        <key>one</key>
-        <string>una nuova iscrizione</string>
-        <key>other</key>
-        <string>%ld nuove iscrizioni</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
