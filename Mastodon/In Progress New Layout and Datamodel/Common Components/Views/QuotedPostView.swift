@@ -121,6 +121,7 @@ extension Mastodon.Entity.Quote.AcceptanceState {
 
 struct QuotedPostContentDisplayedView: View {
     @Environment(MastodonPostViewModel.self) private var viewModel
+    @Environment(TimestampUpdater.self) private var timestamper
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
     @Environment(\.colorScheme) private var colorScheme
     let layoutWidth: CGFloat
@@ -193,7 +194,7 @@ struct QuotedPostContentDisplayedView: View {
                 HStack(spacing: 0) {
                     authorDisplayName
                     Spacer(minLength: doublePadding)
-                    Text(viewModel.initialDisplayInfo.actionableCreatedAt.localizedExtremelyAbbreviatedTimeElapsedUntil(now: viewModel.timestamper.timestamp))
+                    Text(viewModel.initialDisplayInfo.actionableCreatedAt.localizedExtremelyAbbreviatedTimeElapsedUntil(now: timestamper.timestamp))
                         .foregroundStyle(.secondary)
                 }
                 HStack(spacing: 0) {

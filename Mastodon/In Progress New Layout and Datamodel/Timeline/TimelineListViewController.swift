@@ -1202,6 +1202,7 @@ struct TimelineListView: View {
                 }
             }
         }
+        .environment(TimestampUpdater.timestamper(withInterval: 30))
     }
     
     @ViewBuilder func feedContents(_ geo: GeometryProxy) -> some View {
@@ -1283,9 +1284,24 @@ struct TimelineListView: View {
                         EmptyView()
                     }
                 }
-            case .notification(let groupedInfo):
-//                NotificationRowView()
-                Text("A NOTIFICATION")
+            case .notification(let viewModel):
+                NotificationRowView(contentWidth: contentWidth)
+                    .environment(viewModel)
+                    .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
+                    .frame(width: usableWidth)
+                    .background() {
+                        if let inlinePost = viewModel.inlinePost {
+                            switch inlinePost.initialDisplayInfo(inContext: .notifications).actionableVisibility {
+                            case .mentionedOnly:
+                                backgroundView(isPrivate: true, isUnread: false) // TODO: implement unread for notifications
+                            default:
+                                EmptyView()
+                            }
+                        }
+                    }
+                    .onAppear() {
+                        viewModel.prepareForDisplay()
+                    }
             }
         }
         if viewModel.threadedConversationModel != nil {

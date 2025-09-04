@@ -199,7 +199,8 @@ struct NotificationListView: View {
         case .notification:
             Text("obsolete item")
         case .groupedNotification(let viewModel):
-            NotificationRowView(viewModel: viewModel)
+            NotificationRowView(contentWidth: 300)
+                .environment(viewModel)
                 .padding(.vertical, 4)
                 .listRowBackground(
                     backgroundView(isPrivate: viewModel.usePrivateBackground, isUnread: isUnread)
@@ -533,7 +534,9 @@ private class NotificationListViewModel: ObservableObject {
         }()
         
         func notificationListItem(fromInfo info: GroupedNotificationInfo) -> NotificationListItem {
-            let rowViewModel = NotificationRowViewModel(info, timestamper: self.timestampUpdater, myAccountID: authBox.userID, myAccountDomain: authBox.domain, navigateToScene: navigateToScene, presentError: presentError)
+            let rowViewModel = NotificationRowViewModel(info, myAccountDomain: authBox.domain)
+            rowViewModel.navigateToScene = navigateToScene
+            rowViewModel.presentError = presentError
             return NotificationListItem.groupedNotification(rowViewModel)
         }
         
@@ -727,8 +730,8 @@ extension Error {
     }
 }
 
-class TimestampUpdater: ObservableObject {
-    @Published var timestamp: Date = .now
+@Observable class TimestampUpdater {
+    var timestamp: Date = .now
     private var timer: Timer?
     
     private init(_ interval: TimeInterval) {

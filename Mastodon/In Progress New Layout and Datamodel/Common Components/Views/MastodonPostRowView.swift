@@ -50,7 +50,6 @@ import MastodonLocalization
             fullQuotedPostViewModel?.actionHandler = actionHandler
         }
     }
-    let timestamper: TimestampUpdater = TimestampUpdater.timestamper(withInterval: 30)
     let filterContext: Mastodon.Entity.FilterContext?
     
     private(set) var translation: Mastodon.Entity.Translation? = nil
@@ -253,7 +252,7 @@ struct HomeTimelinePostRowView: View {
                 }
                 
                 VStack(spacing: spacingBetweenGutterAndContent) {
-                    AuthorHeaderView(timestamper: viewModel.timestamper)
+                    AuthorHeaderView()
                     
                     contentConcealLozenge
                         .frame(width: contentWidth)

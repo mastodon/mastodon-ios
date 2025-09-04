@@ -93,7 +93,7 @@ extension GenericMastodonPost {
 
 enum TimelineItem: Identifiable {
     case post(MastodonPostViewModel)
-    case notification(GroupedNotificationInfo)
+    case notification(NotificationRowViewModel)
     case filteredNotificationsInfo(
         Mastodon.Entity.NotificationPolicy?,
         FilteredNotificationsRowView.ViewModel?)
@@ -334,12 +334,11 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 authenticationBox: authenticatedUser
             ).value.map { timelineItem(fromStatus: $0) }
         case .notifications(scope: let scope):
-            // TODO: include filtered notifications banner
             newBatch = try await NotificationsLoader.getNotifications(withScope: scope, olderThan: itemsImmediatelyAfter, newerThan: itemsImmediatelyBefore).map { groupedNotificationInfo in
                 if groupedNotificationInfo.groupedNotificationType.wantsFullStatusLayout, let post = groupedNotificationInfo.post {
                     return timelineItem(fromPost: post)
                 } else {
-                    return TimelineItem.notification(groupedNotificationInfo)
+                    return TimelineItem.notification(NotificationRowViewModel(groupedNotificationInfo, myAccountDomain: authenticatedUser.domain))
                 }
             }
         }

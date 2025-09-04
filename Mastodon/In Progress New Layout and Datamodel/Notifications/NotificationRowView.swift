@@ -266,7 +266,7 @@ struct NotificationIconView: View {
             Image(systemName: systemName)
                 .foregroundStyle(color)
         }
-        .font(.system(size: 35))
+        .font(.system(size: 25))
         .frame(width: AvatarSize.large, alignment: .center)
         .fontWeight(.semibold)
     }
@@ -526,139 +526,106 @@ struct FilteredNotificationsRowView: View {
     }
 }
 
-let baseActionSuperheaderHeight: CGFloat = 20
-
 struct NotificationRowView: View {
 
-    @ScaledMetric private var actionSuperheaderHeight: CGFloat = baseActionSuperheaderHeight
-    private let smallAvatarSize = AvatarSize.small
-    
-    @ObservedObject var viewModel: NotificationRowViewModel
-    @ObservedObject var timestamper: TimestampUpdater
-    
-    init(viewModel: NotificationRowViewModel) {
-        self.viewModel = viewModel
-        self.timestamper = viewModel.timestampUpdater
-    }
+    @Environment(NotificationRowViewModel.self) var viewModel
+    var contentWidth: CGFloat
     
     var body: some View {
-        HStack(alignment: .top, spacing: avatarSpacing) {
-            if let iconStyle = viewModel.iconStyle {
-                // LEFT GUTTER WITH TOP-ALIGNED ICON or AVATAR
-                VStack(spacing: 4) {
-                    if let actionSuperheader = viewModel.actionSuperheader {
-                        HStack {
-                            Spacer()
-                            if let iconName = actionSuperheader.iconName {
-                                Image(systemName: iconName)
-                                    .font(.footnote)
-                                    .bold()
-                                    .foregroundStyle(actionSuperheader.color)
-                                    .frame(height: actionSuperheaderHeight)
-                            } else {
-                                Spacer()
-                                    .frame(height: actionSuperheaderHeight)
-                            }
-                        }
-                    }
-                    
-                    switch iconStyle {
-                    case .icon(let name, let color):
-                        NotificationIconView(systemName: name, color: color)
-                    case .avatar:
-                        if let author = viewModel.notification.sourceAccounts.primaryAuthorAccount {
-                            AvatarView(size: .large, authorAvatarUrl: author.avatarURL, goToProfile: { try await viewModel.navigateToProfile(author) } )
-                        }
-                    }
-                    Spacer().frame(maxHeight: .infinity)
-                }
-                .fixedSize(horizontal: true, vertical: false)
-            }
-            
-            // VSTACK OF HEADER AND CONTENT COMPONENT VIEWS
-            VStack(spacing: 4) {
-                if let actionSuperheader = viewModel.actionSuperheader {
-                    componentView(.weightedText(actionSuperheader.text, .bold))
-                        .font(.footnote)
-                        .foregroundColor(actionSuperheader.color)
-                        .frame(height: actionSuperheaderHeight)
-                }
+        VStack(alignment: .gutterAlign, spacing: 0) {
+            HStack(alignment: .top, spacing: 0) {
+                // ICON
+                NotificationIconView(systemName: viewModel.iconName, color: viewModel.iconColor)
                 
-                ForEach(viewModel.headerComponents) {
-                    componentView($0)
-                }
+                Spacer()
+                    .frame(width: spacingBetweenGutterAndContent)
                 
-                if !viewModel.contentComponents.isEmpty && !viewModel.notification.type.wantsFullStatusLayout {
-                    Spacer().frame(height: 2)
-                }
-                
-                ForEach(viewModel.contentComponents) {
-                    componentView($0)
-                }
+                // CONTENT
+                contentView
+                    .font(.subheadline)
+                    .frame(width: contentWidth)
             }
         }
-        .fixedSize(horizontal: false, vertical: true)
-        .accessibilityActions {
-            ForEach(viewModel.a11yActions) { a11y in
-                Button(a11y.title) {
-                    a11y.doAction()
-                }
-            }
+        .onTapGesture {
+            // viewModel.primaryNavigation
         }
-        .accessibilityElement(children: .combine)
     }
     
     @ViewBuilder
-    func componentView(_ component: NotificationViewComponent) -> some View {
-        switch component {
-        case .avatarRow(let accountInfo, let addition):
-            avatarRow(accountInfo: accountInfo, trailingElement: addition)
-        case .text(let string):
-            Text(string)
-                .frame(maxWidth: .infinity, alignment: .leading)
-        case .timeSinceLabel(let date):
-            Text(date.localizedExtremelyAbbreviatedTimeElapsedUntil(now: timestamper.timestamp))
-                .font(.footnote)
-                .frame(height: actionSuperheaderHeight)
-                .fixedSize(horizontal: true, vertical: false)
-                .foregroundColor(.secondary)
-                .accessibilityLabel(date.localizedAbbreviatedSlowedTimeAgoSinceNow)
-        case .weightedText(let string, let weight):
-            textComponent(string, fontWeight: weight)
-        case .status(let statusViewModel):
-            InlinePostPreview(viewModel: statusViewModel)
-                .onTapGesture {
-                    statusViewModel.navigateToStatus()
+    var contentView: some View {
+        VStack {
+            // AVATAR ROW
+            if let sourceAccounts = viewModel.avatarRowSourceAccounts {
+                avatarRow(accountInfo: sourceAccounts, trailingElement: viewModel.avatarRowAdditionalElement)
+            }
+            
+            // HEADLINE AND TIMESTAMP
+            HStack(spacing: 0) {
+                headlineView
+                if let timestamp = viewModel.notification.timestamp {
+                    Spacer(minLength: standardPadding)
+                    VisibilityAndTimestamp(referenceDate: timestamp, visibility: nil)
                 }
-        case .hyperlink(let label, _):
-            Text(label)
-                .bold()
-                .foregroundStyle(Color(asset: Asset.Colors.accent))
-        case ._other(let string):
-            Text(string)
-        case .textAndTimeLabel(let string, let date):
-            HStack(alignment: .top, spacing: 2) {
-                Text(string)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Text(date.localizedExtremelyAbbreviatedTimeElapsedUntil(now: timestamper.timestamp))
-                    .font(.footnote)
-                    .frame(height: actionSuperheaderHeight)
-                    .fixedSize(horizontal: true, vertical: false)
-                    .foregroundColor(.secondary)
-                    .accessibilityLabel(date.localizedAbbreviatedSlowedTimeAgoSinceNow)
+            }
+            
+            // ADDITIONAL CONTENT
+            switch viewModel.notification.type {
+            case .adminReport(let report, let url):
+                if let comment = report?
+                    .displayableComment
+                {
+                    Text(comment)
+                }
+            case .severedRelationships:
+                let label = L10n.Scene.Notification.learnMoreAboutServerBlocks
+                Text(label)
+                    .bold()
+                    .foregroundStyle(Color(asset: Asset.Colors.accent))
+            case .moderationWarning(let accountWarning, _):
+                if let accountWarningText = accountWarning?.text {
+                    Text(accountWarningText)
+                }
+                let label = L10n.Scene.Notification.Warning.learnMore
+                Text(label)
+                    .bold()
+                    .foregroundStyle(Color(asset: Asset.Colors.accent))
+            default:
+                EmptyView()
+            }
+            
+            // OPTIONAL INLINE POST VIEW
+            if let post = viewModel.inlinePost {
+                Text("INLINE POST PREVIEW")
             }
         }
     }
+    
+    @ViewBuilder var headlineView: some View {
+        switch viewModel.notification.type {
+        case .follow, .followRequest, .reblog, .favourite, .poll, .update, .quotedUpdate, .adminSignUp:
+            if let sourceAccounts = viewModel.avatarRowSourceAccounts,
+               sourceAccounts.primaryAuthorAccount?.displayNameWithFallback != nil,
+               let actionLabel = viewModel.notification.type.actionSummaryLabel(sourceAccounts) {
+                Text(actionLabel)  // TODO: use RowView with emoji parsing, bold the name using html
+            }
+        case .mention(let status), .status(let status), .quote(let status):
+            Text("This notification type expects to be presented as a MastodonPostRowView, not a NotificationRowView")
+        case .adminReport(let report, _):
+            if let summary = report?.summary {
+                Text(summary)
+            }
+        case .severedRelationships(let severanceEvent, _):
+            if let summary = severanceEvent?.summary(myDomain: viewModel.myAccountDomain ?? "")
+            {
+                Text(summary)
+            }
+        case .moderationWarning(let accountWarning, _):
+            if let actionDescription = accountWarning?.action.actionDescription {
+                Text(actionDescription)
+            }
 
-    func displayableAvatarCount(
-        fittingWidth: CGFloat, totalAvatarCount: Int, totalActorCount: Int
-    ) -> Int {
-        let maxAvatarCount = Int(
-            floor(fittingWidth / (smallAvatarSize + avatarSpacing)))
-        if maxAvatarCount < totalActorCount {
-            return maxAvatarCount - 1
-        } else {
-            return maxAvatarCount
+        case ._other(let typeString):
+                Text("UNEXPECTED NOTIFICATION TYPE: \(typeString)")
         }
     }
 
@@ -735,7 +702,7 @@ struct NotificationRowView: View {
                 Button(action: {
                     viewModel.doAvatarRowButtonAction(false)
                 }) {
-                    lightwieghtImageView("xmark.circle", size: smallAvatarSize)
+                    lightwieghtImageView("xmark.circle", size: AvatarSize.small)
                 }
                 .buttonStyle(
                     ImageButton(
@@ -745,7 +712,7 @@ struct NotificationRowView: View {
                     viewModel.doAvatarRowButtonAction(true)
                 }) {
                     lightwieghtImageView(
-                        "checkmark.circle", size: smallAvatarSize)
+                        "checkmark.circle", size: AvatarSize.small)
                 }
                 .buttonStyle(
                     ImageButton(
@@ -753,21 +720,33 @@ struct NotificationRowView: View {
             }
         case (.iHaveAnsweredTheirRequestToFollowMe(let didAccept), false):
             if didAccept {
-                lightwieghtImageView("checkmark", size: smallAvatarSize)
+                lightwieghtImageView("checkmark", size: AvatarSize.small)
                     .accessibilityLabel(L10n.Scene.Notification.FollowRequest.accepted)
             } else {
-                lightwieghtImageView("xmark", size: smallAvatarSize)
+                lightwieghtImageView("xmark", size: AvatarSize.small)
                     .accessibilityLabel(L10n.Scene.Notification.FollowRequest.rejected)
             }
         case (.error(_), _):
             lightwieghtImageView(
-                "exclamationmark.triangle", size: smallAvatarSize)
+                "exclamationmark.triangle", size: AvatarSize.small)
         default:
             Spacer().frame(width: 0)
         }
     }
 }
 
+let baseActionSuperheaderHeight: CGFloat = 20
+    func displayableAvatarCount(
+        fittingWidth: CGFloat, totalAvatarCount: Int, totalActorCount: Int
+    ) -> Int {
+        let maxAvatarCount = Int(
+            floor(fittingWidth / (AvatarSize.small + avatarSpacing)))
+        if maxAvatarCount < totalActorCount {
+            return maxAvatarCount - 1
+        } else {
+            return maxAvatarCount
+        }
+    }
 @ViewBuilder
 func textComponent(_ string: String, fontWeight: SwiftUICore.Font.Weight?)
     -> some View
@@ -775,38 +754,6 @@ func textComponent(_ string: String, fontWeight: SwiftUICore.Font.Weight?)
     Text(string)
         .fontWeight(fontWeight)
         .frame(maxWidth: .infinity, alignment: .leading)
-}
-
-enum NotificationViewComponent: Identifiable {
-    case avatarRow(NotificationSourceAccounts, RelationshipElement)
-    case text(AttributedString)
-    case textAndTimeLabel(AttributedString, Date)
-    case timeSinceLabel(Date)
-    case weightedText(String, SwiftUICore.Font.Weight)
-    case status(Mastodon.Entity.Status.ViewModel)
-    case hyperlink(String, URL?)
-    case _other(String)
-
-    var id: String {
-        switch self {
-        case .avatarRow:
-            return "avatar_row"
-        case .text(let string):
-            return string.description
-        case .timeSinceLabel(_):
-            return "time_label"
-        case .weightedText(let string, _):
-            return string
-        case .status:
-            return "status"
-        case .hyperlink(let text, _):
-            return text
-        case ._other(let string):
-            return string
-        case .textAndTimeLabel(let string, _):
-            return string.description + "+date"
-        }
-    }
 }
 
 func styledNameComponent(_ name: String, style: AttributeContainer, emojis: [MastodonContent.Shortcode: String]?) -> AttributedString {

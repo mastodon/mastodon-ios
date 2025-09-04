@@ -29,66 +29,68 @@ struct MastodonNotificationInfo {
     }
 }
 
-class NotificationRowViewModel: ObservableObject {
-    let timestampUpdater: TimestampUpdater
-   
-    let navigateToScene:
-    (SceneCoordinator.Scene, SceneCoordinator.Transition) -> Void
-    let presentError: (Error) -> Void
+@Observable class NotificationRowViewModel {
+    var navigateToScene:
+    ((SceneCoordinator.Scene, SceneCoordinator.Transition) -> Void)?
+
+    var presentError: ((Error) -> Void)?
+    
     let primaryNavigation: NotificationNavigation?
     
     let notification: MastodonNotificationInfo
-    let iconStyle: GroupedNotificationType.MainIconStyle?
-    let usePrivateBackground: Bool
-    let actionSuperheader: (iconName: String?, text: String, color: Color)?
+    let myAccountDomain: String?
     
-    @Published public var headerComponents: [NotificationViewComponent] = []
-    public var contentComponents: [NotificationViewComponent] = []
-
-    private(set) var avatarRow: NotificationViewComponent? {
-        didSet {
-            resetHeaderComponents()
+    var avatarRowSourceAccounts: NotificationSourceAccounts? {
+        switch notification.type {
+        case .follow, .followRequest:
+            return notification.sourceAccounts
+        case .reblog, .favourite, .quotedUpdate, .poll, .update, .adminSignUp:
+            return notification.sourceAccounts
+        case .adminReport, .moderationWarning, .severedRelationships:
+            return nil
+        case .mention, .status, .quote:
+            // Note: these types are expected to use the MastodonPostRowView, not the NotificationRowView
+            return nil
+        case ._other:
+            return nil
         }
     }
-    private(set) var headerTextComponents: [NotificationViewComponent] = [] {
-        didSet {
-            resetHeaderComponents()
+    var avatarRowAdditionalElement: RelationshipElement
+    
+    private var iconStyle: GroupedNotificationType.MainIconStyle? {
+        return notification.type.mainIconStyle
+    }
+    public var iconName: String {
+        switch iconStyle {
+        case .icon(let name, _):
+            return name
+        case .avatar:
+            return "person.fill.viewfinder"
+        case nil:
+            return "questionmark.square.dashed"
         }
     }
-
-    private func resetHeaderComponents() {
-        headerComponents = ([avatarRow] + headerTextComponents).compactMap {
-            $0
+    public var iconColor: Color {
+        switch iconStyle {
+        case .icon(_, let color):
+            return color
+        case .avatar:
+            return .secondary
+        case nil:
+            return .secondary
         }
     }
+    
+    var inlinePost: GenericMastodonPost? = nil
+    var usePrivateBackground: Bool = false
 
-    init(
-        _ notificationInfo: GroupedNotificationInfo,
-        timestamper: TimestampUpdater,
-        myAccountID: String,
-        myAccountDomain: String,
-        navigateToScene: @escaping (
-            SceneCoordinator.Scene, SceneCoordinator.Transition
-        ) -> Void, presentError: @escaping (Error) -> Void
-    ) {
-        self.timestampUpdater = timestamper
-        self.iconStyle = notificationInfo.groupedNotificationType.mainIconStyle
-        self.navigateToScene = navigateToScene
-        self.presentError = presentError
+    init(_ notificationInfo: GroupedNotificationInfo, myAccountDomain: String?) {
         self.primaryNavigation = notificationInfo.primaryNavigation
         self.notification = MastodonNotificationInfo(notificationInfo)
+        self.myAccountDomain = myAccountDomain
         
-        var needsPrivateBackground = false
-        
-        func newStatusViewModel(_ status: Mastodon.Entity.Status) -> Mastodon.Entity.Status.ViewModel {
-            return statusViewModel(status, myAccountID: myAccountID, myAccountDomain: myAccountDomain, navigateToScene: navigateToScene)
-        }
-
         switch notificationInfo.groupedNotificationType {
-
         case .follow, .followRequest:
-            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: false, myAccountID: myAccountID)
-            let avatarRowAdditionalElement: RelationshipElement
             if notificationInfo.sourceAccounts
                 .primaryAuthorAccount != nil
             {
@@ -97,265 +99,45 @@ class NotificationRowViewModel: ObservableObject {
             } else {
                 avatarRowAdditionalElement = .error(nil)
             }
-            avatarRow = .avatarRow(
-                notificationInfo.sourceAccounts,
-                avatarRowAdditionalElement)
-            if (notificationInfo.sourceAccounts
-                .primaryAuthorAccount?
-                .displayNameWithFallback) != nil
-            {
-                if let timestamp = notificationInfo.timestamp {
-                    headerTextComponents = [
-                        .textAndTimeLabel(
-                            notificationInfo.groupedNotificationType
-                                .actionSummaryLabel(notificationInfo.sourceAccounts)
-                            ?? "", timestamp)
-                    ]
-                } else {
-                    headerTextComponents = [
-                        .text(
-                            notificationInfo.groupedNotificationType
-                                .actionSummaryLabel(notificationInfo.sourceAccounts)
-                            ?? "")
-                    ]
-                }
-            }
-        case .mention(let status), .status(let status), .quote(let status):
-            // TODO: eventually make this full status style, not inline
-            if let status
-            {
-                let statusViewModel = newStatusViewModel(status)
-                actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: statusViewModel.isReplyToMe, isPrivateStatus: statusViewModel.visibility == .direct, myAccountID: myAccountID)
-                if let timestamp = notificationInfo.timestamp {
-                    headerTextComponents = [
-                        .textAndTimeLabel(
-                            notificationInfo.groupedNotificationType
-                                .actionSummaryLabel(notificationInfo.sourceAccounts)
-                            ?? "", timestamp)
-                    ]
-                } else {
-                    headerTextComponents = [
-                        .text(
-                            notificationInfo.groupedNotificationType
-                                .actionSummaryLabel(notificationInfo.sourceAccounts)
-                            ?? "")
-                    ]
-                }
-                contentComponents = [.status(statusViewModel)]
-                needsPrivateBackground = status.visibility == .direct
-            } else {
-                actionSuperheader = nil
-                headerTextComponents = [._other("POST BY UNKNOWN ACCOUNT")]
-            }
-        case .reblog(let status), .favourite(let status):
-            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: status?.visibility == .direct, myAccountID: myAccountID)
+        case .mention, .status, .quote:
+            avatarRowAdditionalElement = .noneNeeded
+            break
+        case .reblog(let status), .favourite(let status), .poll(let status), .update(let status), .quotedUpdate(let status):
+            avatarRowAdditionalElement = .noneNeeded
             if let status {
-                let statusViewModel = newStatusViewModel(status)
-                avatarRow = .avatarRow(
-                    notificationInfo.sourceAccounts,
-                    .noneNeeded)
-                if let timestamp = notificationInfo.timestamp {
-                    headerTextComponents = [
-                        .textAndTimeLabel(
-                            notificationInfo.groupedNotificationType
-                                .actionSummaryLabel(notificationInfo.sourceAccounts)
-                            ?? "", timestamp)
-                    ]
-                } else {
-                    headerTextComponents = [
-                        .text(
-                            notificationInfo.groupedNotificationType
-                                .actionSummaryLabel(notificationInfo.sourceAccounts)
-                            ?? "")
-                    ]
-                }
-                contentComponents = [.status(statusViewModel)]
-                needsPrivateBackground = statusViewModel.visibility == .direct
-            } else {
-                headerTextComponents = [
-                    ._other("REBLOGGED/FAVOURITED/QUOTED BY UNKNOWN ACCOUNT")
-                ]
+                inlinePost = GenericMastodonPost.fromStatus(status)
+                usePrivateBackground = status.visibility == .direct
             }
-        case .poll(let status), .update(let status), .quotedUpdate(let status):
-            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: status?.visibility == .direct, myAccountID: myAccountID)
-            if let status {
-                let statusViewModel = newStatusViewModel(status)
-                if let timestamp = notificationInfo.timestamp {
-                    headerTextComponents = [
-                        .textAndTimeLabel(
-                            notificationInfo.groupedNotificationType
-                                .actionSummaryLabel(notificationInfo.sourceAccounts)
-                            ?? "", timestamp)
-                    ]
-                } else {
-                    headerTextComponents = [
-                        .text(
-                            notificationInfo.groupedNotificationType
-                                .actionSummaryLabel(notificationInfo.sourceAccounts)
-                            ?? "")
-                    ]
-                }
-                contentComponents = [.status(statusViewModel)]
-                needsPrivateBackground = statusViewModel.visibility == .direct
-            } else {
-                headerTextComponents = [
-                    ._other("POLL/UPDATE FROM UNKNOWN ACCOUNT")
-                ]
-            }
-        case .adminSignUp:
-            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: false, myAccountID: myAccountID)
-            avatarRow = .avatarRow(
-                notificationInfo.sourceAccounts,
-                .noneNeeded)
-            if let timestamp = notificationInfo.timestamp {
-                headerTextComponents = [
-                    .textAndTimeLabel(
-                        notificationInfo.groupedNotificationType
-                            .actionSummaryLabel(notificationInfo.sourceAccounts)
-                        ?? "", timestamp)
-                ]
-            } else {
-                headerTextComponents = [
-                    .text(
-                        notificationInfo.groupedNotificationType
-                            .actionSummaryLabel(notificationInfo.sourceAccounts)
-                        ?? "")
-                ]
-            }
-        case .adminReport(let report, _):
-            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: false, myAccountID: myAccountID)
-            if let summary = report?.summary {
-                if let timestamp = notificationInfo.timestamp {
-                    headerTextComponents = [
-                        .textAndTimeLabel(summary, timestamp)
-                    ]
-                } else {
-                    headerTextComponents = [
-                        .text(summary)
-                    ]
-                }
-            }
-            if let comment = report?
-                .displayableComment
-            {
-                contentComponents = [.text(comment)]
-            }
-        case .severedRelationships(let severanceEvent, let url):
-            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: false, myAccountID: myAccountID)
-            if let summary = severanceEvent?.summary(myDomain: myAccountDomain)
-            {
-                if let timestamp = notificationInfo.timestamp {
-                    headerTextComponents = [
-                        .textAndTimeLabel(summary, timestamp)
-                    ]
-                } else {
-                    headerTextComponents = [
-                        .text(summary)
-                    ]
-                }
-            } else {
-                headerTextComponents = [
-                    ._other(
-                        "An admin action removed some of your followers or accounts that you followed."
-                    )
-                ]
-            }
-            contentComponents = [
-                .hyperlink(
-                    L10n.Scene.Notification.learnMoreAboutServerBlocks,
-                    url)
-            ]
-        case .moderationWarning(let accountWarning, let url):
-            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: false, myAccountID: myAccountID)
-            if let timestamp = notificationInfo.timestamp {
-                headerTextComponents = [
-                    .textAndTimeLabel(
-                        AttributedString((accountWarning?.action ?? .none).actionDescription), timestamp)
-                ]
-            } else {
-                headerTextComponents = [
-                    .weightedText(
-                        (accountWarning?.action ?? .none).actionDescription,
-                        .regular)
-                ]
-            }
-
-            let learnMoreButton = NotificationViewComponent.hyperlink(
-                L10n.Scene.Notification.Warning.learnMore, url)
-
-            if let accountWarningText = accountWarning?.text {
-                contentComponents = [
-                    .weightedText(accountWarningText, .regular),
-                    learnMoreButton,
-                ]
-            } else {
-                contentComponents = [
-                    learnMoreButton
-                ]
-            }
-
-        case ._other(let text):
-            actionSuperheader = nil
-            headerTextComponents = [
-                ._other("UNEXPECTED NOTIFICATION TYPE: \(text)")
-            ]
+        case .adminSignUp, .adminReport, .severedRelationships, .moderationWarning:
+            avatarRowAdditionalElement = .noneNeeded
+        case ._other:
+            avatarRowAdditionalElement = .noneNeeded
         }
-        
-        usePrivateBackground = needsPrivateBackground
-        
-        resetHeaderComponents()
     }
     
-    static func actionSuperheader(_ notificationType: GroupedNotificationType, isReply: Bool, isPrivateStatus: Bool?, myAccountID: String?) -> (iconName: String?, text: String, color: Color)? {
-        let isPrivateStatus = isPrivateStatus ?? false
-        let color = isPrivateStatus ? Asset.Colors.accent.swiftUIColor : .secondary
-        switch notificationType {
-        case .mention:
-            switch (isReply, isPrivateStatus) {
-            case (true, false):
-                return (iconName: PostAction.reply.systemIconName(filled: false), text: L10n.Common.Controls.Status.reply, color: color)
-            case (true, true):
-                return (iconName: PostAction.reply.systemIconName(filled: false), text: L10n.Common.Controls.Status.privateReply, color: color)
-            case (false, false):
-                return (iconName: "at", text: L10n.Common.Controls.Status.mention, color: color)
-            case (false, true):
-                return (iconName: "at", text: L10n.Common.Controls.Status.privateMention, color: color)
-            }
-        case .quote(let status):
-            let author = status?.account.displayName(whenViewedBy: myAccountID)
-            return (iconName: "quote.opening", text: L10n.Scene.Notification.GroupedNotificationDescription.singleNameQuoted(author?.plainString ?? ""), color: .secondary)
-        default:
-            return nil
-        }
-    }
-
     public func prepareForDisplay() {
-        if let avatarRow {
-            switch avatarRow {
-            case .avatarRow(let sourceAccounts, let additionalElement):
-                switch additionalElement {
-                case .unfetched:
-                    fetchRelationshipElement(sourceAccounts: sourceAccounts)
-                default:
-                    break
-                }
-            case .text, .weightedText, .status, .hyperlink, ._other, .timeSinceLabel, .textAndTimeLabel:
-                break
+        switch avatarRowAdditionalElement {
+        case .unfetched:
+            if let avatarRowSourceAccounts {
+                fetchRelationshipElement(sourceAccounts: avatarRowSourceAccounts)
             }
+        default:
+            break
         }
-
     }
-
+    
     private func fetchRelationshipElement(
         sourceAccounts: NotificationSourceAccounts
     ) {
-        switch notification.type {
-        case .follow, .followRequest:
+        switch avatarRowAdditionalElement {
+        case .noneNeeded, .fetching:
+            break
+        default:
             guard let accountID = sourceAccounts.firstAccountID,
                   let accountIsLocked = sourceAccounts.primaryAuthorAccount?
                 .locked
             else { return }
-            avatarRow = .avatarRow(sourceAccounts, .fetching)
+            avatarRowAdditionalElement = .fetching
 
             Task { @MainActor in
                 let element: RelationshipElement
@@ -383,10 +165,8 @@ class NotificationRowViewModel: ObservableObject {
                     element = .error(error)
                 }
 
-                avatarRow = .avatarRow(notification.sourceAccounts, element)
+                avatarRowAdditionalElement = element
             }
-        default:
-            avatarRow = .avatarRow(notification.sourceAccounts, .noneNeeded)
         }
     }
     
@@ -432,7 +212,7 @@ extension NotificationRowViewModel {
                 .currentActiveUser.value?.cachedAccount
         else { return }
         if me.id == info.id {
-            navigateToScene(.profile(.me(me)), .show)
+            navigateToScene?(.profile(.me(me)), .show)
         } else {
             var account = info.fullAccount
             if account == nil {
@@ -440,7 +220,7 @@ extension NotificationRowViewModel {
             }
             guard let account else { return }
             let relationship = try await fetchRelationship(to: info.id)
-            navigateToScene(
+            navigateToScene?(
                 .profile(
                     .notMe(
                         me: me, displayAccount: account,
@@ -458,7 +238,7 @@ extension NotificationRowViewModel {
             Task {
                 guard let scene = await primaryNavigation.destinationScene()
                 else { return }
-                navigateToScene(scene, .show)
+                navigateToScene?(scene, .show)
             }
         }
     }
@@ -467,34 +247,35 @@ extension NotificationRowViewModel {
         var actions = [A11yActionInfo]()
         if let primaryNavigationTitle = primaryNavigation?.a11yTitle { actions.append(A11yActionInfo(title: primaryNavigationTitle, doAction: { [weak self] in self?.doPrimaryNavigation() }))
         }
-        for component in self.headerComponents + self.contentComponents {
-            actions.append(contentsOf: a11yActions(forComponent: component))
-        }
+        // TODO: replace the below
+//        for component in self.headerComponents + self.contentComponents {
+//            actions.append(contentsOf: a11yActions(forComponent: component))
+//        }
         return actions
     }
 
-    private func a11yActions(forComponent component: NotificationViewComponent?) -> [A11yActionInfo]  {
-        switch component {
-        case .none:
-            return []
-        case let .avatarRow(sourceAccounts, relationshipElement):
-            let relationshipActions = a11yActions(forRelationshipElement: relationshipElement, isGrouped: sourceAccounts.totalActorCount > 1)
-            let accountNavigations = sourceAccounts.accounts.compactMap { account in
-                A11yActionInfo(title: L10n.Common.Controls.Status.MetaEntity.mention(account.displayName(whenViewedBy: nil)?.plainString ?? ""), doAction: {
-                    Task { [weak self] in
-                        try await self?.navigateToProfile(account)
-                    }
-                })
-            }
-            return relationshipActions + accountNavigations
-        case let .status(statusViewModel):
-            return [A11yActionInfo(title: L10n.Common.Controls.Status.showPost, doAction: { statusViewModel.navigateToStatus() })]
-        case .hyperlink(_, _):
-            return []
-        case .text, .textAndTimeLabel, .timeSinceLabel, .weightedText, ._other:
-            return []
-        }
-    }
+//    private func a11yActions(forComponent component: NotificationViewComponent?) -> [A11yActionInfo]  {
+//        switch component {
+//        case .none:
+//            return []
+//        case let .avatarRow(sourceAccounts, relationshipElement):
+//            let relationshipActions = a11yActions(forRelationshipElement: relationshipElement, isGrouped: sourceAccounts.totalActorCount > 1)
+//            let accountNavigations = sourceAccounts.accounts.compactMap { account in
+//                A11yActionInfo(title: L10n.Common.Controls.Status.MetaEntity.mention(account.displayName(whenViewedBy: nil)?.plainString ?? ""), doAction: {
+//                    Task { [weak self] in
+//                        try await self?.navigateToProfile(account)
+//                    }
+//                })
+//            }
+//            return relationshipActions + accountNavigations
+//        case let .status(statusViewModel):
+//            return [A11yActionInfo(title: L10n.Common.Controls.Status.showPost, doAction: { statusViewModel.navigateToStatus() })]
+//        case .hyperlink(_, _):
+//            return []
+//        case .text, .textAndTimeLabel, .timeSinceLabel, .weightedText, ._other:
+//            return []
+//        }
+//    }
     
     private func a11yActions(forRelationshipElement relationshipElement: RelationshipElement, isGrouped: Bool) -> [A11yActionInfo] {
         
@@ -524,21 +305,19 @@ extension NotificationRowViewModel: Equatable {
 extension NotificationRowViewModel {
 
     public func doAvatarRowButtonAction(_ accept: Bool = true) {
-        guard let avatarRow else { return }
         FeedbackGenerator.shared.generate(.selectionChanged)
         Task {
-            switch avatarRow {
-            case .avatarRow(let accountInfo, let relationshipElement):
-                switch relationshipElement {
-                case .iDoNotFollowThem, .iFollowThem,
+            switch avatarRowAdditionalElement {
+            case .iDoNotFollowThem, .iFollowThem,
                     .iHaveRequestedToFollowThem:
+                if let avatarRowSourceAccounts {
                     await doFollowAction(
-                        relationshipElement.followAction,
-                        notificationSourceAccounts: accountInfo)
-                case .theyHaveRequestedToFollowMe:
-                    await doAnswerFollowRequest(accountInfo, accept: accept)
-                default:
-                    return
+                        avatarRowAdditionalElement.followAction,
+                        notificationSourceAccounts: avatarRowSourceAccounts)
+                }
+            case .theyHaveRequestedToFollowMe:
+                if let avatarRowSourceAccounts {
+                    await doAnswerFollowRequest(avatarRowSourceAccounts, accept: accept)
                 }
             default:
                 return
@@ -557,8 +336,8 @@ extension NotificationRowViewModel {
             let authBox = AuthenticationServiceProvider.shared.currentActiveUser
                 .value
         else { return }
-        let startingAvatarRow = avatarRow
-        avatarRow = .avatarRow(notificationSourceAccounts, .fetching)
+        let startingAvatarRelationshipElement = avatarRowAdditionalElement
+        avatarRowAdditionalElement = .fetching
         do {
             let updatedElement: RelationshipElement
             let response: Mastodon.Entity.Relationship
@@ -582,10 +361,10 @@ extension NotificationRowViewModel {
                 updatedElement = .iDoNotFollowThem(
                     theirAccountIsLocked: theirAccountIsLocked)
             }
-            avatarRow = .avatarRow(notificationSourceAccounts, updatedElement)
+            avatarRowAdditionalElement = updatedElement
         } catch {
-            presentError(error)
-            avatarRow = startingAvatarRow
+            presentError?(error)
+            avatarRowAdditionalElement = startingAvatarRelationshipElement
         }
     }
 
@@ -597,8 +376,8 @@ extension NotificationRowViewModel {
             let authBox = AuthenticationServiceProvider.shared.currentActiveUser
                 .value
         else { return }
-        let startingAvatarRow = avatarRow
-        avatarRow = .avatarRow(accountInfo, .fetching)
+        let startingAvatarRowRelationshipElement = avatarRowAdditionalElement
+        avatarRowAdditionalElement = .fetching
         do {
             let expectedFollowedByResult = accept
             let newRelationship = try await APIService.shared.followRequest(
@@ -607,15 +386,13 @@ extension NotificationRowViewModel {
                 authenticationBox: authBox
             ).value
             guard newRelationship.followedBy == expectedFollowedByResult else {
-                self.avatarRow = .avatarRow(accountInfo, .error(nil))
+                self.avatarRowAdditionalElement = .error(nil)
                 return
             }
-            self.avatarRow = .avatarRow(
-                accountInfo,
-                .iHaveAnsweredTheirRequestToFollowMe(didAccept: accept))
+            self.avatarRowAdditionalElement = .iHaveAnsweredTheirRequestToFollowMe(didAccept: accept)
         } catch {
-            presentError(error)
-            self.avatarRow = startingAvatarRow
+            presentError?(error)
+            self.avatarRowAdditionalElement = startingAvatarRowRelationshipElement
         }
     }
 }
@@ -631,10 +408,11 @@ extension NotificationRowViewModel {
         ) -> Void, presentError: @escaping (Error) -> Void
     ) -> [NotificationRowViewModel] {
         return results.map { info in
-            NotificationRowViewModel(
-                info, timestamper: timestamper, myAccountID: myAccountID, myAccountDomain: myAccountDomain,
-                navigateToScene: navigateToScene,
-                presentError: presentError)
+            let model = NotificationRowViewModel(
+                info,myAccountDomain: myAccountDomain)
+            model.navigateToScene = navigateToScene
+            model.presentError = presentError
+            return model
         }
     }
 
@@ -670,10 +448,11 @@ extension NotificationRowViewModel {
                     groupedNotificationType, isGrouped: false,
                                                 primaryAccount: notification.primaryAuthorAccount))
 
-            return NotificationRowViewModel(
-                info, timestamper: timestamper, myAccountID: myAccountID, myAccountDomain: myAccountDomain,
-                navigateToScene: navigateToScene,
-                presentError: presentError)
+            let model = NotificationRowViewModel(
+                info, myAccountDomain: myAccountDomain)
+            model.navigateToScene = navigateToScene
+            model.presentError = presentError
+            return model
         }
     }
 

@@ -6,7 +6,6 @@ import SwiftUI
 struct AuthorHeaderView: View {
     
     @Environment(MastodonPostViewModel.self) private var postViewModel
-    @ObservedObject var timestamper: TimestampUpdater
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -25,7 +24,7 @@ struct AuthorHeaderView: View {
                 //                .foregroundStyle(.secondary)
                 //                .frame(maxWidth: .infinity, alignment: .leading)
             }
-            VisibilityAndTimestampWithUserHandle(timestamper: timestamper, referenceDate: postedDate, visibility: postViewModel.fullPost?.actionablePost?.metaData.privacyLevel ?? postViewModel.initialDisplayInfo.actionableVisibility, handle: authorHandle)
+            VisibilityAndTimestampWithUserHandle(referenceDate: postedDate, visibility: postViewModel.fullPost?.actionablePost?.metaData.privacyLevel ?? postViewModel.initialDisplayInfo.actionableVisibility, handle: authorHandle)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
@@ -79,14 +78,14 @@ extension MastodonAccount: AccountInfo {
 
 struct VisibilityAndTimestamp: View {
     @ScaledMetric private var actionSuperheaderHeight = baseActionSuperheaderHeight
-    @ObservedObject var timestamper: TimestampUpdater
+    @Environment(TimestampUpdater.self) var timestamper
     let referenceDate: Date
-    let visibility: GenericMastodonPost.PrivacyLevel
+    let visibility: GenericMastodonPost.PrivacyLevel?
     
     var body: some View {
         HStack(spacing: tinySpacing) {
-            if shouldShowVisibilityIndicator {
-                Image(systemName: visibility.iconName)
+            if let visibilityIconName {
+                Image(systemName: visibilityIconName)
             }
             Text(referenceDate.localizedExtremelyAbbreviatedTimeElapsedUntil(now: timestamper.timestamp))
                 .fixedSize(horizontal: true, vertical: false)
@@ -97,27 +96,29 @@ struct VisibilityAndTimestamp: View {
         .accessibilityLabel(referenceDate.localizedAbbreviatedSlowedTimeAgoSinceNow)
     }
     
-    var shouldShowVisibilityIndicator: Bool {
+    var visibilityIconName: String? {
         switch visibility {
         case .loudPublic:
-            return false
+            return nil // we consider this one the default, so we don't want to show the icon for it
+        case nil:
+            return nil
         default:
-            return true
+            return visibility!.iconName
         }
     }
 }
 
 struct VisibilityAndTimestampWithUserHandle: View {
     @ScaledMetric private var actionSuperheaderHeight = baseActionSuperheaderHeight
-    @ObservedObject var timestamper: TimestampUpdater
+    @Environment(TimestampUpdater.self) var timestamper
     let referenceDate: Date
-    let visibility: GenericMastodonPost.PrivacyLevel
+    let visibility: GenericMastodonPost.PrivacyLevel?
     let handle: String
     
     var body: some View {
         HStack(spacing: tinySpacing) {
-            if shouldShowVisibilityIndicator {
-                Image(systemName: visibility.iconName)
+            if let visibilityIconName {
+                Image(systemName: visibilityIconName)
             }
             (Text(referenceDate.localizedExtremelyAbbreviatedTimeElapsedUntil(now: timestamper.timestamp)) + Text(" · @\(handle)"))
                 .lineLimit(1)
@@ -128,12 +129,14 @@ struct VisibilityAndTimestampWithUserHandle: View {
         .accessibilityLabel(referenceDate.localizedAbbreviatedSlowedTimeAgoSinceNow + ", \(handle)")
     }
     
-    var shouldShowVisibilityIndicator: Bool {
+    var visibilityIconName: String? {
         switch visibility {
         case .loudPublic:
-            return false
+            return nil // we consider this one the default, so we don't want to show the icon for it
+        case nil:
+            return nil
         default:
-            return true
+            return visibility!.iconName
         }
     }
 }
