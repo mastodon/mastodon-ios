@@ -612,7 +612,7 @@ struct NotificationRowView: View {
                let actionLabel = viewModel.notification.type.actionSummaryLabel(sourceAccounts) {
                 Text(actionLabel)  // TODO: use RowView with emoji parsing, bold the name using html
             }
-        case .mention(let status), .status(let status), .quote(let status):
+        case .mention, .status, .quote:
             Text("This notification type expects to be presented as a MastodonPostRowView, not a NotificationRowView")
         case .adminReport(let report, _):
             if let summary = report?.summary {
