@@ -13,9 +13,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person signed up</string>
+        <string>rexistrouse unha persoa</string>
         <key>other</key>
-        <string>%ld people signed up</string>
+        <string>rexistráronse %ld persoas</string>
       </dict>
     </dict>
     <key>a11y.plural.count.unread.notification</key>
