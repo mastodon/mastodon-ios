@@ -29,6 +29,7 @@ struct MastodonNotificationInfo {
     }
 }
 
+@MainActor
 @Observable class NotificationRowViewModel {
     var navigateToScene:
     ((SceneCoordinator.Scene, SceneCoordinator.Transition) -> Void)?
@@ -37,7 +38,7 @@ struct MastodonNotificationInfo {
     
     let primaryNavigation: NotificationNavigation?
     
-    let notification: MastodonNotificationInfo
+    nonisolated let notification: MastodonNotificationInfo
     let myAccountDomain: String?
     
     var avatarRowSourceAccounts: NotificationSourceAccounts? {
@@ -81,7 +82,8 @@ struct MastodonNotificationInfo {
         }
     }
     
-    var inlinePost: GenericMastodonPost? = nil
+    var inlinePostViewModel: MastodonPostViewModel? = nil
+    var contentConcealViewModel: ContentConcealViewModel? = nil
     var usePrivateBackground: Bool = false
 
     init(_ notificationInfo: GroupedNotificationInfo, myAccountDomain: String?) {
@@ -105,7 +107,9 @@ struct MastodonNotificationInfo {
         case .reblog(let status), .favourite(let status), .poll(let status), .update(let status), .quotedUpdate(let status):
             avatarRowAdditionalElement = .noneNeeded
             if let status {
-                inlinePost = GenericMastodonPost.fromStatus(status)
+                let inlinePost = GenericMastodonPost.fromStatus(status)
+                inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo(inContext: .notifications), filterContext: .notifications, threadedConversationContext: nil)
+                inlinePostViewModel?.setFullPost(inlinePost)
                 usePrivateBackground = status.visibility == .direct
             }
         case .adminSignUp, .adminReport, .severedRelationships, .moderationWarning:
@@ -193,7 +197,7 @@ struct MastodonNotificationInfo {
 }
 
 extension NotificationRowViewModel: Identifiable {
-    var id: String {
+    nonisolated var id: String {
         return notification.identifier.id
     }
 }

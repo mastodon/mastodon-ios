@@ -4,17 +4,18 @@ import MastodonSDK
 import SwiftUI
 import MastodonLocalization
 
-struct FullQuotedPostView: View {
+struct EmbeddedPostView: View {
     @Environment(MastodonPostViewModel.self) private var viewModel
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
     let layoutWidth: CGFloat
+    let isSummary: Bool
     
     var body: some View {
         if viewModel.fullPost != nil {
             if !contentConcealViewModel.currentMode.isShowingContent {
-                QuotedPostContentConcealedView()
+                EmbeddedPostContentConcealedView()
             } else {
-                QuotedPostContentDisplayedView(layoutWidth: layoutWidth) // TODO: add blur content option for blur filters and hide-media-only CWs
+                EmbeddedPostContentDisplayedView(layoutWidth: layoutWidth, isSummary: isSummary) // TODO: add blur content option for blur filters and hide-media-only CWs
             }
         }
     }
@@ -119,12 +120,13 @@ extension Mastodon.Entity.Quote.AcceptanceState {
     }
 }
 
-struct QuotedPostContentDisplayedView: View {
+struct EmbeddedPostContentDisplayedView: View {
     @Environment(MastodonPostViewModel.self) private var viewModel
     @Environment(TimestampUpdater.self) private var timestamper
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
     @Environment(\.colorScheme) private var colorScheme
     let layoutWidth: CGFloat
+    let isSummary: Bool
     
     let padding: CGFloat = 12
     
@@ -140,19 +142,34 @@ struct QuotedPostContentDisplayedView: View {
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 if let attachmentInfo = viewModel.fullPost?.actionablePost?.content.attachment, let actionHandler = viewModel.actionHandler {
-                    switch attachmentInfo {
-                    case .media(let array):
-                        MediaAttachment(array, altTextTranslations: viewModel.altTextTranslations).view(actionHandler: actionHandler)
+                    if isSummary {
+                        if let iconName = attachmentInfo.iconName, let labelText = attachmentInfo.labelText {
+                            HStack {
+                                Image(systemName: iconName)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: AvatarSize.tiny)
+                                Text(labelText)
+                            }
+                            .foregroundStyle(.secondary)
+                            .font(.subheadline)
+                            .lineLimit(1)
+                        }
+                    } else {
+                        switch attachmentInfo {
+                        case .media(let array):
+                            MediaAttachment(array, altTextTranslations: viewModel.altTextTranslations).view(actionHandler: actionHandler)
+                                .frame(width: contentWidth)
+                        case .poll(let poll):
+                            let emojis = viewModel.fullPost?.actionablePost?.content.htmlWithEntities?.emojis
+                            PollView(viewModel: PollViewModel(pollEntity: poll, emojis: emojis, optionTranslations: viewModel.isShowingTranslation == true ? viewModel.pollOptionTranslations : nil, containingPostID: viewModel.initialDisplayInfo.actionablePostID, actionHandler: actionHandler), contentWidth: contentWidth)
+                                .frame(width: contentWidth)
+                        case .linkPreviewCard(let card):
+                            LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth, navigateToScene: { (scene, transition) in
+                                actionHandler.presentScene(scene, fromPost: viewModel.initialDisplayInfo.id, transition: transition)
+                            })
                             .frame(width: contentWidth)
-                    case .poll(let poll):
-                        let emojis = viewModel.fullPost?.actionablePost?.content.htmlWithEntities?.emojis
-                        PollView(viewModel: PollViewModel(pollEntity: poll, emojis: emojis, optionTranslations: viewModel.isShowingTranslation == true ? viewModel.pollOptionTranslations : nil, containingPostID: viewModel.initialDisplayInfo.actionablePostID, actionHandler: actionHandler), contentWidth: contentWidth)
-                            .frame(width: contentWidth)
-                    case .linkPreviewCard(let card):
-                        LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth, navigateToScene: { (scene, transition) in
-                            actionHandler.presentScene(scene, fromPost: viewModel.initialDisplayInfo.id, transition: transition)
-                        })
-                        .frame(width: contentWidth)
+                        }
                     }
                 }
                 if let potentialQuotePost = viewModel.fullPost as? MastodonBasicPost, let furtherNestedQuote = potentialQuotePost.quotedPost {
@@ -188,19 +205,28 @@ struct QuotedPostContentDisplayedView: View {
                                 Color(UIColor.secondarySystemFill))
                     }
                 )
-                .frame(width: AvatarSize.small, height: AvatarSize.small)
+                .frame(width: isSummary ? AvatarSize.tiny : AvatarSize.small, height: isSummary ? AvatarSize.tiny : AvatarSize.small)
             }
             VStack() {
                 HStack(spacing: 0) {
                     authorDisplayName
-                    Spacer(minLength: doublePadding)
-                    Text(viewModel.initialDisplayInfo.actionableCreatedAt.localizedExtremelyAbbreviatedTimeElapsedUntil(now: timestamper.timestamp))
-                        .foregroundStyle(.secondary)
+                    if isSummary {
+                        Spacer()
+                            .frame(width: tinySpacing)
+                        Text(viewModel.initialDisplayInfo.actionableAuthorHandle)
+                            .foregroundStyle(.secondary)
+                    } else {
+                        Spacer(minLength: doublePadding)
+                        Text(viewModel.initialDisplayInfo.actionableCreatedAt.localizedExtremelyAbbreviatedTimeElapsedUntil(now: timestamper.timestamp))
+                            .foregroundStyle(.secondary)
+                    }
                 }
-                HStack(spacing: 0) {
-                    Text(viewModel.initialDisplayInfo.actionableAuthorHandle)
-                        .foregroundStyle(.secondary)
-                    Spacer(minLength: 0)
+                if !isSummary {
+                    HStack(spacing: 0) {
+                        Text(viewModel.initialDisplayInfo.actionableAuthorHandle)
+                            .foregroundStyle(.secondary)
+                        Spacer(minLength: 0)
+                    }
                 }
             }
             .font(.caption)
@@ -219,7 +245,7 @@ struct QuotedPostContentDisplayedView: View {
     }
 }
 
-struct QuotedPostContentConcealedView: View {
+struct EmbeddedPostContentConcealedView: View {
     @Environment(ContentConcealViewModel.self) private var viewModel
 
     var body: some View {
@@ -236,6 +262,63 @@ struct QuotedPostContentConcealedView: View {
             }
         default:
             EmptyView()
+        }
+    }
+}
+
+extension GenericMastodonPost.PostAttachment {
+    var iconName: String? {
+        switch self {
+        case .media(let array):
+            switch array.first?.type {
+            case .image:
+                switch array.count {
+                case 0: return nil
+                case 1: return "photo"
+                case 2: return "photo.on.rectangle"
+                default: return "photo.stack"
+                }
+            case .audio:
+                return "speaker.wave.2"
+            case .gifv, .video:
+                return "play.tv"
+            default:
+                switch array.count {
+                case 0: return nil
+                case 1:
+                    return "rectangle"
+                case 2:
+                    return "rectangle.on.rectangle"
+                default:
+                    return "rectangle.stack"
+                }
+            }
+        case .poll:
+            return "chart.bar.yaxis"
+        case .linkPreviewCard:
+            return nil
+        }
+    }
+
+    var labelText: String? {
+        switch self {
+        case .media(let array):
+            switch array.first?.type {
+            case .image:
+                return L10n.Plural.Count.image(array.count)
+            case .audio:
+                return L10n.Plural.Count.audio(array.count)
+            case .gifv:
+                return L10n.Plural.Count.gif(array.count)
+            case .video:
+                return L10n.Plural.Count.video(array.count)
+            default:
+                return L10n.Plural.Count.attachment(array.count)
+            }
+        case .poll:
+            return L10n.Plural.Count.poll(1)
+        case .linkPreviewCard:
+            return nil
         }
     }
 }

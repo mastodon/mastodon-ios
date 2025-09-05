@@ -707,7 +707,7 @@ fileprivate class ScrollManager {
 }
 
 extension NotificationRowViewModel {
-    func matchesIdentifier(_ other: NotificationRowViewModel?) -> Bool {
+    nonisolated func matchesIdentifier(_ other: NotificationRowViewModel?) -> Bool {
         guard let other else { return false }
         return notification.identifier.id == other.notification.identifier.id
     }

@@ -594,8 +594,10 @@ struct NotificationRowView: View {
             }
             
             // OPTIONAL INLINE POST VIEW
-            if let post = viewModel.inlinePost {
-                Text("INLINE POST PREVIEW")
+            if let postViewModel = viewModel.inlinePostViewModel {
+                EmbeddedPostView(layoutWidth: contentWidth, isSummary: true)
+                    .environment(postViewModel)
+                    .environment(viewModel.contentConcealViewModel ?? .alwaysShow)
             }
         }
     }

@@ -216,8 +216,9 @@ struct HomeTimelinePostRowView: View {
         let actionablePost = viewModel.fullPost?.actionablePost
         let author = actionablePost?.metaData.author ?? viewModel.fullPost?.metaData.author
         
-        VStack(alignment: .gutterAlign, spacing: 0) {
+        VStack(alignment: .gutterAlign, spacing: 0) {  // gutterAlign keeps the content and social context headers properly aligned with the gap between avatar and content
             if let threadedContext = viewModel.threadedContext {
+                // MARK: Conversation thread line decoration
                 ZStack(alignment: Alignment(horizontal: .gutterAlign, vertical: .center)) {
                     if threadedContext.drawsLineAbove {
                         threadingDecoration(withSpacerAtTop: false, withSpacerAtBottom: !threadedContext.isContiguous)
@@ -233,6 +234,7 @@ struct HomeTimelinePostRowView: View {
                     }
                 }
             } else {
+                // MARK: Social context header
                 VStack(spacing: 0) {
                     Spacer()
                         .frame(height: standardPadding)
@@ -241,6 +243,7 @@ struct HomeTimelinePostRowView: View {
             }
             
             HStack(alignment: .top) {
+                // MARK: Avatar
                 VStack(spacing: 0) {
                     AvatarView(size: .large, authorAvatarUrl: author?.avatarURL ?? viewModel.initialDisplayInfo.actionableAuthorStaticAvatar, goToProfile: {
                         goToProfile(author)
@@ -252,18 +255,23 @@ struct HomeTimelinePostRowView: View {
                 }
                 
                 VStack(spacing: spacingBetweenGutterAndContent) {
+                    // MARK: Author info
                     AuthorHeaderView()
                     
+                    // MARK: Content warned and/or filtered
                     contentConcealLozenge
                         .frame(width: contentWidth)
                         .fixedSize(horizontal: false, vertical: true)
                     
                     if contentConcealModel.currentMode.isShowingContent, let actionHandler = viewModel.actionHandler {
                         if viewModel.isShowingTranslation == true, let translatablePost = viewModel.fullPost?.actionablePost, let translation = actionHandler.translation(forContentPostId: translatablePost.id) {
+                            // MARK: Translation info line
                             TranslationInfoView(translationInfo: translation, showOriginal: { actionHandler.doAction(.showOriginalLanguage, forPost: translatablePost) }
                             )
                             .frame(width: contentWidth, alignment: .leading)
                         }
+                        
+                        // MARK: Text content
                         viewModel.textContentView(isInlinePreview: false)
                             .frame(width: contentWidth, alignment: .leading)
                             .onTapGesture {
@@ -277,6 +285,7 @@ struct HomeTimelinePostRowView: View {
                                 }
                             })
                         
+                        // MARK: Media attachment
                         if let attachment = viewModel.fullPost?.actionablePost?.content.attachment {
                             switch attachment {
                             case .media(let array):
@@ -294,8 +303,9 @@ struct HomeTimelinePostRowView: View {
                             }
                         }
                         
+                        // MARK: Quoted post
                         if let quotedPostViewModel = viewModel.fullQuotedPostViewModel {
-                            FullQuotedPostView(layoutWidth: contentWidth)
+                            EmbeddedPostView(layoutWidth: contentWidth, isSummary: false)
                                 .environment(quotedPostViewModel)
                                 .environment(contentConcealModel.nestedContentConcealModel)
                         } else if let quotePlaceholder = viewModel.placeholderQuotedPost {
@@ -315,6 +325,7 @@ struct HomeTimelinePostRowView: View {
                     .font(.footnote)
 #endif
                     
+                    // MARK: Action Bar
                     if let actionablePost = viewModel.fullPost?.actionablePost {
                         Spacer()
                             .frame(height: 0)  // gives double spacing between bottom of post content and action bar
@@ -322,6 +333,7 @@ struct HomeTimelinePostRowView: View {
                             .frame(width: contentWidth, alignment: .leading)
                     }
                     
+                    // MARK: Thread view extra info for focused post
                     switch viewModel.threadedContext {
                     case .focused:
                         threadFocusDetailFooter

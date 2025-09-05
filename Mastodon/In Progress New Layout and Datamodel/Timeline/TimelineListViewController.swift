@@ -1290,8 +1290,8 @@ struct TimelineListView: View {
                     .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
                     .frame(width: usableWidth)
                     .background() {
-                        if let inlinePost = viewModel.inlinePost {
-                            switch inlinePost.initialDisplayInfo(inContext: .notifications).actionableVisibility {
+                        if let inlinePost = viewModel.inlinePostViewModel {
+                            switch inlinePost.initialDisplayInfo.actionableVisibility {
                             case .mentionedOnly:
                                 backgroundView(isPrivate: true, isUnread: false) // TODO: implement unread for notifications
                             default:
