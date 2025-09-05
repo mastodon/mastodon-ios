@@ -171,7 +171,7 @@ struct MastodonNotificationInfo {
     }
     
     private func fetchAccount(_ accountID: String) async throws -> Mastodon.Entity.Account? {
-        guard let authBox = await AuthenticationServiceProvider.shared.currentActiveUser.value else { return nil }
+        guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return nil }
         return try await APIService.shared.accountInfo(domain: authBox.domain, userID: accountID, authorization: authBox.userAuthorization)
     }
 
@@ -179,7 +179,7 @@ struct MastodonNotificationInfo {
     -> Mastodon.Entity.Relationship?
     {
         guard
-            let authBox = await AuthenticationServiceProvider.shared
+            let authBox = AuthenticationServiceProvider.shared
                 .currentActiveUser.value
         else { return nil }
         if let relationship = try await APIService.shared.relationship(
@@ -208,7 +208,7 @@ extension NotificationRowViewModel {
     
     func navigateToProfile(_ info: AccountInfo) async throws {
         guard
-            let me = await AuthenticationServiceProvider.shared
+            let me = AuthenticationServiceProvider.shared
                 .currentActiveUser.value?.cachedAccount
         else { return }
         if me.id == info.id {
