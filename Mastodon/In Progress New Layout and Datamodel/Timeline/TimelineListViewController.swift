@@ -1167,6 +1167,13 @@ struct TimelineListView: View {
             }
         }
         .onAppear() {
+            switch viewModel.timeline {
+            case .notifications(.everything), .notifications(.mentions):
+                // clear the notification dot on the tab icon
+                NotificationService.shared.clearNotificationCountForActiveUser()
+            default:
+                break
+            }
             viewModel.clearPendingActions()
             scrollManager.viewDidAppear()
             Task {
