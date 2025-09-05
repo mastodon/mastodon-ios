@@ -13,13 +13,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person signed up</string>
+        <string>jedna osoba se zaregistrovala</string>
         <key>few</key>
-        <string>%ld people signed up</string>
+        <string>%ld lidé se zaregistrovali</string>
         <key>many</key>
-        <string>%ld people signed up</string>
+        <string>%ld lidí se zaregistrovalo</string>
         <key>other</key>
-        <string>%ld people signed up</string>
+        <string>%ld lidí se zaregistrovalo</string>
       </dict>
     </dict>
     <key>a11y.plural.count.unread.notification</key>
