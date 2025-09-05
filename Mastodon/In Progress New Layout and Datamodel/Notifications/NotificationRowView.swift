@@ -570,9 +570,8 @@ struct NotificationRowView: View {
             
             // ADDITIONAL CONTENT
             switch viewModel.notification.type {
-            case .adminReport(let report, let url):
-                if let comment = report?
-                    .displayableComment
+            case .adminReport(let report, _):
+                if let comment = report?.displayableComment
                 {
                     Text(comment)
                 }
