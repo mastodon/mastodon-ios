@@ -726,6 +726,9 @@ private class TimelineListViewModel: ObservableObject {
                             return nil
                         }
                     case .notification(let notificationViewModel):
+                        if notificationViewModel.actionHandler == nil {
+                            notificationViewModel.actionHandler = self
+                        }
                         if let inlinePostModel = notificationViewModel.inlinePostViewModel {
                             switch inlinePostModel.displayPrepStatus {
                             case .unprepared:

@@ -31,11 +31,7 @@ struct MastodonNotificationInfo {
 
 @MainActor
 @Observable class NotificationRowViewModel {
-    var navigateToScene:
-    ((SceneCoordinator.Scene, SceneCoordinator.Transition) -> Void)?
-
-    var presentError: ((Error) -> Void)?
-    
+    var actionHandler: MastodonPostMenuActionHandler?
     let primaryNavigation: NotificationNavigation?
     
     nonisolated let notification: MastodonNotificationInfo
@@ -216,7 +212,7 @@ extension NotificationRowViewModel {
                 .currentActiveUser.value?.cachedAccount
         else { return }
         if me.id == info.id {
-            navigateToScene?(.profile(.me(me)), .show)
+            actionHandler?.presentScene(.profile(.me(me)), fromPost: nil, transition: .show)
         } else {
             var account = info.fullAccount
             if account == nil {
@@ -224,11 +220,13 @@ extension NotificationRowViewModel {
             }
             guard let account else { return }
             let relationship = try await fetchRelationship(to: info.id)
-            navigateToScene?(
+            actionHandler?.presentScene(
                 .profile(
                     .notMe(
                         me: me, displayAccount: account,
-                        relationship: relationship)), .show)
+                        relationship: relationship)),
+                fromPost: nil,
+                transition: .show)
         }
     }
     
@@ -242,7 +240,7 @@ extension NotificationRowViewModel {
             Task {
                 guard let scene = await primaryNavigation.destinationScene()
                 else { return }
-                navigateToScene?(scene, .show)
+                actionHandler?.presentScene(scene, fromPost: nil, transition: .show)
             }
         }
     }
@@ -367,7 +365,7 @@ extension NotificationRowViewModel {
             }
             avatarRowAdditionalElement = updatedElement
         } catch {
-            presentError?(error)
+//            presentError?(error)
             avatarRowAdditionalElement = startingAvatarRelationshipElement
         }
     }
@@ -395,7 +393,7 @@ extension NotificationRowViewModel {
             }
             self.avatarRowAdditionalElement = .iHaveAnsweredTheirRequestToFollowMe(didAccept: accept)
         } catch {
-            presentError?(error)
+//            presentError?(error)
             self.avatarRowAdditionalElement = startingAvatarRowRelationshipElement
         }
     }
@@ -414,8 +412,6 @@ extension NotificationRowViewModel {
         return results.map { info in
             let model = NotificationRowViewModel(
                 info,myAccountDomain: myAccountDomain)
-            model.navigateToScene = navigateToScene
-            model.presentError = presentError
             return model
         }
     }
@@ -454,8 +450,6 @@ extension NotificationRowViewModel {
 
             let model = NotificationRowViewModel(
                 info, myAccountDomain: myAccountDomain)
-            model.navigateToScene = navigateToScene
-            model.presentError = presentError
             return model
         }
     }

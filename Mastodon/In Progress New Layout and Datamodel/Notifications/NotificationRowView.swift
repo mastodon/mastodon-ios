@@ -547,7 +547,7 @@ struct NotificationRowView: View {
             }
         }
         .onTapGesture {
-            // viewModel.primaryNavigation
+            viewModel.doPrimaryNavigation()
         }
     }
     
@@ -597,6 +597,9 @@ struct NotificationRowView: View {
                 EmbeddedPostView(layoutWidth: contentWidth, isSummary: true)
                     .environment(postViewModel)
                     .environment(viewModel.contentConcealViewModel ?? .alwaysShow)
+                    .onTapGesture {
+                        postViewModel.openThreadView()
+                    }
             }
         }
     }

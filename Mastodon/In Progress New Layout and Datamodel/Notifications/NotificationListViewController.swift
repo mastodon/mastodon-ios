@@ -535,8 +535,6 @@ private class NotificationListViewModel: ObservableObject {
         
         func notificationListItem(fromInfo info: GroupedNotificationInfo) -> NotificationListItem {
             let rowViewModel = NotificationRowViewModel(info, myAccountDomain: authBox.domain)
-            rowViewModel.navigateToScene = navigateToScene
-            rowViewModel.presentError = presentError
             return NotificationListItem.groupedNotification(rowViewModel)
         }
         
