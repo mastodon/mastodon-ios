@@ -746,9 +746,9 @@ let baseActionSuperheaderHeight: CGFloat = 20
         let maxAvatarCount = Int(
             floor(fittingWidth / (AvatarSize.small + avatarSpacing)))
         if maxAvatarCount < totalActorCount {
-            return maxAvatarCount - 1
+            return max(0, maxAvatarCount - 1)
         } else {
-            return maxAvatarCount
+            return max(0, maxAvatarCount)
         }
     }
 @ViewBuilder
