@@ -1234,18 +1234,18 @@ struct TimelineListView: View {
                                        visibleAreaHeight: geo.size.height)
                 .frame(width: 10, height: 1)
                 
-            case .filteredNotificationsInfo(_, let viewModel):
-                if let viewModel {
+            case .filteredNotificationsInfo(_, let filteredNotificationsViewModel):
+                if let filteredNotificationsViewModel {
                     FilteredNotificationsRowView(contentWidth: contentWidth)
-                        .environment(viewModel)
+                        .environment(filteredNotificationsViewModel)
                         .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
                         .frame(width: usableWidth)
                         .accessibilityElement(children: .combine)
                         .accessibilityAction {
-                            goToFilteredNotifications(viewModel)
+                            goToFilteredNotifications(filteredNotificationsViewModel)
                         }
                         .onTapGesture {
-                            goToFilteredNotifications(viewModel)
+                            goToFilteredNotifications(filteredNotificationsViewModel)
                         }
                 } else {
                     Text("Some notifications have been filtered.")
@@ -1284,13 +1284,13 @@ struct TimelineListView: View {
                         EmptyView()
                     }
                 }
-            case .notification(let viewModel):
+            case .notification(let notificationViewModel):
                 NotificationRowView(contentWidth: contentWidth)
-                    .environment(viewModel)
+                    .environment(notificationViewModel)
                     .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
                     .frame(width: usableWidth)
                     .background() {
-                        if let inlinePost = viewModel.inlinePostViewModel {
+                        if let inlinePost = notificationViewModel.inlinePostViewModel {
                             switch inlinePost.initialDisplayInfo.actionableVisibility {
                             case .mentionedOnly:
                                 backgroundView(isPrivate: true, isUnread: false) // TODO: implement unread for notifications
@@ -1300,7 +1300,7 @@ struct TimelineListView: View {
                         }
                     }
                     .onAppear() {
-                        viewModel.prepareForDisplay()
+                        notificationViewModel.prepareForDisplay()
                     }
             }
         }
