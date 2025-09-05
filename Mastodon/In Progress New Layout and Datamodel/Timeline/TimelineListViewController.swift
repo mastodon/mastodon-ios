@@ -714,18 +714,26 @@ private class TimelineListViewModel: ObservableObject {
                 }
                 
                 
-                let needsPrep: [MastodonPostViewModel] = results.allRecords.compactMap { item in
+                let needsPrep: [MastodonPostViewModel] = results.allRecords.compactMap { item -> MastodonPostViewModel? in
                     switch item {
                     case .loadingIndicator, .filteredNotificationsInfo:
                         return nil
-                    case .post(let viewModel):
-                        switch viewModel.displayPrepStatus {
+                    case .post(let postViewModel):
+                        switch postViewModel.displayPrepStatus {
                         case .unprepared:
-                            return viewModel
+                            return postViewModel
                         case .donePreparing:
                             return nil
                         }
-                    case .notification:
+                    case .notification(let notificationViewModel):
+                        if let inlinePostModel = notificationViewModel.inlinePostViewModel {
+                            switch inlinePostModel.displayPrepStatus {
+                            case .unprepared:
+                                return inlinePostModel
+                            case .donePreparing:
+                                return nil
+                            }
+                        }
                         return nil
                     }
                 }
