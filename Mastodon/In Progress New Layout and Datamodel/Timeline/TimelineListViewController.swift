@@ -422,6 +422,7 @@ extension TimelineListViewController {
             ])
             picker.addTarget(self, action: #selector(pickerValueChanged(_:)), for: .valueChanged)
         case .notifications(.fromRequest(let request)):
+            navigationItem.title = "@\(request.account.handle)"
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationAcceptRejectMenuButton(forRequest: request))
         default:
             break
