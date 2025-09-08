@@ -104,6 +104,7 @@ extension AttachmentViewModel {
                             exporter.cancelExport()
                         }
                         print("NextLevelSessionExporter, did not complete")
+                        continuation.resume(with: .failure(AppError.unexpected("video export canceled")))
                     }
                 case .failure(let error):
                     continuation.resume(with: .failure(error))
