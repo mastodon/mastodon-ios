@@ -88,6 +88,9 @@ class TimelineListViewController: UIHostingController<TimelineListView>
             fetchFilteredNotificationsPolicy()
             setUpNotificationsNavBarControls()
             NotificationCenter.default.addObserver(self, selector: #selector(notificationFilteringPolicyDidChange), name: .notificationFilteringChanged, object: nil)
+        case .thread(let focusedPost):
+            let authorHandle = focusedPost.initialDisplayInfo(inContext: .thread).actionableAuthorHandle
+            navigationItem.title = L10n.Scene.Thread.title("@\(authorHandle)")
         default:
             break
         }
