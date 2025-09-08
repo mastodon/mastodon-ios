@@ -342,59 +342,7 @@ extension NotificationRowViewModel {
 }
 
 extension NotificationRowViewModel {
-    static func viewModelsFromGroupedNotificationInfos(
-        _ results: [GroupedNotificationInfo],
-        timestamper: TimestampUpdater,
-        myAccountID: String,
-        myAccountDomain: String,
-        navigateToScene: @escaping (
-            SceneCoordinator.Scene, SceneCoordinator.Transition
-        ) -> Void, presentError: @escaping (Error) -> Void
-    ) -> [NotificationRowViewModel] {
-        return results.map { info in
-            let model = NotificationRowViewModel(
-                info,myAccountDomain: myAccountDomain)
-            return model
-        }
-    }
 
-    static func viewModelsFromUngroupedNotifications(
-        _ notifications: [Mastodon.Entity.Notification],
-        timestamper: TimestampUpdater,
-        myAccountID: String,
-        myAccountDomain: String,
-        navigateToScene: @escaping (
-            SceneCoordinator.Scene, SceneCoordinator.Transition
-        ) -> Void, presentError: @escaping (Error) -> Void
-    ) -> [NotificationRowViewModel] {
-
-        return notifications.map { notification in
-            let sourceAccounts = NotificationSourceAccounts(
-                myAccountID: myAccountID,
-                accounts: [notification.account], totalActorCount: 1)
-            
-            let status = notification.status
-            let post = status == nil ? nil : GenericMastodonPost.fromStatus(status!)
-            
-            let groupedNotificationType = GroupedNotificationType(
-                notification, myAccountDomain: myAccountDomain, sourceAccounts: sourceAccounts, adminReportID: notification.adminReport?.id)
-            let info = GroupedNotificationInfo(
-                id: notification.id,
-                timestamp: notification.createdAt,
-                oldestNotificationID: notification.id,
-                newestNotificationID: notification.id,
-                groupedNotificationType: groupedNotificationType,
-                sourceAccounts: sourceAccounts,
-                post: post,
-                primaryNavigation: defaultNavigation(
-                    groupedNotificationType, isGrouped: false,
-                                                primaryAccount: notification.primaryAuthorAccount))
-
-            let model = NotificationRowViewModel(
-                info, myAccountDomain: myAccountDomain)
-            return model
-        }
-    }
 
     enum NotificationNavigation {
         case myFollowers
@@ -679,4 +627,17 @@ func statusViewModel(_ status: Mastodon.Entity.Status,  myAccountID: String,
                                         false))))), .show)
         }
     })
+}
+
+extension NotificationRowViewModel.NotificationNavigation {
+    var a11yTitle: String? {
+        switch self {
+        case .link(let description, _):
+            return description
+        case .myFollowers:
+            return L10n.Scene.Profile.Dashboard.myFollowers // TODO: improve string
+        case .profile(let account):
+            return  L10n.Common.Controls.Status.MetaEntity.mention(account.displayNameWithFallback)
+        }
+    }
 }
