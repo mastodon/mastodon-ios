@@ -8,7 +8,7 @@ import MastodonSDK
 public enum NotificationsScope: Hashable {
     case everything
     case mentions
-    case fromAccount(Mastodon.Entity.Account)
+    case fromRequest(Mastodon.Entity.NotificationRequest)
 
 //    var title: String {
 //        switch self {
@@ -719,8 +719,17 @@ struct NotificationsLoader {
             throw(APIService.APIError.implicit(.authenticationMissing))
         }
         
+        let canUseGroupedNotifications = {
+            switch scope {
+            case .everything, .mentions:
+                return currentInstance.canGroupNotifications
+            case .fromRequest:
+                return false
+            }
+        }()
+        
         let results: [GroupedNotificationInfo]
-        if currentInstance.canGroupNotifications {
+        if canUseGroupedNotifications {
             results = try await getGroupedNotifications(withScope: scope, olderThan: olderThan, newerThan: newerThan)
         } else {
             results = try await getUngroupedNotifications(withScope: scope, olderThan: olderThan, newerThan: newerThan)
@@ -753,9 +762,9 @@ struct NotificationsLoader {
                 olderThan: maxID, fromAccount: nil, scope: .mentions,
                 authenticationBox: authenticationBox
             ).value
-        case .fromAccount(let account):
+        case .fromRequest(let request):
             ungrouped = try await APIService.shared.notifications(
-                olderThan: maxID, fromAccount: account.id, scope: nil,
+                olderThan: maxID, fromAccount: request.account.id, scope: nil,
                 authenticationBox: authenticationBox
             ).value
         }
@@ -788,9 +797,10 @@ struct NotificationsLoader {
                 olderThan: maxID, newerThan: minID, fromAccount: nil, scope: .mentions, excludingAdminTypes: adminFilterPreferences?.excludedNotificationTypes,
                 authenticationBox: authenticationBox
             )
-        case .fromAccount(let account):
+        case .fromRequest:
+            assertionFailure("notifications from a particular account must use the ungrouped api")
             results = try await APIService.shared.groupedNotifications(
-                olderThan: maxID, newerThan: minID, fromAccount: account.id, scope: nil, excludingAdminTypes: adminFilterPreferences?.excludedNotificationTypes,
+                olderThan: maxID, newerThan: minID, fromAccount: nil, scope: nil, excludingAdminTypes: adminFilterPreferences?.excludedNotificationTypes,
                 authenticationBox: authenticationBox
             )
         }

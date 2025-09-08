@@ -42,11 +42,9 @@ extension DataSourceFacade {
         guard let sceneCoordinator = provider.sceneCoordinator else { return nil }
         sceneCoordinator.showLoading()
 
-        let notificationTimelineViewModel = NotificationTimelineViewModel(authenticationBox: provider.authenticationBox, scope: .fromAccount(request.account))
-
         sceneCoordinator.hideLoading()
         
-        guard let viewController = sceneCoordinator.present(scene: .accountNotificationTimeline(viewModel: notificationTimelineViewModel, request: request), transition: .show) as? AccountNotificationTimelineViewController else { return nil }
+        guard let viewController = sceneCoordinator.present(scene: .accountNotificationTimeline(request: request), transition: .show) as? AccountNotificationTimelineViewController else { return nil }
 
         return viewController
 

@@ -84,7 +84,7 @@ class TimelineListViewController: UIHostingController<TimelineListView>
             setUpTimelineSelectorButton()
             setUpScrollToTop()
             showSettingsButton(true)
-        case .notifications(.everything), .notifications(.mentions):
+        case .notifications:
             fetchFilteredNotificationsPolicy()
             setUpNotificationsNavBarControls()
             NotificationCenter.default.addObserver(self, selector: #selector(notificationFilteringPolicyDidChange), name: .notificationFilteringChanged, object: nil)
@@ -138,6 +138,27 @@ class TimelineListViewController: UIHostingController<TimelineListView>
         button.menu = generateTimelineSelectorMenu()
         return button
     }()
+    
+    func notificationAcceptRejectMenuButton(forRequest request: Mastodon.Entity.NotificationRequest) -> UIButton {
+        let button = UIButton(type: .custom)
+        
+        let imageConfiguration = UIImage.SymbolConfiguration(paletteColors: [.label])
+            .applying(UIImage.SymbolConfiguration(textStyle: .subheadline))
+            .applying(UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .medium))
+        
+        button.configuration = {
+            var config = UIButton.Configuration.plain()
+            config.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
+            config.imagePadding = 8
+            config.image = UIImage(systemName: "ellipsis", withConfiguration: imageConfiguration)
+            config.imagePlacement = .trailing
+            return config
+        }()
+        
+        button.showsMenuAsPrimaryAction = true
+        button.menu = generateNotificationRequestMenu(request)
+        return button
+    }
 }
 
 extension TimelineListViewController {
@@ -337,7 +358,38 @@ extension TimelineListViewController {
         } else {
             return UIMenu(children: [showFollowingAction, showLocalTimelineAction, listsDivider])
         }
-
+        
+    }
+    
+    private func generateNotificationRequestMenu(_ request: Mastodon.Entity.NotificationRequest) -> UIMenu {
+        let acceptAction = UIAction(title: L10n.Scene.Notification.FilteredNotification.accept, image: .init(systemName: "checkmark")) { [weak self] _ in
+            Task {
+                try await self?.acceptNotificationRequest(request)
+                // TODO: handle error?
+            }
+        }
+        
+        let rejectAction = UIAction(title: L10n.Scene.Notification.FilteredNotification.dismiss, image: .init(systemName: "trash")) { [weak self] _ in
+            Task {
+                try await self?.rejectNotificationRequest(request)
+                // TODO: handle error?
+            }
+        }
+        
+        let acceptRejectMenu = UIMenu(children: [acceptAction, rejectAction])
+        return acceptRejectMenu
+    }
+    
+    private func acceptNotificationRequest(_ notificationRequest: MastodonSDK.Mastodon.Entity.NotificationRequest) async throws {
+        guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
+        _ = try await APIService.shared.acceptNotificationRequests(authenticationBox: authBox, id: notificationRequest.id)
+        NotificationCenter.default.post(name: .notificationFilteringChanged, object: nil)
+    }
+    
+    private func rejectNotificationRequest(_ notificationRequest: MastodonSDK.Mastodon.Entity.NotificationRequest) async throws {
+        guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
+        _ = try await APIService.shared.rejectNotificationRequests(authenticationBox: authBox, id: notificationRequest.id)
+        NotificationCenter.default.post(name: .notificationFilteringChanged, object: nil)
     }
 }
 
@@ -348,7 +400,7 @@ extension NotificationsScope {
             L10n.Scene.Notification.Title.everything
         case .mentions:
             L10n.Scene.Notification.Title.mentions
-        case .fromAccount:
+        case .fromRequest:
             ""
         }
     }
@@ -358,15 +410,22 @@ extension TimelineListViewController {
     // MARK: Notifications Nav Bar controls
     
     func setUpNotificationsNavBarControls() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal.decrease.circle"), style: .plain, target: self, action: #selector(showNotificationPolicySettings))
-        
-        picker.translatesAutoresizingMaskIntoConstraints = false
-        picker.selectedSegmentIndex = 0
-        navigationItem.titleView = picker
-        NSLayoutConstraint.activate([
-            picker.widthAnchor.constraint(greaterThanOrEqualToConstant: 287)
-        ])
-        picker.addTarget(self, action: #selector(pickerValueChanged(_:)), for: .valueChanged)
+        switch viewModel.timeline {
+        case .notifications(.everything), .notifications(.mentions):
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal.decrease.circle"), style: .plain, target: self, action: #selector(showNotificationPolicySettings))
+            
+            picker.translatesAutoresizingMaskIntoConstraints = false
+            picker.selectedSegmentIndex = 0
+            navigationItem.titleView = picker
+            NSLayoutConstraint.activate([
+                picker.widthAnchor.constraint(greaterThanOrEqualToConstant: 287)
+            ])
+            picker.addTarget(self, action: #selector(pickerValueChanged(_:)), for: .valueChanged)
+        case .notifications(.fromRequest(let request)):
+            navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationAcceptRejectMenuButton(forRequest: request))
+        default:
+            break
+        }
     }
     
     @objc private func pickerValueChanged(_ sender: UISegmentedControl) {
