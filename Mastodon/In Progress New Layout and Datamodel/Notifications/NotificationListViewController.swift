@@ -232,7 +232,7 @@ struct NotificationListView: View {
     func didAppear(_ item: NotificationListItem) {
         switch item {
         case .groupedNotification(let viewModel):
-            viewModel.prepareForDisplay()
+            break //viewModel.prepareForDisplay()
         case .bottomLoader:
             loadMore()
         default:

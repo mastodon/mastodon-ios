@@ -15,18 +15,21 @@ enum PostActionFailure: Error {
     case noActionablePostId
     case noRelationshipInfo
     case postIdMismatch
+    case unsupportedAction
 }
 
 @MainActor
 protocol MastodonPostMenuActionHandler {
     func account(_ id: Mastodon.Entity.Account.ID) -> MastodonAccount?
     func doAction(_ action: MastodonPostMenuAction, forPost post: MastodonContentPost)
+    func doAction(_ action: MastodonPostMenuAction, forAccount account: MastodonAccount) async throws
     func canTranslate(post: MastodonContentPost) -> Bool
     func translation(forContentPostId postId: Mastodon.Entity.Status.ID) -> Mastodon.Entity.Translation?
     func presentScene(_ scene: SceneCoordinator.Scene, fromPost postID: Mastodon.Entity.Status.ID?, transition: SceneCoordinator.Transition)
     func showOverlay(_ modalView: MastodonTimelineOverlayView?)
     func vote(poll: Mastodon.Entity.Poll, choices: [Int], containingPostID: Mastodon.Entity.Status.ID) async throws -> Mastodon.Entity.Poll
     var mediaPreviewableViewController: MediaPreviewableViewController? { get }
+    func currentRelationship(to account: Mastodon.Entity.Account.ID) -> MastodonAccount.Relationship?
 }
 
 

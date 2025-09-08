@@ -9,7 +9,7 @@ import MastodonSDK
 import SwiftUI
 import UIKit
 
-struct MastodonNotificationInfo {
+nonisolated struct MastodonNotificationInfo {
     let identifier: MastodonFeedItemIdentifier
     let timestamp: Date?
     let oldestID: String?
@@ -53,6 +53,13 @@ struct MastodonNotificationInfo {
         }
     }
     var avatarRowAdditionalElement: RelationshipElement
+    private var relationship: Mastodon.Entity.Relationship?
+    
+    enum DisplayPrepStatus {
+        case unprepared
+        case donePreparing
+    }
+    var displayPrepStatus: DisplayPrepStatus = .unprepared
     
     private var iconStyle: GroupedNotificationType.MainIconStyle? {
         return notification.type.mainIconStyle
@@ -115,81 +122,34 @@ struct MastodonNotificationInfo {
         }
     }
     
-    public func prepareForDisplay() {
-        switch avatarRowAdditionalElement {
-        case .unfetched:
-            if let avatarRowSourceAccounts {
-                fetchRelationshipElement(sourceAccounts: avatarRowSourceAccounts)
-            }
-        default:
-            break
-        }
+    public var needsRelationshipTo: Mastodon.Entity.Account? {
+        guard avatarRowSourceAccounts?.primaryAuthorAccount != nil else { return nil }
+        avatarRowAdditionalElement = .fetching
+        return avatarRowSourceAccounts?.primaryAuthorAccount
     }
     
-    private func fetchRelationshipElement(
-        sourceAccounts: NotificationSourceAccounts
-    ) {
+    public func prepareForDisplay(relationship: Mastodon.Entity.Relationship?, theirAccountIsLocked: Bool) {
+        guard let relationship else { avatarRowAdditionalElement = .noneNeeded; return }
+        self.relationship = relationship
         switch avatarRowAdditionalElement {
-        case .noneNeeded, .fetching:
-            break
+        case .noneNeeded:
+            return
         default:
-            guard let accountID = sourceAccounts.firstAccountID,
-                  let accountIsLocked = sourceAccounts.primaryAuthorAccount?
-                .locked
-            else { return }
-            avatarRowAdditionalElement = .fetching
-
-            Task { @MainActor in
-                let element: RelationshipElement
-                do {
-                    if let relationship = try await fetchRelationship(
-                        to: accountID)
-                    {
-
-                        switch (notification.type, relationship.following) {
-                        case (.follow, true):
-                            element = .iFollowThem(theyFollowMe: true)
-                        case (.follow, false):
-                            element = .iDoNotFollowThem(
-                                theirAccountIsLocked: accountIsLocked)
-                        case (.followRequest, _):
-                            element = .theyHaveRequestedToFollowMe(
-                                iFollowThem: relationship.following)
-                        default:
-                            element = .noneNeeded
-                        }
-                    } else {
-                        element = .noneNeeded
-                    }
-                } catch {
-                    element = .error(error)
-                }
-
-                avatarRowAdditionalElement = element
+            switch (notification.type, relationship.following) {
+            case (.follow, true):
+                avatarRowAdditionalElement = .iFollowThem(theyFollowMe: true)
+            case (.follow, false):
+                avatarRowAdditionalElement = .iDoNotFollowThem(
+                    theirAccountIsLocked: theirAccountIsLocked)
+            case (.followRequest, _):
+                avatarRowAdditionalElement = .theyHaveRequestedToFollowMe(
+                    iFollowThem: relationship.following)
+            default:
+                avatarRowAdditionalElement = .noneNeeded
             }
         }
     }
     
-    private func fetchAccount(_ accountID: String) async throws -> Mastodon.Entity.Account? {
-        guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return nil }
-        return try await APIService.shared.accountInfo(domain: authBox.domain, userID: accountID, authorization: authBox.userAuthorization)
-    }
-
-    private func fetchRelationship(to accountID: String) async throws
-    -> Mastodon.Entity.Relationship?
-    {
-        guard
-            let authBox = AuthenticationServiceProvider.shared
-                .currentActiveUser.value
-        else { return nil }
-        if let relationship = try await APIService.shared.relationship(
-            forAccountIds: [accountID], authenticationBox: authBox
-        ).value.first {
-            return relationship
-        } else {
-            return nil
-        }
-    }
 }
 
 extension NotificationRowViewModel: Identifiable {
@@ -214,12 +174,7 @@ extension NotificationRowViewModel {
         if me.id == info.id {
             actionHandler?.presentScene(.profile(.me(me)), fromPost: nil, transition: .show)
         } else {
-            var account = info.fullAccount
-            if account == nil {
-                account = try await fetchAccount(info.id)
-            }
-            guard let account else { return }
-            let relationship = try await fetchRelationship(to: info.id)
+            guard let account = info.fullAccount, let relationship else { return }
             actionHandler?.presentScene(
                 .profile(
                     .notMe(
@@ -284,7 +239,7 @@ extension NotificationRowViewModel {
         guard !isGrouped else { return [] }
         
         switch relationshipElement {
-        case .error, .fetching, .iHaveAnsweredTheirRequestToFollowMe, .noneNeeded, .unfetched(_):
+        case .error, .fetching, .relationshipIsChanging, .iHaveAnsweredTheirRequestToFollowMe, .noneNeeded, .unfetched(_):
             return []
         case .iDoNotFollowThem, .iFollowThem, .iHaveRequestedToFollowThem:
             return [ A11yActionInfo(title: relationshipElement.a11yActionTitle() ?? "", doAction: { [weak self] in self?.doAvatarRowButtonAction() }) ]
@@ -297,7 +252,7 @@ extension NotificationRowViewModel {
 }
 
 extension NotificationRowViewModel: Equatable {
-    public static func == (
+    nonisolated public static func == (
         lhs: NotificationRowViewModel, rhs: NotificationRowViewModel
     ) -> Bool {
         return lhs.notification.identifier == rhs.notification.identifier
@@ -332,42 +287,29 @@ extension NotificationRowViewModel {
         _ action: RelationshipElement.FollowAction,
         notificationSourceAccounts: NotificationSourceAccounts
     ) async {
-        guard let accountID = notificationSourceAccounts.firstAccountID,
-            let theirAccountIsLocked = notificationSourceAccounts
-                .primaryAuthorAccount?.locked,
-            let authBox = AuthenticationServiceProvider.shared.currentActiveUser
-                .value
-        else { return }
         let startingAvatarRelationshipElement = avatarRowAdditionalElement
-        avatarRowAdditionalElement = .fetching
+        avatarRowAdditionalElement = .relationshipIsChanging
         do {
-            let updatedElement: RelationshipElement
-            let response: Mastodon.Entity.Relationship
             switch action {
             case .follow:
-                response = try await APIService.shared.follow(
-                    accountID, authenticationBox: authBox)
+                guard let author = notificationSourceAccounts.primaryAuthorAccount else { return }
+                let account = MastodonAccount.fromEntity(author)
+                try await actionHandler?.doAction(.follow, forAccount: account)
             case .unfollow:
-                response = try await APIService.shared.unfollow(
-                    accountID, authenticationBox: authBox)
+                guard let author = notificationSourceAccounts.primaryAuthorAccount else { return }
+                let account = MastodonAccount.fromEntity(author)
+                try await actionHandler?.doAction(.unfollow, forAccount: account)
             case .noAction:
                 throw AppError.unexpected(
                     "action attempted for relationship element that has no action"
                 )
             }
-            if response.following {
-                updatedElement = .iFollowThem(theyFollowMe: response.followedBy)
-            } else if response.requested {
-                updatedElement = .iHaveRequestedToFollowThem
-            } else {
-                updatedElement = .iDoNotFollowThem(
-                    theirAccountIsLocked: theirAccountIsLocked)
-            }
-            avatarRowAdditionalElement = updatedElement
         } catch {
 //            presentError?(error)
             avatarRowAdditionalElement = startingAvatarRelationshipElement
         }
+        guard let author = notificationSourceAccounts.primaryAuthorAccount, let updatedRelationship = actionHandler?.currentRelationship(to: author.id) else { return }
+        prepareForDisplay(relationship: updatedRelationship.info?._legacyEntity, theirAccountIsLocked: author.locked)
     }
 
     @MainActor

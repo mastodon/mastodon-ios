@@ -632,33 +632,14 @@ extension TimelineFeedLoader {
         cachedRelationships[accountID] = relationship
     }
     
-    func fetchRelationships(_ batch: [GenericMastodonPost]) async throws -> [MastodonAccount.Relationship] {
-
-        let needToFetch: [Mastodon.Entity.Account.ID] = batch.compactMap { post -> Mastodon.Entity.Account.ID? in
-            let actionableRelationshipAccountID = post.initialDisplayInfo(inContext: filterContext).actionableAuthorId
-            guard actionableRelationshipAccountID != myAccountID else { return nil }
-            switch self.cachedRelationships[actionableRelationshipAccountID] {
-            case .isMe:
-                assertionFailure()
-                return nil
-            case .isNotMe(let info):
-                if let lastFetched = info?.fetchedAt {
-                    return (lastFetched.timeIntervalSinceNow < relationshipStaleThreshold) ? nil : actionableRelationshipAccountID
-                } else {
-                    return actionableRelationshipAccountID
-                }
-            case .none:
-                return actionableRelationshipAccountID
-            }
-        }
-            
-        guard !needToFetch.isEmpty else { return [] }
+    func fetchRelationships(_ batch: [Mastodon.Entity.Account.ID]) async throws -> [MastodonAccount.Relationship] {
+        guard !batch.isEmpty else { return [] }
         
         let chunkSize = 100
         var relationships = [Mastodon.Entity.Relationship]()
-        for start in stride(from: 0, to: needToFetch.count, by: chunkSize) { // asking for too many at once can cause an API error
-            let end = min(start + chunkSize, needToFetch.count)
-            let chunk = Array(needToFetch[start..<end])
+        for start in stride(from: 0, to: batch.count, by: chunkSize) { // asking for too many at once can cause an API error
+            let end = min(start + chunkSize, batch.count)
+            let chunk = Array(batch[start..<end])
             let chunkResults = try await APIService.shared.relationship(forAccountIds: chunk, authenticationBox: authenticatedUser).value
             relationships.append(contentsOf: chunkResults)
         }

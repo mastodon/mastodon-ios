@@ -465,13 +465,13 @@ extension TimelineListViewController: MediaPreviewableViewController {
 extension MastodonPostMenuAction {
     enum AlertType {
         case noAlert
-        case confirmBoostOfPost(didConfirm: ()->())
-        case confirmDeleteOfPost(didConfirm: ()->())
-        case confirmUnfollow(username: String, didConfirm: ()->())
-        case confirmMute(username: String, didConfirm: ()->())
-        case confirmUnmute(username: String, didConfirm: ()->())
-        case confirmBlock(username: String, didConfirm: ()->())
-        case confirmUnblock(username: String, didConfirm: ()->())
+        case confirmBoostOfPost(didConfirm: (Bool)->())
+        case confirmDeleteOfPost(didConfirm: (Bool)->())
+        case confirmUnfollow(username: String, didConfirm: (Bool)->())
+        case confirmMute(username: String, didConfirm: (Bool)->())
+        case confirmUnmute(username: String, didConfirm: (Bool)->())
+        case confirmBlock(username: String, didConfirm: (Bool)->())
+        case confirmUnblock(username: String, didConfirm: (Bool)->())
         
         var title: String {
             switch self {
@@ -613,7 +613,7 @@ private class TimelineListViewModel: ObservableObject {
     var scrollManager: ScrollManager?
     
     private let displayPrepBatchSize = 10
-    private var currentlyPreparingForDisplay: [Mastodon.Entity.Status.ID]?
+    private var currentlyPreparingForDisplay: [String]?
     private var displayPrepRequested: [MastodonPostViewModel]? // only keep the latest batch requested, to avoid getting bogged down while fast scrolling
     
     public var lastReadState: LastReadState = .initializing
@@ -714,36 +714,18 @@ private class TimelineListViewModel: ObservableObject {
                 }
                 
                 
-                let needsPrep: [MastodonPostViewModel] = results.allRecords.compactMap { item -> MastodonPostViewModel? in
+                let needsPrep: [TimelineItem] = results.allRecords.compactMap { item -> TimelineItem? in
                     switch item {
                     case .loadingIndicator, .filteredNotificationsInfo:
                         return nil
                     case .post(let postViewModel):
-                        switch postViewModel.displayPrepStatus {
-                        case .unprepared:
-                            return postViewModel
-                        case .donePreparing:
-                            return nil
-                        }
+                        return postViewModel.displayPrepStatus == .unprepared ? item : nil
                     case .notification(let notificationViewModel):
-                        if notificationViewModel.actionHandler == nil {
-                            notificationViewModel.actionHandler = self
-                        }
-                        if let inlinePostModel = notificationViewModel.inlinePostViewModel {
-                            switch inlinePostModel.displayPrepStatus {
-                            case .unprepared:
-                                return inlinePostModel
-                            case .donePreparing:
-                                return nil
-                            }
-                        }
-                        return nil
+                        return notificationViewModel.displayPrepStatus == .unprepared ? item : nil
                     }
                 }
                 
-                let quotedModels: [MastodonPostViewModel] = needsPrep.compactMap { $0.fullQuotedPostViewModel }
-                
-                self?.doPrepareForDisplay(needsPrep + quotedModels, contentWidth: 0, completion: {
+                self?.doPrepareForDisplay(needsPrep, contentWidth: 0, completion: {
                     DispatchQueue.main.async {
                         guard let self else { return }
                         
@@ -897,21 +879,21 @@ private class TimelineListViewModel: ObservableObject {
 }
 
 extension TimelineListViewModel {
-    private func createPrepBatch(anchoredAt anchorIndex: Int) -> [MastodonPostViewModel]? {
+    private func createPrepBatch(anchoredAt anchorIndex: Int) -> [TimelineItem]? {
         guard let feedLoaderRecords = feedLoader?.records.allRecords else { return nil }
         let batchStart = max(0, anchorIndex - displayPrepBatchSize / 2)
         guard batchStart < feedLoaderRecords.count else { return nil }
-        let batchItems = feedLoaderRecords[batchStart...].prefix(displayPrepBatchSize).compactMap { item -> MastodonPostViewModel? in
+        let batchItems = feedLoaderRecords[batchStart...].prefix(displayPrepBatchSize).compactMap { item -> TimelineItem? in
             switch item {
             case .loadingIndicator, .filteredNotificationsInfo:
                 return nil
             case .post(let postViewModel):
                 // not donePreparing, not included in currently preparing (inclusion in requested does not matter, because this batch may replace the current requested batch)
-                guard postViewModel.displayPrepStatus == .unprepared && currentlyPreparingForDisplay?.contains(postViewModel.initialDisplayInfo.id) != true else { return nil }
-                return postViewModel
-            case .notification:
-                // TODO: prep any enclosed view model, but without caching, this should not be necessary
-                return nil
+                guard postViewModel.displayPrepStatus == .unprepared else { return nil }
+                return item
+            case .notification(let notificationViewModel):
+                guard notificationViewModel.displayPrepStatus == .unprepared else { return nil }
+                return item
             }
         }
         
@@ -919,43 +901,82 @@ extension TimelineListViewModel {
         return batchItems
     }
     
-    private func doPrepareForDisplay(_ batch: [MastodonPostViewModel], contentWidth: CGFloat, completion: (()->())? = nil) {
+    private func doPrepareForDisplay(_ batch: [TimelineItem], contentWidth: CGFloat, completion: (()->())? = nil) {
         guard let feedLoader else { completion?(); return }
         guard currentlyPreparingForDisplay == nil else { completion?(); return }
-        currentlyPreparingForDisplay = batch.map { $0.initialDisplayInfo.id }
+        currentlyPreparingForDisplay = batch.compactMap { item in
+            switch item {
+            case .post:
+                return item.id
+            case .notification:
+                return item.id
+            default:
+                return nil
+            }
+        }
+        
+        var needsPrep = [MastodonPostViewModel]()
+        var relationshipsToFetch = [Mastodon.Entity.Account.ID]()
+        
+        func processPostViewModel(_ postViewModel: MastodonPostViewModel) {
+            if let fullQuotedPostViewModel = postViewModel.fullQuotedPostViewModel {
+                needsPrep.append(fullQuotedPostViewModel)
+            }
+            relationshipsToFetch.append(postViewModel.initialDisplayInfo.actionableAuthorId)
+            if let actionablePost = postViewModel.fullPost?.actionablePost, postViewModel.isShowingTranslation == nil {
+                postViewModel.isShowingTranslation = canTranslate(post: actionablePost) ? false : nil
+            }
+        }
+        
+        for item in batch {
+            switch item {
+            case .post(let postModel):
+                if postModel.displayPrepStatus == .unprepared {
+                    needsPrep.append(postModel)
+                }
+            case .notification(let notificationViewModel):
+                if let embeddedPostModel = notificationViewModel.inlinePostViewModel {
+                    needsPrep.append(embeddedPostModel)
+                }
+                if let needsRelationshipTo = notificationViewModel.needsRelationshipTo {
+                    relationshipsToFetch.append(needsRelationshipTo.id)
+                }
+            default:
+               break
+            }
+        }
+
+        for postModel in needsPrep {
+            processPostViewModel(postModel)
+        }
+        
+        let toPrep = needsPrep
+        let toFetch = relationshipsToFetch
         
         Task {
+            let fetchedRelationships = try await feedLoader.fetchRelationships(toFetch)
             
-            var needsRelationshipFetch = [GenericMastodonPost]()
-            for postModel in batch {
-                
-                if let fullPost = postModel.fullPost {
-                    switch postModel.myRelationshipToAuthor {
-                    case .none:
-                        fallthrough
-                    case .isNotMe(nil):
-                        needsRelationshipFetch.append(fullPost)
-                    default:
-                        break
-                    }
-                    
-                    if let actionablePost = fullPost.actionablePost, postModel.isShowingTranslation == nil {
-                        postModel.isShowingTranslation = canTranslate(post: actionablePost) ? false : nil
-                    }
-                }
-            }
-
-            let relationshipFetches = needsRelationshipFetch
-            async let fetchedRelationships = try await feedLoader.fetchRelationships(relationshipFetches)
-            
-            for postModel in batch {
-                postModel.myRelationshipToAuthor = try await fetchedRelationships.first(where: {
+            for postModel in toPrep {
+                postModel.myRelationshipToAuthor = fetchedRelationships.first(where: {
                     $0.info?.id == postModel.initialDisplayInfo.actionableAuthorId
                 }) ?? feedLoader.myRelationship(to: postModel.initialDisplayInfo.actionableAuthorId)
                 if postModel.actionHandler == nil {
                     postModel.actionHandler = self
                 }
                 postModel.displayPrepStatus = .donePreparing
+            }
+            
+            for item in batch {
+                switch item {
+                case .notification(let notificationViewModel):
+                    if let relationship = fetchedRelationships.first(where: { $0.info?._legacyEntity.id == notificationViewModel.needsRelationshipTo?.id }) {
+                        notificationViewModel.prepareForDisplay(relationship: relationship.info?._legacyEntity, theirAccountIsLocked: notificationViewModel.needsRelationshipTo?.locked ?? false)
+                    }
+                    notificationViewModel.actionHandler = self
+                    notificationViewModel.displayPrepStatus = .donePreparing
+                default:
+                    break
+                }
             }
             
             currentlyPreparingForDisplay = nil
@@ -1317,9 +1338,6 @@ struct TimelineListView: View {
                             }
                         }
                     }
-                    .onAppear() {
-                        notificationViewModel.prepareForDisplay()
-                    }
             }
         }
         if viewModel.threadedConversationModel != nil {
@@ -1375,64 +1393,65 @@ struct TimelineListView: View {
         case .noAlert:
             Text("no alert")
         case .confirmBoostOfPost(let didConfirm):
-            cancelButton()
+            cancelButton(didConfirm)
             Button {
-                didConfirm()
+                didConfirm(true)
             } label: {
                 Text(L10n.Common.Alerts.BoostAPost.boost)
             }
             
         case .confirmDeleteOfPost(let didConfirm):
-            cancelButton()
+            cancelButton(didConfirm)
             Button(role: .destructive) {
-                didConfirm()
+                didConfirm(true)
             } label: {
                 Text(L10n.Common.Controls.Actions.delete)
             }
             
         case .confirmUnfollow(_, let didConfirm):
-            cancelButton()
+            cancelButton(didConfirm)
             Button(role: .destructive) {
-                didConfirm()
+                didConfirm(true)
             } label: {
                 Text(L10n.Common.Alerts.UnfollowUser.unfollow)
             }
             
         case .confirmMute(username: let username, didConfirm: let didConfirm):
-            cancelButton()
+            cancelButton(didConfirm)
             Button(role: .destructive) {
-                didConfirm()
+                didConfirm(true)
             } label: {
                 Text(L10n.Common.Controls.Friendship.muteUser(username))
             }
         case .confirmUnmute(username: let username, didConfirm: let didConfirm):
-            cancelButton()
+            cancelButton(didConfirm)
             Button {
-                didConfirm()
+                didConfirm(true)
             } label: {
                 Text(L10n.Common.Controls.Friendship.unmuteUser(username))
             }
             
         case .confirmBlock(username: let username, didConfirm: let didConfirm):
-            cancelButton()
+            cancelButton(didConfirm)
             Button(role: .destructive) {
-                didConfirm()
+                didConfirm(true)
             } label: {
                 Text(L10n.Common.Controls.Friendship.blockUser(username))
             }
         case .confirmUnblock(username: let username, didConfirm: let didConfirm):
-            cancelButton()
+            cancelButton(didConfirm)
             Button {
-                didConfirm()
+                didConfirm(true)
             } label: {
                 Text(L10n.Common.Controls.Friendship.unblockUser(username))
             }
         }
     }
     
-    @ViewBuilder func cancelButton() -> some View {
+    @ViewBuilder func cancelButton(_ didConfirm: @escaping (Bool)->()) -> some View {
         Button(role: .cancel) {
             viewModel.clearPendingActions()
+            didConfirm(false)
         }
         label: {
             Text(L10n.Common.Controls.Actions.cancel)
@@ -1559,6 +1578,10 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         return feedLoader?.account(id)
     }
     
+    func currentRelationship(to account: Mastodon.Entity.Account.ID) -> MastodonAccount.Relationship? {
+        return feedLoader?.myRelationship(to: account)
+    }
+    
     func doAction(_ action: MastodonPostMenuAction, forPost post: MastodonContentPost) {
         
         // Check not currently performing an action.
@@ -1567,7 +1590,6 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         guard let authenticatedUser, let actionablePost = post.actionablePost else { return }
 
         let author = actionablePost.metaData.author
-        let relationshipInfo = myRelationship(to: author).info
         
         // Inform of what action is being done. These are cleared upon success or error, and in onAppear() of the view.
         if action.updatesMyActionsOnPost {
@@ -1685,39 +1707,21 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
 
             // MARK: RELATIONSHIP ACTIONS
                     
-                case .follow:
-                    guard relationshipInfo?.canFollow == true else { throw PostActionFailure.noRelationshipInfo }
-                    Task {
-                        await commitFollow(author.id)
-                    }
-                    
-                case .unfollow:
-                    await doUnfollow(author, askFirst: UserDefaults.standard.askBeforeUnfollowingSomeone)
-
-                case .mute:
-                    activeAlert = .confirmMute(username: author.displayInfo.displayName, didConfirm: { [weak self] in
-                        Task {
-                            await self?.commitMute(author.id)
-                        }
-                    })
-                    
-                case .unmute:
-                    activeAlert = .confirmUnmute(username: author.displayInfo.displayName, didConfirm: { [weak self] in
-                        Task {
-                            await self?.commitUnmute(author.id)
-                        }
-                    })
+                case .follow, .unfollow, .mute, .unmute:
+                    try await doAction(action, forAccount: author)
                     
             // MARK: DEFENSIVE ACTIONS
                 case .blockUser:
-                    activeAlert = .confirmBlock(username: author.displayInfo.displayName, didConfirm: { [weak self] in
+                    activeAlert = .confirmBlock(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
+                        guard confirmed else { return }
                         Task {
                             await self?.commitBlock(author.id)
                         }
                     })
                     
                 case .unblockUser:
-                    activeAlert = .confirmUnblock(username: author.displayInfo.displayName, didConfirm: { [weak self] in
+                    activeAlert = .confirmUnblock(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
+                        guard confirmed else { return }
                         Task {
                             await self?.commitUnblock(author.id)
                         }
@@ -1754,6 +1758,23 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                 assertionFailure()
                 clearPendingActions()
             }
+        }
+    }
+    
+    func doAction(_ action: MastodonPostMenuAction, forAccount account: MastodonAccount) async throws {
+        let currentRelationship =  myRelationship(to: account).info
+        switch action {
+        case .follow:
+            guard currentRelationship?.canFollow == true else { throw PostActionFailure.noRelationshipInfo }
+            await commitFollow(account.id)
+        case .unfollow:
+            await doUnfollow(account, askFirst: UserDefaults.standard.askBeforeUnfollowingSomeone)
+        case .mute:
+            await doMute(account, askFirst: true)
+        case .unmute:
+            await doUnmute(account, askFirst: true)
+        default:
+            throw PostActionFailure.unsupportedAction
         }
     }
 
@@ -1804,9 +1825,10 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             
             if askFirst {
-                activeAlert = .confirmBoostOfPost(didConfirm: {
+                activeAlert = .confirmBoostOfPost(didConfirm: { [weak self] confirmed in
+                    guard confirmed else { return }
                     Task {
-                        await self.boost(actionablePostId, askFirst: false)
+                        await self?.boost(actionablePostId, askFirst: false)
                     }
                 })
             } else {
@@ -1826,11 +1848,15 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
     func doUnfollow(_ author: MastodonAccount, askFirst: Bool) async {
         do {
             if askFirst {
-                activeAlert = .confirmUnfollow(username: author.displayInfo.displayName, didConfirm: { [weak self] in
-                    Task {
-                        await self?.doUnfollow(author, askFirst: false)
-                    }
-                })
+                await withCheckedContinuation { continuation in
+                    activeAlert = .confirmUnfollow(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
+                        guard confirmed else { continuation.resume(); return }
+                        Task {
+                            await self?.doUnfollow(author, askFirst: false)
+                            continuation.resume()
+                        }
+                    })
+                }
             } else {
                 guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
                 let response = try await APIService.shared.unfollow(author.id, authenticationBox: authenticatedUser)
@@ -1843,6 +1869,36 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             assert(false)
         }
         isPerformingAccountAction = nil
+    }
+    
+    func doMute(_ author: MastodonAccount, askFirst: Bool) async {
+        if askFirst {
+            await withCheckedContinuation { continuation in
+                self.activeAlert = .confirmMute(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
+                    guard confirmed else { continuation.resume(); return }
+                    Task {
+                        await self?.commitMute(author.id)
+                        continuation.resume()
+                    }
+                })
+            }
+        } else {
+            await commitMute(author.id)
+        }
+    }
+    
+    func doUnmute(_ author: MastodonAccount, askFirst: Bool) async {
+        if askFirst {
+            await withCheckedContinuation { continuation in
+                self.activeAlert = .confirmUnmute(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
+                    guard confirmed else { continuation.resume(); return }
+                    Task {
+                        await self?.commitUnmute(author.id)
+                        continuation.resume()
+                    }
+                })
+            }
+        }
     }
     
     func commitFollow(_ accountID: Mastodon.Entity.Account.ID) async {
@@ -1915,9 +1971,10 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
     func deletePost(_ postID: Mastodon.Entity.Status.ID, askFirst: Bool) async {
         do {
             if askFirst {
-                activeAlert = .confirmDeleteOfPost(didConfirm: {
+                activeAlert = .confirmDeleteOfPost(didConfirm: { [weak self] confirmed in
+                    guard confirmed else { return }
                     Task {
-                        await self.deletePost(postID, askFirst: false)
+                        await self?.deletePost(postID, askFirst: false)
                     }
                 })
             } else {

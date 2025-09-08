@@ -277,6 +277,7 @@ enum RelationshipElement: Equatable {
     case noneNeeded
     case unfetched(GroupedNotificationType)
     case fetching
+    case relationshipIsChanging
     case error(Error?)
     case iDoNotFollowThem(theirAccountIsLocked: Bool)
     case iFollowThem(theyFollowMe: Bool)
@@ -298,6 +299,8 @@ enum RelationshipElement: Equatable {
             return "unfetched"
         case .fetching:
             return "fetching"
+        case .relationshipIsChanging:
+            return "relationshipIsChanging"
         case .error:
             return "error"
         case .iDoNotFollowThem(let theirAccountIsLocked):
@@ -679,7 +682,7 @@ struct NotificationRowView: View {
         _ elementType: RelationshipElement, grouped: Bool
     ) -> some View {
         switch (elementType, grouped) {
-        case (.fetching, false):
+        case (.fetching, false), (.relationshipIsChanging, false):
             ProgressView().progressViewStyle(.circular)
         case (.iDoNotFollowThem, false), (.iFollowThem, false),
             (.iHaveRequestedToFollowThem, false):
