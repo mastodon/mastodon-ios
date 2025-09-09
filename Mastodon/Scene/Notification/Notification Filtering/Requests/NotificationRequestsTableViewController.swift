@@ -80,9 +80,8 @@ extension NotificationRequestsTableViewController: UITableViewDelegate {
 
         Task { [weak self] in
             guard let self else { return }
-
-            let viewController = await DataSourceFacade.coordinateToNotificationRequest(request: request, provider: self)
-            viewController?.delegate = self
+            
+            sceneCoordinator?.present(scene: .accountNotificationTimeline(request: request), transition: .show)
         }
     }
 
@@ -200,20 +199,6 @@ extension NotificationRequestsTableViewController: NotificationRequestTableViewC
             } else {
                 _ = self.navigationController?.popViewController(animated: true)
             }
-        }
-    }
-}
-
-extension NotificationRequestsTableViewController: AccountNotificationTimelineViewControllerDelegate {
-    func acceptRequest(_ viewController: AccountNotificationTimelineViewController, request: MastodonSDK.Mastodon.Entity.NotificationRequest) {
-        Task {
-            try? await acceptNotificationRequest(request)
-        }
-    }
-    
-    func dismissRequest(_ viewController: AccountNotificationTimelineViewController, request: MastodonSDK.Mastodon.Entity.NotificationRequest) {
-        Task {
-            try? await rejectNotificationRequest(request)
         }
     }
 }

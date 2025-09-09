@@ -34,20 +34,6 @@ extension DataSourceFacade {
         }
     }
 
-    @MainActor
-    static func coordinateToNotificationRequest(
-        request: Mastodon.Entity.NotificationRequest,
-        provider: UIViewController & AuthContextProvider
-    ) async -> AccountNotificationTimelineViewController? {
-        guard let sceneCoordinator = provider.sceneCoordinator else { return nil }
-        sceneCoordinator.showLoading()
 
-        sceneCoordinator.hideLoading()
-        
-        guard let viewController = sceneCoordinator.present(scene: .accountNotificationTimeline(request: request), transition: .show) as? AccountNotificationTimelineViewController else { return nil }
-
-        return viewController
-
-    }
 
 }

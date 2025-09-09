@@ -608,16 +608,6 @@ private class TimelineListViewModel: ObservableObject {
     
     var filteredNotificationsViewModel =
         FilteredNotificationsRowView.ViewModel(policy: nil)
-    private var notificationPolicyBannerRow: [NotificationListItem] {
-        if filteredNotificationsViewModel.shouldShow {
-            return [
-                NotificationListItem.filteredNotificationsInfo(
-                    nil, filteredNotificationsViewModel)
-            ]
-        } else {
-            return []
-        }
-    }
     
     var activeAlert: MastodonPostMenuAction.AlertType = .noAlert {
         didSet {
