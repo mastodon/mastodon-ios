@@ -185,13 +185,13 @@ class CustomEmojiTextModel: ObservableObject {
                 var textAndEmojiShortcodes = [TextElement]()
                 var accumulatingNonEmoji: String? = nil
                 for substring in substrings {
-                    if emojis.contains(where: { emoji in
-                        substring == emoji.shortcode
+                    if let matchingEmoji = emojis.first(where: { emoji in
+                        emoji.matchesShortcode(String(substring))
                     }) {
                         if let accumulatingNonEmoji {
                             textAndEmojiShortcodes.append(.text(LocalizedStringKey(accumulatingNonEmoji)))
                         }
-                        textAndEmojiShortcodes.append(.emojiShortcode(String(substring)))
+                        textAndEmojiShortcodes.append(.emojiShortcode(matchingEmoji.shortcode))
                         accumulatingNonEmoji = nil
                     } else {
                         if let accumulating = accumulatingNonEmoji {
@@ -360,5 +360,21 @@ struct RowView: View {
         }
         pieces.reduce(Text(""), +)
             .fixedSize(horizontal: false, vertical: true)
+    }
+}
+
+extension Mastodon.Entity.Emoji {
+    func matchesShortcode(_ codeToMatch: String) -> Bool {
+        return shortcode == codeToMatch || escapeMarkdown(shortcode) == codeToMatch
+    }
+    
+    private func escapeMarkdown(_ text: String) -> String {
+        // Escape Markdown characters unless inside code blocks
+        let specialChars = ["\\", "`", "*", "_", "{", "}", "[", "]", "(", ")", "#", "+", "-", ".", "!"]
+        var escaped = text
+        for char in specialChars {
+            escaped = escaped.replacingOccurrences(of: char, with: "\\" + char)
+        }
+        return escaped
     }
 }
