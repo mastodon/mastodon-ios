@@ -44,6 +44,7 @@ public enum MastodonTimelineType: Equatable {
     case search(String)
     case userPosts(userID: String, queryFilter: TimelineQueryFilter)
     case thread(root: MastodonContentPost)
+    case remoteThread(remoteType: RemoteThreadType)
     case notifications(scope: NotificationsScope)
 
     public static func == (lhs: MastodonTimelineType, rhs: MastodonTimelineType) -> Bool {
@@ -180,7 +181,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             self.filterContext = nil
         case .userPosts:
             self.filterContext = .account
-        case .thread:
+        case .thread, .remoteThread:
             self.filterContext = .account
         case .myBookmarks:
             self.filterContext = nil
@@ -315,6 +316,24 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 onlyMedia: queryFilter.onlyMedia,
                 authenticationBox: authenticatedUser
             ).value.map { timelineItem(fromStatus: $0) }
+        case .remoteThread(let remoteThreadType):
+            let status: Mastodon.Entity.Status
+            switch remoteThreadType {
+            case .status(let statusID):
+                status = try await APIService.shared.status(statusID: statusID, authenticationBox: authenticatedUser).value
+            case .notification(let notificationID):
+                let notification = try await APIService.shared.notification(notificationID: notificationID, authenticationBox: authenticatedUser).value
+                guard notification.status != nil else { throw APIService.APIError.explicit(.badResponse) }
+                status = notification.status!
+            }
+            let post = GenericMastodonPost.fromStatus(status)
+            let context = try await APIService.shared.statusContext(
+                statusID: status.id,
+                authenticationBox: authenticatedUser
+            ).value
+            let threadModel = ThreadedConversationModel(threadContext: context, focusedPost: post)
+            threadedConversationModel = threadModel
+                newBatch = threadModel.fullThread.map { timelineItem(fromStatus: $0) }
         case .thread(let root):
             let context = try await APIService.shared.statusContext(
                 statusID: root.id,

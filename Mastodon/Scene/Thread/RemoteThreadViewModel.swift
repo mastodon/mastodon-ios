@@ -10,16 +10,26 @@ import CoreDataStack
 import MastodonCore
 import MastodonSDK
 
+public enum RemoteThreadType {
+    case status(Mastodon.Entity.Status.ID)
+    case notification(Mastodon.Entity.Notification.ID)
+}
+
 final class RemoteThreadViewModel: ThreadViewModel {
+    
+    let entityType: RemoteThreadType
         
     init(
         authenticationBox: MastodonAuthenticationBox,
         statusID: Mastodon.Entity.Status.ID
     ) {
+        self.entityType = .status(statusID)
         super.init(
             authenticationBox: authenticationBox,
             optionalRoot: nil
         )
+        
+        guard !UserDefaults.standard.testNewHomeTimeline else { return }  // the new code will do the fetching, the below is unnecessary
         
         Task { @MainActor in
             let response = try await APIService.shared.status(
@@ -37,10 +47,13 @@ final class RemoteThreadViewModel: ThreadViewModel {
         authenticationBox: MastodonAuthenticationBox,
         notificationID: Mastodon.Entity.Notification.ID
     ) {
+        self.entityType = .notification(notificationID)
         super.init(
             authenticationBox: authenticationBox,
             optionalRoot: nil
         )
+        
+        guard !UserDefaults.standard.testNewHomeTimeline else { return }  // the new code will do the fetching, the below is unnecessary
         
         Task { @MainActor in
             let response = try await APIService.shared.notification(

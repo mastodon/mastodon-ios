@@ -434,8 +434,12 @@ private extension SceneCoordinator {
             viewController = _viewController
         case .thread(let viewModel):
             if UserDefaults.standard.testNewHomeTimeline {
-                guard let rootStatus = viewModel.root?.record, let rootPost = GenericMastodonPost.fromStatus(rootStatus.entity) as? MastodonContentPost else { return nil }
-                viewController = TimelineListViewController(.thread(root: rootPost))
+                if let viewModel = viewModel as? RemoteThreadViewModel {
+                    viewController = TimelineListViewController(.remoteThread(root: viewModel.entityType))
+                } else {
+                    guard let rootStatus = viewModel.root?.record, let rootPost = GenericMastodonPost.fromStatus(rootStatus.entity) as? MastodonContentPost else { return nil }
+                    viewController = TimelineListViewController(.thread(root: rootPost))
+                }
             } else {
                 let _viewController = ThreadViewController()
                 _viewController.viewModel = viewModel

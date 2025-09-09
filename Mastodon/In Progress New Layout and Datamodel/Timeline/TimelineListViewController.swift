@@ -24,6 +24,7 @@ enum TimelineViewType {
     case searchPosts(String)
     case profilePosts(tabTitle: String?, userID: String, queryFilter: TimelineQueryFilter)
     case thread(root: MastodonContentPost)
+    case remoteThread(root: RemoteThreadType)
     
     var tabTitle: String? {
         switch self {
@@ -59,6 +60,8 @@ class TimelineListViewController: UIHostingController<TimelineListView>
             viewModel = TimelineListViewModel(timeline: .userPosts(userID: user, queryFilter: queryFilter))
         case .thread(let root):
             viewModel = TimelineListViewModel(timeline: .thread(root: root))
+        case .remoteThread(let remoteThreadType):
+            viewModel = TimelineListViewModel(timeline: .remoteThread(remoteType: remoteThreadType))
         case .myBookmarks:
             viewModel = TimelineListViewModel(timeline: .myBookmarks)
         case .myFavorites:
@@ -264,7 +267,7 @@ extension TimelineListViewController {
         case .hashtag:
             showLocalTimelineAction.state = .off
             showFollowingAction.state = .off
-        case .discovery, .search, .userPosts, .thread, .myBookmarks, .myFavorites, .notifications:
+        case .discovery, .search, .userPosts, .thread, .remoteThread, .myBookmarks, .myFavorites, .notifications:
             assertionFailure()
         }
         
