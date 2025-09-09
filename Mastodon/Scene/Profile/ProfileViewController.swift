@@ -260,7 +260,7 @@ class ProfileViewController: UIViewController, MediaPreviewableViewController, A
             items.append(self.favoriteBarButtonItem)
             items.append(self.bookmarkBarButtonItem)
             
-            if self.currentInstance?.canFollowTags == true {
+            if self.currentInstance?.isAvailable(.followTags) == true {
                 items.append(self.followedTagsBarButtonItem)
             }
             

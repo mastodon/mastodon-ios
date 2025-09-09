@@ -4,19 +4,25 @@ import Foundation
 import CoreDataStack
 import MastodonSDK
 
+public enum ApiFeature {
+    case followTags
+    case groupNotifications
+    case quotePosts
+}
+
 public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
     
     public static let fallbackCharactersReservedPerURL = 23
 
     public enum InstanceConfiguration: Codable, Hashable {
-        case v1(Mastodon.Entity.Instance)
-        case v2(Mastodon.Entity.V2.Instance, TranslationLanguages)
+        case fromEndpointV1(Mastodon.Entity.Instance)   // an instance returned by querying the v1 endpoint, available from all servers
+        case fromEndpointV2(Mastodon.Entity.V2.Instance, TranslationLanguages)  // an instance returned by querying the v2 endpoint, available from server versions 4.0+
         
         public func canTranslateFrom(_ sourceLocale: String, to targetLanguage: String) -> Bool {
             switch self {
-            case .v1:
+            case .fromEndpointV1:
                 return false
-            case let .v2(instance, translationLanguages):
+            case let .fromEndpointV2(instance, translationLanguages):
                 guard instance.configuration?.translation?.enabled == true else { return false }
                 return translationLanguages[sourceLocale]?.contains(targetLanguage) == true
             }
@@ -24,39 +30,52 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
         
         public var instanceConfigLimitingProperties: InstanceConfigLimitingPropertyContaining? {
             switch self {
-            case let .v1(instance):
+            case let .fromEndpointV1(instance):
                 return instance.configuration
-            case let .v2(instance, _):
+            case let .fromEndpointV2(instance, _):
                 return instance.configuration
             }
         }
         
-        public var canFollowTags: Bool {
+        public var serverVersion: String? {  // incremented every time the server code changes
             let version: String?
             switch self {
-            case let .v1(instance):
+            case let .fromEndpointV1(instance):
                 version = instance.version
-            case let .v2(instance, _):
+            case let .fromEndpointV2(instance, _):
                 version = instance.version
             }
-            return version?.majorServerVersion(greaterThanOrEquals: 4) ?? false // following Tags is support beginning with Mastodon v4.0.0
+            return version
+        }
+        public var apiVersion: Int? {   // incremented when a new feature is introduced, to aid in distinguishing which features are available
+            let version: Int?
+            switch self {
+            case .fromEndpointV1:
+                version = nil
+            case .fromEndpointV2(let instance, _):
+                version = instance.apiVersions?["mastodon"]
+            }
+            return version
         }
         
-        public var canGroupNotifications: Bool {
-            switch self {
-            case let .v1(_):
-                return false
-            case let .v2(instance, _):
-                guard let apiVersion = instance.apiVersions?["mastodon"] else { return false }
+        public func isAvailable(_ feature: ApiFeature) -> Bool {
+            switch feature {
+            case .followTags:
+                return serverVersion?.majorServerVersion(greaterThanOrEquals: 4) ?? false // following Tags is supported beginning with Mastodon v4.0.0
+            case .groupNotifications:
+                guard let apiVersion else { return false }
                 return apiVersion >= 2
+            case .quotePosts:
+                guard let apiVersion else { return false }
+                return apiVersion >= 7
             }
         }
         
         public var charactersReservedPerURL: Int {
             switch self {
-            case let .v1(instance):
+            case let .fromEndpointV1(instance):
                 return instance.configuration?.statuses?.charactersReservedPerURL ?? fallbackCharactersReservedPerURL
-            case let .v2(instance, _):
+            case let .fromEndpointV2(instance, _):
                 return instance.configuration?.statuses?.charactersReservedPerURL ?? fallbackCharactersReservedPerURL
             }
         }
@@ -160,27 +179,27 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
 
     @MainActor
     func updating(instanceV1 instance: Mastodon.Entity.Instance) -> Self {
-        return copy(instanceConfiguration: .v1(instance))
+        return copy(instanceConfiguration: .fromEndpointV1(instance))
     }
     
     @MainActor
     func updating(instanceV2 instance: Mastodon.Entity.V2.Instance) -> Self {
         guard
             let instanceConfiguration,
-            case let InstanceConfiguration.v2(_, translationLanguages) = instanceConfiguration
+            case let InstanceConfiguration.fromEndpointV2(_, translationLanguages) = instanceConfiguration
         else {
-            return copy(instanceConfiguration: .v2(instance, [:]))
+            return copy(instanceConfiguration: .fromEndpointV2(instance, [:]))
         }
-        return copy(instanceConfiguration: .v2(instance, translationLanguages))
+        return copy(instanceConfiguration: .fromEndpointV2(instance, translationLanguages))
     }
     
     @MainActor
     func updating(translationLanguages: TranslationLanguages) -> Self {
         switch self.instanceConfiguration {
-        case .v1(let instance):
-            return copy(instanceConfiguration: .v1(instance))
-        case .v2(let instance, _):
-            return copy(instanceConfiguration: .v2(instance, translationLanguages))
+        case .fromEndpointV1(let instance):
+            return copy(instanceConfiguration: .fromEndpointV1(instance))
+        case .fromEndpointV2(let instance, _):
+            return copy(instanceConfiguration: .fromEndpointV2(instance, translationLanguages))
         case .none:
             return self
         }

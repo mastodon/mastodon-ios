@@ -706,7 +706,7 @@ extension ComposeContentViewModel {
             pollExpireConfigurationOption: pollExpireConfigurationOption,
             pollMultipleConfigurationOption: pollMultipleConfigurationOption,
             visibility: interactionSettings.visibility,
-            quotePolicy: interactionSettings.quotability,
+            quotePolicy: AuthenticationServiceProvider.shared.currentInstanceConfiguration?.isAvailable(.quotePosts) == true ? interactionSettings.quotability : nil,
             language: language
         )
     }

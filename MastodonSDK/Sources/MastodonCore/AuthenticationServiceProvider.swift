@@ -22,6 +22,8 @@ public class AuthenticationServiceProvider: ObservableObject {
     var disposeBag = Set<AnyCancellable>()
     
     public let currentActiveUser = CurrentValueSubject<MastodonAuthenticationBox?, Never>(nil)
+    public var currentInstanceConfiguration: MastodonAuthentication.InstanceConfiguration? {  currentActiveUser.value?.authentication.instanceConfiguration
+    }
     @Published public var mastodonAuthenticationBoxes: [MastodonAuthenticationBox] = []
     @Published public var didChangeFollowersAndFollowing: String?
     

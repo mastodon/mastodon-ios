@@ -722,7 +722,7 @@ struct NotificationsLoader {
         let canUseGroupedNotifications = {
             switch scope {
             case .everything, .mentions:
-                return currentInstance.canGroupNotifications
+                return currentInstance.isAvailable(.groupNotifications)
             case .fromRequest:
                 return false
             }

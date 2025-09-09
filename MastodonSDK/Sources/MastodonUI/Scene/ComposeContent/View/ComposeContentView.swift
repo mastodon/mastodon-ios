@@ -45,7 +45,7 @@ public struct ComposeContentView: View {
                 
                 // visibility and quotability
                 HStack {
-                    if Mastodon.API.Statuses._allowComposingQuotePosts {
+                    if AuthenticationServiceProvider.shared.currentInstanceConfiguration?.isAvailable(.quotePosts) == true {
                         interactionSettingsButton
                             .fixedSize(horizontal: true, vertical: false)
                         Spacer().frame(maxWidth: .infinity)
