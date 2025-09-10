@@ -804,8 +804,8 @@ public enum L10n {
         public static let `public` = L10n.tr("Localizable", "Scene.Compose.Visibility.Public", fallback: "Public")
         /// Visibility
         public static let title = L10n.tr("Localizable", "Scene.Compose.Visibility.Title", fallback: "Visibility")
-        /// Unlisted
-        public static let unlisted = L10n.tr("Localizable", "Scene.Compose.Visibility.Unlisted", fallback: "Unlisted")
+        /// Quiet public
+        public static let unlisted = L10n.tr("Localizable", "Scene.Compose.Visibility.Unlisted", fallback: "Quiet public")
       }
       public enum VisibilityAndQuotability {
         /// Private mention

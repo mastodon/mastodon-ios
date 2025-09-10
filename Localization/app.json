@@ -580,7 +580,7 @@
             "visibility": {
                 "title": "Visibility",
                 "public": "Public",
-                "unlisted": "Unlisted",
+                "unlisted": "Quiet public",
                 "private": "Followers only",
                 "direct": "Only people I mention"
             },
