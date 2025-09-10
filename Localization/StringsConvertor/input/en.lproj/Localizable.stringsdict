@@ -319,7 +319,7 @@
         <key>one</key>
         <string>1 reblog</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld boosts</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
@@ -335,7 +335,7 @@
         <key>one</key>
         <string>1 re-blog</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld boosts</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
