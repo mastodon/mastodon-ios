@@ -655,7 +655,7 @@
                 },
                 "confirm_unblock_domain": {
                     "title": "Avblockera domän",
-                    "message": "Confirm to unblock domain %s"
+                    "message": "Bekräfta att avblockera domän %s"
                 }
             },
             "accessibility": {
@@ -681,7 +681,7 @@
             "title": "Favoriserad av"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "Knuffad av"
         },
         "search": {
             "title": "Sök",
@@ -710,13 +710,13 @@
                 "hashtag": "Gå till #%s",
                 "no_user": {
                     "title": "Inget användarkonto hittades",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "message": "Det finns inget användarkonto \"%s\" på %s"
                 },
                 "empty_state": {
                     "no_results": "Inga resultat"
                 },
                 "recent_search": "Senaste sökningarna",
-                "no_recent_searches": "No recent searches.",
+                "no_recent_searches": "Inga sökningar nyligen.",
                 "clear_all": "Rensa alla",
                 "clear": "Rensa"
             }
@@ -741,43 +741,43 @@
             },
             "headers": {
                 "report": "Rapportera",
-                "sign_up": "Signup",
+                "sign_up": "Registrering",
                 "favourite": "Favorit",
                 "follow": "Följ",
-                "follow_request": "Follow request",
-                "moderation_warning": "Warning",
+                "follow_request": "Skicka följarförfrågan",
+                "moderation_warning": "Varning",
                 "poll": "Omröstning",
                 "boost": "Knuffa",
-                "severed_relationships": "Domain block",
+                "severed_relationships": "Domänblockering",
                 "status": "Inlägg",
                 "edit": "Redigera"
             },
             "grouped_notification_description": {
-                "your_poll_has_ended": "Your poll has ended",
-                "single_name_edited_a_post": "%@ edited a post you interacted with",
-                "single_name_ran_poll": "%@ ran %@",
-                "single_name_mentioned_you": "%@ mentioned you",
-                "single_name_requested_to_follow_you": "%@ requested to follow you",
-                "single_name_posted": "%@ posted:",
-                "single_name_boosted": "%@ boosted:",
-                "single_name_favourited": "%@ favorited:",
-                "single_name_followed_you": "%@ followed you",
-                "multiple_people_boosted": "%@ boosted:",
-                "multiple_people_favourited": "%@ favorited:",
-                "multiple_people_followed_you": "%@ followed you",
-                "mulitple_people_signed_up": "%@ new signups",
-                "single_name_signed_up": "%@ signed up",
-                "someone_reported_account_for_rule_violation": "Someone reported %@ for rule violation.",
-                "someone_reported_posts_from_account_for_rule_violation": "Someone reported %@ from %@ for rule violation."
+                "your_poll_has_ended": "Din omröstning har avslutats",
+                "single_name_edited_a_post": "%@ redigerade ett inlägg du interagerat med",
+                "single_name_ran_poll": "%@ körde %@",
+                "single_name_mentioned_you": "%@ nämnde dig",
+                "single_name_requested_to_follow_you": "%@ har begärt att följa dig",
+                "single_name_posted": "%@ postade:",
+                "single_name_boosted": "%@ knuffade:",
+                "single_name_favourited": "%@ favoritmarkerade:",
+                "single_name_followed_you": "%@ följde dig",
+                "multiple_people_boosted": "%@ knuffade:",
+                "multiple_people_favourited": "%@ favoritmarkerade:",
+                "multiple_people_followed_you": "%@ följde dig",
+                "mulitple_people_signed_up": "%@ nya registreringar",
+                "single_name_signed_up": "%@ registrerade sig",
+                "someone_reported_account_for_rule_violation": "Någon rapporterade %@ för regelbrott.",
+                "someone_reported_posts_from_account_for_rule_violation": "Någon rapporterade %@ från %@ för regelbrott."
             },
             "notification_description": {
                 "followed_you": "följde dig",
                 "favorited_your_post": "favoriserade ditt inlägg",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "knuffade din status",
                 "mentioned_you": "nämnde dig",
                 "request_to_follow_you": "begär att följa dig",
                 "poll_has_ended": "omröstningen har avslutats",
-                "relationship_severance": "An admin from %@ has blocked %@, including %@."
+                "relationship_severance": "En administratör från %@ har blockerat %@, inklusive %@."
             },
             "keyobard": {
                 "show_everything": "Visa allt",
@@ -799,7 +799,7 @@
                 "suspend": "Ditt konto har stängts av.",
                 "learn_more": "Läs mer"
             },
-            "learn_more_about_server_blocks": "Learn more about server blocks",
+            "learn_more_about_server_blocks": "Läs mer om serverblock",
             "filtered_notification": {
                 "title": "Filtered Notifications",
                 "accept": "Godkänn",
