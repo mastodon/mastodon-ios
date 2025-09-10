@@ -231,7 +231,9 @@
                     "accessibility_label": "%s, attachment %d of %d",
                     "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
                     "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions",
+                    "preview_not_available": "Preview not available",
+                    "tap_to_open_in_browser": "Tap to open in browser"
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
@@ -248,6 +250,12 @@
                 "card": {
                     "by": "By",
                     "by_author": "By %s"
+                },
+                "quote": {
+                    "pending" : "Post pending",
+                    "removed_by_author" : "Post removed by author",
+                    "unavailable" : "Post unavailable",
+                    "pending_explanation_message" : "On Mastodon, you can control whether someone can quote you. This post is pending while we’re getting the original author’s approval."
                 }
             },
             "friendship": {
@@ -570,10 +578,29 @@
                 "placeholder": "Write an accurate warning here..."
             },
             "visibility": {
+                "title": "Visibility",
                 "public": "Public",
                 "unlisted": "Quiet public",
                 "private": "Followers only",
                 "direct": "Only people I mention"
+            },
+            "visibility_and_quotability": {
+                "title": "Visibility and Interaction",
+                "subtitle": "Control who can interact with this post. Global settings can be found under Preferences > Other.",
+                "public_anyone": "Public, anyone can quote",
+                "public_followers": "Public, quotes limited",
+                "public_only_me": "Public, quotes disabled",
+                "unlisted_anyone": "Quiet public, anyone can quote",
+                "unlisted_followers": "Quiet public, quotes limited",
+                "unlisted_only_me": "Quiet public, quotes disabled",
+                "private_only_me": "Followers",
+                "direct_only_me": "Private mention"
+            },
+            "quote_permission_policy": {
+                "title": "Who can quote",
+                "anyone": "Anyone",
+                "followers": "Followers only",
+                "only_me": "Just me"
             },
             "auto_complete": {
                 "space_to_add": "Space to add"
@@ -767,11 +794,13 @@
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
                 "single_name_edited_a_post": "%@ edited a post you interacted with",
+                "single_name_edited_a_post_you_quoted": "%@ edited a post you quoted",
                 "single_name_ran_poll": "%@ ran %@",
                 "single_name_mentioned_you": "%@ mentioned you",
                 "single_name_requested_to_follow_you": "%@ requested to follow you",
                 "single_name_posted": "%@ posted:",
                 "single_name_boosted": "%@ boosted:",
+                "single_name_quoted": "%@ quoted you",
                 "single_name_favourited": "%@ favorited:",
                 "single_name_followed_you": "%@ followed you",
                 "multiple_people_boosted": "%@ boosted:",
