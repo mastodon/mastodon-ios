@@ -156,9 +156,9 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "답장",
                 "private_reply": "Private reply",
-                "mention": "Mention",
+                "mention": "멘션",
                 "private_mention": "Private mention",
                 "user_reblogged": "%s 님이 부스트했습니다",
                 "user_replied_to": "%s 님에게 답장",
@@ -581,7 +581,7 @@
                 "discard_post": "글 버리기",
                 "publish_post": "게시",
                 "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
+                "toggle_content_warning": "열람 주의 토글하기",
                 "append_attachment_entry": "Add Attachment - %s",
                 "select_visibility_entry": "Select Visibility - %s"
             },
@@ -642,11 +642,11 @@
                     "message": "%s 차단 해제 확인"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
+                    "title": "부스트 표시",
                     "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
+                    "title": "부스트 숨기기",
                     "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
@@ -732,7 +732,7 @@
             "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "즐겨찾기"
         },
         "notification": {
             "title": {
@@ -740,17 +740,17 @@
                 "Mentions": "멘션"
             },
             "headers": {
-                "report": "Report",
+                "report": "신고",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "즐겨찾기",
+                "follow": "팔로우",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
+                "poll": "투표",
+                "boost": "부스트",
                 "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "status": "게시물",
+                "edit": "수정"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -802,7 +802,7 @@
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
+                "accept": "수락",
                 "dismiss": "Dismiss"
             },
             "policy": {
@@ -833,7 +833,7 @@
             "overview": {
                 "title": "설정",
                 "general": "General",
-                "notifications": "Notifications",
+                "notifications": "알림",
                 "privacy_safety": "Privacy & Safety",
                 "support_mastodon": "Support Mastodon",
                 "about_mastodon": "About Mastodon",
@@ -841,14 +841,14 @@
                 "logout": "Logout %@"
             },
             "about_mastodon": {
-                "title": "About",
+                "title": "정보",
                 "more_settings": "Even More Settings",
                 "contribute_to_mastodon": "Contribute to Mastodon",
                 "privacy_policy": "개인정보처리방침",
                 "clear_media_storage": "Clear Media Storage"
             },
             "server_details": {
-                "about": "About",
+                "about": "정보",
                 "rules": "Rules",
                 "about_instance": {
                     "title": "Administrator",
@@ -876,7 +876,7 @@
                     "show_animations": "Play Animated Avatars and Emoji"
                 },
                 "language": {
-                    "section_title": "Language",
+                    "section_title": "언어",
                     "default_post_language": "Default Post Language"
                 },
                 "links": {
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "Appear in Search Engines"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Support Mastodon",
                 "manage": "Manage donations"
             }
         },
@@ -1059,7 +1059,7 @@
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
+                "display_name": "해시태그",
                 "description": "Shows a recent post with the selected hashtag."
             },
             "not_found": {

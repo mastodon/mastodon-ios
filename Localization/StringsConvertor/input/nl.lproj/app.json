@@ -84,14 +84,14 @@
                 "save": "Bewaar",
                 "ok": "Ok",
                 "done": "Klaar",
-                "confirm": "Bevestigen",
-                "continue": "Ga verder",
+                "confirm": "Bevestig",
+                "continue": "Ga door",
                 "compose": "Bericht schrijven",
-                "cancel": "Annuleren",
+                "cancel": "Annuleer",
                 "discard": "Weggooien",
                 "try_again": "Opnieuw proberen",
-                "take_photo": "Foto maken",
-                "save_photo": "Foto bewaren",
+                "take_photo": "Maak foto",
+                "save_photo": "Bewaar foto",
                 "copy_photo": "Kopieer foto",
                 "sign_in": "Inloggen",
                 "see_more": "Meer tonen",
@@ -100,15 +100,15 @@
                 "share": "Deel",
                 "share_user": "%s delen",
                 "share_post": "Deel bericht",
-                "open_in_safari": "In Safari openen",
-                "open_in_browser": "In browser openen",
+                "open_in_safari": "Open in Safari",
+                "open_in_browser": "Open in browser",
                 "find_people": "Zoek mensen om te volgen",
                 "manually_search": "Handmatig zoeken",
                 "skip": "Overslaan",
                 "reply": "Reageer",
-                "report_user": "%s rapporteren",
-                "block_domain": "%s blokkeren",
-                "unblock_domain": "%s deblokkeren",
+                "report_user": "Rapporteer %s",
+                "block_domain": "Blokkeer %s",
+                "unblock_domain": "Deblokkeer %s",
                 "settings": "Instellingen",
                 "delete": "Verwijder",
                 "translate_post": {
@@ -197,7 +197,7 @@
                         "reblog": "Boost",
                         "unreblog": "Boost ongedaan maken"
                     },
-                    "copy_link": "Link kopiëren"
+                    "copy_link": "Kopieer link"
                 },
                 "tag": {
                     "url": "URL",
@@ -217,7 +217,7 @@
                     "translated_from": "Vertaald uit het %s door %s",
                     "unknown_language": "Onbekend",
                     "unknown_provider": "Onbekend",
-                    "show_original": "Origineel bekijken"
+                    "show_original": "Toon origineel"
                 },
                 "media": {
                     "accessibility_label": "%s, bijlage %d van %d",
@@ -252,7 +252,7 @@
                 "block": "Blokkeren",
                 "block_user": "%s blokkeren",
                 "block_domain": "Server %s blokkeren",
-                "unblock": "Deblokkeren",
+                "unblock": "Deblokkeer",
                 "unblock_user": "%s deblokkeren",
                 "blocked": "Geblokkeerd",
                 "domain_blocked": "Server geblokkeerd",
@@ -388,7 +388,7 @@
             "title": "Account registreren",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
+                    "label": "Geboortedatum",
                     "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
                 },
                 "avatar": {
@@ -620,7 +620,7 @@
             "segmented_control": {
                 "posts": "Berichten",
                 "replies": "Reacties",
-                "posts_and_replies": "Berichten en reacties",
+                "posts_and_replies": "Reacties",
                 "media": "Media",
                 "about": "Over"
             },

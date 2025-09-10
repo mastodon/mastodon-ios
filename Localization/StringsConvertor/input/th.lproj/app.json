@@ -740,17 +740,17 @@
                 "Mentions": "การกล่าวถึง"
             },
             "headers": {
-                "report": "Report",
+                "report": "รายงาน",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "ชื่นชอบ",
+                "follow": "ติดตาม",
                 "follow_request": "คำขอติดตาม",
                 "moderation_warning": "คำเตือน",
                 "poll": "การสำรวจความคิดเห็น",
-                "boost": "Boost",
+                "boost": "ดัน",
                 "severed_relationships": "การปิดกั้นโดเมน",
                 "status": "โพสต์",
-                "edit": "Edit"
+                "edit": "แก้ไข"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "การสำรวจความคิดเห็นของคุณได้สิ้นสุดแล้ว",

@@ -156,9 +156,9 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "Відповісти",
                 "private_reply": "Private reply",
-                "mention": "Mention",
+                "mention": "Згадати",
                 "private_mention": "Private mention",
                 "user_reblogged": "%s поширено",
                 "user_replied_to": "Відповів %s",
@@ -740,17 +740,17 @@
                 "Mentions": "Згадки"
             },
             "headers": {
-                "report": "Report",
+                "report": "Скарга",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "Улюблене",
+                "follow": "Підписатися",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
+                "poll": "Опитування",
+                "boost": "Поширити",
                 "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "status": "Допис",
+                "edit": "Редагувати"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -802,7 +802,7 @@
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
+                "accept": "Прийняти",
                 "dismiss": "Dismiss"
             },
             "policy": {
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "З'являтися в пошукових системах"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Підтримка Mastodon",
                 "manage": "Manage donations"
             }
         },

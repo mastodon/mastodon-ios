@@ -54,22 +54,22 @@
                 "button": "OK"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
+                "title": "Media saknar Alt-text",
+                "message": "%d av dina bilder saknar alt-text.\nPublicera ändå?",
                 "cancel": "Avbryt",
-                "post": "Post"
+                "post": "Inlägg"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
-                "title_unboost": "Unboost Post?",
+                "title_boost": "Knuffa inlägg?",
+                "title_unboost": "Ta bort knuff på inlägg?",
                 "cancel": "Avbryt",
-                "boost": "Boost",
-                "unboost": "Unboost"
+                "boost": "Knuffa",
+                "unboost": "Ta bort knuff"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
+                "title": "Sluta följa %@?",
                 "cancel": "Avbryt",
-                "unfollow": "Unfollow"
+                "unfollow": "Avfölj"
             }
         },
         "controls": {
@@ -143,9 +143,9 @@
                     "next_status": "Nästa inlägg",
                     "open_status": "Öppna inlägg",
                     "open_author_profile": "Öppna författarens profil",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "Öppna profil av knuffare",
                     "reply_status": "Svara på inlägg",
-                    "toggle_reblog": "Toggle Boost on Post",
+                    "toggle_reblog": "Aktivera knuff på inlägg",
                     "toggle_favorite": "Växla favorit på inlägg",
                     "toggle_content_warning": "Växla innehållsvarning",
                     "preview_image": "Förhandsgranska bild"
@@ -156,11 +156,11 @@
                 }
             },
             "status": {
-                "reply": "Reply",
-                "private_reply": "Private reply",
-                "mention": "Mention",
-                "private_mention": "Private mention",
-                "user_reblogged": "%s boosted",
+                "reply": "Svara",
+                "private_reply": "Privat svar",
+                "mention": "Omnämn",
+                "private_mention": "Privat omnämnande",
+                "user_reblogged": "%s knuffade",
                 "user_replied_to": "Svarade på %s",
                 "show_post": "Visa inlägg",
                 "show_user_profile": "Visa användarprofil",
@@ -182,8 +182,8 @@
                 },
                 "actions": {
                     "reply": "Svara",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reblog": "Knuffa",
+                    "unreblog": "Ångra knuff",
                     "favorite": "Favorit",
                     "unfavorite": "Ta bort favorit",
                     "menu": "Meny",
@@ -194,8 +194,8 @@
                     "share_link_in_post": "Dela länk i inlägg",
                     "tap_then_hold_to_show_menu": "Tryck och håll ned för att visa menyn",
                     "a11y_labels": {
-                        "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "reblog": "Knuffa",
+                        "unreblog": "Ångra knuff"
                     },
                     "copy_link": "Kopiera länk"
                 },
@@ -234,8 +234,8 @@
                 },
                 "edited_at_timestamp_prefix": "Ändrad %s",
                 "edit_history": {
-                    "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "title": "Redigeringshistorik",
+                    "original_post": "Ursprungligt inlägg · %s"
                 },
                 "card": {
                     "by": "Av",
@@ -244,26 +244,26 @@
             },
             "friendship": {
                 "follow": "Följ",
-                "follow_back": "Follow back",
+                "follow_back": "Följ tillbaka",
                 "following": "Följer",
-                "mutual": "Mutual",
+                "mutual": "Ömsesidig",
                 "request": "Följ",
                 "pending": "Väntande",
                 "block": "Blockera",
                 "block_user": "Blockera %s",
-                "block_domain": "Block domain %s",
+                "block_domain": "Blockera domän %s",
                 "unblock": "Avblockera",
                 "unblock_user": "Avblockera %s",
                 "blocked": "Blockerad",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Domän blockerad",
                 "mute": "Tysta",
                 "mute_user": "Tysta %s",
                 "unmute": "Avtysta",
                 "unmute_user": "Avtysta %s",
                 "muted": "Tystad",
                 "edit_info": "Redigera info",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "Visa knuffar",
+                "hide_reblogs": "Dölj knuffar"
             },
             "timeline": {
                 "filtered": "Filtrerat",
@@ -327,7 +327,7 @@
             "title": "Välj server",
             "button": {
                 "language": "Språk",
-                "signup_speed": "Sign-up Speed",
+                "signup_speed": "Registreringshastighet",
                 "category": {
                     "all": "Alla",
                     "all_accessiblity_description": "Kategori: Alla",
@@ -362,7 +362,7 @@
             },
             "signup_speed": {
                 "all": "Allt",
-                "instant": "Instant Sign-up",
+                "instant": "Omedelbar registrering",
                 "manually_reviewed": "Manuell granskning"
             },
             "language": {
@@ -374,8 +374,8 @@
             "no_server_selected_hint": "Vi kommer att välja en server baserat på ditt språk om du fortsätter utan att göra ett val."
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "Din integritet",
+            "description": "Även om Mastodon-appen inte samlar in några data, kan servern du registrerar dig genom ha en annan policy.\n\nOm du inte håller med policyn för **%s**, kan du gå tillbaka och välja en annan server.",
             "policy": {
                 "ios": "Integritetspolicy - Mastodon för iOS",
                 "server": "Integritetspolicy - %s"
@@ -388,8 +388,8 @@
             "title": "Skapa konto",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
-                    "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+                    "label": "Födelsedatum",
+                    "explanation_message": "Vi måste se till att du är minst %d för att ansluta till %@. Detta kommer inte att lagras efter registreringen."
                 },
                 "avatar": {
                     "delete": "Radera"
@@ -397,7 +397,7 @@
                 "username": {
                     "placeholder": "användarnamn",
                     "duplicate_prompt": "Det här användarnamnet är redan taget.",
-                    "suggestion": "amazing_%@"
+                    "suggestion": "fantastiskt_%@"
                 },
                 "display_name": {
                     "placeholder": "visningsnamn"
@@ -451,13 +451,13 @@
         },
         "server_rules": {
             "title": "Serverregler",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "subtitle": "Genom att fortsätta, samtycker du till att följa följande regler som fastställts och verkställs av **%s** moderatorer.",
             "prompt": "Genom att fortsätta omfattas du av villkoren för tjänsten och sekretesspolicyn för %s.",
             "terms_of_service": "användarvillkor",
             "privacy_policy": "integritetspolicy",
             "button": {
                 "confirm": "Jag godkänner",
-                "disagree": "Disagree"
+                "disagree": "Stämmer ej"
             }
         },
         "confirm_email": {
@@ -480,30 +480,30 @@
             "didnt_get_link": {
                 "prefix": "Fick du ingen länk?",
                 "resend_in": "Skicka igen (%@)",
-                "resend_now": "Resend now."
+                "resend_now": "Skicka om nu."
             }
         },
         "home_timeline": {
             "title": "Hem",
             "timeline_menu": {
-                "following": "Following",
-                "local_community": "Local",
+                "following": "Följer",
+                "local_community": "Lokal",
                 "lists": {
                     "title": "Listor",
                     "empty_message": "Du har inga listor"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "Följda hashtaggar",
+                    "empty_message": "Du följer inga hashtaggar"
                 }
             },
             "timeline_pill": {
                 "offline": "Offline",
                 "new_posts": "Nya inlägg",
-                "post_sent": "Post Sent"
+                "post_sent": "Inlägg skickat"
             },
             "empty_state": {
-                "list_empty_message_title": "This list is empty"
+                "list_empty_message_title": "Den här listan är tom"
             }
         },
         "suggestion_account": {
@@ -587,7 +587,7 @@
             },
             "language": {
                 "title": "Inläggsspråk",
-                "suggested": "Suggested",
+                "suggested": "Föreslagen",
                 "recent": "Senaste",
                 "other": "Andra språk…"
             }
@@ -603,7 +603,7 @@
                 "other_posts": "inlägg",
                 "other_following": "följer",
                 "other_followers": "följare",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "följer varandra"
             },
             "fields": {
                 "joined": "Gick med",
@@ -642,19 +642,19 @@
                     "message": "Bekräfta för att avblockera %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "Visa knuffar",
+                    "message": "Bekräfta för att visa knuffar"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "Dölj knuffar",
+                    "message": "Bekräfta för att dölja knuffar"
                 },
                 "confirm_block_domain": {
                     "title": "Blockera domän",
-                    "message": "Confirm to block domain %s"
+                    "message": "Bekräfta att blockera domän %s"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
+                    "title": "Avblockera domän",
                     "message": "Confirm to unblock domain %s"
                 }
             },
@@ -740,17 +740,17 @@
                 "Mentions": "Omnämningar"
             },
             "headers": {
-                "report": "Report",
+                "report": "Rapportera",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "Favorit",
+                "follow": "Följ",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
+                "poll": "Omröstning",
+                "boost": "Knuffa",
                 "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "status": "Inlägg",
+                "edit": "Redigera"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -802,7 +802,7 @@
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
+                "accept": "Godkänn",
                 "dismiss": "Dismiss"
             },
             "policy": {
@@ -886,7 +886,7 @@
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Notiser",
                 "policy": {
                     "title": "Få aviseringar från",
                     "anyone": "Anyone",
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "Appear in Search Engines"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Stöd Mastodon",
                 "manage": "Manage donations"
             }
         },
@@ -1059,7 +1059,7 @@
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
+                "display_name": "Hashtagg",
                 "description": "Shows a recent post with the selected hashtag."
             },
             "not_found": {

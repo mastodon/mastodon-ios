@@ -56,20 +56,20 @@
             "media_missing_alt_text": {
                 "title": "Media Missing Alt Text",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "cancel": "إلغاء",
+                "post": "منشور"
             },
             "boost_a_post": {
                 "title_boost": "Boost Post?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
+                "cancel": "إلغاء",
                 "boost": "Boost",
                 "unboost": "Unboost"
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "cancel": "إلغاء",
+                "unfollow": "إلغاءُ المُتابَعَة"
             }
         },
         "controls": {
@@ -156,9 +156,9 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "الرَّد",
                 "private_reply": "Private reply",
-                "mention": "Mention",
+                "mention": "إشارة",
                 "private_mention": "Private mention",
                 "user_reblogged": "%s boosted",
                 "user_replied_to": "رَدًا على %s",
@@ -486,7 +486,7 @@
         "home_timeline": {
             "title": "الرَّئِيسَة",
             "timeline_menu": {
-                "following": "Following",
+                "following": "مُتابَع",
                 "local_community": "Local",
                 "lists": {
                     "title": "Lists",
@@ -740,17 +740,17 @@
                 "Mentions": "الإشارات"
             },
             "headers": {
-                "report": "Report",
+                "report": "إبلاغ",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "التفضيل",
+                "follow": "مُتابَعَة",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
-                "poll": "Poll",
+                "poll": "استطلاع رأي",
                 "boost": "Boost",
                 "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "status": "منشور",
+                "edit": "تَحرير"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -802,7 +802,7 @@
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
+                "accept": "قَبُول",
                 "dismiss": "Dismiss"
             },
             "policy": {
@@ -831,9 +831,9 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
+                "title": "الإعدادات",
                 "general": "General",
-                "notifications": "Notifications",
+                "notifications": "الإشعارات",
                 "privacy_safety": "Privacy & Safety",
                 "support_mastodon": "Support Mastodon",
                 "about_mastodon": "About Mastodon",
@@ -841,14 +841,14 @@
                 "logout": "Logout %@"
             },
             "about_mastodon": {
-                "title": "About",
+                "title": "حَول",
                 "more_settings": "Even More Settings",
                 "contribute_to_mastodon": "Contribute to Mastodon",
                 "privacy_policy": "Privacy Policy",
                 "clear_media_storage": "Clear Media Storage"
             },
             "server_details": {
-                "about": "About",
+                "about": "حَول",
                 "rules": "Rules",
                 "about_instance": {
                     "title": "Administrator",
@@ -876,17 +876,17 @@
                     "show_animations": "Play Animated Avatars and Emoji"
                 },
                 "language": {
-                    "section_title": "Language",
+                    "section_title": "اللغة",
                     "default_post_language": "Default Post Language"
                 },
                 "links": {
                     "section_title": "Links",
                     "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_browser": "الفَتحُ في المُتَصَفِّح"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "الإشعارات",
                 "policy": {
                     "title": "Get Notifications from",
                     "anyone": "Anyone",
@@ -897,7 +897,7 @@
                 "alert": {
                     "mentions_and_replies": "Mentions & Replies",
                     "boosts": "Boosts",
-                    "favorites": "Favorites",
+                    "favorites": "المفضلة",
                     "new_followers": "New Followers"
                 },
                 "disabled": {
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "Appear in Search Engines"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Support Mastodon",
                 "manage": "Manage donations"
             }
         },

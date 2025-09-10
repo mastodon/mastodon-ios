@@ -225,7 +225,7 @@
                     "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
                     "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s s ɣur %s",
                 "buttons": {
                     "reblogs_title": "Izuzar",
                     "favorites_title": "Imenyafen",
@@ -486,7 +486,7 @@
         "home_timeline": {
             "title": "Agejdan",
             "timeline_menu": {
-                "following": "Following",
+                "following": "Yettwaḍfar",
                 "local_community": "Adigan",
                 "lists": {
                     "title": "Tibdarin",
@@ -598,10 +598,10 @@
             },
             "dashboard": {
                 "my_posts": "tisuffaɣ",
-                "my_following": "following",
+                "my_following": "yeṭṭafar",
                 "my_followers": "followers",
                 "other_posts": "posts",
-                "other_following": "following",
+                "other_following": "yeṭṭafar",
                 "other_followers": "followers",
                 "familiar_followers": "mutuals"
             },
@@ -646,7 +646,7 @@
                     "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
+                    "title": "Ffer izuzar",
                     "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
@@ -740,10 +740,10 @@
                 "Mentions": "Abdar"
             },
             "headers": {
-                "report": "Report",
+                "report": "Aneqqis",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "Anurif",
+                "follow": "Ḍfeṛ",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
                 "poll": "Poll",

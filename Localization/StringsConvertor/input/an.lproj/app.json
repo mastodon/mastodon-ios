@@ -51,25 +51,25 @@
             "translation_failed": {
                 "title": "Note",
                 "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "button": "Acceptar"
             },
             "media_missing_alt_text": {
                 "title": "Media Missing Alt Text",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "cancel": "Cancelar",
+                "post": "Publicación"
             },
             "boost_a_post": {
                 "title_boost": "Boost Post?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
+                "cancel": "Cancelar",
                 "boost": "Boost",
                 "unboost": "Unboost"
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "cancel": "Cancelar",
+                "unfollow": "Deixar de seguir"
             }
         },
         "controls": {
@@ -115,11 +115,11 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit",
+                "edit_post": "Editar",
                 "bookmark": "Bookmark",
                 "remove_bookmark": "Remove Bookmark",
                 "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "unfollow": "Deixar de seguir a %s"
             },
             "tabs": {
                 "home": "Inicio",
@@ -127,7 +127,7 @@
                 "notifications": "Notificacions",
                 "profile": "Perfil",
                 "a11y": {
-                    "search": "Search",
+                    "search": "Buscar",
                     "explore": "Explore"
                 }
             },
@@ -156,9 +156,9 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "Responder",
                 "private_reply": "Private reply",
-                "mention": "Mention",
+                "mention": "Mención",
                 "private_mention": "Private mention",
                 "user_reblogged": "%s boosted",
                 "user_replied_to": "En respuesta a %s",
@@ -361,12 +361,12 @@
                 "no_results": "Sin resultaus"
             },
             "signup_speed": {
-                "all": "All",
+                "all": "Totas",
                 "instant": "Instant Sign-up",
                 "manually_reviewed": "Manual Review"
             },
             "language": {
-                "all": "All"
+                "all": "Totas"
             },
             "search": {
                 "placeholder": "Search name or URL"
@@ -486,7 +486,7 @@
         "home_timeline": {
             "title": "Inicio",
             "timeline_menu": {
-                "following": "Following",
+                "following": "Seguindo",
                 "local_community": "Local",
                 "lists": {
                     "title": "Lists",
@@ -598,10 +598,10 @@
             },
             "dashboard": {
                 "my_posts": "posts",
-                "my_following": "following",
+                "my_following": "seguindo",
                 "my_followers": "followers",
                 "other_posts": "posts",
-                "other_following": "following",
+                "other_following": "seguindo",
                 "other_followers": "followers",
                 "familiar_followers": "mutuals"
             },
@@ -740,17 +740,17 @@
                 "Mentions": "Mencions"
             },
             "headers": {
-                "report": "Report",
+                "report": "Reportar",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "Favorito",
+                "follow": "Seguir",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
                 "poll": "Poll",
                 "boost": "Boost",
                 "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "status": "Publicación",
+                "edit": "Editar"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -802,7 +802,7 @@
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
+                "accept": "Acceptar",
                 "dismiss": "Dismiss"
             },
             "policy": {
@@ -831,9 +831,9 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
+                "title": "Configuración",
                 "general": "General",
-                "notifications": "Notifications",
+                "notifications": "Notificacions",
                 "privacy_safety": "Privacy & Safety",
                 "support_mastodon": "Support Mastodon",
                 "about_mastodon": "About Mastodon",
@@ -841,14 +841,14 @@
                 "logout": "Logout %@"
             },
             "about_mastodon": {
-                "title": "About",
+                "title": "Sobre",
                 "more_settings": "Even More Settings",
                 "contribute_to_mastodon": "Contribute to Mastodon",
                 "privacy_policy": "Privacy Policy",
                 "clear_media_storage": "Clear Media Storage"
             },
             "server_details": {
-                "about": "About",
+                "about": "Sobre",
                 "rules": "Rules",
                 "about_instance": {
                     "title": "Administrator",
@@ -882,11 +882,11 @@
                 "links": {
                     "section_title": "Links",
                     "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_browser": "Ubrir en o navegador"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Notificacions",
                 "policy": {
                     "title": "Get Notifications from",
                     "anyone": "Anyone",
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "Appear in Search Engines"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Support Mastodon",
                 "manage": "Manage donations"
             }
         },
@@ -1006,8 +1006,8 @@
                 "posts_today": "posts today"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Seguir",
+                "unfollow": "Deixar de seguir"
             }
         },
         "donation": {
@@ -1059,7 +1059,7 @@
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
+                "display_name": "Etiqueta",
                 "description": "Shows a recent post with the selected hashtag."
             },
             "not_found": {

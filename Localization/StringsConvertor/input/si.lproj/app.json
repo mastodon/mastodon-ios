@@ -51,24 +51,24 @@
             "translation_failed": {
                 "title": "Note",
                 "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "button": "හරි"
             },
             "media_missing_alt_text": {
                 "title": "Media Missing Alt Text",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
+                "cancel": "අවලංගු",
                 "post": "Post"
             },
             "boost_a_post": {
                 "title_boost": "Boost Post?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
+                "cancel": "අවලංගු",
                 "boost": "Boost",
                 "unboost": "Unboost"
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
-                "cancel": "Cancel",
+                "cancel": "අවලංගු",
                 "unfollow": "Unfollow"
             }
         },
@@ -115,7 +115,7 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit",
+                "edit_post": "සංස්කරණය",
                 "bookmark": "Bookmark",
                 "remove_bookmark": "Remove Bookmark",
                 "follow": "Follow %s",
@@ -127,7 +127,7 @@
                 "notifications": "Notifications",
                 "profile": "Profile",
                 "a11y": {
-                    "search": "Search",
+                    "search": "සොයන්න",
                     "explore": "Explore"
                 }
             },
@@ -158,7 +158,7 @@
             "status": {
                 "reply": "Reply",
                 "private_reply": "Private reply",
-                "mention": "Mention",
+                "mention": "සැඳහුම",
                 "private_mention": "Private mention",
                 "user_reblogged": "%s boosted",
                 "user_replied_to": "Replied to %s",
@@ -361,12 +361,12 @@
                 "no_results": "ප්‍රතිඵල නැත"
             },
             "signup_speed": {
-                "all": "All",
+                "all": "සියල්ල",
                 "instant": "Instant Sign-up",
                 "manually_reviewed": "Manual Review"
             },
             "language": {
-                "all": "All"
+                "all": "සියල්ල"
             },
             "search": {
                 "placeholder": "Search name or URL"
@@ -423,7 +423,7 @@
             "error": {
                 "item": {
                     "username": "පරිශීලක නාමය",
-                    "email": "Email",
+                    "email": "වි-තැපෑල",
                     "password": "Password",
                     "agreement": "Agreement",
                     "locale": "Locale",
@@ -699,7 +699,7 @@
                 "accounts": {
                     "title": "Accounts you might like",
                     "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "follow": "අනුගමනය"
                 }
             },
             "searching": {
@@ -740,17 +740,17 @@
                 "Mentions": "Mentions"
             },
             "headers": {
-                "report": "Report",
+                "report": "වාර්තාව",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "ප්‍රියතමය",
+                "follow": "අනුගමනය",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
                 "poll": "Poll",
                 "boost": "Boost",
                 "severed_relationships": "Domain block",
                 "status": "Post",
-                "edit": "Edit"
+                "edit": "සංස්කරණය"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -802,7 +802,7 @@
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
+                "accept": "පිළිගන්න",
                 "dismiss": "Dismiss"
             },
             "policy": {
@@ -841,14 +841,14 @@
                 "logout": "Logout %@"
             },
             "about_mastodon": {
-                "title": "About",
+                "title": "පිළිබඳව",
                 "more_settings": "Even More Settings",
                 "contribute_to_mastodon": "Contribute to Mastodon",
                 "privacy_policy": "Privacy Policy",
                 "clear_media_storage": "Clear Media Storage"
             },
             "server_details": {
-                "about": "About",
+                "about": "පිළිබඳව",
                 "rules": "Rules",
                 "about_instance": {
                     "title": "Administrator",
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "Appear in Search Engines"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Support Mastodon",
                 "manage": "Manage donations"
             }
         },
@@ -1006,7 +1006,7 @@
                 "posts_today": "posts today"
             },
             "actions": {
-                "follow": "Follow",
+                "follow": "අනුගමනය",
                 "unfollow": "Unfollow"
             }
         },

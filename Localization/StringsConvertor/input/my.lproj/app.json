@@ -51,24 +51,24 @@
             "translation_failed": {
                 "title": "Note",
                 "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "button": "အိုကေ"
             },
             "media_missing_alt_text": {
                 "title": "Media Missing Alt Text",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
+                "cancel": "ပယ်ဖျက်",
                 "post": "Post"
             },
             "boost_a_post": {
                 "title_boost": "Boost Post?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
+                "cancel": "ပယ်ဖျက်",
                 "boost": "Boost",
                 "unboost": "Unboost"
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
-                "cancel": "Cancel",
+                "cancel": "ပယ်ဖျက်",
                 "unfollow": "Unfollow"
             }
         },
@@ -115,7 +115,7 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit",
+                "edit_post": "တည်းဖြတ်",
                 "bookmark": "Bookmark",
                 "remove_bookmark": "Remove Bookmark",
                 "follow": "Follow %s",
@@ -156,9 +156,9 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "စာပြန်",
                 "private_reply": "Private reply",
-                "mention": "Mention",
+                "mention": "ရည်ညွှန်း",
                 "private_mention": "Private mention",
                 "user_reblogged": "%s boosted",
                 "user_replied_to": "%s ထံ စာပြန်",
@@ -361,12 +361,12 @@
                 "no_results": "ရလဒ်မရှိပါ"
             },
             "signup_speed": {
-                "all": "All",
+                "all": "အားလုံး",
                 "instant": "Instant Sign-up",
                 "manually_reviewed": "Manual Review"
             },
             "language": {
-                "all": "All"
+                "all": "အားလုံး"
             },
             "search": {
                 "placeholder": "Search name or URL"
@@ -486,7 +486,7 @@
         "home_timeline": {
             "title": "အိမ်",
             "timeline_menu": {
-                "following": "Following",
+                "following": "စောင့်ကြည့်နေသည်",
                 "local_community": "Local",
                 "lists": {
                     "title": "Lists",
@@ -581,7 +581,7 @@
                 "discard_post": "Discard Post",
                 "publish_post": "Publish Post",
                 "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
+                "toggle_content_warning": "အကြောင်းအရာသတိပေးချက်ကို ဖွင့်၊ပိတ် လုပ်ပါ",
                 "append_attachment_entry": "Add Attachment - %s",
                 "select_visibility_entry": "မြင်နိုင်စွမ်း ရွေးချယ်ရန် - %s"
             },
@@ -687,7 +687,7 @@
             "title": "Search",
             "search_bar": {
                 "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "cancel": "ပယ်ဖျက်"
             },
             "recommend": {
                 "button_text": "See All",
@@ -699,7 +699,7 @@
                 "accounts": {
                     "title": "Accounts you might like",
                     "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "follow": "စောင့်ကြည့်ရန်"
                 }
             },
             "searching": {
@@ -713,7 +713,7 @@
                     "message": "There's no Useraccount \"%s\" on %s"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "ရလဒ်မရှိပါ"
                 },
                 "recent_search": "Recent searches",
                 "no_recent_searches": "No recent searches.",
@@ -742,15 +742,15 @@
             "headers": {
                 "report": "Report",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "အကြိုက်ဆုံး",
+                "follow": "စောင့်ကြည့်ရန်",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
                 "poll": "Poll",
                 "boost": "Boost",
                 "severed_relationships": "Domain block",
                 "status": "Post",
-                "edit": "Edit"
+                "edit": "တည်းဖြတ်"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -831,9 +831,9 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
+                "title": "ဆက်တင်များ",
                 "general": "General",
-                "notifications": "Notifications",
+                "notifications": "အသိပေးချက်များ",
                 "privacy_safety": "Privacy & Safety",
                 "support_mastodon": "Support Mastodon",
                 "about_mastodon": "About Mastodon",
@@ -882,11 +882,11 @@
                 "links": {
                     "section_title": "Links",
                     "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_browser": "Browser တွင် ဖွင့်ရန်"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "အသိပေးချက်များ",
                 "policy": {
                     "title": "Get Notifications from",
                     "anyone": "Anyone",
@@ -922,13 +922,13 @@
                 "appear_in_search_engines": "Appear in Search Engines"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Support Mastodon",
                 "manage": "Manage donations"
             }
         },
         "report": {
             "title_report": "Report",
-            "title": "Report %s",
+            "title": " %s ကို တိုင်ကြားရန်",
             "step1": "Step 1 of 2",
             "step2": "Step 2 of 2",
             "content1": "Are there any other posts you’d like to add to the report?",
@@ -974,9 +974,9 @@
                 "unfollow": "Unfollow",
                 "unfollowed": "Unfollowed",
                 "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
+                "mute_user": "%s ကို ပိတ်ထားရန်",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
+                "block_user": "%s ကို ဘလော့လုပ်ရန်",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
                 "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
             }
@@ -1006,7 +1006,7 @@
                 "posts_today": "posts today"
             },
             "actions": {
-                "follow": "Follow",
+                "follow": "စောင့်ကြည့်ရန်",
                 "unfollow": "Unfollow"
             }
         },
@@ -1059,7 +1059,7 @@
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
+                "display_name": "ဟက်ရှ်တက်ခ်",
                 "description": "Shows a recent post with the selected hashtag."
             },
             "not_found": {

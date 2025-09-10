@@ -156,10 +156,10 @@
                 }
             },
             "status": {
-                "reply": "Reply",
-                "private_reply": "Private reply",
-                "mention": "Mention",
-                "private_mention": "Private mention",
+                "reply": "Адказ",
+                "private_reply": "Асабісты адказ",
+                "mention": "Згадванне",
+                "private_mention": "Асабістае згадванне",
                 "user_reblogged": "%s пашырыў(-ла)",
                 "user_replied_to": "Адказаў %s",
                 "show_post": "Паказаць допіс",
@@ -244,9 +244,9 @@
             },
             "friendship": {
                 "follow": "Падпісацца",
-                "follow_back": "Follow back",
+                "follow_back": "Падпісацца ў адказ",
                 "following": "Падпісаны",
-                "mutual": "Mutual",
+                "mutual": "Узаемныя",
                 "request": "Запыт",
                 "pending": "Чакаецца",
                 "block": "Заблакіраваць",
@@ -388,8 +388,8 @@
             "title": "Стварыць уліковы запіс",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
-                    "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+                    "label": "Дата нараджэння",
+                    "explanation_message": "Мы павінны пераканацца, што вам не менш за %d, каб далучыцца да %@. Пасля рэгістрацыі гэта не будзе захавана."
                 },
                 "avatar": {
                     "delete": "Выдаліць"
@@ -716,7 +716,7 @@
                     "no_results": "Няма вынікаў"
                 },
                 "recent_search": "Нядаўнія запыты",
-                "no_recent_searches": "No recent searches.",
+                "no_recent_searches": "Гісторыя пошуку пустая.",
                 "clear_all": "Ачысціць усё",
                 "clear": "Ачысціць"
             }
@@ -740,21 +740,21 @@
                 "Mentions": "Згадванні"
             },
             "headers": {
-                "report": "Report",
-                "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
-                "follow_request": "Follow request",
-                "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
-                "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "report": "Паскардзіцца",
+                "sign_up": "Рэгістрацыя",
+                "favourite": "Упадабанае",
+                "follow": "Падпісацца",
+                "follow_request": "Запыт на падпіску",
+                "moderation_warning": "Папярэджанне",
+                "poll": "Апытанне",
+                "boost": "Пашырыць",
+                "severed_relationships": "Блакіроўка дамена",
+                "status": "Допіс",
+                "edit": "Рэдагаваць"
             },
             "grouped_notification_description": {
-                "your_poll_has_ended": "Your poll has ended",
-                "single_name_edited_a_post": "%@ edited a post you interacted with",
+                "your_poll_has_ended": "Ваша апытанне скончылася",
+                "single_name_edited_a_post": "%@ адрэдагаваў допіс, з якім вы ўзаемадзейнічалі",
                 "single_name_ran_poll": "%@ ran %@",
                 "single_name_mentioned_you": "%@ mentioned you",
                 "single_name_requested_to_follow_you": "%@ requested to follow you",
@@ -802,26 +802,26 @@
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
-                "dismiss": "Dismiss"
+                "accept": "Прыняць",
+                "dismiss": "Адхіліць"
             },
             "policy": {
                 "title": "Filter Notifications from…",
                 "not_following": {
-                    "title": "People you don't follow",
-                    "subtitle": "Until you manually approve them"
+                    "title": "Людзі, на якіх вы не падпісаны",
+                    "subtitle": "Пакуль вы не пацвердзіце іх уручную"
                 },
                 "no_follower": {
-                    "title": "People not following you",
-                    "subtitle": "Including people who have been following you fewer than 3 days"
+                    "title": "Людзі, якія не падпісаны на вас",
+                    "subtitle": "Уключаючы людзей, якія падпісаны на вас менш за 3 дні"
                 },
                 "new_account": {
-                    "title": "New accounts",
-                    "subtitle": "Created within the past 30 days"
+                    "title": "Новыя ўліковыя запісы",
+                    "subtitle": "Створана за апошнія 30 дзён"
                 },
                 "private_mentions": {
-                    "title": "Unsolicited private mentions",
-                    "subtitle": "Filtered unless it’s in reply to your own mention or if you follow the sender"
+                    "title": "Непажаданыя асаблівыя згадванні",
+                    "subtitle": "Фільтруецца за выключэннем адказу на вашае згадванне ці калі вы падпісаны на адпраўніка"
                 }
             }
         },
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "З'яўляцца ў Інтэрнэт-пошуку"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Падтрымаць Mastodon",
                 "manage": "Manage donations"
             }
         },

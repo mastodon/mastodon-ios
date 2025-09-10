@@ -61,10 +61,10 @@
             },
             "boost_a_post": {
                 "title_boost": "Đăng lại?",
-                "title_unboost": "Hủy đăng lại?",
+                "title_unboost": "Bỏ đăng lại?",
                 "cancel": "Hủy bỏ",
                 "boost": "Đăng lại",
-                "unboost": "Hủy đăng lại"
+                "unboost": "Bỏ đăng lại"
             },
             "unfollow_user": {
                 "title": "Bỏ theo dõi %@?",
@@ -230,7 +230,7 @@
                     "reblogs_title": "Lượt đăng lại",
                     "favorites_title": "Lượt thích",
                     "edit_history_title": "Lịch sử chỉnh sửa",
-                    "edit_history_detail": "Sửa lần cuối %s"
+                    "edit_history_detail": "Lần sửa cuối %s"
                 },
                 "edited_at_timestamp_prefix": "Sửa %s",
                 "edit_history": {

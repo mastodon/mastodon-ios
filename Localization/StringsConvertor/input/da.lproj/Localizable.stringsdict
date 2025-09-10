@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>plural.count.new_signups</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_signups@</string>
+      <key>count_signups</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>én person tilmeldte sig</string>
+        <key>other</key>
+        <string>%ld personer tilmeldte sig</string>
+      </dict>
+    </dict>
     <key>a11y.plural.count.unread.notification</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -13,15 +29,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 unread notification</string>
+        <string>1 ulæst notifikation</string>
         <key>other</key>
-        <string>%ld unread notifications</string>
+        <string>%ld ulæste notifikationer</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>Input-grænsen overstiger %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -29,15 +45,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 tegn</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld tegn</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>Input-grænsen forbliver %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -45,9 +61,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 tegn</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld tegn</string>
       </dict>
     </dict>
     <key>a11y.plural.count.characters_left</key>
@@ -61,9 +77,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character left</string>
+        <string>1 tegn tilbage</string>
         <key>other</key>
-        <string>%ld characters left</string>
+        <string>%ld tegn tilbage</string>
       </dict>
     </dict>
     <key>plural.count.others</key>
@@ -77,25 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one other</string>
+        <string>en anden</string>
         <key>other</key>
-        <string>%ld others</string>
-      </dict>
-    </dict>
-    <key>plural.count.new_signups</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@count_signups@</string>
-      <key>count_signups</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>ld</string>
-        <key>one</key>
-        <string>one new signup</string>
-        <key>other</key>
-        <string>%ld new signups</string>
+        <string>%ld andre</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person boosted:</string>
+        <string>en person fremhævede:</string>
         <key>other</key>
-        <string>%ld people boosted:</string>
+        <string>%ld personer fremhævede:</string>
       </dict>
     </dict>
     <key>plural.count.people_favourited</key>
@@ -125,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person favorited:</string>
+        <string>en person favoritmarkerede:</string>
         <key>other</key>
-        <string>%ld people favorited:</string>
+        <string>%ld personer favoritmarkerede:</string>
       </dict>
     </dict>
     <key>plural.count.people_followed_you</key>
@@ -141,9 +141,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person followed you</string>
+        <string>en person fulgte dig</string>
         <key>other</key>
-        <string>%ld people followed you</string>
+        <string>%ld personer fulgte dig</string>
       </dict>
     </dict>
     <key>plural.count.poll_that_you_and_others_voted_in</key>
@@ -157,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>a poll that you and one other voted in</string>
+        <string>en afstemning, som du og en anden stemte i</string>
         <key>other</key>
-        <string>a poll that you and %ld others voted in</string>
+        <string>en afstemning, som du og %ld andre stemte i</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -173,9 +173,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 media</string>
+        <string>1 medie</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld medier</string>
       </dict>
     </dict>
     <key>plural.count.image</key>
@@ -189,9 +189,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 image</string>
+        <string>1 billede</string>
         <key>other</key>
-        <string>%ld images</string>
+        <string>%ld billeder</string>
       </dict>
     </dict>
     <key>plural.count.gif</key>
@@ -223,7 +223,7 @@
         <key>one</key>
         <string>1 video</string>
         <key>other</key>
-        <string>%ld videos</string>
+        <string>%ld videoer</string>
       </dict>
     </dict>
     <key>plural.count.audio</key>
@@ -237,9 +237,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 audio</string>
+        <string>1 lydfil</string>
         <key>other</key>
-        <string>%ld audios</string>
+        <string>%ld lydfiler</string>
       </dict>
     </dict>
     <key>plural.count.attachment</key>
@@ -253,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 attachment</string>
+        <string>1 vedhæftning</string>
         <key>other</key>
-        <string>%ld attachments</string>
+        <string>%ld vedhæftninger</string>
       </dict>
     </dict>
     <key>plural.count.poll</key>
@@ -269,9 +269,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 poll</string>
+        <string>1 afstemning</string>
         <key>other</key>
-        <string>%ld polls</string>
+        <string>%ld afstemninger</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -285,9 +285,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>1 indlæg</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld indlæg</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -301,9 +301,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>1 favorit</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld favoritter</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -317,9 +317,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>1 genpostering</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld genposteringer</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
@@ -333,9 +333,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 re-blog</string>
+        <string>1 genpostering</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld genposteringer</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -349,9 +349,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reply</string>
+        <string>1 svar</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld svar</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -365,9 +365,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>1 stemme</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld stemmer</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -381,9 +381,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>1 vælger</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld vælgere</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -397,9 +397,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>1 person taler</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld personer taler</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -413,9 +413,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>1 følger</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld følger</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -429,9 +429,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>1 følger</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld følgere</string>
       </dict>
     </dict>
     <key>plural.count.of_your_followers</key>
@@ -445,9 +445,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 of your followers</string>
+        <string>1 af dine følgere</string>
         <key>other</key>
-        <string>%ld of your followers</string>
+        <string>%ld af dine følgere</string>
       </dict>
     </dict>
     <key>plural.count.accounts_that_you_follow</key>
@@ -461,9 +461,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 account that you follow</string>
+        <string>1 konto, som du følger</string>
         <key>other</key>
-        <string>%ld accounts that you follow</string>
+        <string>%ld konti, som du følger</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -525,7 +525,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>1 time tilbage</string>
         <key>other</key>
         <string>%ld timer tilbage</string>
       </dict>
@@ -541,7 +541,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>1 minut tilbage</string>
         <key>other</key>
         <string>%ld minutter tilbage</string>
       </dict>
@@ -557,7 +557,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>1 sekund tilbage</string>
         <key>other</key>
         <string>%ld sekunder tilbage</string>
       </dict>
@@ -573,9 +573,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>1 år siden</string>
         <key>other</key>
-        <string>%ldå siden</string>
+        <string>%ld år siden</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -605,7 +605,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>1 dag siden</string>
         <key>other</key>
         <string>%ld dage siden</string>
       </dict>
@@ -639,7 +639,7 @@
         <key>one</key>
         <string>1 min. siden</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>%ld min. siden</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
