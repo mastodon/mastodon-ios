@@ -30,7 +30,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
     public let pollMultipleConfigurationOption: PollComposeItem.MultipleConfiguration.Option
     // visibility
     public let visibility: Mastodon.Entity.Status.Visibility
-    public let quotePolicy: Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy?
+    public let quotePolicy: Mastodon.Entity.Source.QuotePolicy?
     // language
     public let language: String
     
@@ -54,7 +54,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
         pollExpireConfigurationOption: PollComposeItem.ExpireConfiguration.Option,
         pollMultipleConfigurationOption: PollComposeItem.MultipleConfiguration.Option,
         visibility: Mastodon.Entity.Status.Visibility,
-        quotePolicy: Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy?,
+        quotePolicy: Mastodon.Entity.Source.QuotePolicy?,
         language: String
     ) {
         self.replyTo = replyTo

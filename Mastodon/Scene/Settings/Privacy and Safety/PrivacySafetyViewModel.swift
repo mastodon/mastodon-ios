@@ -80,6 +80,9 @@ class PrivacySafetyViewModel: ObservableObject, PrivacySafetySettingApplicable {
     @Published var visibility: Visibility = .public {
         didSet { evaluatePreset() }
     }
+    @Published var quotability: Mastodon.Entity.Source.QuotePolicy = .anyone {
+        didSet { evaluatePreset() }
+    }
     
     @Published var manuallyApproveFollowRequests = false {
         didSet { evaluatePreset() }
@@ -173,24 +176,29 @@ extension PrivacySafetyViewModel {
     
     func saveSettings() {
         Task {
-            guard let appContext, let authenticationBox else {
+            guard let authenticationBox else {
                 return
             }
     
             let domain = authenticationBox.domain
             let userAuthorization = authenticationBox.userAuthorization
             
-            let _ = try await APIService.shared.accountUpdateCredentials(
-                domain: domain,
-                query: .init(
-                    discoverable: suggestMyAccountToOthers,
-                    locked: manuallyApproveFollowRequests,
-                    source: .withPrivacy(visibility.toPrivacy()),
-                    indexable: appearInSearches,
-                    hideCollections: !showFollowersAndFollowing
-                ),
-                authorization: userAuthorization
-            )
+            let quotabilityToSet = await AuthenticationServiceProvider.shared.currentInstanceConfiguration?.isAvailable(.quotePosts) == true ? quotability : nil
+            do {
+                let updatedAccount = try await APIService.shared.accountUpdateCredentials(
+                    domain: domain,
+                    query: .init(
+                        discoverable: suggestMyAccountToOthers,
+                        locked: manuallyApproveFollowRequests,
+                        source: .withPrivacy(visibility.toPrivacy(), quotePolicy: quotabilityToSet),
+                        indexable: appearInSearches,
+                        hideCollections: !showFollowersAndFollowing
+                    ),
+                    authorization: userAuthorization
+                )
+            } catch {
+                // TODO: communicate error
+            }
         }
     }
     

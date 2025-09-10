@@ -106,7 +106,7 @@ extension Mastodon.API.Statuses {
         public let sensitive: Bool?
         public let spoilerText: String?
         public let visibility: Mastodon.Entity.Status.Visibility?
-        public let quotePolicy: QuotePermissionPolicy?
+        public let quotePolicy: Mastodon.Entity.Source.QuotePolicy?
         public let language: String?
         
         public init(
@@ -118,7 +118,7 @@ extension Mastodon.API.Statuses {
             sensitive: Bool?,
             spoilerText: String?,
             visibility: Mastodon.Entity.Status.Visibility?,
-            quotePolicy: QuotePermissionPolicy?,
+            quotePolicy: Mastodon.Entity.Source.QuotePolicy?,
             language: String?
         ) {
             self.status = status
@@ -158,34 +158,7 @@ extension Mastodon.API.Statuses {
             data.append(Data.multipartEnd())
             return data
         }
-        
-        public enum QuotePermissionPolicy: RawRepresentable, Codable, Hashable, Sendable {
-            case anyone
-            case followers
-            case onlyMe
-            
-            case _other(String)
-            
-            public init?(rawValue: String) {
-                switch rawValue {
-                case "anyone":           self = .anyone
-                case "followers":        self = .followers
-                case "nobody":           self = .onlyMe
-                    
-                default:                 self = ._other(rawValue)
-                }
-            }
-            
-            public var rawValue: String {
-                switch self {
-                case .anyone:             return "anyone"
-                case .followers:          return "followers"
-                case .onlyMe:             return "nobody"
-                    
-                case ._other(let value):  return value
-                }
-            }
-        }
+
     }
     
 }

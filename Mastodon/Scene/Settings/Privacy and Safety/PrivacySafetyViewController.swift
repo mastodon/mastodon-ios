@@ -8,7 +8,7 @@ import MastodonCore
 import MastodonLocalization
 import MastodonAsset
 
-final class PrivacySafetyViewController: UIHostingController<PrivacySafetyView> {
+final class PrivacySafetyViewController: UIHostingController<AnyView> {
     private let viewModel: PrivacySafetyViewModel
     private var disposeBag = [AnyCancellable]()
     
@@ -16,10 +16,12 @@ final class PrivacySafetyViewController: UIHostingController<PrivacySafetyView> 
         self.viewModel = PrivacySafetyViewModel(
             appContext: appContext, authenticationBox: authenticationBox, coordinator: coordinator
         )
+        let rootView = PrivacySafetyView(
+            viewModel: self.viewModel
+        )
+        .environment(PostInteractionSettingsViewModel(account: authenticationBox.cachedAccount, determiningPost: nil))
         super.init(
-            rootView: PrivacySafetyView(
-                viewModel: self.viewModel
-            )
+            rootView: AnyView(rootView)
         )
         self.viewModel.onDismiss.receive(on: DispatchQueue.main)
             .sink { [weak self] _ in

@@ -23,6 +23,7 @@ extension Mastodon.Entity {
         public let fields: [Field]?
         
         public let privacy: Privacy?
+        public let quotePolicy: QuotePolicy?
         public let sensitive: Bool?
         public let language: String?        // (ISO 639-1 language two-letter code)
         public let followRequestsCount: Int?
@@ -35,6 +36,7 @@ extension Mastodon.Entity {
             case fields
             
             case privacy
+            case quotePolicy = "quote_policy"
             case sensitive
             case language
             case followRequestsCount = "follow_requests_count"
@@ -43,8 +45,8 @@ extension Mastodon.Entity {
             case discoverable
         }
         
-        public static func withPrivacy(_ privacy: Privacy) -> Self {
-            Source(note: "", fields: nil, privacy: privacy, sensitive: nil, language: nil, followRequestsCount: nil, hideCollections: nil, indexable: nil, discoverable: nil)
+        public static func withPrivacy(_ privacy: Privacy, quotePolicy: Mastodon.Entity.Source.QuotePolicy?) -> Self {
+            Source(note: "", fields: nil, privacy: privacy, quotePolicy: quotePolicy, sensitive: nil, language: nil, followRequestsCount: nil, hideCollections: nil, indexable: nil, discoverable: nil)
         }
     }
 }
@@ -75,6 +77,34 @@ extension Mastodon.Entity.Source {
             case .private:                      return "private"
             case .direct:                       return "direct"
             case ._other(let value):            return value
+            }
+        }
+    }
+}
+
+extension Mastodon.Entity.Source {
+    public enum QuotePolicy: RawRepresentable, Codable, Sendable, Hashable {
+        case anyone
+        case followers
+        case nobody
+        
+        case _other(String)
+        
+        public init?(rawValue: String) {
+            switch rawValue {
+            case "public":                  self = .anyone
+            case "followers":               self = .followers
+            case "nobody":                  self = .nobody
+            default:                        self = ._other(rawValue)
+            }
+        }
+        
+        public var rawValue: String {
+            switch self {
+            case .anyone:                      return "public"
+            case .followers:                   return "followers"
+            case .nobody:                      return "nobody"
+            case ._other(let value):           return value
             }
         }
     }

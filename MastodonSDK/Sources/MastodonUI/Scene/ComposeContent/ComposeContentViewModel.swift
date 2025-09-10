@@ -10,6 +10,7 @@ import Combine
 import Meta
 import MetaTextKit
 import MastodonMeta
+import SwiftUI
 import MastodonCore
 import MastodonSDK
 import MastodonLocalization
@@ -114,8 +115,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     
     // visibility
     @Published public var canEditVisibility = false
-    @Published public var interactionSettings: (visibility: Mastodon.Entity.Status.Visibility, quotability: Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy)
-    public var previousInteractionSettings: (visibility: Mastodon.Entity.Status.Visibility, quotability: Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy)?
+    @Published public var interactionSettings: (visibility: Mastodon.Entity.Status.Visibility, quotability: Mastodon.Entity.Source.QuotePolicy) // TODO: replace with PostInteractionSettingsViewModel
+    public var previousInteractionSettings: (visibility: Mastodon.Entity.Status.Visibility, quotability: Mastodon.Entity.Source.QuotePolicy)?
 
     // language
     @Published public var language: String
@@ -268,7 +269,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             if let visibility = status.entity.visibility {
                 let quotability = {
                     if let specified = status.entity.quoteApproval?.automatic {
-                        return Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy(specified)
+                        return Mastodon.Entity.Source.QuotePolicy(specified)
                     } else {
                         return defaultQuotePolicy(forVisibility: visibility)
                     }
@@ -318,7 +319,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         bind()
     }
     
-    public func setInteractionSettings(visibility: Mastodon.Entity.Status.Visibility?, quotability: Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy?) {
+    public func setInteractionSettings(visibility: Mastodon.Entity.Status.Visibility?, quotability: Mastodon.Entity.Source.QuotePolicy?) {
         guard visibility != interactionSettings.visibility || quotability != interactionSettings.quotability else { return }
         
         let newVisibility = visibility ?? interactionSettings.visibility
@@ -326,7 +327,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         if newVisibility.allowableQuotePolicies.contains(requestedQuotability) {
             interactionSettings = (newVisibility, requestedQuotability)
         } else {
-            interactionSettings = (newVisibility, .onlyMe)
+            interactionSettings = (newVisibility, .nobody)
         }
     }
     
@@ -336,17 +337,17 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             L10n.Scene.Compose.VisibilityAndQuotability.publicAnyone
         case (.public, .followers):
             L10n.Scene.Compose.VisibilityAndQuotability.publicFollowers
-        case (.public, .onlyMe):
+        case (.public, .nobody):
             L10n.Scene.Compose.VisibilityAndQuotability.publicOnlyMe
         case (.unlisted, .anyone):
             L10n.Scene.Compose.VisibilityAndQuotability.unlistedAnyone
         case (.unlisted, .followers):
             L10n.Scene.Compose.VisibilityAndQuotability.unlistedFollowers
-        case (.unlisted, .onlyMe):
+        case (.unlisted, .nobody):
             L10n.Scene.Compose.VisibilityAndQuotability.unlistedOnlyMe
-        case (.private, .onlyMe):
+        case (.private, .nobody):
             L10n.Scene.Compose.VisibilityAndQuotability.privateOnlyMe
-        case (.direct, .onlyMe):
+        case (.direct, .nobody):
             L10n.Scene.Compose.VisibilityAndQuotability.directOnlyMe
         default:
             ""
@@ -354,39 +355,39 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     }
 }
 
-extension Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy {
+extension Mastodon.Entity.Source.QuotePolicy {
     init(_ automaticallyApproved: [Mastodon.Entity.Status.QuotePermissionUserCategory]) {
         if automaticallyApproved.contains(.anyone) {
             self = .anyone
         } else if automaticallyApproved.contains(.followersOnly) {
             self = .followers
         } else {
-            self = .onlyMe
+            self = .nobody
         }
     }
 }
 
 extension Mastodon.Entity.Status.Visibility {
-    var allowableQuotePolicies: [Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy] {
+    var allowableQuotePolicies: [Mastodon.Entity.Source.QuotePolicy] {
         switch self {
         case .public, .unlisted:
-            return [.anyone, .followers, .onlyMe]
+            return [.anyone, .followers, .nobody]
         default:
-            return [.onlyMe]
+            return [.nobody]
         }
     }
 }
 
-func defaultQuotePolicy(forVisibility visibility: Mastodon.Entity.Status.Visibility) -> Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy {
+func defaultQuotePolicy(forVisibility visibility: Mastodon.Entity.Status.Visibility) -> Mastodon.Entity.Source.QuotePolicy {
     switch visibility {
     case .public:
         return .anyone
     case .unlisted:
         return .followers
     case .direct:
-        return .onlyMe
+        return .nobody
     case .private:
-        return .onlyMe
+        return .nobody
     default:
         return .anyone
     }

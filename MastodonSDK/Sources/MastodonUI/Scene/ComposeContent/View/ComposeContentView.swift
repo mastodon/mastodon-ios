@@ -20,14 +20,14 @@ public struct ComposeContentView: View {
     @ObservedObject var viewModel: ComposeContentViewModel
     @State private var isPresentingInteractionSettings = false
     @State private var visibilitySelection: Mastodon.Entity.Status.Visibility
-    @State private var quotabilitySelection: Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy
+    @State private var quotabilitySelection: Mastodon.Entity.Source.QuotePolicy
     private func updateVisibilitySelection(_ newValue: Mastodon.Entity.Status.Visibility) {
         viewModel.setInteractionSettings(visibility: visibilitySelection, quotability: nil)
         if quotabilitySelection != viewModel.interactionSettings.quotability {
             quotabilitySelection = viewModel.interactionSettings.quotability
         }
     }
-    private func updateQuotabilitySelection(_ newValue: Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy) {
+    private func updateQuotabilitySelection(_ newValue: Mastodon.Entity.Source.QuotePolicy) {
         viewModel.setInteractionSettings(visibility: nil, quotability: quotabilitySelection)
     }
     
@@ -238,7 +238,7 @@ public struct ComposeContentView: View {
     }
     
     @ViewBuilder
-    func quotabilityPicker(_ options: [Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy]) -> some View {
+    func quotabilityPicker(_ options: [Mastodon.Entity.Source.QuotePolicy]) -> some View {
         Picker(selection: $quotabilitySelection) {
             ForEach(options, id: \.self) { quotability in
                 Label {
@@ -325,14 +325,14 @@ public struct ComposeContentView: View {
     }
 }
 
-extension Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy {
+extension Mastodon.Entity.Source.QuotePolicy {
     var title: String {
         switch self {
         case .anyone:
             L10n.Scene.Compose.QuotePermissionPolicy.anyone
         case .followers:
             L10n.Scene.Compose.QuotePermissionPolicy.followers
-        case .onlyMe:
+        case .nobody:
             L10n.Scene.Compose.QuotePermissionPolicy.onlyMe
         case ._other(let string):
             string

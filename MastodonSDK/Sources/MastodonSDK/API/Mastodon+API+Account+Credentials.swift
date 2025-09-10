@@ -200,6 +200,7 @@ extension Mastodon.API.Account {
             case header
             case locked
             case source
+            case quotePolicy = "quote_policy"
             case fieldsAttributes = "fields_attributes"
             case indexable
             case hideCollections = "hide_collections"
@@ -253,8 +254,9 @@ extension Mastodon.API.Account {
             indexable.flatMap { data.append(Data.multipart(key: "indexable", value: $0)) }
             if let source = source {
                 source.privacy.flatMap { data.append(Data.multipart(key: "source[privacy]", value: $0.rawValue)) }
-                source.sensitive.flatMap { data.append(Data.multipart(key: "source[privacy]", value: $0)) }
-                source.language.flatMap { data.append(Data.multipart(key: "source[privacy]", value: $0)) }
+                source.quotePolicy.flatMap { data.append(Data.multipart(key: "source[quote_policy]", value: $0.rawValue )) }
+                source.sensitive.flatMap { data.append(Data.multipart(key: "source[sensitive]", value: $0)) }
+                source.language.flatMap { data.append(Data.multipart(key: "source[language]", value: $0)) }
             }
             if let fieldsAttributes = fieldsAttributes {
                 if fieldsAttributes.isEmpty {

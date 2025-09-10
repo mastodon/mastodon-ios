@@ -1,6 +1,7 @@
 // Copyright © 2024 Mastodon gGmbH. All rights reserved.
 
 import Foundation
+import MastodonSDK
 
 enum PrivacySafetySettingPreset: PrivacySafetySettingApplicable {
     case openPublic, privateRestricted
@@ -11,6 +12,15 @@ enum PrivacySafetySettingPreset: PrivacySafetySettingApplicable {
             return .public
         case .privateRestricted:
             return .followersOnly
+        }
+    }
+    
+    var quotability: Mastodon.Entity.Source.QuotePolicy {
+        switch self {
+        case .openPublic:
+            return .anyone
+        case .privateRestricted:
+            return .nobody
         }
     }
     
@@ -52,6 +62,7 @@ enum PrivacySafetySettingPreset: PrivacySafetySettingApplicable {
     
     func equalsSettings(of viewModel: PrivacySafetyViewModel) -> Bool {
         return viewModel.visibility == visibility &&
+            viewModel.quotability == quotability &&
             viewModel.manuallyApproveFollowRequests == manuallyApproveFollowRequests &&
             viewModel.showFollowersAndFollowing == showFollowersAndFollowing &&
             viewModel.suggestMyAccountToOthers == suggestMyAccountToOthers &&
