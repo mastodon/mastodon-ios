@@ -58,20 +58,22 @@ struct PrivacySafetyView: View {
                             Text(L10n.Scene.Settings.PrivacySafety.DefaultPostVisibility.title)
                         }
                         
-                        Picker(selection: Binding<Mastodon.Entity.Source.QuotePolicy>(
-                            get: {
-                                visibilityAndQuotabilityViewModel.interactionSettings.quotability
-                            },
-                            set: { newValue in
-                                visibilityAndQuotabilityViewModel.setInteractionSettings(visibility: nil, quotability: newValue)
-                                viewModel.quotability = visibilityAndQuotabilityViewModel.interactionSettings.quotability
+                        if viewModel.canSetQuotability {
+                            Picker(selection: Binding<Mastodon.Entity.Source.QuotePolicy>(
+                                get: {
+                                    visibilityAndQuotabilityViewModel.interactionSettings.quotability
+                                },
+                                set: { newValue in
+                                    visibilityAndQuotabilityViewModel.setInteractionSettings(visibility: nil, quotability: newValue)
+                                    viewModel.quotability = visibilityAndQuotabilityViewModel.interactionSettings.quotability
+                                }
+                            ) ) {
+                                ForEach(visibilityAndQuotabilityViewModel.allowableQuotePolicies(forVisibility: visibilityAndQuotabilityViewModel.interactionSettings.visibility), id: \.self) {
+                                    Text($0.title)
+                                }
+                            } label: {
+                                Text(L10n.Scene.Compose.QuotePermissionPolicy.title)
                             }
-                        ) ) {
-                            ForEach(visibilityAndQuotabilityViewModel.allowableQuotePolicies(forVisibility: visibilityAndQuotabilityViewModel.interactionSettings.visibility), id: \.self) {
-                                Text($0.title)
-                            }
-                        } label: {
-                            Text(L10n.Scene.Compose.QuotePermissionPolicy.title)
                         }
                     }
                     

@@ -7,6 +7,7 @@ import MastodonSDK
 public enum ApiFeature {
     case followTags
     case groupNotifications
+    case quotePostSettings
     case quotePosts
 }
 
@@ -65,6 +66,9 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
             case .groupNotifications:
                 guard let apiVersion else { return false }
                 return apiVersion >= 2
+            case .quotePostSettings:
+                guard let apiVersion else { return false }
+                return apiVersion >= 6
             case .quotePosts:
                 guard let apiVersion else { return false }
                 return apiVersion >= 7
