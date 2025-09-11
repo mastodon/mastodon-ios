@@ -496,8 +496,17 @@ struct CacheableTimeline: CacheableFeed {
                 do {
                     try existingViewModel.update(from: updated)
                 } catch {}
-            case .notification(let info):
-                break
+                do {
+                    try existingViewModel.fullQuotedPostViewModel?.update(from: updated)
+                } catch {}
+            case .notification(let notificationViewModel):
+                guard let embeddedPostModel = notificationViewModel.inlinePostViewModel else { break }
+                do {
+                    try embeddedPostModel.update(from: updated)
+                } catch {}
+                do {
+                    try embeddedPostModel.fullQuotedPostViewModel?.update(from: updated)
+                } catch {}
             }
         }
     }

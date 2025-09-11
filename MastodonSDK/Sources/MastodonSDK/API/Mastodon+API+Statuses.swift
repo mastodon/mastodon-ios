@@ -209,6 +209,62 @@ extension Mastodon.API.Statuses {
             self.id = id
         }
     }
+    
+    /// Revoke quote authorization
+    ///
+    /// Revoke a single post's authorization to quote one of your own statuses.
+    ///
+    /// - Since: 4.6.0
+    /// - Version: 4.6.0
+    /// # Last Update
+    ///   2025/9/11
+    /// # Reference
+    ///   [Document](not yet published)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - query: `RevokeQuoteAuthorizationQuery`
+    ///   - authorization: User token
+    /// - Returns: `AnyPublisher` contains `Status` nested in the response
+    public static func revokeQuoteAuthorization(
+        session: URLSession,
+        domain: String,
+        query: RevokeQuoteAuthorizationQuery,
+        authorization: Mastodon.API.OAuth.Authorization?
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error>  {
+        var url = statusEndpointURL(domain: domain, statusID: query.quotedId)
+        for component in ["quotes", query.quotingId, "revoke"] {
+            url.append(path: component)
+        }
+        let request = Mastodon.API.revokeQuoteAuthorization(
+            url: url,
+            query: query,
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Status.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    public struct RevokeQuoteAuthorizationQuery: Codable, PostQuery {
+        public let quotedId: Mastodon.Entity.Status.ID
+        public let quotingId: Mastodon.Entity.Status.ID
+        
+        public init(
+            quotedId: Mastodon.Entity.Status.ID,
+            quotingId: Mastodon.Entity.Status.ID
+        ) {
+            self.quotedId = quotedId
+            self.quotingId = quotingId
+        }
+        
+        var body: Data? {
+            return nil  // all of the information is included in the url
+        }
+    }
 }
 
 extension Mastodon.API.Statuses {

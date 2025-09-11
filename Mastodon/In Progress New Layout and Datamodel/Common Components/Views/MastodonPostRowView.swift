@@ -33,7 +33,9 @@ import MastodonLocalization
                 let updated = MastodonPostViewModel(quotedFullPost.initialDisplayInfo(inContext: filterContext), fullPost: quotedFullPost, filterContext: filterContext, threadedConversationContext: nil)
                 updated.actionHandler = actionHandler
                 self.fullQuotedPostViewModel = updated
+                placeholderQuotedPost = nil
             } else {
+                self.fullQuotedPostViewModel = nil
                 placeholderQuotedPost = potentialQuotePost.quotedPost
             }
         }
@@ -513,7 +515,18 @@ private struct ActionBar: View {
         var body: some View {
             Menu {
                 if let relationship = viewModel.myRelationshipToAuthor {
-                    ForEach(submenus(forRelationshipToAuthor: relationship, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { submenu in
+                    let isQuotingMe = {
+                        guard let quoted = viewModel.fullQuotedPostViewModel else { return false }
+                        switch quoted.myRelationshipToAuthor {
+                        case .isMe:
+                            return true
+                        case nil:
+                            return false
+                        default:
+                            return false
+                        }
+                    }()
+                    ForEach(submenus(forRelationshipToAuthor: relationship, isQuotingMe: isQuotingMe, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { submenu in
                         ForEach(submenu.items, id: \.self) { menuAction in
                             if let actionablePost = viewModel.fullPost?.actionablePost {
                                 Button(role: menuAction.isDestructive ? .destructive : nil) {
@@ -535,8 +548,8 @@ private struct ActionBar: View {
             }
         }
         
-        func submenus(forRelationshipToAuthor relationship: MastodonAccount.Relationship, isShowingTranslation: Bool?) -> [MastodonPostMenuAction.Submenu] {
-            return MastodonPostMenuAction.menuItems(forPostBy: relationship, isShowingTranslation: isShowingTranslation)
+        func submenus(forRelationshipToAuthor relationship: MastodonAccount.Relationship, isQuotingMe: Bool,  isShowingTranslation: Bool?) -> [MastodonPostMenuAction.Submenu] {
+            return MastodonPostMenuAction.menuItems(forPostBy: relationship, isQuotingMe: isQuotingMe, isShowingTranslation: isShowingTranslation)
         }
     }
     

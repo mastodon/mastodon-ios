@@ -78,4 +78,25 @@ extension APIService {
         return response.value
     }
     
+    public func revokeQuoteAuthorization(
+        forQuotedId quotedID: Mastodon.Entity.Status.ID,
+        fromQuotingId quotingID: Mastodon.Entity.Status.ID,
+        authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Entity.Status {
+            let authorization = authenticationBox.userAuthorization
+            
+            let _query: Mastodon.API.Statuses.RevokeQuoteAuthorizationQuery? = Mastodon.API.Statuses.RevokeQuoteAuthorizationQuery(quotedId: quotedID, quotingId: quotingID)
+            guard let query = _query else {
+                throw APIError.implicit(.badRequest)
+            }
+            
+            let response = try await Mastodon.API.Statuses.revokeQuoteAuthorization(
+                session: session,
+                domain: authenticationBox.domain,
+                query: query,
+                authorization: authorization
+            ).singleOutput()
+            
+            return response.value
+    }
+
 }

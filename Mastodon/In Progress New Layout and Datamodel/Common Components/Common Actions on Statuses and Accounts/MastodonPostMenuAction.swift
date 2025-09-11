@@ -82,6 +82,7 @@ enum MastodonPostMenuAction {
     case unmute
     
     // DEFENSIVE ACTIONS
+    case removeQuote
     case blockUser
     case unblockUser
     case reportUser
@@ -107,6 +108,9 @@ enum MastodonPostMenuAction {
             true
             
         case .sharePost, .openPostInBrowser, .copyLinkToPost:
+            false
+            
+        case .removeQuote:
             false
             
         case .blockUser, .unblockUser:
@@ -146,7 +150,7 @@ enum MastodonPostMenuAction {
         case .reportUser:
             false
             
-        case .deletePost:
+        case .deletePost, .removeQuote:
             true
         }
     }
@@ -179,6 +183,8 @@ enum MastodonPostMenuAction {
             "speaker.slash"
         case .unmute:
             "speaker.wave.2"
+        case .removeQuote:
+            "exclamationmark.bubble"
         case .blockUser:
             "hand.raised.slash"
         case .unblockUser:
@@ -229,6 +235,8 @@ enum MastodonPostMenuAction {
             return L10n.Common.Controls.Friendship.muteUser(username)
         case .unmute:
             return L10n.Common.Controls.Friendship.unmuteUser(username)
+        case .removeQuote:
+            return L10n.Common.Controls.Actions.removeQuote
         case .blockUser:
             return L10n.Common.Controls.Friendship.blockUser(username)
         case .unblockUser:
@@ -248,14 +256,14 @@ enum MastodonPostMenuAction {
     
     var isDestructive: Bool {
         switch self {
-        case .blockUser, .reportUser, .deletePost:
+        case .blockUser, .reportUser, .deletePost, .removeQuote:
             return true
         default:
             return false
         }
     }
     
-    static func menuItems(forPostBy relationship: MastodonAccount.Relationship, isShowingTranslation: Bool?) -> [MastodonPostMenuAction.Submenu] {
+    static func menuItems(forPostBy relationship: MastodonAccount.Relationship, isQuotingMe: Bool, isShowingTranslation: Bool?) -> [MastodonPostMenuAction.Submenu] {
         
         let editAction: [MastodonPostMenuAction]? =  {
             switch relationship {
@@ -279,7 +287,7 @@ enum MastodonPostMenuAction {
         switch relationship {
         case .isMe:
             relationshipActions = nil
-            defensiveActions = nil
+            defensiveActions = isQuotingMe ? [ .removeQuote ] : nil
         case .isNotMe(let info):
             if let info {
                 relationshipActions = [
@@ -287,9 +295,10 @@ enum MastodonPostMenuAction {
                     info.iAmMutingThem ? .unmute : .mute
                 ]
                 defensiveActions = [
+                    isQuotingMe ? .removeQuote : nil,
                     info.iAmBlockingThem ? .unblockUser : .blockUser,
                     .reportUser
-                ]
+                ].compactMap { $0 }
             } else {
                 relationshipActions = nil
                 defensiveActions = nil

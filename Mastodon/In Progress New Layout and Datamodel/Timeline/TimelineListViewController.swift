@@ -536,6 +536,7 @@ extension MastodonPostMenuAction {
         case confirmUnfollow(username: String, didConfirm: (Bool)->())
         case confirmMute(username: String, didConfirm: (Bool)->())
         case confirmUnmute(username: String, didConfirm: (Bool)->())
+        case confirmRemoveQuote(username: String, didConfirm: (Bool)->())
         case confirmBlock(username: String, didConfirm: (Bool)->())
         case confirmUnblock(username: String, didConfirm: (Bool)->())
         
@@ -558,6 +559,8 @@ extension MastodonPostMenuAction {
             case .confirmUnmute:
                 L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.title
                 
+            case .confirmRemoveQuote:
+                L10n.Common.Alerts.ConfirmRemoveQuote.title
             case .confirmBlock:
                 L10n.Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.title
             case .confirmUnblock:
@@ -580,6 +583,8 @@ extension MastodonPostMenuAction {
             case .confirmUnblock(let username, _):
                 L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.message(username)
                 
+            case .confirmRemoveQuote(let username, _):
+                L10n.Common.Alerts.ConfirmRemoveQuote.message(username)
             case .confirmDeleteOfPost:
                 L10n.Common.Alerts.DeletePost.message
             }
@@ -975,10 +980,11 @@ extension TimelineListViewModel {
         var relationshipsToFetch = [Mastodon.Entity.Account.ID]()
         
         func processPostViewModel(_ postViewModel: MastodonPostViewModel) {
-            if let fullQuotedPostViewModel = postViewModel.fullQuotedPostViewModel {
-                needsPrep.append(fullQuotedPostViewModel)
+            if postViewModel.initialDisplayInfo.actionableAuthorId == authenticatedUser?.userID {
+                postViewModel.myRelationshipToAuthor = .isMe
+            } else {
+                relationshipsToFetch.append(postViewModel.initialDisplayInfo.actionableAuthorId)
             }
-            relationshipsToFetch.append(postViewModel.initialDisplayInfo.actionableAuthorId)
             if let actionablePost = postViewModel.fullPost?.actionablePost, postViewModel.isShowingTranslation == nil {
                 postViewModel.isShowingTranslation = canTranslate(post: actionablePost) ? false : nil
             }
@@ -990,9 +996,15 @@ extension TimelineListViewModel {
                 if postModel.displayPrepStatus == .unprepared {
                     needsPrep.append(postModel)
                 }
+                if let fullQuotedPostViewModel = postModel.fullQuotedPostViewModel {
+                    needsPrep.append(fullQuotedPostViewModel)
+                }
             case .notification(let notificationViewModel):
                 if let embeddedPostModel = notificationViewModel.inlinePostViewModel {
                     needsPrep.append(embeddedPostModel)
+                    if let fullQuotedPostViewModel = embeddedPostModel.fullQuotedPostViewModel {
+                        needsPrep.append(fullQuotedPostViewModel)
+                    }
                 }
                 if let needsRelationshipTo = notificationViewModel.needsRelationshipTo {
                     relationshipsToFetch.append(needsRelationshipTo.id)
@@ -1470,6 +1482,15 @@ struct TimelineListView: View {
                 Text(L10n.Common.Alerts.BoostAPost.boost)
             }
             
+            
+        case .confirmRemoveQuote(_, let didConfirm):
+            cancelButton(didConfirm)
+            Button(role: .destructive) {
+                didConfirm(true)
+            } label: {
+                Text(L10n.Common.Controls.Actions.removeQuote)
+            }
+            
         case .confirmDeleteOfPost(let didConfirm):
             cancelButton(didConfirm)
             Button(role: .destructive) {
@@ -1781,6 +1802,8 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     try await doAction(action, forAccount: author)
                     
             // MARK: DEFENSIVE ACTIONS
+                case .removeQuote:
+                    try await doRemoveQuote(from: post, askFirst: true)
                 case .blockUser:
                     activeAlert = .confirmBlock(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
                         guard confirmed else { return }
@@ -1828,6 +1851,19 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                 assertionFailure()
                 clearPendingActions()
             }
+        }
+    }
+    
+    func doRemoveQuote(from quotingPost: MastodonContentPost, askFirst: Bool) async throws {
+        if askFirst {
+            activeAlert = .confirmRemoveQuote(username: quotingPost.initialDisplayInfo(inContext: nil).actionableAuthorDisplayName, didConfirm: { confirmed in
+                guard confirmed else { return }
+                Task {
+                    await self.commitRemoveQuote(from: quotingPost)
+                }
+            })
+        } else {
+            await commitRemoveQuote(from: quotingPost)
         }
     }
     
@@ -1968,6 +2004,8 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     }
                 })
             }
+        } else {
+            await commitUnmute(author.id)
         }
     }
     
@@ -2011,6 +2049,18 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
     }
      
     // DEFENSIVE ACTIONS
+    
+    func commitRemoveQuote(from quotingPost: MastodonContentPost) async {
+        do {
+            guard let actionablePost = quotingPost.actionablePost as? MastodonBasicPost, let quoted = actionablePost.quotedPost, let quotedId = quoted.fullPost?.id, let authenticatedUser else { throw PostActionFailure.noActionablePostId }
+            let updated = try await APIService.shared.revokeQuoteAuthorization(forQuotedId: quotedId, fromQuotingId: actionablePost.id, authenticationBox: authenticatedUser)
+            feedLoader?.updatePost(post: GenericMastodonPost.fromStatus(updated))
+            clearPendingActions()
+        } catch {
+            // TODO: make visible to user
+            clearPendingActions()
+        }
+    }
     
     func commitBlock(_ accountID: Mastodon.Entity.Account.ID) async {
         do {

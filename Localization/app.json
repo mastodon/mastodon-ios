@@ -36,6 +36,10 @@
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
                 "block_entire_domain": "Block Domain"
             },
+            "confirm_remove_quote": {
+                "title": "Remove Quote",
+                "message": "Are you sure you want to withdraw your quote from %@'s post? It will be replaced by a message indicating your removal wherever this post appears. This action cannot be undone."
+            },
             "save_photo_failure": {
                 "title": "Save Photo Failure",
                 "message": "Please enable the photo library access permission to save the photo."
@@ -79,6 +83,7 @@
                 "previous": "Previous",
                 "open": "Open",
                 "add": "Add",
+                "removeQuote": "Remove my quote",
                 "remove": "Remove",
                 "edit": "Edit",
                 "save": "Save",
