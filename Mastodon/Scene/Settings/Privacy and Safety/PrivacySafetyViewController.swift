@@ -7,6 +7,7 @@ import MastodonSDK
 import MastodonCore
 import MastodonLocalization
 import MastodonAsset
+import MastodonUI
 
 final class PrivacySafetyViewController: UIHostingController<AnyView> {
     private let viewModel: PrivacySafetyViewModel
@@ -16,10 +17,11 @@ final class PrivacySafetyViewController: UIHostingController<AnyView> {
         self.viewModel = PrivacySafetyViewModel(
             appContext: appContext, authenticationBox: authenticationBox, coordinator: coordinator
         )
+        let interactionSettingsDefaults = PostInteractionSettingsViewModel.InitialSettings.fresh(replyingToVisibility: nil)
         let rootView = PrivacySafetyView(
             viewModel: self.viewModel
         )
-        .environment(PostInteractionSettingsViewModel(account: authenticationBox.cachedAccount, determiningPost: nil))
+            .environment(PostInteractionSettingsViewModel(account: authenticationBox.cachedAccount, initialSettings: interactionSettingsDefaults))
         super.init(
             rootView: AnyView(rootView)
         )

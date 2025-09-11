@@ -43,6 +43,7 @@ extension ComposeContentViewModel {
     private func setupTableViewCell(tableView: UITableView) {        
         composeContentTableViewCell.contentConfiguration = UIHostingConfigurationBackport {
             ComposeContentView(viewModel: self)
+                .environment(self.interactionSettingsModel)
         }
         
         $contentCellFrame

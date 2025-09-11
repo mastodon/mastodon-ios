@@ -10,6 +10,7 @@ import Combine
 import CoreDataStack
 import MastodonCore
 import MastodonUI
+import MastodonSDK
 import MastodonAsset
 import MastodonLocalization
 import UniformTypeIdentifiers
@@ -134,6 +135,8 @@ extension ShareViewController {
         Task { @MainActor in
             viewModel.isPublishing = true
             do {
+                guard let author = viewModel.authenticationBox?.cachedAccount else { throw AppError.badRequest }
+                let defaultSettings = PostInteractionSettingsViewModel.InitialSettings.fresh(replyingToVisibility: nil).defaultSettings(forAuthor: author)
                 guard let statusPublisher = try composeContentViewModel?.statusPublisher(),
                       let authenticationBox = viewModel.authenticationBox
                 else {

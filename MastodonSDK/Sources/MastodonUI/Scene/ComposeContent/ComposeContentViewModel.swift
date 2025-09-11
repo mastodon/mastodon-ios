@@ -114,8 +114,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published var isLoadingCustomEmoji = false
     
     // visibility
-    @Published public var canEditVisibility = false
-    @Published public var interactionSettings: (visibility: Mastodon.Entity.Status.Visibility, quotability: Mastodon.Entity.Source.QuotePolicy) // TODO: replace with PostInteractionSettingsViewModel
+    public var interactionSettingsModel: PostInteractionSettingsViewModel
     public var previousInteractionSettings: (visibility: Mastodon.Entity.Status.Visibility, quotability: Mastodon.Entity.Source.QuotePolicy)?
 
     // language
@@ -155,44 +154,6 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.destination = destination
         self.composeContext = composeContext
         self.completion = completion
-        let defaultVisibility = {
-            // default private when user locked
-            var visibility: Mastodon.Entity.Status.Visibility = {
-                guard let author = authenticationBox.cachedAccount else {
-                    return .public
-                }
-                if let defaultPrivacy = author.source?.privacy, let statusPrivacy = Mastodon.Entity.Status.Visibility(rawValue: defaultPrivacy.rawValue) {
-                    return statusPrivacy
-                } else {
-                    return author.locked ? .private : .public
-                }
-            }()
-            // set visibility for reply post
-            if case .reply(let record) = destination {
-                let repliedStatusVisibility = record.entity.visibility
-                switch repliedStatusVisibility {
-                case .public:
-                    // keep default
-                    break
-                case .unlisted:
-                    if visibility == .public {
-                        visibility = .unlisted
-                    }
-                case .private:
-                    visibility = .private
-                case .direct:
-                    visibility = .direct
-                case ._other, .none:
-                    assertionFailure()
-                    break
-                }
-            }
-            return visibility
-        }()
-        
-        let defaultQuotability = defaultQuotePolicy(forVisibility: defaultVisibility)
-        
-        self.interactionSettings = (defaultVisibility, defaultQuotability)
         
         self.customEmojiViewModel = EmojiService.shared.dequeueCustomEmojiViewModel(
             for: authenticationBox.domain
@@ -201,6 +162,31 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         let recentLanguages = SettingService.shared.currentSetting.value?.recentLanguages ?? []
         self.recentLanguages = recentLanguages
         self.language = UserDefaults.shared.defaultPostLanguage
+        
+        let _initialInteractionSettings: PostInteractionSettingsViewModel.InitialSettings
+        switch composeContext {
+        case .composeStatus:
+            switch destination {
+            case .reply(let record):
+                _initialInteractionSettings = .fresh(replyingToVisibility: record.entity.visibility)
+            default:
+                _initialInteractionSettings = .fresh(replyingToVisibility: nil)
+            }
+        case .editStatus(let status, _):
+            let _quoteability: Mastodon.Entity.Source.QuotePolicy = {
+                guard let automaticApprovals = status.entity.quoteApproval?.automatic else { return .nobody }
+                if automaticApprovals.contains(.anyone) {
+                    return .anyone
+                } else if automaticApprovals.contains(.followersOnly) {
+                    return .followers
+                } else {
+                    return .nobody
+                }
+            }()
+            _initialInteractionSettings = .editing(visibility: status.entity.visibility ?? .public, quotability: _quoteability)
+        }
+        self.interactionSettingsModel = PostInteractionSettingsViewModel(account: authenticationBox.cachedAccount, initialSettings: _initialInteractionSettings)
+        
         super.init()
         // end init
         
@@ -264,19 +250,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         
         switch composeContext {
         case .composeStatus:
-            self.canEditVisibility = true
+            break
         case let .editStatus(status, _):
-            if let visibility = status.entity.visibility {
-                let quotability = {
-                    if let specified = status.entity.quoteApproval?.automatic {
-                        return Mastodon.Entity.Source.QuotePolicy(specified)
-                    } else {
-                        return defaultQuotePolicy(forVisibility: visibility)
-                    }
-                }()
-                self.interactionSettings = (visibility, quotability)
-            }
-            self.canEditVisibility = false
             self.attachmentViewModels = status.entity.mastodonAttachments.compactMap {
                 guard let assetURL = $0.assetURL, let url = URL(string: assetURL) else { return nil }
 
@@ -319,19 +294,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         bind()
     }
     
-    public func setInteractionSettings(visibility: Mastodon.Entity.Status.Visibility?, quotability: Mastodon.Entity.Source.QuotePolicy?) {
-        guard visibility != interactionSettings.visibility || quotability != interactionSettings.quotability else { return }
-        
-        let newVisibility = visibility ?? interactionSettings.visibility
-        let requestedQuotability = quotability ?? interactionSettings.quotability
-        if newVisibility.allowableQuotePolicies.contains(requestedQuotability) {
-            interactionSettings = (newVisibility, requestedQuotability)
-        } else {
-            interactionSettings = (newVisibility, .nobody)
-        }
-    }
-    
-    var interactionSettingsButtonText: String {
+    func interactionSettingsButtonText(_ interactionSettings: (visibility: Mastodon.Entity.Status.Visibility, quotability: Mastodon.Entity.Source.QuotePolicy)) -> String {
         switch interactionSettings {
         case (.public, .anyone):
             L10n.Scene.Compose.VisibilityAndQuotability.publicAnyone
@@ -355,43 +318,6 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     }
 }
 
-extension Mastodon.Entity.Source.QuotePolicy {
-    init(_ automaticallyApproved: [Mastodon.Entity.Status.QuotePermissionUserCategory]) {
-        if automaticallyApproved.contains(.anyone) {
-            self = .anyone
-        } else if automaticallyApproved.contains(.followersOnly) {
-            self = .followers
-        } else {
-            self = .nobody
-        }
-    }
-}
-
-extension Mastodon.Entity.Status.Visibility {
-    var allowableQuotePolicies: [Mastodon.Entity.Source.QuotePolicy] {
-        switch self {
-        case .public, .unlisted:
-            return [.anyone, .followers, .nobody]
-        default:
-            return [.nobody]
-        }
-    }
-}
-
-func defaultQuotePolicy(forVisibility visibility: Mastodon.Entity.Status.Visibility) -> Mastodon.Entity.Source.QuotePolicy {
-    switch visibility {
-    case .public:
-        return .anyone
-    case .unlisted:
-        return .followers
-    case .direct:
-        return .nobody
-    case .private:
-        return .nobody
-    default:
-        return .anyone
-    }
-}
 
 extension ComposeContentViewModel {
     private func bind() {
@@ -706,8 +632,8 @@ extension ComposeContentViewModel {
             pollOptions: pollOptions,
             pollExpireConfigurationOption: pollExpireConfigurationOption,
             pollMultipleConfigurationOption: pollMultipleConfigurationOption,
-            visibility: interactionSettings.visibility,
-            quotePolicy: AuthenticationServiceProvider.shared.currentInstanceConfiguration?.isAvailable(.quotePosts) == true ? interactionSettings.quotability : nil,
+            visibility: interactionSettingsModel.interactionSettings.visibility,
+            quotePolicy: AuthenticationServiceProvider.shared.currentInstanceConfiguration?.isAvailable(.quotePosts) == true ? interactionSettingsModel.interactionSettings.quotability : nil,
             language: language
         )
     }
@@ -751,7 +677,8 @@ extension ComposeContentViewModel {
                                            pollOptions: pollOptions,
                                            pollExpireConfigurationOption: pollExpireConfigurationOption,
                                            pollMultipleConfigurationOption: pollMultipleConfigurationOption,
-                                           visibility: interactionSettings.visibility,
+                                           visibility: interactionSettingsModel.interactionSettings.visibility,
+                                           quotability: authenticationBox.authentication.instanceConfiguration?.isAvailable(.quotePosts) == true ? interactionSettingsModel.interactionSettings.quotability : nil,
                                            language: language)
     }
 

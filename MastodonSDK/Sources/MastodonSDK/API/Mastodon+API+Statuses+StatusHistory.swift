@@ -144,6 +144,7 @@ extension Mastodon.API.Statuses {
         public let sensitive: Bool?
         public let spoilerText: String?
         public let visibility: Mastodon.Entity.Status.Visibility?
+        public let quotability: Mastodon.Entity.Source.QuotePolicy?
         public let language: String?
 
         public init(
@@ -154,6 +155,7 @@ extension Mastodon.API.Statuses {
             sensitive: Bool?,
             spoilerText: String?,
             visibility: Mastodon.Entity.Status.Visibility?,
+            quotability: Mastodon.Entity.Source.QuotePolicy?,
             language: String?
         ) {
             self.status = status
@@ -163,6 +165,7 @@ extension Mastodon.API.Statuses {
             self.sensitive = sensitive
             self.spoilerText = spoilerText
             self.visibility = visibility
+            self.quotability = quotability
             self.language = language
         }
 
@@ -174,6 +177,7 @@ extension Mastodon.API.Statuses {
             case sensitive
             case spoilerText = "spoiler_text"
             case visibility
+            case quotability = "quote_approval_policy"
             case language
         }
     }

@@ -310,7 +310,6 @@ extension ComposeContentViewController {
         viewModel.$isPollActive.assign(to: &composeContentToolbarViewModel.$isPollActive)
         viewModel.$isEmojiActive.assign(to: &composeContentToolbarViewModel.$isEmojiActive)
         viewModel.$isContentWarningActive.assign(to: &composeContentToolbarViewModel.$isContentWarningActive)
-        viewModel.$interactionSettings.assign(to: &composeContentToolbarViewModel.$interactionSettings)
         viewModel.$maxTextInputLimit.assign(to: &composeContentToolbarViewModel.$maxTextInputLimit)
         viewModel.$contentWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWeightedLength)
         viewModel.$contentWarningWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWarningWeightedLength)
@@ -359,19 +358,6 @@ extension ComposeContentViewController {
             .store(in: &disposeBag)
 
         viewModel.$recentLanguages.assign(to: &composeContentToolbarViewModel.$recentLanguages)
-        
-        // bind back to source due to visibility not update via delegate
-        composeContentToolbarViewModel.interactionSettings = viewModel.interactionSettings
-        composeContentToolbarViewModel.$interactionSettings
-            .dropFirst()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] interactionSettings in
-                guard let self = self else { return }
-                if self.viewModel.interactionSettings != interactionSettings {
-                    self.viewModel.interactionSettings = interactionSettings
-                }
-            }
-            .store(in: &disposeBag)
     }
     
     private func updateAutoCompleteViewControllerLayout() {

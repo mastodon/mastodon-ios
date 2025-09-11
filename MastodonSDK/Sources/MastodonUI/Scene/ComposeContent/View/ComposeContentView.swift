@@ -19,22 +19,10 @@ public struct ComposeContentView: View {
     
     @ObservedObject var viewModel: ComposeContentViewModel
     @State private var isPresentingInteractionSettings = false
-    @State private var visibilitySelection: Mastodon.Entity.Status.Visibility
-    @State private var quotabilitySelection: Mastodon.Entity.Source.QuotePolicy
-    private func updateVisibilitySelection(_ newValue: Mastodon.Entity.Status.Visibility) {
-        viewModel.setInteractionSettings(visibility: visibilitySelection, quotability: nil)
-        if quotabilitySelection != viewModel.interactionSettings.quotability {
-            quotabilitySelection = viewModel.interactionSettings.quotability
-        }
-    }
-    private func updateQuotabilitySelection(_ newValue: Mastodon.Entity.Source.QuotePolicy) {
-        viewModel.setInteractionSettings(visibility: nil, quotability: quotabilitySelection)
-    }
+    @Environment(PostInteractionSettingsViewModel.self) private var interactionSettingsViewModel
     
     init(viewModel: ComposeContentViewModel) {
         self.viewModel = viewModel
-        self.visibilitySelection = viewModel.interactionSettings.visibility
-        self.quotabilitySelection = viewModel.interactionSettings.quotability
     }
 
     public var body: some View {
@@ -176,12 +164,6 @@ public struct ComposeContentView: View {
             interactionSettingsView
                 .presentationDetents([.fraction(0.3), .medium, .large])
                 .presentationDragIndicator(.visible)
-                .onAppear() {
-                    viewModel.previousInteractionSettings = viewModel.interactionSettings
-                }
-                .onDisappear() {
-                    viewModel.previousInteractionSettings = nil
-                }
         }
         
     }   // end body
@@ -192,8 +174,8 @@ public struct ComposeContentView: View {
             isPresentingInteractionSettings = true
         } label: {
             HStack {
-                Text(Image(uiImage: viewModel.interactionSettings.visibility.image))
-                Text(viewModel.interactionSettingsButtonText)
+                Text(Image(uiImage: interactionSettingsViewModel.interactionSettings.visibility.image))
+                Text(viewModel.interactionSettingsButtonText(interactionSettingsViewModel.interactionSettings))
             }
             .font(.subheadline)
             .foregroundStyle(Asset.Colors.Brand.darkBlurple.swiftUIColor)
@@ -208,7 +190,14 @@ public struct ComposeContentView: View {
     
     @ViewBuilder
     func visibilityPicker() -> some View {
-        Picker(selection: $viewModel.interactionSettings.visibility) {
+        Picker(selection: Binding<Mastodon.Entity.Status.Visibility>(
+            get: {
+                interactionSettingsViewModel.interactionSettings.visibility
+            },
+            set: { newValue in
+                interactionSettingsViewModel.setInteractionSettings(visibility: newValue, quotability: nil)
+            }
+        )) {
             ForEach([Mastodon.Entity.Status.Visibility.public, .unlisted, .private, .direct], id: \.self) { visibility in
                 Label {
                     Text(visibility.title)
@@ -217,125 +206,25 @@ public struct ComposeContentView: View {
                 }
             }
         } label: {
-            Text(viewModel.interactionSettings.visibility.title)
-        }.disabled(!viewModel.canEditVisibility)
-    }
-    
-    @ViewBuilder
-    func validatingVisibilityPicker() -> some View {
-        Picker(selection: $visibilitySelection) {
-            ForEach([Mastodon.Entity.Status.Visibility.public, .unlisted, .private, .direct], id: \.self) { visibility in
-                Text(visibility.title)
-            }
-        } label: {
-            Text(viewModel.interactionSettings.visibility.title)
-        }
-        .disabled(!viewModel.canEditVisibility)
-        .tint(.secondary)
-        .onChange(of: visibilitySelection) { newValue in
-            updateVisibilitySelection(newValue)
-        }
-    }
-    
-    @ViewBuilder
-    func quotabilityPicker(_ options: [Mastodon.Entity.Source.QuotePolicy]) -> some View {
-        Picker(selection: $quotabilitySelection) {
-            ForEach(options, id: \.self) { quotability in
-                Label {
-                    Text(quotability.title)
-                } icon: {
-                    EmptyView()
-                }
-            }
-        } label: {
-            Text(viewModel.interactionSettings.quotability.title)
-        }
-        .disabled(options.count < 2)
-        .tint(.secondary)
-        .onChange(of: quotabilitySelection) { newValue in
-            updateQuotabilitySelection(newValue)
-        }
+            Text(interactionSettingsViewModel.interactionSettings.visibility.title)
+        }.disabled(!interactionSettingsViewModel.canEditVisibility)
     }
     
     @ViewBuilder
     var interactionSettingsView: some View {
-        ScrollView {
-            VStack {
-                
-                // header and buttons
-                HStack {
-                    Button(L10n.Common.Controls.Actions.cancel, role: .cancel) {
-                        if let restoreSettings = viewModel.previousInteractionSettings {
-                            viewModel.interactionSettings = restoreSettings
-                        }
-                        isPresentingInteractionSettings = false
-                    }
-                    .tint(.blue)
-                    Spacer()
-                    Text(L10n.Scene.Compose.VisibilityAndQuotability.title)
-                        .fontWeight(.semibold)
-                    Spacer()
-                    Button(L10n.Common.Controls.Actions.save, role: .none) {
-                        isPresentingInteractionSettings = false
-                    }
-                    .fontWeight(.semibold)
-                    .tint(.blue)
-                }
-                Spacer()
-                    .frame(height: 4)
-                Text(L10n.Scene.Compose.VisibilityAndQuotability.subtitle)
-                    .font(.caption)
-                
-                Spacer()
-                
-                // visibility
-                HStack {
-                    Text(L10n.Scene.Compose.Visibility.title)
-                    Spacer()
-                    validatingVisibilityPicker()
-                }
-                .padding(19)
-                .background {
-                    RoundedRectangle(cornerRadius: 24)
-                        .fill(.white)
-                }
-                
-                Spacer()
-                
-                // quotability
-                HStack {
-                    Text(L10n.Scene.Compose.QuotePermissionPolicy.title)
-                    Spacer()
-                    quotabilityPicker(visibilitySelection.allowableQuotePolicies)
-                }
-                .padding(19)
-                .background {
-                    RoundedRectangle(cornerRadius: 24)
-                        .fill(.white)
+        PostInteractionSettingsView(closeAndSave: { shouldSave in
+            if shouldSave {
+                // already set, nothing to do until posting
+            } else {
+                if let restoreSettings = viewModel.previousInteractionSettings {
+                    interactionSettingsViewModel.setInteractionSettings(visibility: restoreSettings.visibility, quotability: restoreSettings.quotability)
                 }
             }
-        }
-        .padding(EdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 16))
-        .background(Color(.secondarySystemBackground))
-        .ignoresSafeArea(edges: .bottom)
+            viewModel.previousInteractionSettings = nil
+            isPresentingInteractionSettings = false
+        })
         .onAppear() {
-            visibilitySelection = viewModel.interactionSettings.visibility
-            quotabilitySelection = viewModel.interactionSettings.quotability
-        }
-    }
-}
-
-extension Mastodon.Entity.Source.QuotePolicy {
-    var title: String {
-        switch self {
-        case .anyone:
-            L10n.Scene.Compose.QuotePermissionPolicy.anyone
-        case .followers:
-            L10n.Scene.Compose.QuotePermissionPolicy.followers
-        case .nobody:
-            L10n.Scene.Compose.QuotePermissionPolicy.onlyMe
-        case ._other(let string):
-            string
+            viewModel.previousInteractionSettings = interactionSettingsViewModel.interactionSettings
         }
     }
 }

@@ -3,6 +3,7 @@
 import SwiftUI
 import MastodonSDK
 import MastodonLocalization
+import MastodonUI
 
 struct PrivacySafetyView: View {
     @StateObject var viewModel: PrivacySafetyViewModel
@@ -68,7 +69,7 @@ struct PrivacySafetyView: View {
                                     viewModel.quotability = visibilityAndQuotabilityViewModel.interactionSettings.quotability
                                 }
                             ) ) {
-                                ForEach(visibilityAndQuotabilityViewModel.allowableQuotePolicies(forVisibility: visibilityAndQuotabilityViewModel.interactionSettings.visibility), id: \.self) {
+                                ForEach(visibilityAndQuotabilityViewModel.interactionSettings.visibility.allowableQuotePolicies, id: \.self) {
                                     Text($0.title)
                                 }
                             } label: {

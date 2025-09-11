@@ -20,9 +20,6 @@ extension ComposeContentToolbarView {
         @Published var backgroundColor = SystemTheme.composeToolbarBackgroundColor
         @Published var suggestedLanguages: [String] = []
         @Published var highConfidenceSuggestedLanguage: String?
-        @Published var interactionSettings: (visibility: Mastodon.Entity.Status.Visibility, quotability: Mastodon.Entity.Source.QuotePolicy) = (.public, .anyone)
-        let allVisibilities = [Mastodon.Entity.Status.Visibility.public, .unlisted, .private, .direct]
-        @Published var isVisibilityButtonEnabled = false
         @Published var isPollActive = false
         @Published var isEmojiActive = false
         @Published var isContentWarningActive = false
