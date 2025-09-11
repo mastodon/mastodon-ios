@@ -153,6 +153,8 @@ public enum L10n {
         public static let bookmark = L10n.tr("Localizable", "Common.Controls.Actions.Bookmark", fallback: "Bookmark")
         /// Cancel
         public static let cancel = L10n.tr("Localizable", "Common.Controls.Actions.Cancel", fallback: "Cancel")
+        /// Change who can quote
+        public static let changeQuotePolicy = L10n.tr("Localizable", "Common.Controls.Actions.ChangeQuotePolicy", fallback: "Change who can quote")
         /// Compose
         public static let compose = L10n.tr("Localizable", "Common.Controls.Actions.Compose", fallback: "Compose")
         /// Confirm

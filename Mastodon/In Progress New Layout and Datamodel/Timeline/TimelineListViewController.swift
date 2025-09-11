@@ -1784,6 +1784,10 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                         })
                     presentScene(.editStatus(viewModel: editStatusViewModel), fromPost: nil, transition: .modal(animated: true))
                     
+                case .changeQuotePolicy:
+                    guard let actionablePost = post.actionablePost else { throw PostActionFailure.noActionablePostId }
+                    // TODO: bring up the same sheet as in the composer
+                    
             // MARK: POST ACTIONS
                 case .copyLinkToPost:
                     guard let urlString = post.actionablePost?.metaData.url else { throw PostActionFailure.noActionablePostId }

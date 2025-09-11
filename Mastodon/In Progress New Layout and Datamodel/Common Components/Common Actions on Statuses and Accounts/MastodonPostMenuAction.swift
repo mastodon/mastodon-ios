@@ -65,6 +65,7 @@ enum MastodonPostMenuAction {
     
     // EDIT
     case editPost
+    case changeQuotePolicy
     
     // TRANSLATE
     case translatePost
@@ -98,7 +99,7 @@ enum MastodonPostMenuAction {
         case .boost, .unboost, .favourite, .unfavourite, .bookmark, .unbookmark:
             false
             
-        case .editPost:
+        case .editPost, .changeQuotePolicy:
             false
             
         case .translatePost, .showOriginalLanguage:
@@ -132,7 +133,7 @@ enum MastodonPostMenuAction {
         case .boost, .unboost, .favourite, .unfavourite, .bookmark, .unbookmark:
             true
             
-        case .editPost:
+        case .editPost, .changeQuotePolicy:
             true
             
         case .translatePost, .showOriginalLanguage:
@@ -195,6 +196,8 @@ enum MastodonPostMenuAction {
             "minus.circle"
         case .editPost:
             "pencil"
+        case .changeQuotePolicy:
+            "quote.opening"
         case .copyLinkToPost:
             "doc.on.doc"
         case .openPostInBrowser:
@@ -247,6 +250,8 @@ enum MastodonPostMenuAction {
             return L10n.Common.Controls.Actions.delete
         case .editPost:
             return L10n.Common.Controls.Actions.editPost
+        case .changeQuotePolicy:
+            return L10n.Common.Controls.Actions.changeQuotePolicy
         case .copyLinkToPost:
             return L10n.Common.Controls.Status.Actions.copyLink
         case .openPostInBrowser:
@@ -265,10 +270,10 @@ enum MastodonPostMenuAction {
     
     static func menuItems(forPostBy relationship: MastodonAccount.Relationship, isQuotingMe: Bool, isShowingTranslation: Bool?) -> [MastodonPostMenuAction.Submenu] {
         
-        let editAction: [MastodonPostMenuAction]? =  {
+        let editActions: [MastodonPostMenuAction]? =  {
             switch relationship {
             case .isMe:
-                [ MastodonPostMenuAction.editPost ]
+                [ MastodonPostMenuAction.editPost, .changeQuotePolicy ]
             case .isNotMe:
                 nil
             }
@@ -315,7 +320,7 @@ enum MastodonPostMenuAction {
         }()
         
         let submenus: [MastodonPostMenuAction.Submenu] = [
-            .init(.edit, items: editAction),
+            .init(.edit, items: editActions),
             .init(.translate, items: translateAction),
             .init(.postActions, items: postActions),
             .init(.relationshipActions, items: relationshipActions),

@@ -121,6 +121,7 @@
                     "unknown_language": "Unknown"
                 },
                 "edit_post": "Edit",
+                "change_quote_policy": "Change who can quote",
                 "bookmark": "Bookmark",
                 "remove_bookmark": "Remove Bookmark",
                 "follow": "Follow %s",
