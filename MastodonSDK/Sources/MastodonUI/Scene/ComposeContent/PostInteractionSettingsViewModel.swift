@@ -160,3 +160,16 @@ extension Mastodon.Entity.Status.Visibility {
         }
     }
 }
+
+extension Mastodon.Entity.Status {
+    public var specifiedQuotePolicyOrNobody: Mastodon.Entity.Source.QuotePolicy {
+        guard let automaticApprovals = quoteApproval?.automatic else { return .nobody }
+        if automaticApprovals.contains(.anyone) {
+            return .anyone
+        } else if automaticApprovals.contains(.followersOnly) {
+            return .followers
+        } else {
+            return .nobody
+        }
+    }
+}

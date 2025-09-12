@@ -633,7 +633,13 @@ private class TimelineListViewModel: ObservableObject {
             }
         }
     }
+    var postInteractionSettingsEditViewModel: PostInteractionSettingsViewModel? = nil {
+        didSet {
+            isShowingQuotabilityEdit = postInteractionSettingsEditViewModel != nil
+        }
+    }
     
+    @Published var isShowingQuotabilityEdit: Bool = false
     @Published var isShowingOverlay: Bool = false
     @Published var isPresentingAlert: Bool = false
     @Published var presentedDonationCampaign: Mastodon.Entity.DonationCampaign?
@@ -692,6 +698,9 @@ private class TimelineListViewModel: ObservableObject {
         }
         if isPerformingAccountAction != nil {
             isPerformingAccountAction = nil
+        }
+        if postInteractionSettingsEditViewModel != nil {
+            postInteractionSettingsEditViewModel = nil
         }
     }
     
@@ -1283,6 +1292,29 @@ struct TimelineListView: View {
                 Text(messageText)
             }
         }
+        .sheet(isPresented: $viewModel.isShowingQuotabilityEdit) {
+            if let editModel = viewModel.postInteractionSettingsEditViewModel {
+                PostInteractionSettingsView(closeAndSave: { save in
+                    if save {
+                        Task {
+                            do {
+                                try await viewModel.commitCurrentQuotePolicyEdit()
+                                viewModel.clearPendingActions()
+                            } catch {
+                                viewModel.clearPendingActions()
+                                // TODO: make failure visible to user
+                            }
+                        }
+                    } else {
+                        viewModel.clearPendingActions()
+                    }
+                })
+                .environment(editModel)
+                .presentationDetents([.fraction(0.3), .medium, .large])
+                .presentationDragIndicator(.hidden)
+                .interactiveDismissDisabled(true)
+            }
+        }
         .overlay {
             if viewModel.isShowingOverlay, let activeOverlay = viewModel.activeOverlay {
                 GeometryReader { geo in
@@ -1786,7 +1818,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     
                 case .changeQuotePolicy:
                     guard let actionablePost = post.actionablePost else { throw PostActionFailure.noActionablePostId }
-                    // TODO: bring up the same sheet as in the composer
+                    postInteractionSettingsEditViewModel = PostInteractionSettingsViewModel(account: actionablePost.metaData.author._legacyEntity, initialSettings: .editing(visibility: actionablePost._legacyEntity.visibility ?? .public, quotability: actionablePost._legacyEntity.specifiedQuotePolicyOrNobody)) // this presents the sheet
                     
             // MARK: POST ACTIONS
                 case .copyLinkToPost:
@@ -1854,6 +1886,19 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                 // TODO: handle error in a way the user can see it
                 assertionFailure()
                 clearPendingActions()
+            }
+        }
+    }
+    
+    func commitCurrentQuotePolicyEdit() async throws {
+        guard let (action, post) = isPerformingPostAction, action == .changeQuotePolicy, let authBox = AuthenticationServiceProvider.shared.currentActiveUser
+            .value, let editModel = postInteractionSettingsEditViewModel else { throw PostActionFailure.unsupportedAction }
+        Task {
+            do {
+                let updated = try await APIService.shared.updateQuotePolicy(forStatus: post.id, to: editModel.interactionSettings.quotability, authenticationBox: authBox)
+                feedLoader?.updatePost(post: GenericMastodonPost.fromStatus(updated))
+            } catch {
+                // TODO: make failure visible
             }
         }
     }

@@ -99,4 +99,27 @@ extension APIService {
             return response.value
     }
 
+    public func updateQuotePolicy(
+        forStatus statusId: Mastodon.Entity.Status.ID,
+        to newPolicy: Mastodon.Entity.Source.QuotePolicy,
+        authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Entity.Status {
+            
+            let authorization = authenticationBox.userAuthorization
+            
+            let _query: Mastodon.API.Statuses.UpdateQuotePolicyQuery? = Mastodon.API.Statuses.UpdateQuotePolicyQuery(statusId: statusId, newPolicy: newPolicy)
+            guard let query = _query else {
+                throw APIError.implicit(.badRequest)
+            }
+            
+            let response = try await Mastodon.API.Statuses.updateQuotePolicy(
+                session: session,
+                domain: authenticationBox.domain,
+                query: query,
+                authorization: authorization
+            ).singleOutput()
+            
+            return response.value
+            
+    }
+
 }

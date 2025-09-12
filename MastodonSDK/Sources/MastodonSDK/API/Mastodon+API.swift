@@ -179,6 +179,14 @@ extension Mastodon.API {
     ) -> URLRequest {
         return buildRequest(url: url, method: .POST, query: query, authorization: authorization)
     }
+    
+    static func updateQuotePolicy(
+        url: URL,
+        query: PutQuery?,
+        authorization: OAuth.Authorization? = nil
+    ) -> URLRequest {
+        return buildRequest(url: url, method: .PUT, query: query, authorization: authorization)
+    }
 
     private static func buildRequest(
         url: URL,

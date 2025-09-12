@@ -265,6 +265,70 @@ extension Mastodon.API.Statuses {
             return nil  // all of the information is included in the url
         }
     }
+    
+    /// Update quote policy
+    ///
+    /// Change a single post's quote policy going forward.
+    ///
+    /// - Since: 4.6.0
+    /// - Version: 4.6.0
+    /// # Last Update
+    ///   2025/9/12
+    /// # Reference
+    ///   [Document](not yet published)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - query: `UpdateQuotePolicyQuery`
+    ///   - authorization: User token
+    /// - Returns: `AnyPublisher` contains `Status` nested in the response
+    public static func updateQuotePolicy(
+        session: URLSession,
+        domain: String,
+        query: UpdateQuotePolicyQuery,
+        authorization: Mastodon.API.OAuth.Authorization?
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error>  {
+        var url = statusEndpointURL(domain: domain, statusID: query.statusId)
+        for component in ["interaction_policy"] {
+            url.append(path: component)
+        }
+        let request = Mastodon.API.updateQuotePolicy(
+            url: url,
+            query: query,
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Status.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    public struct UpdateQuotePolicyQuery: Codable, PutQuery {
+        public let statusId: Mastodon.Entity.Status.ID
+        public let newPolicy: Mastodon.Entity.Source.QuotePolicy
+        
+        public init(
+            statusId: Mastodon.Entity.Status.ID,
+            newPolicy: Mastodon.Entity.Source.QuotePolicy
+        ) {
+            self.statusId = statusId
+            self.newPolicy = newPolicy
+        }
+        
+        var body: Data? {
+            // the affected statusID is in the url, we only need to send the new policy here
+            // sending as JSON rather than form encoding because attempting with form encoding returned http status 400
+            do {
+                let dict = [ "quote_approval_policy" : newPolicy.rawValue ]
+                return try JSONSerialization.data(withJSONObject: dict)
+            } catch {
+                assertionFailure("Error creating quote policy update query body: \(error)")
+                return nil
+            }
+        }
+    }
 }
 
 extension Mastodon.API.Statuses {

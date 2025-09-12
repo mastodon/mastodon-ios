@@ -5,12 +5,16 @@ import MastodonLocalization
 import MastodonCore
 import MastodonSDK
 
-struct PostInteractionSettingsView: View {
-    let closeAndSave: (Bool) -> ()
+public struct PostInteractionSettingsView: View {
+    private let closeAndSave: (Bool) -> ()
     
-    @Environment(PostInteractionSettingsViewModel.self) var viewModel
+    @Environment(PostInteractionSettingsViewModel.self) private var viewModel
     
-    var body: some View {
+    public init(closeAndSave: @escaping (Bool) -> Void) {
+        self.closeAndSave = closeAndSave
+    }
+    
+    public var body: some View {
             VStack {
                 Spacer()
                     .frame(height: 4)

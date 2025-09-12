@@ -173,17 +173,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 _initialInteractionSettings = .fresh(replyingToVisibility: nil)
             }
         case .editStatus(let status, _):
-            let _quoteability: Mastodon.Entity.Source.QuotePolicy = {
-                guard let automaticApprovals = status.entity.quoteApproval?.automatic else { return .nobody }
-                if automaticApprovals.contains(.anyone) {
-                    return .anyone
-                } else if automaticApprovals.contains(.followersOnly) {
-                    return .followers
-                } else {
-                    return .nobody
-                }
-            }()
-            _initialInteractionSettings = .editing(visibility: status.entity.visibility ?? .public, quotability: _quoteability)
+            let _quotability = status.entity.specifiedQuotePolicyOrNobody
+            _initialInteractionSettings = .editing(visibility: status.entity.visibility ?? .public, quotability: _quotability)
         }
         self.interactionSettingsModel = PostInteractionSettingsViewModel(account: authenticationBox.cachedAccount, initialSettings: _initialInteractionSettings)
         
