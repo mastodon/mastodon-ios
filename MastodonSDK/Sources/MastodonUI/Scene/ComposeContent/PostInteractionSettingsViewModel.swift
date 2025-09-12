@@ -6,7 +6,7 @@ import MastodonSDK
 @Observable public class PostInteractionSettingsViewModel {
     
     public enum InitialSettings {
-        case fresh(replyingToVisibility: Mastodon.Entity.Status.Visibility?)  // visibility options may be constricted by the replyTo's visibility
+        case fresh(replyingToVisibility: Mastodon.Entity.Status.Visibility?)  // default visibility depends on the replyTo's visibility
         case editing(visibility: Mastodon.Entity.Status.Visibility, quotability: Mastodon.Entity.Source.QuotePolicy)  // visibility choice is fixed, but quotability can be changed
         
         public func defaultSettings(forAuthor account: Mastodon.Entity.Account?) -> (visibility: Mastodon.Entity.Status.Visibility, quotability: Mastodon.Entity.Source.QuotePolicy) {
