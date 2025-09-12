@@ -19,6 +19,12 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
         case fromEndpointV1(Mastodon.Entity.Instance)   // an instance returned by querying the v1 endpoint, available from all servers
         case fromEndpointV2(Mastodon.Entity.V2.Instance, TranslationLanguages)  // an instance returned by querying the v2 endpoint, available from server versions 4.0+
         
+        enum CodingKeys: String, CodingKey {
+            // this mapping is necessary to be able to read cached information from versions before the enum cases were renamed
+            case fromEndpointV1 = "v1"
+            case fromEndpointV2 = "v2"
+        }
+        
         public func canTranslateFrom(_ sourceLocale: String, to targetLanguage: String) -> Bool {
             switch self {
             case .fromEndpointV1:
