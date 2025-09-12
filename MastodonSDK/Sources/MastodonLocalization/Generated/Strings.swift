@@ -830,8 +830,8 @@ public enum L10n {
         public static let publicFollowers = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.publicFollowers", fallback: "Public, quotes limited")
         /// Public, quotes disabled
         public static let publicOnlyMe = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.publicOnlyMe", fallback: "Public, quotes disabled")
-        /// Control who can interact with this post. Global settings can be found under Preferences > Other.
-        public static let subtitle = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.subtitle", fallback: "Control who can interact with this post. Global settings can be found under Preferences > Other.")
+        /// Control who can interact with this post. Global settings can be found under Settings > Privacy & Safety.
+        public static let subtitle = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.subtitle", fallback: "Control who can interact with this post. Global settings can be found under Settings > Privacy & Safety.")
         /// Visibility and Interaction
         public static let title = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.title", fallback: "Visibility and Interaction")
         /// Quiet public, anyone can quote

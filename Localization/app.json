@@ -592,7 +592,7 @@
             },
             "visibility_and_quotability": {
                 "title": "Visibility and Interaction",
-                "subtitle": "Control who can interact with this post. Global settings can be found under Preferences > Other.",
+                "subtitle": "Control who can interact with this post. Global settings can be found under Settings > Privacy & Safety.",
                 "public_anyone": "Public, anyone can quote",
                 "public_followers": "Public, quotes limited",
                 "public_only_me": "Public, quotes disabled",

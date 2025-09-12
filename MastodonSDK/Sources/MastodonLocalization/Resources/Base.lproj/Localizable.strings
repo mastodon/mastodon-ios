@@ -296,7 +296,7 @@ uploaded to Mastodon.";
 "Scene.Compose.Visibility.Public" = "Public";
 "Scene.Compose.Visibility.Unlisted" = "Quiet public";
 "Scene.Compose.VisibilityAndQuotability.title" = "Visibility and Interaction";
-"Scene.Compose.VisibilityAndQuotability.subtitle" = "Control who can interact with this post. Global settings can be found under Preferences > Other.";
+"Scene.Compose.VisibilityAndQuotability.subtitle" = "Control who can interact with this post. Global settings can be found under Settings > Privacy & Safety.";
 "Scene.Compose.VisibilityAndQuotability.publicAnyone" = "Public, anyone can quote";
 "Scene.Compose.VisibilityAndQuotability.publicFollowers" = "Public, quotes limited";
 "Scene.Compose.VisibilityAndQuotability.publicOnlyMe" = "Public, quotes disabled";
