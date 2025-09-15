@@ -766,7 +766,7 @@ private class TimelineListViewModel: ObservableObject {
     
     func doInitialLoad() async throws {
         guard feedLoader == nil else { return }
-        guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { assertionFailure("no active authenticated user, cannot create feed loader"); return }
+        guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
         clearPendingActions()
         authenticatedUser = currentUser
         instanceConfiguration = currentUser.authentication.instanceConfiguration
