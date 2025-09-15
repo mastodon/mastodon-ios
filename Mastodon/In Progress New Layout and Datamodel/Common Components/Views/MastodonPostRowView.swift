@@ -228,6 +228,7 @@ struct HomeTimelinePostRowView: View {
                             .alignmentGuide(.gutterAlign) { d in
                                 return d[.trailing] + spacingBetweenGutterAndContent
                             }
+                            .border(.blue)
                     }
                     VStack(spacing: 0) {
                         Spacer()
