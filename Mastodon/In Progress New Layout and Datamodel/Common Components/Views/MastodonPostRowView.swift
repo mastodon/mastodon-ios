@@ -628,16 +628,16 @@ extension ThreadedConversationModel.ThreadContext {
             return connectedAbove
         case .rootWithChildBelow:
             return false
-        case .fragmentStart, .fragmentEnd, .fragmentContinuation:
+        case .fragmentBegin, .fragmentEnd, .fragmentContinuation:
             return true
         }
     }
     
     var drawsLineBelow: Bool {
         switch self {
-        case .focused(_, let connectedBelow):
+        case .focused(_, let connectedBelow), .fragmentBegin(let connectedBelow):
             return connectedBelow
-        case .rootWithChildBelow, .fragmentStart, .fragmentContinuation:
+        case .rootWithChildBelow, .fragmentContinuation:
             return true
         case .fragmentEnd:
             return false
@@ -650,8 +650,8 @@ extension ThreadedConversationModel.ThreadContext {
             return connectedAbove && connectedBelow
         case .rootWithChildBelow:
             return false
-        case .fragmentStart:
-            return true
+        case .fragmentBegin(let connectedBelow):
+            return connectedBelow
         case .fragmentEnd:
             return false
         case .fragmentContinuation:

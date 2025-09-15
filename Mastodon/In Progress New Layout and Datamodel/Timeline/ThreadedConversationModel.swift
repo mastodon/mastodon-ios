@@ -7,7 +7,7 @@ class ThreadedConversationModel {
     enum ThreadContext {
         case rootWithChildBelow
         case focused(connectedAbove: Bool, connectedBelow: Bool)
-        case fragmentStart
+        case fragmentBegin(connectedBelow: Bool)
         case fragmentContinuation
         case fragmentEnd
     }
@@ -20,48 +20,47 @@ class ThreadedConversationModel {
     init(threadContext: Mastodon.Entity.Context, focusedPost: GenericMastodonPost) {
         focusedID = focusedPost.id
         
-        // Ancestors form a single reply chain
-        let ancestors = replyToThread(chainingUpFrom: focusedPost, from: threadContext.ancestors)
-        
-        // Descendants can form a multiply branching tree. We rely on the server to have given the descendents to us in an appropriate display order
-        let descendants = threadContext.descendants
-        
-        fullThread = ancestors + [focusedPost._legacyEntity] + descendants
-
         var contextInfos = [ Mastodon.Entity.Status.ID : ThreadContext]()
         
-        contextInfos[focusedPost.id] = .focused(connectedAbove: !ancestors.isEmpty, connectedBelow: !descendants.isEmpty)
         
-        let finalIndex = fullThread.endIndex - 1
-        for (index, item) in fullThread.enumerated() {
-            guard item.id != focusedPost.id else { continue } // the focused item has special logic and has already been handled
+        let ancestors = replyToThread(chainingUpFrom: focusedPost, from: threadContext.ancestors)
+        let descendants = threadContext.descendants
+        
+        // Handle the focused post
+        contextInfos[focusedPost.id] = .focused(connectedAbove: !ancestors.isEmpty, connectedBelow: !descendants.isEmpty)
+
+        // Ancestors form a single reply chain
+        for (index, item) in ancestors.enumerated() {
             switch index {
             case 0:
-                if ancestors.isEmpty {
-                    // we are starting with a direct reply to the focused post
-                    let nextIndex = index + 1
-                    if fullThread.endIndex > nextIndex {
-                        let connectedBelow = index != finalIndex && fullThread[nextIndex].inReplyToID == item.id
-                        contextInfos[item.id] = connectedBelow ? .fragmentContinuation : .fragmentEnd
-                    }
-                } else {
-                    contextInfos[item.id] = .rootWithChildBelow
-                }
+                contextInfos[item.id] = .rootWithChildBelow
             default:
-                let previous = fullThread[index - 1]
-                let connectedBelow = index != finalIndex && fullThread[index + 1].inReplyToID == item.id
-                let connectedAbove = previous.id == item.inReplyToID
-                switch (connectedAbove, connectedBelow) {
-                case (true, true):
-                    contextInfos[item.id] = .fragmentContinuation
-                case (true, false):
-                    contextInfos[item.id] = .fragmentEnd
-                case (false, _):
-                    contextInfos[item.id] = .fragmentStart
-                }
+                contextInfos[item.id] = .fragmentContinuation
             }
         }
+        
+        // Descendants can form a multiply branching tree; we rely on the server to have given the descendents to us in an appropriate display order
+        let finalIndex = descendants.endIndex - 1
+        var isReplyToPrevious = true // the first item in descendents ought to be a reply to the focused post
+        for (index, item) in descendants.enumerated() {
+            
+            let nextItem = index == finalIndex ? nil : descendants[index + 1]
+            let hasReplyBelow = nextItem?.inReplyToID == item.id
+           
+            switch (isReplyToPrevious, hasReplyBelow){
+            case (true, true):
+                contextInfos[item.id] = .fragmentContinuation
+            case (true, false):
+                contextInfos[item.id] = .fragmentEnd
+            case (false, _):
+                contextInfos[item.id] = .fragmentBegin(connectedBelow: hasReplyBelow)
+            }
+
+            isReplyToPrevious = hasReplyBelow
+        }
+
         threadContextInfos = contextInfos
+        fullThread = ancestors + [focusedPost._legacyEntity] + descendants
     }
     
     func context(for postID: Mastodon.Entity.Status.ID) -> ThreadContext? {
