@@ -60,11 +60,11 @@
                 "post": "Suffeɣ"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
-                "title_unboost": "Unboost Post?",
+                "title_boost": "Zuzer tasuffeɣt-a?",
+                "title_unboost": "Semmet azuzer n tasuffeɣt-a?",
                 "cancel": "Sefsex",
                 "boost": "Beṭṭu",
-                "unboost": "Unboost"
+                "unboost": "Semmet azuzer"
             },
             "unfollow_user": {
                 "title": "Ḥbes aḍfar n %@?",
@@ -160,7 +160,7 @@
                 "private_reply": "Tiririt tusligt",
                 "mention": "Abdar",
                 "private_mention": "Abdar uslig",
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "Yezzuzer-itt %s",
                 "user_replied_to": "Yerra ɣef %s",
                 "show_post": "Sken-d tasuffeɣt",
                 "show_user_profile": "Ssken-d amaɣnu n useqdac",
@@ -191,7 +191,7 @@
                     "show_image": "Sken tugna",
                     "show_gif": "Sken GIF",
                     "show_video_player": "Sken ameɣri n tvidyut",
-                    "share_link_in_post": "Share Link in Post",
+                    "share_link_in_post": "Bḍu aseɣwen deg tsuffeɣt",
                     "tap_then_hold_to_show_menu": "Sit teǧǧeḍ aḍad-ik•im i wakken ad d-iffeɣ wumuɣ",
                     "a11y_labels": {
                         "reblog": "Zuzer",
@@ -229,12 +229,12 @@
                 "buttons": {
                     "reblogs_title": "Izuzar",
                     "favorites_title": "Imenyafen",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "edit_history_title": "Amazray n teẓrigin",
+                    "edit_history_detail": "Taẓrigt taneggarut %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Tettwaẓreg ass n %s",
                 "edit_history": {
-                    "title": "Edit History",
+                    "title": "Amazray n teẓrigin",
                     "original_post": "Original Post · %s"
                 },
                 "card": {
@@ -244,14 +244,14 @@
             },
             "friendship": {
                 "follow": "Ḍfeṛ",
-                "follow_back": "Follow back",
+                "follow_back": "Ḍfer-it ula d kečč·mm",
                 "following": "Yettwaḍfar",
-                "mutual": "Mutual",
+                "mutual": "Temṭafarem",
                 "request": "Tuttra",
                 "pending": "Yegguni",
                 "block": "Sewḥel",
                 "block_user": "Sewḥel %s",
-                "block_domain": "Block domain %s",
+                "block_domain": "Sewḥel tummant %s",
                 "unblock": "Serreḥ",
                 "unblock_user": "Serreḥ i %s",
                 "blocked": "Yettusewḥel",
@@ -262,7 +262,7 @@
                 "unmute_user": "Kkes asgugem ɣef %s",
                 "muted": "Yettwasgugem",
                 "edit_info": "Ẓreg talɣut",
-                "show_reblogs": "Show Boosts",
+                "show_reblogs": "Sken-d izuzar",
                 "hide_reblogs": "Ffer izuzar"
             },
             "timeline": {
@@ -317,7 +317,7 @@
             }
         },
         "login": {
-            "title": "Welcome Back",
+            "title": "Ansuf yes-k·m tikkelt nniḍen",
             "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Sekcem URL neɣ nadi ɣef uqeddac-ik·im"
@@ -480,7 +480,7 @@
             "didnt_get_link": {
                 "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "resend_now": "Ales tuzna tura."
             }
         },
         "home_timeline": {
@@ -642,7 +642,7 @@
                     "message": "Sentem tukksa n usgugem i %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
+                    "title": "Sken-d izuzar",
                     "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
