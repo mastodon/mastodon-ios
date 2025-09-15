@@ -226,8 +226,10 @@ struct HomeTimelinePostRowView: View {
                         HStack(spacing: 0) {
                             threadingDecoration(withSpacerAtTop: false, withSpacerAtBottom: !threadedContext.isContiguous)
                                 .frame(width: AvatarSize.large)
+                                .border(.blue)
                             Spacer()
                                 .frame(width: spacingBetweenGutterAndContent, height: 10)
+                                .background(.gray)
                         }
                         .alignmentGuide(.gutterAlign) { d in
                             return d[.trailing]
@@ -263,6 +265,7 @@ struct HomeTimelinePostRowView: View {
                 VStack(spacing: spacingBetweenGutterAndContent) {
                     // MARK: Author info
                     AuthorHeaderView()
+                        .border(.blue)
                     
                     // MARK: Content warned and/or filtered
                     contentConcealLozenge
