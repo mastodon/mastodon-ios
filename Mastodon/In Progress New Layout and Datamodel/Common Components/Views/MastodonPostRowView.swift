@@ -223,12 +223,15 @@ struct HomeTimelinePostRowView: View {
                 // MARK: Conversation thread line decoration
                 ZStack(alignment: Alignment(horizontal: .gutterAlign, vertical: .center)) {
                     if threadedContext.drawsLineAbove {
-                        threadingDecoration(withSpacerAtTop: false, withSpacerAtBottom: !threadedContext.isContiguous)
-                            .frame(width: AvatarSize.large)
-                            .alignmentGuide(.gutterAlign) { d in
-                                return d[.trailing] + spacingBetweenGutterAndContent
-                            }
-                            .border(.blue)
+                        HStack(spacing: 0) {
+                            threadingDecoration(withSpacerAtTop: false, withSpacerAtBottom: !threadedContext.isContiguous)
+                                .frame(width: AvatarSize.large)
+                            Spacer()
+                                .frame(width: spacingBetweenGutterAndContent, height: 10)
+                        }
+                        .alignmentGuide(.gutterAlign) { d in
+                            return d[.trailing]
+                        }
                     }
                     VStack(spacing: 0) {
                         Spacer()
@@ -245,7 +248,7 @@ struct HomeTimelinePostRowView: View {
                 }
             }
             
-            HStack(alignment: .top) {
+            HStack(alignment: .top, spacing: spacingBetweenGutterAndContent) {
                 // MARK: Avatar
                 VStack(spacing: 0) {
                     AvatarView(size: .large, authorAvatarUrl: author?.avatarURL ?? viewModel.initialDisplayInfo.actionableAuthorStaticAvatar, goToProfile: {
