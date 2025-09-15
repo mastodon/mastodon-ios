@@ -349,9 +349,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 tririt</string>
+        <string>1 n tririt</string>
         <key>other</key>
-        <string>%ld tririyin</string>
+        <string>%ld n tririyin</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -367,7 +367,7 @@
         <key>one</key>
         <string>1 tefrant</string>
         <key>other</key>
-        <string>%ld tefranin</string>
+        <string>%ld n tefranin</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -381,9 +381,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1umefran</string>
+        <string>1 n umefran</string>
         <key>other</key>
-        <string>%ld imefranen</string>
+        <string>%ld n imefranen</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -399,7 +399,7 @@
         <key>one</key>
         <string>1 umdan i yettmeslayen</string>
         <key>other</key>
-        <string>%ld yimdanen i yettmeslayen</string>
+        <string>%ld n yimdanen i yettmeslayen</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -415,7 +415,7 @@
         <key>one</key>
         <string>1 uneḍfar</string>
         <key>other</key>
-        <string>%ld yineḍfaren</string>
+        <string>%ld n ineḍfaren</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
