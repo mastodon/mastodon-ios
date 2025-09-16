@@ -17,7 +17,6 @@ final class DiscoveryViewModel {
     
     // input
     let authenticationBox: MastodonAuthenticationBox
-    let discoveryPostsViewController: DiscoveryPostsViewController
     let newDiscoveryPostsViewController: TimelineListViewController
     let discoveryHashtagsViewController: DiscoveryHashtagsViewController
     let discoveryNewsViewController: DiscoveryNewsViewController
@@ -29,11 +28,6 @@ final class DiscoveryViewModel {
     init(authenticationBox: MastodonAuthenticationBox) {
         self.authenticationBox = authenticationBox
         
-        discoveryPostsViewController = {
-            let viewController = DiscoveryPostsViewController()
-            viewController.viewModel = DiscoveryPostsViewModel(authenticationBox: authenticationBox)
-            return viewController
-        }()
         newDiscoveryPostsViewController = {
             TimelineListViewController(.trendingPosts)
         }()
@@ -53,24 +47,12 @@ final class DiscoveryViewModel {
             return viewController
         }()
         self.viewControllers = [
-            (UserDefaults.standard.testNewHomeTimeline ? newDiscoveryPostsViewController : discoveryPostsViewController),
+            newDiscoveryPostsViewController,
             discoveryHashtagsViewController,
             discoveryNewsViewController,
             discoveryForYouViewController,
         ]
         // end init
-        
-        discoveryPostsViewController.viewModel.$isServerSupportEndpoint
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] isServerSupportEndpoint in
-                guard let self = self else { return }
-                if !isServerSupportEndpoint {
-                    self.viewControllers.removeAll(where: {
-                        $0 === self.discoveryPostsViewController || $0 === self.discoveryPostsViewController
-                    })
-                }
-            }
-            .store(in: &disposeBag)
         
         discoveryNewsViewController.viewModel.$isServerSupportEndpoint
             .receive(on: DispatchQueue.main)

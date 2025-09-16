@@ -26,17 +26,15 @@ final class ProfilePagingViewModel: NSObject {
         mediaUserTimelineViewModel: UserTimelineViewModel,
         profileAboutViewModel: ProfileAboutViewModel
     ) {
-        if UserDefaults.standard.testNewHomeTimeline, let user = postsUserTimelineViewModel.userIdentifier?.userID {
+        if let user = postsUserTimelineViewModel.userIdentifier?.userID {
             postUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.posts, userID: user, queryFilter: TimelineQueryFilter(excludeReplies: true)))
             repliesUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.postsAndReplies, userID: user, queryFilter: TimelineQueryFilter(excludeReplies: false, excludeReblogs: true)))
             mediaUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.media, userID: user, queryFilter: TimelineQueryFilter(onlyMedia: true)))
         } else {
-            postUserTimelineViewController = UserTimelineViewController()
-            (postUserTimelineViewController as! UserTimelineViewController).viewModel = postsUserTimelineViewModel
-            repliesUserTimelineViewController = UserTimelineViewController()
-            (repliesUserTimelineViewController as! UserTimelineViewController).viewModel = repliesUserTimelineViewModel
-            mediaUserTimelineViewController = UserTimelineViewController()
-            (mediaUserTimelineViewController as! UserTimelineViewController).viewModel = mediaUserTimelineViewModel
+            // TODO: remove these placeholders for error case when the profile view has been rewritten
+            postUserTimelineViewController = TimelineListViewController(.trendingPosts)
+            repliesUserTimelineViewController = TimelineListViewController(.trendingPosts)
+            mediaUserTimelineViewController = TimelineListViewController(.trendingPosts)
         }
         profileAboutViewController.viewModel = profileAboutViewModel
         super.init()

@@ -422,7 +422,7 @@ private extension SceneCoordinator {
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .searchResult(let viewModel):
-            if viewModel.searchScope == .posts && UserDefaults.standard.testNewHomeTimeline {
+            if viewModel.searchScope == .posts {
                 viewController = TimelineListViewController(.searchPosts(viewModel.searchText))
             } else {
                 let searchResultViewController = SearchResultViewController()
@@ -433,17 +433,11 @@ private extension SceneCoordinator {
             let _viewController = ComposeViewController(viewModel: viewModel)
             viewController = _viewController
         case .thread(let viewModel):
-            if UserDefaults.standard.testNewHomeTimeline {
-                if let viewModel = viewModel as? RemoteThreadViewModel {
-                    viewController = TimelineListViewController(.remoteThread(root: viewModel.entityType))
-                } else {
-                    guard let rootStatus = viewModel.root?.record, let rootPost = GenericMastodonPost.fromStatus(rootStatus.entity) as? MastodonContentPost else { return nil }
-                    viewController = TimelineListViewController(.thread(root: rootPost))
-                }
+            if let viewModel = viewModel as? RemoteThreadViewModel {
+                viewController = TimelineListViewController(.remoteThread(root: viewModel.entityType))
             } else {
-                let _viewController = ThreadViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
+                guard let rootStatus = viewModel.root?.record, let rootPost = GenericMastodonPost.fromStatus(rootStatus.entity) as? MastodonContentPost else { return nil }
+                viewController = TimelineListViewController(.thread(root: rootPost))
             }
         case .editHistory(let viewModel):
             let editHistoryViewController = StatusEditHistoryViewController(viewModel: viewModel)
@@ -460,25 +454,13 @@ private extension SceneCoordinator {
             let _viewController = ProfileViewController(profileType, authenticationBox: AuthenticationServiceProvider.shared.currentActiveUser.value!)
             viewController = _viewController
         case .bookmark(let viewModel):
-            if UserDefaults.standard.testNewHomeTimeline {
-                viewController = TimelineListViewController(.myBookmarks)
-            } else {
-                let _viewController = BookmarkViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            }
+            viewController = TimelineListViewController(.myBookmarks)
         case .followedTags(let viewModel):
             guard let authenticationBox else { return nil }
-
+            
             viewController = FollowedTagsViewController(authenticationBox: authenticationBox, viewModel: viewModel)
         case .favorite(let viewModel):
-            if UserDefaults.standard.testNewHomeTimeline {
-                viewController = TimelineListViewController(.myFavorites)
-            } else {
-                let _viewController = FavoriteViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            }
+            viewController = TimelineListViewController(.myFavorites)
         case .follower(let viewModel):
             let followerListViewController = FollowerListViewController(viewModel: viewModel)
             viewController = followerListViewController

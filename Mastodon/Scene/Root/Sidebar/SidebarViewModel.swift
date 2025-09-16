@@ -195,23 +195,12 @@ extension SidebarViewModel {
         snapshot.appendSections([.main])
         
         var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
-        let items: [Item]
-        if UserDefaults.standard.testNewHomeTimeline {
-            items = [
-                .tab(.home),
-                .tab(.search),
-                .tab(.notifications),
-                .tab(.me),
-            ]
-        } else {
-            items = [
-                .tab(.home),
-                .tab(.search),
-                .tab(.notifications),
-                .tab(.me),
-                .setting,
-            ]
-        }
+        let items: [Item] = [
+            .tab(.home),
+            .tab(.search),
+            .tab(.notifications),
+            .tab(.me),
+        ]
         sectionSnapshot.append(items, to: nil)
         // animatingDifferences must to be `true`
         // otherwise the UI layout will infinity loop

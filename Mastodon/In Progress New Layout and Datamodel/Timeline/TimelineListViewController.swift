@@ -359,7 +359,7 @@ extension TimelineListViewController {
         
         let listsDivider = UIMenu(title: "", options: .displayInline, children: [listsMenu, hashtagsMenu])
         
-        if UserDefaults.standard.testNewHomeTimeline {
+        if UserDefaults.isDebugOrTestflightOrSimulator {
             return UIMenu(children: [useLazyVStackAction, showFollowingAction, showLocalTimelineAction, listsDivider])
         } else {
             return UIMenu(children: [showFollowingAction, showLocalTimelineAction, listsDivider])

@@ -51,12 +51,7 @@ class MainTabBarController: UITabBarController {
     ) {
         self.authenticationBox = authenticationBox
 
-        if UserDefaults.standard.testNewHomeTimeline {
-//            homeTimelineViewController = HomeTimelineTableViewController()
-            homeTimelineViewController = TimelineListViewController(.home)
-        } else {
-            homeTimelineViewController = HomeTimelineViewController()
-        }
+        homeTimelineViewController = TimelineListViewController(.home)
         homeTimelineViewController.configureTabBarItem(with: .home)
 
         searchViewController = SearchViewController()

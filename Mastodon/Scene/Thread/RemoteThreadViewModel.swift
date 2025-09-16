@@ -28,19 +28,6 @@ final class RemoteThreadViewModel: ThreadViewModel {
             authenticationBox: authenticationBox,
             optionalRoot: nil
         )
-        
-        guard !UserDefaults.standard.testNewHomeTimeline else { return }  // the new code will do the fetching, the below is unnecessary
-        
-        Task { @MainActor in
-            let response = try await APIService.shared.status(
-                statusID: statusID,
-                authenticationBox: authenticationBox
-            )
-            
-            let threadContext = MastodonItemIdentifier.Thread.Context(status: .fromEntity(response.value))
-            self.root = .root(context: threadContext)
-            
-        }   // end Task
     }
     
     init(
@@ -52,20 +39,6 @@ final class RemoteThreadViewModel: ThreadViewModel {
             authenticationBox: authenticationBox,
             optionalRoot: nil
         )
-        
-        guard !UserDefaults.standard.testNewHomeTimeline else { return }  // the new code will do the fetching, the below is unnecessary
-        
-        Task { @MainActor in
-            let response = try await APIService.shared.notification(
-                notificationID: notificationID,
-                authenticationBox: authenticationBox
-            )
-            
-            guard let status = response.value.status else { return }
-            
-            let threadContext = MastodonItemIdentifier.Thread.Context(status: .fromEntity(status))
-            self.root = .root(context: threadContext)
-        }   // end Task
     }
     
 }
