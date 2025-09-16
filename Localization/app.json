@@ -70,6 +70,13 @@
                 "boost": "Boost",
                 "unboost": "Unboost"
             },
+            "quote_a_post": {
+              "quote": "Quote",
+              "request_to_quote": "Request to quote",
+              "must_follow_to_quote": "Only followers can quote this post",
+              "quotes_disabled": "Quotes are disabled on this post",
+              "author_will_review": "Author will manually review"
+            },
             "unfollow_user": {
                 "title": "Unfollow %@?",
                 "cancel": "Cancel",

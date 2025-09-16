@@ -935,7 +935,7 @@ extension ProfileViewController {
         UITextChecker.learnWord(mention)
         let composeViewModel = ComposeViewModel(
             authenticationBox: authenticationBox,
-            composeContext: .composeStatus,
+            composeContext: .composeStatus(quoting: nil),
             destination: .topLevel,
             initialContent: mention
         )

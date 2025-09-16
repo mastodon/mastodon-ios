@@ -1,6 +1,7 @@
 // Copyright © 2025 Mastodon gGmbH. All rights reserved.
 
 import SwiftUI
+import MastodonAsset
 import MastodonSDK
 import MastodonCore
 import MastodonLocalization
@@ -30,7 +31,7 @@ import MastodonLocalization
     func updateQuotedPostViewModel() {
         if let potentialQuotePost = fullPost?.actionablePost as? MastodonBasicPost {
             if let quoted = potentialQuotePost.quotedPost, let quotedFullPost = quoted.fullPost {
-                let updated = MastodonPostViewModel(quotedFullPost.initialDisplayInfo(inContext: filterContext), fullPost: quotedFullPost, filterContext: filterContext, threadedConversationContext: nil)
+                let updated = MastodonPostViewModel(quotedFullPost.initialDisplayInfo(inContext: filterContext), quotePostsAvailable: quotePostsAvailable, fullPost: quotedFullPost, filterContext: filterContext, threadedConversationContext: nil)
                 updated.actionHandler = actionHandler
                 self.fullQuotedPostViewModel = updated
                 placeholderQuotedPost = nil
@@ -46,6 +47,7 @@ import MastodonLocalization
     var displayPrepStatus: DisplayPrepStatus = .unprepared
     var isShowingTranslation: Bool? = nil
     var isDoingAction: MastodonPostMenuAction? = nil
+    let quotePostsAvailable: Bool
     
     var actionHandler: MastodonPostMenuActionHandler? = nil {
         didSet {
@@ -56,18 +58,39 @@ import MastodonLocalization
     
     private(set) var translation: Mastodon.Entity.Translation? = nil
     
+    var currentUserQuoteButton: (title: String?, subtitle: String?, isEnabled: Bool) {
+        if let specified = fullPost?.actionablePost?._legacyEntity.quoteApproval?.currentUser {
+            switch specified {
+            case .automatic:
+                (L10n.Common.Alerts.QuoteAPost.quote, nil, true)
+            case .manual:
+                (L10n.Common.Alerts.QuoteAPost.requestToQuote, L10n.Common.Alerts.QuoteAPost.authorWillReview, true)
+            default:
+                if let policy = fullPost?.actionablePost?._legacyEntity.quoteApproval?.automatic, policy.contains(.followersOnly) {
+                    (nil, L10n.Common.Alerts.QuoteAPost.mustFollowToQuote, false)
+                } else {
+                    (nil, L10n.Common.Alerts.QuoteAPost.quotesDisabled, false)
+                }
+            }
+        } else {
+            (nil, L10n.Common.Alerts.QuoteAPost.quotesDisabled, false)
+        }
+    }
+    
     nonisolated
-    init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, filterContext: Mastodon.Entity.FilterContext?, threadedConversationContext: ThreadedConversationModel.ThreadContext?) {
+    init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, quotePostsAvailable: Bool, filterContext: Mastodon.Entity.FilterContext?, threadedConversationContext: ThreadedConversationModel.ThreadContext?) {
         self.initialDisplayInfo = initialDisplay
         self.filterContext = filterContext
         self.threadedContext = threadedConversationContext
+        self.quotePostsAvailable = quotePostsAvailable
     }
     
-    private init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, fullPost: GenericMastodonPost? = nil, isShowingTranslation: Bool? = nil, isDoingAction: MastodonPostMenuAction? = nil, myRelationshipToAuthor: MastodonAccount.Relationship? = nil, actionHandler: MastodonPostMenuActionHandler? = nil, translation: Mastodon.Entity.Translation? = nil, filterContext: Mastodon.Entity.FilterContext?, threadedConversationContext: ThreadedConversationModel.ThreadContext?) {
+    private init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, quotePostsAvailable: Bool, fullPost: GenericMastodonPost? = nil, isShowingTranslation: Bool? = nil, isDoingAction: MastodonPostMenuAction? = nil, myRelationshipToAuthor: MastodonAccount.Relationship? = nil, actionHandler: MastodonPostMenuActionHandler? = nil, translation: Mastodon.Entity.Translation? = nil, filterContext: Mastodon.Entity.FilterContext?, threadedConversationContext: ThreadedConversationModel.ThreadContext?) {
         self.initialDisplayInfo = initialDisplay
         self.fullPost = fullPost
         self.filterContext = filterContext
         self.threadedContext = threadedConversationContext
+        self.quotePostsAvailable = quotePostsAvailable
         self.updateQuotedPostViewModel()
     }
     
@@ -573,14 +596,14 @@ private struct ActionBar: View {
         }
     }
     
-    private func actionButton(forPost actionablePost: MastodonContentPost, action: PostAction) -> StatefulCountedActionButton {
+    @ViewBuilder private func actionButton(forPost actionablePost: MastodonContentPost, action: PostAction) -> some View {
         let metrics = actionablePost.content.metrics
         let myActions = actionablePost.content.myActions
-        let overrideState = overrideState(for: .reply, of: actionablePost)
+        let overrideState = overrideState(for: action, of: actionablePost)
         switch action {
         case .reply:
             let state = overrideState ?? AsyncBool.fromBool(myActions.boosted)
-            return StatefulCountedActionButton(type: .reply, actionState: .init(count: metrics.replyCount, isSelected: state), doAction: {
+            StatefulCountedActionButton(type: .reply, actionState: .init(count: metrics.replyCount, isSelected: state), doAction: {
                 switch state {
                 case .isFalse:
                     viewModel.actionHandler?.doAction(.reply, forPost: actionablePost)
@@ -590,19 +613,30 @@ private struct ActionBar: View {
             })
         case .boost:
             let state = overrideState ?? AsyncBool.fromBool(myActions.boosted)
-            return StatefulCountedActionButton(type: .boost, actionState: .init(count: metrics.boostCount, isSelected: state), doAction: {
+            let iHaveBoosted = {
                 switch state {
                 case .isFalse:
-                    viewModel.actionHandler?.doAction(.boost, forPost: actionablePost)
+                    return false
                 case .isTrue:
-                    viewModel.actionHandler?.doAction(.unboost, forPost: actionablePost)
+                    return true
                 default:
-                    break
+                    return false
+                }
+            }()
+            StatefulCountedActionButton(type: .boost, actionState: .init(count: metrics.boostCount, isSelected: state), doAction: {
+                if viewModel.quotePostsAvailable {
+                    viewModel.actionHandler?.showOverlay(.boostOrQuote(viewModel))
+                } else {
+                    if iHaveBoosted {
+                        viewModel.actionHandler?.doAction(.unboost, forPost: actionablePost)
+                    } else {
+                        viewModel.actionHandler?.doAction(.boost, forPost: actionablePost)
+                    }
                 }
             })
         case .favourite:
             let state = overrideState ?? AsyncBool.fromBool(myActions.favorited)
-            return StatefulCountedActionButton(type: .favourite, actionState: .init(count: metrics.favoriteCount, isSelected: state), doAction: {
+            StatefulCountedActionButton(type: .favourite, actionState: .init(count: metrics.favoriteCount, isSelected: state), doAction: {
                 switch state {
                 case .isFalse:
                     viewModel.actionHandler?.doAction(.favourite, forPost: actionablePost)
@@ -614,7 +648,7 @@ private struct ActionBar: View {
             })
         case .bookmark:
             let state = overrideState ?? AsyncBool.fromBool(myActions.bookmarked)
-            return StatefulCountedActionButton(type: .bookmark, actionState: .init(count: nil, isSelected: state), doAction: {
+            StatefulCountedActionButton(type: .bookmark, actionState: .init(count: nil, isSelected: state), doAction: {
                 switch state {
                 case .isFalse:
                     viewModel.actionHandler?.doAction(.bookmark, forPost: actionablePost)

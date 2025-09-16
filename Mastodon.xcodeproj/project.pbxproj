@@ -1259,6 +1259,7 @@
 				"Common Components/Views/LinkPreviewCard.swift",
 				"Common Components/Views/MastodonPostRowView.swift",
 				"Common Components/Views/MastodonTimelineOverlayView/AltTextView.swift",
+				"Common Components/Views/MastodonTimelineOverlayView/BoostOrQuoteDialog.swift",
 				"Common Components/Views/MastodonTimelineOverlayView/ZoomableBlurhashImageView.swift",
 				"Common Components/Views/MediaAttachmentView.swift",
 				"Common Components/Views/PollView.swift",

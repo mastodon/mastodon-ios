@@ -80,8 +80,8 @@ final class ComposeViewController: UIViewController {
         let initialContent: String
 
         switch viewModel.composeContext {
-        case .composeStatus:
-            composeContext = .composeStatus
+        case .composeStatus(let quoted):
+            composeContext = .composeStatus(quotedPost: quoted)
             initialContent = viewModel.initialContent
         case .editStatus(let status, let statusSource):
             composeContext = .editStatus(status: status, statusSource: statusSource)

@@ -112,7 +112,7 @@ extension ThreadViewController {
         guard case let .root(threadContext) = viewModel.root else { return }
         let composeViewModel = ComposeViewModel(
             authenticationBox: viewModel.authenticationBox,
-            composeContext: .composeStatus,
+            composeContext: .composeStatus(quoting: nil),
             destination: .reply(parent: threadContext.status)
         )
         _ = self.sceneCoordinator?.present(

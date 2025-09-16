@@ -604,6 +604,7 @@ extension MastodonPostMenuAction {
 enum MastodonTimelineOverlayView {
     case images(focusedImage: Mastodon.Entity.Attachment.ID, ImageGalleryViewModel)
     case altText(String)
+    case boostOrQuote(MastodonPostViewModel)
 }
 
 @MainActor
@@ -1672,6 +1673,9 @@ extension MastodonTimelineOverlayView {
             if let img = viewModel.imageAttachments.first(where: { $0.id == focusedImage }) {
                 ZoomableBlurhashImageView(image: img, frameSize: frameSize)
             }
+        case .boostOrQuote(let postViewModel):
+            BoostOrQuoteDialog()
+                .environment(postViewModel)
         }
     }
 }
@@ -1731,7 +1735,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     let statusEntityToReplyTo = try await APIService.shared.status(statusID: actionablePost.id, authenticationBox: authenticatedUser).value
                     let composeViewModel = ComposeViewModel(
                         authenticationBox: authenticatedUser,
-                        composeContext: .composeStatus,
+                        composeContext: .composeStatus(quoting: nil),
                         destination: .reply(parent: MastodonStatus(entity: statusEntityToReplyTo, showDespiteContentWarning: true)),
                         completion: { success in
                             // refetch this post to update the reply button

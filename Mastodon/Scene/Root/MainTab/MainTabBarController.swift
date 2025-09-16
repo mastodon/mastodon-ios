@@ -288,7 +288,7 @@ extension MainTabBarController {
         guard let authenticationBox else { return }
         let composeViewModel = ComposeViewModel(
             authenticationBox: authenticationBox,
-            composeContext: .composeStatus,
+            composeContext: .composeStatus(quoting: nil),
             destination: .topLevel
         )
         _ = self.sceneCoordinator?.present(scene: .compose(viewModel: composeViewModel), transition: .modal(animated: true, completion: nil))
@@ -594,7 +594,7 @@ extension MainTabBarController {
         guard let authenticationBox else { return }
         let composeViewModel = ComposeViewModel(
             authenticationBox: authenticationBox,
-            composeContext: .composeStatus,
+            composeContext: .composeStatus(quoting: nil),
             destination: .topLevel
         )
         _ = self.sceneCoordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))

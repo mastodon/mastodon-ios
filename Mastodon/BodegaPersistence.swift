@@ -34,7 +34,7 @@ public actor BodegaPersistence {
         return _currentUserTimelineStore!.1
     }
 
-    static func cachedTimeline(forUser user: UserIdentifier) -> [TimelineItem] {
+    static func cachedTimeline(forUser user: UserIdentifier, instanceCanDoQuotePosts: Bool) -> [TimelineItem] {
         guard let cachesDirectory = FileManager.default.cachesDirectory else { return [] }
 
         let filePath = cachesDirectory.appendingPathComponent(timelineOrderFilename(forUser: user))
@@ -46,7 +46,7 @@ public actor BodegaPersistence {
             let timeline: [TimelineItem] = cached.compactMap {
                 switch $0 {
                 case .cachedPost(let info):
-                    let viewModel = MastodonPostViewModel(info, filterContext: .home, threadedConversationContext: nil)
+                    let viewModel = MastodonPostViewModel(info, quotePostsAvailable: instanceCanDoQuotePosts, filterContext: .home, threadedConversationContext: nil)
                     return .post(viewModel)
                 case .missingPosts(let newerThan, let olderThan):
                     return nil // loading results missing from the middle of a feed is no longer supported

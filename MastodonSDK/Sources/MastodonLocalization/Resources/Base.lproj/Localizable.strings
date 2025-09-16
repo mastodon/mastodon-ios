@@ -5,6 +5,11 @@
 "Common.Alerts.BoostAPost.TitleBoost" = "Boost Post?";
 "Common.Alerts.BoostAPost.TitleUnboost" = "Unboost Post?";
 "Common.Alerts.BoostAPost.Unboost" = "Unboost";
+"Common.Alerts.QuoteAPost.Quote" = "Quote";
+"Common.Alerts.QuoteAPost.RequestToQuote" = "Request to quote";
+"Common.Alerts.QuoteAPost.MustFollowToQuote" = "Only followers can quote this post";
+"Common.Alerts.QuoteAPost.QuotesDisabled" = "Quotes are disabled on this post";
+"Common.Alerts.QuoteAPost.AuthorWillReview" = "Author will manually review";
 "Common.Alerts.CleanCache.Message" = "Successfully cleaned %@ cache.";
 "Common.Alerts.CleanCache.Title" = "Clean Cache";
 "Common.Alerts.Common.PleaseTryAgain" = "Please try again.";

@@ -105,7 +105,7 @@ class NewDonationNavigationFlow: NavigationFlow {
     private func composeDonationSuccessPost(_ suggestedText: String) {
         let composeViewModel = ComposeViewModel(
             authenticationBox: authenticationBox,
-            composeContext: .composeStatus,
+            composeContext: .composeStatus(quoting: nil),
             destination: .topLevel,
             initialContent: suggestedText
         )

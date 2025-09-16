@@ -181,7 +181,7 @@ extension HashtagTimelineViewController {
         UITextChecker.learnWord(hashtag)
         let composeViewModel = ComposeViewModel(
             authenticationBox: viewModel.authenticationBox,
-            composeContext: .composeStatus,
+            composeContext: .composeStatus(quoting: nil),
             destination: .topLevel,
             initialContent: hashtag
         )

@@ -20,7 +20,7 @@ import MastodonUI
 final class ComposeViewModel {
 
     enum Context {
-        case composeStatus
+        case composeStatus(quoting: Mastodon.Entity.Status?)
         case editStatus(status: MastodonStatus, statusSource: Mastodon.Entity.StatusSource)
     }
     

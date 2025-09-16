@@ -23,7 +23,7 @@ public protocol ComposeContentViewModelDelegate: AnyObject {
 public final class ComposeContentViewModel: NSObject, ObservableObject {
 
     public enum ComposeContext {
-        case composeStatus
+        case composeStatus(quotedPost: Mastodon.Entity.Status?)
         case editStatus(status: MastodonStatus, statusSource: Mastodon.Entity.StatusSource)
     }
     

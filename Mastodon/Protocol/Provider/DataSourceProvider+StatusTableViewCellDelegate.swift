@@ -203,7 +203,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                     self.sceneCoordinator?.present(
                         scene: .compose(viewModel: ComposeViewModel(
                             authenticationBox: self.authenticationBox,
-                            composeContext: .composeStatus,
+                            composeContext: .composeStatus(quoting: nil),
                             destination: .topLevel,
                             initialContent: L10n.Common.Controls.Status.linkViaUser(url.absoluteString, "@" + (statusView.viewModel.authorUsername ?? ""))
                         )),

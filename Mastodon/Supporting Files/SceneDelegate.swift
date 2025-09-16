@@ -262,7 +262,7 @@ extension SceneDelegate {
             if let authenticationBox = coordinator?.authenticationBox {
                 let composeViewModel = ComposeViewModel(
                     authenticationBox: authenticationBox,
-                    composeContext: .composeStatus,
+                    composeContext: .composeStatus(quoting: nil),
                     destination: .topLevel
                 )
                 _ = coordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
