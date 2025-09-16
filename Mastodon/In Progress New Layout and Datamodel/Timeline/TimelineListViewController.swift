@@ -1035,9 +1035,13 @@ extension TimelineListViewModel {
             let fetchedRelationships = try await feedLoader.fetchRelationships(toFetch)
             
             for postModel in toPrep {
-                postModel.myRelationshipToAuthor = fetchedRelationships.first(where: {
-                    $0.info?.id == postModel.initialDisplayInfo.actionableAuthorId
-                }) ?? feedLoader.myRelationship(to: postModel.initialDisplayInfo.actionableAuthorId)
+                if postModel.fullPost?.actionablePost?.metaData.author.id == authenticatedUser?.userID {
+                    postModel.myRelationshipToAuthor = .isMe
+                } else {
+                    postModel.myRelationshipToAuthor = fetchedRelationships.first(where: {
+                        $0.info?.id == postModel.initialDisplayInfo.actionableAuthorId
+                    }) ?? feedLoader.myRelationship(to: postModel.initialDisplayInfo.actionableAuthorId)
+                }
                 if postModel.actionHandler == nil {
                     postModel.actionHandler = self
                 }
