@@ -69,6 +69,7 @@ extension SendPostIntentHandler: SendPostIntentHandling {
                         pollOptions: nil,
                         pollExpiresIn: nil,
                         inReplyToID: nil,
+                        quotingID: nil,
                         sensitive: nil,
                         spoilerText: nil,
                         visibility: visibility,

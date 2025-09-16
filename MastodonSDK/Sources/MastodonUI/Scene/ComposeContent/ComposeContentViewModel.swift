@@ -26,6 +26,15 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         case composeStatus(quoting: (Mastodon.Entity.Status, ()->(AnyView))?)
         case editStatus(status: MastodonStatus, statusSource: Mastodon.Entity.StatusSource, quoting: (()->AnyView)?)
         
+        var quotedID: Mastodon.Entity.Status.ID? {
+            switch self {
+            case .composeStatus(let quoting):
+                return quoting?.0.id
+            case .editStatus:
+                return nil // there is no option to change the quoted post when editing
+            }
+        }
+        
         var quotingViewBuilder: (()->AnyView)? {
             switch self {
             case .composeStatus(let quoting):
@@ -626,6 +635,7 @@ extension ComposeContentViewModel {
             isContentWarningComposing: isContentWarningActive,
             contentWarning: contentWarning,
             content: content,
+            quoting: composeContext.quotedID,
             isMediaSensitive: isContentWarningActive,
             attachmentViewModels: attachmentViewModels,
             isPollComposing: isPollActive,

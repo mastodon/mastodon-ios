@@ -20,6 +20,8 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
     public let contentWarning: String
     // status content
     public let content: String
+    // quoted status
+    public let quoting: Mastodon.Entity.Status.ID?
     // media
     public let isMediaSensitive: Bool
     public let attachmentViewModels: [AttachmentViewModel]
@@ -47,6 +49,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
         isContentWarningComposing: Bool,
         contentWarning: String,
         content: String,
+        quoting: Mastodon.Entity.Status.ID?,
         isMediaSensitive: Bool,
         attachmentViewModels: [AttachmentViewModel],
         isPollComposing: Bool,
@@ -61,6 +64,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
         self.isContentWarningComposing = isContentWarningComposing
         self.contentWarning = contentWarning
         self.content = content
+        self.quoting = quoting
         self.isMediaSensitive = isMediaSensitive
         self.attachmentViewModels = attachmentViewModels
         self.isPollComposing = isPollComposing
@@ -167,6 +171,7 @@ extension MastodonStatusPublisher: StatusPublisher {
                 pollOptions: pollOptions,
                 pollExpiresIn: pollExpiresIn,
                 inReplyToID: inReplyToID,
+                quotingID: quoting,
                 sensitive: isMediaSensitive,
                 spoilerText: isContentWarningComposing ? contentWarning : nil,
                 visibility: visibility,

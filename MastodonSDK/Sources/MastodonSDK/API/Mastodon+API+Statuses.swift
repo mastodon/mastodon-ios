@@ -103,6 +103,7 @@ extension Mastodon.API.Statuses {
         public let pollOptions: [String]?
         public let pollExpiresIn: Int?
         public let inReplyToID: Mastodon.Entity.Status.ID?
+        public let quotingID: Mastodon.Entity.Status.ID?
         public let sensitive: Bool?
         public let spoilerText: String?
         public let visibility: Mastodon.Entity.Status.Visibility?
@@ -115,6 +116,7 @@ extension Mastodon.API.Statuses {
             pollOptions: [String]?,
             pollExpiresIn: Int?,
             inReplyToID: Mastodon.Entity.Status.ID?,
+            quotingID: Mastodon.Entity.Status.ID?,
             sensitive: Bool?,
             spoilerText: String?,
             visibility: Mastodon.Entity.Status.Visibility?,
@@ -126,6 +128,7 @@ extension Mastodon.API.Statuses {
             self.pollOptions = pollOptions
             self.pollExpiresIn = pollExpiresIn
             self.inReplyToID = inReplyToID
+            self.quotingID = quotingID
             self.sensitive = sensitive
             self.spoilerText = spoilerText
             self.visibility = visibility
@@ -149,6 +152,7 @@ extension Mastodon.API.Statuses {
             }
             pollExpiresIn.flatMap { data.append(Data.multipart(key: "poll[expires_in]", value: $0)) }
             inReplyToID.flatMap { data.append(Data.multipart(key: "in_reply_to_id", value: $0)) }
+            quotingID.flatMap { data.append(Data.multipart(key: "quoted_status_id", value: $0)) }
             sensitive.flatMap { data.append(Data.multipart(key: "sensitive", value: $0)) }
             spoilerText.flatMap { data.append(Data.multipart(key: "spoiler_text", value: $0)) }
             visibility.flatMap { data.append(Data.multipart(key: "visibility", value: $0.rawValue)) }
