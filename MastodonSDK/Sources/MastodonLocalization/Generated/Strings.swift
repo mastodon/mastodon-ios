@@ -99,8 +99,8 @@ public enum L10n {
         public static let mustFollowToQuote = L10n.tr("Localizable", "Common.Alerts.QuoteAPost.MustFollowToQuote", fallback: "Only followers can quote this post")
         /// Quote
         public static let quote = L10n.tr("Localizable", "Common.Alerts.QuoteAPost.Quote", fallback: "Quote")
-        /// Quotes are disabled on this post
-        public static let quotesDisabled = L10n.tr("Localizable", "Common.Alerts.QuoteAPost.QuotesDisabled", fallback: "Quotes are disabled on this post")
+        /// You are not allowed to quote this post
+        public static let quotesDisabled = L10n.tr("Localizable", "Common.Alerts.QuoteAPost.QuotesDisabled", fallback: "You are not allowed to quote this post")
         /// Request to quote
         public static let requestToQuote = L10n.tr("Localizable", "Common.Alerts.QuoteAPost.RequestToQuote", fallback: "Request to quote")
       }
