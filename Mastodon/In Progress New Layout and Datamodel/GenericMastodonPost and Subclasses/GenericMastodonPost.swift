@@ -134,7 +134,7 @@ extension GenericMastodonPost.PostContent: FromStatusEntityDerivable {
 extension GenericMastodonPost.PostContent.HtmlWithEntities: FromStatusEntityDerivable {
     static func fromStatus(_ status: Mastodon.Entity.Status) -> Self {
         return Self(
-            html: status.content, mentions: status.mentions, tags: status.tags,
+            html: status.content?.strippingQuoteInline, mentions: status.mentions, tags: status.tags,
             emojis: status.emojis)
     }
 }

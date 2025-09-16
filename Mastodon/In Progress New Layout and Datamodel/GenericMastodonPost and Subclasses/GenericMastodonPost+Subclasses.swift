@@ -139,3 +139,12 @@ class MastodonQuotedPost: Codable {
         self.quotedPostID = quotedPostID
     }
 }
+
+extension String {
+    var strippingQuoteInline: String {
+        return trimmingPrefix(quoteInlineRegex)
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+}
+
+let quoteInlineRegex = /<p\s+class="quote-inline">[\s\S]*?<\/p>/
