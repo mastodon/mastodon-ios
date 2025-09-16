@@ -1327,7 +1327,7 @@ struct TimelineListView: View {
                                     viewModel.activeOverlay = nil
                                 }
                             
-                            activeOverlay.view(sizedForFrame: geo.size)
+                            activeOverlay.view(sizedForFrame: geo.size, closeOverlay: { viewModel.showOverlay(nil) })
                         }
                         
                         Button {
@@ -1665,7 +1665,7 @@ fileprivate class ScrollManager {
 
 extension MastodonTimelineOverlayView {
     @MainActor
-    @ViewBuilder func view(sizedForFrame frameSize: CGSize) -> some View {
+    @ViewBuilder func view(sizedForFrame frameSize: CGSize, closeOverlay: @escaping ()->()) -> some View {
         switch self {
         case .altText(let altTextString):
             AltTextView(altTextString: altTextString, frameSize: frameSize)
@@ -1674,7 +1674,7 @@ extension MastodonTimelineOverlayView {
                 ZoomableBlurhashImageView(image: img, frameSize: frameSize)
             }
         case .boostOrQuote(let postViewModel):
-            BoostOrQuoteDialog()
+            BoostOrQuoteDialog(closeOverlay: closeOverlay)
                 .environment(postViewModel)
         }
     }

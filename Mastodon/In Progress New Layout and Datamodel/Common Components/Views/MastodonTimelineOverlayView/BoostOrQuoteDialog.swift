@@ -8,12 +8,15 @@ import MastodonCore
 struct BoostOrQuoteDialog: View {
     @Environment(MastodonPostViewModel.self) var viewModel
     
+    let closeOverlay: ()->()
+    
     var body: some View {
         if let actionablePost = viewModel.fullPost?.actionablePost {
             VStack(spacing: 0) {
                 if actionablePost.content.myActions.boosted {
                     Button {
                         viewModel.actionHandler?.doAction(.unboost, forPost: viewModel)
+                        closeOverlay()
                     } label: {
                         Text(L10n.Common.Alerts.BoostAPost.unboost)
                             .foregroundStyle(Asset.Colors.Brand.blurple.swiftUIColor)
@@ -22,6 +25,7 @@ struct BoostOrQuoteDialog: View {
                 } else {
                     Button {
                         viewModel.actionHandler?.doAction(.boost, forPost: viewModel)
+                        closeOverlay()
                     } label: {
                         Text(L10n.Common.Alerts.BoostAPost.boost)
                             .foregroundStyle(Asset.Colors.Brand.blurple.swiftUIColor)
@@ -38,6 +42,7 @@ struct BoostOrQuoteDialog: View {
                     Button {
                         guard let composeViewModel = composeViewModel else { return }
                         viewModel.actionHandler?.presentScene(.compose(viewModel: composeViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
+                        closeOverlay()
                     } label: {
                         VStack {
                             Text(buttonTitle)
