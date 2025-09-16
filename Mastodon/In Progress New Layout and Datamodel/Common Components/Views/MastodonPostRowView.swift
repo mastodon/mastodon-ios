@@ -260,6 +260,7 @@ struct HomeTimelinePostRowView: View {
                         Spacer()
                             .frame(height: standardPadding)
                         viewModel.socialContextHeader
+                            .frame(maxWidth: contentWidth, alignment: .leading)
                     }
                 }
             } else {
@@ -268,6 +269,7 @@ struct HomeTimelinePostRowView: View {
                     Spacer()
                         .frame(height: standardPadding)
                     viewModel.socialContextHeader
+                        .frame(maxWidth: contentWidth, alignment: .leading)
                 }
             }
             

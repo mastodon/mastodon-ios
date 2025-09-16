@@ -99,6 +99,7 @@ extension SocialContextHeader: View {
             
             MastodonContentView.header(html: text, emojis: emojis, style: .socialContext(isPrivate: isPrivate))
                 .frame(height: socialContextHeaderHeight)
+                .lineLimit(1)
                 .alignmentGuide(.gutterAlign) { d in
                     return d[HorizontalAlignment.leading]
                 }
