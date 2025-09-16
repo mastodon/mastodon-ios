@@ -23,8 +23,17 @@ public protocol ComposeContentViewModelDelegate: AnyObject {
 public final class ComposeContentViewModel: NSObject, ObservableObject {
 
     public enum ComposeContext {
-        case composeStatus(quotedPost: Mastodon.Entity.Status?)
-        case editStatus(status: MastodonStatus, statusSource: Mastodon.Entity.StatusSource)
+        case composeStatus(quoting: (Mastodon.Entity.Status, ()->(AnyView))?)
+        case editStatus(status: MastodonStatus, statusSource: Mastodon.Entity.StatusSource, quoting: (()->AnyView)?)
+        
+        var quotingViewBuilder: (()->AnyView)? {
+            switch self {
+            case .composeStatus(let quoting):
+                return quoting?.1
+            case .editStatus(_, _, let quoting):
+                return quoting
+            }
+        }
     }
     
     var disposeBag = Set<AnyCancellable>()
@@ -172,7 +181,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             default:
                 _initialInteractionSettings = .fresh(replyingToVisibility: nil)
             }
-        case .editStatus(let status, _):
+        case .editStatus(let status, _, _):
             let _quotability = status.entity.specifiedQuotePolicyOrNobody
             _initialInteractionSettings = .editing(visibility: status.entity.visibility ?? .public, quotability: _quotability)
         }
@@ -242,7 +251,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         switch composeContext {
         case .composeStatus:
             break
-        case let .editStatus(status, _):
+        case let .editStatus(status, _, _):
             self.attachmentViewModels = status.entity.mastodonAttachments.compactMap {
                 guard let assetURL = $0.assetURL, let url = URL(string: assetURL) else { return nil }
 
@@ -258,7 +267,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             }
         }
         
-        if case let ComposeContext.editStatus(status, _) = composeContext {
+        if case let ComposeContext.editStatus(status, _, _) = composeContext {
             if status.entity.sensitive == true {
                 isContentWarningActive = true
                 contentWarning = status.entity.spoilerText ?? ""
@@ -632,7 +641,7 @@ extension ComposeContentViewModel {
 
     // MastodonEditStatusPublisher
     public func statusEditPublisher() throws -> StatusPublisher? {
-        guard case let .editStatus(status, _) = composeContext else { return nil }
+        guard case let .editStatus(status, _, _) = composeContext else { return nil }
 
         // author
         guard let author = authenticationBox.cachedAccount else {

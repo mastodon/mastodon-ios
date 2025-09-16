@@ -21,7 +21,7 @@ enum PostActionFailure: Error {
 @MainActor
 protocol MastodonPostMenuActionHandler {
     func account(_ id: Mastodon.Entity.Account.ID) -> MastodonAccount?
-    func doAction(_ action: MastodonPostMenuAction, forPost post: MastodonContentPost)
+    func doAction(_ action: MastodonPostMenuAction, forPost postViewModel: MastodonPostViewModel)
     func commitCurrentQuotePolicyEdit() async throws
     func doAction(_ action: MastodonPostMenuAction, forAccount account: MastodonAccount) async throws
     func canTranslate(post: MastodonContentPost) -> Bool

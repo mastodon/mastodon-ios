@@ -145,21 +145,9 @@ public struct ComposeContentView: View {
                 mediaView
                     .padding(.horizontal, ComposeContentView.margin)
                 // quoted post
-                if let quotedPost = {
-                    switch viewModel.composeContext {
-                    case .composeStatus(let quoted):
-                        return quoted
-                    case .editStatus(let status, let statusSource):
-                        return status.entity.quote?.quotedStatus
-                    }
-                }() {
-                    Text("You are quoting a post")
+                if let quotedPostViewBuilder = viewModel.composeContext.quotingViewBuilder {
+                    quotedPostViewBuilder()
                         .padding()
-                        .foregroundStyle(.white)
-                        .background() {
-                            RoundedRectangle(cornerRadius: 14)
-                                .fill(.gray)
-                        }
                 }
             }
             .background(

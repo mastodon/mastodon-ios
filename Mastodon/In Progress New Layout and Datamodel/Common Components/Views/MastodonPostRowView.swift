@@ -298,7 +298,7 @@ struct HomeTimelinePostRowView: View {
                     if contentConcealModel.currentMode.isShowingContent, let actionHandler = viewModel.actionHandler {
                         if viewModel.isShowingTranslation == true, let translatablePost = viewModel.fullPost?.actionablePost, let translation = actionHandler.translation(forContentPostId: translatablePost.id) {
                             // MARK: Translation info line
-                            TranslationInfoView(translationInfo: translation, showOriginal: { actionHandler.doAction(.showOriginalLanguage, forPost: translatablePost) }
+                            TranslationInfoView(translationInfo: translation, showOriginal: { actionHandler.doAction(.showOriginalLanguage, forPost: viewModel) }
                             )
                             .frame(width: contentWidth, alignment: .leading)
                         }
@@ -561,7 +561,7 @@ private struct ActionBar: View {
                             if let actionablePost = viewModel.fullPost?.actionablePost {
                                 Button(role: menuAction.isDestructive ? .destructive : nil) {
                                     
-                                    viewModel.actionHandler?.doAction(menuAction, forPost: actionablePost)
+                                    viewModel.actionHandler?.doAction(menuAction, forPost: viewModel)
                                 }
                                 label: {
                                     Label(menuAction.labelText(username: actionablePost.metaData.author.displayInfo.displayName, postLanguage: actionablePost.content.language), systemImage: menuAction.iconSystemName)
@@ -606,7 +606,7 @@ private struct ActionBar: View {
             StatefulCountedActionButton(type: .reply, actionState: .init(count: metrics.replyCount, isSelected: state), doAction: {
                 switch state {
                 case .isFalse:
-                    viewModel.actionHandler?.doAction(.reply, forPost: actionablePost)
+                    viewModel.actionHandler?.doAction(.reply, forPost: viewModel)
                 default:
                     break
                 }
@@ -628,9 +628,9 @@ private struct ActionBar: View {
                     viewModel.actionHandler?.showOverlay(.boostOrQuote(viewModel))
                 } else {
                     if iHaveBoosted {
-                        viewModel.actionHandler?.doAction(.unboost, forPost: actionablePost)
+                        viewModel.actionHandler?.doAction(.unboost, forPost: viewModel)
                     } else {
-                        viewModel.actionHandler?.doAction(.boost, forPost: actionablePost)
+                        viewModel.actionHandler?.doAction(.boost, forPost: viewModel)
                     }
                 }
             })
@@ -639,9 +639,9 @@ private struct ActionBar: View {
             StatefulCountedActionButton(type: .favourite, actionState: .init(count: metrics.favoriteCount, isSelected: state), doAction: {
                 switch state {
                 case .isFalse:
-                    viewModel.actionHandler?.doAction(.favourite, forPost: actionablePost)
+                    viewModel.actionHandler?.doAction(.favourite, forPost: viewModel)
                 case .isTrue:
-                    viewModel.actionHandler?.doAction(.unfavourite, forPost: actionablePost)
+                    viewModel.actionHandler?.doAction(.unfavourite, forPost: viewModel)
                 default:
                     break
                 }
@@ -651,9 +651,9 @@ private struct ActionBar: View {
             StatefulCountedActionButton(type: .bookmark, actionState: .init(count: nil, isSelected: state), doAction: {
                 switch state {
                 case .isFalse:
-                    viewModel.actionHandler?.doAction(.bookmark, forPost: actionablePost)
+                    viewModel.actionHandler?.doAction(.bookmark, forPost: viewModel)
                 case .isTrue:
-                    viewModel.actionHandler?.doAction(.unbookmark, forPost: actionablePost)
+                    viewModel.actionHandler?.doAction(.unbookmark, forPost: viewModel)
                 default:
                     break
                 }

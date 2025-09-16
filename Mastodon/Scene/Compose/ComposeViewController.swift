@@ -81,10 +81,10 @@ final class ComposeViewController: UIViewController {
 
         switch viewModel.composeContext {
         case .composeStatus(let quoted):
-            composeContext = .composeStatus(quotedPost: quoted)
+            composeContext = .composeStatus(quoting: quoted)
             initialContent = viewModel.initialContent
-        case .editStatus(let status, let statusSource):
-            composeContext = .editStatus(status: status, statusSource: statusSource)
+        case .editStatus(let status, let statusSource, let quoting):
+            composeContext = .editStatus(status: status, statusSource: statusSource, quoting: quoting)
             initialContent = statusSource.text
         }
 

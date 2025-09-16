@@ -347,7 +347,7 @@ extension DataSourceFacade {
 
             let editStatusViewModel = ComposeViewModel(
                 authenticationBox: dependency.authenticationBox,
-                composeContext: .editStatus(status: status, statusSource: statusSource),
+                composeContext: .editStatus(status: status, statusSource: statusSource, quoting: nil),
                 destination: .topLevel)
             guard let coordinator = dependency.sceneCoordinator else { return }
             _ = coordinator.present(scene: .editStatus(viewModel: editStatusViewModel), transition: .modal(animated: true))

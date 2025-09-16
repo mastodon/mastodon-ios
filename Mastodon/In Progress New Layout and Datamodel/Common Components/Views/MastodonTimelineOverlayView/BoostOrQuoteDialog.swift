@@ -13,7 +13,7 @@ struct BoostOrQuoteDialog: View {
             VStack(spacing: 0) {
                 if actionablePost.content.myActions.boosted {
                     Button {
-                        viewModel.actionHandler?.doAction(.unboost, forPost: actionablePost)
+                        viewModel.actionHandler?.doAction(.unboost, forPost: viewModel)
                     } label: {
                         Text(L10n.Common.Alerts.BoostAPost.unboost)
                             .foregroundStyle(Asset.Colors.Brand.blurple.swiftUIColor)
@@ -21,7 +21,7 @@ struct BoostOrQuoteDialog: View {
                     }
                 } else {
                     Button {
-                        viewModel.actionHandler?.doAction(.boost, forPost: actionablePost)
+                        viewModel.actionHandler?.doAction(.boost, forPost: viewModel)
                     } label: {
                         Text(L10n.Common.Alerts.BoostAPost.boost)
                             .foregroundStyle(Asset.Colors.Brand.blurple.swiftUIColor)
@@ -69,6 +69,13 @@ struct BoostOrQuoteDialog: View {
     
     var composeViewModel: ComposeViewModel? {
         guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value, let quotedPost = viewModel.fullPost?.actionablePost else { return nil }
-        return ComposeViewModel(authenticationBox: currentUser, composeContext: .composeStatus(quoting: quotedPost._legacyEntity), destination: .topLevel)
+        return ComposeViewModel(authenticationBox: currentUser, composeContext: .composeStatus(quoting: (quotedPost._legacyEntity, {
+            AnyView(
+                EmbeddedPostView(layoutWidth: 200, isSummary: false)
+                .environment(viewModel)
+                .environment(TimestampUpdater.timestamper(withInterval: 30))
+                .environment(ContentConcealViewModel.alwaysShow)
+                )
+        })), destination: .topLevel)
     }
 }

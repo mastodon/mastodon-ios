@@ -16,12 +16,13 @@ import MastodonCore
 import MastodonLocalization
 import MastodonMeta
 import MastodonUI
+import SwiftUI
 
 final class ComposeViewModel {
 
     enum Context {
-        case composeStatus(quoting: Mastodon.Entity.Status?)
-        case editStatus(status: MastodonStatus, statusSource: Mastodon.Entity.StatusSource)
+        case composeStatus(quoting: (Mastodon.Entity.Status, ()->AnyView)?)
+        case editStatus(status: MastodonStatus, statusSource: Mastodon.Entity.StatusSource, quoting: (()->AnyView)?)
     }
     
     var disposeBag = Set<AnyCancellable>()
@@ -65,7 +66,7 @@ final class ComposeViewModel {
             case .reply:
                 title = L10n.Scene.Compose.Title.newReply
             }
-        case .editStatus(_, _):
+        case .editStatus:
             title = L10n.Scene.Compose.Title.editPost
         }
         

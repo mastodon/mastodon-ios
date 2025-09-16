@@ -1709,12 +1709,12 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         return feedLoader?.myRelationship(to: account)
     }
     
-    func doAction(_ action: MastodonPostMenuAction, forPost post: MastodonContentPost) {
+    func doAction(_ action: MastodonPostMenuAction, forPost postViewModel: MastodonPostViewModel) {
         
         // Check not currently performing an action.
         guard isPerformingPostAction == nil && isPerformingAccountAction == nil else { return }
         
-        guard let authenticatedUser, let actionablePost = post.actionablePost else { return }
+        guard let authenticatedUser, let actionablePost = postViewModel.fullPost?.actionablePost else { return }
 
         let author = actionablePost.metaData.author
         
@@ -1731,7 +1731,6 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             
             // MARK: ACTION BAR
                 case .reply:
-                    guard let actionablePost = post.actionablePost else { throw PostActionFailure.noActionablePostId }
                     let statusEntityToReplyTo = try await APIService.shared.status(statusID: actionablePost.id, authenticationBox: authenticatedUser).value
                     let composeViewModel = ComposeViewModel(
                         authenticationBox: authenticatedUser,
@@ -1802,7 +1801,6 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     
             // MARK: EDIT
                 case .editPost:
-                    guard let actionablePost = post.actionablePost else { throw PostActionFailure.noActionablePostId }
                     let statusEntityToEdit = try await APIService.shared.status(statusID: actionablePost.id, authenticationBox: authenticatedUser).value
                     let statusSourceToEdit = try await APIService.shared.getStatusSource(
                         forStatusID: actionablePost.id,
@@ -1811,7 +1809,13 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     
                     let editStatusViewModel = ComposeViewModel(
                         authenticationBox: authenticatedUser,
-                        composeContext: .editStatus(status: MastodonStatus(entity: statusEntityToEdit, showDespiteContentWarning: true), statusSource: statusSourceToEdit),
+                        composeContext: .editStatus(status: MastodonStatus(entity: statusEntityToEdit, showDespiteContentWarning: true), statusSource: statusSourceToEdit, quoting: {
+                            AnyView(
+                            EmbeddedPostView(layoutWidth: 200, isSummary: false)
+                                .environment(postViewModel.fullQuotedPostViewModel)
+                                .environment(TimestampUpdater.timestamper(withInterval: 30))
+                                .environment(ContentConcealViewModel.alwaysShow)
+                        )}),
                         destination: .topLevel, completion: { success in
                             // refetch the post to display the edits
                             if success {
@@ -1821,16 +1825,15 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     presentScene(.editStatus(viewModel: editStatusViewModel), fromPost: nil, transition: .modal(animated: true))
                     
                 case .changeQuotePolicy:
-                    guard let actionablePost = post.actionablePost else { throw PostActionFailure.noActionablePostId }
                     postInteractionSettingsEditViewModel = PostInteractionSettingsViewModel(account: actionablePost.metaData.author._legacyEntity, initialSettings: .editing(visibility: actionablePost._legacyEntity.visibility ?? .public, quotability: actionablePost._legacyEntity.specifiedQuotePolicyOrNobody)) // this presents the sheet
                     
             // MARK: POST ACTIONS
                 case .copyLinkToPost:
-                    guard let urlString = post.actionablePost?.metaData.url else { throw PostActionFailure.noActionablePostId }
+                    guard let urlString = actionablePost.metaData.url else { throw PostActionFailure.noActionablePostId }
                     UIPasteboard.general.string = urlString
                     
                 case .openPostInBrowser:
-                    guard let urlString = post.actionablePost?.metaData.url, let url = URL(string: urlString) else { throw PostActionFailure.noActionablePostId }
+                    guard let urlString = actionablePost.metaData.url, let url = URL(string: urlString) else { throw PostActionFailure.noActionablePostId }
                     presentScene(.safari(url: url), fromPost: nil, transition: .safariPresent(animated: true))
                     
                 case .sharePost:
@@ -1843,7 +1846,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     
             // MARK: DEFENSIVE ACTIONS
                 case .removeQuote:
-                    try await doRemoveQuote(from: post, askFirst: true)
+                    try await doRemoveQuote(from: actionablePost, askFirst: true)
                 case .blockUser:
                     activeAlert = .confirmBlock(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
                         guard confirmed else { return }
@@ -1865,11 +1868,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     let accountToReport = try await APIService.shared.accountInfo(domain: authenticatedUser.domain, userID: author.id, authorization: authenticatedUser.userAuthorization)
                     
                     let statusEntity: Mastodon.Entity.Status?
-                    if let postIdToReport = post.actionablePost?.id {
-                        statusEntity = try? await APIService.shared.status(statusID: postIdToReport, authenticationBox: authenticatedUser).value
-                    } else {
-                        statusEntity = nil
-                    }
+                    statusEntity = try? await APIService.shared.status(statusID: actionablePost.id, authenticationBox: authenticatedUser).value
                     
                     let reportViewModel = ReportViewModel(
                         context: AppContext.shared,
@@ -1883,8 +1882,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     
             // MARK: DELETE
                 case .deletePost:
-                    guard let postID = post.actionablePost?.id else { throw PostActionFailure.noActionablePostId }
-                    await deletePost(postID, askFirst: UserDefaults.shared.askBeforeDeletingAPost)
+                    await deletePost(actionablePost.id, askFirst: UserDefaults.shared.askBeforeDeletingAPost)
                 }
             } catch {
                 // TODO: handle error in a way the user can see it
