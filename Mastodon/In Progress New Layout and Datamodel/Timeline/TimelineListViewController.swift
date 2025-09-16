@@ -1443,7 +1443,7 @@ struct TimelineListView: View {
         }
         if viewModel.threadedConversationModel != nil {
             // include a spacer to indicate the end of the conversation and provide scrolling space so that if the focused post is at the end of the conversation it can still be scrolled to the top (or something near it)
-            Color.secondary.opacity(0.2)
+            Color.clear
                 .frame(height: geo.size.height * 0.5)
         }
         switch viewModel.timeline {
