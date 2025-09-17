@@ -235,26 +235,10 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
 
         // set limit
         let authentication = authenticationBox.authentication
-        let configuration = authentication.instanceConfiguration?.instanceConfigLimitingProperties
+        let configuration = authentication.instanceConfiguration
         
         if let configuration {
-            // set character limit
-            if let maxCharacters = configuration.statuses?.maxCharacters {
-                maxTextInputLimit = maxCharacters
-            }
-            // set media limit
-            if let maxMediaAttachments = configuration.statuses?.maxMediaAttachments {
-                maxMediaAttachmentLimit = maxMediaAttachments
-            }
-            // set poll option limit
-            if let maxOptions = configuration.polls?.maxOptions {
-                maxPollOptionLimit = maxOptions
-            }
-            // set photo attachment limit
-            if let imageSizeLimit = configuration.mediaAttachments?.imageSizeLimit {
-                maxImageMediaSizeLimitInByte = imageSizeLimit
-            }
-            // TODO: more limit
+            updateLimits(configuration: configuration)
         }
         
         switch composeContext {
@@ -303,6 +287,28 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         bind()
     }
     
+    func updateLimits(configuration: MastodonAuthentication.InstanceConfiguration) {
+        guard let limits = configuration.instanceConfigLimitingProperties else { return }
+        
+        // set character limit
+        if let maxCharacters = limits.statuses?.maxCharacters {
+            maxTextInputLimit = maxCharacters
+        }
+        // set media limit
+        if let maxMediaAttachments = limits.statuses?.maxMediaAttachments {
+            maxMediaAttachmentLimit = maxMediaAttachments
+        }
+        // set poll option limit
+        if let maxOptions = limits.polls?.maxOptions {
+            maxPollOptionLimit = maxOptions
+        }
+        // set photo attachment limit
+        if let imageSizeLimit = limits.mediaAttachments?.imageSizeLimit {
+            maxImageMediaSizeLimitInByte = imageSizeLimit
+        }
+        // TODO: more limit
+    }
+    
     func interactionSettingsButtonText(_ interactionSettings: (visibility: Mastodon.Entity.Status.Visibility, quotability: Mastodon.Entity.Source.QuotePolicy)) -> String {
         switch interactionSettings {
         case (.public, .anyone):
@@ -330,12 +336,25 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
 
 extension ComposeContentViewModel {
     private func bind() {
+        // bind instance configuration updates
+        AuthenticationServiceProvider.shared.instanceConfigurationUpdates
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] updatedDomain in
+                guard let self, let updatedAuthentication = AuthenticationServiceProvider.shared.currentActiveUser.value, updatedAuthentication.domain == updatedDomain else { return }
+                authenticationBox = updatedAuthentication
+            }
+            .store(in: &disposeBag)
+        
         // bind author
         $authenticationBox
             .receive(on: DispatchQueue.main)
             .sink { [weak self] authenticationBox in
                 guard let self, let account = authenticationBox.cachedAccount else { return }
 
+                if let config = authenticationBox.authentication.instanceConfiguration {
+                    updateLimits(configuration: config)
+                }
+                
                 self.avatarURL = account.avatarImageURL()
 
                 do {
@@ -643,7 +662,7 @@ extension ComposeContentViewModel {
             pollExpireConfigurationOption: pollExpireConfigurationOption,
             pollMultipleConfigurationOption: pollMultipleConfigurationOption,
             visibility: interactionSettingsModel.interactionSettings.visibility,
-            quotePolicy: AuthenticationServiceProvider.shared.currentInstanceConfiguration?.isAvailable(.quotePosts) == true ? interactionSettingsModel.interactionSettings.quotability : nil,
+            quotePolicy: AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.quotePosts) == true ? interactionSettingsModel.interactionSettings.quotability : nil,
             language: language
         )
     }

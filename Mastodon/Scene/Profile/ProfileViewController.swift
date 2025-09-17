@@ -115,7 +115,7 @@ class ProfileViewController: UIViewController, MediaPreviewableViewController, A
     let mediaPreviewTransitionController = MediaPreviewTransitionController()
     private var profilePagingViewController: ProfilePagingViewController?
     
-    nonisolated let authenticationBox: MastodonAuthenticationBox
+    var authenticationBox: MastodonAuthenticationBox
     private var viewModel: ProfileViewModelImmutable {
         didSet {
             updateDisplay(viewModel)
@@ -123,7 +123,7 @@ class ProfileViewController: UIViewController, MediaPreviewableViewController, A
     }
     
     required init(_ profileType: ProfileType, authenticationBox: MastodonAuthenticationBox) {
-        self.authenticationBox = authenticationBox
+        self.authenticationBox = AuthenticationServiceProvider.shared.currentActiveUser.value ?? authenticationBox
         self.viewModel = ProfileViewModelImmutable(profileType: profileType, state: .idle)
         super.init(nibName: nil, bundle: nil)
     }
@@ -161,6 +161,17 @@ class ProfileViewController: UIViewController, MediaPreviewableViewController, A
                 self?.updateViewModelsWithDataControllers(status: .fromEntity(status.value), intent: .edit)
             }
         }.store(in: &subscriptions)
+        
+        AuthenticationServiceProvider.shared.instanceConfigurationUpdates
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] updatedDomain in
+                guard let self else { return }
+                if updatedDomain == self.authenticationBox.domain {
+                    if let updatedAuthenticationBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
+                        authenticationBox = updatedAuthenticationBox
+                    }
+                }
+            }.store(in: &subscriptions)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -260,7 +271,7 @@ class ProfileViewController: UIViewController, MediaPreviewableViewController, A
             items.append(self.favoriteBarButtonItem)
             items.append(self.bookmarkBarButtonItem)
             
-            if self.currentInstance?.isAvailable(.followTags) == true {
+            if self.authenticationBox.authentication.instanceConfiguration?.isAvailable(.followTags) == true {
                 items.append(self.followedTagsBarButtonItem)
             }
             
@@ -1014,12 +1025,6 @@ extension ProfileViewController: PagerTabStripNavigateable {
         pagerTabStripNavigateKeyCommandHandler(sender)
     }
     
-}
-
-private extension ProfileViewController {
-    var currentInstance: MastodonAuthentication.InstanceConfiguration? {
-        authenticationBox.authentication.instanceConfiguration
-    }
 }
 
 extension ProfileViewController: DataSourceProvider {

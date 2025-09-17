@@ -33,7 +33,7 @@ public struct ComposeContentView: View {
                 
                 // visibility and quotability
                 HStack {
-                    if AuthenticationServiceProvider.shared.currentInstanceConfiguration?.isAvailable(.quotePosts) == true {
+                    if AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.quotePosts) == true {
                         interactionSettingsButton
                             .fixedSize(horizontal: true, vertical: false)
                         Spacer().frame(maxWidth: .infinity)

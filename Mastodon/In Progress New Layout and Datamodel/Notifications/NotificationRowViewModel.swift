@@ -89,7 +89,7 @@ nonisolated struct MastodonNotificationInfo {
     var contentConcealViewModel: ContentConcealViewModel? = nil
     var usePrivateBackground: Bool = false
 
-    init(_ notificationInfo: GroupedNotificationInfo, myAccountDomain: String?, canDoQuotePosts: Bool) {
+    init(_ notificationInfo: GroupedNotificationInfo, myAccountDomain: String?) {
         self.primaryNavigation = notificationInfo.primaryNavigation
         self.notification = MastodonNotificationInfo(notificationInfo)
         self.myAccountDomain = myAccountDomain
@@ -111,7 +111,7 @@ nonisolated struct MastodonNotificationInfo {
             avatarRowAdditionalElement = .noneNeeded
             if let status {
                 let inlinePost = GenericMastodonPost.fromStatus(status)
-                inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo(inContext: .notifications), quotePostsAvailable: canDoQuotePosts, filterContext: .notifications, threadedConversationContext: nil)
+                inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo(inContext: .notifications), filterContext: .notifications, threadedConversationContext: nil)
                 inlinePostViewModel?.setFullPost(inlinePost)
                 usePrivateBackground = status.visibility == .direct
             }

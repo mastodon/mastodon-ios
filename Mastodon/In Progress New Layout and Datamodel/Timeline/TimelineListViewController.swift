@@ -611,8 +611,10 @@ enum MastodonTimelineOverlayView {
 private class TimelineListViewModel: ObservableObject {
     public var parentVcPresentScene: ((SceneCoordinator.Scene, SceneCoordinator.Transition) -> ())?
     public var presentDonationDialog: ((Mastodon.Entity.DonationCampaign) -> ())?
-    private var authenticatedUser: MastodonAuthenticationBox?
-    private var instanceConfiguration: MastodonAuthentication.InstanceConfiguration?
+    @Published private(set) var authenticatedUser: MastodonAuthenticationBox? = AuthenticationServiceProvider.shared.currentActiveUser.value
+    
+    var instanceConfigurationUpdateSubscription: AnyCancellable?
+
     var hostingViewController: MediaPreviewableViewController?
     
     var filteredNotificationsViewModel =
@@ -726,6 +728,14 @@ private class TimelineListViewModel: ObservableObject {
     
     init(timeline: MastodonTimelineType) {
         self.timeline = timeline
+        
+        self.instanceConfigurationUpdateSubscription = AuthenticationServiceProvider.shared.instanceConfigurationUpdates
+            .receive(on: DispatchQueue.main)
+            .sink{ [weak self] updatedDomain in
+                guard let self, self.authenticatedUser?.domain == updatedDomain else { return }
+                self.authenticatedUser = AuthenticationServiceProvider.shared.currentActiveUser.value
+            }
+        
         Task {
             try await doInitialLoad()
         }
@@ -767,11 +777,9 @@ private class TimelineListViewModel: ObservableObject {
     
     func doInitialLoad() async throws {
         guard feedLoader == nil else { return }
-        guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
+        guard let authenticatedUser else { return }
         clearPendingActions()
-        authenticatedUser = currentUser
-        instanceConfiguration = currentUser.authentication.instanceConfiguration
-        feedLoader = TimelineFeedLoader(currentUser: currentUser, timeline: timeline)
+        feedLoader = TimelineFeedLoader(currentUser: authenticatedUser, timeline: timeline)
         feedLoaderResultsSubscription = feedLoader?.$records
             .sink{ [weak self] results in
                 
@@ -1944,7 +1952,8 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         guard let deviceLanguage = Bundle.main.preferredLocalizations.first else { return false }
         guard deviceLanguage != postLanguage else { return false }
     
-        return instanceConfiguration?.canTranslateFrom(
+        
+        return authenticatedUser?.authentication.instanceConfiguration?.canTranslateFrom(
             postLanguage,
             to: deviceLanguage
         ) ?? false

@@ -155,7 +155,6 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
     private var contentConcealViewModels = [Mastodon.Entity.Status.ID : ContentConcealViewModel]()
     
     private let myAccountID: Mastodon.Entity.Account.ID?
-    private let instanceCanDoQuotePosts: Bool
     
     let timeline: MastodonTimelineType
     var threadedConversationModel: ThreadedConversationModel?
@@ -163,7 +162,6 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
     init(currentUser: MastodonAuthenticationBox, timeline: MastodonTimelineType) {
         self.timeline = timeline
         authenticatedUser = currentUser
-        instanceCanDoQuotePosts = authenticatedUser.authentication.instanceConfiguration?.isAvailable(.quotePosts) ?? false
         myAccountID = authenticatedUser.cachedAccount?.id
         let trackLastRead = timeline == .following
         let cacheManager = TimelineCacheManager(currentUser: currentUser, trackLastRead: trackLastRead, useDiskCache: false)
@@ -255,7 +253,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         }
         func timelineItem(fromPost post: GenericMastodonPost) -> TimelineItem {
             let initialDisplayInfo = post.initialDisplayInfo(inContext: filterContext)
-            let viewModel = MastodonPostViewModel(initialDisplayInfo, quotePostsAvailable: instanceCanDoQuotePosts, filterContext: filterContext, threadedConversationContext: threadedConversationModel?.context(for: initialDisplayInfo.id))
+            let viewModel = MastodonPostViewModel(initialDisplayInfo, filterContext: filterContext, threadedConversationContext: threadedConversationModel?.context(for: initialDisplayInfo.id))
             viewModel.setFullPost(post)
             return TimelineItem.post(viewModel)
         }
@@ -359,7 +357,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 if groupedNotificationInfo.groupedNotificationType.wantsFullStatusLayout, let post = groupedNotificationInfo.post {
                     return timelineItem(fromPost: post)
                 } else {
-                    return TimelineItem.notification(NotificationRowViewModel(groupedNotificationInfo, myAccountDomain: authenticatedUser.domain, canDoQuotePosts: instanceCanDoQuotePosts))
+                    return TimelineItem.notification(NotificationRowViewModel(groupedNotificationInfo, myAccountDomain: authenticatedUser.domain))
                 }
             }
         }
@@ -545,7 +543,7 @@ class TimelineCacheManager: MastodonFeedCacheManager {
         
         if useDiskCache {
             Task {
-                let timeline = BodegaPersistence.cachedTimeline(forUser: currentUser, instanceCanDoQuotePosts: currentUser.authentication.instanceConfiguration?.isAvailable(.quotePosts) ?? false)
+                let timeline = BodegaPersistence.cachedTimeline(forUser: currentUser)
                 if trackLastRead {
                     self.currentLastReadMarker = await BodegaPersistence.LastRead.lastReadMarkers(for: currentUser)?.lastRead(forKind: .home)
                 }

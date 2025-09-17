@@ -22,8 +22,8 @@ public class AuthenticationServiceProvider: ObservableObject {
     var disposeBag = Set<AnyCancellable>()
     
     public let currentActiveUser = CurrentValueSubject<MastodonAuthenticationBox?, Never>(nil)
-    public var currentInstanceConfiguration: MastodonAuthentication.InstanceConfiguration? {  currentActiveUser.value?.authentication.instanceConfiguration
-    }
+    public let instanceConfigurationUpdates = PassthroughSubject<String, Never>() // publishes the domain of each instance as updates are received
+  
     @Published public var mastodonAuthenticationBoxes: [MastodonAuthenticationBox] = []
     @Published public var didChangeFollowersAndFollowing: String?
     
@@ -79,6 +79,7 @@ public class AuthenticationServiceProvider: ObservableObject {
     @MainActor
     @discardableResult
     func updating(instanceV1 instance: Mastodon.Entity.Instance, for domain: String) -> Self {
+        defer { instanceConfigurationUpdates.send(domain) }
         authentications = authentications.map { authentication in
             guard authentication.domain == domain else { return authentication }
             return authentication.updating(instanceV1: instance)
@@ -89,6 +90,7 @@ public class AuthenticationServiceProvider: ObservableObject {
     @MainActor
     @discardableResult
     func updating(instanceV2 instance: Mastodon.Entity.V2.Instance, for domain: String) -> Self {
+        defer { instanceConfigurationUpdates.send(domain) }
         authentications = authentications.map { authentication in
             guard authentication.domain == domain else { return authentication }
             return authentication.updating(instanceV2: instance)
@@ -99,6 +101,7 @@ public class AuthenticationServiceProvider: ObservableObject {
     @MainActor
     @discardableResult
     func updating(translationLanguages: TranslationLanguages, for domain: String) -> Self {
+        defer { instanceConfigurationUpdates.send(domain) }
         authentications = authentications.map { authentication in
             guard authentication.domain == domain else { return authentication }
             return authentication.updating(translationLanguages: translationLanguages)

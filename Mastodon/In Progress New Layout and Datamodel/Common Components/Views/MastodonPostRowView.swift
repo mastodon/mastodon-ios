@@ -31,7 +31,7 @@ import MastodonLocalization
     func updateQuotedPostViewModel() {
         if let potentialQuotePost = fullPost?.actionablePost as? MastodonBasicPost {
             if let quoted = potentialQuotePost.quotedPost, let quotedFullPost = quoted.fullPost {
-                let updated = MastodonPostViewModel(quotedFullPost.initialDisplayInfo(inContext: filterContext), quotePostsAvailable: quotePostsAvailable, fullPost: quotedFullPost, filterContext: filterContext, threadedConversationContext: nil)
+                let updated = MastodonPostViewModel(quotedFullPost.initialDisplayInfo(inContext: filterContext), fullPost: quotedFullPost, filterContext: filterContext, threadedConversationContext: nil)
                 updated.actionHandler = actionHandler
                 self.fullQuotedPostViewModel = updated
                 placeholderQuotedPost = nil
@@ -47,7 +47,6 @@ import MastodonLocalization
     var displayPrepStatus: DisplayPrepStatus = .unprepared
     var isShowingTranslation: Bool? = nil
     var isDoingAction: MastodonPostMenuAction? = nil
-    let quotePostsAvailable: Bool
     
     var actionHandler: MastodonPostMenuActionHandler? = nil {
         didSet {
@@ -78,19 +77,17 @@ import MastodonLocalization
     }
     
     nonisolated
-    init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, quotePostsAvailable: Bool, filterContext: Mastodon.Entity.FilterContext?, threadedConversationContext: ThreadedConversationModel.ThreadContext?) {
+    init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, filterContext: Mastodon.Entity.FilterContext?, threadedConversationContext: ThreadedConversationModel.ThreadContext?) {
         self.initialDisplayInfo = initialDisplay
         self.filterContext = filterContext
         self.threadedContext = threadedConversationContext
-        self.quotePostsAvailable = quotePostsAvailable
     }
     
-    private init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, quotePostsAvailable: Bool, fullPost: GenericMastodonPost? = nil, isShowingTranslation: Bool? = nil, isDoingAction: MastodonPostMenuAction? = nil, myRelationshipToAuthor: MastodonAccount.Relationship? = nil, actionHandler: MastodonPostMenuActionHandler? = nil, translation: Mastodon.Entity.Translation? = nil, filterContext: Mastodon.Entity.FilterContext?, threadedConversationContext: ThreadedConversationModel.ThreadContext?) {
+    private init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, fullPost: GenericMastodonPost? = nil, isShowingTranslation: Bool? = nil, isDoingAction: MastodonPostMenuAction? = nil, myRelationshipToAuthor: MastodonAccount.Relationship? = nil, actionHandler: MastodonPostMenuActionHandler? = nil, translation: Mastodon.Entity.Translation? = nil, filterContext: Mastodon.Entity.FilterContext?, threadedConversationContext: ThreadedConversationModel.ThreadContext?) {
         self.initialDisplayInfo = initialDisplay
         self.fullPost = fullPost
         self.filterContext = filterContext
         self.threadedContext = threadedConversationContext
-        self.quotePostsAvailable = quotePostsAvailable
         self.updateQuotedPostViewModel()
     }
     
@@ -240,6 +237,7 @@ struct HomeTimelinePostRowView: View {
     var body: some View {
         let actionablePost = viewModel.fullPost?.actionablePost
         let author = actionablePost?.metaData.author ?? viewModel.fullPost?.metaData.author
+        let instanceCanQuotePosts = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.quotePosts) ?? false
         
         VStack(alignment: .gutterAlign, spacing: 0) {  // gutterAlign keeps the content and social context headers properly aligned with the gap between avatar and content
             if let threadedContext = viewModel.threadedContext {
@@ -360,7 +358,7 @@ struct HomeTimelinePostRowView: View {
                     if let actionablePost = viewModel.fullPost?.actionablePost {
                         Spacer()
                             .frame(height: 0)  // gives double spacing between bottom of post content and action bar
-                        ActionBar()
+                        ActionBar(instanceCanQuotePosts: instanceCanQuotePosts)
                             .frame(width: contentWidth, alignment: .leading)
                     }
                     
@@ -520,6 +518,7 @@ extension HomeTimelinePostRowView {
 private struct ActionBar: View {
     
     @Environment(MastodonPostViewModel.self) private var viewModel
+    let instanceCanQuotePosts: Bool
 
     var body: some View {
         HStack() {
@@ -532,7 +531,7 @@ private struct ActionBar: View {
                 Spacer()
                 actionButton(forPost: actionablePost, action: .bookmark)
                 Spacer()
-                ActionBarMenuButton()
+                ActionBarMenuButton(instanceCanQuotePosts: instanceCanQuotePosts)
                 Spacer()
             }
         }
@@ -540,6 +539,7 @@ private struct ActionBar: View {
     
     struct ActionBarMenuButton: View {
         @Environment(MastodonPostViewModel.self) private var viewModel
+        let instanceCanQuotePosts: Bool
         
         var body: some View {
             Menu {
@@ -623,7 +623,7 @@ private struct ActionBar: View {
                 }
             }()
             StatefulCountedActionButton(type: .boost, actionState: .init(count: metrics.boostCount, isSelected: state), doAction: {
-                if viewModel.quotePostsAvailable {
+                if instanceCanQuotePosts {
                     viewModel.actionHandler?.showOverlay(.boostOrQuote(viewModel))
                 } else {
                     if iHaveBoosted {
