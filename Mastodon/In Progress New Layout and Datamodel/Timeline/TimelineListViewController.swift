@@ -604,7 +604,11 @@ extension MastodonPostMenuAction {
 enum MastodonTimelineOverlayView {
     case images(focusedImage: Mastodon.Entity.Attachment.ID, ImageGalleryViewModel)
     case altText(String)
-    case boostOrQuote(MastodonPostViewModel)
+}
+
+enum MastodonTimelineSheet {
+    case postInteractionSettingsEdit(PostInteractionSettingsViewModel)
+    case boostOrQuoteDialog(MastodonPostViewModel)
 }
 
 @MainActor
@@ -636,14 +640,18 @@ private class TimelineListViewModel: ObservableObject {
             }
         }
     }
-    var postInteractionSettingsEditViewModel: PostInteractionSettingsViewModel? = nil {
+    var activeSheet: MastodonTimelineSheet? = nil {
         didSet {
-            isShowingQuotabilityEdit = postInteractionSettingsEditViewModel != nil
+            if !isShowingSheet && activeSheet != nil {
+                isShowingSheet = true
+            } else if isShowingSheet && activeSheet == nil {
+                isShowingSheet = false
+            }
         }
     }
     
-    @Published var isShowingQuotabilityEdit: Bool = false
     @Published var isShowingOverlay: Bool = false
+    @Published var isShowingSheet: Bool = false
     @Published var isPresentingAlert: Bool = false
     @Published var presentedDonationCampaign: Mastodon.Entity.DonationCampaign?
     
@@ -702,8 +710,8 @@ private class TimelineListViewModel: ObservableObject {
         if isPerformingAccountAction != nil {
             isPerformingAccountAction = nil
         }
-        if postInteractionSettingsEditViewModel != nil {
-            postInteractionSettingsEditViewModel = nil
+        if activeSheet != nil {
+            activeSheet = nil
         }
     }
     
@@ -1305,8 +1313,9 @@ struct TimelineListView: View {
                 Text(messageText)
             }
         }
-        .sheet(isPresented: $viewModel.isShowingQuotabilityEdit) {
-            if let editModel = viewModel.postInteractionSettingsEditViewModel {
+        .sheet(isPresented: $viewModel.isShowingSheet) {
+            switch viewModel.activeSheet {
+            case .postInteractionSettingsEdit(let editModel):
                 PostInteractionSettingsView(closeAndSave: { save in
                     if save {
                         Task {
@@ -1326,6 +1335,12 @@ struct TimelineListView: View {
                 .presentationDetents([.fraction(0.3), .medium, .large])
                 .presentationDragIndicator(.hidden)
                 .interactiveDismissDisabled(true)
+            case .boostOrQuoteDialog(let postViewModel):
+                BoostOrQuoteDialog()
+                    .environment(postViewModel)
+                    .presentationDetents([.fraction(0.3), .medium, .large])
+            case .none:
+                EmptyView()
             }
         }
         .overlay {
@@ -1685,9 +1700,6 @@ extension MastodonTimelineOverlayView {
             if let img = viewModel.imageAttachments.first(where: { $0.id == focusedImage }) {
                 ZoomableBlurhashImageView(image: img, frameSize: frameSize)
             }
-        case .boostOrQuote(let postViewModel):
-            BoostOrQuoteDialog(closeOverlay: closeOverlay)
-                .environment(postViewModel)
         }
     }
 }
@@ -1707,6 +1719,10 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
     
     func showOverlay(_ overlay: MastodonTimelineOverlayView?) {
         activeOverlay = overlay
+    }
+    
+    func showSheet(_ sheet: MastodonTimelineSheet?) {
+        activeSheet = sheet
     }
     
     func presentScene(_ scene: SceneCoordinator.Scene, fromPost postID: Mastodon.Entity.Status.ID?, transition: SceneCoordinator.Transition) {
@@ -1758,7 +1774,8 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     presentScene(.compose(viewModel: composeViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
                 case .boost:
                     Task {
-                        await boost(actionablePost.id, askFirst: UserDefaults.standard.askBeforeBoostingAPost)
+                        let canDoQuotePosts = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.quotePosts) ?? false
+                        await boost(actionablePost.id, askFirst: !canDoQuotePosts && UserDefaults.standard.askBeforeBoostingAPost)
                     }
                 case .unboost, .favourite, .unfavourite, .bookmark, .unbookmark:
                     let updated: Mastodon.Entity.Status?
@@ -1837,7 +1854,16 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     presentScene(.editStatus(viewModel: editStatusViewModel), fromPost: nil, transition: .modal(animated: true))
                     
                 case .changeQuotePolicy:
-                    postInteractionSettingsEditViewModel = PostInteractionSettingsViewModel(account: actionablePost.metaData.author._legacyEntity, initialSettings: .editing(visibility: actionablePost._legacyEntity.visibility ?? .public, quotability: actionablePost._legacyEntity.specifiedQuotePolicyOrNobody)) // this presents the sheet
+                    activeSheet = .postInteractionSettingsEdit(
+                        PostInteractionSettingsViewModel(
+                            account: actionablePost.metaData.author._legacyEntity,
+                            initialSettings:
+                                    .editing(
+                                        visibility: actionablePost._legacyEntity.visibility ?? .public,
+                                        quotability: actionablePost._legacyEntity.specifiedQuotePolicyOrNobody
+                                    )
+                        )
+                    )
                     
             // MARK: POST ACTIONS
                 case .copyLinkToPost:
@@ -1906,7 +1932,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
     
     func commitCurrentQuotePolicyEdit() async throws {
         guard let (action, post) = isPerformingPostAction, action == .changeQuotePolicy, let authBox = AuthenticationServiceProvider.shared.currentActiveUser
-            .value, let editModel = postInteractionSettingsEditViewModel else { throw PostActionFailure.unsupportedAction }
+            .value, case let .postInteractionSettingsEdit(editModel) = activeSheet else { throw PostActionFailure.unsupportedAction }
         Task {
             do {
                 let updated = try await APIService.shared.updateQuotePolicy(forStatus: post.id, to: editModel.interactionSettings.quotability, authenticationBox: authBox)

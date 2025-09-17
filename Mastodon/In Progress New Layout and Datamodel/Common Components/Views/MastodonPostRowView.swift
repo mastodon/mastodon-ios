@@ -623,8 +623,9 @@ private struct ActionBar: View {
                 }
             }()
             StatefulCountedActionButton(type: .boost, actionState: .init(count: metrics.boostCount, isSelected: state), doAction: {
+                guard actionablePost.isBoostable else { return }
                 if instanceCanQuotePosts {
-                    viewModel.actionHandler?.showOverlay(.boostOrQuote(viewModel))
+                    viewModel.actionHandler?.showSheet(.boostOrQuoteDialog(viewModel))
                 } else {
                     if iHaveBoosted {
                         viewModel.actionHandler?.doAction(.unboost, forPost: viewModel)
@@ -633,6 +634,7 @@ private struct ActionBar: View {
                     }
                 }
             })
+            .opacity(actionablePost.isBoostable ? 1.0 : 0.3)
         case .favourite:
             let state = overrideState ?? AsyncBool.fromBool(myActions.favorited)
             StatefulCountedActionButton(type: .favourite, actionState: .init(count: metrics.favoriteCount, isSelected: state), doAction: {
@@ -695,6 +697,22 @@ extension ThreadedConversationModel.ThreadContext {
         case .fragmentEnd:
             return false
         case .fragmentContinuation:
+            return true
+        }
+    }
+}
+
+extension MastodonContentPost {
+    
+    @MainActor
+    var isBoostable: Bool {
+        let info = self.initialDisplayInfo(inContext: nil)
+        switch info.actionableVisibility {
+        case .mentionedOnly:
+            return false
+        case .followersOnly:
+            return info.actionableAuthorId == AuthenticationServiceProvider.shared.currentActiveUser.value?.userID
+        case .loudPublic, .quietPublic:
             return true
         }
     }
