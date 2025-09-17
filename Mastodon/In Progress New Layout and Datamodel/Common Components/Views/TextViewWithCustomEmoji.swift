@@ -108,7 +108,7 @@ extension MastodonContentView: View {
 
 func mapEmojiShortcodeToEmojis(_ emojis: MastodonContentView.Emojis) -> [MastodonContent.Shortcode: String] {
     return emojis.reduce(into: [:]) { partialResult, emoji in
-        partialResult[emoji.shortcode] = UserDefaults.standard.preferredStaticAvatar ? emoji.staticURL : emoji.url
+        partialResult[emoji.shortcode] = emoji.staticURL
     }
 }
 
@@ -215,7 +215,7 @@ class CustomEmojiTextModel: ObservableObject {
     
     private func loadEmojis(font: SwiftUI.Font.TextStyle) {
         let urls = emojis.compactMap { emoji in
-            URL(string: emoji.url)
+            URL(string: emoji.staticURL)
         }
         
         CustomEmojiTextModel.loadEmojiImages(urls: urls, forFont: font) { [weak self] images in
