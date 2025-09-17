@@ -185,6 +185,7 @@ struct EmbeddedPostContentDisplayedView: View {
         .background {
             MastodonSecondaryBackground(fillInDarkModeOnly: true)
         }
+        .contentShape(Rectangle())
     }
     
     private let avatarShape = RoundedRectangle(cornerRadius: 4)

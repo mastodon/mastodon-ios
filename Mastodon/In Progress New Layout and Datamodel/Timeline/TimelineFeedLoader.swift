@@ -339,9 +339,16 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 statusID: root.id,
                 authenticationBox: authenticatedUser
             ).value
-            let threadModel = ThreadedConversationModel(threadContext: context, focusedPost: root)
+            let threadModel: ThreadedConversationModel
+            if let basicPost = root as? MastodonBasicPost, let quote = basicPost.quotedPost, quote.fullPost == nil, quote.quotedPostID != nil {
+                // likely this is a nested quote that is now being opened and therefore we should refetch the status in hopes of getting the full quoted status to display instead of the placeholder
+                let refetchedStatus = try await APIService.shared.status(statusID: root.id, authenticationBox: authenticatedUser).value
+                threadModel = ThreadedConversationModel(threadContext: context, focusedPost: GenericMastodonPost.fromStatus(refetchedStatus))
+            } else {
+                threadModel = ThreadedConversationModel(threadContext: context, focusedPost: root)
+            }
             threadedConversationModel = threadModel
-                newBatch = threadModel.fullThread.map { timelineItem(fromStatus: $0) }
+            newBatch = threadModel.fullThread.map { timelineItem(fromStatus: $0) }
         case .myBookmarks:
             newBatch = try await APIService.shared.bookmarkedStatuses(
                 maxID: itemsImmediatelyBefore,
