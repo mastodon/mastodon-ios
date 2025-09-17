@@ -131,7 +131,7 @@ struct EmbeddedPostContentDisplayedView: View {
     let padding: CGFloat = 12
     
     var body: some View {
-        let contentWidth = layoutWidth - padding * 2
+        let contentWidth = max(0, layoutWidth - padding * 2)
         HStack(spacing: 0) {
             VStack(alignment: .leading) {
                 header()
