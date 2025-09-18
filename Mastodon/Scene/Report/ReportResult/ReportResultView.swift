@@ -66,7 +66,7 @@ struct ReportResultView: View {
             .padding()
             
             VStack(spacing: 32) {
-                // Follow
+                // Unfollow
                 VStack(alignment: .leading, spacing: 4) {
                     Text(L10n.Scene.Report.StepFinal.unfollowUser("@\(viewModel.username)"))
                         .font(.headline)
@@ -78,6 +78,7 @@ struct ReportResultView: View {
                         title: viewModel.relationship.following ? L10n.Scene.Report.StepFinal.unfollow : L10n.Scene.Report.StepFinal.unfollowed,
                         isBusy: viewModel.isRequestFollow
                     )
+                    .disabled(!viewModel.relationship.following)
                 }
                 
                 // Mute
@@ -95,6 +96,7 @@ struct ReportResultView: View {
                         title: viewModel.relationship.muting ? L10n.Common.Controls.Friendship.muted : L10n.Common.Controls.Friendship.mute,
                         isBusy: viewModel.isRequestMute
                     )
+                    .disabled(viewModel.relationship.muting)
                 }
                 
                 // Block
@@ -112,6 +114,7 @@ struct ReportResultView: View {
                         title: viewModel.relationship.blocking ? L10n.Common.Controls.Friendship.blocked : L10n.Common.Controls.Friendship.block,
                         isBusy: viewModel.isRequestBlock
                     )
+                    .disabled(viewModel.relationship.blocking)
                 }
             }
             .padding()
