@@ -1433,7 +1433,7 @@ struct TimelineListView: View {
                 }
 #endif
                 
-                HomeTimelinePostRowView(contentWidth: contentWidth)
+                MastodonPostRowView(contentWidth: contentWidth)
                 .environment(postViewModel)
                 .environment(viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID))
                 .padding(EdgeInsets(top: 0, leading: standardPadding, bottom: 0, trailing: doublePadding))

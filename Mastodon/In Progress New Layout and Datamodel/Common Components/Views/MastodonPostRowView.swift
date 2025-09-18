@@ -225,7 +225,7 @@ extension MastodonPostViewModel {
     }
 }
 
-struct HomeTimelinePostRowView: View {
+struct MastodonPostRowView: View {
 
     @Environment(MastodonPostViewModel.self) private var viewModel
     @Environment(ContentConcealViewModel.self) private var contentConcealModel
@@ -401,7 +401,7 @@ var staticTimestampFormatter = {
     return formatter
 }()
 
-extension HomeTimelinePostRowView {
+extension MastodonPostRowView {
     @ViewBuilder func threadingDecoration(withSpacerAtTop topSpacer: Bool, withSpacerAtBottom bottomSpacer: Bool) -> some View {
         VStack(alignment: .center, spacing: 0) {
             if topSpacer {
