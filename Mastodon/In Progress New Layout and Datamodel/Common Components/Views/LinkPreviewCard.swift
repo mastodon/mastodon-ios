@@ -105,13 +105,21 @@ struct LinkPreviewCard: View {
                                 Image(uiImage: blurhash)
                                     .resizable()
                                     .scaledToFill()
-                            }
-                            if cardEntity.html == nil || cardEntity.html?.isEmpty == true {
                                 ProgressView()
+                            } else {
+                                if cardEntity.html == nil || cardEntity.html?.isEmpty == true {
+                                    ProgressView()
+                                }
                             }
                         }
                     case .success(let image):
                         ZStack {
+                            if let blurhash {
+                                // use the blurhash as a backdrop because the preview image is often the wrong aspect ratio
+                                Image(uiImage: blurhash)
+                                    .resizable()
+                                    .scaledToFill()
+                            }
                             image
                                 .resizable()
                                 .scaledToFit()
@@ -157,7 +165,6 @@ struct LinkPreviewCard: View {
                         EmptyView()
                     }
                 }
-                .fixedSize(horizontal: false, vertical: true)
                 .onAppear() {
                     loadBlurhash()
                 }

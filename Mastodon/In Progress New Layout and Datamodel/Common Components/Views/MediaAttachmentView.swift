@@ -562,6 +562,7 @@ struct PlayerView: View {
     }
     
     func showFullSize() {
+        player?.pause()
         guard let _legacyEntity = media.attachmentInfo?._legacyEntity, let previewableViewController = actionHandler.mediaPreviewableViewController else { return }
         let previewItem: MediaPreviewViewModel.PreviewItem = .attachments([_legacyEntity], initialIndex: 0, altTexts: [media.attachmentInfo?.basicData.altText ?? ""])
         let mediaPreviewTransitionItem: MediaPreviewTransitionItem = {

@@ -13,7 +13,8 @@ struct WebContentView: UIViewRepresentable {
         var configurationString: String {
             switch self {
             case .linkPreviewCard:
-                "<meta name='viewport' content='width=device-width,user-scalable=no'><style>body { margin: 0; color-scheme: light dark; } body > :only-child { width: 100vw !important; height: 100vh !important }</style>"
+                "<meta name='viewport' content='initial-scale=1, width=device-width'><style>html, body { margin: 0; padding: 0; height: 100%; width: 100%; color-scheme: light dark; } iframe { width: 100%; height: 100%; border: 0; allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'; allowfullscreen }</style>"
+                // these settings allow embedded videos to play properly
             }
         }
     }
@@ -28,6 +29,7 @@ struct WebContentView: UIViewRepresentable {
         config.websiteDataStore = .nonPersistent() // private/incognito mode
         config.suppressesIncrementalRendering = true
         config.allowsInlineMediaPlayback = true
+        config.mediaTypesRequiringUserActionForPlayback = []
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.uiDelegate = delegate
         webView.navigationDelegate = delegate
