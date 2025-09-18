@@ -177,6 +177,7 @@ extension MainTabBarController {
                 
                 if currentTab == .me {
                     guard let authBox = authenticationBox, let myAccount = authBox.cachedAccount else { return }
+                    guard !(meProfileViewController is ProfileViewController) else { return }
                     let oldMe = meProfileViewController
                     let updatedProfile = ProfileViewController(.me(myAccount), authenticationBox: authBox)
                     meProfileViewController = updatedProfile
