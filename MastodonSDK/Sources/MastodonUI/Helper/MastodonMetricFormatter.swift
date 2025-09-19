@@ -31,12 +31,24 @@ public final class MastodonMetricFormatter: Formatter {
     private let ten_thousands = DecimalUnit.thousand.asInt * 10
     private let ten_millions = DecimalUnit.million.asInt * 10
     
+    ///
+    private let numberFormatter = NumberFormatter()
+    
+    /// MastodonMetricFormatter first converts to decimel _then_ displays the value.
+    /// Do not assign the groupingSeparator.
+    public var abbreviatedGroupingSeparator: String {
+        get {
+            numberFormatter.decimalSeparator
+        }
+        set {
+            numberFormatter.decimalSeparator = newValue
+        }
+    }
+    
     public func string(from number: Int) -> String? {
         let isPositive = number >= 0
         let symbol = isPositive ? "" : "-"
      
-        let numberFormatter = NumberFormatter()
-
         let value = abs(number)
         let metric: String
         
