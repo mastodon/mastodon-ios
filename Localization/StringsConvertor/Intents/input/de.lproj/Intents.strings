@@ -14,7 +14,7 @@
 
 "RxSqsb" = "Beitrag";
 
-"WCIR3D" = "Poste ${content} auf Mastodon";
+"WCIR3D" = "${content} auf Mastodon veröffentlichen";
 
 "ZKJSNu" = "Beitrag";
 
