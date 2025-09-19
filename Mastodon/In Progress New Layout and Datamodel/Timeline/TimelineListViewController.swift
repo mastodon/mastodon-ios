@@ -1839,12 +1839,18 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     let editStatusViewModel = ComposeViewModel(
                         authenticationBox: authenticatedUser,
                         composeContext: .editStatus(status: MastodonStatus(entity: statusEntityToEdit, showDespiteContentWarning: true), statusSource: statusSourceToEdit, quoting: {
-                            AnyView(
-                            EmbeddedPostView(layoutWidth: 200, isSummary: false)
-                                .environment(postViewModel.fullQuotedPostViewModel)
-                                .environment(TimestampUpdater.timestamper(withInterval: 30))
-                                .environment(ContentConcealViewModel.alwaysShow)
-                        )}),
+                            if let quotedPostViewModel = postViewModel.fullQuotedPostViewModel {
+                                AnyView(
+                                    EmbeddedPostView(layoutWidth: 200, isSummary: false)
+                                        .environment(quotedPostViewModel)
+                                        .environment(TimestampUpdater.timestamper(withInterval: 30))
+                                        .environment(ContentConcealViewModel.alwaysShow)
+                                    
+                                )
+                            } else {
+                                AnyView(EmptyView())
+                            }
+                        }),
                         destination: .topLevel, completion: { success in
                             // refetch the post to display the edits
                             if success {
