@@ -3,7 +3,7 @@
 import XCTest
 @testable import MastodonUI
 
-class MetricFormatterTests: XCTestCase {    
+class MetricFormatterTests: XCTestCase {
     func test_tensFormat() {
         let formatter = MastodonMetricFormatter()
         let value = formatter.string(from: 12)
@@ -32,20 +32,18 @@ class MetricFormatterTests: XCTestCase {
         XCTAssertEqual(value, "1K")
     }
     
-    func test_thousandNinetynineFormat_EU() {
-        let formatter = MastodonMetricFormatter()
-        formatter.abbreviatedGroupingSeparator = ","
-        let value = formatter.string(from: 1099)
+    func test_thousandNinetynineFormat() {
+        let formatter_EU = MastodonMetricFormatter()
+        formatter_EU.abbreviatedGroupingSeparator = ","
+        let value_EU = formatter_EU.string(from: 1099)
 
-        XCTAssertEqual(value, "1,1K")
-    }
+        XCTAssertEqual(value_EU, "1,1K")
 
-    func test_thousandNinetynineFormat_US() {
-        let formatter = MastodonMetricFormatter()
-        formatter.abbreviatedGroupingSeparator = "."
-        let value = formatter.string(from: 1099)
+        let formatter_US = MastodonMetricFormatter()
+        formatter_US.abbreviatedGroupingSeparator = "."
+        let value_US = formatter_US.string(from: 1099)
 
-        XCTAssertEqual(value, "1.1K")
+        XCTAssertEqual(value_US, "1.1K")
     }
     
     // TODO: Test US and EU formatters
