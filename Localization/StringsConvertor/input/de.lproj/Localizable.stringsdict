@@ -317,9 +317,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 Reblog</string>
+        <string>1 Mal geteilt</string>
         <key>other</key>
-        <string>%ld Reblogs</string>
+        <string>%ld Mal geteilt</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
@@ -333,9 +333,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 Reblog</string>
+        <string>1 Mal geteilt</string>
         <key>other</key>
-        <string>%ld Reblogs</string>
+        <string>%ld Mal geteilt</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
