@@ -6,7 +6,7 @@
                 "please_try_again_later": "Bitte versuche es später nochmal."
             },
             "sign_up_failure": {
-                "title": "Registrierungsfehler"
+                "title": "Fehler bei der Registrierung"
             },
             "server_error": {
                 "title": "Serverfehler"
@@ -33,7 +33,7 @@
                 "confirm": "Abmelden"
             },
             "block_domain": {
-                "title": "Bist du dir wirklich sicher, dass du die ganze Domain %s blockieren willst? In den meisten Fällen reichen ein paar gezielte Blockierungen oder Stummschaltungen aus und werden bevorzugt. Du wirst den Inhalt von dieser Domain nicht mehr sehen. Deine Follower von dieser Domain werden entfernt.",
+                "title": "Möchtest du die gesamte Domain %s wirklich blockieren? In den meisten Fällen reichen ein paar gezielte Blockierungen oder Stummschaltungen aus. Du wirst von dieser Domain keinen Inhalt sehen und deine dort befindlichen Follower verlieren.",
                 "block_entire_domain": "Domain blockieren"
             },
             "save_photo_failure": {
@@ -42,7 +42,7 @@
             },
             "delete_post": {
                 "title": "Beiträge löschen",
-                "message": "Bist du dir sicher, dass du diesen Beitrag löschen willst?"
+                "message": "Möchtest du diesen Beitrag wirklich löschen?"
             },
             "clean_cache": {
                 "title": "Zwischenspeicher leeren",
@@ -55,7 +55,7 @@
             },
             "media_missing_alt_text": {
                 "title": "Medien haben keinen Alt-Text",
-                "message": "Bei %d Ihrer Bilder fehlt der Alt-Text.\nTrotzdem posten?",
+                "message": "%d deiner Bilder fehlt der Alt-Text.\nTrotzdem senden?",
                 "cancel": "Abbrechen",
                 "post": "Veröffentlichen"
             },
@@ -143,7 +143,7 @@
                     "next_status": "Nächster Beitrag",
                     "open_status": "Beitrag öffnen",
                     "open_author_profile": "Profil des Verfassers ansehen",
-                    "open_reblogger_profile": "Booster Profil öffnen",
+                    "open_reblogger_profile": "Profil des teilenden Profils öffnen",
                     "reply_status": "Auf Beitrag antworten",
                     "toggle_reblog": "Boost beim Posten ein-/ausschalten",
                     "toggle_favorite": "Favorit vom Beitrag umschalten",
@@ -165,7 +165,7 @@
                 "show_post": "Beitrag anzeigen",
                 "show_user_profile": "Benutzerprofil anzeigen",
                 "content_warning": "Inhaltswarnung",
-                "sensitive_content": "NSFW-Inhalt",
+                "sensitive_content": "Inhaltswarnung",
                 "media_content_warning": "Tippe irgendwo zum Anzeigen",
                 "tap_to_reveal": "Zum Anzeigen tippen",
                 "load_embed": "Eingebettetes laden",
@@ -192,7 +192,7 @@
                     "show_gif": "GIF anzeigen",
                     "show_video_player": "Filmwiedergabe anzeigen",
                     "share_link_in_post": "Link im Beitrag teilen",
-                    "tap_then_hold_to_show_menu": "Halte gedrückt um das Menü anzuzeigen",
+                    "tap_then_hold_to_show_menu": "Gedrückt halten, um das Menü anzuzeigen",
                     "a11y_labels": {
                         "reblog": "Boost",
                         "unreblog": "Geteilten Beitrag widerrufen"
@@ -208,10 +208,10 @@
                     "emoji": "Emoji"
                 },
                 "visibility": {
-                    "unlisted": "Jeder kann diesen Post sehen, aber nicht in der öffentlichen Timeline zeigen.",
-                    "private": "Nur die, die dem Autor folgen, können diesen Beitrag sehen.",
-                    "private_from_me": "Nur die, die mir folgen, können diesen Beitrag sehen.",
-                    "direct": "Nur erwähnte Benutzer können diesen Beitrag sehen."
+                    "unlisted": "Alle können diesen Beitrag sehen, jedoch nicht in der öffentlichen Timeline.",
+                    "private": "Nur deren Follower können diesen Beitrag sehen.",
+                    "private_from_me": "Nur Profile, die mir folgen, können diesen Beitrag sehen.",
+                    "direct": "Nur erwähnte Profile können diesen Beitrag sehen."
                 },
                 "translation": {
                     "translated_from": "Übersetzt von %s mit %s",
@@ -221,9 +221,9 @@
                 },
                 "media": {
                     "accessibility_label": "%s, Anhang %d von %d",
-                    "expand_image_hint": "Erweitert das Bild. Doppeltippen und halten um Aktionen anzuzeigen.",
-                    "expand_gif_hint": "Erweitert das GIF. Doppeltippen und halten um Aktionen anzuzeigen.",
-                    "expand_video_hint": "Zeigt die Filmwiedergabe. Doppeltippen und halten um Aktionen anzuzeigen."
+                    "expand_image_hint": "Erweitert das Bild. Zweimal tippen und halten, um Aktionen anzuzeigen",
+                    "expand_gif_hint": "Erweitert das GIF. Zweimal tippen und halten, um Aktionen anzuzeigen",
+                    "expand_video_hint": "Zeigt den Videoplayer. Zweimal tippen und halten, um Aktionen anzuzeigen"
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
@@ -375,9 +375,9 @@
         },
         "privacy": {
             "title": "Ihre Privatsphäre",
-            "description": "Obwohl die Mastodon-App keine Daten sammelt, kann es sein, dass der Server, über den Sie sich anmelden, andere Richtlinien hat.\n\nWenn Sie mit den Richtlinien für **%s** nicht einverstanden sind, können Sie zurückgehen und einen anderen Server auswählen.",
+            "description": "Auch wenn die Mastodon-App keine Daten sammelt, kann der Server, über den du dich registrierst, eine andere Richtlinie haben.\n\nWenn du mit der Richtlinie für **%s** nicht einverstanden bist, kannst du zurückkehren und einen anderen Server wählen.",
             "policy": {
-                "ios": "Datenschutzerklärung - Mastodon für iOS",
+                "ios": "Datenschutzerklärung – Mastodon für iOS",
                 "server": "Datenschutzerklärung - %s"
             },
             "button": {
@@ -703,7 +703,7 @@
                 }
             },
             "searching": {
-                "posts": "Beiträge passend zu \"%s\"",
+                "posts": "Beiträge passend zu %s",
                 "people": "Profile passend zu \"%s\"",
                 "profile": "Gehe zu @%s@%s",
                 "url": "URL in Mastodon öffnen",
@@ -866,7 +866,7 @@
                 },
                 "ask_before": {
                     "section_title": "Aktionen abfragen…",
-                    "posting_without_alt_text": "Posten ohne Alt-Text",
+                    "posting_without_alt_text": "Ohne Alt-Text veröffentlichen",
                     "unfollowing_someone": "Jemanden nicht mehr folgen",
                     "boosting_a_post": "Einen Beitrag teilen",
                     "deleting_a_post": "Einen Beitrag löschen"
@@ -914,10 +914,10 @@
                     "custom": "Benutzerdefiniert"
                 },
                 "default_post_visibility": {
-                    "title": "Standard-Sichtbarkeit von Beiträgen"
+                    "title": "Standard-Beitragssichtbarkeit"
                 },
                 "manually_approve_follow_requests": "Manuelles Genehmigen von Folgeanfragen",
-                "show_followers_and_following": "Follower anzeigen & folgen",
+                "show_followers_and_following": "Follower und „Folge ich“ anzeigen",
                 "suggest_my_account_to_others": "Mein Konto anderen vorschlagen",
                 "appear_in_search_engines": "In Suchmaschinen anzeigen"
             },
