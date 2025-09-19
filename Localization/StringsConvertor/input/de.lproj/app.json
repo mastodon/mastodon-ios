@@ -626,12 +626,12 @@
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Konto stummschalten",
+                    "title": "Profil stummschalten",
                     "message": "Bestätige %s stumm zu schalten"
                 },
                 "confirm_unmute_user": {
                     "title": "Ton einschalten",
-                    "message": "Bestätige, um %s nicht mehr stummzuschalten"
+                    "message": "Bestätigen, um %s nicht mehr stummzuschalten"
                 },
                 "confirm_block_user": {
                     "title": "Konto blockieren",
@@ -662,7 +662,7 @@
                 "show_avatar_image": "Profilbild anzeigen",
                 "edit_avatar_image": "Profilbild bearbeiten",
                 "show_banner_image": "Bannerbild anzeigen",
-                "double_tap_to_open_the_list": "Doppeltippen, um die Liste zu öffnen"
+                "double_tap_to_open_the_list": "Zweimal tippen, um die Liste zu öffnen"
             }
         },
         "follower": {
@@ -686,14 +686,14 @@
         "search": {
             "title": "Suche",
             "search_bar": {
-                "placeholder": "Hashtags und Benutzer suchen",
+                "placeholder": "Nach Hashtags und Profilen suchen",
                 "cancel": "Abbrechen"
             },
             "recommend": {
                 "button_text": "Alle anzeigen",
                 "hash_tag": {
                     "title": "Angesagt auf Mastodon",
-                    "description": "Hashtags die an Aufmerksamkeit zunehmen",
+                    "description": "Aktuell beliebte Hashtags",
                     "people_talking": "%s Leute reden"
                 },
                 "accounts": {
@@ -710,7 +710,7 @@
                 "hashtag": "Wechseln zu #%s",
                 "no_user": {
                     "title": "Kein Benutzerkonto gefunden",
-                    "message": "Es gibt kein Benutzerkonto „%s” auf %s"
+                    "message": "Es gibt kein Profil „%s“ auf %s"
                 },
                 "empty_state": {
                     "no_results": "Keine Ergebnisse"
@@ -790,7 +790,7 @@
                 "rejected": "Abgelehnt"
             },
             "warning": {
-                "none": "Ihr Konto hat eine Moderationswarnung erhalten.",
+                "none": "Dein Konto ist von den Moderator*innen verwarnt worden.",
                 "disable": "Ihr Konto wurde deaktiviert.",
                 "mark_statuses_as_sensitive": "Einige deiner Beiträge wurden mit einer Inhaltswarnung versehen.",
                 "delete_statuses": "Einige deiner Beiträge sind entfernt worden.",
@@ -835,7 +835,7 @@
                 "general": "Allgemein",
                 "notifications": "Benachrichtigungen",
                 "privacy_safety": "Datenschutz und Sicherheit",
-                "support_mastodon": "Mastodon unterstützen",
+                "support_mastodon": "An Mastodon spenden",
                 "about_mastodon": "Über Mastodon",
                 "server_details": "Serverdetails",
                 "logout": "%@ abmelden"
@@ -942,7 +942,7 @@
                 "step_1_of_4": "Schritt 1 von 4",
                 "whats_wrong_with_this_post": "Was stimmt mit diesem Beitrag nicht?",
                 "whats_wrong_with_this_account": "Was stimmt mit diesem Konto nicht?",
-                "whats_wrong_with_this_username": "Was ist los mit %s?",
+                "whats_wrong_with_this_username": "Was ist das Problem mit %s?",
                 "select_the_best_match": "Wähle die passende Kategorie",
                 "i_dont_like_it": "Mir gefällt das nicht",
                 "it_is_not_something_you_want_to_see": "Das ist etwas, das man nicht sehen möchte",
@@ -970,12 +970,12 @@
             },
             "step_final": {
                 "dont_want_to_see_this": "Du willst das nicht mehr sehen?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Wenn du etwas auf Mastodon nicht sehen willst, kannst du den Nutzer aus deiner Erfahrung streichen.",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Wenn du etwas auf Mastodon siehst, das dir nicht gefällt, kannst du die Person aus deinem Umfeld entfernen.",
                 "unfollow": "Entfolgen",
                 "unfollowed": "Entfolgt",
                 "unfollow_user": "%s entfolgen",
                 "mute_user": "%s stummschalten",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Du wirst die Beiträge vom Konto nicht mehr sehen. Das Konto kann dir immer noch folgen, und die Person hinter dem Konto wird deine Beiträge sehen können und nicht wissen, dass du sie stummgeschaltet hast.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Du wirst deren (geteilte) Beiträge auf deiner Startseite nicht mehr sehen können. Sie werden nicht erfahren, dass sie stummgeschaltet sind.",
                 "block_user": "%s blockieren",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Du wirst die Beiträge von diesem Konto nicht sehen. Das Konto wird nicht in der Lage sein, deine Beiträge zu sehen oder dir zu folgen. Die Person hinter dem Konto wird wissen, dass du das Konto blockiert hast.",
                 "while_we_review_this_you_can_take_action_against_user": "Während wir dies überprüfen, kannst du gegen %s vorgehen"
@@ -989,7 +989,7 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "Aktuell ausgewähltes Profil: %s. Doppeltippen dann gedrückt halten, um den Kontoschalter anzuzeigen",
+            "tab_bar_hint": "Aktuell ausgewähltes Profil: %s. Zweimal tippen und halten, um das Konto zu wechseln",
             "dismiss_account_switcher": "Dialog zum Wechseln des Kontos schließen",
             "add_account": "Konto hinzufügen",
             "logout_all_accounts": "Von allen Konten abmelden",
@@ -1019,7 +1019,7 @@
             "donatebuttontitle": "Spenden",
             "currency": "Währung",
             "success": {
-                "title": "Danke für deinem Beitrag!",
+                "title": "Danke für deinen Beitrag!",
                 "subtitle": "Du solltest bald eine E-Mail bekommen, die deine Spende bestätigt.",
                 "server_error_title": "Zahlung fehlgeschlagen",
                 "server_error_message": "Wir bitten um Verzeihung, ein Fehler trat auf und wir konnten deine Spende nicht verarbeiten.\n\nBitte versuche es in ein paar Minuten nochmal.",
@@ -1063,9 +1063,9 @@
                 "description": "Zeigt einen aktuellen Beitrag mit dem ausgewählten Hashtag."
             },
             "not_found": {
-                "account_name": "Eugen Rochko",
+                "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "Entschuldigung, wir konnten keine Beiträge mit dem Hashtag <a>#%@</a>finden. Bitte versuchen Sie einen <a>#DifferentHashtag</a> oder überprüfen Sie die Widget-Einstellungen."
+                "content": "Wir konnten keine Beiträge mit dem Hashtag <a>#%@</a> finden. Probiere einen <a>#AnderenHashtag</a> oder überprüfe die Widget-Einstellungen."
             },
             "placeholder": {
                 "account_name": "John Mastodon",
