@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Willkommen zurück",
-            "subtitle": "Melden Sie sich bei dem Server an, auf dem Sie Ihr Konto erstellt haben.",
+            "subtitle": "Melde dich auf dem Server an, auf dem du dein Konto erstellt hast. Beispiel: Besteht deine Adresse aus @name@example.social, gib „example.social“ ein.",
             "server_search_field": {
                 "placeholder": "URL eingeben oder nach Server suchen"
             }
@@ -357,7 +357,7 @@
             },
             "empty_state": {
                 "finding_servers": "Verfügbare Server werden gesucht …",
-                "bad_network": "Beim Laden der Daten ist etwas schief gelaufen. Überprüfe deine Internetverbindung.",
+                "bad_network": "Beim Laden der Daten ist etwas schiefgelaufen. Überprüfe deine Internetverbindung.",
                 "no_results": "Keine Ergebnisse"
             },
             "signup_speed": {
@@ -371,10 +371,10 @@
             "search": {
                 "placeholder": "Server oder URL eingeben"
             },
-            "no_server_selected_hint": "Wenn Sie fortfahren, ohne eine Auswahl zu treffen, wird ein Server auf der Grundlage Ihrer Sprache ausgewählt."
+            "no_server_selected_hint": "Wenn du fortfährst, ohne eine Auswahl zu treffen, wird ein Server auf der Grundlage deiner Sprache ausgewählt."
         },
         "privacy": {
-            "title": "Ihre Privatsphäre",
+            "title": "Deine Privatsphäre",
             "description": "Auch wenn die Mastodon-App keine Daten sammelt, kann der Server, über den du dich registrierst, eine andere Richtlinie haben.\n\nWenn du mit der Richtlinie für **%s** nicht einverstanden bist, kannst du zurückkehren und einen anderen Server wählen.",
             "policy": {
                 "ios": "Datenschutzerklärung – Mastodon für iOS",
@@ -389,7 +389,7 @@
             "input": {
                 "birth_date": {
                     "label": "Geburtstag",
-                    "explanation_message": "Wir müssen sicherstellen, dass Sie mindestens %d sind, um %@ beitreten zu können. Dies wird nach der Anmeldung nicht gespeichert."
+                    "explanation_message": "Wir müssen sicherstellen, dass du mindestens %d alt bist, um %@ beitreten zu können. Das Alter wird nicht gespeichert."
                 },
                 "avatar": {
                     "delete": "Löschen"
@@ -414,7 +414,7 @@
                         "checked": "Häkchen gesetzt",
                         "unchecked": "Häkchen entfernt"
                     },
-                    "hint": "Ihr Passwort muss mindestens 8 Zeichen lang sein"
+                    "hint": "Dein Passwort muss mindestens 8 Zeichen lang sein"
                 },
                 "invite": {
                     "registration_user_invite_request": "Warum möchtest du beitreten?"
@@ -791,7 +791,7 @@
             },
             "warning": {
                 "none": "Dein Konto ist von den Moderator*innen verwarnt worden.",
-                "disable": "Ihr Konto wurde deaktiviert.",
+                "disable": "Dein Konto wurde deaktiviert.",
                 "mark_statuses_as_sensitive": "Einige deiner Beiträge wurden mit einer Inhaltswarnung versehen.",
                 "delete_statuses": "Einige deiner Beiträge sind entfernt worden.",
                 "sensitive": "Deine zukünftigen Beiträge werden mit einer Inhaltswarnung versehen.",
@@ -1070,7 +1070,7 @@
             "placeholder": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "So würde ein Beitrag mit einem <a>#Hashtag</a> aussehen. Wählen Sie in den Widget-Einstellungen den gewünschten <a>#Hashtag</a> aus."
+                "content": "So würde ein Beitrag mit einem <a>#Hashtag</a> aussehen. Wähle in den Widget-Einstellungen den gewünschten <a>#Hashtag</a> aus."
             }
         }
     }
