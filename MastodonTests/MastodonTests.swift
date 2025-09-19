@@ -14,10 +14,11 @@ class MastodonTests: XCTestCase {
     func testWebFinger() {
         let expectation = expectation(description: "webfinger")
         let cancellable = APIService.shared.webFinger(domain: "pawoo.net")
+            .receive(on: DispatchQueue.main)
             .sink { completion in
                 expectation.fulfill()
             } receiveValue: { domain in
-                expectation.fulfill()
+                print("\(#function) identified domain: \(domain)")
             }
         withExtendedLifetime(cancellable) {
             wait(for: [expectation], timeout: 10)
