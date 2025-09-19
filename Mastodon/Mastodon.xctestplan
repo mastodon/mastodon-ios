@@ -85,6 +85,9 @@
   },
   "testTargets" : [
     {
+      "skippedTests" : [
+        "MastodonTests\/testConnectOnion()"
+      ],
       "target" : {
         "containerPath" : "container:Mastodon.xcodeproj",
         "identifier" : "DB427DE725BAA00100D1B89D",

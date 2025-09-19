@@ -25,6 +25,7 @@ class MastodonTests: XCTestCase {
         }
     }
 
+    // TODO: Find a new reachable example onion server
     func testConnectOnion() async throws {
         let request = URLRequest(
             url: URL(string: "http://a232ncr7jexk2chvubaq2v6qdizbocllqap7mnn7w7vrdutyvu32jeyd.onion/@k0gen")!,
@@ -36,7 +37,7 @@ class MastodonTests: XCTestCase {
             print(data)
         } catch {
             debugPrint(error)
-            assertionFailure(error.localizedDescription)
+            XCTFail(error.localizedDescription)
         }
     }
 }
