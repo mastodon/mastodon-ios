@@ -604,14 +604,8 @@ private struct ActionBar: View {
         let overrideState = overrideState(for: action, of: actionablePost)
         switch action {
         case .reply:
-            let state = overrideState ?? AsyncBool.fromBool(myActions.boosted)
-            StatefulCountedActionButton(type: .reply, actionState: .init(count: metrics.replyCount, isSelected: state), doAction: {
-                switch state {
-                case .isFalse:
-                    viewModel.actionHandler?.doAction(.reply, forPost: viewModel)
-                default:
-                    break
-                }
+            StatefulCountedActionButton(type: .reply, actionState: .init(count: metrics.replyCount, isSelected: .isFalse), doAction: {
+                viewModel.actionHandler?.doAction(.reply, forPost: viewModel)
             })
         case .boost:
             let state = overrideState ?? AsyncBool.fromBool(myActions.boosted)
