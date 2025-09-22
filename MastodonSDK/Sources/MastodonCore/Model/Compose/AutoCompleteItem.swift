@@ -20,13 +20,13 @@ extension AutoCompleteItem: Equatable {
     public static func == (lhs: AutoCompleteItem, rhs: AutoCompleteItem) -> Bool {
         switch (lhs, rhs) {
         case (.hashtag(let tagLeft), hashtag(let tagRight)):
-            return tagLeft.name == tagRight.name
+            return tagLeft.name == tagRight.name && tagLeft.url == tagRight.url
         case (.hashtagV1(let tagLeft), hashtagV1(let tagRight)):
             return tagLeft == tagRight
         case (.account(let accountLeft), account(let accountRight)):
             return accountLeft.id == accountRight.id
         case (.emoji(let emojiLeft), .emoji(let emojiRight)):
-            return emojiLeft.shortcode == emojiRight.shortcode
+            return emojiLeft.shortcode == emojiRight.shortcode && emojiLeft.url == emojiRight.url
         case (.bottomLoader, .bottomLoader):
             return true
         default:
