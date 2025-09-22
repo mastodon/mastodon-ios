@@ -10,57 +10,61 @@ struct BoostOrQuoteDialog: View {
     
     var body: some View {
         if let actionablePost = viewModel.fullPost?.actionablePost {
-            VStack(spacing: 0) {
-                if actionablePost.content.myActions.boosted {
-                    Button {
-                        viewModel.actionHandler?.doAction(.unboost, forPost: viewModel)
-                    } label: {
-                        Text(L10n.Common.Alerts.BoostAPost.unboost)
-                            .foregroundStyle(Asset.Colors.Brand.blurple.swiftUIColor)
-                            .padding()
-                    }
-                } else {
-                    Button {
-                        viewModel.actionHandler?.doAction(.boost, forPost: viewModel)
-                    } label: {
-                        Text(L10n.Common.Alerts.BoostAPost.boost)
-                            .foregroundStyle(Asset.Colors.Brand.blurple.swiftUIColor)
-                            .padding()
-                    }
-                    .foregroundStyle(Asset.Colors.Brand.blurple.swiftUIColor)
-                }
+            ZStack {
+                Color(.secondarySystemBackground)
+                    .ignoresSafeArea(edges: .bottom)
                 
-                Divider()
-                
-                let quoteButtonInfo = viewModel.currentUserQuoteButton
-                
-                if let buttonTitle = quoteButtonInfo.title {
-                    Button {
-                        guard let composeViewModel = composeViewModel else { return }
-                        viewModel.actionHandler?.presentScene(.compose(viewModel: composeViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
-                    } label: {
-                        VStack {
-                            Text(buttonTitle)
-                                .foregroundStyle(Asset.Colors.Brand.blurple.swiftUIColor)
-                            if let subtitle = quoteButtonInfo.subtitle {
-                               Text(subtitle)
-                                   .font(.subheadline)
-                                   .foregroundStyle(.secondary)
-                           }
+                VStack(spacing: 0) {
+                    if actionablePost.content.myActions.boosted {
+                        Button {
+                            viewModel.actionHandler?.doAction(.unboost, forPost: viewModel)
+                        } label: {
+                            Text(L10n.Common.Alerts.BoostAPost.unboost)
+                                .padding()
                         }
-                        .padding()
+                        .foregroundStyle(Asset.Colors.accent.swiftUIColor)
+                    } else {
+                        Button {
+                            viewModel.actionHandler?.doAction(.boost, forPost: viewModel)
+                        } label: {
+                            Text(L10n.Common.Alerts.BoostAPost.boost)
+                                .padding()
+                        }
+                        .foregroundStyle(Asset.Colors.accent.swiftUIColor)
                     }
-                } else if let subtitle = quoteButtonInfo.subtitle {
-                    Text(subtitle)
-                        .padding()
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                    
+                    Divider()
+                    
+                    let quoteButtonInfo = viewModel.currentUserQuoteButton
+                    
+                    if let buttonTitle = quoteButtonInfo.title {
+                        Button {
+                            guard let composeViewModel = composeViewModel else { return }
+                            viewModel.actionHandler?.presentScene(.compose(viewModel: composeViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
+                        } label: {
+                            VStack {
+                                Text(buttonTitle)
+                                    .foregroundStyle(Asset.Colors.accent.swiftUIColor)
+                                if let subtitle = quoteButtonInfo.subtitle {
+                                    Text(subtitle)
+                                        .font(.subheadline)
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
+                            .padding()
+                        }
+                    } else if let subtitle = quoteButtonInfo.subtitle {
+                        Text(subtitle)
+                            .padding()
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
                 }
-            }
-            .frame(maxWidth: 350)
-            .background() {
-                RoundedRectangle(cornerRadius: 14, style: .circular)
-                    .fill(.white)
+                .background() {
+                    RoundedRectangle(cornerRadius: 14, style: .circular)
+                        .fill(.background)
+                }
+                .padding(16)
             }
         } else {
             EmptyView()
