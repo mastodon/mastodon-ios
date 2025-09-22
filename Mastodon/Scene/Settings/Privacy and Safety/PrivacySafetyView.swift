@@ -15,6 +15,7 @@ struct PrivacySafetyView: View {
                 ProgressView()
             } else {
                 Form {
+                    // PRESETS
                     Section(L10n.Scene.Settings.PrivacySafety.Preset.title) {
                         CheckableButton(
                             text: L10n.Scene.Settings.PrivacySafety.Preset.openAndPublic,
@@ -42,7 +43,25 @@ struct PrivacySafetyView: View {
                         }
                     }
                     
+                    // TOGGLES
                     Section {
+                        Toggle(L10n.Scene.Settings.PrivacySafety.manuallyApproveFollowRequests, isOn: $viewModel.manuallyApproveFollowRequests)
+                        Toggle(L10n.Scene.Settings.PrivacySafety.showFollowersAndFollowing, isOn: $viewModel.showFollowersAndFollowing)
+                        Toggle(L10n.Scene.Settings.PrivacySafety.suggestMyAccountToOthers, isOn: $viewModel.suggestMyAccountToOthers)
+                        Toggle(L10n.Scene.Settings.PrivacySafety.appearInSearchEngines, isOn: $viewModel.appearInSearches)
+                    }
+                    
+                    // POSTING DEFAULTS
+                    Section{}
+                    header: {
+                        Text(L10n.Scene.Settings.PrivacySafety.PostingDefaults.title)
+                    }
+                    footer: {
+                        Text(L10n.Scene.Settings.PrivacySafety.PostingDefaults.subtitle)
+                    }
+                    
+                    
+                    Section() {
                         Picker(selection: Binding<Mastodon.Entity.Status.Visibility>(
                             get: {
                                 return visibilityAndQuotabilityViewModel.interactionSettings.visibility
@@ -56,10 +75,16 @@ struct PrivacySafetyView: View {
                                 Text($0.title)
                             }
                         } label: {
-                            Text(L10n.Scene.Settings.PrivacySafety.DefaultPostVisibility.title)
+                            Text(L10n.Scene.Settings.PrivacySafety.PostingDefaults.visibilityTitle)
                         }
-                        
-                        if viewModel.canSetQuotability {
+                    } footer: {
+                        if let hint = visibilityAndQuotabilityViewModel.interactionSettings.visibility.hintText {
+                            Text(hint)
+                        }
+                    }
+                    
+                    if viewModel.canSetQuotability {
+                        Section() {
                             Picker(selection: Binding<Mastodon.Entity.Source.QuotePolicy>(
                                 get: {
                                     visibilityAndQuotabilityViewModel.interactionSettings.quotability
@@ -75,14 +100,11 @@ struct PrivacySafetyView: View {
                             } label: {
                                 Text(L10n.Scene.Compose.QuotePermissionPolicy.title)
                             }
+                        } footer: {
+                            if let hint = visibilityAndQuotabilityViewModel.interactionSettings.visibility.quotabilityHintText(visibilityAndQuotabilityViewModel.interactionSettings.quotability) {
+                                Text(hint)
+                            }
                         }
-                    }
-                    
-                    Section {
-                        Toggle(L10n.Scene.Settings.PrivacySafety.manuallyApproveFollowRequests, isOn: $viewModel.manuallyApproveFollowRequests)
-                        Toggle(L10n.Scene.Settings.PrivacySafety.showFollowersAndFollowing, isOn: $viewModel.showFollowersAndFollowing)
-                        Toggle(L10n.Scene.Settings.PrivacySafety.suggestMyAccountToOthers, isOn: $viewModel.suggestMyAccountToOthers)
-                        Toggle(L10n.Scene.Settings.PrivacySafety.appearInSearchEngines, isOn: $viewModel.appearInSearches)
                     }
                 }
             }
@@ -123,6 +145,39 @@ fileprivate extension Mastodon.Entity.Status.Visibility {
         case ._other:
             assertionFailure("unexpected visibility setting")
             return .onlyPeopleMentioned
+        }
+    }
+    
+    var hintText: String? {
+        switch self {
+        case .public:
+            return L10n.Scene.Settings.PrivacySafety.PostingDefaults.publicHint
+        case .unlisted:
+            return L10n.Scene.Settings.PrivacySafety.PostingDefaults.quietPublicHint
+        case .private:
+            return L10n.Scene.Settings.PrivacySafety.PostingDefaults.followersOnlyHint
+        case .direct:
+            return L10n.Scene.Settings.PrivacySafety.PostingDefaults.privateMentionHint
+        case ._other:
+            return nil
+        }
+    }
+    
+    func quotabilityHintText(_ quotability: Mastodon.Entity.Source.QuotePolicy) -> String? {
+        switch self {
+        case .public, ._other:
+            return nil
+        case .unlisted:
+            switch quotability {
+            case .nobody:
+                return nil
+            default:
+                return L10n.Scene.Settings.PrivacySafety.PostingDefaults.quietPublicQuotabilityHint
+            }
+        case .private:
+            return L10n.Scene.Settings.PrivacySafety.PostingDefaults.followersOnlyQuotabilityHint
+        case .direct:
+            return L10n.Scene.Settings.PrivacySafety.PostingDefaults.privateMentionQuotabilityHint
         }
     }
 }

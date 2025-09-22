@@ -1990,9 +1990,27 @@ public enum L10n {
         public static let suggestMyAccountToOthers = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.SuggestMyAccountToOthers", fallback: "Suggest My Account to Others")
         /// Privacy & Safety
         public static let title = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.Title", fallback: "Privacy & Safety")
-        public enum DefaultPostVisibility {
-          /// Default Post Visibility
-          public static let title = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.DefaultPostVisibility.Title", fallback: "Default Post Visibility")
+        public enum PostingDefaults {
+          /// Only your followers
+          public static let followersOnlyHint = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.PostingDefaults.FollowersOnlyHint", fallback: "Only your followers")
+          /// Followers-only posts authored on Mastodon can’t be quoted by others.
+          public static let followersOnlyQuotabilityHint = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.PostingDefaults.FollowersOnlyQuotabilityHint", fallback: "Followers-only posts authored on Mastodon can’t be quoted by others.")
+          /// Everyone mentioned in the post
+          public static let privateMentionHint = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.PostingDefaults.PrivateMentionHint", fallback: "Everyone mentioned in the post")
+          /// Private mentions authored on Mastodon can’t be quoted by others.
+          public static let privateMentionQuotabilityHint = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.PostingDefaults.PrivateMentionQuotabilityHint", fallback: "Private mentions authored on Mastodon can’t be quoted by others.")
+          /// Anyone on and off Mastodon
+          public static let publicHint = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.PostingDefaults.PublicHint", fallback: "Anyone on and off Mastodon")
+          /// Hidden from Mastodon search results, trending, and public timelines
+          public static let quietPublicHint = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.PostingDefaults.QuietPublicHint", fallback: "Hidden from Mastodon search results, trending, and public timelines")
+          /// When people quote you, their post will also be hidden from trending timelines.
+          public static let quietPublicQuotabilityHint = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.PostingDefaults.QuietPublicQuotabilityHint", fallback: "When people quote you, their post will also be hidden from trending timelines.")
+          /// These settings will be used as defaults when you create new posts, but you can edit them per post within the composer.
+          public static let subtitle = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.PostingDefaults.Subtitle", fallback: "These settings will be used as defaults when you create new posts, but you can edit them per post within the composer.")
+          /// Posting defaults
+          public static let title = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.PostingDefaults.Title", fallback: "Posting defaults")
+          /// Post Visibility
+          public static let visibilityTitle = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.PostingDefaults.VisibilityTitle", fallback: "Post Visibility")
         }
         public enum Preset {
           /// Custom

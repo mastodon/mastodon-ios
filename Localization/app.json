@@ -1001,8 +1001,17 @@
                     "private_and_restricted": "Private & Restricted",
                     "custom": "Custom"
                 },
-                "default_post_visibility": {
-                    "title": "Default Post Visibility"
+                "posting_defaults": {
+                    "title": "Posting defaults",
+                    "subtitle": "These settings will be used as defaults when you create new posts, but you can edit them per post within the composer.",
+                    "visibility_title": "Post Visibility",
+                    "public_hint": "Anyone on and off Mastodon",
+                    "quiet_public_hint": "Hidden from Mastodon search results, trending, and public timelines",
+                    "followers_only_hint": "Only your followers",
+                    "private_mention_hint": "Everyone mentioned in the post",
+                    "quiet_public_quotability_hint": "When people quote you, their post will also be hidden from trending timelines.",
+                    "followers_only_quotability_hint": "Followers-only posts authored on Mastodon can’t be quoted by others.",
+                    "private_mention_quotability_hint": "Private mentions authored on Mastodon can’t be quoted by others."
                 },
                 "manually_approve_follow_requests": "Manually Approve Follow Requests",
                 "show_followers_and_following": "Show Followers & Following",
