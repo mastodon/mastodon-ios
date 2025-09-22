@@ -53,7 +53,7 @@ public struct PostInteractionSettingsView: View {
                 .padding(19)
                 .background {
                     RoundedRectangle(cornerRadius: 24)
-                        .fill(.white)
+                        .fill(.background)
                 }
                 
                 Spacer()
@@ -67,7 +67,7 @@ public struct PostInteractionSettingsView: View {
                 .padding(19)
                 .background {
                     RoundedRectangle(cornerRadius: 24)
-                        .fill(.white)
+                        .fill(.background)
                 }
             }
         }
