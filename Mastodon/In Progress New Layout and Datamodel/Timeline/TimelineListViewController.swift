@@ -70,7 +70,7 @@ class TimelineListViewController: UIHostingController<TimelineListView>
         let root = TimelineListView(viewModel: viewModel)
         super.init(rootView: root)
         viewModel.parentVcPresentScene = { (scene, transition) in
-            self.sceneCoordinator?.present(scene: scene, transition: transition)
+            self.sceneCoordinator?.present(scene: scene, from: self, transition: transition)
         }
         viewModel.presentDonationDialog = { [weak self] campaign in
             guard let self else { return }
@@ -1726,7 +1726,14 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
     }
     
     func presentScene(_ scene: SceneCoordinator.Scene, fromPost postID: Mastodon.Entity.Status.ID?, transition: SceneCoordinator.Transition) {
-        parentVcPresentScene?(scene, transition)
+        if activeSheet != nil {
+            activeSheet = nil
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) { // without this delay, the presentation gets tangled up with the dismissing sheet
+                self.parentVcPresentScene?(scene, transition)
+            }
+        } else {
+            self.parentVcPresentScene?(scene, transition)
+        }
     }
     
     func account(_ id: Mastodon.Entity.Account.ID) -> MastodonAccount? {
