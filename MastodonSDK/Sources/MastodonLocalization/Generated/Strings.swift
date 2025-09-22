@@ -47,12 +47,10 @@ public enum L10n {
         public static let pleaseTryAgainLater = L10n.tr("Localizable", "Common.Alerts.Common.PleaseTryAgainLater", fallback: "Please try again later.")
       }
       public enum ConfirmRemoveQuote {
-        /// Are you sure you want to withdraw your quote from %@'s post? It will be replaced by a message indicating your removal wherever this post appears. This action cannot be undone.
-        public static func message(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Common.Alerts.ConfirmRemoveQuote.Message", String(describing: p1), fallback: "Are you sure you want to withdraw your quote from %@'s post? It will be replaced by a message indicating your removal wherever this post appears. This action cannot be undone.")
-        }
-        /// Remove Quote
-        public static let title = L10n.tr("Localizable", "Common.Alerts.ConfirmRemoveQuote.Title", fallback: "Remove Quote")
+        /// Your post will be replaced with the text 'Post removed by author'. This action can not be undone.
+        public static let message = L10n.tr("Localizable", "Common.Alerts.ConfirmRemoveQuote.Message", fallback: "Your post will be replaced with the text 'Post removed by author'. This action can not be undone.")
+        /// Remove quoted post?
+        public static let title = L10n.tr("Localizable", "Common.Alerts.ConfirmRemoveQuote.Title", fallback: "Remove quoted post?")
       }
       public enum DeletePost {
         /// Are you sure you want to delete this post?
@@ -213,8 +211,8 @@ public enum L10n {
         public static let remove = L10n.tr("Localizable", "Common.Controls.Actions.Remove", fallback: "Remove")
         /// Remove Bookmark
         public static let removeBookmark = L10n.tr("Localizable", "Common.Controls.Actions.RemoveBookmark", fallback: "Remove Bookmark")
-        /// Remove my quote
-        public static let removeQuote = L10n.tr("Localizable", "Common.Controls.Actions.RemoveQuote", fallback: "Remove my quote")
+        /// Remove my post
+        public static let removeQuote = L10n.tr("Localizable", "Common.Controls.Actions.RemoveQuote", fallback: "Remove my post")
         /// Reply
         public static let reply = L10n.tr("Localizable", "Common.Controls.Actions.Reply", fallback: "Reply")
         /// Report %@

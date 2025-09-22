@@ -583,8 +583,8 @@ extension MastodonPostMenuAction {
             case .confirmUnblock(let username, _):
                 L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.message(username)
                 
-            case .confirmRemoveQuote(let username, _):
-                L10n.Common.Alerts.ConfirmRemoveQuote.message(username)
+            case .confirmRemoveQuote:
+                L10n.Common.Alerts.ConfirmRemoveQuote.message
             case .confirmDeleteOfPost:
                 L10n.Common.Alerts.DeletePost.message
             }
@@ -1548,7 +1548,7 @@ struct TimelineListView: View {
             Button(role: .destructive) {
                 didConfirm(true)
             } label: {
-                Text(L10n.Common.Controls.Actions.removeQuote)
+                Text(L10n.Common.Controls.Actions.remove)
             }
             
         case .confirmDeleteOfPost(let didConfirm):
