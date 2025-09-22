@@ -183,7 +183,7 @@ public struct ComposeContentView: View {
                 Text(viewModel.interactionSettingsButtonText(interactionSettingsViewModel.interactionSettings))
             }
             .font(.subheadline)
-            .foregroundStyle(Asset.Colors.Brand.darkBlurple.swiftUIColor)
+            .foregroundStyle(Asset.Colors.accent.swiftUIColor)
             .padding(EdgeInsets(top: 7, leading: 14, bottom: 7, trailing: 14))
             .background() {
                 Capsule()
