@@ -88,7 +88,6 @@ class TimelineListViewController: UIHostingController<TimelineListView>
             setUpScrollToTop()
             showSettingsButton(true)
         case .notifications:
-            fetchFilteredNotificationsPolicy()
             setUpNotificationsNavBarControls()
             NotificationCenter.default.addObserver(self, selector: #selector(notificationFilteringPolicyDidChange), name: .notificationFilteringChanged, object: nil)
         case .thread(let focusedPost):
@@ -491,42 +490,12 @@ extension TimelineListViewController {
 
 extension TimelineListViewController: NotificationPolicyViewControllerDelegate {
     func policyUpdated(_ viewController: NotificationPolicyViewController, newPolicy: MastodonSDK.Mastodon.Entity.NotificationPolicy) {
-        updateFilteredNotificationsPolicy(newPolicy)
+        viewModel.updateFilteredNotificationsPolicy(newPolicy, andReloadFeed: true)
     }
     
     @objc func notificationFilteringPolicyDidChange(_ notification: Notification) {
-        fetchFilteredNotificationsPolicy()
+        viewModel.fetchFilteredNotificationsPolicy(andReloadFeed: true)
     }
-
-    private func fetchFilteredNotificationsPolicy() {
-        guard
-            let authBox = AuthenticationServiceProvider.shared.currentActiveUser
-                .value
-        else { return }
-        Task {
-            let policy = try? await APIService.shared.notificationPolicy(
-                authenticationBox: authBox)
-            updateFilteredNotificationsPolicy(policy?.value)
-        }
-    }
-
-    func updateFilteredNotificationsPolicy(
-        _ policy: Mastodon.Entity.NotificationPolicy?
-    ) {
-
-        viewModel.filteredNotificationsViewModel.policy = policy
-        switch viewModel.lastReadState {
-        case .initializing:
-            break
-        case .pullToRefresh, .requestedReloadFromBottom, .requestedReloadFromTop:
-            break
-        case .untracked:
-            Task {
-                await self.viewModel.forceReload(onlyIfImmediate: false)
-            }
-        }
-    }
-
 }
 
 extension TimelineListViewController: MediaPreviewableViewController {
@@ -620,6 +589,12 @@ enum MastodonTimelineSheet {
 
 @MainActor
 private class TimelineListViewModel: ObservableObject {
+    
+    enum ReloadReason {
+        case notificationFilterPolicyUpdated
+        case userRequestedRefresh
+    }
+    
     public var parentVcPresentScene: ((SceneCoordinator.Scene, SceneCoordinator.Transition) -> ())?
     public var presentDonationDialog: ((Mastodon.Entity.DonationCampaign) -> ())?
     @Published private(set) var authenticatedUser: MastodonAuthenticationBox? = AuthenticationServiceProvider.shared.currentActiveUser.value
@@ -872,6 +847,12 @@ private class TimelineListViewModel: ObservableObject {
             }
         // TODO: add feedLoaderErrorSubscription
         feedLoader?.doFirstLoad()
+        switch timeline {
+        case .notifications(.everything), .notifications(.mentions):
+            fetchFilteredNotificationsPolicy(andReloadFeed: false)
+        default:
+            break
+        }
         
         followersAndBlockedChangeSubscription = AuthenticationServiceProvider.shared.$didChangeFollowersAndFollowing.sink {
             [weak self] userID in
@@ -920,25 +901,35 @@ private class TimelineListViewModel: ObservableObject {
     func refreshFromTop() async {
         assert(lastReadState == .pullToRefresh)
         if currentDisplaySlice.startIndex == 0 {
-            await forceReload(onlyIfImmediate: true)
+            await forceReload(.userRequestedRefresh)
         } else {
             lastReadState = .requestedReloadFromTop
             loadNewerSlice()
         }
     }
     
-    func forceReload(onlyIfImmediate: Bool) async {
+    func forceReload(_ reason: ReloadReason) async {
         guard let feedLoader else {
             resetToUntrackedAfterDelay()
             assertionFailure()
             return
         }
-        if feedLoader.permissionToLoadImmediately {
-            await feedLoader.loadImmediately(.reload)
-            await feedLoader.clearCache() // reset the cache when user refreshes
-            commitToCache()
-        } else if !onlyIfImmediate {
+        switch reason {
+        case .notificationFilterPolicyUpdated:
+            lastReadState = .pullToRefresh
             feedLoader.requestLoad(.reload)
+        case .userRequestedRefresh:
+            switch timeline {
+            case .notifications(.everything), .notifications(.mentions):
+                fetchFilteredNotificationsPolicy(andReloadFeed: false)
+            default:
+                break
+            }
+            if feedLoader.permissionToLoadImmediately {
+                await feedLoader.loadImmediately(.reload)
+                await feedLoader.clearCache() // reset the cache when user refreshes
+                commitToCache()
+            }
         }
     }
     
@@ -979,6 +970,40 @@ private class TimelineListViewModel: ObservableObject {
         guard let authenticatedUser else { return }
         let suggestionAccountViewModel = SuggestionAccountViewModel(authenticationBox: authenticatedUser)
         presentScene(.suggestionAccount(viewModel: suggestionAccountViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
+    }
+}
+
+extension TimelineListViewModel {
+    func fetchFilteredNotificationsPolicy(andReloadFeed reload: Bool) {
+        guard
+            let authBox = AuthenticationServiceProvider.shared.currentActiveUser
+                .value
+        else { return }
+        Task {
+            let policy = try? await APIService.shared.notificationPolicy(
+                authenticationBox: authBox)
+            updateFilteredNotificationsPolicy(policy?.value, andReloadFeed: reload)
+        }
+    }
+    
+    func updateFilteredNotificationsPolicy(
+        _ policy: Mastodon.Entity.NotificationPolicy?,
+        andReloadFeed reload: Bool
+    ) {
+        guard filteredNotificationsViewModel.policy != policy else { return }
+        filteredNotificationsViewModel.policy = policy
+        guard reload else { return }
+        
+        switch lastReadState {
+        case .initializing:
+            break
+        case .pullToRefresh, .requestedReloadFromBottom, .requestedReloadFromTop:
+            break
+        case .untracked:
+            Task {
+                await self.forceReload(.notificationFilterPolicyUpdated)
+            }
+        }
     }
 }
 
