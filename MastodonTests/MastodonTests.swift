@@ -14,16 +14,18 @@ class MastodonTests: XCTestCase {
     func testWebFinger() {
         let expectation = expectation(description: "webfinger")
         let cancellable = APIService.shared.webFinger(domain: "pawoo.net")
+            .receive(on: DispatchQueue.main)
             .sink { completion in
                 expectation.fulfill()
             } receiveValue: { domain in
-                expectation.fulfill()
+                print("\(#function) identified domain: \(domain)")
             }
         withExtendedLifetime(cancellable) {
             wait(for: [expectation], timeout: 10)
         }
     }
 
+    // TODO: Find a new reachable example onion server
     func testConnectOnion() async throws {
         let request = URLRequest(
             url: URL(string: "http://a232ncr7jexk2chvubaq2v6qdizbocllqap7mnn7w7vrdutyvu32jeyd.onion/@k0gen")!,
@@ -35,7 +37,7 @@ class MastodonTests: XCTestCase {
             print(data)
         } catch {
             debugPrint(error)
-            assertionFailure(error.localizedDescription)
+            XCTFail(error.localizedDescription)
         }
     }
 }

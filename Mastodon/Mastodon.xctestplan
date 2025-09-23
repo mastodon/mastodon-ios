@@ -86,9 +86,7 @@
   "testTargets" : [
     {
       "skippedTests" : [
-        "MastodonTests",
-        "MastodonTests\/testConnectOnion()",
-        "MastodonTests\/testWebFinger()"
+        "MastodonTests\/testConnectOnion()"
       ],
       "target" : {
         "containerPath" : "container:Mastodon.xcodeproj",

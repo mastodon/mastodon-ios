@@ -4,7 +4,6 @@ import XCTest
 @testable import MastodonUI
 
 class MetricFormatterTests: XCTestCase {
-    
     func test_tensFormat() {
         let formatter = MastodonMetricFormatter()
         let value = formatter.string(from: 12)
@@ -34,14 +33,24 @@ class MetricFormatterTests: XCTestCase {
     }
     
     func test_thousandNinetynineFormat() {
-        let formatter = MastodonMetricFormatter()
-        let value = formatter.string(from: 1099)
-        
-        XCTAssertEqual(value, "1,1K")
+        let formatter_EU = MastodonMetricFormatter()
+        formatter_EU.abbreviatedGroupingSeparator = ","
+        let value_EU = formatter_EU.string(from: 1099)
+
+        XCTAssertEqual(value_EU, "1,1K")
+
+        let formatter_US = MastodonMetricFormatter()
+        formatter_US.abbreviatedGroupingSeparator = "."
+        let value_US = formatter_US.string(from: 1099)
+
+        XCTAssertEqual(value_US, "1.1K")
     }
     
+    // TODO: Test US and EU formatters
+
     func test_thousandNinehundredFormat() {
         let formatter = MastodonMetricFormatter()
+        formatter.abbreviatedGroupingSeparator = ","
         let value = formatter.string(from: 1900)
         
         XCTAssertEqual(value, "1,9K")
@@ -49,6 +58,7 @@ class MetricFormatterTests: XCTestCase {
     
     func test_thousandsFormat() {
         let formatter = MastodonMetricFormatter()
+        formatter.abbreviatedGroupingSeparator = ","
         let value = formatter.string(from: 1234)
         
         XCTAssertEqual(value, "1,2K")
@@ -56,6 +66,7 @@ class MetricFormatterTests: XCTestCase {
     
     func test_sixThousandsFormat() {
         let formatter = MastodonMetricFormatter()
+        formatter.abbreviatedGroupingSeparator = ","
         let value = formatter.string(from: 6666)
         
         XCTAssertEqual(value, "6,7K")
@@ -63,6 +74,7 @@ class MetricFormatterTests: XCTestCase {
     
     func test_millionsFormat_oneTwoThreeMillion() {
         let formatter = MastodonMetricFormatter()
+        formatter.abbreviatedGroupingSeparator = ","
         let value = formatter.string(from: 1_234_567)
         
         XCTAssertEqual(value, "1,2M")

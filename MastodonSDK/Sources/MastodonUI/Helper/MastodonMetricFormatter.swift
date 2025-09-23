@@ -25,18 +25,31 @@ enum DecimalUnit: Int {
     }
 }
 
-
+/// Abbreviate a given number into the highest significant digits and a unit (K for thousands)
 public final class MastodonMetricFormatter: Formatter {
     
     private let ten_thousands = DecimalUnit.thousand.asInt * 10
     private let ten_millions = DecimalUnit.million.asInt * 10
     
+    /// The number formatter instance that will be used. May be customized through ``abbreviatedGroupingSeparator``.
+    private let numberFormatter = NumberFormatter()
+
+    /// MastodonMetricFormatter first converts to decimel _then_ displays the value.
+    /// Use this instead of the NumberFormatter.groupingSeparator.
+    /// Ex: "1,5K" in the EU, and "1.5K" in the US.
+    public var abbreviatedGroupingSeparator: String {
+        get {
+            numberFormatter.decimalSeparator
+        }
+        set {
+            numberFormatter.decimalSeparator = newValue
+        }
+    }
+
     public func string(from number: Int) -> String? {
         let isPositive = number >= 0
         let symbol = isPositive ? "" : "-"
      
-        let numberFormatter = NumberFormatter()
-
         let value = abs(number)
         let metric: String
         
