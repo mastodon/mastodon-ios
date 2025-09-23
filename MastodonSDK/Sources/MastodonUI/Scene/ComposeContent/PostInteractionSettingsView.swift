@@ -49,6 +49,7 @@ public struct PostInteractionSettingsView: View {
                     Text(L10n.Scene.Compose.Visibility.title)
                     Spacer()
                     validatingVisibilityPicker()
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 .padding(19)
                 .background {
@@ -63,6 +64,7 @@ public struct PostInteractionSettingsView: View {
                     Text(L10n.Scene.Compose.QuotePermissionPolicy.title)
                     Spacer()
                     quotabilityPicker(viewModel.interactionSettings.visibility.allowableQuotePolicies)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 .padding(19)
                 .background {
