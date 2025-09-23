@@ -61,6 +61,33 @@ public enum MastodonTimelineType: Equatable {
         default: return false
         }
     }
+    
+    public var canDisplayFilteredNotifications: Bool {
+        switch self {
+        case .notifications(.everything), .notifications(.mentions):
+            return true
+        default:
+            return false
+        }
+    }
+    
+    public var canDisplayUnreadNotifications: Bool {
+        switch self {
+        case .notifications(.everything), .notifications(.mentions):
+            return true
+        default:
+            return false
+        }
+    }
+    
+    public var canDisplayDonationBanner: Bool {
+        switch self {
+        case .following:
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 public struct TimelineQueryFilter: Equatable {

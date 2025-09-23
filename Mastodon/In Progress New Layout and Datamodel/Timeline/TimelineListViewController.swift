@@ -89,7 +89,9 @@ class TimelineListViewController: UIHostingController<TimelineListView>
             showSettingsButton(true)
         case .notifications:
             setUpNotificationsNavBarControls()
-            NotificationCenter.default.addObserver(self, selector: #selector(notificationFilteringPolicyDidChange), name: .notificationFilteringChanged, object: nil)
+            if viewModel.timeline.canDisplayFilteredNotifications {
+                NotificationCenter.default.addObserver(self, selector: #selector(notificationFilteringPolicyDidChange), name: .notificationFilteringChanged, object: nil)
+            }
         case .thread(let focusedPost):
             let authorHandle = focusedPost.initialDisplayInfo(inContext: .thread).actionableAuthorHandle
             navigationItem.title = L10n.Scene.Thread.title("@\(authorHandle)")
@@ -593,6 +595,7 @@ private class TimelineListViewModel: ObservableObject {
     enum ReloadReason {
         case notificationFilterPolicyUpdated
         case userRequestedRefresh
+        case notificationCountUpdated
     }
     
     public var parentVcPresentScene: ((SceneCoordinator.Scene, SceneCoordinator.Transition) -> ())?
@@ -605,6 +608,7 @@ private class TimelineListViewModel: ObservableObject {
     
     var filteredNotificationsViewModel =
         FilteredNotificationsRowView.ViewModel(policy: nil)
+    var needsReloadOnNextAppear = false
     
     var activeAlert: MastodonPostMenuAction.AlertType = .noAlert {
         didSet {
@@ -669,6 +673,7 @@ private class TimelineListViewModel: ObservableObject {
     private var feedLoader: TimelineFeedLoader?
     private var feedLoaderResultsSubscription: AnyCancellable?
     private var feedLoaderErrorSubscription: AnyCancellable?
+    private var notificationCountUpdateSubscription: AnyCancellable?
     
     var scrollManager: ScrollManager?
     
@@ -847,11 +852,18 @@ private class TimelineListViewModel: ObservableObject {
             }
         // TODO: add feedLoaderErrorSubscription
         feedLoader?.doFirstLoad()
-        switch timeline {
-        case .notifications(.everything), .notifications(.mentions):
+       
+        if timeline.canDisplayFilteredNotifications {
             fetchFilteredNotificationsPolicy(andReloadFeed: false)
-        default:
-            break
+        }
+        if timeline.canDisplayUnreadNotifications {
+            notificationCountUpdateSubscription = NotificationService.shared.unreadNotificationCountDidUpdate
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] _ in
+                    if UserDefaults.shared.notificationBadgeCount > 0 && self?.timeline.canDisplayUnreadNotifications == true {
+                        self?.needsReloadOnNextAppear = true
+                    }
+                }
         }
         
         followersAndBlockedChangeSubscription = AuthenticationServiceProvider.shared.$didChangeFollowersAndFollowing.sink {
@@ -914,16 +926,16 @@ private class TimelineListViewModel: ObservableObject {
             assertionFailure()
             return
         }
+        needsReloadOnNextAppear = false
         switch reason {
+        case .notificationCountUpdated:
+            fetchFilteredNotificationsPolicy(andReloadFeed: true)
         case .notificationFilterPolicyUpdated:
             lastReadState = .pullToRefresh
             feedLoader.requestLoad(.reload)
         case .userRequestedRefresh:
-            switch timeline {
-            case .notifications(.everything), .notifications(.mentions):
+            if timeline.canDisplayFilteredNotifications {
                 fetchFilteredNotificationsPolicy(andReloadFeed: false)
-            default:
-                break
             }
             if feedLoader.permissionToLoadImmediately {
                 await feedLoader.loadImmediately(.reload)
@@ -1331,17 +1343,21 @@ struct TimelineListView: View {
             }
         }
         .onAppear() {
-            switch viewModel.timeline {
-            case .notifications(.everything), .notifications(.mentions):
-                // clear the notification dot on the tab icon
-                NotificationService.shared.clearNotificationCountForActiveUser()
-            default:
-                break
-            }
             viewModel.clearPendingActions()
             scrollManager.viewDidAppear()
-            Task {
-                await viewModel.askForDonationIfPossible()
+            if viewModel.timeline.canDisplayDonationBanner {
+                Task {
+                    await viewModel.askForDonationIfPossible()
+                }
+            }
+            if viewModel.timeline.canDisplayUnreadNotifications {
+                // clear the notification dot on the tab icon
+                NotificationService.shared.clearNotificationCountForActiveUser()
+            }
+            if viewModel.needsReloadOnNextAppear {
+                Task {
+                    await viewModel.forceReload(.notificationCountUpdated)
+                }
             }
         }
         .onDisappear() {
