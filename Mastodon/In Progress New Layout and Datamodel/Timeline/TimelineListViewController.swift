@@ -674,7 +674,7 @@ private class TimelineListViewModel: ObservableObject {
         // space to add any necessary bookkeeping before setting the slice
         switch timeline {
         case .notifications(.everything), .notifications(.mentions):
-            if filteredNotificationsViewModel.shouldShow, newSlice.startIndex == 0 {
+            if newSlice.startIndex == 0 {
                 self.currentDisplaySlice = [.filteredNotificationsInfo(filteredNotificationsViewModel.policy, filteredNotificationsViewModel)] + newSlice
             } else {
                 self.currentDisplaySlice = newSlice

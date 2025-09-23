@@ -486,45 +486,48 @@ struct FilteredNotificationsRowView: View {
     @Environment(ViewModel.self) var viewModel
     
     var body: some View {
-        
-        VStack(alignment: .gutterAlign, spacing: 0) {
-            HStack(alignment: .top, spacing: 0) {
-                // ICON
-                NotificationIconView(systemName: "archivebox", color: .secondary)
-
-                Spacer()
-                    .frame(width: spacingBetweenGutterAndContent)
-                
-                HStack(spacing: 0) {
-                    // CONTENT
-                    VStack(spacing: 0) {
-                        Text(L10n.Scene.Notification.FilteredNotification.title)
-                            .fontWeight(.semibold)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        if let policy = viewModel.policy {
-                            Text(L10n.Plural.FilteredNotificationBanner.subtitle(policy.summary.pendingRequestsCount))
-                                .foregroundStyle(.secondary)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                    }
-                    .font(.subheadline)
+        if viewModel.shouldShow {
+            VStack(alignment: .gutterAlign, spacing: 0) {
+                HStack(alignment: .top, spacing: 0) {
+                    // ICON
+                    NotificationIconView(systemName: "archivebox", color: .secondary)
                     
-                    // DISCLOSURE INDICATOR (OR SPINNER)
-                    VStack {
-                        Spacer()
-                        if viewModel.isPreparingToNavigate {
-                            ProgressView().progressViewStyle(.circular)
-                        } else {
-                            Image(systemName: "chevron.forward")
-                                .foregroundStyle(.secondary)
-                                .font(.system(size: 20))
-                                .fontWeight(.light)
+                    Spacer()
+                        .frame(width: spacingBetweenGutterAndContent)
+                    
+                    HStack(spacing: 0) {
+                        // CONTENT
+                        VStack(spacing: 0) {
+                            Text(L10n.Scene.Notification.FilteredNotification.title)
+                                .fontWeight(.semibold)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            if let policy = viewModel.policy {
+                                Text(L10n.Plural.FilteredNotificationBanner.subtitle(policy.summary.pendingRequestsCount))
+                                    .foregroundStyle(.secondary)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
                         }
-                        Spacer()
+                        .font(.subheadline)
+                        
+                        // DISCLOSURE INDICATOR (OR SPINNER)
+                        VStack {
+                            Spacer()
+                            if viewModel.isPreparingToNavigate {
+                                ProgressView().progressViewStyle(.circular)
+                            } else {
+                                Image(systemName: "chevron.forward")
+                                    .foregroundStyle(.secondary)
+                                    .font(.system(size: 20))
+                                    .fontWeight(.light)
+                            }
+                            Spacer()
+                        }
                     }
+                    .frame(width: contentWidth)
                 }
-                .frame(width: contentWidth)
             }
+        } else {
+            EmptyView()
         }
     }
 }
