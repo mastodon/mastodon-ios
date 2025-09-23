@@ -154,6 +154,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
     private var cachedRelationships = [Mastodon.Entity.Account.ID : MastodonAccount.Relationship]()
     private var accountsCache = [Mastodon.Entity.Account.ID : MastodonAccount]()
     private var contentConcealViewModels = [Mastodon.Entity.Status.ID : ContentConcealViewModel]()
+    private var postViewModels = [Mastodon.Entity.Status.ID : MastodonPostViewModel]()
+    private var notificationViewModels = [Mastodon.Entity.NotificationGroup.ID : NotificationRowViewModel]()
     
     private let myAccountID: Mastodon.Entity.Account.ID?
     
@@ -248,13 +250,18 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             fetchOffset = nil
         }
         
+        
+        var newPostModels = [Mastodon.Entity.Status.ID : MastodonPostViewModel]()
+        var newNotificationModels = [Mastodon.Entity.NotificationGroup.ID : NotificationRowViewModel]()
+        
         func timelineItem(fromStatus status: Mastodon.Entity.Status) -> TimelineItem {
             let post = GenericMastodonPost.fromStatus(status)
             return timelineItem(fromPost: post)
         }
         func timelineItem(fromPost post: GenericMastodonPost) -> TimelineItem {
             let initialDisplayInfo = post.initialDisplayInfo(inContext: filterContext)
-            let viewModel = MastodonPostViewModel(initialDisplayInfo, filterContext: filterContext, threadedConversationContext: threadedConversationModel?.context(for: initialDisplayInfo.id))
+            let viewModel = postViewModels[initialDisplayInfo.id] ?? MastodonPostViewModel(initialDisplayInfo, filterContext: filterContext, threadedConversationContext: threadedConversationModel?.context(for: initialDisplayInfo.id))
+            newPostModels[initialDisplayInfo.id] = viewModel
             viewModel.setFullPost(post)
             return TimelineItem.post(viewModel)
         }
@@ -361,11 +368,17 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 authenticationBox: authenticatedUser
             ).value.map { timelineItem(fromStatus: $0) }
         case .notifications(scope: let scope):
+            print("loading notifications request \(request)")
             newBatch = try await NotificationsLoader.getNotifications(withScope: scope, olderThan: itemsImmediatelyAfter, newerThan: itemsImmediatelyBefore).map { groupedNotificationInfo in
                 if groupedNotificationInfo.groupedNotificationType.wantsFullStatusLayout, let post = groupedNotificationInfo.post {
                     return timelineItem(fromPost: post)
                 } else {
-                    return TimelineItem.notification(NotificationRowViewModel(groupedNotificationInfo, myAccountDomain: authenticatedUser.domain))
+                    let notificationViewModel = notificationViewModels[groupedNotificationInfo.id] ?? NotificationRowViewModel(groupedNotificationInfo, myAccountDomain: authenticatedUser.domain)
+                    if notificationViewModels[groupedNotificationInfo.id] != nil {
+                        notificationViewModel.update(from: groupedNotificationInfo)
+                    }
+                    newNotificationModels[groupedNotificationInfo.id] = notificationViewModel
+                    return TimelineItem.notification(notificationViewModel)
                 }
             }
         }
@@ -390,6 +403,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         newCache = CacheableTimeline(older: [], newer: newBatch)
 #endif
 
+        postViewModels = newPostModels
+        notificationViewModels = newNotificationModels
         createContentConcealViewModels(newCache)
         try? await fetchReplyTos(newCache)
         

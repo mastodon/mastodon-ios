@@ -34,8 +34,9 @@ nonisolated struct MastodonNotificationInfo {
     var actionHandler: MastodonPostMenuActionHandler?
     let primaryNavigation: NotificationNavigation?
     
-    nonisolated let notification: MastodonNotificationInfo
+    private(set) var notification: MastodonNotificationInfo
     let myAccountDomain: String?
+    let notificationID: Mastodon.Entity.Notification.ID
     
     var avatarRowSourceAccounts: NotificationSourceAccounts? {
         switch notification.type {
@@ -93,6 +94,7 @@ nonisolated struct MastodonNotificationInfo {
         self.primaryNavigation = notificationInfo.primaryNavigation
         self.notification = MastodonNotificationInfo(notificationInfo)
         self.myAccountDomain = myAccountDomain
+        self.notificationID = notificationInfo.id
         
         switch notificationInfo.groupedNotificationType {
         case .follow, .followRequest:
@@ -120,6 +122,21 @@ nonisolated struct MastodonNotificationInfo {
         case ._other:
             avatarRowAdditionalElement = .noneNeeded
         }
+    }
+    
+    public func update(from newInfo: GroupedNotificationInfo) {
+        switch newInfo.groupedNotificationType {
+        case .reblog(let status), .favourite(let status), .poll(let status), .update(let status), .quotedUpdate(let status):
+            avatarRowAdditionalElement = .noneNeeded
+            if let status {
+                let inlinePost = GenericMastodonPost.fromStatus(status)
+                inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo(inContext: .notifications), filterContext: .notifications, threadedConversationContext: nil)
+                inlinePostViewModel?.setFullPost(inlinePost)
+            }
+        default:
+            break
+        }
+        self.notification = MastodonNotificationInfo(newInfo)
     }
     
     public var needsRelationshipTo: Mastodon.Entity.Account? {
@@ -154,7 +171,7 @@ nonisolated struct MastodonNotificationInfo {
 
 extension NotificationRowViewModel: Identifiable {
     nonisolated var id: String {
-        return notification.identifier.id
+        return notificationID
     }
 }
 
@@ -255,7 +272,7 @@ extension NotificationRowViewModel: Equatable {
     nonisolated public static func == (
         lhs: NotificationRowViewModel, rhs: NotificationRowViewModel
     ) -> Bool {
-        return lhs.notification.identifier == rhs.notification.identifier
+        return lhs.notificationID == rhs.notificationID
     }
 }
 
