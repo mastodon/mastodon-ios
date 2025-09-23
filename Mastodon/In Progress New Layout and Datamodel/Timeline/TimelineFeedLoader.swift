@@ -57,6 +57,7 @@ public enum MastodonTimelineType: Equatable {
         case (.search(let first), .search(let second)): return first == second
         case (.userPosts(let firstID, let firstFilter), .userPosts(let secondID, let secondFilter)): return firstID == secondID && firstFilter == secondFilter
         case (.thread(let first), .thread(let second)): return first.id == second.id
+        case (.notifications(let firstScope), .notifications(let secondScope)): return firstScope == secondScope
         default: return false
         }
     }
@@ -113,11 +114,11 @@ enum TimelineItem: Identifiable {
         }
     }
     
-    var isPost: Bool {
+    var isRealItem: Bool {
         switch self {
-        case .post:
+        case .post, .notification:
             return true
-        default:
+        case .filteredNotificationsInfo, .loadingIndicator:
             return false
         }
     }

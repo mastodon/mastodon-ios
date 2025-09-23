@@ -515,8 +515,15 @@ extension TimelineListViewController: NotificationPolicyViewControllerDelegate {
     ) {
 
         viewModel.filteredNotificationsViewModel.policy = policy
-        Task {
-            try await viewModel.doInitialLoad()
+        switch viewModel.lastReadState {
+        case .initializing:
+            break
+        case .pullToRefresh, .requestedReloadFromBottom, .requestedReloadFromTop:
+            break
+        case .untracked:
+            Task {
+                await self.viewModel.forceReload(onlyIfImmediate: false)
+            }
         }
     }
 
@@ -830,16 +837,20 @@ private class TimelineListViewModel: ObservableObject {
                         if currentFirstItemID == nil {
                             // current timeline is empty, so take the top slice of these items to display
                             newDisplaySlice = self.getDisplaySlice(from: results.allRecords, startItemID: nil, canLoadOlder: results.canLoadOlder)
+                            self.resetToUntrackedAfterDelay()
                         } else {
                             switch self.lastReadState {
-                            case .untracked, .initializing:
+                            case .initializing:
+                                self.resetToUntrackedAfterDelay()
+                                newDisplaySlice = nil // don't mess with the visible items
+                            case .untracked:
                                 newDisplaySlice = nil // don't mess with the visible items
                             case .requestedReloadFromBottom:
-                                let lastCurrentItem = self.currentDisplaySlice.last(where: { $0.isPost })
+                                let lastCurrentItem = self.currentDisplaySlice.last(where: { $0.isRealItem })
                                 newDisplaySlice = self.getDisplaySlice(from: results.allRecords, startItemID: lastCurrentItem?.id, canLoadOlder: results.canLoadOlder)
                             case .requestedReloadFromTop:
                                 assertionFailure("reload from top should only cause a new slice to be taken from the already available feed")
-                                if let firstCurrentItem = self.currentDisplaySlice.first(where: { $0.isPost}), let newIndex = results.allRecords.lastIndex(where: { $0.id == firstCurrentItem.id }) {
+                                if let firstCurrentItem = self.currentDisplaySlice.first(where: { $0.isRealItem}), let newIndex = results.allRecords.lastIndex(where: { $0.id == firstCurrentItem.id }) {
                                     newDisplaySlice = self.getDisplaySlice(from: results.allRecords, endIndex: newIndex, canLoadOlder: results.canLoadOlder)
                                 } else {
                                  // possible that the new set of results doesn't include what we were just looking at; in that case, jump to the top
@@ -873,7 +884,7 @@ private class TimelineListViewModel: ObservableObject {
         lastReadState = .requestedReloadFromBottom
         if currentDisplaySlice.endIndex < fullFeed.allRecords.endIndex {
             let scrollToTop = currentDisplaySlice.last(where: {
-                $0.isPost
+                $0.isRealItem
             })
             guard let scrollToTop else {
                 debugScroll("could not find a tail item in the current slice")
@@ -894,7 +905,7 @@ private class TimelineListViewModel: ObservableObject {
     func loadNewerSlice() {
         if currentDisplaySlice.startIndex > 0 {
             lastReadState = .requestedReloadFromTop
-            let lastVisibleHeadIndex = currentDisplaySlice.firstIndex(where: { $0.isPost })
+            let lastVisibleHeadIndex = currentDisplaySlice.firstIndex(where: { $0.isRealItem })
             guard let lastVisibleHeadIndex else {
                 debugScroll("could not find a head index in the current slice")
                 resetToUntrackedAfterDelay()
@@ -906,22 +917,28 @@ private class TimelineListViewModel: ObservableObject {
         }
     }
     
-    func refreshFeed() async {
+    func refreshFromTop() async {
         assert(lastReadState == .pullToRefresh)
         if currentDisplaySlice.startIndex == 0 {
-            guard let feedLoader else {
-                resetToUntrackedAfterDelay()
-                assertionFailure()
-                return
-            }
-            if feedLoader.permissionToLoadImmediately {
-                await feedLoader.loadImmediately(.reload)
-                await feedLoader.clearCache() // reset the cache when user refreshes
-                commitToCache()
-            }
+            await forceReload(onlyIfImmediate: true)
         } else {
             lastReadState = .requestedReloadFromTop
             loadNewerSlice()
+        }
+    }
+    
+    func forceReload(onlyIfImmediate: Bool) async {
+        guard let feedLoader else {
+            resetToUntrackedAfterDelay()
+            assertionFailure()
+            return
+        }
+        if feedLoader.permissionToLoadImmediately {
+            await feedLoader.loadImmediately(.reload)
+            await feedLoader.clearCache() // reset the cache when user refreshes
+            commitToCache()
+        } else if !onlyIfImmediate {
+            feedLoader.requestLoad(.reload)
         }
     }
     
@@ -1206,7 +1223,7 @@ struct TimelineListView: View {
                                     debugScroll("reload from bottom replaced the current slice")
                                     
                                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                                        if let topItemID = newValue.first(where: { $0.isPost })?.id {
+                                        if let topItemID = newValue.first(where: { $0.isRealItem })?.id {
                                             // without requesting scroll, the view seems to automatically peg the loading indicator as the thing that shouldn't move, so you're stuck at the end
                                             debugScroll("scrolling to the top item in the new lower slice")
                                             if let anchorIndex = viewModel.currentDisplaySlice.firstIndex(where: { $0.id == topItemID }) {
@@ -1246,7 +1263,7 @@ struct TimelineListView: View {
                             case .untracked:
                                 viewModel.lastReadState = .pullToRefresh
                                 debugScroll("refreshing feed")
-                                await viewModel.refreshFeed()
+                                await viewModel.refreshFromTop()
                                 viewModel.resetToUntrackedAfterDelay()
                             case .pullToRefresh, .requestedReloadFromBottom, .requestedReloadFromTop:
                                 debugScroll("not refreshing feed.  current state is \(viewModel.lastReadState)")
@@ -1260,7 +1277,7 @@ struct TimelineListView: View {
                             case .untracked:
                                 viewModel.lastReadState = .pullToRefresh
                                 Task {
-                                    await viewModel.refreshFeed()
+                                    await viewModel.refreshFromTop()
                                 }
                             case .pullToRefresh, .requestedReloadFromBottom, .requestedReloadFromTop:
                                 break
