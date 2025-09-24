@@ -143,7 +143,7 @@ extension MastodonFeedLoader {
                 }
             } catch {
             }
-            requestLoad(.newer)
+            requestLoad(.reload)
         }
     }
     
@@ -206,7 +206,7 @@ extension MastodonFeedLoader {
             case .end:
                 return nil
             case .replace:
-                return true
+                return filtered.count > 20 // We expect to receive batches of up to 40 items from the server. Setting this threshold gives us enough items to keep the loading indicator off screen, so that when it does appear we can attempt to load older items and if we receive nothing, then remove the loading indicator. Otherwise, if we always assume that more could be loaded but we start off with so few items that the loading indicator is already on screen, then there's no way to get rid of it.
             }
         }()
         replaceRecords(filtered, canLoadOlder: canLoadOlder)
