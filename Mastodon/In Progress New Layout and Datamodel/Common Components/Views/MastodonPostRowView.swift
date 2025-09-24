@@ -143,16 +143,30 @@ import MastodonLocalization
     }
     
     func goToProfile(_ account: MastodonAccount) {
-        guard let myRelationshipToAuthor else { return }
-        switch myRelationshipToAuthor {
-        case .isMe:
+        guard let me = AuthenticationServiceProvider.shared.currentActiveUser.value?.cachedAccount else { return }
+        if let myRelationshipToAuthor {
+            switch myRelationshipToAuthor {
+            case .isNotMe(let info):
+                if let info, account.id == info.id {
+                    let profile: ProfileViewController.ProfileType = .notMe(me: me, displayAccount: account._legacyEntity, relationship: info._legacyEntity)
+                    actionHandler?.presentScene(.profile(profile), fromPost: initialDisplayInfo.id, transition: .show)
+                    return
+                }
+            case .isMe:
+                if account.id == me.id {
+                    let profile: ProfileViewController.ProfileType = .me(account._legacyEntity)
+                    actionHandler?.presentScene(.profile(profile), fromPost: initialDisplayInfo.id, transition: .show)
+                    return
+                }
+            }
+        }
+        // if we have reached here, then we are trying to view an account other than the author of this post (probably a mention)
+        if account.id == me.id {
             let profile: ProfileViewController.ProfileType = .me(account._legacyEntity)
             actionHandler?.presentScene(.profile(profile), fromPost: initialDisplayInfo.id, transition: .show)
-        case .isNotMe(let info):
-            if let info, let me = AuthenticationServiceProvider.shared.currentActiveUser.value?.cachedAccount {
-                let profile: ProfileViewController.ProfileType = .notMe(me: me, displayAccount: account._legacyEntity, relationship: info._legacyEntity)
-                actionHandler?.presentScene(.profile(profile), fromPost: initialDisplayInfo.id, transition: .show)
-            }
+        } else {
+            let profile: ProfileViewController.ProfileType = .notMe(me: me, displayAccount: account._legacyEntity, relationship: nil) // we don't have the relationship info at this point
+            actionHandler?.presentScene(.profile(profile), fromPost: initialDisplayInfo.id, transition: .show)
         }
     }
     
