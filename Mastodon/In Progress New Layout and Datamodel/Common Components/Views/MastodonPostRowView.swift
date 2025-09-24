@@ -348,12 +348,16 @@ struct MastodonPostRowView: View {
                         
                         // MARK: Quoted post
                         if let quotedPostViewModel = viewModel.fullQuotedPostViewModel {
-                            EmbeddedPostView(layoutWidth: contentWidth, isSummary: false)
-                                .environment(quotedPostViewModel)
-                                .environment(contentConcealModel.nestedContentConcealModel)
-                                .onTapGesture {
-                                    quotedPostViewModel.openThreadView()
-                                }
+                            if quotedPostViewModel.initialDisplayInfo.shouldFilterOut {
+                                QuotedPostHiddenByFilterView()
+                            } else {
+                                EmbeddedPostView(layoutWidth: contentWidth, isSummary: false)
+                                    .environment(quotedPostViewModel)
+                                    .environment(contentConcealModel.nestedContentConcealModel)
+                                    .onTapGesture {
+                                        quotedPostViewModel.openThreadView()
+                                    }
+                            }
                         } else if let quotePlaceholder = viewModel.placeholderQuotedPost {
                             QuotedPostPlaceholderView()
                                 .environment(QuotedPostPlaceholderViewModel(quotePlaceholder, authorName: nil))  // TODO: include author name if possible (will have to fetch from server)

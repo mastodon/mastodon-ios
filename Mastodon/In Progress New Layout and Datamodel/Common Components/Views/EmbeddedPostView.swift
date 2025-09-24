@@ -97,6 +97,23 @@ struct QuotedPostPlaceholderView: View {
     }
 }
 
+struct QuotedPostHiddenByFilterView: View {
+    var body: some View {
+        HStack {
+            Text(L10n.Common.Controls.Status.Quote.hiddenByFilter)
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+            Spacer(minLength: 0)
+        }
+        .padding(standardPadding)
+        .frame(maxWidth: .infinity)
+        .background {
+            MastodonSecondaryBackground(fillInDarkModeOnly: true)
+        }
+    }
+}
+
 extension Mastodon.Entity.Quote.AcceptanceState {
     var displayText: String? {
         switch self {

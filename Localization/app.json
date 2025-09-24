@@ -268,6 +268,7 @@
                     "pending" : "Post pending",
                     "removed_by_author" : "Post removed by author",
                     "unavailable" : "Post unavailable",
+                    "hidden_by_filter" : "Hidden due to one of your filters",
                     "pending_explanation_message" : "On Mastodon, you can control whether someone can quote you. This post is pending while we’re getting the original author’s approval."
                 }
             },

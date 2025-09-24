@@ -183,6 +183,7 @@ Please check your internet connection.";
 "Common.Controls.Status.Quote.Pending" = "Post pending";
 "Common.Controls.Status.Quote.RemovedByAuthor" = "Post removed by author";
 "Common.Controls.Status.Quote.Unavailable" = "Post unavailable";
+"Common.Controls.Status.Quote.HiddenByFilter" = "Hidden due to one of your filters";
 "Common.Controls.Status.Quote.PendingExplanationMessage" = "On Mastodon, you can control whether someone can quote you. This post is pending while we’re getting the original author’s approval.";
 "Common.Controls.Status.Reply" = "Reply";
 "Common.Controls.Status.SensitiveContent" = "Sensitive Content";

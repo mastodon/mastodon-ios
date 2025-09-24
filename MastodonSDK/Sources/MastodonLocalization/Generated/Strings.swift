@@ -520,6 +520,8 @@ public enum L10n {
           public static let voted = L10n.tr("Localizable", "Common.Controls.Status.Poll.Voted", fallback: "Voted")
         }
         public enum Quote {
+          /// Hidden due to one of your filters
+          public static let hiddenByFilter = L10n.tr("Localizable", "Common.Controls.Status.Quote.HiddenByFilter", fallback: "Hidden due to one of your filters")
           /// Post pending
           public static let pending = L10n.tr("Localizable", "Common.Controls.Status.Quote.Pending", fallback: "Post pending")
           /// On Mastodon, you can control whether someone can quote you. This post is pending while we’re getting the original author’s approval.
