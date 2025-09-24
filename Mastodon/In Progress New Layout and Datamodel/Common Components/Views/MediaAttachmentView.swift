@@ -7,6 +7,7 @@ import MastodonCore
 import MastodonLocalization
 import Combine
 import MastodonAsset
+import SDWebImageSwiftUI
 
 let buttonBackgroundColor = Color.black.opacity(0.6)
 let maxHeightForHiddenMedia: CGFloat = 100
@@ -386,7 +387,7 @@ struct BlurhashImageView: View {
             }
             
             if let url {
-                AsyncImage(url: url) { phase in
+                WebImage(url: url) { phase in
                     switch phase {
                     case .empty:
                         EmptyView() // show blurhash behind

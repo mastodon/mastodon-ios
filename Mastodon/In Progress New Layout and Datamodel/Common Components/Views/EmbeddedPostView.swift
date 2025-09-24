@@ -3,6 +3,7 @@
 import MastodonSDK
 import SwiftUI
 import MastodonLocalization
+import SDWebImageSwiftUI
 
 struct EmbeddedPostView: View {
     @Environment(MastodonPostViewModel.self) private var viewModel
@@ -193,7 +194,7 @@ struct EmbeddedPostContentDisplayedView: View {
     @ViewBuilder func header() -> some View {
         HStack(spacing: 4) {
             if let url = viewModel.initialDisplayInfo.actionableAuthorStaticAvatar {
-                AsyncImage(
+                WebImage(
                     url: url,
                     content: { image in
                         image.resizable()

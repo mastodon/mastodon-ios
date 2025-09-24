@@ -494,6 +494,7 @@
 		FB7C4CC62CD2CAB000F6129A /* DonationCompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7C4CC52CD2CAA800F6129A /* DonationCompletionViewController.swift */; };
 		FB7C4CCC2CD55DEB00F6129A /* NavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7C4CCB2CD55DEB00F6129A /* NavigationFlow.swift */; };
 		FB7C4CCE2CD55DFF00F6129A /* NewDonationNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7C4CCD2CD55DFE00F6129A /* NewDonationNavigationFlow.swift */; };
+		FB8F73662E8425D6005C2492 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FB8F73652E8425D6005C2492 /* SDWebImageSwiftUI */; };
 		FB91184C2D9EB96E003F410B /* Bodega in Frameworks */ = {isa = PBXBuildFile; productRef = FB91184B2D9EB96E003F410B /* Bodega */; };
 		FB91188D2D9EECE7003F410B /* BodegaPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB91188C2D9EC208003F410B /* BodegaPersistence.swift */; };
 		FBA2EA9B2E1C0CEA005ADEF0 /* MastoParse in Frameworks */ = {isa = PBXBuildFile; productRef = FBA2EA9A2E1C0CEA005ADEF0 /* MastoParse */; };
@@ -1323,6 +1324,7 @@
 				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
 				FBA2EA9B2E1C0CEA005ADEF0 /* MastoParse in Frameworks */,
 				FB91184C2D9EB96E003F410B /* Bodega in Frameworks */,
+				FB8F73662E8425D6005C2492 /* SDWebImageSwiftUI in Frameworks */,
 				D84FA0932AE6915800987F47 /* MBProgressHUD in Frameworks */,
 				D87364F92AE28DB500C8F919 /* Kanna in Frameworks */,
 				2AAAA34E2B04DE21004C6672 /* VisionKit.framework in Frameworks */,
@@ -3135,6 +3137,7 @@
 				D84FA0922AE6915800987F47 /* MBProgressHUD */,
 				FB91184B2D9EB96E003F410B /* Bodega */,
 				FBA2EA9A2E1C0CEA005ADEF0 /* MastoParse */,
+				FB8F73652E8425D6005C2492 /* SDWebImageSwiftUI */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -3322,6 +3325,7 @@
 				D84FA0912AE6915800987F47 /* XCRemoteSwiftPackageReference "MBProgressHUD" */,
 				FB91184A2D9EB96E003F410B /* XCRemoteSwiftPackageReference "Bodega" */,
 				FBA2EA992E1C0CEA005ADEF0 /* XCRemoteSwiftPackageReference "MastoParse" */,
+				FB8F73642E8425D6005C2492 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -5383,6 +5387,14 @@
 				minimumVersion = 5.2.7;
 			};
 		};
+		FB8F73642E8425D6005C2492 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.3;
+			};
+		};
 		FB91184A2D9EB96E003F410B /* XCRemoteSwiftPackageReference "Bodega" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mergesort/Bodega.git";
@@ -5444,6 +5456,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D87364F72AE28DB500C8F919 /* XCRemoteSwiftPackageReference "Kanna" */;
 			productName = Kanna;
+		};
+		FB8F73652E8425D6005C2492 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB8F73642E8425D6005C2492 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 		FB91184B2D9EB96E003F410B /* Bodega */ = {
 			isa = XCSwiftPackageProductDependency;

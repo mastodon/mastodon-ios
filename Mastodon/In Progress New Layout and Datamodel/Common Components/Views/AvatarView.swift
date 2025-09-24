@@ -1,6 +1,7 @@
 // Copyright © 2025 Mastodon gGmbH. All rights reserved.
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 private let avatarShape = RoundedRectangle(cornerRadius: 8)
 
@@ -43,7 +44,7 @@ struct AvatarView: View {
     var body: some View {
         ZStack {
             if let authorAvatarUrl {
-                AsyncImage(
+                WebImage(
                     url: authorAvatarUrl,
                     content: { image in
                         image.resizable()

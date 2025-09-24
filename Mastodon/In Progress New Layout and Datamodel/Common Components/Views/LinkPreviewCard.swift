@@ -5,6 +5,7 @@ import MastodonLocalization
 import MastodonSDK
 import SwiftUI
 import MastodonCore
+import SDWebImageSwiftUI
 
 struct LinkPreviewCard: View {
     
@@ -96,7 +97,7 @@ struct LinkPreviewCard: View {
     
     @ViewBuilder var previewVisual: some View {
             if couldShowImage, let imageUrl = cardEntity.image {
-                AsyncImage(url: URL(string: imageUrl))
+                WebImage(url: URL(string: imageUrl))
                 { phase in
                     switch phase {
                     case .empty:

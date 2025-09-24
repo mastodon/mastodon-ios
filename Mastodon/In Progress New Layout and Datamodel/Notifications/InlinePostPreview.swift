@@ -8,6 +8,7 @@
 
 import MastodonSDK
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct InlinePostPreview: View {
     let viewModel: Mastodon.Entity.Status.ViewModel
@@ -54,7 +55,7 @@ struct InlinePostPreview: View {
         HStack(spacing: 4) {
             if viewModel.needsUserAttribution {
                 if let url = viewModel.accountAvatarUrl {
-                    AsyncImage(
+                    WebImage(
                         url: url,
                         content: { image in
                             image.resizable()
