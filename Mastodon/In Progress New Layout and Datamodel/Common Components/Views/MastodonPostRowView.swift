@@ -540,20 +540,40 @@ private struct ActionBar: View {
     
     @Environment(MastodonPostViewModel.self) private var viewModel
     let instanceCanQuotePosts: Bool
+    
+    var anyButtonHasNonZeroCount: Bool {
+        guard let metrics = viewModel.fullPost?.actionablePost?.content.metrics else { return false }
+        return metrics.boostCount + metrics.favoriteCount + metrics.replyCount > 0
+    }
 
     var body: some View {
-        HStack() {
-            if let actionablePost = viewModel.fullPost?.actionablePost {
-                actionButton(forPost: actionablePost, action: .reply)
-                Spacer()
-                actionButton(forPost: actionablePost, action: .boost)
-                Spacer()
-                actionButton(forPost: actionablePost, action: .favourite)
-                Spacer()
-                actionButton(forPost: actionablePost, action: .bookmark)
-                Spacer()
-                ActionBarMenuButton(instanceCanQuotePosts: instanceCanQuotePosts)
-                Spacer()
+        ViewThatFits {
+            HStack() {
+                if let actionablePost = viewModel.fullPost?.actionablePost {
+                    actionButton(forPost: actionablePost, action: .reply, layout: .horizontal)
+                    Spacer()
+                    actionButton(forPost: actionablePost, action: .boost, layout: .horizontal)
+                    Spacer()
+                    actionButton(forPost: actionablePost, action: .favourite, layout: .horizontal)
+                    Spacer()
+                    actionButton(forPost: actionablePost, action: .bookmark, layout: .horizontal)
+                    Spacer()
+                    ActionBarMenuButton(instanceCanQuotePosts: instanceCanQuotePosts)
+                }
+            }
+            
+            HStack(alignment: .actionBarAlign) {
+                if let actionablePost = viewModel.fullPost?.actionablePost {
+                    actionButton(forPost: actionablePost, action: .reply, layout: .vertical)
+                    Spacer()
+                    actionButton(forPost: actionablePost, action: .boost, layout: .vertical)
+                    Spacer()
+                    actionButton(forPost: actionablePost, action: .favourite, layout: .vertical)
+                    Spacer()
+                    actionButton(forPost: actionablePost, action: .bookmark, layout: .vertical)
+                    Spacer()
+                    ActionBarMenuButton(instanceCanQuotePosts: instanceCanQuotePosts)
+                }
             }
         }
     }
@@ -595,6 +615,9 @@ private struct ActionBar: View {
                 Label("", systemImage: "ellipsis")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
+                    .alignmentGuide(.actionBarAlign) { d in d[.top] }
+                    .frame(minWidth: 45, minHeight: 45)
+                    .contentShape(Rectangle())
             }
         }
         
@@ -616,13 +639,14 @@ private struct ActionBar: View {
         }
     }
     
-    @ViewBuilder private func actionButton(forPost actionablePost: MastodonContentPost, action: PostAction) -> some View {
+    @ViewBuilder private func actionButton(forPost actionablePost: MastodonContentPost, action: PostAction, layout: Axis) -> some View {
         let metrics = actionablePost.content.metrics
         let myActions = actionablePost.content.myActions
         let overrideState = overrideState(for: action, of: actionablePost)
+        let showCountLabel = anyButtonHasNonZeroCount
         switch action {
         case .reply:
-            StatefulCountedActionButton(type: .reply, actionState: .init(count: metrics.replyCount, isSelected: .isFalse), doAction: {
+            StatefulCountedActionButton(type: .reply, layoutAxis: layout, showCountLabel: showCountLabel, actionState: .init(count: metrics.replyCount, isSelected: .isFalse), doAction: {
                 viewModel.actionHandler?.doAction(.reply, forPost: viewModel)
             })
         case .boost:
@@ -637,7 +661,7 @@ private struct ActionBar: View {
                     return false
                 }
             }()
-            StatefulCountedActionButton(type: .boost, actionState: .init(count: metrics.boostCount, isSelected: state), doAction: {
+            StatefulCountedActionButton(type: .boost, layoutAxis: layout, showCountLabel: showCountLabel, actionState: .init(count: metrics.boostCount, isSelected: state), doAction: {
                 guard actionablePost.isBoostable else { return }
                 if instanceCanQuotePosts {
                     viewModel.actionHandler?.showSheet(.boostOrQuoteDialog(viewModel))
@@ -652,7 +676,7 @@ private struct ActionBar: View {
             .opacity(actionablePost.isBoostable ? 1.0 : 0.3)
         case .favourite:
             let state = overrideState ?? AsyncBool.fromBool(myActions.favorited)
-            StatefulCountedActionButton(type: .favourite, actionState: .init(count: metrics.favoriteCount, isSelected: state), doAction: {
+            StatefulCountedActionButton(type: .favourite, layoutAxis: layout, showCountLabel: showCountLabel, actionState: .init(count: metrics.favoriteCount, isSelected: state), doAction: {
                 switch state {
                 case .isFalse:
                     viewModel.actionHandler?.doAction(.favourite, forPost: viewModel)
@@ -664,7 +688,7 @@ private struct ActionBar: View {
             })
         case .bookmark:
             let state = overrideState ?? AsyncBool.fromBool(myActions.bookmarked)
-            StatefulCountedActionButton(type: .bookmark, actionState: .init(count: nil, isSelected: state), doAction: {
+            StatefulCountedActionButton(type: .bookmark, layoutAxis: layout, showCountLabel: showCountLabel, actionState: .init(count: nil, isSelected: state), doAction: {
                 switch state {
                 case .isFalse:
                     viewModel.actionHandler?.doAction(.bookmark, forPost: viewModel)

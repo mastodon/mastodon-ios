@@ -26,6 +26,8 @@ struct StatefulCountedActionButton: View {
         let isSelected: AsyncBool
     }
     let type: PostAction
+    let layoutAxis: Axis
+    let showCountLabel: Bool
     let actionState: ActionState
     let doAction: (()->())?
     
@@ -33,32 +35,71 @@ struct StatefulCountedActionButton: View {
     
     var body: some View {
         Button(action: { doAction?() }) {
-            HStack(spacing: 4) {
-                switch actionState.isSelected {
-                case .isFalse, .isTrue:
-                    Image(systemName: iconName)
-                        .font(iconFont)
-                case .fetching, .settingToFalse, .settingToTrue:
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                        .font(iconFont)
-                case .unknown:
-                    Image(systemName: "questionmark")
-                        .font(iconFont)
+            switch layoutAxis {
+            case .horizontal:
+                HStack(spacing: 4) {
+                    imageComponent
+                    countLabelComponent
                 }
-                ZStack(alignment: .leading) {
-                    Text("0000")         // to keep the required space
-                        .fontWeight(.semibold)
-                        .hidden()
-                    Text(countLabel ?? "")
-                        .contentTransition(.numericText(value: Double(actionState.count ?? 0)))
+            case .vertical:
+                VStack(spacing: 0) {
+                    if showCountLabel {
+                        countLabelComponent
+                    }
+                    ZStack {
+                        imageComponent
+                            .alignmentGuide(.actionBarAlign) { d in
+                                return d[.top]
+                            }
+                        if !showCountLabel {
+                            countLabelComponent
+                                .hidden()   // this gives the buttons a standard spacing whether the count labels are being displayed or not
+                        }
+                    }
                 }
-                .font(.footnote)
             }
-            .fontWeight(actionState.isSelected == .isTrue ? .semibold : .regular)
-            .foregroundStyle(color)
         }
         .buttonStyle(.borderless) // Without this, all the buttons in the row activate when one is tapped.  What a remarkably unexpected result with no documentation.
+        .fontWeight(actionState.isSelected == .isTrue ? .semibold : .regular)
+        .foregroundStyle(color)
+        .contentShape(Rectangle())
+    }
+    
+    @ViewBuilder var imageComponent: some View {
+        ZStack (alignment: .top) {
+            
+            if layoutAxis == .vertical {
+                // these hidden views make the layout of the buttons consistent for all the different icons
+                ProgressView()
+                    .progressViewStyle(.circular)
+                    .hidden()
+                Image(systemName: PostAction.bookmark.systemIconName(filled: true)) // this is the tallest icon
+                    .hidden()
+            }
+            
+            // The actual image to display
+            switch actionState.isSelected {
+            case .isFalse, .isTrue:
+                Image(systemName: iconName)
+            case .fetching, .settingToFalse, .settingToTrue:
+                ProgressView()
+                    .progressViewStyle(.circular)
+            case .unknown:
+                Image(systemName: "questionmark")
+            }
+        }
+        .font(iconFont)
+    }
+    
+    @ViewBuilder var countLabelComponent: some View {
+        ZStack(alignment: layoutAxis == .horizontal ? .leading : .center) {
+            Text("0000")         // to keep the required space
+                .fontWeight(.semibold)
+                .hidden()
+            Text(countLabel ?? "")
+                .contentTransition(.numericText(value: Double(actionState.count ?? 0)))
+        }
+        .font(.footnote)
     }
     
     private var iconName: String {
