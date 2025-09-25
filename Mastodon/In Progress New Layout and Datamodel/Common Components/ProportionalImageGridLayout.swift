@@ -23,7 +23,7 @@ struct ProportionalImageGridLayout: Layout {
         
         if subviews.count == 1 {
             // Height = width / aspect
-            let aspect = aspects[0]
+            guard let aspect = aspects.first else { return .zero }
             return CGSize(width: width, height: width / aspect)
         }
         
@@ -79,6 +79,7 @@ struct ProportionalImageGridLayout: Layout {
     
         var x = rect.minX
         for (index, subview) in subviews.enumerated() {
+            guard index < aspects.endIndex else { break }
             let isFirstOrLast = index == subviews.startIndex || index == subviews.endIndex
             let widthReductionForSpacing = spacing / (isFirstOrLast ? 2 : 1)
             let width = rect.width * (aspects[index] / totalAspect)
