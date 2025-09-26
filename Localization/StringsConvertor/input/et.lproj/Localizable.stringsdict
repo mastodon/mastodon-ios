@@ -29,9 +29,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 unread notification</string>
+        <string>1 lugemata teavitus</string>
         <key>other</key>
-        <string>%ld unread notifications</string>
+        <string>%ld lugemata teavitust</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
@@ -189,9 +189,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 image</string>
+        <string>1 pilt</string>
         <key>other</key>
-        <string>%ld images</string>
+        <string>%ld pilti</string>
       </dict>
     </dict>
     <key>plural.count.gif</key>
@@ -205,9 +205,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 gif</string>
+        <string>1 gif-pilt</string>
         <key>other</key>
-        <string>%ld gifs</string>
+        <string>%ld gif-pilti</string>
       </dict>
     </dict>
     <key>plural.count.video</key>
@@ -223,7 +223,7 @@
         <key>one</key>
         <string>1 video</string>
         <key>other</key>
-        <string>%ld videos</string>
+        <string>%ld videot</string>
       </dict>
     </dict>
     <key>plural.count.audio</key>
@@ -237,9 +237,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 audio</string>
+        <string>1 helifail</string>
         <key>other</key>
-        <string>%ld audios</string>
+        <string>%ld helifaili</string>
       </dict>
     </dict>
     <key>plural.count.attachment</key>
@@ -253,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 attachment</string>
+        <string>1 manus</string>
         <key>other</key>
-        <string>%ld attachments</string>
+        <string>%ld manust</string>
       </dict>
     </dict>
     <key>plural.count.poll</key>
