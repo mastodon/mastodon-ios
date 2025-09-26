@@ -20,9 +20,9 @@
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Nähtavus";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Postituse nähtavus";
 
 "apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
 
@@ -40,7 +40,7 @@
 
 "gfePDu" = "Posting failed. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Postitamine õnnestus.";
 
 "oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
 
@@ -48,4 +48,4 @@
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Postitamine õnnestus. ";
