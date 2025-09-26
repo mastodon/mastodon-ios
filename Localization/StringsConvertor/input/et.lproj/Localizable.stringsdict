@@ -45,9 +45,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 tähemärk</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld tähemärki</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
@@ -61,9 +61,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 tähemärk</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld tähemärki</string>
       </dict>
     </dict>
     <key>a11y.plural.count.characters_left</key>
@@ -77,9 +77,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character left</string>
+        <string>Jäänud on 1 tähemärk</string>
         <key>other</key>
-        <string>%ld characters left</string>
+        <string>Jäänud on %ld tähemärki</string>
       </dict>
     </dict>
     <key>plural.count.others</key>
@@ -173,9 +173,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 media</string>
+        <string>1 meediafail</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld meediafaili</string>
       </dict>
     </dict>
     <key>plural.count.image</key>
@@ -269,9 +269,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 poll</string>
+        <string>1 küsitlus</string>
         <key>other</key>
-        <string>%ld polls</string>
+        <string>%ld küsitlust</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -285,9 +285,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>1 postitus</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld postitust</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -301,9 +301,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>1 lemmik</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld lemmikut</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -349,9 +349,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reply</string>
+        <string>1 vastus</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld vastust</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -365,9 +365,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>1 hääl</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld häält</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -381,9 +381,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>1 hääletaja</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld hääletajat</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -397,9 +397,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>1 inimene suhtleb</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld inimest suhtlevad</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -413,9 +413,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>1 jälgitav</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld jälgitavat</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -429,9 +429,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>1 jälgija</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld jälgijat</string>
       </dict>
     </dict>
     <key>plural.count.of_your_followers</key>
