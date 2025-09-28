@@ -2,35 +2,35 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Palun proovi uuesti.",
+                "please_try_again_later": "Palun proovi varsti uuesti."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Viga liitumisel"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Serveri viga"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "title": "Viga hääletamisel",
+                "poll_ended": "See küsitlus on lõppenud"
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Viga avaldamisel",
+                "message": "Postituse avaldamine ei õnnestunud.\nPalun proovi, kas sinu nutiseadme internetiühendus toimib.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "Ei saa lisada videot postitusele, milles on juba pildid olemas.",
+                    "more_than_one_video": "Ei saa lisada rohkem, kui ühte videot."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "Viga profiili muutmisel",
+                "message": "Profiili muutmine ei õnnestu. Palun proovi uuesti."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "Logi välja",
+                "message": "Kas oled kindel, et soovid välja logida?",
+                "confirm": "Logi välja"
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
@@ -51,48 +51,48 @@
             "translation_failed": {
                 "title": "Note",
                 "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "button": "Sobib"
             },
             "media_missing_alt_text": {
                 "title": "Media Missing Alt Text",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
+                "cancel": "Katkesta",
                 "post": "Post"
             },
             "boost_a_post": {
                 "title_boost": "Boost Post?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
+                "cancel": "Katkesta",
                 "boost": "Boost",
                 "unboost": "Unboost"
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
-                "cancel": "Cancel",
+                "cancel": "Katkesta",
                 "unfollow": "Unfollow"
             }
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
-                "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
-                "edit": "Edit",
-                "save": "Save",
-                "ok": "OK",
-                "done": "Done",
-                "confirm": "Confirm",
-                "continue": "Continue",
-                "compose": "Compose",
-                "cancel": "Cancel",
-                "discard": "Discard",
-                "try_again": "Try Again",
-                "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
+                "back": "Tagasi",
+                "next": "Järgmine",
+                "previous": "Eelmine",
+                "open": "Ava",
+                "add": "Lisa",
+                "remove": "Eemalda",
+                "edit": "Muuda",
+                "save": "Salvesta",
+                "ok": "Sobib",
+                "done": "Valmis",
+                "confirm": "Kinnita",
+                "continue": "Jätka",
+                "compose": "Koosta",
+                "cancel": "Katkesta",
+                "discard": "Loobu",
+                "try_again": "Proovi uuesti",
+                "take_photo": "Pildista",
+                "save_photo": "Salvesta foto",
+                "copy_photo": "Kopeeri foto",
                 "sign_in": "Log in",
                 "see_more": "See More",
                 "preview": "Preview",
@@ -115,7 +115,7 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit",
+                "edit_post": "Muuda",
                 "bookmark": "Bookmark",
                 "remove_bookmark": "Remove Bookmark",
                 "follow": "Follow %s",
@@ -140,35 +140,35 @@
                 },
                 "timeline": {
                     "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Booster's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Boost on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "next_status": "Järgmine postitus",
+                    "open_status": "Ava postitus",
+                    "open_author_profile": "Ava autori profiil",
+                    "open_reblogger_profile": "Ava hooandja profiil",
+                    "reply_status": "Vasta postitusele",
+                    "toggle_reblog": "Lülita postitusele hooandmine sisse/välja",
+                    "toggle_favorite": "Lülita postituse lemmikuks märkimine sisse/välja",
+                    "toggle_content_warning": "Lülita sisuhoiatus sisse/välja",
+                    "preview_image": "Pildi eelvaade"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Eelmine sektsioon",
+                    "next_section": "Järgmine osa"
                 }
             },
             "status": {
                 "reply": "Reply",
-                "private_reply": "Private reply",
-                "mention": "Mention",
-                "private_mention": "Private mention",
-                "user_reblogged": "%s boosted",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "sensitive_content": "Sensitive Content",
-                "media_content_warning": "Tap anywhere to reveal",
-                "tap_to_reveal": "Tap to reveal",
-                "load_embed": "Load Embed",
+                "private_reply": "Privaatne vastus",
+                "mention": "Mainimine",
+                "private_mention": "Privaatne mainimine",
+                "user_reblogged": "%s andis hoogu",
+                "user_replied_to": "Vastas kasutajale %s",
+                "show_post": "Näita postitust",
+                "show_user_profile": "Näita kasutaja profiili",
+                "content_warning": "Sisuhoiatus",
+                "sensitive_content": "Delikaatne sisu",
+                "media_content_warning": "Näitamiseks klõpsi ekraanil",
+                "tap_to_reveal": "Näitamiseks klõpsi",
+                "load_embed": "Laadi lõimitud sisu",
                 "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Vote",
@@ -184,27 +184,27 @@
                     "reply": "Reply",
                     "reblog": "Boost",
                     "unreblog": "Undo boost",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
-                    "menu": "Menu",
-                    "hide": "Hide",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
-                    "share_link_in_post": "Share Link in Post",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu",
+                    "favorite": "Märgi lemmikuks",
+                    "unfavorite": "Eemaldatud lemmikute hulgast",
+                    "menu": "Menüü",
+                    "hide": "Peida",
+                    "show_image": "Näita pilti",
+                    "show_gif": "Näita GIF-faili",
+                    "show_video_player": "Näita videoesitajat",
+                    "share_link_in_post": "Jaga postituses linki",
+                    "tap_then_hold_to_show_menu": "Menüü kuvamiseks puuduta ja hoia",
                     "a11y_labels": {
                         "reblog": "Boost",
                         "unreblog": "Undo boost"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "Kopeeri link"
                 },
                 "tag": {
-                    "url": "URL",
-                    "mention": "Mention",
+                    "url": "Võrguaadress",
+                    "mention": "Mainimine",
                     "link": "Link",
-                    "hashtag": "Hashtag",
-                    "email": "Email",
+                    "hashtag": "Teemaviide",
+                    "email": "E-post",
                     "emoji": "Emoji"
                 },
                 "visibility": {
@@ -423,7 +423,7 @@
             "error": {
                 "item": {
                     "username": "Username",
-                    "email": "Email",
+                    "email": "E-post",
                     "password": "Password",
                     "agreement": "Agreement",
                     "locale": "Locale",
@@ -517,7 +517,7 @@
                 "edit_post": "Edit Post"
             },
             "media_selection": {
-                "camera": "Take Photo",
+                "camera": "Pildista",
                 "photo_library": "Photo Library",
                 "browse": "Browse"
             },
@@ -581,7 +581,7 @@
                 "discard_post": "Discard Post",
                 "publish_post": "Publish Post",
                 "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
+                "toggle_content_warning": "Lülita sisuhoiatus sisse/välja",
                 "append_attachment_entry": "Add Attachment - %s",
                 "select_visibility_entry": "Select Visibility - %s"
             },
@@ -687,7 +687,7 @@
             "title": "Search",
             "search_bar": {
                 "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "cancel": "Katkesta"
             },
             "recommend": {
                 "button_text": "See All",
@@ -742,7 +742,7 @@
             "headers": {
                 "report": "Report",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
+                "favourite": "Märgi lemmikuks",
                 "follow": "Follow",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
@@ -750,7 +750,7 @@
                 "boost": "Boost",
                 "severed_relationships": "Domain block",
                 "status": "Post",
-                "edit": "Edit"
+                "edit": "Muuda"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -1059,7 +1059,7 @@
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
+                "display_name": "Teemaviide",
                 "description": "Shows a recent post with the selected hashtag."
             },
             "not_found": {
