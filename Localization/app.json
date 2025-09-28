@@ -132,7 +132,9 @@
                 "bookmark": "Bookmark",
                 "remove_bookmark": "Remove Bookmark",
                 "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "unfollow": "Unfollow %s",
+                "load_newer": "Load newer posts",
+                "load_older": "Load older posts"
             },
             "tabs": {
                 "home": "Home",

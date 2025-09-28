@@ -1307,7 +1307,7 @@ struct TimelineListView: View {
                                 break
                             }
                         }
-                        .accessibilityAction(named: L10n.Common.Controls.Actions.seeMore) {
+                        .accessibilityAction(named: L10n.Common.Controls.Actions.loadNewer) {
                             switch viewModel.lastReadState {
                             case .initializing:
                                 break
@@ -1315,6 +1315,7 @@ struct TimelineListView: View {
                                 viewModel.lastReadState = .pullToRefresh
                                 Task {
                                     await viewModel.refreshFromTop()
+                                    viewModel.resetToUntrackedAfterDelay()
                                 }
                             case .pullToRefresh, .requestedReloadFromBottom, .requestedReloadFromTop:
                                 break
@@ -1443,6 +1444,14 @@ struct TimelineListView: View {
                     Spacer()
                 }
                 .padding(EdgeInsets(top: 100, leading: 0, bottom: 100, trailing: 0))
+                .accessibilityAction(named: L10n.Common.Controls.Actions.loadOlder) {
+                    switch viewModel.lastReadState {
+                    case .untracked:
+                        viewModel.loadMoreFromBottom()
+                    default:
+                        break
+                    }
+                }
                 VisibilityTrackingView(visibilityDidChange: { isVisible in
                     if isVisible {
                         switch viewModel.lastReadState {

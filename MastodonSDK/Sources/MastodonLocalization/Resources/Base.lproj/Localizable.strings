@@ -91,6 +91,8 @@ Please check your internet connection.";
 "Common.Controls.Actions.TryAgain" = "Try Again";
 "Common.Controls.Actions.UnblockDomain" = "Unblock %@";
 "Common.Controls.Actions.Unfollow" = "Unfollow %@";
+"Common.Controls.Actions.LoadNewer" = "Load newer posts";
+"Common.Controls.Actions.LoadOlder" = "Load older posts";
 "Common.Controls.Friendship.Block" = "Block";
 "Common.Controls.Friendship.BlockDomain" = "Block domain %@";
 "Common.Controls.Friendship.BlockUser" = "Block %@";

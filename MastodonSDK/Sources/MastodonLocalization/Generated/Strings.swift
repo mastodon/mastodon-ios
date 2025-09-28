@@ -191,6 +191,10 @@ public enum L10n {
         public static func follow(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Actions.Follow", String(describing: p1), fallback: "Follow %@")
         }
+        /// Load newer posts
+        public static let loadNewer = L10n.tr("Localizable", "Common.Controls.Actions.LoadNewer", fallback: "Load newer posts")
+        /// Load older posts
+        public static let loadOlder = L10n.tr("Localizable", "Common.Controls.Actions.LoadOlder", fallback: "Load older posts")
         /// Manually search instead
         public static let manuallySearch = L10n.tr("Localizable", "Common.Controls.Actions.ManuallySearch", fallback: "Manually search instead")
         /// Next
