@@ -98,6 +98,38 @@
         <string>%ld others</string>
       </dict>
     </dict>
+    <key>plural.count.you_and_others_boosted</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_others@</string>
+      <key>count_others</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>boosted by you and one other</string>
+        <key>other</key>
+        <string>boosted by you and %ld others</string>
+      </dict>
+    </dict>
+    <key>plural.count.you_and_others_favorited</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_others@</string>
+      <key>count_others</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>favorited by you and one other</string>
+        <key>other</key>
+        <string>favorited by you and %ld others</string>
+      </dict>
+    </dict>
     <key>plural.count.people_boosted</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -319,7 +351,7 @@
         <key>one</key>
         <string>1 reblog</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld boosts</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
@@ -335,7 +367,7 @@
         <key>one</key>
         <string>1 re-blog</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld boosts</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
