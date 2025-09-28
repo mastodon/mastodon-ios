@@ -148,6 +148,8 @@ public struct ComposeContentView: View {
                 if let quotedPostViewBuilder = viewModel.composeContext.quotingViewBuilder {
                     quotedPostViewBuilder()
                         .padding()
+                        .accessibilityElement(children: .contain)
+                        .accessibilityLabel(L10n.Common.Controls.Status.Quote.a11yLabel)
                 }
             }
             .background(
