@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>boosted by you and one other</string>
+        <string>endurbirt af þér og einum í viðbót</string>
         <key>other</key>
-        <string>boosted by you and %ld others</string>
+        <string>endurbirt af þér og %ld í viðbót</string>
       </dict>
     </dict>
     <key>plural.count.you_and_others_favorited</key>
@@ -125,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>favorited by you and one other</string>
+        <string>sett í eftirlæti af þér og einum í viðbót</string>
         <key>other</key>
-        <string>favorited by you and %ld others</string>
+        <string>sett í eftirlæti af þér og %ld í viðbót</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
