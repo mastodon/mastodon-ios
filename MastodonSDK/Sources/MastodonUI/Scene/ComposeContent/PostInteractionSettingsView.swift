@@ -47,6 +47,7 @@ public struct PostInteractionSettingsView: View {
                 // visibility
                 HStack {
                     Text(L10n.Scene.Compose.Visibility.title)
+                        .accessibilityHidden(true)
                     Spacer()
                     validatingVisibilityPicker()
                         .fixedSize(horizontal: false, vertical: true)
@@ -56,12 +57,14 @@ public struct PostInteractionSettingsView: View {
                     RoundedRectangle(cornerRadius: 24)
                         .fill(.background)
                 }
+                .accessibilityElement(children: .combine)
                 
                 Spacer()
                 
                 // quotability
                 HStack {
                     Text(L10n.Scene.Compose.QuotePermissionPolicy.title)
+                        .accessibilityHidden(true)
                     Spacer()
                     quotabilityPicker(viewModel.interactionSettings.visibility.allowableQuotePolicies)
                         .fixedSize(horizontal: false, vertical: true)
@@ -71,6 +74,7 @@ public struct PostInteractionSettingsView: View {
                     RoundedRectangle(cornerRadius: 24)
                         .fill(.background)
                 }
+                .accessibilityElement(children: .combine)
             }
         }
         .padding(EdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 16))
@@ -92,7 +96,7 @@ public struct PostInteractionSettingsView: View {
                 Text(visibility.title)
             }
         } label: {
-            Text(viewModel.interactionSettings.visibility.title)
+            Text(L10n.Scene.Compose.Visibility.title)
         }
         .disabled(!viewModel.canEditVisibility)
         .tint(.secondary)
@@ -116,7 +120,7 @@ public struct PostInteractionSettingsView: View {
                 }
             }
         } label: {
-            Text(viewModel.interactionSettings.quotability.title)
+            Text(L10n.Scene.Compose.QuotePermissionPolicy.title)
         }
         .disabled(options.count < 2)
         .tint(.secondary)

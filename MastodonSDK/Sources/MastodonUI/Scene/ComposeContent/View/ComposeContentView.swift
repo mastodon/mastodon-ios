@@ -180,6 +180,7 @@ public struct ComposeContentView: View {
         } label: {
             HStack {
                 Text(Image(uiImage: interactionSettingsViewModel.interactionSettings.visibility.image))
+                    .accessibilityHidden(true)
                 Text(viewModel.interactionSettingsButtonText(interactionSettingsViewModel.interactionSettings))
             }
             .font(.subheadline)
