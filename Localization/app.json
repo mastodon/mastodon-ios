@@ -1088,7 +1088,7 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "tab_bar_hint": "Current selected profile: %s. Triple tap to show account switcher",
             "dismiss_account_switcher": "Dismiss Account Switcher",
             "add_account": "Add Account",
             "logout_all_accounts": "Log Out Of All Accounts",
