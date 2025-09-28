@@ -84,6 +84,7 @@ class MainTabBarController: UITabBarController {
         }
 
         layoutAvatarButton()
+        updateProfileTabA11y()
     }
     
     private func replace(_ oldVC: UIViewController, with newVC: UIViewController) {
@@ -273,6 +274,15 @@ extension MainTabBarController {
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         .portraitOnPhone
+    }
+}
+
+extension MainTabBarController {
+    func updateProfileTabA11y() {
+        guard let authBox = authenticationBox, let account = authBox.cachedAccount else { return }
+        let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
+        guard let profileTabItem = _profileTabItem else { return }
+        profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(account.displayNameWithFallback)
     }
 }
 
