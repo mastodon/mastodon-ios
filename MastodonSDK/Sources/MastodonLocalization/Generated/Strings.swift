@@ -522,6 +522,8 @@ public enum L10n {
           public static let voted = L10n.tr("Localizable", "Common.Controls.Status.Poll.Voted", fallback: "Voted")
         }
         public enum Quote {
+          /// Quoted:
+          public static let a11yLabel = L10n.tr("Localizable", "Common.Controls.Status.Quote.A11yLabel", fallback: "Quoted:")
           /// Hidden due to one of your filters
           public static let hiddenByFilter = L10n.tr("Localizable", "Common.Controls.Status.Quote.HiddenByFilter", fallback: "Hidden due to one of your filters")
           /// Post pending

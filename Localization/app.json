@@ -266,6 +266,7 @@
                     "by_author": "By %s"
                 },
                 "quote": {
+                    "a11y_label" : "Quoted:",
                     "pending" : "Post pending",
                     "removed_by_author" : "Post removed by author",
                     "unavailable" : "Post unavailable",

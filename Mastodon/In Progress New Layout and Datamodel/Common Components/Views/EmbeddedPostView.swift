@@ -26,7 +26,6 @@ struct EmbeddedPostView: View {
 @Observable class QuotedPostPlaceholderViewModel {
     let quote: MastodonQuotedPost
     let authorName: String?
-    var showOverlayTip: String? = nil
     
     init(_ quote: MastodonQuotedPost, authorName: String?) {
         self.quote = quote
@@ -36,6 +35,7 @@ struct EmbeddedPostView: View {
 
 struct QuotedPostPlaceholderView: View {
     @Environment(QuotedPostPlaceholderViewModel.self) var viewModel
+    @State var isPresentingLearnMore: Bool = false
     
     var body: some View {
         switch viewModel.quote.state {
@@ -70,29 +70,50 @@ struct QuotedPostPlaceholderView: View {
 
     @ViewBuilder var hiddenQuoteExplainerView: some View {
         if let message = viewModel.quote.state.displayText {
-            HStack {
-                Text(message)
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
-                Spacer(minLength: 0)
-                if viewModel.quote.state.learnMoreMessage != nil {
-                    Text("Learn more")
-                        .font(.footnote)
-                        .fontWeight(.semibold)
-                        .foregroundStyle(.secondary)
+            VStack {
+                HStack {
+                    Text(message)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Spacer(minLength: 0)
+                    if viewModel.quote.state.learnMoreMessage != nil && !isPresentingLearnMore {
+                        Text("Learn more")
+                            .fontWeight(.semibold)
+                    }
+                }
+                .foregroundStyle(.secondary)
+                
+                if isPresentingLearnMore, let message = viewModel.quote.state.learnMoreMessage {
+                    Text(message)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
+            .font(.footnote)
             .padding(standardPadding)
             .frame(maxWidth: .infinity)
             .background {
                 MastodonSecondaryBackground(fillInDarkModeOnly: true)
             }
+            .contentShape(Rectangle())
             .onTapGesture {
-                if let additionalInfo = viewModel.quote.state.learnMoreMessage {
-                    viewModel.showOverlayTip = additionalInfo
+                if viewModel.quote.state.learnMoreMessage != nil {
+                    isPresentingLearnMore = !isPresentingLearnMore
                 }
             }
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(accessibilityText ?? "")
+        }
+    }
+    
+    var accessibilityText: String? {
+        let (shortExplanation, moreInfo) = (viewModel.quote.state.displayText, viewModel.quote.state.learnMoreMessage)
+        if let shortExplanation, let moreInfo {
+            return "\(shortExplanation). \(moreInfo)"
+        }
+        if let shortExplanation {
+            return "\(shortExplanation)"
+        }
+        else {
+            return nil
         }
     }
 }
@@ -152,12 +173,15 @@ struct EmbeddedPostContentDisplayedView: View {
         let contentWidth = max(0, layoutWidth - padding * 2)
         HStack(spacing: 0) {
             VStack(alignment: .leading) {
-                header()
+                header
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(viewModel.a11yHeaderLabel)
                 if viewModel.fullPost != nil {
                     viewModel.textContentView(isInlinePreview: true)
                         .font(.footnote)
                         .lineLimit(4)
                         .fixedSize(horizontal: false, vertical: true)
+                        .accessibilityElement(children: .combine)
                 }
                 if let attachmentInfo = viewModel.fullPost?.actionablePost?.content.attachment, let actionHandler = viewModel.actionHandler {
                     if isSummary {
@@ -204,11 +228,13 @@ struct EmbeddedPostContentDisplayedView: View {
             MastodonSecondaryBackground(fillInDarkModeOnly: true)
         }
         .contentShape(Rectangle())
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(L10n.Common.Controls.Status.Quote.a11yLabel)
     }
     
     private let avatarShape = RoundedRectangle(cornerRadius: 4)
     
-    @ViewBuilder func header() -> some View {
+    @ViewBuilder var header: some View {
         HStack(spacing: 4) {
             if let url = viewModel.initialDisplayInfo.actionableAuthorStaticAvatar {
                 WebImage(
@@ -225,6 +251,7 @@ struct EmbeddedPostContentDisplayedView: View {
                     }
                 )
                 .frame(width: isSummary ? AvatarSize.tiny : AvatarSize.small, height: isSummary ? AvatarSize.tiny : AvatarSize.small)
+                .accessibilityHidden(true)
             }
             VStack() {
                 HStack(spacing: 0) {

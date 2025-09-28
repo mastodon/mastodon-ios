@@ -181,6 +181,7 @@ Please check your internet connection.";
 "Common.Controls.Status.PostedViaApplication" = "%@ via %@";
 "Common.Controls.Status.PrivateMention" = "Private mention";
 "Common.Controls.Status.PrivateReply" = "Private reply";
+"Common.Controls.Status.Quote.A11yLabel" = "Quoted:";
 "Common.Controls.Status.Quote.Pending" = "Post pending";
 "Common.Controls.Status.Quote.RemovedByAuthor" = "Post removed by author";
 "Common.Controls.Status.Quote.Unavailable" = "Post unavailable";
