@@ -60,6 +60,7 @@ struct LinkPreviewCard: View {
                 .fill(.clear)
                 .stroke(.separator, lineWidth: 0.3)
         }
+        .accessibilityElement(children: .ignore)
         .accessibilityLabel(accessibilityLabelText)
         .onTapGesture {
             guard let url = URL(string: cardEntity.url) else { return }
