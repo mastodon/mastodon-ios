@@ -130,6 +130,7 @@ Please check your internet connection.";
 "Common.Controls.Keyboard.Timeline.ToggleReblog" = "Toggle Boost on Post";
 "Common.Controls.Status.Actions.A11YLabels.Reblog" = "Boost";
 "Common.Controls.Status.Actions.A11YLabels.Unreblog" = "Undo boost";
+"Common.Controls.Status.Actions.A11YLabels.Bookmarked" = "Bookmarked";
 "Common.Controls.Status.Actions.CopyLink" = "Copy Link";
 "Common.Controls.Status.Actions.Favorite" = "Favorite";
 "Common.Controls.Status.Actions.Hide" = "Hide";

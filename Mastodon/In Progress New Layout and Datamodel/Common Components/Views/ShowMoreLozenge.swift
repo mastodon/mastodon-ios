@@ -34,6 +34,7 @@ struct ShowMoreLozenge: View {
         .background {
             MastodonSecondaryBackground(fillInDarkModeOnly: false)
         }
+        .accessibilityElement(children: .combine)
     }
 }
 

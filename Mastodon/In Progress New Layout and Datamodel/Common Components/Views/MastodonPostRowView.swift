@@ -43,6 +43,17 @@ import MastodonLocalization
     }
     
     var myRelationshipToAuthor: MastodonAccount.Relationship? = nil
+    var isQuotingMe: Bool {
+        guard let quoted = fullQuotedPostViewModel else { return false }
+        switch quoted.myRelationshipToAuthor {
+        case .isMe:
+            return true
+        case nil:
+            return false
+        default:
+            return false
+        }
+    }
 
     var displayPrepStatus: DisplayPrepStatus = .unprepared
     var isShowingTranslation: Bool? = nil
@@ -185,44 +196,102 @@ import MastodonLocalization
 }
 
 extension MastodonPostViewModel {
+    var composeViewModelQuotingThisPost: ComposeViewModel? {
+        guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value, let quotedPost = fullPost?.actionablePost else { return nil }
+        return ComposeViewModel(authenticationBox: currentUser, composeContext: .composeStatus(quoting: (quotedPost._legacyEntity, {
+            AnyView(
+                EmbeddedPostView(layoutWidth: 200, isSummary: false)
+                    .environment(self)
+                    .environment(TimestampUpdater.timestamper(withInterval: 30))
+                    .environment(ContentConcealViewModel.alwaysShow)
+            )
+        })), destination: .topLevel)
+    }
+}
+
+extension MastodonPostViewModel {
+    @ViewBuilder func accessibilityActionButton(_ action: MastodonPostMenuAction) -> some View {
+        Button(action.labelText(username: fullPost?.initialDisplayInfo(inContext: nil).actionableAuthorDisplayName, postLanguage: (fullPost?.actionablePost as? MastodonContentPost)?.content.language)) { [weak self] in
+            guard let self else { return }
+            self.actionHandler?.doAction(action, forPost: self)
+        }
+    }
+    
+    var accessibilityActionBarLabel: String {
+        guard let metrics = fullPost?.actionablePost?.content.metrics, let myActions = fullPost?.actionablePost?.content.myActions else { print("no post!"); return "" }
+        
+        let replyLabel: String? = {
+            guard metrics.replyCount > 0 else { return nil }
+            return L10n.Plural.Count.reply(metrics.replyCount)
+        }()
+        let boostLabel: String? = {
+            guard metrics.boostCount > 0 else { return nil }
+            if myActions.boosted {
+                return L10n.Plural.Count.youAndOthersBoosted(metrics.boostCount - 1)
+            } else {
+                return L10n.Plural.Count.reblogA11y(metrics.boostCount)
+            }
+        }()
+        let favoriteLabel: String? = {
+            guard metrics.favoriteCount > 0 else { return nil }
+            if myActions.favorited {
+                return L10n.Plural.Count.youAndOthersFavorited(metrics.favoriteCount - 1)
+            } else {
+                return L10n.Plural.Count.favorite(metrics.favoriteCount)
+            }
+        }()
+        let bookmarkLabel: String? = {
+            guard myActions.bookmarked else { return nil }
+            return L10n.Common.Controls.Status.Actions.A11YLabels.bookmarked
+        }()
+        
+        return [replyLabel, boostLabel, favoriteLabel, bookmarkLabel].compactMap { $0 }.joined(separator: ", ")
+    }
+}
+
+extension MastodonPostViewModel {
     
     @ViewBuilder var socialContextHeader: some View {
-        if let fullPost {
-            if fullPost is MastodonBoostPost {
-                // BOOSTED BY
-                SocialContextHeader.boosted(by: fullPost.metaData.author.displayInfo.displayName, emojis: fullPost.metaData.author.displayInfo.emojis)
-            } else if let basicPost = fullPost as? MastodonBasicPost {
-                // REPLIED and/or PRIVATE MENTION or QUOTES ME
-                let isPrivate = basicPost.metaData.privacyLevel == .mentionedOnly
-                let quotesMe = {
-                    if let quotedPost = fullQuotedPostViewModel {
-                        switch quotedPost.myRelationshipToAuthor {
-                        case .isMe:
-                            return true
-                        default:
-                            return false
-                        }
-                    } else {
-                        return false
-                    }
-                }()
-                if isPrivate || threadedContext == nil {
-                    let replyInfo = basicPost.inReplyTo
-                    if let replyInfo {
-                        let replyToAccount = actionHandler?.account(replyInfo.accountID)
-                        SocialContextHeader.reply(to: replyToAccount?.displayInfo.displayName ?? "unknown", isPrivate: isPrivate, isNotification: false, emojis: replyToAccount?.displayInfo.emojis ?? [])
-                    } else if isPrivate {
-                        SocialContextHeader.mention(isPrivate: true)
-                    } else if quotesMe {
-                         SocialContextHeader.quoted(by: fullPost.metaData.author.displayInfo.displayName, emojis: fullPost.metaData.author.displayInfo.emojis)
-                    }
-                } else {
-                   EmptyView()
-                }
-            }
+        if let socialContext {
+            socialContext
         } else {
             EmptyView()
         }
+    }
+    
+    var socialContext: SocialContextHeader? {
+        guard let fullPost else { return nil }
+        if fullPost is MastodonBoostPost {
+            // BOOSTED BY
+            return SocialContextHeader.boosted(by: fullPost.metaData.author.displayInfo.displayName, emojis: fullPost.metaData.author.displayInfo.emojis)
+        } else if let basicPost = fullPost as? MastodonBasicPost {
+            // REPLIED and/or PRIVATE MENTION or QUOTES ME
+            let isPrivate = basicPost.metaData.privacyLevel == .mentionedOnly
+            let quotesMe = {
+                if let quotedPost = fullQuotedPostViewModel {
+                    switch quotedPost.myRelationshipToAuthor {
+                    case .isMe:
+                        return true
+                    default:
+                        return false
+                    }
+                } else {
+                    return false
+                }
+            }()
+            if isPrivate || threadedContext == nil {
+                let replyInfo = basicPost.inReplyTo
+                if let replyInfo {
+                    let replyToAccount = actionHandler?.account(replyInfo.accountID)
+                    return SocialContextHeader.reply(to: replyToAccount?.displayInfo.displayName ?? "unknown", isPrivate: isPrivate, isNotification: false, emojis: replyToAccount?.displayInfo.emojis ?? [])
+                } else if isPrivate {
+                    return SocialContextHeader.mention(isPrivate: true)
+                } else if quotesMe {
+                    return SocialContextHeader.quoted(by: fullPost.metaData.author.displayInfo.displayName, emojis: fullPost.metaData.author.displayInfo.emojis)
+                }
+            }
+        }
+        return nil
     }
 
     func textContentView(isInlinePreview: Bool) -> MastodonContentView {
@@ -275,6 +344,7 @@ struct MastodonPostRowView: View {
                             .frame(maxWidth: contentWidth, alignment: .leading)
                     }
                 }
+                .accessibilityHidden(true)
             } else {
                 // MARK: Social context header
                 VStack(spacing: 0) {
@@ -283,6 +353,7 @@ struct MastodonPostRowView: View {
                     viewModel.socialContextHeader
                         .frame(maxWidth: contentWidth, alignment: .leading)
                 }
+                .accessibilityHidden(true)
             }
             
             HStack(alignment: .top, spacing: spacingBetweenGutterAndContent) {
@@ -296,10 +367,26 @@ struct MastodonPostRowView: View {
                             .frame(width: AvatarSize.large)
                     }
                 }
+                .accessibilityHidden(true)
                 
                 VStack(alignment: .leading, spacing: spacingBetweenGutterAndContent) {
                     // MARK: Author info
                     AuthorHeaderView()
+                        .onTapGesture {
+                            goToProfile(author)
+                        }
+                        .accessibilityActions {
+                            if let relationshipToAuthor = viewModel.myRelationshipToAuthor {
+                                if let author {
+                                    Button(L10n.Common.Controls.Status.showUserProfile) {
+                                        goToProfile(author)
+                                    }
+                                }
+                                ForEach(MastodonPostMenuAction.authorA11yMenuItems(forPostBy: relationshipToAuthor, isQuotingMe: viewModel.isQuotingMe, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { action in
+                                    viewModel.accessibilityActionButton(action)
+                                }
+                            }
+                        }
                     
                     // MARK: Content warned and/or filtered
                     contentConcealLozenge
@@ -327,6 +414,7 @@ struct MastodonPostRowView: View {
                                     return .systemAction(url)
                                 }
                             })
+                            .accessibilityElement(children: .combine)
                         
                         // MARK: Media attachment
                         if let attachment = viewModel.fullPost?.actionablePost?.content.attachment {
@@ -381,6 +469,26 @@ struct MastodonPostRowView: View {
                             .frame(height: 0)  // gives double spacing between bottom of post content and action bar
                         ActionBar(instanceCanQuotePosts: instanceCanQuotePosts)
                             .frame(width: contentWidth, alignment: .leading)
+                            .accessibilityElement(children: .ignore)
+                            .accessibilityLabel(viewModel.accessibilityActionBarLabel)
+                            .accessibilityActions {
+                                if let relationshipToAuthor = viewModel.myRelationshipToAuthor {
+                                    viewModel.accessibilityActionButton(.reply)
+                                    if instanceCanQuotePosts {
+                                        let (buttonTitle, buttonSubtitle, isEnabled) = viewModel.currentUserQuoteButton
+                                        let fullTitle = [buttonTitle, buttonSubtitle].compactMap { $0 }.joined(separator: ", ")
+                                        Button(fullTitle) {
+                                            if isEnabled {
+                                                guard let composeViewModel = viewModel.composeViewModelQuotingThisPost else { return }
+                                                viewModel.actionHandler?.presentScene(.compose(viewModel: composeViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
+                                            }
+                                        }
+                                    }
+                                    ForEach(MastodonPostMenuAction.postA11yMenuItemsOtherThanReply(forPostBy: relationshipToAuthor, myActions: viewModel.fullPost?.actionablePost?.content.myActions, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { action in
+                                        viewModel.accessibilityActionButton(action)
+                                    }
+                                }
+                            }
                     }
                     
                     // MARK: Thread view extra info for focused post
@@ -409,6 +517,43 @@ struct MastodonPostRowView: View {
     func goToProfile(_ account: MastodonAccount?) {
         guard let account else { return }
         viewModel.goToProfile(account)
+    }
+}
+
+extension MastodonPostViewModel {
+    var a11yHeaderLabel: String {
+        let visibilityString = initialDisplayInfo.actionableVisibility.a11yLabel
+        let dateString = initialDisplayInfo.actionableCreatedAt.localizedShortTimeAgo(since: .now)
+        let authorString = "\(visibilityString) post from \(initialDisplayInfo.actionableAuthorDisplayName)" + ", \(dateString)"
+        if let socialContext {
+            switch socialContext {
+            case .boosted(let author, _):
+                return "\(authorString), boosted by \(author)"
+            case .mention(let isPrivate):
+                return isPrivate ? "Private mention from \(initialDisplayInfo.actionableAuthorDisplayName), \(dateString)" : "\(authorString), \(dateString), mentions you"
+            case .quoted(_, _):
+                return "\(authorString), \(dateString), quotes you"
+            case .reply(let replyTo, let isPrivate, _, _):
+                return isPrivate ? "Private reply from \(initialDisplayInfo.actionableAuthorDisplayName), \(dateString)" : "\(authorString), \(dateString), in reply to \(replyTo)"
+            }
+        } else {
+            return authorString
+        }
+    }
+}
+
+extension GenericMastodonPost.PrivacyLevel {
+    var a11yLabel: String {
+        switch self {
+        case .loudPublic:
+            return L10n.Scene.Compose.Visibility.public
+        case .quietPublic:
+            return L10n.Scene.Compose.Visibility.unlisted
+        case .followersOnly:
+            return L10n.Scene.Compose.Visibility.private
+        case .mentionedOnly:
+            return L10n.Scene.Compose.Visibility.direct
+        }
     }
 }
 
@@ -585,18 +730,7 @@ private struct ActionBar: View {
         var body: some View {
             Menu {
                 if let relationship = viewModel.myRelationshipToAuthor {
-                    let isQuotingMe = {
-                        guard let quoted = viewModel.fullQuotedPostViewModel else { return false }
-                        switch quoted.myRelationshipToAuthor {
-                        case .isMe:
-                            return true
-                        case nil:
-                            return false
-                        default:
-                            return false
-                        }
-                    }()
-                    ForEach(submenus(forRelationshipToAuthor: relationship, isQuotingMe: isQuotingMe, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { submenu in
+                    ForEach(submenus(forRelationshipToAuthor: relationship, isQuotingMe: viewModel.isQuotingMe, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { submenu in
                         ForEach(submenu.items, id: \.self) { menuAction in
                             if let actionablePost = viewModel.fullPost?.actionablePost {
                                 Button(role: menuAction.isDestructive ? .destructive : nil) {

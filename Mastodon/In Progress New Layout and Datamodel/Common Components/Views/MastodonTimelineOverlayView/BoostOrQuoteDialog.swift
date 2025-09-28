@@ -39,7 +39,7 @@ struct BoostOrQuoteDialog: View {
                     
                     if let buttonTitle = quoteButtonInfo.title {
                         Button {
-                            guard let composeViewModel = composeViewModel else { return }
+                            guard let composeViewModel = viewModel.composeViewModelQuotingThisPost else { return }
                             viewModel.actionHandler?.presentScene(.compose(viewModel: composeViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
                         } label: {
                             VStack {
@@ -69,17 +69,5 @@ struct BoostOrQuoteDialog: View {
         } else {
             EmptyView()
         }
-    }
-    
-    var composeViewModel: ComposeViewModel? {
-        guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value, let quotedPost = viewModel.fullPost?.actionablePost else { return nil }
-        return ComposeViewModel(authenticationBox: currentUser, composeContext: .composeStatus(quoting: (quotedPost._legacyEntity, {
-            AnyView(
-                EmbeddedPostView(layoutWidth: 200, isSummary: false)
-                .environment(viewModel)
-                .environment(TimestampUpdater.timestamper(withInterval: 30))
-                .environment(ContentConcealViewModel.alwaysShow)
-                )
-        })), destination: .topLevel)
     }
 }

@@ -437,6 +437,8 @@ public enum L10n {
           /// Undo boost
           public static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unreblog", fallback: "Undo boost")
           public enum A11YLabels {
+            /// Bookmarked
+            public static let bookmarked = L10n.tr("Localizable", "Common.Controls.Status.Actions.A11YLabels.Bookmarked", fallback: "Bookmarked")
             /// Boost
             public static let reblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.A11YLabels.Reblog", fallback: "Boost")
             /// Undo boost
@@ -2360,6 +2362,14 @@ public enum L10n {
       /// Plural format key: "%#@voter_count@"
       public static func voter(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.voter", p1, fallback: "Plural format key: \"%#@voter_count@\"")
+      }
+      /// Plural format key: "%#@count_others@"
+      public static func youAndOthersBoosted(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "plural.count.you_and_others_boosted", p1, fallback: "Plural format key: \"%#@count_others@\"")
+      }
+      /// Plural format key: "%#@count_others@"
+      public static func youAndOthersFavorited(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "plural.count.you_and_others_favorited", p1, fallback: "Plural format key: \"%#@count_others@\"")
       }
     }
     public enum FilteredNotificationBanner {

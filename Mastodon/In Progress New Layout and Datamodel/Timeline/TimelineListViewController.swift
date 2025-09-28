@@ -2332,6 +2332,12 @@ struct TranslationInfoView: View {
                     .foregroundStyle(Asset.Colors.Brand.blurple.swiftUIColor)
             }
             .fixedSize()
+            .accessibilityHidden(true)
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(translatedFromLanguageByProvider + ", " + L10n.Common.Controls.Status.Translation.showOriginal)
+        .accessibilityAction {
+            showOriginal()
         }
     }
     

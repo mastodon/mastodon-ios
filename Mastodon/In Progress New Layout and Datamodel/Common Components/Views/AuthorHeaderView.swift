@@ -27,6 +27,8 @@ struct AuthorHeaderView: View {
             VisibilityAndTimestampWithUserHandle(referenceDate: postedDate, visibility: postViewModel.fullPost?.actionablePost?.metaData.privacyLevel ?? postViewModel.initialDisplayInfo.actionableVisibility, handle: authorHandle)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(postViewModel.a11yHeaderLabel)
     }
     
     @ViewBuilder var authorDisplayName: some View {

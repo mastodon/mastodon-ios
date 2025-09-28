@@ -13,7 +13,7 @@ public protocol AccountInfo {
 }
 
 extension AccountInfo {
-    func displayName(whenViewedBy myAccountID: String?) -> AuthorName? {
+    func displayName(whenViewedBy myAccountID: Mastodon.Entity.Account.ID?) -> AuthorName? {
         if myAccountID == id {
             return .me
         } else {
