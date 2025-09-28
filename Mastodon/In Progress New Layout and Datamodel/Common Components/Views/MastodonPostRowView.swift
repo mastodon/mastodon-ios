@@ -530,11 +530,11 @@ extension MastodonPostViewModel {
             case .boosted(let author, _):
                 return "\(authorString), boosted by \(author)"
             case .mention(let isPrivate):
-                return isPrivate ? "Private mention from \(initialDisplayInfo.actionableAuthorDisplayName), \(dateString)" : "\(authorString), \(dateString), mentions you"
+                return isPrivate ? "Private mention from \(initialDisplayInfo.actionableAuthorDisplayName), \(dateString)" : "\(authorString), mentions you"
             case .quoted(_, _):
-                return "\(authorString), \(dateString), quotes you"
+                return "\(authorString), quotes you"
             case .reply(let replyTo, let isPrivate, _, _):
-                return isPrivate ? "Private reply from \(initialDisplayInfo.actionableAuthorDisplayName), \(dateString)" : "\(authorString), \(dateString), in reply to \(replyTo)"
+                return isPrivate ? "Private reply from \(initialDisplayInfo.actionableAuthorDisplayName), \(dateString)" : "\(authorString), in reply to \(replyTo)"
             }
         } else {
             return authorString
