@@ -36,6 +36,10 @@
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
                 "block_entire_domain": "Block Domain"
             },
+            "confirm_remove_quote": {
+                "title": "Remove quoted post?",
+                "message": "Your post will be replaced with the text 'Post removed by author'. This action cannot be undone."
+            },
             "save_photo_failure": {
                 "title": "Save Photo Failure",
                 "message": "Please enable the photo library access permission to save the photo."
@@ -66,6 +70,13 @@
                 "boost": "Boost",
                 "unboost": "Unboost"
             },
+            "quote_a_post": {
+              "quote": "Quote",
+              "request_to_quote": "Request to quote",
+              "must_follow_to_quote": "Only followers can quote this post",
+              "quotes_disabled": "You are not allowed to quote this post",
+              "author_will_review": "Author will manually review"
+            },
             "unfollow_user": {
                 "title": "Unfollow %@?",
                 "cancel": "Cancel",
@@ -79,6 +90,7 @@
                 "previous": "Previous",
                 "open": "Open",
                 "add": "Add",
+                "removeQuote": "Remove my post",
                 "remove": "Remove",
                 "edit": "Edit",
                 "save": "Save",
@@ -116,10 +128,13 @@
                     "unknown_language": "Unknown"
                 },
                 "edit_post": "Edit",
+                "change_quote_policy": "Change who can quote",
                 "bookmark": "Bookmark",
                 "remove_bookmark": "Remove Bookmark",
                 "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "unfollow": "Unfollow %s",
+                "load_newer": "Load newer posts",
+                "load_older": "Load older posts"
             },
             "tabs": {
                 "home": "Home",
@@ -173,13 +188,16 @@
                 "tap_to_reveal": "Tap to reveal",
                 "load_embed": "Load Embed",
                 "link_via_user": "%s via %s",
+                "link_a11y_label": "Link:",
                 "poll": {
                     "vote": "Vote",
                     "voted": "Voted",
                     "closed": "Closed",
                     "see_results": "See Results",
                     "hide_results": "Hide Results",
-                    "choose_one_or_more": "Choose one or more"
+                    "choose_one_or_more": "Choose one or more",
+                    "multiselect_a11y_hint": "Select one or more",
+                    "single_select_a11y_hint": "Select one"
                 },
                 "meta_entity": {
                     "url": "Link: %s",
@@ -203,7 +221,8 @@
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu",
                     "a11y_labels": {
                         "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "unreblog": "Undo boost",
+                        "bookmarked": "Bookmarked"
                     },
                     "copy_link": "Copy Link"
                 },
@@ -252,9 +271,11 @@
                     "by_author": "By %s"
                 },
                 "quote": {
+                    "a11y_label" : "Quoted:",
                     "pending" : "Post pending",
                     "removed_by_author" : "Post removed by author",
                     "unavailable" : "Post unavailable",
+                    "hidden_by_filter" : "Hidden due to one of your filters",
                     "pending_explanation_message" : "On Mastodon, you can control whether someone can quote you. This post is pending while we’re getting the original author’s approval."
                 }
             },
@@ -586,7 +607,7 @@
             },
             "visibility_and_quotability": {
                 "title": "Visibility and Interaction",
-                "subtitle": "Control who can interact with this post. Global settings can be found under Preferences > Other.",
+                "subtitle": "Control who can interact with this post. Global settings can be found under Settings > Privacy & Safety.",
                 "public_anyone": "Public, anyone can quote",
                 "public_followers": "Public, quotes limited",
                 "public_only_me": "Public, quotes disabled",
@@ -988,8 +1009,17 @@
                     "private_and_restricted": "Private & Restricted",
                     "custom": "Custom"
                 },
-                "default_post_visibility": {
-                    "title": "Default Post Visibility"
+                "posting_defaults": {
+                    "title": "Posting defaults",
+                    "subtitle": "These settings will be used as defaults when you create new posts, but you can edit them per post within the composer.",
+                    "visibility_title": "Post Visibility",
+                    "public_hint": "Anyone on and off Mastodon",
+                    "quiet_public_hint": "Hidden from Mastodon search results, trending, and public timelines",
+                    "followers_only_hint": "Only your followers",
+                    "private_mention_hint": "Everyone mentioned in the post",
+                    "quiet_public_quotability_hint": "When people quote you, their post will also be hidden from trending timelines.",
+                    "followers_only_quotability_hint": "Followers-only posts authored on Mastodon can’t be quoted by others.",
+                    "private_mention_quotability_hint": "Private mentions authored on Mastodon can’t be quoted by others."
                 },
                 "manually_approve_follow_requests": "Manually Approve Follow Requests",
                 "show_followers_and_following": "Show Followers & Following",
@@ -1064,7 +1094,7 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "tab_bar_hint": "Current selected profile: %s. Triple tap to show account switcher",
             "dismiss_account_switcher": "Dismiss Account Switcher",
             "add_account": "Add Account",
             "logout_all_accounts": "Log Out Of All Accounts",
