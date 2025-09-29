@@ -23,6 +23,7 @@
                     "more_than_one_video": "Cannot attach more than one video."
                 }
             },
+            "generic_error": "Error",
             "edit_profile_failure": {
                 "title": "Edit Profile Error",
                 "message": "Cannot edit profile. Please try again."

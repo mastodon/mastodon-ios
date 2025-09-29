@@ -12,6 +12,8 @@ import Foundation
 public enum L10n {
   public enum Common {
     public enum Alerts {
+      /// Error
+      public static let genericError = L10n.tr("Localizable", "Common.Alerts.GenericError", fallback: "Error")
       public enum BlockDomain {
         /// Block Domain
         public static let blockEntireDomain = L10n.tr("Localizable", "Common.Alerts.BlockDomain.BlockEntireDomain", fallback: "Block Domain")

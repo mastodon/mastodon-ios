@@ -371,15 +371,21 @@ extension TimelineListViewController {
     private func generateNotificationRequestMenu(_ request: Mastodon.Entity.NotificationRequest) -> UIMenu {
         let acceptAction = UIAction(title: L10n.Scene.Notification.FilteredNotification.accept, image: .init(systemName: "checkmark")) { [weak self] _ in
             Task {
-                try await self?.acceptNotificationRequest(request)
-                // TODO: handle error?
+                do {
+                    try await self?.acceptNotificationRequest(request)
+                } catch {
+                    self?.viewModel.didReceiveError(error)
+                }
             }
         }
         
         let rejectAction = UIAction(title: L10n.Scene.Notification.FilteredNotification.dismiss, image: .init(systemName: "trash")) { [weak self] _ in
             Task {
-                try await self?.rejectNotificationRequest(request)
-                // TODO: handle error?
+                do {
+                    try await self?.rejectNotificationRequest(request)
+                } catch {
+                    self?.viewModel.didReceiveError(error)
+                }
             }
         }
         
@@ -517,6 +523,7 @@ extension MastodonPostMenuAction {
         case confirmRemoveQuote(username: String, didConfirm: (Bool)->())
         case confirmBlock(username: String, didConfirm: (Bool)->())
         case confirmUnblock(username: String, didConfirm: (Bool)->())
+        case error(Error)
         
         var title: String {
             switch self {
@@ -543,6 +550,8 @@ extension MastodonPostMenuAction {
                 L10n.Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.title
             case .confirmUnblock:
                 L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.title
+            case .error:
+                L10n.Common.Alerts.genericError
             }
         }
         
@@ -565,6 +574,8 @@ extension MastodonPostMenuAction {
                 L10n.Common.Alerts.ConfirmRemoveQuote.message
             case .confirmDeleteOfPost:
                 L10n.Common.Alerts.DeletePost.message
+            case .error(let error):
+                error.localizedDescription
             }
         }
         
@@ -610,11 +621,13 @@ private class TimelineListViewModel: ObservableObject {
         FilteredNotificationsRowView.ViewModel(policy: nil)
     var needsReloadOnNextAppear = false
     
+    var errorsWaitingToDisplay = [Error]()
     var activeAlert: MastodonPostMenuAction.AlertType = .noAlert {
         didSet {
             if !isPresentingAlert && activeAlert.shouldBePresented {
                 isPresentingAlert = true
             }
+            displayNextErrorIfPossible()
         }
     }
     var activeOverlay: MastodonTimelineOverlayView? = nil {
@@ -850,7 +863,13 @@ private class TimelineListViewModel: ObservableObject {
                     }
                 })
             }
-        // TODO: add feedLoaderErrorSubscription
+        
+        feedLoaderErrorSubscription = feedLoader?.$currentError
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                guard let self, let error else { return }
+                self.didReceiveError(error)
+            }
         feedLoader?.doFirstLoad()
        
         if timeline.canDisplayFilteredNotifications {
@@ -870,6 +889,24 @@ private class TimelineListViewModel: ObservableObject {
             [weak self] userID in
             guard userID == self?.authenticatedUser?.globallyUniqueUserIdentifier else { return }
             self?.feedLoader?.requestLoad(.reload)
+        }
+    }
+    
+    func didReceiveError(_ error: Error) {
+        if errorsWaitingToDisplay.count < 3 {
+            errorsWaitingToDisplay.append(error)
+        }
+        displayNextErrorIfPossible()
+    }
+    
+    func displayNextErrorIfPossible() {
+        guard let error = errorsWaitingToDisplay.first else { return }
+        switch activeAlert {
+        case .noAlert:
+            activeAlert = .error(error)
+            _ = errorsWaitingToDisplay.removeFirst()
+        default:
+            return
         }
     }
     
@@ -1383,7 +1420,7 @@ struct TimelineListView: View {
                                 viewModel.clearPendingActions()
                             } catch {
                                 viewModel.clearPendingActions()
-                                // TODO: make failure visible to user
+                                self.viewModel.didReceiveError(error)
                             }
                         }
                     } else {
@@ -1579,7 +1616,7 @@ struct TimelineListView: View {
             viewModel.presentScene(
                 .notificationRequests(viewModel: requestsViewModel), fromPost: nil, transition: .show)  // TODO: should be .modal(animated) on large screens?
         } catch {
-            // TODO: handle error
+            viewModel.didReceiveError(error)
         }
     }
     
@@ -1662,6 +1699,9 @@ struct TimelineListView: View {
                 didConfirm(true)
             } label: {
                 Text(L10n.Common.Controls.Friendship.unblockUser(username))
+            }
+        case .error(let error):
+            Button(L10n.Common.Controls.Actions.ok) {
             }
         }
     }
@@ -2003,7 +2043,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     await deletePost(actionablePost.id, askFirst: UserDefaults.shared.askBeforeDeletingAPost)
                 }
             } catch {
-                // TODO: handle error in a way the user can see it
+                didReceiveError(error)
                 assertionFailure()
                 clearPendingActions()
             }
@@ -2018,7 +2058,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                 let updated = try await APIService.shared.updateQuotePolicy(forStatus: post.id, to: editModel.interactionSettings.quotability, authenticationBox: authBox)
                 feedLoader?.updatePost(post: GenericMastodonPost.fromStatus(updated))
             } catch {
-                // TODO: make failure visible
+                didReceiveError(error)
             }
         }
     }
@@ -2114,7 +2154,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                 clearPendingActions()
             }
         } catch {
-            // TODO: make visible to user
+            didReceiveError(error)
             clearPendingActions()
         }
     }
@@ -2141,7 +2181,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                 AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
             }
         } catch {
-            // TODO: make visible to user
+            didReceiveError(error)
             assert(false)
         }
         isPerformingAccountAction = nil
@@ -2187,7 +2227,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             feedLoader?.updateMyRelationship(.isNotMe(newRelationshipInfo), to: accountID)
             AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
         } catch {
-            // TODO: make visible to user
+            didReceiveError(error)
         }
         isPerformingAccountAction = nil
     }
@@ -2200,7 +2240,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             feedLoader?.updateMyRelationship(.isNotMe(newRelationshipInfo), to: accountID)
             AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
         } catch {
-            // TODO: make visible to user
+            didReceiveError(error)
         }
         isPerformingAccountAction = nil
     }
@@ -2213,7 +2253,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             feedLoader?.updateMyRelationship(.isNotMe(newRelationshipInfo), to: accountID)
             AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
         } catch {
-            // TODO: make visible to user
+            didReceiveError(error)
         }
         isPerformingAccountAction = nil
     }
@@ -2227,7 +2267,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             feedLoader?.updatePost(post: GenericMastodonPost.fromStatus(updated))
             clearPendingActions()
         } catch {
-            // TODO: make visible to user
+            didReceiveError(error)
             clearPendingActions()
         }
     }
@@ -2240,7 +2280,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             feedLoader?.updateMyRelationship(.isNotMe(newRelationshipInfo), to: accountID)
             AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
         } catch {
-            // TODO: make visible to user
+            didReceiveError(error)
         }
         isPerformingAccountAction = nil
     }
@@ -2253,7 +2293,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             feedLoader?.updateMyRelationship(.isNotMe(newRelationshipInfo), to: accountID)
             AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
         } catch {
-            // TODO: make visible to user
+            didReceiveError(error)
         }
         isPerformingAccountAction = nil
     }
@@ -2275,7 +2315,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             }
         } catch {
             self.clearPendingActions()
-            // TODO: make visible to user
+            didReceiveError(error)
         }
     }
     
