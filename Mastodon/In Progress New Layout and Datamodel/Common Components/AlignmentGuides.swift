@@ -41,13 +41,3 @@ extension HorizontalAlignment {
     
     static let gutterAlign = HorizontalAlignment(GutterAlign.self)
 }
-
-extension VerticalAlignment {
-    enum ActionBarAlign: AlignmentID {
-        static func defaultValue(in context: ViewDimensions) -> CGFloat {
-            context[.top]
-        }
-    }
-    
-    static let actionBarAlign = VerticalAlignment(ActionBarAlign.self)
-}

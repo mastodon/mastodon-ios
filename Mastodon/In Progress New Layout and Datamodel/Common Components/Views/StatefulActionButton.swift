@@ -25,8 +25,12 @@ struct StatefulCountedActionButton: View {
         let count: Int?
         let isSelected: AsyncBool
     }
+    enum LayoutSize {
+        case adaptive
+        case forceSmall
+    }
     let type: PostAction
-    let layoutAxis: Axis
+    let layoutSize: LayoutSize
     let showCountLabel: Bool
     let actionState: ActionState
     let doAction: (()->())?
@@ -35,28 +39,9 @@ struct StatefulCountedActionButton: View {
     
     var body: some View {
         Button(action: { doAction?() }) {
-            switch layoutAxis {
-            case .horizontal:
-                HStack(spacing: 4) {
-                    imageComponent
-                    countLabelComponent
-                }
-            case .vertical:
-                VStack(spacing: 0) {
-                    if showCountLabel {
-                        countLabelComponent
-                    }
-                    ZStack {
-                        imageComponent
-                            .alignmentGuide(.actionBarAlign) { d in
-                                return d[.top]
-                            }
-                        if !showCountLabel {
-                            countLabelComponent
-                                .hidden()   // this gives the buttons a standard spacing whether the count labels are being displayed or not
-                        }
-                    }
-                }
+            HStack(spacing: 4) {
+                imageComponent
+                countLabelComponent
             }
         }
         .buttonStyle(.borderless) // Without this, all the buttons in the row activate when one is tapped.  What a remarkably unexpected result with no documentation.
@@ -67,16 +52,6 @@ struct StatefulCountedActionButton: View {
     
     @ViewBuilder var imageComponent: some View {
         ZStack (alignment: .top) {
-            
-            if layoutAxis == .vertical {
-                // these hidden views make the layout of the buttons consistent for all the different icons
-                ProgressView()
-                    .progressViewStyle(.circular)
-                    .hidden()
-                Image(systemName: PostAction.bookmark.systemIconName(filled: true)) // this is the tallest icon
-                    .hidden()
-            }
-            
             // The actual image to display
             switch actionState.isSelected {
             case .isFalse, .isTrue:
@@ -92,14 +67,16 @@ struct StatefulCountedActionButton: View {
     }
     
     @ViewBuilder var countLabelComponent: some View {
-        ZStack(alignment: layoutAxis == .horizontal ? .leading : .center) {
+        ZStack(alignment: .leading) {
             Text("0000")         // to keep the required space
                 .fontWeight(.semibold)
+                .lineLimit(1)
                 .hidden()
             Text(countLabel ?? "")
+                .lineLimit(1)
                 .contentTransition(.numericText(value: Double(actionState.count ?? 0)))
         }
-        .font(.footnote)
+        .font(layoutSize == .adaptive ? .footnote : Font.system(size: 13))
     }
     
     private var iconName: String {
