@@ -375,19 +375,7 @@ struct MastodonPostRowView: View {
                         .onTapGesture {
                             goToProfile(author)
                         }
-                        .accessibilityActions {
-                            if let relationshipToAuthor = viewModel.myRelationshipToAuthor {
-                                if let author {
-                                    Button(L10n.Common.Controls.Status.showUserProfile) {
-                                        goToProfile(author)
-                                    }
-                                }
-                                ForEach(MastodonPostMenuAction.authorA11yMenuItems(forPostBy: relationshipToAuthor, isQuotingMe: viewModel.isQuotingMe, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { action in
-                                    viewModel.accessibilityActionButton(action)
-                                }
-                            }
-                        }
-                    
+                   
                     // MARK: Content warned and/or filtered
                     contentConcealLozenge
                         .frame(width: contentWidth)
@@ -471,24 +459,6 @@ struct MastodonPostRowView: View {
                             .frame(width: contentWidth, alignment: .leading)
                             .accessibilityElement(children: .ignore)
                             .accessibilityLabel(viewModel.accessibilityActionBarLabel)
-                            .accessibilityActions {
-                                if let relationshipToAuthor = viewModel.myRelationshipToAuthor {
-                                    viewModel.accessibilityActionButton(.reply)
-                                    if instanceCanQuotePosts {
-                                        let (buttonTitle, buttonSubtitle, isEnabled) = viewModel.currentUserQuoteButton
-                                        let fullTitle = [buttonTitle, buttonSubtitle].compactMap { $0 }.joined(separator: ", ")
-                                        Button(fullTitle) {
-                                            if isEnabled {
-                                                guard let composeViewModel = viewModel.composeViewModelQuotingThisPost else { return }
-                                                viewModel.actionHandler?.presentScene(.compose(viewModel: composeViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
-                                            }
-                                        }
-                                    }
-                                    ForEach(MastodonPostMenuAction.postA11yMenuItemsOtherThanReply(forPostBy: relationshipToAuthor, myActions: viewModel.fullPost?.actionablePost?.content.myActions, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { action in
-                                        viewModel.accessibilityActionButton(action)
-                                    }
-                                }
-                            }
                     }
                     
                     // MARK: Thread view extra info for focused post
@@ -511,6 +481,41 @@ struct MastodonPostRowView: View {
         }
         .onAppear() {
             //assert(viewModel.fullPost != nil)
+        }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(L10n.Scene.Notification.Headers.status)
+        .accessibilityActions {
+            if let relationshipToAuthor = viewModel.myRelationshipToAuthor {
+                // AUTHOR ACTIONS
+                if let author {
+                    Button(L10n.Common.Controls.Status.showUserProfile) {
+                        goToProfile(author)
+                    }
+                }
+                ForEach(MastodonPostMenuAction.authorA11yMenuItems(forPostBy: relationshipToAuthor, isQuotingMe: viewModel.isQuotingMe, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { action in
+                    viewModel.accessibilityActionButton(action)
+                }
+                
+                // REPLY
+                viewModel.accessibilityActionButton(.reply)
+                
+                // QUOTE
+                if instanceCanQuotePosts {
+                    let (buttonTitle, buttonSubtitle, isEnabled) = viewModel.currentUserQuoteButton
+                    let fullTitle = [buttonTitle, buttonSubtitle].compactMap { $0 }.joined(separator: ", ")
+                    Button(fullTitle) {
+                        if isEnabled {
+                            guard let composeViewModel = viewModel.composeViewModelQuotingThisPost else { return }
+                            viewModel.actionHandler?.presentScene(.compose(viewModel: composeViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
+                        }
+                    }
+                }
+                
+                // POST ACTIONS
+                ForEach(MastodonPostMenuAction.postA11yMenuItemsOtherThanReply(forPostBy: relationshipToAuthor, myActions: viewModel.fullPost?.actionablePost?.content.myActions, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { action in
+                    viewModel.accessibilityActionButton(action)
+                }
+            }
         }
     }
     
