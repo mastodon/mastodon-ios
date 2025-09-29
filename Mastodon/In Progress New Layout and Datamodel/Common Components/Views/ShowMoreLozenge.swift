@@ -11,30 +11,31 @@ struct ShowMoreLozenge: View {
     @ObservedObject var viewModel: ShowMoreViewModel
     
     var body: some View {
-        VStack(alignment: .leading) {
-            ForEach(viewModel.reasons, id: \.id) { reasonMessage in
-                Text(reasonMessage)
-                    .font(.subheadline)
-            }
-            HStack() {
-                Button {
-                    viewModel.showMore(!viewModel.isShowing)
-                } label: {
+        Button {
+            viewModel.showMore(!viewModel.isShowing)
+        } label: {
+            VStack(alignment: .leading) {
+                ForEach(viewModel.reasons, id: \.id) { reasonMessage in
+                    Text(reasonMessage)
+                        .font(.subheadline)
+                }
+                HStack() {
                     Text(viewModel.isShowing ? buttonTextWhenShowing : buttonTextWhenHiding)
                         .font(.subheadline)
                         .fontWeight(.semibold)
                         .foregroundStyle(Asset.Colors.Brand.blurple.swiftUIColor)
+                    
+                    Spacer()
+                        .frame(maxWidth: .infinity)
                 }
-                Spacer()
-                    .frame(maxWidth: .infinity)
+            }
+            .accessibilityElement(children: .combine)
+            .frame(maxWidth: .infinity)
+            .padding(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+            .background {
+                MastodonSecondaryBackground(fillInDarkModeOnly: false)
             }
         }
-        .frame(maxWidth: .infinity)
-        .padding(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
-        .background {
-            MastodonSecondaryBackground(fillInDarkModeOnly: false)
-        }
-        .accessibilityElement(children: .combine)
     }
 }
 
