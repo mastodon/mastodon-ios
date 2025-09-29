@@ -60,21 +60,11 @@ struct LinkPreviewCard: View {
                 .fill(.clear)
                 .stroke(.separator, lineWidth: 0.3)
         }
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(accessibilityLabelText)
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(L10n.Common.Controls.Status.linkA11yLabel)
         .onTapGesture {
             guard let url = URL(string: cardEntity.url) else { return }
             navigateToScene(.safari(url: url), .safariPresent(animated: true, completion: nil))
-        }
-    }
-    
-    var accessibilityLabelText: String {
-        let title = cardEntity.title.trimmingCharacters(in: .whitespacesAndNewlines)
-        let url = URL(string: cardEntity.url)
-        if let host = url?.host {
-            return "\(title) \(host)"
-        } else {
-            return title
         }
     }
     
@@ -107,6 +97,7 @@ struct LinkPreviewCard: View {
                                 Image(uiImage: blurhash)
                                     .resizable()
                                     .scaledToFill()
+                                    .accessibilityHidden(true)
                                 ProgressView()
                             } else {
                                 if cardEntity.html == nil || cardEntity.html?.isEmpty == true {
@@ -121,10 +112,12 @@ struct LinkPreviewCard: View {
                                 Image(uiImage: blurhash)
                                     .resizable()
                                     .scaledToFill()
+                                    .accessibilityHidden(true)
                             }
                             image
                                 .resizable()
                                 .scaledToFit()
+                                .accessibilityHidden(true)
                             
                             if let html = cardEntity.html, !html.isEmpty {
                                 if loadingEmbeddedContent {
@@ -163,6 +156,7 @@ struct LinkPreviewCard: View {
                                     break
                                 }
                             }
+                            .accessibilityHidden(true)
                     @unknown default:
                         EmptyView()
                     }

@@ -367,6 +367,8 @@ public enum L10n {
         public static func editedAtTimestampPrefix(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Status.EditedAtTimestampPrefix", String(describing: p1), fallback: "Edited %@")
         }
+        /// Link:
+        public static let linkA11yLabel = L10n.tr("Localizable", "Common.Controls.Status.LinkA11yLabel", fallback: "Link:")
         /// %@ via %@
         public static func linkViaUser(_ p1: Any, _ p2: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Status.LinkViaUser", String(describing: p1), String(describing: p2), fallback: "%@ via %@")

@@ -188,6 +188,7 @@
                 "tap_to_reveal": "Tap to reveal",
                 "load_embed": "Load Embed",
                 "link_via_user": "%s via %s",
+                "link_a11y_label": "Link:",
                 "poll": {
                     "vote": "Vote",
                     "voted": "Voted",

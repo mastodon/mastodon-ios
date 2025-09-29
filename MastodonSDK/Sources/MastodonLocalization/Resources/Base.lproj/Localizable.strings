@@ -158,6 +158,7 @@ Please check your internet connection.";
 "Common.Controls.Status.EditHistory.Title" = "Edit History";
 "Common.Controls.Status.EditedAtTimestampPrefix" = "Edited %@";
 "Common.Controls.Status.LinkViaUser" = "%@ via %@";
+"Common.Controls.Status.LinkA11yLabel" = "Link:";
 "Common.Controls.Status.LoadEmbed" = "Load Embed";
 "Common.Controls.Status.Media.AccessibilityLabel" = "%@, attachment %d of %d";
 "Common.Controls.Status.Media.ExpandGifHint" = "Expands the GIF. Double-tap and hold to show actions";
