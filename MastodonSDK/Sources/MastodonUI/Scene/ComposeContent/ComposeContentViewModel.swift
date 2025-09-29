@@ -434,8 +434,8 @@ extension ComposeContentViewModel {
             let shouldMediaDisable = isPollActive || attachmentViewModels.count >= maxMediaAttachmentLimit
             let shouldPollDisable = attachmentViewModels.count > 0
             
-            self.isAttachmentButtonEnabled = !shouldMediaDisable
-            self.isPollButtonEnabled = !shouldPollDisable
+            self.isAttachmentButtonEnabled = !shouldMediaDisable && self.composeContext.quotedID == nil
+            self.isPollButtonEnabled = !shouldPollDisable && self.composeContext.quotedID == nil
         }
         .store(in: &disposeBag)
         
