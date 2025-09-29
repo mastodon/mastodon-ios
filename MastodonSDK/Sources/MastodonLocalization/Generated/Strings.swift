@@ -520,8 +520,12 @@ public enum L10n {
           public static let closed = L10n.tr("Localizable", "Common.Controls.Status.Poll.Closed", fallback: "Closed")
           /// Hide Results
           public static let hideResults = L10n.tr("Localizable", "Common.Controls.Status.Poll.HideResults", fallback: "Hide Results")
+          /// Select one or more
+          public static let multiselectA11yHint = L10n.tr("Localizable", "Common.Controls.Status.Poll.MultiselectA11yHint", fallback: "Select one or more")
           /// See Results
           public static let seeResults = L10n.tr("Localizable", "Common.Controls.Status.Poll.SeeResults", fallback: "See Results")
+          /// Select one
+          public static let singleSelectA11yHint = L10n.tr("Localizable", "Common.Controls.Status.Poll.SingleSelectA11yHint", fallback: "Select one")
           /// Vote
           public static let vote = L10n.tr("Localizable", "Common.Controls.Status.Poll.Vote", fallback: "Vote")
           /// Voted

@@ -181,6 +181,8 @@ Please check your internet connection.";
 "Common.Controls.Status.Poll.SeeResults" = "See Results";
 "Common.Controls.Status.Poll.HideResults" = "Hide Results";
 "Common.Controls.Status.Poll.ChooseOneOrMore" = "Choose one or more";
+"Common.Controls.Status.Poll.MultiselectA11yHint" = "Select one or more";
+"Common.Controls.Status.Poll.SingleSelectA11yHint" = "Select one";
 "Common.Controls.Status.PostedViaApplication" = "%@ via %@";
 "Common.Controls.Status.PrivateMention" = "Private mention";
 "Common.Controls.Status.PrivateReply" = "Private reply";

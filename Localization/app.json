@@ -195,7 +195,9 @@
                     "closed": "Closed",
                     "see_results": "See Results",
                     "hide_results": "Hide Results",
-                    "choose_one_or_more": "Choose one or more"
+                    "choose_one_or_more": "Choose one or more",
+                    "multiselect_a11y_hint": "Select one or more",
+                    "single_select_a11y_hint": "Select one"
                 },
                 "meta_entity": {
                     "url": "Link: %s",

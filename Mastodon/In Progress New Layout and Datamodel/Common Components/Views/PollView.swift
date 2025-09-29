@@ -35,6 +35,7 @@ struct PollView: View {
                         }
                         .disabled(vote.isDisabled)
                         .buttonStyle(.borderless)
+                        .accessibilityHidden(true)
                     } else {
                         Spacer()
                             .frame(maxWidth: .infinity)
@@ -47,11 +48,52 @@ struct PollView: View {
                             buttonView(viewResults)
                         }
                         .buttonStyle(.borderless)
+                        .accessibilityHidden(true)
                     }
                 }
                 .fontWeight(.semibold)
             }
         }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(L10n.Scene.Notification.Headers.poll)
+        .accessibilityHint(a11yVoteHint)
+        .accessibilityActions {
+            if let vote = voteButton {
+                if !vote.isDisabled {
+                    Button {
+                        viewModel.submitVote()
+                    } label: {
+                        buttonView(vote)
+                    }
+                }
+            }
+            if let viewResults = viewResultsButton {
+                Button() {
+                    viewModel.viewingResults = !viewModel.viewingResults
+                } label: {
+                    buttonView(viewResults)
+                }
+            }
+        }
+    }
+    
+    var a11yVoteHint: String {
+        switch viewModel.votingState {
+        case .selecting(let selectionState):
+            switch selectionState {
+            case .multiSelect(let selected):
+                if selected.count == 0 {
+                    return L10n.Common.Controls.Status.Poll.multiselectA11yHint
+                }
+            case .singleSelect(let selected):
+                if selected == nil {
+                    return L10n.Common.Controls.Status.Poll.singleSelectA11yHint
+                }
+            }
+        default:
+            return ""
+        }
+        return ""
     }
     
     @ViewBuilder func optionRow(_ option: PollViewModel.Option, index: Int) -> some View {
