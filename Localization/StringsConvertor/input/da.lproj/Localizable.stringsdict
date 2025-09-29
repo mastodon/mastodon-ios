@@ -98,6 +98,38 @@
         <string>%ld andre</string>
       </dict>
     </dict>
+    <key>plural.count.you_and_others_boosted</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_others@</string>
+      <key>count_others</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>fremhævet af dig og én anden</string>
+        <key>other</key>
+        <string>fremhævet af dig og %ld andre</string>
+      </dict>
+    </dict>
+    <key>plural.count.you_and_others_favorited</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_others@</string>
+      <key>count_others</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>favoritmarkeret af dig og én anden</string>
+        <key>other</key>
+        <string>favoritmarkeret af dig og %ld andre</string>
+      </dict>
+    </dict>
     <key>plural.count.people_boosted</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>

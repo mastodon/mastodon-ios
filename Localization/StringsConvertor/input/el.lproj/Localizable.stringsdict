@@ -13,9 +13,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person signed up</string>
+        <string>ένα άτομο έχει εγγραφεί</string>
         <key>other</key>
-        <string>%ld people signed up</string>
+        <string>%ld άτομα έχουν εγγραφεί</string>
       </dict>
     </dict>
     <key>a11y.plural.count.unread.notification</key>
@@ -96,6 +96,38 @@
         <string>ένα ακόμη</string>
         <key>other</key>
         <string>%ld ακόμη</string>
+      </dict>
+    </dict>
+    <key>plural.count.you_and_others_boosted</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_others@</string>
+      <key>count_others</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>boosted by you and one other</string>
+        <key>other</key>
+        <string>boosted by you and %ld others</string>
+      </dict>
+    </dict>
+    <key>plural.count.you_and_others_favorited</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_others@</string>
+      <key>count_others</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>favorited by you and one other</string>
+        <key>other</key>
+        <string>favorited by you and %ld others</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>

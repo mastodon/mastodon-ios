@@ -98,6 +98,38 @@
         <string>%ld others</string>
       </dict>
     </dict>
+    <key>plural.count.you_and_others_boosted</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_others@</string>
+      <key>count_others</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>boosted by you and one other</string>
+        <key>other</key>
+        <string>boosted by you and %ld others</string>
+      </dict>
+    </dict>
+    <key>plural.count.you_and_others_favorited</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_others@</string>
+      <key>count_others</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>favorited by you and one other</string>
+        <key>other</key>
+        <string>favorited by you and %ld others</string>
+      </dict>
+    </dict>
     <key>plural.count.people_boosted</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -349,9 +381,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 tririt</string>
+        <string>1 n tririt</string>
         <key>other</key>
-        <string>%ld tririyin</string>
+        <string>%ld n tririyin</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -367,7 +399,7 @@
         <key>one</key>
         <string>1 tefrant</string>
         <key>other</key>
-        <string>%ld tefranin</string>
+        <string>%ld n tefranin</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -381,9 +413,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1umefran</string>
+        <string>1 n umefran</string>
         <key>other</key>
-        <string>%ld imefranen</string>
+        <string>%ld n imefranen</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -399,7 +431,7 @@
         <key>one</key>
         <string>1 umdan i yettmeslayen</string>
         <key>other</key>
-        <string>%ld yimdanen i yettmeslayen</string>
+        <string>%ld n yimdanen i yettmeslayen</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -415,7 +447,7 @@
         <key>one</key>
         <string>1 uneḍfar</string>
         <key>other</key>
-        <string>%ld yineḍfaren</string>
+        <string>%ld n ineḍfaren</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>

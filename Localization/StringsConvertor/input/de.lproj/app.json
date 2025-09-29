@@ -6,7 +6,7 @@
                 "please_try_again_later": "Bitte versuche es später nochmal."
             },
             "sign_up_failure": {
-                "title": "Registrierungsfehler"
+                "title": "Fehler bei der Registrierung"
             },
             "server_error": {
                 "title": "Serverfehler"
@@ -33,7 +33,7 @@
                 "confirm": "Abmelden"
             },
             "block_domain": {
-                "title": "Bist du dir wirklich sicher, dass du die ganze Domain %s blockieren willst? In den meisten Fällen reichen ein paar gezielte Blockierungen oder Stummschaltungen aus und werden bevorzugt. Du wirst den Inhalt von dieser Domain nicht mehr sehen. Deine Follower von dieser Domain werden entfernt.",
+                "title": "Möchtest du die gesamte Domain %s wirklich blockieren? In den meisten Fällen reichen ein paar gezielte Blockierungen oder Stummschaltungen aus. Du wirst von dieser Domain keinen Inhalt sehen und deine dort befindlichen Follower verlieren.",
                 "block_entire_domain": "Domain blockieren"
             },
             "save_photo_failure": {
@@ -42,7 +42,7 @@
             },
             "delete_post": {
                 "title": "Beiträge löschen",
-                "message": "Bist du dir sicher, dass du diesen Beitrag löschen willst?"
+                "message": "Möchtest du diesen Beitrag wirklich löschen?"
             },
             "clean_cache": {
                 "title": "Zwischenspeicher leeren",
@@ -55,7 +55,7 @@
             },
             "media_missing_alt_text": {
                 "title": "Medien haben keinen Alt-Text",
-                "message": "Bei %d Ihrer Bilder fehlt der Alt-Text.\nTrotzdem posten?",
+                "message": "%d deiner Bilder fehlt der Alt-Text.\nTrotzdem senden?",
                 "cancel": "Abbrechen",
                 "post": "Veröffentlichen"
             },
@@ -143,7 +143,7 @@
                     "next_status": "Nächster Beitrag",
                     "open_status": "Beitrag öffnen",
                     "open_author_profile": "Profil des Verfassers ansehen",
-                    "open_reblogger_profile": "Booster Profil öffnen",
+                    "open_reblogger_profile": "Profil des teilenden Profils öffnen",
                     "reply_status": "Auf Beitrag antworten",
                     "toggle_reblog": "Boost beim Posten ein-/ausschalten",
                     "toggle_favorite": "Favorit vom Beitrag umschalten",
@@ -165,7 +165,7 @@
                 "show_post": "Beitrag anzeigen",
                 "show_user_profile": "Benutzerprofil anzeigen",
                 "content_warning": "Inhaltswarnung",
-                "sensitive_content": "NSFW-Inhalt",
+                "sensitive_content": "Inhaltswarnung",
                 "media_content_warning": "Tippe irgendwo zum Anzeigen",
                 "tap_to_reveal": "Zum Anzeigen tippen",
                 "load_embed": "Eingebettetes laden",
@@ -192,7 +192,7 @@
                     "show_gif": "GIF anzeigen",
                     "show_video_player": "Filmwiedergabe anzeigen",
                     "share_link_in_post": "Link im Beitrag teilen",
-                    "tap_then_hold_to_show_menu": "Halte gedrückt um das Menü anzuzeigen",
+                    "tap_then_hold_to_show_menu": "Gedrückt halten, um das Menü anzuzeigen",
                     "a11y_labels": {
                         "reblog": "Boost",
                         "unreblog": "Geteilten Beitrag widerrufen"
@@ -208,10 +208,10 @@
                     "emoji": "Emoji"
                 },
                 "visibility": {
-                    "unlisted": "Jeder kann diesen Post sehen, aber nicht in der öffentlichen Timeline zeigen.",
-                    "private": "Nur die, die dem Autor folgen, können diesen Beitrag sehen.",
-                    "private_from_me": "Nur die, die mir folgen, können diesen Beitrag sehen.",
-                    "direct": "Nur erwähnte Benutzer können diesen Beitrag sehen."
+                    "unlisted": "Alle können diesen Beitrag sehen, jedoch nicht in der öffentlichen Timeline.",
+                    "private": "Nur deren Follower können diesen Beitrag sehen.",
+                    "private_from_me": "Nur Profile, die mir folgen, können diesen Beitrag sehen.",
+                    "direct": "Nur erwähnte Profile können diesen Beitrag sehen."
                 },
                 "translation": {
                     "translated_from": "Übersetzt von %s mit %s",
@@ -221,9 +221,9 @@
                 },
                 "media": {
                     "accessibility_label": "%s, Anhang %d von %d",
-                    "expand_image_hint": "Erweitert das Bild. Doppeltippen und halten um Aktionen anzuzeigen.",
-                    "expand_gif_hint": "Erweitert das GIF. Doppeltippen und halten um Aktionen anzuzeigen.",
-                    "expand_video_hint": "Zeigt die Filmwiedergabe. Doppeltippen und halten um Aktionen anzuzeigen."
+                    "expand_image_hint": "Erweitert das Bild. Zweimal tippen und halten, um Aktionen anzuzeigen",
+                    "expand_gif_hint": "Erweitert das GIF. Zweimal tippen und halten, um Aktionen anzuzeigen",
+                    "expand_video_hint": "Zeigt den Videoplayer. Zweimal tippen und halten, um Aktionen anzuzeigen"
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Willkommen zurück",
-            "subtitle": "Melden Sie sich bei dem Server an, auf dem Sie Ihr Konto erstellt haben.",
+            "subtitle": "Melde dich auf dem Server an, auf dem du dein Konto erstellt hast. Beispiel: Besteht deine Adresse aus @name@example.social, gib „example.social“ ein.",
             "server_search_field": {
                 "placeholder": "URL eingeben oder nach Server suchen"
             }
@@ -357,7 +357,7 @@
             },
             "empty_state": {
                 "finding_servers": "Verfügbare Server werden gesucht …",
-                "bad_network": "Beim Laden der Daten ist etwas schief gelaufen. Überprüfe deine Internetverbindung.",
+                "bad_network": "Beim Laden der Daten ist etwas schiefgelaufen. Überprüfe deine Internetverbindung.",
                 "no_results": "Keine Ergebnisse"
             },
             "signup_speed": {
@@ -371,13 +371,13 @@
             "search": {
                 "placeholder": "Server oder URL eingeben"
             },
-            "no_server_selected_hint": "Wenn Sie fortfahren, ohne eine Auswahl zu treffen, wird ein Server auf der Grundlage Ihrer Sprache ausgewählt."
+            "no_server_selected_hint": "Wenn du fortfährst, ohne eine Auswahl zu treffen, wird ein Server auf der Grundlage deiner Sprache ausgewählt."
         },
         "privacy": {
-            "title": "Ihre Privatsphäre",
-            "description": "Obwohl die Mastodon-App keine Daten sammelt, kann es sein, dass der Server, über den Sie sich anmelden, andere Richtlinien hat.\n\nWenn Sie mit den Richtlinien für **%s** nicht einverstanden sind, können Sie zurückgehen und einen anderen Server auswählen.",
+            "title": "Deine Privatsphäre",
+            "description": "Auch wenn die Mastodon-App keine Daten sammelt, kann der Server, über den du dich registrierst, eine andere Richtlinie haben.\n\nWenn du mit der Richtlinie für **%s** nicht einverstanden bist, kannst du zurückkehren und einen anderen Server wählen.",
             "policy": {
-                "ios": "Datenschutzerklärung - Mastodon für iOS",
+                "ios": "Datenschutzerklärung – Mastodon für iOS",
                 "server": "Datenschutzerklärung - %s"
             },
             "button": {
@@ -389,7 +389,7 @@
             "input": {
                 "birth_date": {
                     "label": "Geburtstag",
-                    "explanation_message": "Wir müssen sicherstellen, dass Sie mindestens %d sind, um %@ beitreten zu können. Dies wird nach der Anmeldung nicht gespeichert."
+                    "explanation_message": "Wir müssen sicherstellen, dass du mindestens %d alt bist, um %@ beitreten zu können. Das Alter wird nicht gespeichert."
                 },
                 "avatar": {
                     "delete": "Löschen"
@@ -414,7 +414,7 @@
                         "checked": "Häkchen gesetzt",
                         "unchecked": "Häkchen entfernt"
                     },
-                    "hint": "Ihr Passwort muss mindestens 8 Zeichen lang sein"
+                    "hint": "Dein Passwort muss mindestens 8 Zeichen lang sein"
                 },
                 "invite": {
                     "registration_user_invite_request": "Warum möchtest du beitreten?"
@@ -626,12 +626,12 @@
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Konto stummschalten",
+                    "title": "Profil stummschalten",
                     "message": "Bestätige %s stumm zu schalten"
                 },
                 "confirm_unmute_user": {
                     "title": "Ton einschalten",
-                    "message": "Bestätige, um %s nicht mehr stummzuschalten"
+                    "message": "Bestätigen, um %s nicht mehr stummzuschalten"
                 },
                 "confirm_block_user": {
                     "title": "Konto blockieren",
@@ -662,7 +662,7 @@
                 "show_avatar_image": "Profilbild anzeigen",
                 "edit_avatar_image": "Profilbild bearbeiten",
                 "show_banner_image": "Bannerbild anzeigen",
-                "double_tap_to_open_the_list": "Doppeltippen, um die Liste zu öffnen"
+                "double_tap_to_open_the_list": "Zweimal tippen, um die Liste zu öffnen"
             }
         },
         "follower": {
@@ -686,14 +686,14 @@
         "search": {
             "title": "Suche",
             "search_bar": {
-                "placeholder": "Hashtags und Benutzer suchen",
+                "placeholder": "Nach Hashtags und Profilen suchen",
                 "cancel": "Abbrechen"
             },
             "recommend": {
                 "button_text": "Alle anzeigen",
                 "hash_tag": {
                     "title": "Angesagt auf Mastodon",
-                    "description": "Hashtags die an Aufmerksamkeit zunehmen",
+                    "description": "Aktuell beliebte Hashtags",
                     "people_talking": "%s Leute reden"
                 },
                 "accounts": {
@@ -703,14 +703,14 @@
                 }
             },
             "searching": {
-                "posts": "Beiträge passend zu \"%s\"",
+                "posts": "Beiträge passend zu %s",
                 "people": "Profile passend zu \"%s\"",
                 "profile": "Gehe zu @%s@%s",
                 "url": "URL in Mastodon öffnen",
                 "hashtag": "Wechseln zu #%s",
                 "no_user": {
                     "title": "Kein Benutzerkonto gefunden",
-                    "message": "Es gibt kein Benutzerkonto „%s” auf %s"
+                    "message": "Es gibt kein Profil „%s“ auf %s"
                 },
                 "empty_state": {
                     "no_results": "Keine Ergebnisse"
@@ -790,8 +790,8 @@
                 "rejected": "Abgelehnt"
             },
             "warning": {
-                "none": "Ihr Konto hat eine Moderationswarnung erhalten.",
-                "disable": "Ihr Konto wurde deaktiviert.",
+                "none": "Dein Konto ist von den Moderator*innen verwarnt worden.",
+                "disable": "Dein Konto wurde deaktiviert.",
                 "mark_statuses_as_sensitive": "Einige deiner Beiträge wurden mit einer Inhaltswarnung versehen.",
                 "delete_statuses": "Einige deiner Beiträge sind entfernt worden.",
                 "sensitive": "Deine zukünftigen Beiträge werden mit einer Inhaltswarnung versehen.",
@@ -835,7 +835,7 @@
                 "general": "Allgemein",
                 "notifications": "Benachrichtigungen",
                 "privacy_safety": "Datenschutz und Sicherheit",
-                "support_mastodon": "Mastodon unterstützen",
+                "support_mastodon": "An Mastodon spenden",
                 "about_mastodon": "Über Mastodon",
                 "server_details": "Serverdetails",
                 "logout": "%@ abmelden"
@@ -866,7 +866,7 @@
                 },
                 "ask_before": {
                     "section_title": "Aktionen abfragen…",
-                    "posting_without_alt_text": "Posten ohne Alt-Text",
+                    "posting_without_alt_text": "Ohne Alt-Text veröffentlichen",
                     "unfollowing_someone": "Jemanden nicht mehr folgen",
                     "boosting_a_post": "Einen Beitrag teilen",
                     "deleting_a_post": "Einen Beitrag löschen"
@@ -914,10 +914,10 @@
                     "custom": "Benutzerdefiniert"
                 },
                 "default_post_visibility": {
-                    "title": "Standard-Sichtbarkeit von Beiträgen"
+                    "title": "Standard-Beitragssichtbarkeit"
                 },
                 "manually_approve_follow_requests": "Manuelles Genehmigen von Folgeanfragen",
-                "show_followers_and_following": "Follower anzeigen & folgen",
+                "show_followers_and_following": "Follower und „Folge ich“ anzeigen",
                 "suggest_my_account_to_others": "Mein Konto anderen vorschlagen",
                 "appear_in_search_engines": "In Suchmaschinen anzeigen"
             },
@@ -942,7 +942,7 @@
                 "step_1_of_4": "Schritt 1 von 4",
                 "whats_wrong_with_this_post": "Was stimmt mit diesem Beitrag nicht?",
                 "whats_wrong_with_this_account": "Was stimmt mit diesem Konto nicht?",
-                "whats_wrong_with_this_username": "Was ist los mit %s?",
+                "whats_wrong_with_this_username": "Was ist das Problem mit %s?",
                 "select_the_best_match": "Wähle die passende Kategorie",
                 "i_dont_like_it": "Mir gefällt das nicht",
                 "it_is_not_something_you_want_to_see": "Das ist etwas, das man nicht sehen möchte",
@@ -970,12 +970,12 @@
             },
             "step_final": {
                 "dont_want_to_see_this": "Du willst das nicht mehr sehen?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Wenn du etwas auf Mastodon nicht sehen willst, kannst du den Nutzer aus deiner Erfahrung streichen.",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Wenn du etwas auf Mastodon siehst, das dir nicht gefällt, kannst du die Person aus deinem Umfeld entfernen.",
                 "unfollow": "Entfolgen",
                 "unfollowed": "Entfolgt",
                 "unfollow_user": "%s entfolgen",
                 "mute_user": "%s stummschalten",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Du wirst die Beiträge vom Konto nicht mehr sehen. Das Konto kann dir immer noch folgen, und die Person hinter dem Konto wird deine Beiträge sehen können und nicht wissen, dass du sie stummgeschaltet hast.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Du wirst deren (geteilte) Beiträge auf deiner Startseite nicht mehr sehen können. Sie werden nicht erfahren, dass sie stummgeschaltet sind.",
                 "block_user": "%s blockieren",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Du wirst die Beiträge von diesem Konto nicht sehen. Das Konto wird nicht in der Lage sein, deine Beiträge zu sehen oder dir zu folgen. Die Person hinter dem Konto wird wissen, dass du das Konto blockiert hast.",
                 "while_we_review_this_you_can_take_action_against_user": "Während wir dies überprüfen, kannst du gegen %s vorgehen"
@@ -989,7 +989,7 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "Aktuell ausgewähltes Profil: %s. Doppeltippen dann gedrückt halten, um den Kontoschalter anzuzeigen",
+            "tab_bar_hint": "Aktuell ausgewähltes Profil: %s. Zweimal tippen und halten, um das Konto zu wechseln",
             "dismiss_account_switcher": "Dialog zum Wechseln des Kontos schließen",
             "add_account": "Konto hinzufügen",
             "logout_all_accounts": "Von allen Konten abmelden",
@@ -1019,7 +1019,7 @@
             "donatebuttontitle": "Spenden",
             "currency": "Währung",
             "success": {
-                "title": "Danke für deinem Beitrag!",
+                "title": "Danke für deinen Beitrag!",
                 "subtitle": "Du solltest bald eine E-Mail bekommen, die deine Spende bestätigt.",
                 "server_error_title": "Zahlung fehlgeschlagen",
                 "server_error_message": "Wir bitten um Verzeihung, ein Fehler trat auf und wir konnten deine Spende nicht verarbeiten.\n\nBitte versuche es in ein paar Minuten nochmal.",
@@ -1063,14 +1063,14 @@
                 "description": "Zeigt einen aktuellen Beitrag mit dem ausgewählten Hashtag."
             },
             "not_found": {
-                "account_name": "Eugen Rochko",
+                "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "Entschuldigung, wir konnten keine Beiträge mit dem Hashtag <a>#%@</a>finden. Bitte versuchen Sie einen <a>#DifferentHashtag</a> oder überprüfen Sie die Widget-Einstellungen."
+                "content": "Wir konnten keine Beiträge mit dem Hashtag <a>#%@</a> finden. Probiere einen <a>#AnderenHashtag</a> oder überprüfe die Widget-Einstellungen."
             },
             "placeholder": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "So würde ein Beitrag mit einem <a>#Hashtag</a> aussehen. Wählen Sie in den Widget-Einstellungen den gewünschten <a>#Hashtag</a> aus."
+                "content": "So würde ein Beitrag mit einem <a>#Hashtag</a> aussehen. Wähle in den Widget-Einstellungen den gewünschten <a>#Hashtag</a> aus."
             }
         }
     }

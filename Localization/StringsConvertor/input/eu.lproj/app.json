@@ -157,9 +157,9 @@
             },
             "status": {
                 "reply": "Erantzun",
-                "private_reply": "Private reply",
+                "private_reply": "Erantzun pribatua",
                 "mention": "Aipatu",
-                "private_mention": "Private mention",
+                "private_mention": "Aipamen pribatua",
                 "user_reblogged": "%s(e)k bultzatu du",
                 "user_replied_to": "%s(r)i erantzuten",
                 "show_post": "Erakutsi bidalketa",
@@ -244,9 +244,9 @@
             },
             "friendship": {
                 "follow": "Jarraitu",
-                "follow_back": "Follow back",
+                "follow_back": "Jarraitu bueltan",
                 "following": "Jarraitzen",
-                "mutual": "Mutual",
+                "mutual": "Elkarrekikoa",
                 "request": "Eskaera",
                 "pending": "Zain",
                 "block": "Blokeatu",
@@ -388,7 +388,7 @@
             "title": "Sortu kontua",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
+                    "label": "Jaiotze-data",
                     "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
                 },
                 "avatar": {
@@ -716,7 +716,7 @@
                     "no_results": "Emaitzarik ez"
                 },
                 "recent_search": "Azken bilaketak",
-                "no_recent_searches": "No recent searches.",
+                "no_recent_searches": "Duela gutxiko bilaketarik ez.",
                 "clear_all": "Garbitu dena",
                 "clear": "Garbitu"
             }
@@ -741,32 +741,32 @@
             },
             "headers": {
                 "report": "Salatu",
-                "sign_up": "Signup",
+                "sign_up": "Erregistratu",
                 "favourite": "Gogokoa",
                 "follow": "Jarraitu",
-                "follow_request": "Follow request",
-                "moderation_warning": "Warning",
+                "follow_request": "Jarraitzeko eskaera",
+                "moderation_warning": "Abisua",
                 "poll": "Inkesta",
                 "boost": "Bultzada",
-                "severed_relationships": "Domain block",
+                "severed_relationships": "Domeinu-blokeoa",
                 "status": "Bidalketa",
                 "edit": "Editatu"
             },
             "grouped_notification_description": {
-                "your_poll_has_ended": "Your poll has ended",
-                "single_name_edited_a_post": "%@ edited a post you interacted with",
+                "your_poll_has_ended": "Zure inkesta amaitu da",
+                "single_name_edited_a_post": "%@(e)k interaktuatu zenuen argitalpen bat editatu du",
                 "single_name_ran_poll": "%@ ran %@",
-                "single_name_mentioned_you": "%@ mentioned you",
-                "single_name_requested_to_follow_you": "%@ requested to follow you",
-                "single_name_posted": "%@ posted:",
-                "single_name_boosted": "%@ boosted:",
-                "single_name_favourited": "%@ favorited:",
-                "single_name_followed_you": "%@ followed you",
-                "multiple_people_boosted": "%@ boosted:",
-                "multiple_people_favourited": "%@ favorited:",
-                "multiple_people_followed_you": "%@ followed you",
+                "single_name_mentioned_you": "%@(e)k aipatu zaitu",
+                "single_name_requested_to_follow_you": "%@(e)k jarraitu nahi zaitu",
+                "single_name_posted": "%@(e) argitaratu du:",
+                "single_name_boosted": "%@(e)k bultzatu du:",
+                "single_name_favourited": "%@(e)k gogoko du:",
+                "single_name_followed_you": "%@(e)k jarraitu dizu",
+                "multiple_people_boosted": "%@(e)k bultzatu du:",
+                "multiple_people_favourited": "%@(e)k gogoko du:",
+                "multiple_people_followed_you": "%@(e)k jarraitu dizu",
                 "mulitple_people_signed_up": "%@ new signups",
-                "single_name_signed_up": "%@ signed up",
+                "single_name_signed_up": "%@ erabiltzailea erregistratu da",
                 "someone_reported_account_for_rule_violation": "Someone reported %@ for rule violation.",
                 "someone_reported_posts_from_account_for_rule_violation": "Someone reported %@ from %@ for rule violation."
             },
@@ -801,27 +801,27 @@
             },
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
-                "title": "Filtered Notifications",
+                "title": "Iragazitako jakinarazpenak",
                 "accept": "Onartu",
-                "dismiss": "Dismiss"
+                "dismiss": "Baztertu"
             },
             "policy": {
-                "title": "Filter Notifications from…",
+                "title": "Ez iragazi hemengo jakinarazpenak…",
                 "not_following": {
-                    "title": "People you don't follow",
-                    "subtitle": "Until you manually approve them"
+                    "title": "Jarraitzen ez duzun jendea",
+                    "subtitle": "Eskuz onartzen dituzun arte"
                 },
                 "no_follower": {
-                    "title": "People not following you",
-                    "subtitle": "Including people who have been following you fewer than 3 days"
+                    "title": "Jarraitzen ez zaituen jendea",
+                    "subtitle": "3 egun baino gutxiagoz jarraitu dizuten pertsonak barne"
                 },
                 "new_account": {
-                    "title": "New accounts",
-                    "subtitle": "Created within the past 30 days"
+                    "title": "Kontu berriak",
+                    "subtitle": "Azken 30 egunetan sortua"
                 },
                 "private_mentions": {
-                    "title": "Unsolicited private mentions",
-                    "subtitle": "Filtered unless it’s in reply to your own mention or if you follow the sender"
+                    "title": "Eskatu gabeko aipamen pribatuak",
+                    "subtitle": "Iragazita, baldin eta zure aipamenaren erantzuna bada edo bidaltzailea jarraitzen baduzu"
                 }
             }
         },
@@ -923,7 +923,7 @@
             },
             "donation": {
                 "title": "Eman babesa Mastodoni",
-                "manage": "Manage donations"
+                "manage": "Kudeatu dohaintzak"
             }
         },
         "report": {
@@ -1012,18 +1012,18 @@
         },
         "donation": {
             "picker": {
-                "once_title": "Just once",
-                "monthly_title": "Monthly",
-                "yearly_title": "Yearly"
+                "once_title": "Behin",
+                "monthly_title": "Hilero",
+                "yearly_title": "Urtero"
             },
-            "donatebuttontitle": "Donate",
-            "currency": "Currency",
+            "donatebuttontitle": "Egin dohaintza",
+            "currency": "Moneta",
             "success": {
-                "title": "Thank you for your contribution!",
-                "subtitle": "You should receive an email confirming your donation soon.",
-                "server_error_title": "Payment failed",
-                "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
-                "share_button_title": "Spread the word"
+                "title": "Eskerrik asko zure ekarpenagatik!",
+                "subtitle": "Laster jasoko duzu eposta bat zure dohaintza berresteko.",
+                "server_error_title": "Ordainketak huts egin du",
+                "server_error_message": "Sentitzen dugu, akats bat gertatu da eta ezin izan dugu zure dohaintza prozesatu.\n\nMesedez, saiatu berriro minutu batzuk barru.",
+                "share_button_title": "Barreiatu hitza"
             }
         }
     },

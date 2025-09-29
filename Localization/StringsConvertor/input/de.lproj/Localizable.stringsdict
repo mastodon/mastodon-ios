@@ -98,6 +98,38 @@
         <string>%ld andere</string>
       </dict>
     </dict>
+    <key>plural.count.you_and_others_boosted</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_others@</string>
+      <key>count_others</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>von dir und einer weiteren Person geteilt</string>
+        <key>other</key>
+        <string>von dir und %ld weiteren Personen geteilt</string>
+      </dict>
+    </dict>
+    <key>plural.count.you_and_others_favorited</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_others@</string>
+      <key>count_others</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>von dir und einer weiteren Person favorisiert</string>
+        <key>other</key>
+        <string>von dir und %ld weiteren Personen favorisiert</string>
+      </dict>
+    </dict>
     <key>plural.count.people_boosted</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -317,9 +349,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 Reblog</string>
+        <string>1 Mal geteilt</string>
         <key>other</key>
-        <string>%ld Reblogs</string>
+        <string>%ld Mal geteilt</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
@@ -333,9 +365,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 Reblog</string>
+        <string>1 Mal geteilt</string>
         <key>other</key>
-        <string>%ld Reblogs</string>
+        <string>%ld Mal geteilt</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -381,9 +413,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 Wähler:in</string>
+        <string>1 Stimme</string>
         <key>other</key>
-        <string>%ld Wähler</string>
+        <string>%ld Stimmen</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -397,9 +429,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Eine Person redet</string>
+        <string>1 Person redet darüber</string>
         <key>other</key>
-        <string>%ld Personen reden</string>
+        <string>%ld Personen reden darüber</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -413,9 +445,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 folgt</string>
+        <string>1 Folge ich</string>
         <key>other</key>
-        <string>%ld folgen</string>
+        <string>%ld Folge ich</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -429,9 +461,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 Folgender</string>
+        <string>1 Follower</string>
         <key>other</key>
-        <string>%ld Folgende</string>
+        <string>%ld Follower</string>
       </dict>
     </dict>
     <key>plural.count.of_your_followers</key>
@@ -477,9 +509,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>noch 1 Jahr übrig</string>
+        <string>noch 1 Jahr</string>
         <key>other</key>
-        <string>noch %ld Jahre übrig</string>
+        <string>noch %ld Jahre</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -493,9 +525,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>noch 1 Monat übrig</string>
+        <string>noch 1 Monat</string>
         <key>other</key>
-        <string>noch %ld Monate übrig</string>
+        <string>noch %ld Monate</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -509,9 +541,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>noch 1 Tag übrig</string>
+        <string>noch 1 Tag</string>
         <key>other</key>
-        <string>noch %ld Tage übrig</string>
+        <string>noch %ld Tage</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -525,9 +557,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>noch 1 Stunde übrig</string>
+        <string>noch 1 Stunde</string>
         <key>other</key>
-        <string>noch %ld Stunden übrig</string>
+        <string>noch %ld Stunden</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -541,9 +573,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>noch 1 Minute übrig</string>
+        <string>noch 1 Minute</string>
         <key>other</key>
-        <string>noch %ld Minuten übrig</string>
+        <string>noch %ld Minuten</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -557,9 +589,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>noch 1 Sekunde übrig</string>
+        <string>noch 1 Sekunde</string>
         <key>other</key>
-        <string>noch %ld Sekunden übrig</string>
+        <string>noch %ld Sekunden</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -573,7 +605,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>vor einem Jahr</string>
+        <string>vor 1 Jahr</string>
         <key>other</key>
         <string>vor %ld Jahren</string>
       </dict>
@@ -589,7 +621,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>vor einem Monat</string>
+        <string>vor 1 Monat</string>
         <key>other</key>
         <string>vor %ld Monaten</string>
       </dict>
@@ -605,9 +637,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>vor einem Tag</string>
+        <string>vor 1 T.</string>
         <key>other</key>
-        <string>vor %ld Tagen</string>
+        <string>vor %ld T.</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -621,9 +653,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>vor einer Stunde</string>
+        <string>vor 1 Std.</string>
         <key>other</key>
-        <string>vor %ld Stunden</string>
+        <string>vor %ld Std.</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -637,9 +669,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>vor einer Minute</string>
+        <string>vor 1 Min.</string>
         <key>other</key>
-        <string>vor %ld Minuten</string>
+        <string>vor %ld Min.</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -653,9 +685,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>vor einer Sekunde</string>
+        <string>vor 1 Sek.</string>
         <key>other</key>
-        <string>vor %ld Sekuden</string>
+        <string>vor %ld Sek.</string>
       </dict>
     </dict>
     <key>plural.filtered_notification_banner.subtitle</key>
@@ -669,9 +701,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Eine Person, die Sie vielleicht kennen</string>
+        <string>Eine Person, die du vielleicht kennst</string>
         <key>other</key>
-        <string>%ld Personen, die Sie vielleicht kennen</string>
+        <string>%ld Personen, die du vielleicht kennst</string>
       </dict>
     </dict>
   </dict>
