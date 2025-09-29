@@ -97,7 +97,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>boosted by you and %ld others</string>
+        <string>được bạn và %ld người khác đăng lại</string>
       </dict>
     </dict>
     <key>plural.count.you_and_others_favorited</key>
@@ -111,7 +111,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>favorited by you and %ld others</string>
+        <string>được bạn và %ld người khác thích</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
