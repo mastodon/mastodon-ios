@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>boosted by you and one other</string>
+        <string>adheriste vos y otra cuenta</string>
         <key>other</key>
-        <string>boosted by you and %ld others</string>
+        <string>adheriste vos y otras %ld cuentas</string>
       </dict>
     </dict>
     <key>plural.count.you_and_others_favorited</key>
@@ -125,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>favorited by you and one other</string>
+        <string>marcado como favorito por vos y otra cuenta</string>
         <key>other</key>
-        <string>favorited by you and %ld others</string>
+        <string>marcado como favorito por vos y otras %ld cuentas</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
