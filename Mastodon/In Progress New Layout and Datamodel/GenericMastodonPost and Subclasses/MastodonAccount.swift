@@ -8,6 +8,7 @@ struct MastodonAccount: Identifiable, Codable {
     let id: Mastodon.Entity.Account.ID
     let metadata: MetaData
     let displayInfo: DisplayInfo
+    let metrics: Metrics
     let _legacyEntity: Mastodon.Entity.Account
 }
 
@@ -52,6 +53,7 @@ extension MastodonAccount {
         let profileUrl: URL?
         let createdAt: Date
         let manuallyApprovesNewFollows: Bool
+        let verifiedLink: String?
     }
 }
 
@@ -71,6 +73,12 @@ extension MastodonAccount {
             return headerImage?.preferredUrl
         }
     }
+    
+    struct Metrics: Codable {
+        let postCount: Int
+        let followersCount: Int
+        let followingCount: Int
+    }
 }
 
 protocol FromAccountEntityDerivable {
@@ -88,6 +96,7 @@ extension MastodonAccount: FromAccountEntityDerivable {
             metadata: MetaData.fromEntity(entity),
             displayInfo: DisplayInfo.fromEntity(
                 entity),
+            metrics: Metrics.fromEntity(entity),
             _legacyEntity: entity
         )
     }
@@ -95,7 +104,7 @@ extension MastodonAccount: FromAccountEntityDerivable {
 
 extension MastodonAccount.MetaData: FromAccountEntityDerivable {
     static func fromEntity(_ entity: Mastodon.Entity.Account) -> MastodonAccount.MetaData {
-        return MastodonAccount.MetaData(profileUrl: URL(string: entity.url), createdAt: entity.createdAt, manuallyApprovesNewFollows: entity.locked)
+        return MastodonAccount.MetaData(profileUrl: URL(string: entity.url), createdAt: entity.createdAt, manuallyApprovesNewFollows: entity.locked, verifiedLink: entity.verifiedLink?.value)
     }
 }
 
@@ -119,6 +128,12 @@ extension MastodonAccount.DisplayInfo: FromAccountEntityDerivable {
             handle: entity.acct, displayName: entity.displayNameWithFallback,
             emojis: entity.emojis, avatarImage: avatarImage,
             headerImage: headerImage)
+    }
+}
+
+extension MastodonAccount.Metrics: FromAccountEntityDerivable {
+    static func fromEntity(_ entity: Mastodon.Entity.Account) -> Self {
+        Self(postCount: entity.statusesCount, followersCount: entity.followersCount, followingCount: entity.followingCount)
     }
 }
 

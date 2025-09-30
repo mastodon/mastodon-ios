@@ -1576,8 +1576,12 @@ struct TimelineListView: View {
                     }
             case .hashtag(let tag):
                 HashtagRowView(tag: tag)
+                    .frame(width: usableWidth)
+                    .padding(standardPadding)
             case .account(let account):
-                AccountRowView(account: account)
+                AccountRowView(account: account, contentWidth: contentWidth)
+                    .frame(width: usableWidth)
+                    .padding(standardPadding)
             }
         }
         if viewModel.threadedConversationModel != nil {
