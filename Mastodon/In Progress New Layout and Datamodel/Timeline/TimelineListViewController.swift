@@ -21,7 +21,7 @@ enum TimelineViewType {
     case trendingPosts
     case myBookmarks
     case myFavorites
-    case searchPosts(String)
+    case search(String, scope: SearchScope)
     case profilePosts(tabTitle: String?, userID: String, queryFilter: TimelineQueryFilter)
     case thread(root: MastodonContentPost)
     case remoteThread(root: RemoteThreadType)
@@ -54,8 +54,8 @@ class TimelineListViewController: UIHostingController<TimelineListView>
             viewModel = TimelineListViewModel(timeline: .notifications(scope: scope))
         case .trendingPosts:
             viewModel = TimelineListViewModel(timeline: .discovery)
-        case .searchPosts(let searchText):
-            viewModel = TimelineListViewModel(timeline: .search(searchText))
+        case .search(let searchText, let scope):
+            viewModel = TimelineListViewModel(timeline: .search(searchText, scope))
         case .profilePosts(_, let user, let queryFilter):
             viewModel = TimelineListViewModel(timeline: .userPosts(userID: user, queryFilter: queryFilter))
         case .thread(let root):
@@ -803,7 +803,9 @@ private class TimelineListViewModel: ObservableObject {
                 
                 let needsPrep: [TimelineItem] = results.allRecords.compactMap { item -> TimelineItem? in
                     switch item {
-                    case .loadingIndicator, .filteredNotificationsInfo:
+                    case .loadingIndicator, .filteredNotificationsInfo, .hashtag:
+                        return nil
+                    case .account:
                         return nil
                     case .post(let postViewModel):
                         return postViewModel.displayPrepStatus == .unprepared ? item : nil
@@ -1063,7 +1065,7 @@ extension TimelineListViewModel {
         guard batchStart < feedLoaderRecords.count else { return nil }
         let batchItems = feedLoaderRecords[batchStart...].prefix(displayPrepBatchSize).compactMap { item -> TimelineItem? in
             switch item {
-            case .loadingIndicator, .filteredNotificationsInfo:
+            case .loadingIndicator, .filteredNotificationsInfo, .hashtag:
                 return nil
             case .post(let postViewModel):
                 // not donePreparing, not included in currently preparing (inclusion in requested does not matter, because this batch may replace the current requested batch)
@@ -1071,6 +1073,8 @@ extension TimelineListViewModel {
                 return item
             case .notification(let notificationViewModel):
                 guard notificationViewModel.displayPrepStatus == .unprepared else { return nil }
+                return item
+            case .account:
                 return item
             }
         }
@@ -1570,6 +1574,12 @@ struct TimelineListView: View {
                             }
                         }
                     }
+            case .hashtag(let tag):
+                Text("HASHTAG: \(tag.name)")
+                    .font(.title)
+                    .padding()
+            case .account(let account):
+                Text("ACCOUNT: \(account.displayInfo.displayName)")
             }
         }
         if viewModel.threadedConversationModel != nil {
@@ -1919,11 +1929,11 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     feedLoader?.updateCachedResults({ timeline in
                         for item in timeline.items {
                             switch item {
-                            case .loadingIndicator, .filteredNotificationsInfo:
+                            case .loadingIndicator, .filteredNotificationsInfo, .hashtag:
                                 break
                             case .post(let viewModel):
                                 viewModel.isShowingTranslation = true
-                            case .notification:
+                            case .notification, .account:
                                 break
                             }
                         }
@@ -1932,11 +1942,11 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     feedLoader?.updateCachedResults({ timeline in
                         for item in timeline.items {
                             switch item {
-                            case .loadingIndicator, .filteredNotificationsInfo:
+                            case .loadingIndicator, .filteredNotificationsInfo, .hashtag:
                                 break
                             case .post(let viewModel):
                                 viewModel.isShowingTranslation = false
-                            case .notification:
+                            case .notification, .account:
                                 break
                             }
                         }

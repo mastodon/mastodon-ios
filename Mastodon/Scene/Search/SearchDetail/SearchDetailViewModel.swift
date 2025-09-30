@@ -33,7 +33,7 @@ final class SearchDetailViewModel {
     }
 }
 
-enum SearchScope: CaseIterable {
+public enum SearchScope: CaseIterable {
     case all
     case people
     case hashtags
