@@ -1575,11 +1575,9 @@ struct TimelineListView: View {
                         }
                     }
             case .hashtag(let tag):
-                Text("HASHTAG: \(tag.name)")
-                    .font(.title)
-                    .padding()
+                HashtagRowView(tag: tag)
             case .account(let account):
-                Text("ACCOUNT: \(account.displayInfo.displayName)")
+                AccountRowView(account: account)
             }
         }
         if viewModel.threadedConversationModel != nil {
