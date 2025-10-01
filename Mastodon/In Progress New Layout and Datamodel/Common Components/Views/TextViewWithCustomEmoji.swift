@@ -39,6 +39,7 @@ public enum MastodonContentView {
     case timelinePost(html: String, emojis: Emojis, isInlinePreview: Bool)
     case header(html: String, emojis: Emojis, style: PostViewHeaderStyle)
     case verifiedLink(html: String)
+    case notificationActionLabel(html: String, emojis: Emojis)
 }
 
 public enum PostViewHeaderStyle {
@@ -94,6 +95,11 @@ extension MastodonContentView: View {
             case .verifiedLink(let html):
                 if let blocks = try? getParseBlocks(from: html) {
                     TimelinePostContentView(contentBlocks: blocks, emojis: [])
+                        .font(.subheadline)
+                }
+            case .notificationActionLabel(let html, let emojis):
+                if let blocks = try? getParseBlocks(from: html) {
+                    TimelinePostContentView(contentBlocks: blocks, emojis: emojis)
                         .font(.subheadline)
                 }
             case .timelinePost(let html, let emojis, let isInlinePreview):

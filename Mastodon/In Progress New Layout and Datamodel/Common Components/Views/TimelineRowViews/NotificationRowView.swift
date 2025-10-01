@@ -101,8 +101,8 @@ extension GroupedNotificationType {
         }
     }
 
-    func actionSummaryLabel(_ sourceAccounts: NotificationSourceAccounts)
-        -> AttributedString?
+    func actionSummaryHtmlLabel(_ sourceAccounts: NotificationSourceAccounts)
+        -> String?
     {
         guard let authorName = sourceAccounts.authorName else { return nil }
         let totalAuthorCount = sourceAccounts.totalActorCount
@@ -110,7 +110,7 @@ extension GroupedNotificationType {
         case .me:
             assert(totalAuthorCount == 1)
             //assert(self == .poll)
-            return AttributedString(L10n.Scene.Notification.GroupedNotificationDescription.yourPollHasEnded)
+            return L10n.Scene.Notification.GroupedNotificationDescription.yourPollHasEnded
         case .other(let firstAuthorName, let emojis):
             var plainString: String
             if totalAuthorCount == 1 {
@@ -155,14 +155,7 @@ extension GroupedNotificationType {
                 }
             }
             
-            var composedString = AttributedString(plainString)
-            if let range = composedString.range(of: firstAuthorName) {
-                let nameStyling = AttributeContainer.font(
-                    .system(.body, weight: .bold))
-                let authorNameComponent = styledNameComponent(firstAuthorName, style: nameStyling, emojis: emojis)
-                composedString.replaceSubrange(range, with: authorNameComponent)
-            }
-            return composedString
+            return plainString.htmlParagraph(boldingSubstring: firstAuthorName, workingAroundEmojiCodes: emojis.keys.sorted())
         }
     }
 }
@@ -171,9 +164,9 @@ extension Mastodon.Entity.Report {
     // "Someone reported X posts from someone else for rule violation"
     // "Someone reported X posts from someone else for spam"
     // "Someone reported X posts from someone else"
-    var summary: AttributedString {
-        if let targetedAccountName = targetAccount?.displayNameWithFallback {
-            
+    var summaryHtml: String {
+        if let targetedAccount = targetAccount {
+            let targetedAccountName = targetedAccount.displayNameWithFallback
             let postCountString: String? = {
                 if let postCount = flaggedStatusIDs?.count {
                     return L10n.Plural.Count.post(postCount)
@@ -205,20 +198,14 @@ extension Mastodon.Entity.Report {
                 }
             }()
             
-            var attributedString = AttributedString(summaryPlainstring)
-            let boldedName = styledNameComponent(targetedAccountName, style: AttributeContainer.font(
-                .system(.body, weight: .bold)), emojis: targetAccount?.emojiMeta)
-            if let nameRange = attributedString.range(of: targetedAccountName) {
-                attributedString.replaceSubrange(nameRange, with: boldedName)
-            }
-            return attributedString
+            return summaryPlainstring.htmlParagraph(boldingSubstring: targetedAccountName, workingAroundEmojiCodes: targetedAccount.emojis.map { $0.shortcode} )
         } else {
-            return AttributedString("RULE VIOLATION REPORT")
+            return "RULE VIOLATION REPORT"
         }
     }
-    var displayableComment: AttributedString? {
+    var displayableComment: String? {
         if let comment {
-            return AttributedString(comment)
+            return comment
         } else {
             return nil
         }
@@ -615,14 +602,14 @@ struct NotificationRowView: View {
         case .follow, .followRequest, .reblog, .favourite, .poll, .update, .quotedUpdate, .adminSignUp:
             if let sourceAccounts = viewModel.avatarRowSourceAccounts,
                sourceAccounts.primaryAuthorAccount?.displayNameWithFallback != nil,
-               let actionLabel = viewModel.notification.type.actionSummaryLabel(sourceAccounts) {
-                Text(actionLabel)  // TODO: use RowView with emoji parsing, bold the name using html
+               let actionLabel = viewModel.notification.type.actionSummaryHtmlLabel(sourceAccounts) {
+                MastodonContentView.notificationActionLabel(html: actionLabel, emojis: sourceAccounts.primaryAuthorAccount?.emojis ?? [])
             }
         case .mention, .status, .quote:
             Text("This notification type expects to be presented as a MastodonPostRowView, not a NotificationRowView")
         case .adminReport(let report, _):
-            if let summary = report?.summary {
-                Text(summary)
+            if let summary = report?.summaryHtml {
+                MastodonContentView.notificationActionLabel(html: summary, emojis: report?.targetAccount?.emojis ?? [])
             }
         case .severedRelationships(let severanceEvent, _):
             if let summary = severanceEvent?.summary(myDomain: viewModel.myAccountDomain ?? "")
@@ -766,11 +753,6 @@ func textComponent(_ string: String, fontWeight: SwiftUICore.Font.Weight?)
         .frame(maxWidth: .infinity, alignment: .leading)
 }
 
-func styledNameComponent(_ name: String, style: AttributeContainer, emojis: [MastodonContent.Shortcode: String]?) -> AttributedString {
-    var nameComponent = attributedString(fromHtml: name, emojis: emojis ?? [:])
-    nameComponent.setAttributes(style)
-    return nameComponent
-}
 
 extension Mastodon.Entity.Status {
     public enum AttachmentSummaryInfo {
@@ -1034,6 +1016,36 @@ extension AttributedString {
         }.compactMap { $0 }
         for range in boldedRanges {
             self[range].font = .system(.body).bold()
+        }
+    }
+}
+
+extension String {
+    func htmlParagraph(boldingSubstring: String?, workingAroundEmojiCodes emojiCodes: [String]) -> String {
+        guard let boldingSubstring else { return "<p>\(self)<\\p>" }
+        if let range = range(of: boldingSubstring) {
+            var piecesWithTextBolded = [String]()
+            var lastIndex = boldingSubstring.startIndex
+            let shortcodeRegex = /\s*:[a-z0-9_-]{2,30}:\s*/  // include leading and trailing whitespace
+            for match in boldingSubstring.matches(of: shortcodeRegex) {
+                let range = match.range
+                
+                if lastIndex < range.lowerBound {
+                    // need to collect a skipped text part and bold it
+                    piecesWithTextBolded.append("<strong>\(String(boldingSubstring[lastIndex..<range.lowerBound]))</strong>")
+                }
+                
+                // pass the shortcode through unbolded
+                piecesWithTextBolded.append(String(boldingSubstring[range]))
+                
+                lastIndex = range.upperBound
+            }
+            if lastIndex < boldingSubstring.endIndex {
+                piecesWithTextBolded.append("<strong>\(String(boldingSubstring[lastIndex..<boldingSubstring.endIndex]))</strong>")
+            }
+            return "<p>\(replacingCharacters(in: range, with: piecesWithTextBolded.joined()))</p>"
+        } else {
+            return "<p>\(self)</p>"
         }
     }
 }
