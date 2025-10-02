@@ -7,13 +7,13 @@ import MastodonUI
 import SwiftUI
 
 struct AccountRowView: View {
-    let account: MastodonAccount
+    @Environment(AccountRowViewModel.self) var viewModel
     let contentWidth: CGFloat
   
     var body: some View {
         VStack(alignment: .gutterAlign, spacing: 0) {  // gutterAlign keeps the content properly aligned with the gap between avatar and content
             HStack(alignment: .top, spacing: spacingBetweenGutterAndContent) {
-                AvatarView(size: .large, authorAvatarUrl: account.avatarURL, goToProfile: nil)
+                AvatarView(size: .large, authorAvatarUrl: viewModel.account.avatarURL, goToProfile: nil)
                     .accessibilityHidden(true)
                 
                 VStack(alignment: .leading, spacing: 0) {
@@ -23,11 +23,11 @@ struct AccountRowView: View {
                         .alignmentGuide(.gutterAlign) { d in
                             return d[HorizontalAlignment.leading]
                         }
-                    Text("@\(account.handle)")
+                    Text("@\(viewModel.account.handle)")
                         .lineLimit(1)
                         .font(.subheadline)
                         .foregroundColor(.secondary)
-                    if let verifiedLink = account.metadata.verifiedLink {
+                    if let verifiedLink = viewModel.account.metadata.verifiedLink {
                         HStack(spacing: 0) {
                             Image(systemName: "checkmark")
                                 .font(.subheadline)
@@ -43,20 +43,23 @@ struct AccountRowView: View {
                             statsView(stat)
                         }
                         Spacer()
-                        Button("FOLLOW") {
-                            
-                        }//.buttonStyle(FollowButton(.iDoNotFollowThem(theirAccountIsLocked: false)))
+                        viewModel.relationshipButton.button {
+                            Task {
+                                try await viewModel.doRelationshipButtonAction()
+                            }
+                        }
                     }
                 }
                 .frame(width: contentWidth)
             }
         }
         .padding(.trailing)
+        .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
     }
     
     @ViewBuilder var authorDisplayName: some View {
-        MastodonContentView.header(html: account.displayInfo.displayName, emojis: account.displayInfo.emojis, style: .author(isInlinePreview: false))
+        MastodonContentView.header(html: viewModel.account.displayInfo.displayName, emojis: viewModel.account.displayInfo.emojis, style: .author(isInlinePreview: false))
     }
     
     @ViewBuilder func statsView(_ stat: StatType) -> some View {
@@ -72,11 +75,11 @@ struct AccountRowView: View {
     func statCount(_ stat: StatType) -> Int {
         switch stat {
         case .postCount:
-            return account.metrics.postCount
+            return viewModel.account.metrics.postCount
         case .followingCount:
-            return account.metrics.followingCount
+            return viewModel.account.metrics.followingCount
         case .followersCount:
-            return account.metrics.followersCount
+            return viewModel.account.metrics.followersCount
         }
     }
     

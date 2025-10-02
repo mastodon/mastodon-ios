@@ -38,7 +38,7 @@ nonisolated struct MastodonNotificationInfo {
     }
     let primaryNavigation: NotificationNavigation?
     
-    private let relationshipViewModel: RelationshipViewModel
+    private let relationshipViewModel = RelationshipViewModel()
     private(set) var notification: MastodonNotificationInfo
     let myAccountDomain: String?
     let notificationID: Mastodon.Entity.Notification.ID
@@ -99,7 +99,6 @@ nonisolated struct MastodonNotificationInfo {
         self.notification = MastodonNotificationInfo(notificationInfo)
         self.myAccountDomain = myAccountDomain
         self.notificationID = notificationInfo.id
-        self.relationshipViewModel = RelationshipViewModel()
         
         switch notificationInfo.groupedNotificationType {
         case .follow, .followRequest:

@@ -41,7 +41,7 @@ import MastodonLocalization
         }
     }
     
-    var myRelationshipToAuthor = RelationshipViewModel()
+    let myRelationshipToAuthor = RelationshipViewModel()
     var isQuotingMe: Bool {
         guard let quoted = fullQuotedPostViewModel else { return false }
         switch quoted.myRelationshipToAuthor.relationship {

@@ -1,10 +1,8 @@
 // Copyright © 2025 Mastodon gGmbH. All rights reserved.
 
-import SwiftUI
 import MastodonCore
 
-@MainActor
-@Observable class RelationshipViewModel {
+@MainActor class RelationshipViewModel {
     var actionHandler: MastodonPostMenuActionHandler? = nil
     public var button: RelationshipButtonType = .updating
     public private(set) var relationship: MastodonAccount.Relationship? = nil

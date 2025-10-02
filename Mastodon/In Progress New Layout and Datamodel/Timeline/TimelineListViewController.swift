@@ -806,7 +806,7 @@ private class TimelineListViewModel: ObservableObject {
                     case .loadingIndicator, .filteredNotificationsInfo, .hashtag:
                         return nil
                     case .account:
-                        return nil
+                        return item
                     case .post(let postViewModel):
                         return postViewModel.displayPrepStatus == .unprepared ? item : nil
                     case .notification(let notificationViewModel):
@@ -1134,8 +1134,8 @@ extension TimelineListViewModel {
                 if let needsRelationshipTo = notificationViewModel.needsRelationshipTo {
                     relationshipsToFetch.insert(needsRelationshipTo.id)
                 }
-            case .account(let account):
-                relationshipsToFetch.insert(account.id)
+            case .account(let accountRowViewModel):
+                relationshipsToFetch.insert(accountRowViewModel.id)
             case .hashtag:
                 break
             case .filteredNotificationsInfo, .loadingIndicator:
@@ -1181,8 +1181,13 @@ extension TimelineListViewModel {
                     }
                     notificationViewModel.actionHandler = self
                     notificationViewModel.displayPrepStatus = .donePreparing
-                case .account(let account):
-                        assertionFailure("not implemented")
+                case .account(let accountViewModel):
+                    if let relationship = fetchedRelationships.first(where: { $0.info?.id == accountViewModel.id }) {
+                        if accountViewModel.actionHandler == nil {
+                            accountViewModel.actionHandler = self
+                        }
+                        accountViewModel.prepareForDisplay(withRelationship: relationship)
+                    }
                 case .post:
                     // handled above
                     break
@@ -1599,10 +1604,14 @@ struct TimelineListView: View {
                 HashtagRowView(tag: tag)
                     .frame(width: usableWidth)
                     .padding(standardPadding)
-            case .account(let account):
-                AccountRowView(account: account, contentWidth: contentWidth)
+            case .account(let accountViewModel):
+                AccountRowView(contentWidth: contentWidth)
+                    .environment(accountViewModel)
                     .frame(width: usableWidth)
                     .padding(standardPadding)
+                    .onTapGesture {
+                        accountViewModel.goToProfile()
+                    }
             }
         }
         if viewModel.threadedConversationModel != nil {

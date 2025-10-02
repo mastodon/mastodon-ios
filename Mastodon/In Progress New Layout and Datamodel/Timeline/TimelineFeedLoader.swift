@@ -124,7 +124,7 @@ enum TimelineItem: Identifiable {
     case post(MastodonPostViewModel)
     case notification(NotificationRowViewModel)
     case hashtag(Mastodon.Entity.Tag)
-    case account(MastodonAccount)
+    case account(AccountRowViewModel)
     case filteredNotificationsInfo(
         Mastodon.Entity.NotificationPolicy?,
         FilteredNotificationsRowView.ViewModel?)
@@ -138,8 +138,8 @@ enum TimelineItem: Identifiable {
             return groupedNotificationInfo.id
         case .hashtag(let tag):
             return tag.name + tag.url
-        case .account(let account):
-            return account.id
+        case .account(let accountViewModel):
+            return accountViewModel.id
         case .filteredNotificationsInfo:
             return "filteredNotifications"
         case .loadingIndicator:
@@ -189,6 +189,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
     private var contentConcealViewModels = [Mastodon.Entity.Status.ID : ContentConcealViewModel]()
     private var postViewModels = [Mastodon.Entity.Status.ID : MastodonPostViewModel]()
     private var notificationViewModels = [Mastodon.Entity.NotificationGroup.ID : NotificationRowViewModel]()
+    private var accountViewModels = [Mastodon.Entity.Account.ID : AccountRowViewModel]()
     
     private let myAccountID: Mastodon.Entity.Account.ID?
     
@@ -286,6 +287,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         
         var newPostModels = [Mastodon.Entity.Status.ID : MastodonPostViewModel]()
         var newNotificationModels = [Mastodon.Entity.NotificationGroup.ID : NotificationRowViewModel]()
+        var newAccountModels = [Mastodon.Entity.Account.ID : AccountRowViewModel]()
         
         func timelineItem(fromStatus status: Mastodon.Entity.Status) -> TimelineItem {
             let post = GenericMastodonPost.fromStatus(status)
@@ -297,6 +299,11 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             newPostModels[initialDisplayInfo.id] = viewModel
             viewModel.setFullPost(post)
             return TimelineItem.post(viewModel)
+        }
+        func timelineItem(fromAccount account: Mastodon.Entity.Account) -> TimelineItem {
+            let viewModel = accountViewModels[account.id] ?? AccountRowViewModel(account: MastodonAccount.fromEntity(account))
+            newAccountModels[account.id] = viewModel
+            return TimelineItem.account(viewModel)
         }
 
         let newBatch: [TimelineItem]
@@ -348,8 +355,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                         authenticationBox: authenticatedUser
             ).value
             let statuses = results.statuses.map { timelineItem(fromStatus: $0) }
-            let hashtags = results.hashtags.map { TimelineItem.hashtag($0) }
-            let accounts = results.accounts.map { TimelineItem.account(MastodonAccount.fromEntity($0)) }
+            let hashtags = results.hashtags.map { TimelineItem.hashtag($0) } // TODO: manage these, too, because they can be followed and unfollowed?  or can they never be from the row?
+            let accounts = results.accounts.map { timelineItem(fromAccount: $0) }
             newBatch = accounts + hashtags + statuses
         case .userPosts(let userID, let queryFilter):
             newBatch = try await APIService.shared.userTimeline(
@@ -442,6 +449,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
 
         postViewModels = newPostModels
         notificationViewModels = newNotificationModels
+        accountViewModels = newAccountModels
         createContentConcealViewModels(newCache)
         try? await fetchReplyTos(newCache)
         
@@ -973,9 +981,8 @@ extension TimelineItem {
         switch self {
         case .loadingIndicator, .filteredNotificationsInfo, .hashtag:
             break
-        case .account:
-            assertionFailure("not implemented")
-            break
+        case .account(let accountViewModel):
+            accountViewModel.updateRelationship(updated)
         case .post(let postViewModel):
             postViewModel.updateRelationship(updated)
         case .notification(let notificationViewModel):
