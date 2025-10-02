@@ -95,8 +95,11 @@ class TimelineListViewController: UIHostingController<TimelineListView>
         case .thread(let focusedPost):
             let authorHandle = focusedPost.initialDisplayInfo(inContext: .thread).actionableAuthorHandle
             navigationItem.title = L10n.Scene.Thread.title("@\(authorHandle)")
-        default:
+        
+        case .trendingPosts, .myBookmarks, .myFavorites, .profilePosts, .remoteThread:
             break
+        case .search(let string, _):
+            navigationItem.title = string
         }
     }
     
