@@ -1602,13 +1602,18 @@ struct TimelineListView: View {
                     }
             case .hashtag(let tag):
                 HashtagRowView(tag: tag)
+                    .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
                     .frame(width: usableWidth)
-                    .padding(standardPadding)
+                    .onTapGesture {
+                        guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
+                        let hashtagTimelineViewModel = HashtagTimelineViewModel(authenticationBox: currentUser, hashtag: tag.name)
+                        viewModel.presentScene(.hashtagTimeline(viewModel: hashtagTimelineViewModel), fromPost: nil, transition: .show)
+                    }
             case .account(let accountViewModel):
                 AccountRowView(contentWidth: contentWidth)
                     .environment(accountViewModel)
+                    .padding(EdgeInsets(top: standardPadding, leading: doublePadding, bottom: standardPadding, trailing: standardPadding))
                     .frame(width: usableWidth)
-                    .padding(standardPadding)
                     .onTapGesture {
                         accountViewModel.goToProfile()
                     }
