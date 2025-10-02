@@ -33,7 +33,7 @@ nonisolated struct MastodonNotificationInfo {
 @Observable class RelationshipViewModel {
     var actionHandler: MastodonPostMenuActionHandler? = nil
     public var button: RelationshipButtonType = .updating
-    public var relationship: Mastodon.Entity.Relationship? = nil
+    public private(set) var relationship: Mastodon.Entity.Relationship? = nil
     
     public func prepareForDisplay(relationship: Mastodon.Entity.Relationship, theirAccountIsLocked: Bool) {
         self.relationship = relationship
