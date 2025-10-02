@@ -41,10 +41,10 @@ import MastodonLocalization
         }
     }
     
-    var myRelationshipToAuthor: MastodonAccount.Relationship? = nil
+    var myRelationshipToAuthor = RelationshipViewModel()
     var isQuotingMe: Bool {
         guard let quoted = fullQuotedPostViewModel else { return false }
-        switch quoted.myRelationshipToAuthor {
+        switch quoted.myRelationshipToAuthor.relationship {
         case .isMe:
             return true
         case nil:
@@ -107,7 +107,9 @@ import MastodonLocalization
     }
     
     func updateRelationship(_ relationship: MastodonAccount.Relationship) {
-       assertionFailure("not implemented")
+        guard myRelationshipToAuthor.relationship?.refersToSameAccount(as: relationship) == true else { return }
+        myRelationshipToAuthor.prepareForDisplay(relationship: relationship, theirAccountIsLocked: fullPost?.actionablePost?.metaData.author.locked ?? false)
+        fullQuotedPostViewModel?.updateRelationship(relationship)
     }
     
     var altTextTranslations: [String : String]? {
@@ -158,8 +160,8 @@ import MastodonLocalization
     
     func goToProfile(_ account: MastodonAccount) {
         guard let me = AuthenticationServiceProvider.shared.currentActiveUser.value?.cachedAccount else { return }
-        if let myRelationshipToAuthor {
-            switch myRelationshipToAuthor {
+        if let relationshipToAuthor = myRelationshipToAuthor.relationship {
+            switch relationshipToAuthor {
             case .isNotMe(let info):
                 if let info, account.id == info.id {
                     let profile: ProfileViewController.ProfileType = .notMe(me: me, displayAccount: account._legacyEntity, relationship: info._legacyEntity)
@@ -272,7 +274,7 @@ extension MastodonPostViewModel {
             let isPrivate = basicPost.metaData.privacyLevel == .mentionedOnly
             let quotesMe = {
                 if let quotedPost = fullQuotedPostViewModel {
-                    switch quotedPost.myRelationshipToAuthor {
+                    switch quotedPost.myRelationshipToAuthor.relationship {
                     case .isMe:
                         return true
                     default:

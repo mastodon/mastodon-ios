@@ -182,7 +182,7 @@ nonisolated struct MastodonNotificationInfo {
     
     public func updateRelationship(_ relationship: MastodonAccount.Relationship) {
         inlinePostViewModel?.updateRelationship(relationship)
-        if relationship.info?.id == relationshipViewModel.relationship?.info?.id {
+        if relationshipViewModel.relationship?.refersToSameAccount(as: relationship) == true {
             relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: _primaryAuthorAccountIsLocked)
             updateAvatarRowAdditionalElement()
         }

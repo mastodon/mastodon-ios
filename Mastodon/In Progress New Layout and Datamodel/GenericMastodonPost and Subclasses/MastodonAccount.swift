@@ -157,6 +157,18 @@ extension MastodonAccount {
                 return info
             }
         }
+
+        func refersToSameAccount(as otherRelationship: Self) -> Bool {
+            switch (self, otherRelationship) {
+            case (.isMe, .isMe):
+                return true
+            case (.isNotMe(let firstInfo), .isNotMe(let secondInfo)):
+                guard let firstInfo, let secondInfo else { return false }
+                return firstInfo.id == secondInfo.id
+            default:
+                return false
+            }
+        }
     }
     
     struct RelationshipInfo: Codable {

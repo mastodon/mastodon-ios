@@ -1106,7 +1106,7 @@ extension TimelineListViewModel {
         
         func processPostViewModel(_ postViewModel: MastodonPostViewModel) {
             if postViewModel.initialDisplayInfo.actionableAuthorId == authenticatedUser?.userID {
-                postViewModel.myRelationshipToAuthor = .isMe
+                postViewModel.myRelationshipToAuthor.prepareForDisplay(relationship: .isMe, theirAccountIsLocked: false) // locked doesn't matter in this case
             } else {
                 relationshipsToFetch.insert(postViewModel.initialDisplayInfo.actionableAuthorId)
             }
@@ -1155,11 +1155,13 @@ extension TimelineListViewModel {
             
             for postModel in toPrep {
                 if postModel.fullPost?.actionablePost?.metaData.author.id == authenticatedUser?.userID {
-                    postModel.myRelationshipToAuthor = .isMe
+                    postModel.myRelationshipToAuthor.prepareForDisplay(relationship: .isMe, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
                 } else {
-                    postModel.myRelationshipToAuthor = fetchedRelationships.first(where: {
+                    let relationship = fetchedRelationships.first(where: {
                         $0.info?.id == postModel.initialDisplayInfo.actionableAuthorId
                     }) ?? feedLoader.myRelationship(to: postModel.initialDisplayInfo.actionableAuthorId)
+                    
+                    postModel.myRelationshipToAuthor.prepareForDisplay(relationship: relationship, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
                 }
                 if postModel.actionHandler == nil {
                     postModel.actionHandler = self
@@ -1171,7 +1173,10 @@ extension TimelineListViewModel {
                 switch item {
                 case .notification(let notificationViewModel):
                     let accountRelatingTo = notificationViewModel.needsRelationshipTo
-                    if let relationship = fetchedRelationships.first(where: { $0.info?.id == accountRelatingTo?.id }) {
+                    if let relationship = fetchedRelationships.first(where: { fetched in
+                        guard let fetchedID = fetched.info?.id else { return false }
+                        return fetchedID == accountRelatingTo?.id
+                    }) {
                         notificationViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: accountRelatingTo?.locked ?? false)
                     }
                     notificationViewModel.actionHandler = self
@@ -2119,6 +2124,9 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         default:
             throw PostActionFailure.unsupportedAction
         }
+        let updatedRelationship = myRelationship(to: account)
+        guard updatedRelationship.info?._legacyEntity != nil else { return }
+        feedLoader?.updateRelationship(updatedRelationship)
     }
 
     func canTranslate(post: MastodonContentPost) -> Bool {

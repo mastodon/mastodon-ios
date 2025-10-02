@@ -183,7 +183,7 @@ struct MastodonPostRowView: View {
         .accessibilityElement(children: .contain)
         .accessibilityLabel(L10n.Scene.Notification.Headers.status)
         .accessibilityActions {
-            if let relationshipToAuthor = viewModel.myRelationshipToAuthor {
+            if let relationshipToAuthor = viewModel.myRelationshipToAuthor.relationship {
                 // AUTHOR ACTIONS
                 if let author {
                     Button(L10n.Common.Controls.Status.showUserProfile) {
@@ -432,7 +432,7 @@ private struct ActionBar: View {
         
         var body: some View {
             Menu {
-                if let relationship = viewModel.myRelationshipToAuthor {
+                if let relationship = viewModel.myRelationshipToAuthor.relationship {
                     ForEach(submenus(forRelationshipToAuthor: relationship, isQuotingMe: viewModel.isQuotingMe, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { submenu in
                         ForEach(submenu.items, id: \.self) { menuAction in
                             if let actionablePost = viewModel.fullPost?.actionablePost {
