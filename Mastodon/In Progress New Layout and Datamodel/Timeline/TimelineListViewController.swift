@@ -1170,8 +1170,9 @@ extension TimelineListViewModel {
             for item in batch {
                 switch item {
                 case .notification(let notificationViewModel):
-                    if let relationship = fetchedRelationships.first(where: { $0.info?._legacyEntity.id == notificationViewModel.needsRelationshipTo?.id })?.info?._legacyEntity {
-                        notificationViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: notificationViewModel.needsRelationshipTo?.locked ?? false)
+                    let accountRelatingTo = notificationViewModel.needsRelationshipTo
+                    if let relationship = fetchedRelationships.first(where: { $0.info?.id == accountRelatingTo?.id }) {
+                        notificationViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: accountRelatingTo?.locked ?? false)
                     }
                     notificationViewModel.actionHandler = self
                     notificationViewModel.displayPrepStatus = .donePreparing

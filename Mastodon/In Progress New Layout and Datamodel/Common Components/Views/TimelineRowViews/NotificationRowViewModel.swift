@@ -33,12 +33,14 @@ nonisolated struct MastodonNotificationInfo {
 @Observable class RelationshipViewModel {
     var actionHandler: MastodonPostMenuActionHandler? = nil
     public var button: RelationshipButtonType = .updating
-    public private(set) var relationship: Mastodon.Entity.Relationship? = nil
+    public private(set) var relationship: MastodonAccount.Relationship? = nil
     
-    public func prepareForDisplay(relationship: Mastodon.Entity.Relationship, theirAccountIsLocked: Bool) {
+    public func prepareForDisplay(relationship: MastodonAccount.Relationship, theirAccountIsLocked: Bool) {
         self.relationship = relationship
-        let updatedButton = RelationshipButtonType(relationship: relationship, theirAccountIsLocked: theirAccountIsLocked)
-        button = updatedButton
+        if let entity = relationship.info?._legacyEntity {
+            let updatedButton = RelationshipButtonType(relationship: entity, theirAccountIsLocked: theirAccountIsLocked)
+            button = updatedButton
+        }
     }
     
     @MainActor
@@ -180,23 +182,26 @@ nonisolated struct MastodonNotificationInfo {
     
     public func updateRelationship(_ relationship: MastodonAccount.Relationship) {
         inlinePostViewModel?.updateRelationship(relationship)
-        if relationship.info?.id == relationshipViewModel.relationship?.id, let entity = relationship.info?._legacyEntity {
-            relationshipViewModel.prepareForDisplay(relationship: entity, theirAccountIsLocked: _primaryAuthorAccount?.locked ?? false)
+        if relationship.info?.id == relationshipViewModel.relationship?.info?.id {
+            relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: _primaryAuthorAccountIsLocked)
             updateAvatarRowAdditionalElement()
         }
     }
     
-    private var _primaryAuthorAccount: Mastodon.Entity.Account?
+    private var _primaryAuthorAccountIsLocked: Bool = false
     public var needsRelationshipTo: Mastodon.Entity.Account? {
         guard let primaryAuthorAccount = avatarRowSourceAccounts?.primaryAuthorAccount else { return nil }
-        if avatarRowAdditionalElement != .noneNeeded {
+        switch avatarRowAdditionalElement {
+        case .unfetched:
             avatarRowAdditionalElement = .fetching(notification.type)
+        default:
+            break
         }
-        _primaryAuthorAccount = primaryAuthorAccount
+        _primaryAuthorAccountIsLocked = primaryAuthorAccount.locked
         return primaryAuthorAccount
     }
     
-    public func prepareForDisplay(relationship: Mastodon.Entity.Relationship, theirAccountIsLocked: Bool) {
+    public func prepareForDisplay(relationship: MastodonAccount.Relationship, theirAccountIsLocked: Bool) {
         relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: theirAccountIsLocked)
         updateAvatarRowAdditionalElement()
     }
@@ -208,7 +213,7 @@ nonisolated struct MastodonNotificationInfo {
         case .unfetched(let groupedNotificationType), .fetching(let groupedNotificationType):
             switch groupedNotificationType {
             case .followRequest:
-                avatarRowAdditionalElement = .followRequestControls(.theyHaveRequestedToFollowMe(iFollowThem: relationshipViewModel.relationship?.following ?? false))
+                avatarRowAdditionalElement = .followRequestControls(.theyHaveRequestedToFollowMe(iFollowThem: relationshipViewModel.relationship?.info?.iFollowThem ?? false))
             case .follow:
                 avatarRowAdditionalElement = .relationshipButton(relationshipViewModel.button)
             default:
@@ -244,7 +249,7 @@ extension NotificationRowViewModel {
         if me.id == info.id {
             actionHandler?.presentScene(.profile(.me(me)), fromPost: nil, transition: .show)
         } else {
-            guard let account = info.fullAccount, let relationship = relationshipViewModel.relationship else { return }
+            guard let account = info.fullAccount, let relationship = relationshipViewModel.relationship?.info?._legacyEntity else { return }
             actionHandler?.presentScene(
                 .profile(
                     .notMe(
