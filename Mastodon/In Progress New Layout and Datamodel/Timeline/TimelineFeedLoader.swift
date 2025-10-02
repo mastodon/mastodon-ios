@@ -579,7 +579,7 @@ struct CacheableTimeline: CacheableFeed {
     }
     
     @MainActor
-    func updateRelationship(_ updated: Mastodon.Entity.Relationship) {
+    func updateRelationship(_ updated: MastodonAccount.Relationship) {
         for item in items {
             item.updateRelationship(updated)
         }
@@ -717,8 +717,7 @@ extension TimelineFeedLoader {
         guard let accountID = relationship.info?.id else { return }
         cachedRelationships[accountID] = relationship
         updateCachedResults { cached in
-            guard let entity = relationship.info?._legacyEntity else { return }
-            cached.updateRelationship(entity)
+            cached.updateRelationship(relationship)
         }
     }
     
@@ -970,18 +969,17 @@ extension TimelineItem {
     }
     
     @MainActor
-    func updateRelationship(_ updated: Mastodon.Entity.Relationship) {
+    func updateRelationship(_ updated: MastodonAccount.Relationship) {
         switch self {
         case .loadingIndicator, .filteredNotificationsInfo, .hashtag:
             break
-        case .account(let existingViewModel):
+        case .account:
             assertionFailure("not implemented")
             break
-        case .post(let existingViewModel):
-            assertionFailure("not implemented")
-            break
+        case .post(let postViewModel):
+            postViewModel.updateRelationship(updated)
         case .notification(let notificationViewModel):
-            assertionFailure("not implemented")
+            notificationViewModel.updateRelationship(updated)
         }
     }
 }

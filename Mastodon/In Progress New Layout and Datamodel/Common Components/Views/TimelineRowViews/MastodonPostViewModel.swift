@@ -106,6 +106,10 @@ import MastodonLocalization
         updateQuotedPostViewModel()
     }
     
+    func updateRelationship(_ relationship: MastodonAccount.Relationship) {
+       assertionFailure("not implemented")
+    }
+    
     var altTextTranslations: [String : String]? {
         guard isShowingTranslation == true else { return nil }
         guard let attachmentTranslations = translation?.mediaAttachments else { return nil }

@@ -178,11 +178,21 @@ nonisolated struct MastodonNotificationInfo {
         self.notification = MastodonNotificationInfo(newInfo)
     }
     
+    public func updateRelationship(_ relationship: MastodonAccount.Relationship) {
+        inlinePostViewModel?.updateRelationship(relationship)
+        if relationship.info?.id == relationshipViewModel.relationship?.id, let entity = relationship.info?._legacyEntity {
+            relationshipViewModel.prepareForDisplay(relationship: entity, theirAccountIsLocked: _primaryAuthorAccount?.locked ?? false)
+            updateAvatarRowAdditionalElement()
+        }
+    }
+    
+    private var _primaryAuthorAccount: Mastodon.Entity.Account?
     public var needsRelationshipTo: Mastodon.Entity.Account? {
         guard let primaryAuthorAccount = avatarRowSourceAccounts?.primaryAuthorAccount else { return nil }
         if avatarRowAdditionalElement != .noneNeeded {
             avatarRowAdditionalElement = .fetching(notification.type)
         }
+        _primaryAuthorAccount = primaryAuthorAccount
         return primaryAuthorAccount
     }
     
