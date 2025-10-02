@@ -14,8 +14,8 @@ protocol NotificationInfo {
     var authorsCount: Int { get }
     var primaryAuthorAccount: Mastodon.Entity.Account? { get }
     var authorAvatarUrls: [URL] { get }
-    func availableRelationshipElement() async -> RelationshipElement?
-    func fetchRelationshipElement() async -> RelationshipElement
+    func availableRelationshipButton() async -> RelationshipButtonType?
+    func fetchRelationshipButton() async -> RelationshipButtonType?
     var adminReport: Mastodon.Entity.Report? { get }
     var relationshipSeveranceEvent: Mastodon.Entity.RelationshipSeveranceEvent?
     { get }
@@ -65,13 +65,13 @@ struct GroupedNotificationInfo: Identifiable {
             if accountsInfo.primaryAuthorAccount != nil {
                 return .unfetched(groupedNotificationType)
             } else {
-                return .error(nil)
+                return .noneNeeded
             }
         case .followRequest:
             if sourceAccounts.totalActorCount == 1 {
                 return .unfetched(groupedNotificationType)
             } else {
-                return .error(nil)
+                return .noneNeeded
             }
         default:
             return .noneNeeded
@@ -114,24 +114,20 @@ extension Mastodon.Entity.Notification: NotificationInfo {
     }
 
     @MainActor
-    func availableRelationshipElement() -> RelationshipElement? {
+    func availableRelationshipButton() -> RelationshipButtonType? {
         if let relationship = MastodonFeedItemCacheManager.shared
             .currentRelationship(toAccount: account.id)
         {
-            return relationship.relationshipElement
+            return .init(relationship: relationship, theirAccountIsLocked: primaryAuthorAccount?.locked ?? false)
         }
         return nil
     }
 
     @MainActor
-    func fetchRelationshipElement() async -> RelationshipElement {
+    func fetchRelationshipButton() async -> RelationshipButtonType? {
         do {
             try await fetchRelationship()
-            if let available = availableRelationshipElement() {
-                return available
-            } else {
-                return .noneNeeded
-            }
+            return availableRelationshipButton()
         } catch {
             return .error(error)
         }

@@ -557,25 +557,7 @@ struct CacheableTimeline: CacheableFeed {
     @MainActor
     func update(fromPost updated: GenericMastodonPost) {
         for item in items {
-            switch item {
-            case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account:
-                break
-            case .post(let existingViewModel):
-                do {
-                    try existingViewModel.update(from: updated)
-                } catch {}
-                do {
-                    try existingViewModel.fullQuotedPostViewModel?.update(from: updated)
-                } catch {}
-            case .notification(let notificationViewModel):
-                guard let embeddedPostModel = notificationViewModel.inlinePostViewModel else { break }
-                do {
-                    try embeddedPostModel.update(from: updated)
-                } catch {}
-                do {
-                    try embeddedPostModel.fullQuotedPostViewModel?.update(from: updated)
-                } catch {}
-            }
+            item.update(fromPost: updated)
         }
     }
     
@@ -594,6 +576,13 @@ struct CacheableTimeline: CacheableFeed {
         }
         
         return CacheableTimeline(older: [], newer: newItems)
+    }
+    
+    @MainActor
+    func updateRelationship(_ updated: Mastodon.Entity.Relationship) {
+        for item in items {
+            item.updateRelationship(updated)
+        }
     }
 }
 
@@ -724,8 +713,13 @@ extension TimelineFeedLoader {
         }
     }
     
-    func updateMyRelationship(_ relationship: MastodonAccount.Relationship, to accountID: Mastodon.Entity.Account.ID) {
+    func updateRelationship(_ relationship: MastodonAccount.Relationship) {
+        guard let accountID = relationship.info?.id else { return }
         cachedRelationships[accountID] = relationship
+        updateCachedResults { cached in
+            guard let entity = relationship.info?._legacyEntity else { return }
+            cached.updateRelationship(entity)
+        }
     }
     
     func fetchRelationships(_ batch: [Mastodon.Entity.Account.ID]) async throws -> [MastodonAccount.Relationship] {
@@ -949,4 +943,45 @@ struct NotificationsLoader {
         }
     }
     
+}
+
+extension TimelineItem {
+    @MainActor
+    func update(fromPost updated: GenericMastodonPost) {
+        switch self {
+        case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account:
+            break
+        case .post(let existingViewModel):
+            do {
+                try existingViewModel.update(from: updated)
+            } catch {}
+            do {
+                try existingViewModel.fullQuotedPostViewModel?.update(from: updated)
+            } catch {}
+        case .notification(let notificationViewModel):
+            guard let embeddedPostModel = notificationViewModel.inlinePostViewModel else { break }
+            do {
+                try embeddedPostModel.update(from: updated)
+            } catch {}
+            do {
+                try embeddedPostModel.fullQuotedPostViewModel?.update(from: updated)
+            } catch {}
+        }
+    }
+    
+    @MainActor
+    func updateRelationship(_ updated: Mastodon.Entity.Relationship) {
+        switch self {
+        case .loadingIndicator, .filteredNotificationsInfo, .hashtag:
+            break
+        case .account(let existingViewModel):
+            assertionFailure("not implemented")
+            break
+        case .post(let existingViewModel):
+            assertionFailure("not implemented")
+            break
+        case .notification(let notificationViewModel):
+            assertionFailure("not implemented")
+        }
+    }
 }

@@ -1092,19 +1092,23 @@ extension TimelineListViewModel {
                 return item.id
             case .notification:
                 return item.id
-            default:
+            case .hashtag:
+                return nil
+            case .account:
+                return item.id
+            case .filteredNotificationsInfo, .loadingIndicator:
                 return nil
             }
         }
         
         var needsPrep = [MastodonPostViewModel]()
-        var relationshipsToFetch = [Mastodon.Entity.Account.ID]()
+        var relationshipsToFetch = Set<Mastodon.Entity.Account.ID>()
         
         func processPostViewModel(_ postViewModel: MastodonPostViewModel) {
             if postViewModel.initialDisplayInfo.actionableAuthorId == authenticatedUser?.userID {
                 postViewModel.myRelationshipToAuthor = .isMe
             } else {
-                relationshipsToFetch.append(postViewModel.initialDisplayInfo.actionableAuthorId)
+                relationshipsToFetch.insert(postViewModel.initialDisplayInfo.actionableAuthorId)
             }
             if let actionablePost = postViewModel.fullPost?.actionablePost, postViewModel.isShowingTranslation == nil {
                 postViewModel.isShowingTranslation = canTranslate(post: actionablePost) ? false : nil
@@ -1128,10 +1132,14 @@ extension TimelineListViewModel {
                     }
                 }
                 if let needsRelationshipTo = notificationViewModel.needsRelationshipTo {
-                    relationshipsToFetch.append(needsRelationshipTo.id)
+                    relationshipsToFetch.insert(needsRelationshipTo.id)
                 }
-            default:
-               break
+            case .account(let account):
+                relationshipsToFetch.insert(account.id)
+            case .hashtag:
+                break
+            case .filteredNotificationsInfo, .loadingIndicator:
+                break
             }
         }
 
@@ -1143,7 +1151,7 @@ extension TimelineListViewModel {
         let toFetch = relationshipsToFetch
         
         Task {
-            let fetchedRelationships = try await feedLoader.fetchRelationships(toFetch)
+            let fetchedRelationships = try await feedLoader.fetchRelationships(Array(toFetch))
             
             for postModel in toPrep {
                 if postModel.fullPost?.actionablePost?.metaData.author.id == authenticatedUser?.userID {
@@ -1162,12 +1170,19 @@ extension TimelineListViewModel {
             for item in batch {
                 switch item {
                 case .notification(let notificationViewModel):
-                    if let relationship = fetchedRelationships.first(where: { $0.info?._legacyEntity.id == notificationViewModel.needsRelationshipTo?.id }) {
-                        notificationViewModel.prepareForDisplay(relationship: relationship.info?._legacyEntity, theirAccountIsLocked: notificationViewModel.needsRelationshipTo?.locked ?? false)
+                    if let relationship = fetchedRelationships.first(where: { $0.info?._legacyEntity.id == notificationViewModel.needsRelationshipTo?.id })?.info?._legacyEntity {
+                        notificationViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: notificationViewModel.needsRelationshipTo?.locked ?? false)
                     }
                     notificationViewModel.actionHandler = self
                     notificationViewModel.displayPrepStatus = .donePreparing
-                default:
+                case .account(let account):
+                        assertionFailure("not implemented")
+                case .post:
+                    // handled above
+                    break
+                case .hashtag:
+                    break
+                case .filteredNotificationsInfo, .loadingIndicator:
                     break
                 }
             }
@@ -2189,7 +2204,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                 guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
                 let response = try await APIService.shared.unfollow(author.id, authenticationBox: authenticatedUser)
                 let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-                feedLoader?.updateMyRelationship(.isNotMe(newRelationshipInfo), to: author.id)
+                feedLoader?.updateRelationship(.isNotMe(newRelationshipInfo))
                 AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
             }
         } catch {
@@ -2236,7 +2251,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             let response = try await APIService.shared.follow(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            feedLoader?.updateMyRelationship(.isNotMe(newRelationshipInfo), to: accountID)
+            feedLoader?.updateRelationship(.isNotMe(newRelationshipInfo))
             AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
         } catch {
             didReceiveError(error)
@@ -2249,7 +2264,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             let response = try await APIService.shared.mute(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            feedLoader?.updateMyRelationship(.isNotMe(newRelationshipInfo), to: accountID)
+            feedLoader?.updateRelationship(.isNotMe(newRelationshipInfo))
             AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
         } catch {
             didReceiveError(error)
@@ -2262,7 +2277,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             let response = try await APIService.shared.unmute(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            feedLoader?.updateMyRelationship(.isNotMe(newRelationshipInfo), to: accountID)
+            feedLoader?.updateRelationship(.isNotMe(newRelationshipInfo))
             AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
         } catch {
             didReceiveError(error)
@@ -2289,7 +2304,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             let response = try await APIService.shared.block(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            feedLoader?.updateMyRelationship(.isNotMe(newRelationshipInfo), to: accountID)
+            feedLoader?.updateRelationship(.isNotMe(newRelationshipInfo))
             AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
         } catch {
             didReceiveError(error)
@@ -2302,7 +2317,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             let response = try await APIService.shared.unblock(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            feedLoader?.updateMyRelationship(.isNotMe(newRelationshipInfo), to: accountID)
+            feedLoader?.updateRelationship(.isNotMe(newRelationshipInfo))
             AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
         } catch {
             didReceiveError(error)

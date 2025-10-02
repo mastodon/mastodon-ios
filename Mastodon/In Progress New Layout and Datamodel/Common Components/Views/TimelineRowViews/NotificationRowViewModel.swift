@@ -30,10 +30,49 @@ nonisolated struct MastodonNotificationInfo {
 }
 
 @MainActor
+@Observable class RelationshipViewModel {
+    var actionHandler: MastodonPostMenuActionHandler? = nil
+    public var button: RelationshipButtonType = .updating
+    public var relationship: Mastodon.Entity.Relationship? = nil
+    
+    public func prepareForDisplay(relationship: Mastodon.Entity.Relationship, theirAccountIsLocked: Bool) {
+        self.relationship = relationship
+        let updatedButton = RelationshipButtonType(relationship: relationship, theirAccountIsLocked: theirAccountIsLocked)
+        button = updatedButton
+    }
+    
+    @MainActor
+    func doRelationshipAction(
+        _ action: RelationshipButtonType.RelationshipAction,
+        account: MastodonAccount
+    ) async throws {
+        switch action {
+        case .follow:
+            try await actionHandler?.doAction(.follow, forAccount: account)
+        case .unfollow:
+            try await actionHandler?.doAction(.unfollow, forAccount: account)
+        case .unmute:
+            try await actionHandler?.doAction(.unmute, forAccount: account)
+        case .unblock:
+            try await actionHandler?.doAction(.unblockUser, forAccount: account)
+        case .noAction:
+            throw AppError.unexpected(
+                "action attempted for relationship element that has no action"
+            )
+        }
+    }
+}
+
+@MainActor
 @Observable class NotificationRowViewModel {
-    var actionHandler: MastodonPostMenuActionHandler?
+    var actionHandler: MastodonPostMenuActionHandler? {
+        didSet {
+            relationshipViewModel.actionHandler = actionHandler
+        }
+    }
     let primaryNavigation: NotificationNavigation?
     
+    private let relationshipViewModel: RelationshipViewModel
     private(set) var notification: MastodonNotificationInfo
     let myAccountDomain: String?
     let notificationID: Mastodon.Entity.Notification.ID
@@ -54,7 +93,6 @@ nonisolated struct MastodonNotificationInfo {
         }
     }
     var avatarRowAdditionalElement: RelationshipElement
-    private var relationship: Mastodon.Entity.Relationship?
     
     enum DisplayPrepStatus {
         case unprepared
@@ -95,6 +133,7 @@ nonisolated struct MastodonNotificationInfo {
         self.notification = MastodonNotificationInfo(notificationInfo)
         self.myAccountDomain = myAccountDomain
         self.notificationID = notificationInfo.id
+        self.relationshipViewModel = RelationshipViewModel()
         
         switch notificationInfo.groupedNotificationType {
         case .follow, .followRequest:
@@ -104,7 +143,7 @@ nonisolated struct MastodonNotificationInfo {
                 avatarRowAdditionalElement = .unfetched(
                     notificationInfo.groupedNotificationType)
             } else {
-                avatarRowAdditionalElement = .error(nil)
+                avatarRowAdditionalElement = .noneNeeded
             }
         case .mention, .status, .quote:
             avatarRowAdditionalElement = .noneNeeded
@@ -140,33 +179,37 @@ nonisolated struct MastodonNotificationInfo {
     }
     
     public var needsRelationshipTo: Mastodon.Entity.Account? {
-        guard avatarRowSourceAccounts?.primaryAuthorAccount != nil else { return nil }
-        avatarRowAdditionalElement = .fetching
-        return avatarRowSourceAccounts?.primaryAuthorAccount
+        guard let primaryAuthorAccount = avatarRowSourceAccounts?.primaryAuthorAccount else { return nil }
+        if avatarRowAdditionalElement != .noneNeeded {
+            avatarRowAdditionalElement = .fetching(notification.type)
+        }
+        return primaryAuthorAccount
     }
     
-    public func prepareForDisplay(relationship: Mastodon.Entity.Relationship?, theirAccountIsLocked: Bool) {
-        guard let relationship else { avatarRowAdditionalElement = .noneNeeded; return }
-        self.relationship = relationship
+    public func prepareForDisplay(relationship: Mastodon.Entity.Relationship, theirAccountIsLocked: Bool) {
+        relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: theirAccountIsLocked)
+        updateAvatarRowAdditionalElement()
+    }
+    
+    private func updateAvatarRowAdditionalElement() {
         switch avatarRowAdditionalElement {
         case .noneNeeded:
-            return
-        default:
-            switch (notification.type, relationship.following) {
-            case (.follow, true):
-                avatarRowAdditionalElement = .iFollowThem(theyFollowMe: true)
-            case (.follow, false):
-                avatarRowAdditionalElement = .iDoNotFollowThem(
-                    theirAccountIsLocked: theirAccountIsLocked)
-            case (.followRequest, _):
-                avatarRowAdditionalElement = .theyHaveRequestedToFollowMe(
-                    iFollowThem: relationship.following)
+            break
+        case .unfetched(let groupedNotificationType), .fetching(let groupedNotificationType):
+            switch groupedNotificationType {
+            case .followRequest:
+                avatarRowAdditionalElement = .followRequestControls(.theyHaveRequestedToFollowMe(iFollowThem: relationshipViewModel.relationship?.following ?? false))
+            case .follow:
+                avatarRowAdditionalElement = .relationshipButton(relationshipViewModel.button)
             default:
                 avatarRowAdditionalElement = .noneNeeded
             }
+        case .relationshipButton:
+            avatarRowAdditionalElement = .relationshipButton(relationshipViewModel.button)
+        case .followRequestControls:
+            break
         }
     }
-    
 }
 
 extension NotificationRowViewModel: Identifiable {
@@ -191,7 +234,7 @@ extension NotificationRowViewModel {
         if me.id == info.id {
             actionHandler?.presentScene(.profile(.me(me)), fromPost: nil, transition: .show)
         } else {
-            guard let account = info.fullAccount, let relationship else { return }
+            guard let account = info.fullAccount, let relationship = relationshipViewModel.relationship else { return }
             actionHandler?.presentScene(
                 .profile(
                     .notMe(
@@ -256,13 +299,22 @@ extension NotificationRowViewModel {
         guard !isGrouped else { return [] }
         
         switch relationshipElement {
-        case .error, .fetching, .relationshipIsChanging, .iHaveAnsweredTheirRequestToFollowMe, .noneNeeded, .unfetched(_):
+        case .fetching, .noneNeeded, .unfetched:
             return []
-        case .iDoNotFollowThem, .iFollowThem, .iHaveRequestedToFollowThem:
-            return [ A11yActionInfo(title: relationshipElement.a11yActionTitle() ?? "", doAction: { [weak self] in self?.doAvatarRowButtonAction() }) ]
-        case .theyHaveRequestedToFollowMe:
-            return [true, false].map { option in
-                A11yActionInfo(title: relationshipElement.a11yActionTitle(forAccept: option) ?? "", doAction: { [weak self] in self?.doAvatarRowButtonAction(option) })
+        case .followRequestControls(let controls):
+            switch controls {
+            case .theyHaveRequestedToFollowMe:
+                return [true, false].map { option in
+                    A11yActionInfo(title: controls.a11yActionTitle(forAccept: option) ?? "", doAction: { [weak self] in self?.doAvatarRowButtonAction(option) })
+                }
+            case .iHaveAnsweredTheirRequestToFollowMe:
+                return []
+            }
+        case .relationshipButton(let button):
+            if let actionTitle = button.a11yActionTitle {
+                return [ A11yActionInfo(title: actionTitle , doAction: { [weak self] in self?.doAvatarRowButtonAction() }) ]
+            } else {
+                return []
             }
         }
     }
@@ -279,54 +331,30 @@ extension NotificationRowViewModel: Equatable {
 extension NotificationRowViewModel {
 
     public func doAvatarRowButtonAction(_ accept: Bool = true) {
-        FeedbackGenerator.shared.generate(.selectionChanged)
-        Task {
-            switch avatarRowAdditionalElement {
-            case .iDoNotFollowThem, .iFollowThem,
-                    .iHaveRequestedToFollowThem:
-                if let avatarRowSourceAccounts {
-                    await doFollowAction(
-                        avatarRowAdditionalElement.followAction,
-                        notificationSourceAccounts: avatarRowSourceAccounts)
-                }
+        switch avatarRowAdditionalElement {
+        case .followRequestControls(let controls):
+            switch controls {
             case .theyHaveRequestedToFollowMe:
                 if let avatarRowSourceAccounts {
-                    await doAnswerFollowRequest(avatarRowSourceAccounts, accept: accept)
+                    FeedbackGenerator.shared.generate(.selectionChanged)
+                    Task {
+                        await doAnswerFollowRequest(avatarRowSourceAccounts, accept: accept)
+                    }
                 }
-            default:
-                return
+            case .iHaveAnsweredTheirRequestToFollowMe:
+                break
             }
-        }
-    }
-
-    @MainActor
-    private func doFollowAction(
-        _ action: RelationshipElement.FollowAction,
-        notificationSourceAccounts: NotificationSourceAccounts
-    ) async {
-        let startingAvatarRelationshipElement = avatarRowAdditionalElement
-        avatarRowAdditionalElement = .relationshipIsChanging
-        do {
-            switch action {
-            case .follow:
-                guard let author = notificationSourceAccounts.primaryAuthorAccount else { return }
-                let account = MastodonAccount.fromEntity(author)
-                try await actionHandler?.doAction(.follow, forAccount: account)
-            case .unfollow:
-                guard let author = notificationSourceAccounts.primaryAuthorAccount else { return }
-                let account = MastodonAccount.fromEntity(author)
-                try await actionHandler?.doAction(.unfollow, forAccount: account)
-            case .noAction:
-                throw AppError.unexpected(
-                    "action attempted for relationship element that has no action"
-                )
+        case .relationshipButton(let button):
+            if let firstAccount = avatarRowSourceAccounts?.primaryAuthorAccount {
+                FeedbackGenerator.shared.generate(.selectionChanged)
+                Task {
+                    try await relationshipViewModel.doRelationshipAction(button.buttonAction, account: MastodonAccount.fromEntity(firstAccount))
+                    updateAvatarRowAdditionalElement()
+                }
             }
-        } catch {
-//            presentError?(error)
-            avatarRowAdditionalElement = startingAvatarRelationshipElement
+        case .fetching, .noneNeeded, .unfetched:
+            break
         }
-        guard let author = notificationSourceAccounts.primaryAuthorAccount, let updatedRelationship = actionHandler?.currentRelationship(to: author.id) else { return }
-        prepareForDisplay(relationship: updatedRelationship.info?._legacyEntity, theirAccountIsLocked: author.locked)
     }
 
     @MainActor
@@ -338,7 +366,7 @@ extension NotificationRowViewModel {
                 .value
         else { return }
         let startingAvatarRowRelationshipElement = avatarRowAdditionalElement
-        avatarRowAdditionalElement = .fetching
+        avatarRowAdditionalElement = .fetching(notification.type)
         do {
             let expectedFollowedByResult = accept
             let newRelationship = try await APIService.shared.followRequest(
@@ -346,11 +374,8 @@ extension NotificationRowViewModel {
                 query: accept ? .accept : .reject,
                 authenticationBox: authBox
             ).value
-            guard newRelationship.followedBy == expectedFollowedByResult else {
-                self.avatarRowAdditionalElement = .error(nil)
-                return
-            }
-            self.avatarRowAdditionalElement = .iHaveAnsweredTheirRequestToFollowMe(didAccept: accept)
+            assert(newRelationship.followedBy == expectedFollowedByResult, "expected to update following relationship after answering follow request")
+            self.avatarRowAdditionalElement = .followRequestControls(.iHaveAnsweredTheirRequestToFollowMe(didAccept: accept))
         } catch {
 //            presentError?(error)
             self.avatarRowAdditionalElement = startingAvatarRowRelationshipElement

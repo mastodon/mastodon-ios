@@ -45,7 +45,7 @@ struct AccountRowView: View {
                         Spacer()
                         Button("FOLLOW") {
                             
-                        }.buttonStyle(FollowButton(.iDoNotFollowThem(theirAccountIsLocked: false)))
+                        }//.buttonStyle(FollowButton(.iDoNotFollowThem(theirAccountIsLocked: false)))
                     }
                 }
                 .frame(width: contentWidth)

@@ -259,55 +259,72 @@ struct NotificationIconView: View {
     }
 }
 
-
-enum RelationshipElement: Equatable {
-    case noneNeeded
-    case unfetched(GroupedNotificationType)
-    case fetching
-    case relationshipIsChanging
+enum RelationshipButtonType {
+    case updating
     case error(Error?)
-    case iDoNotFollowThem(theirAccountIsLocked: Bool)
+    case iAmMutingThem
+    case iAmBlockingThem(isDomainBlock: Bool)
+    case iDoNotFollowThem(theyFollowMe: Bool, theirAccountIsLocked: Bool)
     case iFollowThem(theyFollowMe: Bool)
     case iHaveRequestedToFollowThem
-    case theyHaveRequestedToFollowMe(iFollowThem: Bool)
-    case iHaveAnsweredTheirRequestToFollowMe(didAccept: Bool)
-
-    enum FollowAction {
+    
+    enum RelationshipAction {
         case follow
         case unfollow
+        case unmute
+        case unblock
         case noAction
+        
+        var mastodonPostMenuAction: MastodonPostMenuAction? {
+            switch self {
+            case .follow:
+                return .follow
+            case .unfollow:
+                return .unfollow
+            case .unmute:
+                return .unmute
+            case .unblock:
+                return .unblockUser
+            case .noAction:
+                return nil
+            }
+        }
     }
-
+    
+    init(relationship: Mastodon.Entity.Relationship, theirAccountIsLocked: Bool) {
+        if relationship.blocking {
+            self = .iAmBlockingThem(isDomainBlock: false)
+        } else if relationship.domainBlocking {
+            self = .iAmBlockingThem(isDomainBlock: true)
+        } else if relationship.muting {
+            self = .iAmMutingThem
+        } else if relationship.following {
+            self = .iFollowThem(theyFollowMe: relationship.followedBy)
+        } else if relationship.requested {
+            self = .iHaveRequestedToFollowThem
+        } else {
+            self = .iDoNotFollowThem(theyFollowMe: relationship.followedBy, theirAccountIsLocked: theirAccountIsLocked)
+        }
+    }
+    
     var description: String {
         switch self {
-        case .noneNeeded:
-            return "noneNeeded"
-        case .unfetched:
-            return "unfetched"
-        case .fetching:
-            return "fetching"
-        case .relationshipIsChanging:
-            return "relationshipIsChanging"
+        case .updating:
+            return "updating"
         case .error:
             return "error"
-        case .iDoNotFollowThem(let theirAccountIsLocked):
-            if theirAccountIsLocked {
-                return "iDoNotFollowThem+canRequestToFollow"
+        case .iAmBlockingThem(let isDomainBlock):
+            if isDomainBlock {
+                return "iAmBlockingThem+isDomainBlock"
             } else {
-                return "iDoNotFollowThem+canFollow"
+                return "iAmBlockingThem"
             }
-        case .theyHaveRequestedToFollowMe(let iFollowThem):
-            if iFollowThem {
-                return "theyHaveRequestedToFollowMe+iFollowThem"
-            } else {
-                return "theyHaveRequestedToFollowMe+iDoNotFollowThem"
-            }
-        case .iHaveAnsweredTheirRequestToFollowMe(let didAccept):
-            if didAccept {
-                return "iAcceptedTheirFollowRequest"
-            } else {
-                return "iRejectedTheirFollowRequest"
-            }
+        case .iAmMutingThem:
+            return "iAmMutingThem"
+        case .iDoNotFollowThem(let theyFollowMe, let theirAccountIsLocked):
+            let theyFollowMeString = theyFollowMe ? "theyFollowMe" : "theyDoNotFollowMe"
+            let accountLockedString = theirAccountIsLocked ? "canRequestToFollow" : "canFollow"
+            return ["iDoNotFollowThem", theyFollowMeString, accountLockedString].joined(separator: "+")
         case .iFollowThem(let theyFollowMe):
             if theyFollowMe {
                 return "iFollowThem+theyFollowMe"
@@ -318,26 +335,10 @@ enum RelationshipElement: Equatable {
             return "iHaveRequestedToFollowThem"
         }
     }
-
-    static func == (lhs: RelationshipElement, rhs: RelationshipElement) -> Bool
-    {
-        return lhs.description == rhs.description
-    }
-
-    var followAction: FollowAction {
-        switch self {
-        case .iDoNotFollowThem:
-            return .follow
-        case .iFollowThem, .iHaveRequestedToFollowThem:
-            return .unfollow
-        default:
-            return .noAction
-        }
-    }
-
+    
     var buttonText: String? {
         switch self {
-        case .iDoNotFollowThem(let theirAccountIsLocked):
+        case .iDoNotFollowThem(_, let theirAccountIsLocked):
             if theirAccountIsLocked {
                 return L10n.Common.Controls.Friendship.request
             } else {
@@ -351,15 +352,87 @@ enum RelationshipElement: Equatable {
             }
         case .iHaveRequestedToFollowThem:
             return L10n.Common.Controls.Friendship.pending
-        default:
+        case .iAmMutingThem:
+            return L10n.Common.Controls.Friendship.muted
+        case .iAmBlockingThem:
+            return L10n.Common.Controls.Friendship.blocked
+        case .updating, .error:
             return nil
+        }
+    }
+    
+    var buttonAction: RelationshipAction {
+        switch self {
+        case .iDoNotFollowThem:
+            return .follow
+        case .iFollowThem, .iHaveRequestedToFollowThem:
+            return .unfollow
+        case .updating, .error(_):
+            return .noAction
+        case .iAmMutingThem:
+            return .unmute
+        case .iAmBlockingThem:
+            return .unblock
+        }
+    }
+    
+    
+    var a11yActionTitle: String? {
+        switch self {
+        case .iDoNotFollowThem:
+            return buttonText
+        case .iFollowThem, .iHaveRequestedToFollowThem:
+            return L10n.Common.Alerts.UnfollowUser.unfollow
+        case .iAmBlockingThem:
+            return L10n.Common.Controls.Friendship.unblock
+        case .iAmMutingThem:
+            return L10n.Common.Controls.Friendship.unmute
+        case .error, .updating:
+            return nil
+        }
+    }
+    
+    @ViewBuilder func button(action: @escaping ()->()) -> some View {
+        switch self {
+        case .updating:
+            ProgressView().progressViewStyle(.circular)
+        case .error:
+            lightwieghtImageView(
+                "exclamationmark.triangle", size: AvatarSize.small)
+        default:
+            if let buttonText {
+                Button(buttonText) {
+                    action()
+                }
+                .buttonStyle(RelationshipButtonStyle(self))
+            }
+        }
+    }
+}
+
+enum FollowRequestControls {
+    case theyHaveRequestedToFollowMe(iFollowThem: Bool)
+    case iHaveAnsweredTheirRequestToFollowMe(didAccept: Bool)
+    
+    var description: String {
+        switch self {
+        case .theyHaveRequestedToFollowMe(let iFollowThem):
+            if iFollowThem {
+                return "theyHaveRequestedToFollowMe+iFollowThem"
+            } else {
+                return "theyHaveRequestedToFollowMe+iDoNotFollowThem"
+            }
+        case .iHaveAnsweredTheirRequestToFollowMe(let didAccept):
+            if didAccept {
+                return "iAcceptedTheirFollowRequest"
+            } else {
+                return "iRejectedTheirFollowRequest"
+            }
         }
     }
     
     func a11yActionTitle(forAccept accept: Bool = true) -> String? {
         switch self {
-        case .iFollowThem, .iHaveRequestedToFollowThem:
-            return L10n.Common.Alerts.UnfollowUser.unfollow
         case .theyHaveRequestedToFollowMe:
             if accept {
                 return L10n.Scene.Notification.FollowRequest.accept
@@ -372,37 +445,37 @@ enum RelationshipElement: Equatable {
             } else {
                 return L10n.Scene.Notification.FollowRequest.rejected
             }
-        default:
-            return buttonText
         }
     }
 }
 
-extension Mastodon.Entity.Relationship {
-    @MainActor
-    var relationshipElement: RelationshipElement? {
-        switch (following, followedBy) {
-        case (true, _):
-            return .iFollowThem(theyFollowMe: followedBy)
-        case (false, true):
-            if let account: AccountInfo = MastodonFeedItemCacheManager
-                .shared.fullAccount(id)
-                ?? MastodonFeedItemCacheManager.shared.partialAccount(id),
-                account.locked
-            {
-                if requested {
-                    return .iHaveRequestedToFollowThem
-                } else {
-                    return .iDoNotFollowThem(theirAccountIsLocked: true)
-                }
-            }
-            return .iDoNotFollowThem(theirAccountIsLocked: false)
-        case (false, false):
-            return nil
+enum RelationshipElement: Equatable {
+    case noneNeeded
+    case unfetched(GroupedNotificationType)
+    case fetching(GroupedNotificationType)
+    case relationshipButton(RelationshipButtonType)
+    case followRequestControls(FollowRequestControls)
+
+    var description: String {
+        switch self {
+        case .noneNeeded:
+            return "noneNeeded"
+        case .unfetched:
+            return "unfetched"
+        case .fetching:
+            return "fetching"
+        case .relationshipButton(let button):
+            return "RelationshipButton-\(button.description)"
+        case .followRequestControls(let controls):
+            return "FollowRequestControls-\(controls.description)"
         }
     }
+    
+    static func == (lhs: RelationshipElement, rhs: RelationshipElement) -> Bool
+    {
+        return lhs.description == rhs.description
+    }
 }
-
 
 struct NotificationSourceAccounts {
     let accounts: [AccountInfo]
@@ -520,7 +593,7 @@ struct FilteredNotificationsRowView: View {
 }
 
 struct NotificationRowView: View {
-
+    
     @Environment(NotificationRowViewModel.self) var viewModel
     var contentWidth: CGFloat
     
@@ -620,12 +693,12 @@ struct NotificationRowView: View {
             if let actionDescription = accountWarning?.action.actionDescription {
                 Text(actionDescription)
             }
-
+            
         case ._other(let typeString):
-                Text("UNEXPECTED NOTIFICATION TYPE: \(typeString)")
+            Text("UNEXPECTED NOTIFICATION TYPE: \(typeString)")
         }
     }
-
+    
     @ViewBuilder
     func avatarRow(
         accountInfo: NotificationSourceAccounts,
@@ -653,8 +726,8 @@ struct NotificationRowView: View {
                     VStack {
                         Spacer().frame(maxHeight: .infinity)
                         Image(systemName: "ellipsis")
-                        .foregroundStyle(.secondary)
-                        .fontWeight(.light)
+                            .foregroundStyle(.secondary)
+                            .fontWeight(.light)
                     }
                     .frame(width: 0.75 * AvatarSize.small)
                 }
@@ -666,68 +739,67 @@ struct NotificationRowView: View {
         }
         .frame(height: AvatarSize.small)  // this keeps GeometryReader from causing inconsistent visual spacing in the VStack
     }
-
+    
     @ViewBuilder
     func avatarRowTrailingElement(
         _ elementType: RelationshipElement, grouped: Bool
     ) -> some View {
-        switch (elementType, grouped) {
-        case (.fetching, false), (.relationshipIsChanging, false):
-            ProgressView().progressViewStyle(.circular)
-        case (.iDoNotFollowThem, false), (.iFollowThem, false),
-            (.iHaveRequestedToFollowThem, false):
-            if let buttonText = elementType.buttonText {
-                Button(buttonText) {
+        if grouped {
+            EmptyView()
+        } else {
+            switch elementType {
+            case .noneNeeded:
+                EmptyView()
+            case .fetching, .unfetched:
+                ProgressView().progressViewStyle(.circular)
+            case .relationshipButton(let button):
+                button.button {
                     viewModel.doAvatarRowButtonAction()
                 }
-                .buttonStyle(FollowButton(elementType))
-            }
-        case (.theyHaveRequestedToFollowMe(let iFollowThem), false):
-            HStack {
-
-                if iFollowThem {
-                    Button(L10n.Common.Controls.Friendship.following) {
-                        // TODO: allow unfollow here?
+            case .followRequestControls(let controls):
+                switch controls {
+                case .theyHaveRequestedToFollowMe(let iFollowThem):
+                    HStack {
+                        if iFollowThem {
+                            Button(L10n.Common.Controls.Friendship.following) {
+                                // TODO: allow unfollow here?
+                            }
+                            .buttonStyle(
+                                RelationshipButtonStyle(.iFollowThem(theyFollowMe: false))
+                            )
+                            .fixedSize()
+                            .accessibilityLabel(L10n.Common.Controls.Friendship.following)
+                        }
+                        
+                        Button(action: {
+                            viewModel.doAvatarRowButtonAction(false)
+                        }) {
+                            lightwieghtImageView("xmark.circle", size: AvatarSize.small)
+                        }
+                        .buttonStyle(
+                            ImageButton(
+                                foregroundColor: .secondary, backgroundColor: .clear))
+                        
+                        Button(action: {
+                            viewModel.doAvatarRowButtonAction(true)
+                        }) {
+                            lightwieghtImageView(
+                                "checkmark.circle", size: AvatarSize.small)
+                        }
+                        .buttonStyle(
+                            ImageButton(
+                                foregroundColor: .secondary, backgroundColor: .clear))
                     }
-                    .buttonStyle(
-                        FollowButton(.iFollowThem(theyFollowMe: false))
-                    )
-                    .fixedSize()
-                    .accessibilityLabel(L10n.Common.Controls.Friendship.following)
+                case .iHaveAnsweredTheirRequestToFollowMe(let didAccept):
+                    if didAccept {
+                        lightwieghtImageView("checkmark", size: AvatarSize.small)
+                            .accessibilityLabel(L10n.Scene.Notification.FollowRequest.accepted)
+                    } else {
+                        lightwieghtImageView("xmark", size: AvatarSize.small)
+                            .accessibilityLabel(L10n.Scene.Notification.FollowRequest.rejected)
+                    }
                 }
-
-                Button(action: {
-                    viewModel.doAvatarRowButtonAction(false)
-                }) {
-                    lightwieghtImageView("xmark.circle", size: AvatarSize.small)
-                }
-                .buttonStyle(
-                    ImageButton(
-                        foregroundColor: .secondary, backgroundColor: .clear))
-
-                Button(action: {
-                    viewModel.doAvatarRowButtonAction(true)
-                }) {
-                    lightwieghtImageView(
-                        "checkmark.circle", size: AvatarSize.small)
-                }
-                .buttonStyle(
-                    ImageButton(
-                        foregroundColor: .secondary, backgroundColor: .clear))
             }
-        case (.iHaveAnsweredTheirRequestToFollowMe(let didAccept), false):
-            if didAccept {
-                lightwieghtImageView("checkmark", size: AvatarSize.small)
-                    .accessibilityLabel(L10n.Scene.Notification.FollowRequest.accepted)
-            } else {
-                lightwieghtImageView("xmark", size: AvatarSize.small)
-                    .accessibilityLabel(L10n.Scene.Notification.FollowRequest.rejected)
-            }
-        case (.error(_), _):
-            lightwieghtImageView(
-                "exclamationmark.triangle", size: AvatarSize.small)
-        default:
-            Spacer().frame(width: 0)
         }
     }
 }
@@ -931,11 +1003,11 @@ extension Mastodon.Entity.Status {
     }
 }
 
-struct FollowButton: ButtonStyle {
-    private let followAction: RelationshipElement.FollowAction
+struct RelationshipButtonStyle: ButtonStyle {
+    private let action: RelationshipButtonType.RelationshipAction
 
-    init(_ relationshipElement: RelationshipElement) {
-        followAction = relationshipElement.followAction
+    init(_ relationshipButton: RelationshipButtonType) {
+        action = relationshipButton.buttonAction
     }
 
     func makeBody(configuration: Configuration) -> some View {
@@ -950,11 +1022,13 @@ struct FollowButton: ButtonStyle {
     }
 
     private var backgroundColor: Color {
-        switch followAction {
+        switch action {
         case .follow:
-            return Color(uiColor: Asset.Colors.Button.userFollow.color)
+            return Asset.Colors.Button.userFollow.swiftUIColor
         case .unfollow:
-            return Color(uiColor: Asset.Colors.Button.userFollowing.color)
+            return Asset.Colors.Button.userFollowing.swiftUIColor
+        case .unmute, .unblock:
+            return Asset.Colors.Button.userBlocked.swiftUIColor
         case .noAction:
             assertionFailure()
             return .clear
@@ -962,11 +1036,11 @@ struct FollowButton: ButtonStyle {
     }
 
     private var textColor: Color {
-        switch followAction {
-        case .follow:
+        switch action {
+        case .follow, .unmute, .unblock:
             return .white
         case .unfollow:
-            return Color(uiColor: Asset.Colors.Button.userFollowingTitle.color)
+            return Asset.Colors.Button.userFollowingTitle.swiftUIColor
         case .noAction:
             assertionFailure()
             return .clear
@@ -974,10 +1048,10 @@ struct FollowButton: ButtonStyle {
     }
 
     private var fontWeight: SwiftUICore.Font.Weight {
-        switch followAction {
+        switch action {
         case .follow:
             return .regular
-        case .unfollow:
+        case .unfollow, .unmute, .unblock:
             return .light
         case .noAction:
             assertionFailure()
