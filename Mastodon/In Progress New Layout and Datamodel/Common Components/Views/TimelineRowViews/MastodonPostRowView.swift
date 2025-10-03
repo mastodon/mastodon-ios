@@ -452,7 +452,7 @@ private struct ActionBar: View {
                 Label("", systemImage: "ellipsis")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
-                    .frame(minWidth: 45)
+                    .frame(minWidth: 45, minHeight: 45)
                     .contentShape(Rectangle())
             }
         }
