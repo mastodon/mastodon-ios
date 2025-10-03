@@ -71,13 +71,8 @@ extension FollowedTagsViewController: UITableViewDelegate {
 
         let object = viewModel.followedTags[indexPath.row]
 
-        let hashtagTimelineViewModel = HashtagTimelineViewModel(
-            authenticationBox: self.authenticationBox,
-            hashtag: object.name
-        )
-
         _ = self.sceneCoordinator?.present(
-            scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel),
+            scene: .hashtagTimeline(object),
             from: self,
             transition: .show
         )

@@ -39,7 +39,7 @@ public enum MastodonTimelineType: Equatable {
     case myFavorites
     case local
     case list(String)
-    case hashtag(String)
+    case hashtag(Mastodon.Entity.Tag, includeHeader: Bool)
     case discovery
     case search(String, SearchScope)
     case userPosts(userID: String, queryFilter: TimelineQueryFilter)
@@ -52,7 +52,7 @@ public enum MastodonTimelineType: Equatable {
         case (.following, .following): return true
         case (.local, .local): return true
         case (.list(let first), .list(let second)): return first == second
-        case (.hashtag(let first), .hashtag(let second)): return first == second
+        case (.hashtag(let firstTag, let firstHeader), .hashtag(let secondTag, let secondHeader)): return firstTag == secondTag && firstHeader == secondHeader
         case (.discovery, .discovery): return true
         case (.search(let firstText, let firstScope), .search(let secondText, let secondScope)): return firstText == secondText && firstScope == secondScope
         case (.userPosts(let firstID, let firstFilter), .userPosts(let secondID, let secondFilter)): return firstID == secondID && firstFilter == secondFilter
@@ -123,7 +123,7 @@ extension GenericMastodonPost {
 enum TimelineItem: Identifiable {
     case post(MastodonPostViewModel)
     case notification(NotificationRowViewModel)
-    case hashtag(Mastodon.Entity.Tag)
+    case hashtag(HashtagRowViewModel)
     case account(AccountRowViewModel)
     case filteredNotificationsInfo(
         Mastodon.Entity.NotificationPolicy?,
@@ -136,8 +136,8 @@ enum TimelineItem: Identifiable {
             return postViewModel.initialDisplayInfo.id
         case .notification(let groupedNotificationInfo):
             return groupedNotificationInfo.id
-        case .hashtag(let tag):
-            return tag.name + tag.url
+        case .hashtag(let tagViewModel):
+            return tagViewModel.id
         case .account(let accountViewModel):
             return accountViewModel.id
         case .filteredNotificationsInfo:
@@ -190,6 +190,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
     private var postViewModels = [Mastodon.Entity.Status.ID : MastodonPostViewModel]()
     private var notificationViewModels = [Mastodon.Entity.NotificationGroup.ID : NotificationRowViewModel]()
     private var accountViewModels = [Mastodon.Entity.Account.ID : AccountRowViewModel]()
+    private var hashtagViewModels = [String : HashtagRowViewModel]()
     
     private let myAccountID: Mastodon.Entity.Account.ID?
     
@@ -288,6 +289,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         var newPostModels = [Mastodon.Entity.Status.ID : MastodonPostViewModel]()
         var newNotificationModels = [Mastodon.Entity.NotificationGroup.ID : NotificationRowViewModel]()
         var newAccountModels = [Mastodon.Entity.Account.ID : AccountRowViewModel]()
+        var newHashtagModels = [String : HashtagRowViewModel]()
         
         func timelineItem(fromStatus status: Mastodon.Entity.Status) -> TimelineItem {
             let post = GenericMastodonPost.fromStatus(status)
@@ -300,10 +302,18 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             viewModel.setFullPost(post)
             return TimelineItem.post(viewModel)
         }
-        func timelineItem(fromAccount account: Mastodon.Entity.Account) -> TimelineItem {
-            let viewModel = accountViewModels[account.id] ?? AccountRowViewModel(account: MastodonAccount.fromEntity(account))
+        func timelineItem(fromAccount accountEntity: Mastodon.Entity.Account) -> TimelineItem {
+            let account = MastodonAccount.fromEntity(accountEntity)
+            let viewModel = accountViewModels[account.id] ?? AccountRowViewModel(account: account)
+            viewModel.updateAccount(account)
             newAccountModels[account.id] = viewModel
             return TimelineItem.account(viewModel)
+        }
+        func timelineItem(fromHashtag hashtag: Mastodon.Entity.Tag) -> TimelineItem {
+            let viewModel = hashtagViewModels[hashtag.uniqueID] ?? HashtagRowViewModel(entity: hashtag)
+            viewModel.entity = hashtag
+            newHashtagModels[hashtag.uniqueID] = viewModel
+            return TimelineItem.hashtag(viewModel)
         }
 
         let newBatch: [TimelineItem]
@@ -321,13 +331,28 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 query: .init(local: true, maxID: itemsImmediatelyBefore, sinceID: itemsNoOlderThan, minID: itemsImmediatelyAfter),
                 authenticationBox: authenticatedUser
             ).value.map { timelineItem(fromStatus: $0) }
-        case .hashtag(let hashtag):
-            newBatch = try await APIService.shared.hashtagTimeline(
+        case .hashtag(let hashtag, let includeHeader):
+            let statuses = try await APIService.shared.hashtagTimeline(
                 sinceID: itemsNoOlderThan,
                 maxID: itemsImmediatelyBefore,
-                hashtag: hashtag,
+                hashtag: hashtag.name,
                 authenticationBox: authenticatedUser
             ).value.map { timelineItem(fromStatus: $0) }
+            if includeHeader {
+                let header: TimelineItem
+                if request == .reload || request == .newer,
+                   let updated = try? await APIService.shared.getTagInformation(
+                    for: hashtag.name,
+                    authenticationBox: authenticatedUser
+                   ).value {
+                    header = timelineItem(fromHashtag: updated)
+                } else {
+                    header = timelineItem(fromHashtag: hashtag)
+                }
+                newBatch = [header] + statuses
+            } else {
+                newBatch = statuses
+            }
         case .discovery:
             newBatch = try await APIService.shared.trendStatuses(
                 domain: authenticatedUser.domain,
@@ -355,7 +380,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                         authenticationBox: authenticatedUser
             ).value
             let statuses = results.statuses.map { timelineItem(fromStatus: $0) }
-            let hashtags = results.hashtags.map { TimelineItem.hashtag($0) } // TODO: manage these, too, because they can be followed and unfollowed?  or can they never be from the row?
+            let hashtags = results.hashtags.map { timelineItem(fromHashtag: $0) }
             let accounts = results.accounts.map { timelineItem(fromAccount: $0) }
             newBatch = accounts + hashtags + statuses
         case .userPosts(let userID, let queryFilter):
@@ -450,6 +475,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         postViewModels = newPostModels
         notificationViewModels = newNotificationModels
         accountViewModels = newAccountModels
+        hashtagViewModels = newHashtagModels
         createContentConcealViewModels(newCache)
         try? await fetchReplyTos(newCache)
         

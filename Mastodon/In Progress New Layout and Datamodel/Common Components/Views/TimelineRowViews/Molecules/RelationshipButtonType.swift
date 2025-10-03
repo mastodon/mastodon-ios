@@ -83,11 +83,15 @@ enum RelationshipButtonType {
     
     var buttonText: String? {
         switch self {
-        case .iDoNotFollowThem(_, let theirAccountIsLocked):
+        case .iDoNotFollowThem(let theyFollowMe, let theirAccountIsLocked):
             if theirAccountIsLocked {
                 return L10n.Common.Controls.Friendship.request
             } else {
-                return L10n.Common.Controls.Friendship.followBack
+                if theyFollowMe {
+                    return L10n.Common.Controls.Friendship.followBack
+                } else {
+                    return L10n.Common.Controls.Friendship.follow
+                }
             }
         case .iFollowThem(let theyFollowMe):
             if theyFollowMe {

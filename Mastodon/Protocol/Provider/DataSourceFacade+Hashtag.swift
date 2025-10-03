@@ -23,7 +23,7 @@ extension DataSourceFacade {
         )
         guard let coordinator = provider.sceneCoordinator else { return }
         _ = coordinator.present(
-            scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel),
+            scene: .hashtagTimeline(tag),
             from: provider,
             transition: .show
         )

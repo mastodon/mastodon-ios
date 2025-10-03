@@ -862,7 +862,7 @@ struct RelationshipButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .lineLimit(1)
-            .minimumScaleFactor(0.6)
+            .minimumScaleFactor(0.4)
             .padding([.horizontal], 12)
             .padding([.vertical], 4)
             .background(backgroundColor)

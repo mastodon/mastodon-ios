@@ -29,6 +29,10 @@ import SwiftUI
         }
     }
     
+    func updateAccount(_ updated: MastodonAccount) {
+        account = updated
+    }
+    
     func doRelationshipButtonAction() async throws {
         if let action = relationshipViewModel.button.buttonAction.mastodonPostMenuAction {
             try await actionHandler?.doAction(action, forAccount: account)

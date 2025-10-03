@@ -155,8 +155,7 @@ import MastodonLocalization
             return true
         } else if let hashtag = fullPost?.actionablePost?.content.htmlWithEntities?.tags.first(where: { $0.name.lowercased() == url.lastPathComponent.lowercased() && url.pathComponents.contains("tags") }) {
             guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { return false }
-            let hashtagTimelineViewModel = HashtagTimelineViewModel(authenticationBox: currentUser, hashtag: hashtag.name)
-            actionHandler?.presentScene(.hashtagTimeline(viewModel: hashtagTimelineViewModel), fromPost: initialDisplayInfo.id, transition: .show)
+            actionHandler?.presentScene(.hashtagTimeline(hashtag), fromPost: initialDisplayInfo.id, transition: .show)
             return true
         } else {
             // fix non-ascii character URL link can not open issue

@@ -180,7 +180,7 @@ extension SceneCoordinator {
         case editHistory(viewModel: StatusEditHistoryViewModel)
         
         // Hashtag Timeline
-        case hashtagTimeline(viewModel: HashtagTimelineViewModel)
+        case hashtagTimeline(Mastodon.Entity.Tag)
 
         // profile
         case accountList(viewModel: AccountListViewModel)
@@ -436,9 +436,8 @@ private extension SceneCoordinator {
         case .editHistory(let viewModel):
             let editHistoryViewController = StatusEditHistoryViewController(viewModel: viewModel)
             viewController = editHistoryViewController
-        case .hashtagTimeline(let viewModel):
-            let _viewController = HashtagTimelineViewController()
-            _viewController.viewModel = viewModel
+        case .hashtagTimeline(let tag):
+            let _viewController = TimelineListViewController(.hashtag(tag))
             viewController = _viewController
         case .accountList(let viewModel):
             let accountListViewController = AccountListViewController()

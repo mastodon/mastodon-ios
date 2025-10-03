@@ -282,8 +282,8 @@ extension SettingsCoordinator: MetaLabelDelegate {
                       let url = URL(string: href) else { return }
                 _ = sceneCoordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
             case .hashtag(_, let hashtag, _):
-                let hashtagTimelineViewModel = HashtagTimelineViewModel(authenticationBox: authenticationBox, hashtag: hashtag)
-                _ = sceneCoordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: nil, transition: .show)
+                let tag = Mastodon.Entity.Tag(name: hashtag, url: "")
+                _ = sceneCoordinator.present(scene: .hashtagTimeline(tag), from: nil, transition: .show)
             case .email(let email, _):
                 if let emailUrl = URL(string: "mailto:\(email)"), UIApplication.shared.canOpenURL(emailUrl) {
                     UIApplication.shared.open(emailUrl)

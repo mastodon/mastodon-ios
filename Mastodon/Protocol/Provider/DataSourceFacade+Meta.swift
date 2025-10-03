@@ -53,9 +53,9 @@ extension DataSourceFacade {
                 url: url
             )
         case .hashtag(_, let hashtag, _):
-            let hashtagTimelineViewModel = await HashtagTimelineViewModel(authenticationBox: provider.authenticationBox, hashtag: hashtag)
             guard let coordinator = await provider.sceneCoordinator else { return }
-            _ = await coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: provider, transition: .show)
+            let tag = Mastodon.Entity.Tag(name: hashtag, url: "")
+            _ = await coordinator.present(scene: .hashtagTimeline(tag), from: provider, transition: .show)
         case .mention(_, let mention, let userInfo):
             await coordinateToProfileScene(
                 provider: provider,

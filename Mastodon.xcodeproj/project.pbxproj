@@ -1262,6 +1262,7 @@
 				"Common Components/Views/TimelineRowViews/AccountRowView.swift",
 				"Common Components/Views/TimelineRowViews/AccountRowViewModel.swift",
 				"Common Components/Views/TimelineRowViews/HashtagRowView.swift",
+				"Common Components/Views/TimelineRowViews/HashtagRowViewModel.swift",
 				"Common Components/Views/TimelineRowViews/MastodonPostRowView.swift",
 				"Common Components/Views/TimelineRowViews/MastodonPostViewModel.swift",
 				"Common Components/Views/TimelineRowViews/Molecules/AuthorHeaderView.swift",

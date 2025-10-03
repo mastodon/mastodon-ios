@@ -25,6 +25,7 @@ enum TimelineViewType {
     case profilePosts(tabTitle: String?, userID: String, queryFilter: TimelineQueryFilter)
     case thread(root: MastodonContentPost)
     case remoteThread(root: RemoteThreadType)
+    case hashtag(Mastodon.Entity.Tag)
     
     var tabTitle: String? {
         switch self {
@@ -66,6 +67,8 @@ class TimelineListViewController: UIHostingController<TimelineListView>
             viewModel = TimelineListViewModel(timeline: .myBookmarks)
         case .myFavorites:
             viewModel = TimelineListViewModel(timeline: .myFavorites)
+        case .hashtag(let tag):
+            viewModel = TimelineListViewModel(timeline: .hashtag(tag, includeHeader: true))
         }
         let root = TimelineListView(viewModel: viewModel)
         super.init(rootView: root)
@@ -82,11 +85,15 @@ class TimelineListViewController: UIHostingController<TimelineListView>
         }
         viewModel.hostingViewController = self
         
+        setUpNavigationBar()
+    }
+    
+    func setUpNavigationBar() {
         switch type {
         case .home:
             setUpTimelineSelectorButton()
             setUpScrollToTop()
-            showSettingsButton(true)
+            self.navigationItem.rightBarButtonItem = settingBarButtonItem
         case .notifications:
             setUpNotificationsNavBarControls()
             if viewModel.timeline.canDisplayFilteredNotifications {
@@ -95,11 +102,14 @@ class TimelineListViewController: UIHostingController<TimelineListView>
         case .thread(let focusedPost):
             let authorHandle = focusedPost.initialDisplayInfo(inContext: .thread).actionableAuthorHandle
             navigationItem.title = L10n.Scene.Thread.title("@\(authorHandle)")
-        
+            
         case .trendingPosts, .myBookmarks, .myFavorites, .profilePosts, .remoteThread:
             break
         case .search(let string, _):
             navigationItem.title = string
+        case .hashtag(let tag):
+            navigationItem.title = "#\(tag.name)"
+            navigationItem.rightBarButtonItem = composeHashtagButtonItem
         }
     }
     
@@ -115,6 +125,16 @@ class TimelineListViewController: UIHostingController<TimelineListView>
         barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.settings
         barButtonItem.target = self
         barButtonItem.action = #selector(Self.settingBarButtonItemPressed(_:))
+        return barButtonItem
+    }()
+    
+    lazy var composeHashtagButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem()
+        barButtonItem.tintColor = Asset.Colors.Brand.blurple.color
+        barButtonItem.image = UIImage(systemName: "square.and.pencil")
+        barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.compose
+        barButtonItem.target = self
+        barButtonItem.action = #selector(Self.composeHashtagBarButtonItemPressed(_:))
         return barButtonItem
     }()
     
@@ -203,11 +223,22 @@ extension TimelineListViewController {
         _ = self.sceneCoordinator?.present(scene: .settings(setting: setting), from: self, transition: .none)
     }
     
-    func showSettingsButton(_ show: Bool) {
-        if show {
-            self.navigationItem.rightBarButtonItem = settingBarButtonItem
-        } else {
-            self.navigationItem.rightBarButtonItem = nil
+    @objc private func composeHashtagBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        guard let authenticatedUser = viewModel.authenticatedUser else { return }
+        switch viewModel.timeline {
+        case .hashtag(let tag, _):
+            let composeViewModel = ComposeViewModel(
+                authenticationBox: authenticatedUser,
+                composeContext: .composeStatus(quoting: nil),
+                destination: .topLevel,
+                initialContent: "#\(tag.name)",
+                completion: { success in
+                   // TODO: reload at least enough to indicate that there is an additional post
+                }
+            )
+            viewModel.presentScene(.compose(viewModel: composeViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
+        default:
+            break
         }
     }
     
@@ -334,7 +365,7 @@ extension TimelineListViewController {
                     let entryName = "#\(entry.name)"
                     return LabeledAction(title: entryName, image: nil, handler: { [weak self] in
                         guard let self else { return }
-                        viewModel.timeline = .hashtag(entry.name)
+                        viewModel.timeline = .hashtag(entry, includeHeader: false)
                         timelineSelectorButton.setAttributedTitle(
                             .init(string: entryName, attributes: [
                                 .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
@@ -1603,15 +1634,23 @@ struct TimelineListView: View {
                             }
                         }
                     }
-            case .hashtag(let tag):
-                HashtagRowView(tag: tag)
-                    .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
-                    .frame(width: usableWidth)
-                    .onTapGesture {
-                        guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
-                        let hashtagTimelineViewModel = HashtagTimelineViewModel(authenticationBox: currentUser, hashtag: tag.name)
-                        viewModel.presentScene(.hashtagTimeline(viewModel: hashtagTimelineViewModel), fromPost: nil, transition: .show)
-                    }
+            case .hashtag(let tagViewModel):
+                switch viewModel.timeline {
+                case .hashtag:
+                    HashtagHeaderView()
+                        .environment(tagViewModel)
+                        .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
+                        .frame(width: usableWidth)
+                    Divider()
+                default:
+                    HashtagRowView()
+                        .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
+                        .frame(width: usableWidth)
+                        .environment(tagViewModel)
+                        .onTapGesture {
+                            viewModel.presentScene(.hashtagTimeline(tagViewModel.entity), fromPost: nil, transition: .show)
+                        }
+                }
             case .account(let accountViewModel):
                 AccountRowView(contentWidth: contentWidth)
                     .environment(accountViewModel)

@@ -69,6 +69,7 @@ struct AccountRowView: View {
                 .fontWeight(.semibold)
             Text(stat.label)
                 .font(.footnote)
+                .lineLimit(1)
         }
     }
     
