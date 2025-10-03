@@ -41,10 +41,11 @@ import MastodonLocalization
         }
     }
     
-    let myRelationshipToAuthor = RelationshipViewModel()
+    private let myRelationshipToAuthorViewModel = RelationshipViewModel()
+    private(set) var myRelationshipToAuthor: MastodonAccount.Relationship?
     var isQuotingMe: Bool {
         guard let quoted = fullQuotedPostViewModel else { return false }
-        switch quoted.myRelationshipToAuthor.relationship {
+        switch quoted.myRelationshipToAuthor {
         case .isMe:
             return true
         case nil:
@@ -101,15 +102,21 @@ import MastodonLocalization
         self.updateQuotedPostViewModel()
     }
     
+    public func prepareForDisplay(relationship: MastodonAccount.Relationship, theirAccountIsLocked: Bool) {
+        myRelationshipToAuthorViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: theirAccountIsLocked)
+        myRelationshipToAuthor = relationship
+    }
+    
     func update(from actionablePost: GenericMastodonPost) throws {
         self.fullPost = try fullPost?.byReplacingActionablePost(with: actionablePost)
         updateQuotedPostViewModel()
     }
     
     func updateRelationship(_ relationship: MastodonAccount.Relationship) {
-        guard myRelationshipToAuthor.relationship?.refersToSameAccount(as: relationship) == true else { return }
-        myRelationshipToAuthor.prepareForDisplay(relationship: relationship, theirAccountIsLocked: fullPost?.actionablePost?.metaData.author.locked ?? false)
+        guard myRelationshipToAuthor?.refersToSameAccount(as: relationship) == true else { return }
+        myRelationshipToAuthorViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: fullPost?.actionablePost?.metaData.author.locked ?? false)
         fullQuotedPostViewModel?.updateRelationship(relationship)
+        myRelationshipToAuthor = relationship
     }
     
     var altTextTranslations: [String : String]? {
@@ -160,7 +167,7 @@ import MastodonLocalization
     
     func goToProfile(_ account: MastodonAccount) {
         guard let me = AuthenticationServiceProvider.shared.currentActiveUser.value?.cachedAccount else { return }
-        if let relationshipToAuthor = myRelationshipToAuthor.relationship {
+        if let relationshipToAuthor = myRelationshipToAuthor {
             switch relationshipToAuthor {
             case .isNotMe(let info):
                 if let info, account.id == info.id {
@@ -274,7 +281,7 @@ extension MastodonPostViewModel {
             let isPrivate = basicPost.metaData.privacyLevel == .mentionedOnly
             let quotesMe = {
                 if let quotedPost = fullQuotedPostViewModel {
-                    switch quotedPost.myRelationshipToAuthor.relationship {
+                    switch quotedPost.myRelationshipToAuthor {
                     case .isMe:
                         return true
                     default:

@@ -1109,7 +1109,7 @@ extension TimelineListViewModel {
         
         func processPostViewModel(_ postViewModel: MastodonPostViewModel) {
             if postViewModel.initialDisplayInfo.actionableAuthorId == authenticatedUser?.userID {
-                postViewModel.myRelationshipToAuthor.prepareForDisplay(relationship: .isMe, theirAccountIsLocked: false) // locked doesn't matter in this case
+                postViewModel.prepareForDisplay(relationship: .isMe, theirAccountIsLocked: false) // locked doesn't matter in this case
             } else {
                 relationshipsToFetch.insert(postViewModel.initialDisplayInfo.actionableAuthorId)
             }
@@ -1158,13 +1158,13 @@ extension TimelineListViewModel {
             
             for postModel in toPrep {
                 if postModel.fullPost?.actionablePost?.metaData.author.id == authenticatedUser?.userID {
-                    postModel.myRelationshipToAuthor.prepareForDisplay(relationship: .isMe, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
+                    postModel.prepareForDisplay(relationship: .isMe, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
                 } else {
                     let relationship = fetchedRelationships.first(where: {
                         $0.info?.id == postModel.initialDisplayInfo.actionableAuthorId
                     }) ?? feedLoader.myRelationship(to: postModel.initialDisplayInfo.actionableAuthorId)
                     
-                    postModel.myRelationshipToAuthor.prepareForDisplay(relationship: relationship, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
+                    postModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
                 }
                 if postModel.actionHandler == nil {
                     postModel.actionHandler = self
@@ -2049,27 +2049,13 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
 
             // MARK: RELATIONSHIP ACTIONS
                     
-                case .follow, .unfollow, .mute, .unmute:
+                case .follow, .unfollow, .mute, .unmute, .blockUser, .unblockUser:
                     try await doAction(action, forAccount: author)
+                    isPerformingAccountAction = nil
                     
             // MARK: DEFENSIVE ACTIONS
                 case .removeQuote:
                     try await doRemoveQuote(from: actionablePost, askFirst: true)
-                case .blockUser:
-                    activeAlert = .confirmBlock(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
-                        guard confirmed else { return }
-                        Task {
-                            await self?.commitBlock(author.id)
-                        }
-                    })
-                    
-                case .unblockUser:
-                    activeAlert = .confirmUnblock(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
-                        guard confirmed else { return }
-                        Task {
-                            await self?.commitUnblock(author.id)
-                        }
-                    })
                     
                 case .reportUser:
                     guard let relationship = try await APIService.shared.relationship(forAccountIds: [author.id], authenticationBox: authenticatedUser).value.first else { throw PostActionFailure.noRelationshipInfo }
@@ -2138,12 +2124,13 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             await doMute(account, askFirst: true)
         case .unmute:
             await doUnmute(account, askFirst: true)
+        case .blockUser:
+            await doBlock(account) // always asks first
+        case .unblockUser:
+            await doUnblock(account) // always asks first
         default:
             throw PostActionFailure.unsupportedAction
         }
-        let updatedRelationship = myRelationship(to: account)
-        guard updatedRelationship.info?._legacyEntity != nil else { return }
-        feedLoader?.updateRelationship(updatedRelationship)
     }
 
     func canTranslate(post: MastodonContentPost) -> Bool {
@@ -2214,33 +2201,23 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
     
     // RELATIONSHIP ACTIONS
     
-    func doUnfollow(_ author: MastodonAccount, askFirst: Bool) async {
-        do {
-            if askFirst {
-                await withCheckedContinuation { continuation in
-                    activeAlert = .confirmUnfollow(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
-                        guard confirmed else { continuation.resume(); return }
-                        Task {
-                            await self?.doUnfollow(author, askFirst: false)
-                            continuation.resume()
-                        }
-                    })
-                }
-            } else {
-                guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
-                let response = try await APIService.shared.unfollow(author.id, authenticationBox: authenticatedUser)
-                let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-                feedLoader?.updateRelationship(.isNotMe(newRelationshipInfo))
-                AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
+    private func doUnfollow(_ author: MastodonAccount, askFirst: Bool) async {
+        if askFirst {
+            await withCheckedContinuation { continuation in
+                activeAlert = .confirmUnfollow(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
+                    guard confirmed else { continuation.resume(); return }
+                    Task {
+                        await self?.doUnfollow(author, askFirst: false)
+                        continuation.resume()
+                    }
+                })
             }
-        } catch {
-            didReceiveError(error)
-            assert(false)
+        } else {
+            await commitUnfollow(author.id)
         }
-        isPerformingAccountAction = nil
     }
     
-    func doMute(_ author: MastodonAccount, askFirst: Bool) async {
+    private func doMute(_ author: MastodonAccount, askFirst: Bool) async {
         if askFirst {
             await withCheckedContinuation { continuation in
                 self.activeAlert = .confirmMute(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
@@ -2256,7 +2233,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         }
     }
     
-    func doUnmute(_ author: MastodonAccount, askFirst: Bool) async {
+    private func doUnmute(_ author: MastodonAccount, askFirst: Bool) async {
         if askFirst {
             await withCheckedContinuation { continuation in
                 self.activeAlert = .confirmUnmute(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
@@ -2272,43 +2249,72 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         }
     }
     
-    func commitFollow(_ accountID: Mastodon.Entity.Account.ID) async {
+    private func doBlock(_ author: MastodonAccount) async {
+        await withCheckedContinuation { continuation in
+            activeAlert = .confirmBlock(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
+                guard confirmed else { continuation.resume(); return }
+                Task {
+                    await self?.commitBlock(author.id)
+                    continuation.resume()
+                }
+            })
+        }
+    }
+    
+    private func doUnblock(_ author: MastodonAccount) async {
+        await withCheckedContinuation { continuation in
+            activeAlert = .confirmUnblock(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
+                guard confirmed else { continuation.resume(); return }
+                Task {
+                    await self?.commitUnblock(author.id)
+                    continuation.resume()
+                }
+            })
+        }
+    }
+    
+    private func commitFollow(_ accountID: Mastodon.Entity.Account.ID) async {
         do {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             let response = try await APIService.shared.follow(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            feedLoader?.updateRelationship(.isNotMe(newRelationshipInfo))
-            AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
+            updateRelationship(.isNotMe(newRelationshipInfo), currentUser: authenticatedUser)
         } catch {
             didReceiveError(error)
         }
-        isPerformingAccountAction = nil
     }
     
-    func commitMute(_ accountID: Mastodon.Entity.Account.ID) async {
+    private func commitUnfollow(_ accountID: Mastodon.Entity.Account.ID) async {
+        do {
+            guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
+            let response = try await APIService.shared.unfollow(accountID, authenticationBox: authenticatedUser)
+            let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
+            updateRelationship(.isNotMe(newRelationshipInfo), currentUser: authenticatedUser)
+        } catch {
+            didReceiveError(error)
+        }
+    }
+    
+    private func commitMute(_ accountID: Mastodon.Entity.Account.ID) async {
         do {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             let response = try await APIService.shared.mute(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            feedLoader?.updateRelationship(.isNotMe(newRelationshipInfo))
-            AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
+            updateRelationship(.isNotMe(newRelationshipInfo), currentUser: authenticatedUser)
         } catch {
             didReceiveError(error)
         }
-        isPerformingAccountAction = nil
     }
     
-    func commitUnmute(_ accountID: Mastodon.Entity.Account.ID) async {
+    private func commitUnmute(_ accountID: Mastodon.Entity.Account.ID) async {
         do {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             let response = try await APIService.shared.unmute(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            feedLoader?.updateRelationship(.isNotMe(newRelationshipInfo))
-            AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
+            updateRelationship(.isNotMe(newRelationshipInfo), currentUser: authenticatedUser)
         } catch {
             didReceiveError(error)
         }
-        isPerformingAccountAction = nil
     }
      
     // DEFENSIVE ACTIONS
@@ -2325,30 +2331,26 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         }
     }
     
-    func commitBlock(_ accountID: Mastodon.Entity.Account.ID) async {
+    private func commitBlock(_ accountID: Mastodon.Entity.Account.ID) async {
         do {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             let response = try await APIService.shared.block(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            feedLoader?.updateRelationship(.isNotMe(newRelationshipInfo))
-            AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
+            updateRelationship(.isNotMe(newRelationshipInfo), currentUser: authenticatedUser)
         } catch {
             didReceiveError(error)
         }
-        isPerformingAccountAction = nil
     }
     
-    func commitUnblock(_ accountID: Mastodon.Entity.Account.ID) async {
+    private func commitUnblock(_ accountID: Mastodon.Entity.Account.ID) async {
         do {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             let response = try await APIService.shared.unblock(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            feedLoader?.updateRelationship(.isNotMe(newRelationshipInfo))
-            AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
+            updateRelationship(.isNotMe(newRelationshipInfo), currentUser: authenticatedUser)
         } catch {
             didReceiveError(error)
         }
-        isPerformingAccountAction = nil
     }
     
     func deletePost(_ postID: Mastodon.Entity.Status.ID, askFirst: Bool) async {
@@ -2396,6 +2398,13 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         )
     }
     
+    func updateRelationship(_ updated: MastodonAccount.Relationship, currentUser: MastodonAuthenticationBox) {
+        for item in currentDisplaySlice {
+            item.updateRelationship(updated)
+        }
+        feedLoader?.updateRelationship(updated)
+        AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: currentUser.globallyUniqueUserIdentifier)
+    }
 }
 
 extension GenericMastodonPost {
