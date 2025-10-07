@@ -127,7 +127,7 @@ struct MastodonPostRowView: View {
                             } else {
                                 EmbeddedPostView(layoutWidth: contentWidth, isSummary: false)
                                     .environment(quotedPostViewModel)
-                                    .environment(contentConcealModel.nestedContentConcealModel)
+                                    .environment(contentConcealModel.nestedContentConcealModel ?? .alwaysShow)
                                     .onTapGesture {
                                         quotedPostViewModel.openThreadView()
                                     }
