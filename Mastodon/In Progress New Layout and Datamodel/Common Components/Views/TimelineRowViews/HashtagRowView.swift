@@ -22,7 +22,6 @@ struct HashtagRowView: View {
                     .foregroundStyle(.secondary)
             }
             Spacer()
-                .frame(maxWidth: .infinity)
             WrappedLineChartView(tag: viewModel.entity)
                 .frame(width: 50, height: 26)
                 .accessibilityHidden(true)
