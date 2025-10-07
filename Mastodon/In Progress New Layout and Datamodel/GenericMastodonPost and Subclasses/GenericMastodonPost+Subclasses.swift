@@ -123,6 +123,12 @@ class MastodonQuotedPost: Codable {
         self.quotedPostID = quoted.quotedStatus?.id ?? quoted.quotedStatusID
     }
 
+    init (deletedID: Mastodon.Entity.Status.ID) {
+        state = .deleted
+        quotedPostID = deletedID
+        fullPost = nil
+    }
+    
     enum CodingKeys: String, CodingKey {
         case state
         case fullPost

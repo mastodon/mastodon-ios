@@ -118,7 +118,7 @@ nonisolated struct MastodonNotificationInfo {
             if let status {
                 let inlinePost = GenericMastodonPost.fromStatus(status)
                 inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo(inContext: .notifications), filterContext: .notifications, threadedConversationContext: nil)
-                inlinePostViewModel?.setFullPost(inlinePost)
+                inlinePostViewModel?.initialSetFullPost(inlinePost)
                 usePrivateBackground = status.visibility == .direct
             }
         case .adminSignUp, .adminReport, .severedRelationships, .moderationWarning:
@@ -135,20 +135,12 @@ nonisolated struct MastodonNotificationInfo {
             if let status {
                 let inlinePost = GenericMastodonPost.fromStatus(status)
                 inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo(inContext: .notifications), filterContext: .notifications, threadedConversationContext: nil)
-                inlinePostViewModel?.setFullPost(inlinePost)
+                inlinePostViewModel?.initialSetFullPost(inlinePost)
             }
         default:
             break
         }
         self.notification = MastodonNotificationInfo(newInfo)
-    }
-    
-    public func updateRelationship(_ relationship: MastodonAccount.Relationship) {
-        inlinePostViewModel?.updateRelationship(relationship)
-        if relationshipViewModel.relationship?.refersToSameAccount(as: relationship) == true {
-            relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: _primaryAuthorAccountIsLocked)
-            updateAvatarRowAdditionalElement()
-        }
     }
     
     private var _primaryAuthorAccountIsLocked: Bool = false
@@ -658,6 +650,23 @@ extension NotificationRowViewModel.NotificationNavigation {
             return L10n.Scene.Profile.Dashboard.myFollowers // TODO: improve string
         case .profile(let account):
             return  L10n.Common.Controls.Status.MetaEntity.mention(account.displayNameWithFallback)
+        }
+    }
+}
+
+extension NotificationRowViewModel: FeedCoordinatorUpdatable {
+    func incorporateUpdate(_ update: UpdatedElement) {
+        
+        inlinePostViewModel?.incorporateUpdate(update)
+        
+        switch update {
+        case .hashtag, .deletedPost, .post:
+            break
+        case .relationship(let updated):
+            if relationshipViewModel.relationship?.refersToSameAccount(as: updated) == true {
+                relationshipViewModel.prepareForDisplay(relationship: updated, theirAccountIsLocked: _primaryAuthorAccountIsLocked)
+                updateAvatarRowAdditionalElement()
+            }
         }
     }
 }

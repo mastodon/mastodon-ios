@@ -22,12 +22,12 @@ import MastodonLocalization
     
     private(set) var fullPost: GenericMastodonPost? = nil
     
-    func setFullPost(_ post: GenericMastodonPost?) {
+    func initialSetFullPost(_ post: GenericMastodonPost?) {
         fullPost = post
-        updateQuotedPostViewModel()
+        deriveNewQuotedPostViewModel()
     }
     
-    func updateQuotedPostViewModel() {
+    func deriveNewQuotedPostViewModel() {
         if let potentialQuotePost = fullPost?.actionablePost as? MastodonBasicPost {
             if let quoted = potentialQuotePost.quotedPost, let quotedFullPost = quoted.fullPost {
                 let updated = MastodonPostViewModel(quotedFullPost.initialDisplayInfo(inContext: filterContext), fullPost: quotedFullPost, filterContext: filterContext, threadedConversationContext: nil)
@@ -99,23 +99,11 @@ import MastodonLocalization
         self.fullPost = fullPost
         self.filterContext = filterContext
         self.threadedContext = threadedConversationContext
-        self.updateQuotedPostViewModel()
+        self.deriveNewQuotedPostViewModel()
     }
     
     public func prepareForDisplay(relationship: MastodonAccount.Relationship, theirAccountIsLocked: Bool) {
         myRelationshipToAuthorViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: theirAccountIsLocked)
-        myRelationshipToAuthor = relationship
-    }
-    
-    func update(from actionablePost: GenericMastodonPost) throws {
-        self.fullPost = try fullPost?.byReplacingActionablePost(with: actionablePost)
-        updateQuotedPostViewModel()
-    }
-    
-    func updateRelationship(_ relationship: MastodonAccount.Relationship) {
-        guard myRelationshipToAuthor?.refersToSameAccount(as: relationship) == true else { return }
-        myRelationshipToAuthorViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: fullPost?.actionablePost?.metaData.author.locked ?? false)
-        fullQuotedPostViewModel?.updateRelationship(relationship)
         myRelationshipToAuthor = relationship
     }
     
@@ -315,6 +303,34 @@ extension MastodonPostViewModel {
             return .timelinePost(html: translation, emojis: emojis, isInlinePreview: isInlinePreview)
         } else {
             return .timelinePost(html: untranslatedContent, emojis: emojis, isInlinePreview: isInlinePreview)
+        }
+    }
+}
+
+extension MastodonPostViewModel: FeedCoordinatorUpdatable {
+    func incorporateUpdate(_ update: UpdatedElement) {
+        switch update {
+        case .hashtag:
+            fullQuotedPostViewModel?.incorporateUpdate(update)
+        case .deletedPost(let deletedID):
+            guard deletedID != self.initialDisplayInfo.id else { assertionFailure("owner must delete this view model"); return }
+            if fullQuotedPostViewModel?.initialDisplayInfo.id == deletedID {
+                fullQuotedPostViewModel = nil
+                placeholderQuotedPost = MastodonQuotedPost(deletedID: deletedID)
+            }
+        case .post(let updated):
+            do {
+                self.fullPost = try fullPost?.byReplacingActionablePost(with: updated)
+                deriveNewQuotedPostViewModel()
+            } catch {
+                // the full post wasn't a match, but the quoted post might be
+                fullQuotedPostViewModel?.incorporateUpdate(update)
+            }
+        case .relationship(let updated):
+            fullQuotedPostViewModel?.incorporateUpdate(update)
+            guard myRelationshipToAuthor?.refersToSameAccount(as: updated) == true else { return }
+            myRelationshipToAuthorViewModel.prepareForDisplay(relationship: updated, theirAccountIsLocked: fullPost?.actionablePost?.metaData.author.locked ?? false)
+            myRelationshipToAuthor = updated
         }
     }
 }

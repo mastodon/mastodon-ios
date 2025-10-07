@@ -73,14 +73,14 @@ struct HashtagHeaderView: View {
                                     for: viewModel.entity.name,
                                     authenticationBox: user
                                 ).value {
-                                    viewModel.entity = updated
+                                    FeedCoordinator.shared.publishUpdate(.hashtag(updated))
                                 }
                             } else {
                                 if let updated = try? await APIService.shared.followTag(
                                     for: viewModel.entity.name,
                                     authenticationBox: user
                                 ).value {
-                                    viewModel.entity = updated
+                                    FeedCoordinator.shared.publishUpdate(.hashtag(updated))
                                 }
                             }
                             isUpdating = false

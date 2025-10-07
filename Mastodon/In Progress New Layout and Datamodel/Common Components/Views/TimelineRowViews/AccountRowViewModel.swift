@@ -22,13 +22,6 @@ import SwiftUI
         relationshipButton = relationshipViewModel.button
     }
     
-    func updateRelationship(_ updated: MastodonAccount.Relationship) {
-        if relationshipViewModel.relationship?.refersToSameAccount(as: updated) == true {
-            relationshipViewModel.prepareForDisplay(relationship: updated, theirAccountIsLocked: account.locked)
-            relationshipButton = relationshipViewModel.button
-        }
-    }
-    
     func updateAccount(_ updated: MastodonAccount) {
         account = updated
     }
@@ -45,10 +38,24 @@ import SwiftUI
         case .isMe:
             let profile: ProfileViewController.ProfileType = .me(account._legacyEntity)
             actionHandler?.presentScene(.profile(profile), fromPost: nil, transition: .show)
-        case .isNotMe(let relationshipInfo):
+        case .isNotMe:
             guard let me = AuthenticationServiceProvider.shared.currentActiveUser.value?.cachedAccount else { return }
             let profile: ProfileViewController.ProfileType = .notMe(me: me, displayAccount: account._legacyEntity, relationship: relationship.info?._legacyEntity)
             actionHandler?.presentScene(.profile(profile), fromPost: nil, transition: .show)
+        }
+    }
+}
+
+extension AccountRowViewModel: FeedCoordinatorUpdatable {
+    func incorporateUpdate(_ update: UpdatedElement) {
+        switch update {
+        case .hashtag, .deletedPost, .post:
+            break
+        case .relationship(let updated):
+            if relationshipViewModel.relationship?.refersToSameAccount(as: updated) == true {
+                relationshipViewModel.prepareForDisplay(relationship: updated, theirAccountIsLocked: account.locked)
+                relationshipButton = relationshipViewModel.button
+            }
         }
     }
 }

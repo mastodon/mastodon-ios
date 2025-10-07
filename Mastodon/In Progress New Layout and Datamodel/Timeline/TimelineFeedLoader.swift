@@ -5,6 +5,32 @@ import Foundation
 import MastodonCore
 import MastodonSDK
 
+public class FeedCoordinator {
+    @Published var mostRecentUpdate: UpdatedElement?
+    
+    static let shared = FeedCoordinator()
+    
+    func publishUpdate(_ update: UpdatedElement) {
+        mostRecentUpdate = update
+        switch update {
+        case .relationship:
+            Task { @MainActor in
+                guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier else { return }
+                AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: currentUser)
+            }
+        default:
+            break
+        }
+    }
+}
+
+enum UpdatedElement {
+    case deletedPost(Mastodon.Entity.Status.ID)
+    case post(GenericMastodonPost)
+    case hashtag(Mastodon.Entity.Tag)
+    case relationship(MastodonAccount.Relationship)
+}
+
 public enum NotificationsScope: Hashable {
     case everything
     case mentions
@@ -191,6 +217,10 @@ fileprivate let relationshipStaleThreshold: TimeInterval = 20 /*min*/ * 60 /*sec
 public var recentlyInsertedItemIds: Set<String>?
 #endif
 
+protocol FeedCoordinatorUpdatable {
+    @MainActor func incorporateUpdate(_ update: UpdatedElement)
+}
+
 @MainActor
 final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeline> {
 #if DEBUG
@@ -200,9 +230,12 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
     private let filterContext: Mastodon.Entity.FilterContext?
     
     private let authenticatedUser: MastodonAuthenticationBox
+    
     private var cachedRelationships = [Mastodon.Entity.Account.ID : MastodonAccount.Relationship]()
     private var accountsCache = [Mastodon.Entity.Account.ID : MastodonAccount]()
     private var contentConcealViewModels = [Mastodon.Entity.Status.ID : ContentConcealViewModel]()
+    
+    private var updateSubscription: AnyCancellable?
     private var postViewModels = [Mastodon.Entity.Status.ID : MastodonPostViewModel]()
     private var notificationViewModels = [Mastodon.Entity.NotificationGroup.ID : NotificationRowViewModel]()
     private var accountViewModels = [Mastodon.Entity.Account.ID : AccountRowViewModel]()
@@ -246,7 +279,42 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         case .notifications:
             self.filterContext = .notifications
         }
+        
+        
         super.init(cacheManager)
+        
+        self.updateSubscription = FeedCoordinator.shared.$mostRecentUpdate
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] update in
+                guard let self, let update else { return }
+                switch update {
+                case .deletedPost(let deletedID):
+                    transformCachedResults { cache in
+                        return cache.byDeleting(postId: deletedID)
+                    }
+                case .relationship(let updated):
+                    guard let id = updated.info?.id else { return }
+                    self.cachedRelationships[id] = updated
+                default:
+                    break
+                }
+                updateCachedResults { cache in
+                    for item in cache.items {
+                        switch item {
+                        case .account(let accountModel):
+                            accountModel.incorporateUpdate(update)
+                        case .post(let postModel):
+                            postModel.incorporateUpdate(update)
+                        case .notification(let notificationModel):
+                            notificationModel.incorporateUpdate(update)
+                        case .hashtag(let hashtagModel):
+                            hashtagModel.incorporateUpdate(update)
+                        case .filteredNotificationsInfo, .loadingIndicator:
+                            break
+                        }
+                    }
+                }
+            }
     }
 
     override func fetchResults(for request: MastodonFeedLoaderRequest) async throws -> CacheableTimeline {
@@ -315,21 +383,42 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         }
         func timelineItem(fromPost post: GenericMastodonPost) -> TimelineItem {
             let initialDisplayInfo = post.initialDisplayInfo(inContext: filterContext)
-            let viewModel = postViewModels[initialDisplayInfo.id] ?? MastodonPostViewModel(initialDisplayInfo, filterContext: filterContext, threadedConversationContext: threadedConversationModel?.context(for: initialDisplayInfo.id))
-            newPostModels[initialDisplayInfo.id] = viewModel
-            viewModel.setFullPost(post)
+            let viewModel = {
+                if let existing = postViewModels[initialDisplayInfo.id] {
+                    existing.incorporateUpdate(.post(post))
+                    return existing
+                } else {
+                    let model = MastodonPostViewModel(initialDisplayInfo, filterContext: filterContext, threadedConversationContext: threadedConversationModel?.context(for: initialDisplayInfo.id))
+                    newPostModels[initialDisplayInfo.id] = model
+                    model.initialSetFullPost(post)
+                    return model
+                }
+            }()
             return TimelineItem.post(viewModel)
         }
         func timelineItem(fromAccount accountEntity: Mastodon.Entity.Account) -> TimelineItem {
             let account = MastodonAccount.fromEntity(accountEntity)
-            let viewModel = accountViewModels[account.id] ?? AccountRowViewModel(account: account)
-            viewModel.updateAccount(account)
-            newAccountModels[account.id] = viewModel
+            let viewModel = {
+                if let existing = accountViewModels[account.id] {
+                    existing.updateAccount(account)
+                    return existing
+                } else {
+                    let model = AccountRowViewModel(account: account)
+                    newAccountModels[account.id] = model
+                    return model
+                }
+            }()
             return TimelineItem.account(viewModel)
         }
         func timelineItem(fromHashtag hashtag: Mastodon.Entity.Tag) -> TimelineItem {
-            let viewModel = hashtagViewModels[hashtag.uniqueID] ?? HashtagRowViewModel(entity: hashtag)
-            viewModel.entity = hashtag
+            let viewModel = {
+                if let existing = hashtagViewModels[hashtag.uniqueID] {
+                    existing.incorporateUpdate(.hashtag(hashtag))
+                    return existing
+                } else {
+                    return HashtagRowViewModel(entity: hashtag)
+                }
+            }()
             newHashtagModels[hashtag.uniqueID] = viewModel
             return TimelineItem.hashtag(viewModel)
         }
@@ -622,14 +711,7 @@ struct CacheableTimeline: CacheableFeed {
         
         items = combined
     }
-
-    @MainActor
-    func update(fromPost updated: GenericMastodonPost) {
-        for item in items {
-            item.update(fromPost: updated)
-        }
-    }
-    
+  
     @MainActor
     func byDeleting(postId: Mastodon.Entity.Status.ID) -> CacheableTimeline {
         let newItems = items.filter { item in
@@ -645,13 +727,6 @@ struct CacheableTimeline: CacheableFeed {
         }
         
         return CacheableTimeline(older: [], newer: newItems)
-    }
-    
-    @MainActor
-    func updateRelationship(_ updated: MastodonAccount.Relationship) {
-        for item in items {
-            item.updateRelationship(updated)
-        }
     }
 }
 
@@ -757,21 +832,6 @@ extension GenericMastodonPost.PostContent {
     }
 }
 
-// MARK: Update Posts
-extension TimelineFeedLoader {
-    func updatePost(post: GenericMastodonPost) {
-        updateCachedResults { cached in
-            cached.update(fromPost: post)
-        }
-    }
-    
-    func didDeletePost(_ postID: Mastodon.Entity.Status.ID) {
-        transformCachedResults { cached in
-            return cached.byDeleting(postId: postID)
-        }
-    }
-}
-
 // MARK: Relationships
 extension TimelineFeedLoader {
     func myRelationship(to accountID: Mastodon.Entity.Account.ID) -> MastodonAccount.Relationship {
@@ -779,14 +839,6 @@ extension TimelineFeedLoader {
             return .isMe
         } else {
             return cachedRelationships[accountID] ?? .isNotMe(nil)
-        }
-    }
-    
-    func updateRelationship(_ relationship: MastodonAccount.Relationship) {
-        guard let accountID = relationship.info?.id else { return }
-        cachedRelationships[accountID] = relationship
-        updateCachedResults { cached in
-            cached.updateRelationship(relationship)
         }
     }
     
@@ -1011,43 +1063,4 @@ struct NotificationsLoader {
         }
     }
     
-}
-
-extension TimelineItem {
-    @MainActor
-    func update(fromPost updated: GenericMastodonPost) {
-        switch self {
-        case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account:
-            break
-        case .post(let existingViewModel):
-            do {
-                try existingViewModel.update(from: updated)
-            } catch {}
-            do {
-                try existingViewModel.fullQuotedPostViewModel?.update(from: updated)
-            } catch {}
-        case .notification(let notificationViewModel):
-            guard let embeddedPostModel = notificationViewModel.inlinePostViewModel else { break }
-            do {
-                try embeddedPostModel.update(from: updated)
-            } catch {}
-            do {
-                try embeddedPostModel.fullQuotedPostViewModel?.update(from: updated)
-            } catch {}
-        }
-    }
-    
-    @MainActor
-    func updateRelationship(_ updated: MastodonAccount.Relationship) {
-        switch self {
-        case .loadingIndicator, .filteredNotificationsInfo, .hashtag:
-            break
-        case .account(let accountViewModel):
-            accountViewModel.updateRelationship(updated)
-        case .post(let postViewModel):
-            postViewModel.updateRelationship(updated)
-        case .notification(let notificationViewModel):
-            notificationViewModel.updateRelationship(updated)
-        }
-    }
 }

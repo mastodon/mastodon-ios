@@ -1911,6 +1911,11 @@ extension MastodonTimelineOverlayView {
 }
 
 extension TimelineListViewModel: MastodonPostMenuActionHandler {
+    
+    func publishUpdate(_ update: UpdatedElement) {
+        FeedCoordinator.shared.publishUpdate(update)
+    }
+    
     var mediaPreviewableViewController: (any MediaPreviewableViewController)? {
         return hostingViewController
     }
@@ -1919,7 +1924,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
         let updatedPoll = try await APIService.shared.vote(poll: poll, choices: choices, authenticationBox: authenticatedUser).value
         let updatedContainingStatus = try await APIService.shared.status(statusID: containingPostID, authenticationBox: authenticatedUser).value
-        feedLoader?.updatePost(post: GenericMastodonPost.fromStatus(updatedContainingStatus))
+        publishUpdate(.post(GenericMastodonPost.fromStatus(updatedContainingStatus)))
         return updatedPoll
     }
     
@@ -2008,7 +2013,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                         updated = nil
                     }
                     if let updated {
-                        feedLoader?.updatePost(post: GenericMastodonPost.fromStatus(updated))
+                        publishUpdate(.post(GenericMastodonPost.fromStatus(updated)))
                     }
                     clearPendingActions()
                     
@@ -2141,7 +2146,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         Task {
             do {
                 let updated = try await APIService.shared.updateQuotePolicy(forStatus: post.id, to: editModel.interactionSettings.quotability, authenticationBox: authBox)
-                feedLoader?.updatePost(post: GenericMastodonPost.fromStatus(updated))
+                publishUpdate(.post(GenericMastodonPost.fromStatus(updated)))
             } catch {
                 didReceiveError(error)
             }
@@ -2203,7 +2208,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             guard let authBox = self?.authenticatedUser else { return }
             let status = try await APIService.shared.status(statusID: actionablePostID, authenticationBox: authBox).value
             let updated = GenericMastodonPost.fromStatus(status)
-            self?.feedLoader?.updatePost(post: updated)
+            FeedCoordinator.shared.publishUpdate(.post(updated))
         }
     }
     
@@ -2239,7 +2244,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             } else {
                 let updated = try await APIService.shared.boost(boostableStatusId: actionablePostId, authenticationBox: authenticatedUser) // this returns a new post, which is the boost action
                 let updatedActionable = updated.reblog ?? updated // when updating the existing records, we only care about the original post
-                feedLoader?.updatePost(post: GenericMastodonPost.fromStatus(updatedActionable))
+                FeedCoordinator.shared.publishUpdate(.post(GenericMastodonPost.fromStatus(updatedActionable)))
                 clearPendingActions()
             }
         } catch {
@@ -2327,7 +2332,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             let response = try await APIService.shared.follow(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            updateRelationship(.isNotMe(newRelationshipInfo), currentUser: authenticatedUser)
+            FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
         } catch {
             didReceiveError(error)
         }
@@ -2338,7 +2343,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             let response = try await APIService.shared.unfollow(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            updateRelationship(.isNotMe(newRelationshipInfo), currentUser: authenticatedUser)
+            FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
         } catch {
             didReceiveError(error)
         }
@@ -2349,7 +2354,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             let response = try await APIService.shared.mute(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            updateRelationship(.isNotMe(newRelationshipInfo), currentUser: authenticatedUser)
+            FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
         } catch {
             didReceiveError(error)
         }
@@ -2360,7 +2365,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             let response = try await APIService.shared.unmute(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            updateRelationship(.isNotMe(newRelationshipInfo), currentUser: authenticatedUser)
+            FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
         } catch {
             didReceiveError(error)
         }
@@ -2372,7 +2377,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         do {
             guard let actionablePost = quotingPost.actionablePost as? MastodonBasicPost, let quoted = actionablePost.quotedPost, let quotedId = quoted.fullPost?.id, let authenticatedUser else { throw PostActionFailure.noActionablePostId }
             let updated = try await APIService.shared.revokeQuoteAuthorization(forQuotedId: quotedId, fromQuotingId: actionablePost.id, authenticationBox: authenticatedUser)
-            feedLoader?.updatePost(post: GenericMastodonPost.fromStatus(updated))
+            FeedCoordinator.shared.publishUpdate(.post(GenericMastodonPost.fromStatus(updated)))
             clearPendingActions()
         } catch {
             didReceiveError(error)
@@ -2385,7 +2390,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             let response = try await APIService.shared.block(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            updateRelationship(.isNotMe(newRelationshipInfo), currentUser: authenticatedUser)
+            FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
         } catch {
             didReceiveError(error)
         }
@@ -2396,7 +2401,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             let response = try await APIService.shared.unblock(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            updateRelationship(.isNotMe(newRelationshipInfo), currentUser: authenticatedUser)
+            FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
         } catch {
             didReceiveError(error)
         }
@@ -2414,7 +2419,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             } else {
                 guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
                 let deletedStatus = try await APIService.shared.deleteContentPost(postID, authenticationBox: authenticatedUser)
-                feedLoader?.didDeletePost(deletedStatus.id)
+                FeedCoordinator.shared.publishUpdate(.deletedPost(deletedStatus.id))
                 self.clearPendingActions()
             }
         } catch {
@@ -2445,14 +2450,6 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             fromPost: nil,
             transition: .activityViewControllerPresent(animated: true, completion: nil)
         )
-    }
-    
-    func updateRelationship(_ updated: MastodonAccount.Relationship, currentUser: MastodonAuthenticationBox) {
-        for item in currentDisplaySlice {
-            item.updateRelationship(updated)
-        }
-        feedLoader?.updateRelationship(updated)
-        AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: currentUser.globallyUniqueUserIdentifier)
     }
 }
 
