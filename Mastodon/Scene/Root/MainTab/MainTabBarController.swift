@@ -324,6 +324,8 @@ extension MainTabBarController {
             assert(Thread.isMainThread)
             // double tapping search tab opens the search bar without additional taps
             searchViewController.searchBar.becomeFirstResponder()
+        case .home:
+            (homeTimelineViewController as? TimelineListViewController)?.scrollToTop()
         default:
             break
         }
@@ -574,9 +576,14 @@ extension MainTabBarController {
                 if navigationController.viewControllers.count > 1 {
                     // pop to top when previous tab position already is home
                     navigationController.popToRootViewController(animated: true)
-                } else if let homeTimelineViewController = topMost as? HomeTimelineViewController {
-                    // trigger scrollToTop if topMost is home timeline
-                    homeTimelineViewController.scrollToTop(animated: true)
+                } else if let timelineViewController = topMost as? TimelineListViewController {
+                    switch timelineViewController.type {
+                    case .home:
+                        // trigger scrollToTop if topMost is already the home timeline
+                        timelineViewController.scrollToTop()
+                    default:
+                        break
+                    }
                 }
             default:
                 break
