@@ -90,9 +90,6 @@ struct MastodonPostRowView: View {
                         // MARK: Text content
                         viewModel.textContentView(isInlinePreview: false)
                             .frame(width: contentWidth, alignment: .leading)
-                            .onTapGesture {
-                                viewModel.openThreadView()
-                            }
                             .environment(\.openURL, OpenURLAction { url in
                                 if viewModel.openURL(url) {
                                     return .handled
@@ -174,9 +171,6 @@ struct MastodonPostRowView: View {
         }
         .environment(contentConcealModel)
         .background(.background.opacity(0.01)) // To allow tap in margin to open threadview. Opacity of 0 does not accept taps, nor does .clear.
-        .onTapGesture {
-            viewModel.openThreadView()
-        }
         .onAppear() {
             //assert(viewModel.fullPost != nil)
         }

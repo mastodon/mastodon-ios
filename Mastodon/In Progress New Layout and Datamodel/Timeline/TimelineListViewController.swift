@@ -1611,6 +1611,18 @@ struct TimelineListView: View {
                 .environment(viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID))
                 .padding(EdgeInsets(top: 0, leading: standardPadding, bottom: 0, trailing: doublePadding))
                 .frame(width: usableWidth)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    switch viewModel.timeline {
+                    case .thread(let root):
+                        guard root.id != postViewModel.initialDisplayInfo.id else { return }
+                    case .remoteThread(remoteType: .status(let id)):
+                        guard id != postViewModel.initialDisplayInfo.id else { return }
+                    default:
+                        break
+                    }
+                    postViewModel.openThreadView()
+                }
                 .background() {
                     switch viewModel.timeline {
                     case .notifications:
