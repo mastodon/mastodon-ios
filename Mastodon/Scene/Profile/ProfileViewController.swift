@@ -217,18 +217,6 @@ class ProfileViewController: UIViewController, MediaPreviewableViewController, A
         if viewModel.state.isEditing {
             headerViewControllerViewModel.setProfileInfo(accountForEdit: viewModel.profileType.accountToDisplay)
         }
-        
-        guard let relationship else { return }
-        
-        for userTimeLineViewModel in [
-            (profilePagingViewController?.viewModel?.postUserTimelineViewController as? UserTimelineViewController)?.viewModel,
-            (profilePagingViewController?.viewModel?.repliesUserTimelineViewController as? UserTimelineViewController)?.viewModel,
-            (profilePagingViewController?.viewModel?.mediaUserTimelineViewController as? UserTimelineViewController)?.viewModel,
-        ] {
-            userTimeLineViewModel?.isBlocking = relationship.blocking
-            userTimeLineViewModel?.isBlockedBy = relationship.blockedBy
-            userTimeLineViewModel?.isSuspended = viewModel.profileType.accountToDisplay.suspended ?? false
-        }
     }
     
     private func updateAboutView(_ viewModel: ProfileViewModelImmutable) {
@@ -562,8 +550,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
 extension ProfileViewController {
     
     private func reloadCurrentTimeline() {
-        if let userTimelineViewController = profilePagingViewController?.currentViewController as? UserTimelineViewController {
-            userTimelineViewController.viewModel.stateMachine.enter(UserTimelineViewModel.State.Reloading.self)
+        if let timelineViewController = profilePagingViewController?.currentViewController as? TimelineListViewController {
         }
     }
     
@@ -954,8 +941,7 @@ extension ProfileViewController {
     }
     
     @objc private func followedTagsItemPressed(_ sender: UIBarButtonItem) {
-        let followedTagsViewModel = FollowedTagsViewModel(authenticationBox: authenticationBox)
-        _ = self.sceneCoordinator?.present(scene: .followedTags(viewModel: followedTagsViewModel), from: self, transition: .show)
+        _ = self.sceneCoordinator?.present(scene: .followedTags, from: self, transition: .show)
     }
 }
 
@@ -1050,10 +1036,7 @@ extension ProfileViewController: DataSourceProvider {
     }
     
     func updateViewModelsWithDataControllers(status: MastodonStatus, intent: MastodonStatus.UpdateIntent) {
-        
-        (profilePagingViewController?.viewModel?.postUserTimelineViewController as? UserTimelineViewController)?.update(contentStatus: status, intent: intent)
-        (profilePagingViewController?.viewModel?.repliesUserTimelineViewController as? UserTimelineViewController)?.update(contentStatus: status, intent: intent)
-        (profilePagingViewController?.viewModel?.mediaUserTimelineViewController as? UserTimelineViewController)?.update(contentStatus: status, intent: intent)
+       
     }
 }
 

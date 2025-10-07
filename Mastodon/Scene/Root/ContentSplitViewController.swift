@@ -37,9 +37,6 @@ final class ContentSplitViewController: UIViewController {
     @Published var currentSupplementaryTab: Tab = .home
     private(set) lazy var mainTabBarController: MainTabBarController = {
         let mainTabBarController = MainTabBarController(authenticationBox: self.authenticationBox)
-        if let homeTimelineViewController = mainTabBarController.viewController(of: HomeTimelineViewController.self) {
-            homeTimelineViewController.viewModel?.displaySettingBarButtonItem = false
-        }
         return mainTabBarController
     }()
 

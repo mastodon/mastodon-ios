@@ -18,7 +18,7 @@ final class DiscoveryViewModel {
     // input
     let authenticationBox: MastodonAuthenticationBox
     let newDiscoveryPostsViewController: TimelineListViewController
-    let discoveryHashtagsViewController: DiscoveryHashtagsViewController
+    let discoveryHashtagsViewController: TimelineListViewController
     let discoveryNewsViewController: DiscoveryNewsViewController
     let discoveryForYouViewController: DiscoveryForYouViewController
     
@@ -28,14 +28,8 @@ final class DiscoveryViewModel {
     init(authenticationBox: MastodonAuthenticationBox) {
         self.authenticationBox = authenticationBox
         
-        newDiscoveryPostsViewController = {
-            TimelineListViewController(.trendingPosts)
-        }()
-        discoveryHashtagsViewController = {
-            let viewController = DiscoveryHashtagsViewController()
-            viewController.viewModel = DiscoveryHashtagsViewModel(authenticationBox: authenticationBox)
-            return viewController
-        }()
+        newDiscoveryPostsViewController = TimelineListViewController(.discover(.posts))
+        discoveryHashtagsViewController = TimelineListViewController(.discover(.hashtags))
         discoveryNewsViewController = {
             let viewController = DiscoveryNewsViewController()
             viewController.viewModel = DiscoveryNewsViewModel(authenticationBox: authenticationBox)

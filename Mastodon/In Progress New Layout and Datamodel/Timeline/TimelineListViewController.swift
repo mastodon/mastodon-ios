@@ -18,9 +18,10 @@ private func debugScroll(_ message: String) {
 enum TimelineViewType {
     case home
     case notifications(NotificationsScope)
-    case trendingPosts
+    case discover(DiscoveryType)
     case myBookmarks
     case myFavorites
+    case myFollowedHashtags
     case search(String, scope: SearchScope)
     case profilePosts(tabTitle: String?, userID: String, queryFilter: TimelineQueryFilter)
     case thread(root: MastodonContentPost)
@@ -53,8 +54,8 @@ class TimelineListViewController: UIHostingController<TimelineListView>
             viewModel = TimelineListViewModel(timeline: .following)
         case .notifications(let scope):
             viewModel = TimelineListViewModel(timeline: .notifications(scope: scope))
-        case .trendingPosts:
-            viewModel = TimelineListViewModel(timeline: .discovery)
+        case .discover(let type):
+            viewModel = TimelineListViewModel(timeline: .discover(type))
         case .search(let searchText, let scope):
             viewModel = TimelineListViewModel(timeline: .search(searchText, scope))
         case .profilePosts(_, let user, let queryFilter):
@@ -63,6 +64,8 @@ class TimelineListViewController: UIHostingController<TimelineListView>
             viewModel = TimelineListViewModel(timeline: .thread(root: root))
         case .remoteThread(let remoteThreadType):
             viewModel = TimelineListViewModel(timeline: .remoteThread(remoteType: remoteThreadType))
+        case .myFollowedHashtags:
+            viewModel = TimelineListViewModel(timeline: .myFollowedHashtags)
         case .myBookmarks:
             viewModel = TimelineListViewModel(timeline: .myBookmarks)
         case .myFavorites:
@@ -103,13 +106,15 @@ class TimelineListViewController: UIHostingController<TimelineListView>
             let authorHandle = focusedPost.initialDisplayInfo(inContext: .thread).actionableAuthorHandle
             navigationItem.title = L10n.Scene.Thread.title("@\(authorHandle)")
             
-        case .trendingPosts, .myBookmarks, .myFavorites, .profilePosts, .remoteThread:
+        case .discover, .myBookmarks, .myFavorites, .profilePosts, .remoteThread:
             break
         case .search(let string, _):
             navigationItem.title = string
         case .hashtag(let tag):
             navigationItem.title = "#\(tag.name)"
             navigationItem.rightBarButtonItem = composeHashtagButtonItem
+        case .myFollowedHashtags:
+            navigationItem.title = L10n.Scene.FollowedTags.title
         }
     }
     
@@ -302,7 +307,7 @@ extension TimelineListViewController {
         case .hashtag:
             showLocalTimelineAction.state = .off
             showFollowingAction.state = .off
-        case .discovery, .search, .userPosts, .thread, .remoteThread, .myBookmarks, .myFavorites, .notifications:
+        case .discover, .search, .userPosts, .thread, .remoteThread, .myFollowedHashtags, .myBookmarks, .myFavorites, .notifications:
             assertionFailure()
         }
         
@@ -1642,6 +1647,11 @@ struct TimelineListView: View {
                         .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
                         .frame(width: usableWidth)
                     Divider()
+                case .myFollowedHashtags:
+                    HashtagHeaderView()
+                        .environment(tagViewModel)
+                        .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
+                        .frame(width: usableWidth)
                 default:
                     HashtagRowView()
                         .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))

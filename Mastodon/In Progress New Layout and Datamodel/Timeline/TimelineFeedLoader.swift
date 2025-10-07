@@ -33,14 +33,20 @@ public enum NotificationsScope: Hashable {
 //    }
 }
 
+public enum DiscoveryType: Equatable {
+    case posts
+    case hashtags
+}
+                                
 public enum MastodonTimelineType: Equatable {
     case following
     case myBookmarks
     case myFavorites
+    case myFollowedHashtags
     case local
     case list(String)
     case hashtag(Mastodon.Entity.Tag, includeHeader: Bool)
-    case discovery
+    case discover(DiscoveryType)
     case search(String, SearchScope)
     case userPosts(userID: String, queryFilter: TimelineQueryFilter)
     case thread(root: MastodonContentPost)
@@ -49,16 +55,26 @@ public enum MastodonTimelineType: Equatable {
 
     public static func == (lhs: MastodonTimelineType, rhs: MastodonTimelineType) -> Bool {
         switch (lhs, rhs) {
-        case (.following, .following): return true
-        case (.local, .local): return true
-        case (.list(let first), .list(let second)): return first == second
-        case (.hashtag(let firstTag, let firstHeader), .hashtag(let secondTag, let secondHeader)): return firstTag == secondTag && firstHeader == secondHeader
-        case (.discovery, .discovery): return true
-        case (.search(let firstText, let firstScope), .search(let secondText, let secondScope)): return firstText == secondText && firstScope == secondScope
-        case (.userPosts(let firstID, let firstFilter), .userPosts(let secondID, let secondFilter)): return firstID == secondID && firstFilter == secondFilter
-        case (.thread(let first), .thread(let second)): return first.id == second.id
-        case (.notifications(let firstScope), .notifications(let secondScope)): return firstScope == secondScope
-        default: return false
+        case (.following, .following):
+            return true
+        case (.local, .local):
+            return true
+        case (.list(let first), .list(let second)):
+            return first == second
+        case (.hashtag(let firstTag, let firstHeader), .hashtag(let secondTag, let secondHeader)):
+            return firstTag == secondTag && firstHeader == secondHeader
+        case (.discover(let firstType), .discover(let secondType)):
+            return firstType == secondType
+        case (.search(let firstText, let firstScope), .search(let secondText, let secondScope)):
+            return firstText == secondText && firstScope == secondScope
+        case (.userPosts(let firstID, let firstFilter), .userPosts(let secondID, let secondFilter)):
+            return firstID == secondID && firstFilter == secondFilter
+        case (.thread(let first), .thread(let second)):
+            return first.id == second.id
+        case (.notifications(let firstScope), .notifications(let secondScope)):
+            return firstScope == secondScope
+        default:
+            return false
         }
     }
     
@@ -213,7 +229,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             self.filterContext = .home
         case .local:
             self.filterContext = .public
-        case .discovery:
+        case .discover:
             self.filterContext = .public
         case .search:
             self.filterContext = nil
@@ -221,6 +237,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             self.filterContext = .account
         case .thread, .remoteThread:
             self.filterContext = .account
+        case .myFollowedHashtags:
+            self.filterContext = nil
         case .myBookmarks:
             self.filterContext = nil
         case .myFavorites:
@@ -353,15 +371,26 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             } else {
                 newBatch = statuses
             }
-        case .discovery:
-            newBatch = try await APIService.shared.trendStatuses(
-                domain: authenticatedUser.domain,
-                query: Mastodon.API.Trends.StatusQuery(
-                    offset: fetchOffset,
-                    limit: nil
-                ),
-                authenticationBox: authenticatedUser
-            ).value.map { timelineItem(fromStatus: $0) }
+        case .discover(let discoverType):
+            switch discoverType {
+            case .posts:
+                newBatch = try await APIService.shared.trendStatuses(
+                    domain: authenticatedUser.domain,
+                    query: Mastodon.API.Trends.StatusQuery(
+                        offset: fetchOffset,
+                        limit: nil
+                    ),
+                    authenticationBox: authenticatedUser
+                ).value.map { timelineItem(fromStatus: $0) }
+            case .hashtags:
+                newBatch = try await APIService.shared.trendHashtags(
+                    domain: authenticatedUser.domain,
+                    query: Mastodon.API.Trends.HashtagQuery(
+                        limit: nil
+                    ),
+                    authenticationBox: authenticatedUser
+                ).value.map { timelineItem(fromHashtag: $0) }
+            }
         case .search(let searchText, let scope):
             let query = Mastodon.API.V2.Search.Query(
                 q: searchText,
@@ -426,6 +455,12 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             }
             threadedConversationModel = threadModel
             newBatch = threadModel.fullThread.map { timelineItem(fromStatus: $0) }
+        case .myFollowedHashtags:
+            newBatch = try await APIService.shared.getFollowedTags(
+                domain: authenticatedUser.domain,
+                query: Mastodon.API.Account.FollowedTagsQuery(limit: nil),
+                authenticationBox: authenticatedUser
+            ).value.map { timelineItem(fromHashtag: $0) }
         case .myBookmarks:
             newBatch = try await APIService.shared.bookmarkedStatuses(
                 maxID: itemsImmediatelyBefore,

@@ -192,7 +192,7 @@ extension SceneCoordinator {
         case rebloggedBy(viewModel: UserListViewModel)
         case favoritedBy(viewModel: UserListViewModel)
         case bookmark(viewModel: BookmarkViewModel)
-        case followedTags(viewModel: FollowedTagsViewModel)
+        case followedTags
 
         // setting
         case settings(setting: Setting)
@@ -448,10 +448,8 @@ private extension SceneCoordinator {
             viewController = _viewController
         case .bookmark(let viewModel):
             viewController = TimelineListViewController(.myBookmarks)
-        case .followedTags(let viewModel):
-            guard let authenticationBox else { return nil }
-            
-            viewController = FollowedTagsViewController(authenticationBox: authenticationBox, viewModel: viewModel)
+        case .followedTags:
+            viewController = TimelineListViewController(.myFollowedHashtags)
         case .favorite(let viewModel):
             viewController = TimelineListViewController(.myFavorites)
         case .follower(let viewModel):

@@ -68,9 +68,6 @@ class MainTabBarController: UITabBarController {
         meProfileViewController.configureTabBarItem(with: .me)
 
         if let authenticationBox {
-            if let homeTimelineViewController = homeTimelineViewController as? HomeTimelineViewController {
-                homeTimelineViewController.viewModel = HomeTimelineViewModel(authenticationBox: authenticationBox)
-            }
             searchViewController.viewModel = SearchViewModel(authenticationBox: authenticationBox)
         }
 
@@ -545,7 +542,19 @@ extension MainTabBarController {
             }
             
             // show favorites
-            if !(self.topMost is FavoriteViewController) {
+            let includeShowFavoritesCommand = {
+                if let topTimeline = self.topMost as? TimelineListViewController {
+                    switch topTimeline.type {
+                    case .myFavorites:
+                        false
+                    default:
+                        true
+                    }
+                } else {
+                    true
+                }
+            }()
+            if includeShowFavoritesCommand {
                 commands.append(showFavoritesKeyCommand)
             }
             

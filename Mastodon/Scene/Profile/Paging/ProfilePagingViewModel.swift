@@ -32,9 +32,9 @@ final class ProfilePagingViewModel: NSObject {
             mediaUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.media, userID: user, queryFilter: TimelineQueryFilter(onlyMedia: true)))
         } else {
             // TODO: remove these placeholders for error case when the profile view has been rewritten
-            postUserTimelineViewController = TimelineListViewController(.trendingPosts)
-            repliesUserTimelineViewController = TimelineListViewController(.trendingPosts)
-            mediaUserTimelineViewController = TimelineListViewController(.trendingPosts)
+            postUserTimelineViewController = TimelineListViewController(.discover(.posts))
+            repliesUserTimelineViewController = TimelineListViewController(.discover(.posts))
+            mediaUserTimelineViewController = TimelineListViewController(.discover(.posts))
         }
         profileAboutViewController.viewModel = profileAboutViewModel
         super.init()
