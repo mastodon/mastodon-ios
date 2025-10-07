@@ -133,15 +133,12 @@ extension MastodonFeedLoader {
     public func doFirstLoad() {
         Task {
             do {
-                try loadCached()
-            } catch {
-            }
-            do {
                 if let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
                     let markers = try await APIService.shared.lastReadMarkers(authenticationBox: authBox)
                     cacheManager.didFetchMarkers(markers)
                 }
             } catch {
+                currentError = error
             }
             requestLoad(.reload)
         }

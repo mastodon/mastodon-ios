@@ -111,9 +111,9 @@ struct FrameReader: UIViewRepresentable {
 }
 
 struct VisibilityTrackingView: View {
-    let visibilityDidChange: (Bool)->()
     let scrollCoordinateSpace: String
     let visibleAreaHeight: CGFloat
+    let visibilityDidChange: (Bool)->()
     
     @State var isVisible: Bool = false
     

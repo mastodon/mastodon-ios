@@ -10,13 +10,14 @@ struct EmbeddedPostView: View {
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
     let layoutWidth: CGFloat
     let isSummary: Bool
+    let actionHandler: MastodonPostMenuActionHandler?
     
     var body: some View {
         if viewModel.fullPost != nil {
             if !contentConcealViewModel.currentMode.isShowingContent {
                 EmbeddedPostContentConcealedView()
             } else {
-                EmbeddedPostContentDisplayedView(layoutWidth: layoutWidth, isSummary: isSummary) // TODO: add blur content option for blur filters and hide-media-only CWs
+                EmbeddedPostContentDisplayedView(layoutWidth: layoutWidth, isSummary: isSummary, actionHandler: actionHandler) // TODO: add blur content option for blur filters and hide-media-only CWs
             }
         }
     }
@@ -166,6 +167,7 @@ struct EmbeddedPostContentDisplayedView: View {
     @Environment(\.colorScheme) private var colorScheme
     let layoutWidth: CGFloat
     let isSummary: Bool
+    let actionHandler: MastodonPostMenuActionHandler?
     
     let padding: CGFloat = 12
     
@@ -175,15 +177,15 @@ struct EmbeddedPostContentDisplayedView: View {
             VStack(alignment: .leading) {
                 header
                     .accessibilityElement(children: .ignore)
-                    .accessibilityLabel(viewModel.a11yHeaderLabel)
+                    .accessibilityLabel(viewModel.a11yHeaderLabel(inThreadedContext: nil, getAccount: { accountID in actionHandler?.account(accountID) }))
                 if viewModel.fullPost != nil {
-                    viewModel.textContentView(isInlinePreview: true)
+                    viewModel.textContentView(isInlinePreview: true, actionHandler: actionHandler)
                         .font(.footnote)
                         .lineLimit(4)
                         .fixedSize(horizontal: false, vertical: true)
                         .accessibilityElement(children: .combine)
                 }
-                if let attachmentInfo = viewModel.fullPost?.actionablePost?.content.attachment, let actionHandler = viewModel.actionHandler {
+                if let attachmentInfo = viewModel.fullPost?.actionablePost?.content.attachment, let actionHandler {
                     if isSummary {
                         if let iconName = attachmentInfo.iconName, let labelText = attachmentInfo.labelText {
                             HStack {

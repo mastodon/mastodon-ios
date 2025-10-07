@@ -176,13 +176,13 @@ enum MediaAttachment {
 
 extension MediaAttachment {
     @MainActor
-    @ViewBuilder func view(actionHandler: MastodonPostMenuActionHandler) -> some View {
+    @ViewBuilder func view(actionHandler: MastodonPostMenuActionHandler?) -> some View {
         switch self {
         case .emptyAttachment:
             Image(systemName: "questionmark.square.dashed")
         case .images(let attachments, let altTextTranslations):
             ConcealableMediaAttachmentView() {
-                ImageGridView(mediaPreviewableViewController: actionHandler.mediaPreviewableViewController)
+                ImageGridView(actionHandler: actionHandler)
                     .environment(ImageGalleryViewModel(imageAttachments: attachments, altTextTranslations: altTextTranslations, actionHandler: actionHandler))
             }
         case .audio:
@@ -193,7 +193,7 @@ extension MediaAttachment {
             }
         case .openInBrowser(let url):
             Button {
-                actionHandler.presentScene(.safari(url: url), fromPost: nil, transition: .show)
+                actionHandler?.presentScene(.safari(url: url), fromPost: nil, transition: .show)
             } label: {
                 HStack {
                     VStack(alignment: .leading) {
@@ -267,7 +267,7 @@ struct ConcealableMediaAttachmentView<Content: View>: View {
 struct ImageGridView: View {
     @Environment(ImageGalleryViewModel.self) private var viewModel
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
-    let mediaPreviewableViewController: MediaPreviewableViewController?
+    let actionHandler: MastodonPostMenuActionHandler?
     @State var waitingToShowFullSize: String? = nil
     
     var body: some View {
@@ -299,9 +299,9 @@ struct ImageGridView: View {
                     if let altText = img.basicData.altText, altText.isNotEmpty {
                         Button {
                             if let translation = viewModel.altTextTranslations?[img.id] {
-                                viewModel.actionHandler.showOverlay(.altText(translation))
+                                actionHandler?.showOverlay(.altText(translation))
                             } else {
-                                viewModel.actionHandler.showOverlay(.altText(altText))
+                                actionHandler?.showOverlay(.altText(altText))
                             }
                         } label: {
                             Text("ALT")
@@ -327,7 +327,7 @@ struct ImageGridView: View {
     }
     
     func showImageGallery(focusing: Mastodon.Entity.Attachment.ID, withPlaceholderImages placeholderImages: [UIImage?]) {
-        guard let presentingViewController = viewModel.actionHandler.mediaPreviewableViewController else { return }
+        guard let presentingViewController = viewModel.actionHandler?.mediaPreviewableViewController else { return }
         
         let focusedIndex = viewModel.imageAttachments.firstIndex { $0.id == focusing }
         
@@ -367,7 +367,7 @@ struct ImageGridView: View {
         let mediaPreviewViewModel = MediaPreviewViewModel(
             item: previewItem,
             transitionItem: mediaPreviewTransitionItem)
-        viewModel.actionHandler.presentScene(.mediaPreview(viewModel: mediaPreviewViewModel),
+        actionHandler?.presentScene(.mediaPreview(viewModel: mediaPreviewViewModel),
                                              fromPost: nil,
                                              transition: .custom(transitioningDelegate: presentingViewController.mediaPreviewTransitionController)
         )
@@ -422,9 +422,9 @@ class ImageGalleryViewModel {
     private var frames = [Mastodon.Entity.Attachment.ID : CGRect]()
     let altTextTranslations: [String : String]?
     var blurhashes = [ Mastodon.Entity.Attachment.ID : UIImage ]()
-    let actionHandler: MastodonPostMenuActionHandler
+    let actionHandler: MastodonPostMenuActionHandler?
     
-    init(imageAttachments: [MastodonImageAttachment], altTextTranslations: [String: String]?, actionHandler: MastodonPostMenuActionHandler) {
+    init(imageAttachments: [MastodonImageAttachment], altTextTranslations: [String: String]?, actionHandler: MastodonPostMenuActionHandler?) {
         self.imageAttachments = imageAttachments
         self.altTextTranslations = altTextTranslations
         self.actionHandler = actionHandler
@@ -610,10 +610,10 @@ struct VideoPlayerView: View {
     let url: URL
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
     @StateObject var playerObserver = PlayerObserver()
-    let actionHandler: MastodonPostMenuActionHandler
+    let actionHandler: MastodonPostMenuActionHandler?
     @State var waitingToShowFullSize = false
     
-    init?(media: MediaAttachment, actionHandler: MastodonPostMenuActionHandler) {
+    init?(media: MediaAttachment, actionHandler: MastodonPostMenuActionHandler?) {
         switch media {
         case .video, .gifv:
             break
@@ -721,7 +721,7 @@ struct VideoPlayerView: View {
     
     func showFullSize() {
         playerObserver.didPressPause()
-        guard let _legacyEntity = media.attachmentInfo?._legacyEntity, let previewableViewController = actionHandler.mediaPreviewableViewController else { return }
+        guard let _legacyEntity = media.attachmentInfo?._legacyEntity, let previewableViewController = actionHandler?.mediaPreviewableViewController else { return }
         let previewItem: MediaPreviewViewModel.PreviewItem = .attachments([_legacyEntity], initialIndex: 0, placeholderImages: [playerObserver.blurImage], altTexts: [media.attachmentInfo?.basicData.altText ?? ""])
         let mediaPreviewTransitionItem: MediaPreviewTransitionItem = {
             let item = MediaPreviewTransitionItem(source: .swiftUI(sourceFramesInScreenCoordinates: [playerObserver.mostRecentFrameInScreenCoordinates]), previewableViewController: previewableViewController)
@@ -744,7 +744,7 @@ struct VideoPlayerView: View {
         let mediaPreviewViewModel = MediaPreviewViewModel(
             item: previewItem,
             transitionItem: mediaPreviewTransitionItem)
-        actionHandler.presentScene(.mediaPreview(viewModel: mediaPreviewViewModel),
+        actionHandler?.presentScene(.mediaPreview(viewModel: mediaPreviewViewModel),
                                    fromPost: nil,
                                    transition: .custom(transitioningDelegate: previewableViewController.mediaPreviewTransitionController)
         )

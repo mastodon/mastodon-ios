@@ -5,10 +5,21 @@ import MastodonSDK
 import MastodonCore
 import MastodonLocalization
 
+struct PrecalculatedHeight {
+    let contentWidth: CGFloat
+    let contentConcealed: ContentConcealViewModel.ContentDisplayMode
+    let showingTranslation: Bool
+    let calculatedHeight: CGFloat
+}
+
 @MainActor
 @Observable class MastodonPostViewModel {
     
-    let threadedContext: ThreadedConversationModel.ThreadContext?
+    var precalculatedHeights = [PrecalculatedHeight]()
+    
+#if DEBUG
+    var actualLayoutHeight: CGFloat?
+#endif
     
     var fullQuotedPostViewModel: MastodonPostViewModel?
     var placeholderQuotedPost: MastodonQuotedPost?
@@ -30,8 +41,7 @@ import MastodonLocalization
     func deriveNewQuotedPostViewModel() {
         if let potentialQuotePost = fullPost?.actionablePost as? MastodonBasicPost {
             if let quoted = potentialQuotePost.quotedPost, let quotedFullPost = quoted.fullPost {
-                let updated = MastodonPostViewModel(quotedFullPost.initialDisplayInfo(inContext: filterContext), fullPost: quotedFullPost, filterContext: filterContext, threadedConversationContext: nil)
-                updated.actionHandler = actionHandler
+                let updated = MastodonPostViewModel(quotedFullPost.initialDisplayInfo(), fullPost: quotedFullPost)
                 self.fullQuotedPostViewModel = updated
                 placeholderQuotedPost = nil
             } else {
@@ -59,12 +69,6 @@ import MastodonLocalization
     var isShowingTranslation: Bool? = nil
     var isDoingAction: MastodonPostMenuAction? = nil
     
-    var actionHandler: MastodonPostMenuActionHandler? = nil {
-        didSet {
-            fullQuotedPostViewModel?.actionHandler = actionHandler
-        }
-    }
-    let filterContext: Mastodon.Entity.FilterContext?
     
     private(set) var translation: Mastodon.Entity.Translation? = nil
     
@@ -88,17 +92,13 @@ import MastodonLocalization
     }
     
     nonisolated
-    init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, filterContext: Mastodon.Entity.FilterContext?, threadedConversationContext: ThreadedConversationModel.ThreadContext?) {
+    init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo) {
         self.initialDisplayInfo = initialDisplay
-        self.filterContext = filterContext
-        self.threadedContext = threadedConversationContext
     }
     
-    private init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, fullPost: GenericMastodonPost? = nil, isShowingTranslation: Bool? = nil, isDoingAction: MastodonPostMenuAction? = nil, myRelationshipToAuthor: MastodonAccount.Relationship? = nil, actionHandler: MastodonPostMenuActionHandler? = nil, translation: Mastodon.Entity.Translation? = nil, filterContext: Mastodon.Entity.FilterContext?, threadedConversationContext: ThreadedConversationModel.ThreadContext?) {
+    private init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, fullPost: GenericMastodonPost? = nil, isShowingTranslation: Bool? = nil, isDoingAction: MastodonPostMenuAction? = nil, myRelationshipToAuthor: MastodonAccount.Relationship? = nil, actionHandler: MastodonPostMenuActionHandler? = nil, translation: Mastodon.Entity.Translation? = nil) {
         self.initialDisplayInfo = initialDisplay
         self.fullPost = fullPost
-        self.filterContext = filterContext
-        self.threadedContext = threadedConversationContext
         self.deriveNewQuotedPostViewModel()
     }
     
@@ -123,9 +123,9 @@ import MastodonLocalization
         return pollTranslation.options.map { $0.title }
     }
     
-    func openThreadView() {
+    func openThreadView(actionHandler: MastodonPostMenuActionHandler) {
         guard let actionablePost = fullPost?.actionablePost, let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
-        actionHandler?.presentScene(
+        actionHandler.presentScene(
             .thread(
                 viewModel: ThreadViewModel(
                     authenticationBox: currentUser,
@@ -137,22 +137,22 @@ import MastodonLocalization
                                     false))))), fromPost: initialDisplayInfo.id, transition: .show)
     }
     
-    func openURL(_ url: URL) -> Bool {
+    func openURL(_ url: URL, actionHandler: MastodonPostMenuActionHandler) -> Bool {
         if let mention = fullPost?.actionablePost?.content.htmlWithEntities?.mentions.first(where: { $0.url == url.absoluteString }) {
-            goToProfile(mention)
+            goToProfile(mention, actionHandler: actionHandler)
             return true
         } else if let hashtag = fullPost?.actionablePost?.content.htmlWithEntities?.tags.first(where: { $0.name.lowercased() == url.lastPathComponent.lowercased() && url.pathComponents.contains("tags") }) {
-            guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { return false }
-            actionHandler?.presentScene(.hashtagTimeline(hashtag), fromPost: initialDisplayInfo.id, transition: .show)
+            guard AuthenticationServiceProvider.shared.currentActiveUser.value != nil else { return false }
+            actionHandler.presentScene(.hashtagTimeline(hashtag), fromPost: initialDisplayInfo.id, transition: .show)
             return true
         } else {
             // fix non-ascii character URL link can not open issue
-            actionHandler?.presentScene(.safari(url: url), fromPost: initialDisplayInfo.id, transition: .safariPresent(animated: true, completion: nil))
+            actionHandler.presentScene(.safari(url: url), fromPost: initialDisplayInfo.id, transition: .safariPresent(animated: true, completion: nil))
             return true
         }
     }
     
-    func goToProfile(_ account: MastodonAccount) {
+    func goToProfile(_ account: MastodonAccount, actionHandler: MastodonPostMenuActionHandler?) {
         guard let me = AuthenticationServiceProvider.shared.currentActiveUser.value?.cachedAccount else { return }
         if let relationshipToAuthor = myRelationshipToAuthor {
             switch relationshipToAuthor {
@@ -180,7 +180,7 @@ import MastodonLocalization
         }
     }
     
-    func goToProfile(_ mention: Mastodon.Entity.Mention) {
+    func goToProfile(_ mention: Mastodon.Entity.Mention, actionHandler: MastodonPostMenuActionHandler) {
         Task {
             guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
             let account = try await APIService.shared.accountInfo(
@@ -189,7 +189,7 @@ import MastodonLocalization
                     mention.id,
                 authorization: currentUser.userAuthorization
             )
-            goToProfile(MastodonAccount.fromEntity(account))
+            goToProfile(MastodonAccount.fromEntity(account), actionHandler: actionHandler)
         }
     }
 }
@@ -199,7 +199,7 @@ extension MastodonPostViewModel {
         guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value, let quotedPost = fullPost?.actionablePost else { return nil }
         return ComposeViewModel(authenticationBox: currentUser, composeContext: .composeStatus(quoting: (quotedPost._legacyEntity, {
             AnyView(
-                EmbeddedPostView(layoutWidth: 200, isSummary: false)
+                EmbeddedPostView(layoutWidth: 200, isSummary: false, actionHandler: nil)
                     .environment(self)
                     .environment(TimestampUpdater.timestamper(withInterval: 30))
                     .environment(ContentConcealViewModel.alwaysShow)
@@ -209,10 +209,10 @@ extension MastodonPostViewModel {
 }
 
 extension MastodonPostViewModel {
-    @ViewBuilder func accessibilityActionButton(_ action: MastodonPostMenuAction) -> some View {
-        Button(action.labelText(username: fullPost?.initialDisplayInfo(inContext: nil).actionableAuthorDisplayName, postLanguage: (fullPost?.actionablePost as? MastodonContentPost)?.content.language)) { [weak self] in
+    @ViewBuilder func accessibilityActionButton(_ action: MastodonPostMenuAction, actionHandler: MastodonPostMenuActionHandler?) -> some View {
+        Button(action.labelText(username: fullPost?.initialDisplayInfo().actionableAuthorDisplayName, postLanguage: (fullPost?.actionablePost as? MastodonContentPost)?.content.language)) { [weak self] in
             guard let self else { return }
-            self.actionHandler?.doAction(action, forPost: self)
+            actionHandler?.doAction(action, forPost: self)
         }
     }
     
@@ -250,15 +250,15 @@ extension MastodonPostViewModel {
 
 extension MastodonPostViewModel {
     
-    @ViewBuilder var socialContextHeader: some View {
-        if let socialContext {
+    @ViewBuilder func socialContextHeader(inThreadContext threadedContext: ThreadedConversationModel.ThreadContext?, getAccount: (Mastodon.Entity.Account.ID)->MastodonAccount?) -> some View {
+        if let socialContext = socialContext(inThreadContext: threadedContext, getAccount: getAccount) {
             socialContext
         } else {
             EmptyView()
         }
     }
     
-    var socialContext: SocialContextHeader? {
+    func socialContext(inThreadContext threadedContext: ThreadedConversationModel.ThreadContext?, getAccount: (Mastodon.Entity.Account.ID)->(MastodonAccount?)) -> SocialContextHeader? {
         guard let fullPost else { return nil }
         if fullPost is MastodonBoostPost {
             // BOOSTED BY
@@ -281,7 +281,7 @@ extension MastodonPostViewModel {
             if isPrivate || threadedContext == nil {
                 let replyInfo = basicPost.inReplyTo
                 if let replyInfo {
-                    let replyToAccount = actionHandler?.account(replyInfo.accountID)
+                    let replyToAccount = getAccount(replyInfo.accountID)// actionHandler?.account(replyInfo.accountID)
                     return SocialContextHeader.reply(to: replyToAccount?.displayInfo.displayName ?? "unknown", isPrivate: isPrivate, isNotification: false, emojis: replyToAccount?.displayInfo.emojis ?? [])
                 } else if isPrivate {
                     return SocialContextHeader.mention(isPrivate: true)
@@ -293,7 +293,7 @@ extension MastodonPostViewModel {
         return nil
     }
 
-    func textContentView(isInlinePreview: Bool) -> MastodonContentView {
+    func textContentView(isInlinePreview: Bool, actionHandler: MastodonPostMenuActionHandler?) -> MastodonContentView {
         let emptyTextContent: MastodonContentView = .timelinePost(html: "", emojis: MastodonContentView.Emojis(), isInlinePreview: false)
         
         guard let actionablePost = fullPost?.actionablePost, let untranslatedContent = actionablePost.content.htmlWithEntities?.html else { return emptyTextContent }

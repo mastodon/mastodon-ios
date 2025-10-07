@@ -7,6 +7,7 @@ import MastodonCore
 
 struct BoostOrQuoteDialog: View {
     @Environment(MastodonPostViewModel.self) var viewModel
+    let actionHandler: MastodonPostMenuActionHandler?
     
     var body: some View {
         if let actionablePost = viewModel.fullPost?.actionablePost {
@@ -17,7 +18,7 @@ struct BoostOrQuoteDialog: View {
                 VStack(spacing: 0) {
                     if actionablePost.content.myActions.boosted {
                         Button {
-                            viewModel.actionHandler?.doAction(.unboost, forPost: viewModel)
+                            actionHandler?.doAction(.unboost, forPost: viewModel)
                         } label: {
                             Text(L10n.Common.Alerts.BoostAPost.unboost)
                                 .padding()
@@ -25,7 +26,7 @@ struct BoostOrQuoteDialog: View {
                         .foregroundStyle(Asset.Colors.accent.swiftUIColor)
                     } else {
                         Button {
-                            viewModel.actionHandler?.doAction(.boost, forPost: viewModel)
+                            actionHandler?.doAction(.boost, forPost: viewModel)
                         } label: {
                             Text(L10n.Common.Alerts.BoostAPost.boost)
                                 .padding()
@@ -40,7 +41,7 @@ struct BoostOrQuoteDialog: View {
                     if let buttonTitle = quoteButtonInfo.title {
                         Button {
                             guard let composeViewModel = viewModel.composeViewModelQuotingThisPost else { return }
-                            viewModel.actionHandler?.presentScene(.compose(viewModel: composeViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
+                            actionHandler?.presentScene(.compose(viewModel: composeViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
                         } label: {
                             VStack {
                                 Text(buttonTitle)

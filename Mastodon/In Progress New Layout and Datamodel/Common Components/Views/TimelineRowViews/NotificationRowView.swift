@@ -444,7 +444,8 @@ struct FilteredNotificationsRowView: View {
 struct NotificationRowView: View {
     
     @Environment(NotificationRowViewModel.self) var viewModel
-    var contentWidth: CGFloat
+    let contentWidth: CGFloat
+    let actionHandler: MastodonPostMenuActionHandler?
     
     var body: some View {
         VStack(alignment: .gutterAlign, spacing: 0) {
@@ -509,11 +510,12 @@ struct NotificationRowView: View {
             
             // OPTIONAL INLINE POST VIEW
             if let postViewModel = viewModel.inlinePostViewModel {
-                EmbeddedPostView(layoutWidth: contentWidth, isSummary: true)
+                EmbeddedPostView(layoutWidth: contentWidth, isSummary: true, actionHandler: actionHandler)
                     .environment(postViewModel)
                     .environment(viewModel.contentConcealViewModel ?? .alwaysShow)
                     .onTapGesture {
-                        postViewModel.openThreadView()
+                        guard let actionHandler else { return }
+                        postViewModel.openThreadView(actionHandler: actionHandler)
                     }
             }
         }

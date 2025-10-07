@@ -46,11 +46,10 @@ public actor BodegaPersistence {
             let timeline: [TimelineItem] = cached.compactMap {
                 switch $0 {
                 case .cachedPost(let info):
-                    let viewModel = MastodonPostViewModel(info, filterContext: .home, threadedConversationContext: nil)
+                    let viewModel = MastodonPostViewModel(info)
                     return .post(viewModel)
                 case .missingPosts(let newerThan, let olderThan):
                     return nil // loading results missing from the middle of a feed is no longer supported
-                    break
                 }
             }
             return timeline
@@ -148,7 +147,7 @@ extension BodegaPersistence {
         var posts = [(CacheKey, Mastodon.Entity.Status)]()
         for item in timeline {
             switch item {
-            case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account:
+            case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account, .noItem:
                 break
             case .post(let viewModel):
                 if let fullPost = await viewModel.fullPost {
@@ -168,7 +167,7 @@ extension BodegaPersistence {
             switch item {
             case .post(let viewModel):
                 return .cachedPost(viewModel.initialDisplayInfo)
-            case .loadingIndicator, .filteredNotificationsInfo, .account, .hashtag:
+            case .loadingIndicator, .filteredNotificationsInfo, .account, .hashtag, .noItem:
                 return nil
             case .notification:
                 // TODO: cache notifications? or give up on all caching?

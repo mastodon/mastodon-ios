@@ -1218,6 +1218,8 @@
 				Notifications/InlinePostPreview.swift,
 				Notifications/NotificationInfo.swift,
 				Notifications/NotificationsCacheManager.swift,
+				Timeline/CentralPostViewModelCache.swift,
+				Timeline/PrecalculatedRowHeights.swift,
 				Timeline/ThreadedConversationModel.swift,
 				Timeline/TimelineFeedLoader.swift,
 				Timeline/TimelineListViewController.swift,

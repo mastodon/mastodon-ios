@@ -6,6 +6,8 @@ import SwiftUI
 struct AuthorHeaderView: View {
     
     @Environment(MastodonPostViewModel.self) private var postViewModel
+    let threadedContext: ThreadedConversationModel.ThreadContext?
+    let getAccount: (Mastodon.Entity.Account.ID)->(MastodonAccount?)
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -28,7 +30,7 @@ struct AuthorHeaderView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(postViewModel.a11yHeaderLabel)
+        .accessibilityLabel(postViewModel.a11yHeaderLabel(inThreadedContext: threadedContext, getAccount: getAccount))
     }
     
     @ViewBuilder var authorDisplayName: some View {

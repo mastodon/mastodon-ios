@@ -344,9 +344,9 @@ class PollViewModel: ObservableObject {
     private var entity: Mastodon.Entity.Poll
     private let containingPostID: Mastodon.Entity.Status.ID
     private let optionTranslations: [String]?
-    private let actionHandler: MastodonPostMenuActionHandler
+    private let actionHandler: MastodonPostMenuActionHandler?
     
-    init(pollEntity: Mastodon.Entity.Poll, emojis: [Mastodon.Entity.Emoji]?, optionTranslations: [String]?, containingPostID: Mastodon.Entity.Status.ID, actionHandler: MastodonPostMenuActionHandler) {
+    init(pollEntity: Mastodon.Entity.Poll, emojis: [Mastodon.Entity.Emoji]?, optionTranslations: [String]?, containingPostID: Mastodon.Entity.Status.ID, actionHandler: MastodonPostMenuActionHandler?) {
         entity = pollEntity
         self.containingPostID = containingPostID
         self.optionTranslations = optionTranslations
@@ -363,6 +363,7 @@ class PollViewModel: ObservableObject {
     func submitVote() {
         if case let .selecting(selectionState) = votingState, !selectionState.selectedIndexes.isEmpty {
             votingState = .submittingVote(selectionState)
+            guard let actionHandler else { return }
             Task { @MainActor in
                 do {
                     let updatedPoll = try await actionHandler.vote(poll: entity, choices: selectionState.selectedIndexes, containingPostID: containingPostID)

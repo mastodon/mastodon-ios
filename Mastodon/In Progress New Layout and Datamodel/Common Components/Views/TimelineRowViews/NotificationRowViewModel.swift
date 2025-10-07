@@ -117,7 +117,7 @@ nonisolated struct MastodonNotificationInfo {
             avatarRowAdditionalElement = .noneNeeded
             if let status {
                 let inlinePost = GenericMastodonPost.fromStatus(status)
-                inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo(inContext: .notifications), filterContext: .notifications, threadedConversationContext: nil)
+                inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo())
                 inlinePostViewModel?.initialSetFullPost(inlinePost)
                 usePrivateBackground = status.visibility == .direct
             }
@@ -134,7 +134,7 @@ nonisolated struct MastodonNotificationInfo {
             avatarRowAdditionalElement = .noneNeeded
             if let status {
                 let inlinePost = GenericMastodonPost.fromStatus(status)
-                inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo(inContext: .notifications), filterContext: .notifications, threadedConversationContext: nil)
+                inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo())
                 inlinePostViewModel?.initialSetFullPost(inlinePost)
             }
         default:

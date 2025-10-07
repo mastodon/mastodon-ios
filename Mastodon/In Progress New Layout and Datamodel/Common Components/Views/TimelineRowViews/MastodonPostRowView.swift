@@ -12,6 +12,10 @@ struct MastodonPostRowView: View {
     @Environment(ContentConcealViewModel.self) private var contentConcealModel
 
     let contentWidth: CGFloat
+    let precalculatedHeight: CGFloat?
+    let actionHandler: MastodonPostMenuActionHandler?
+    let threadedContext: ThreadedConversationModel.ThreadContext?
+    let filterContext: Mastodon.Entity.FilterContext?
     
     let distanceFromAvatarLeadingEdgeToContentLeadingEdge: CGFloat = spacingBetweenGutterAndContent + AvatarSize.large
     
@@ -21,7 +25,7 @@ struct MastodonPostRowView: View {
         let instanceCanQuotePosts = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.quotePosts) ?? false
         
         VStack(alignment: .gutterAlign, spacing: 0) {  // gutterAlign keeps the content and social context headers properly aligned with the gap between avatar and content
-            if let threadedContext = viewModel.threadedContext {
+            if let threadedContext {
                 // MARK: Conversation thread line decoration
                 ZStack(alignment: Alignment(horizontal: .gutterAlign, vertical: .center)) {
                     if threadedContext.drawsLineAbove {
@@ -38,7 +42,7 @@ struct MastodonPostRowView: View {
                     VStack(spacing: 0) {
                         Spacer()
                             .frame(height: standardPadding)
-                        viewModel.socialContextHeader
+                        viewModel.socialContextHeader(inThreadContext: threadedContext, getAccount: { accountID in actionHandler?.account(accountID) })
                             .frame(maxWidth: contentWidth, alignment: .leading)
                     }
                 }
@@ -48,7 +52,7 @@ struct MastodonPostRowView: View {
                 VStack(spacing: 0) {
                     Spacer()
                         .frame(height: standardPadding)
-                    viewModel.socialContextHeader
+                    viewModel.socialContextHeader(inThreadContext: threadedContext, getAccount: { accountID in actionHandler?.account(accountID) })
                         .frame(maxWidth: contentWidth, alignment: .leading)
                 }
                 .accessibilityHidden(true)
@@ -60,38 +64,56 @@ struct MastodonPostRowView: View {
                     AvatarView(size: .large, authorAvatarUrl: author?.avatarURL ?? viewModel.initialDisplayInfo.actionableAuthorStaticAvatar, goToProfile: {
                         goToProfile(author)
                     })
-                    if let threadedContext = viewModel.threadedContext, threadedContext.drawsLineBelow {
+                    if let threadedContext, threadedContext.drawsLineBelow {
+                        let lowerThreadDecorationHeight: CGFloat? = {
+                            if let precalculatedHeight {
+                                return precalculatedHeight - standardPadding - AvatarSize.large
+                            } else {
+                                return nil
+                            }
+                        }()
                         threadingDecoration(withSpacerAtTop: !threadedContext.isContiguous, withSpacerAtBottom: false)
-                            .frame(width: AvatarSize.large)
+                            .frame(width: AvatarSize.large, height: lowerThreadDecorationHeight)
                     }
                 }
                 .accessibilityHidden(true)
                 
                 VStack(alignment: .leading, spacing: spacingBetweenGutterAndContent) {
                     // MARK: Author info
-                    AuthorHeaderView()
+                    AuthorHeaderView(threadedContext: threadedContext, getAccount: { accountID in actionHandler?.account(accountID) })
                         .onTapGesture {
                             goToProfile(author)
                         }
+#if DEBUG
+                    Text(viewModel.initialDisplayInfo.id)
+                        .font(.footnote)
+                        .border(.red)
+                    if viewModel.initialDisplayInfo.id != viewModel.initialDisplayInfo.actionablePostID {
+                        Text("actionable: \(viewModel.initialDisplayInfo.actionablePostID)")
+                            .font(.footnote)
+                            .border(.red)
+                    }
+#endif
                    
                     // MARK: Content warned and/or filtered
                     contentConcealLozenge
                         .frame(width: contentWidth)
                         .fixedSize(horizontal: false, vertical: true)
                     
-                    if contentConcealModel.currentMode.isShowingContent, let actionHandler = viewModel.actionHandler {
-                        if viewModel.isShowingTranslation == true, let translatablePost = viewModel.fullPost?.actionablePost, let translation = actionHandler.translation(forContentPostId: translatablePost.id) {
+                    if contentConcealModel.currentMode.isShowingContent {
+                        if viewModel.isShowingTranslation == true, let translatablePost = viewModel.fullPost?.actionablePost, let translation = actionHandler?.translation(forContentPostId: translatablePost.id) {
                             // MARK: Translation info line
-                            TranslationInfoView(translationInfo: translation, showOriginal: { actionHandler.doAction(.showOriginalLanguage, forPost: viewModel) }
+                            TranslationInfoView(translationInfo: translation, showOriginal: { actionHandler?.doAction(.showOriginalLanguage, forPost: viewModel) }
                             )
                             .frame(width: contentWidth, alignment: .leading)
                         }
                         
                         // MARK: Text content
-                        viewModel.textContentView(isInlinePreview: false)
+                        viewModel.textContentView(isInlinePreview: false, actionHandler: actionHandler)
                             .frame(width: contentWidth, alignment: .leading)
                             .environment(\.openURL, OpenURLAction { url in
-                                if viewModel.openURL(url) {
+                                guard let actionHandler else { return .systemAction(url) }
+                                if viewModel.openURL(url, actionHandler: actionHandler) {
                                     return .handled
                                 } else {
                                     return .systemAction(url)
@@ -111,7 +133,7 @@ struct MastodonPostRowView: View {
                                     .frame(width: contentWidth)
                             case .linkPreviewCard(let card):
                                 LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth, navigateToScene: { (scene, transition) in
-                                    actionHandler.presentScene(scene, fromPost: viewModel.initialDisplayInfo.id, transition: transition)
+                                    actionHandler?.presentScene(scene, fromPost: viewModel.initialDisplayInfo.id, transition: transition)
                                 })
                                 .frame(width: contentWidth)
                             }
@@ -119,14 +141,15 @@ struct MastodonPostRowView: View {
                         
                         // MARK: Quoted post
                         if let quotedPostViewModel = viewModel.fullQuotedPostViewModel {
-                            if quotedPostViewModel.initialDisplayInfo.shouldFilterOut {
+                            if let filterContext, quotedPostViewModel.initialDisplayInfo.filterOutInContexts.contains(filterContext) {
                                 QuotedPostHiddenByFilterView()
                             } else {
-                                EmbeddedPostView(layoutWidth: contentWidth, isSummary: false)
+                                EmbeddedPostView(layoutWidth: contentWidth, isSummary: false, actionHandler: actionHandler)
                                     .environment(quotedPostViewModel)
                                     .environment(contentConcealModel.nestedContentConcealModel ?? .alwaysShow)
                                     .onTapGesture {
-                                        quotedPostViewModel.openThreadView()
+                                        guard let actionHandler else { return }
+                                        quotedPostViewModel.openThreadView(actionHandler: actionHandler)
                                     }
                             }
                         } else if let quotePlaceholder = viewModel.placeholderQuotedPost {
@@ -150,14 +173,14 @@ struct MastodonPostRowView: View {
                     if let actionablePost = viewModel.fullPost?.actionablePost {
                         Spacer()
                             .frame(height: 0)  // gives double spacing between bottom of post content and action bar
-                        ActionBar(instanceCanQuotePosts: instanceCanQuotePosts)
+                        ActionBar(instanceCanQuotePosts: instanceCanQuotePosts, actionHandler: actionHandler)
                             .frame(width: contentWidth, alignment: .leading)
                             .accessibilityElement(children: .ignore)
                             .accessibilityLabel(viewModel.accessibilityActionBarLabel)
                     }
                     
                     // MARK: Thread view extra info for focused post
-                    switch viewModel.threadedContext {
+                    switch threadedContext {
                     case .focused:
                         threadFocusDetailFooter
                     default:
@@ -185,11 +208,11 @@ struct MastodonPostRowView: View {
                     }
                 }
                 ForEach(MastodonPostMenuAction.authorA11yMenuItems(forPostBy: relationshipToAuthor, isQuotingMe: viewModel.isQuotingMe, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { action in
-                    viewModel.accessibilityActionButton(action)
+                    viewModel.accessibilityActionButton(action, actionHandler: actionHandler)
                 }
                 
                 // REPLY
-                viewModel.accessibilityActionButton(.reply)
+                viewModel.accessibilityActionButton(.reply, actionHandler: actionHandler)
                 
                 // QUOTE
                 if instanceCanQuotePosts {
@@ -198,14 +221,14 @@ struct MastodonPostRowView: View {
                     Button(fullTitle) {
                         if isEnabled {
                             guard let composeViewModel = viewModel.composeViewModelQuotingThisPost else { return }
-                            viewModel.actionHandler?.presentScene(.compose(viewModel: composeViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
+                            actionHandler?.presentScene(.compose(viewModel: composeViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
                         }
                     }
                 }
                 
                 // POST ACTIONS
                 ForEach(MastodonPostMenuAction.postA11yMenuItemsOtherThanReply(forPostBy: relationshipToAuthor, myActions: viewModel.fullPost?.actionablePost?.content.myActions, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { action in
-                    viewModel.accessibilityActionButton(action)
+                    viewModel.accessibilityActionButton(action, actionHandler: actionHandler)
                 }
             }
         }
@@ -213,16 +236,16 @@ struct MastodonPostRowView: View {
     
     func goToProfile(_ account: MastodonAccount?) {
         guard let account else { return }
-        viewModel.goToProfile(account)
+        viewModel.goToProfile(account, actionHandler: actionHandler)
     }
 }
 
 extension MastodonPostViewModel {
-    var a11yHeaderLabel: String {
+    func a11yHeaderLabel(inThreadedContext threadedContext: ThreadedConversationModel.ThreadContext?, getAccount: (Mastodon.Entity.Account.ID)->(MastodonAccount?)) -> String {
         let visibilityString = initialDisplayInfo.actionableVisibility.a11yLabel
         let dateString = initialDisplayInfo.actionableCreatedAt.localizedShortTimeAgo(since: .now)
         let authorString = "\(visibilityString) post from \(initialDisplayInfo.actionableAuthorDisplayName)" + ", \(dateString)"
-        if let socialContext {
+        if let socialContext = socialContext(inThreadContext: threadedContext, getAccount: getAccount) {
             switch socialContext {
             case .boosted(let author, _):
                 return "\(authorString), boosted by \(author)"
@@ -302,7 +325,7 @@ extension MastodonPostRowView {
                                 do {
                                     let edits = try await APIService.shared.getHistory(forStatusID: fullPost.id, authenticationBox: authBox).value
                                     let editsViewModel = StatusEditHistoryViewModel(status: fullPost._legacyEntity, edits: edits, appContext: AppContext.shared, authenticationBox: authBox)
-                                    viewModel.actionHandler?.presentScene(.editHistory(viewModel: editsViewModel), fromPost: nil, transition: .show)
+                                    actionHandler?.presentScene(.editHistory(viewModel: editsViewModel), fromPost: nil, transition: .show)
                                 } catch {
                                 }
                             }
@@ -328,7 +351,7 @@ extension MastodonPostRowView {
                                 authenticationBox: authBox,
                                 kind: .rebloggedBy(status: MastodonStatus(entity: fullPost._legacyEntity, showDespiteContentWarning: false))
                             )
-                            viewModel.actionHandler?.presentScene(.rebloggedBy(viewModel: userListViewModel), fromPost: nil, transition: .show)
+                            actionHandler?.presentScene(.rebloggedBy(viewModel: userListViewModel), fromPost: nil, transition: .show)
                         } label: {
                             HStack {
                                 Text(L10n.Plural.Count.reblog(boostCount))
@@ -346,7 +369,7 @@ extension MastodonPostRowView {
                                 authenticationBox: authBox,
                                 kind: .favoritedBy(status: MastodonStatus(entity: fullPost._legacyEntity, showDespiteContentWarning: false))
                             )
-                            viewModel.actionHandler?.presentScene(.favoritedBy(viewModel: userListViewModel), fromPost: nil, transition: .show)
+                            actionHandler?.presentScene(.favoritedBy(viewModel: userListViewModel), fromPost: nil, transition: .show)
                         } label: {
                             HStack {
                                 Text(L10n.Plural.Count.favorite(favoriteCount))
@@ -382,6 +405,7 @@ private struct ActionBar: View {
     
     @Environment(MastodonPostViewModel.self) private var viewModel
     let instanceCanQuotePosts: Bool
+    let actionHandler: MastodonPostMenuActionHandler?
     
     var anyButtonHasNonZeroCount: Bool {
         guard let metrics = viewModel.fullPost?.actionablePost?.content.metrics else { return false }
@@ -400,7 +424,7 @@ private struct ActionBar: View {
                     Spacer()
                     actionButton(forPost: actionablePost, action: .bookmark, layout: .adaptive)
                     Spacer()
-                    ActionBarMenuButton(instanceCanQuotePosts: instanceCanQuotePosts)
+                    ActionBarMenuButton(instanceCanQuotePosts: instanceCanQuotePosts, actionHandler: actionHandler)
                 }
             }
             
@@ -414,7 +438,7 @@ private struct ActionBar: View {
                     Spacer()
                     actionButton(forPost: actionablePost, action: .bookmark, layout: .forceSmall)
                     Spacer()
-                    ActionBarMenuButton(instanceCanQuotePosts: instanceCanQuotePosts)
+                    ActionBarMenuButton(instanceCanQuotePosts: instanceCanQuotePosts, actionHandler: actionHandler)
                 }
             }
         }
@@ -423,6 +447,7 @@ private struct ActionBar: View {
     struct ActionBarMenuButton: View {
         @Environment(MastodonPostViewModel.self) private var viewModel
         let instanceCanQuotePosts: Bool
+        let actionHandler: MastodonPostMenuActionHandler?
         
         var body: some View {
             Menu {
@@ -431,8 +456,7 @@ private struct ActionBar: View {
                         ForEach(submenu.items, id: \.self) { menuAction in
                             if let actionablePost = viewModel.fullPost?.actionablePost {
                                 Button(role: menuAction.isDestructive ? .destructive : nil) {
-                                    
-                                    viewModel.actionHandler?.doAction(menuAction, forPost: viewModel)
+                                    actionHandler?.doAction(menuAction, forPost: viewModel)
                                 }
                                 label: {
                                     Label(menuAction.labelText(username: actionablePost.metaData.author.displayInfo.displayName, postLanguage: actionablePost.content.language), systemImage: menuAction.iconSystemName)
@@ -477,7 +501,7 @@ private struct ActionBar: View {
         switch action {
         case .reply:
             StatefulCountedActionButton(type: .reply, layoutSize: layout, showCountLabel: showCountLabel, actionState: .init(count: metrics.replyCount, isSelected: .isFalse), doAction: {
-                viewModel.actionHandler?.doAction(.reply, forPost: viewModel)
+                actionHandler?.doAction(.reply, forPost: viewModel)
             })
         case .boost:
             let state = overrideState ?? AsyncBool.fromBool(myActions.boosted)
@@ -494,12 +518,12 @@ private struct ActionBar: View {
             StatefulCountedActionButton(type: .boost, layoutSize: layout, showCountLabel: showCountLabel, actionState: .init(count: metrics.boostCount, isSelected: state), doAction: {
                 guard actionablePost.isBoostable else { return }
                 if instanceCanQuotePosts {
-                    viewModel.actionHandler?.showSheet(.boostOrQuoteDialog(viewModel))
+                    actionHandler?.showSheet(.boostOrQuoteDialog(viewModel))
                 } else {
                     if iHaveBoosted {
-                        viewModel.actionHandler?.doAction(.unboost, forPost: viewModel)
+                        actionHandler?.doAction(.unboost, forPost: viewModel)
                     } else {
-                        viewModel.actionHandler?.doAction(.boost, forPost: viewModel)
+                        actionHandler?.doAction(.boost, forPost: viewModel)
                     }
                 }
             })
@@ -509,9 +533,9 @@ private struct ActionBar: View {
             StatefulCountedActionButton(type: .favourite, layoutSize: layout, showCountLabel: showCountLabel, actionState: .init(count: metrics.favoriteCount, isSelected: state), doAction: {
                 switch state {
                 case .isFalse:
-                    viewModel.actionHandler?.doAction(.favourite, forPost: viewModel)
+                    actionHandler?.doAction(.favourite, forPost: viewModel)
                 case .isTrue:
-                    viewModel.actionHandler?.doAction(.unfavourite, forPost: viewModel)
+                    actionHandler?.doAction(.unfavourite, forPost: viewModel)
                 default:
                     break
                 }
@@ -521,9 +545,9 @@ private struct ActionBar: View {
             StatefulCountedActionButton(type: .bookmark, layoutSize: layout, showCountLabel: showCountLabel, actionState: .init(count: nil, isSelected: state), doAction: {
                 switch state {
                 case .isFalse:
-                    viewModel.actionHandler?.doAction(.bookmark, forPost: viewModel)
+                    actionHandler?.doAction(.bookmark, forPost: viewModel)
                 case .isTrue:
-                    viewModel.actionHandler?.doAction(.unbookmark, forPost: viewModel)
+                    actionHandler?.doAction(.unbookmark, forPost: viewModel)
                 default:
                     break
                 }
@@ -575,7 +599,7 @@ extension MastodonContentPost {
     
     @MainActor
     var isBoostable: Bool {
-        let info = self.initialDisplayInfo(inContext: nil)
+        let info = self.initialDisplayInfo()
         switch info.actionableVisibility {
         case .mentionedOnly:
             return false
