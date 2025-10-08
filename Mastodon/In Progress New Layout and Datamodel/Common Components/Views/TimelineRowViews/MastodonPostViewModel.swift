@@ -313,7 +313,7 @@ extension MastodonPostViewModel: FeedCoordinatorUpdatable {
         case .hashtag:
             fullQuotedPostViewModel?.incorporateUpdate(update)
         case .deletedPost(let deletedID):
-            guard deletedID != self.initialDisplayInfo.id else { assertionFailure("owner must delete this view model"); return }
+            guard deletedID != self.initialDisplayInfo.id else { /*assertionFailure("owner must delete this view model");*/ return }
             if fullQuotedPostViewModel?.initialDisplayInfo.id == deletedID {
                 fullQuotedPostViewModel = nil
                 placeholderQuotedPost = MastodonQuotedPost(deletedID: deletedID)
