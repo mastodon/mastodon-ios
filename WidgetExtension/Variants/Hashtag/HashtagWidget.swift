@@ -155,7 +155,7 @@ struct HashtagWidget: Widget {
         .configurationDisplayName(L10n.Widget.Hashtag.Configuration.displayName)
         .description(L10n.Widget.Hashtag.Configuration.description)
         .supportedFamilies(availableFamilies)
-        .contentMarginsDisabled() // Disable excessive margins (only effective for iOS >= 17.0
+        .contentMarginsDisabled() // Disable excessive margins
     }
 }
 

@@ -4,7 +4,7 @@
 
 - Xcode 16+
 - Swift 5.7+
-- iOS 17.0+
+- iOS 18.0+
 
 Install the latest version of Xcode from the App Store or Apple Developer Download website. Also, we assert you have the [Homebrew](https://brew.sh) package manager.  
 
