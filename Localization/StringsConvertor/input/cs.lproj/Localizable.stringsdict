@@ -133,13 +133,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>boosted by you and one other</string>
+        <string>boostnuto vámi a jedním dalším</string>
         <key>few</key>
-        <string>boosted by you and %ld others</string>
+        <string>boostnuto vámi a %ld dalšími</string>
         <key>many</key>
-        <string>boosted by you and %ld others</string>
+        <string>boostnuto vámi a %ld dalšími</string>
         <key>other</key>
-        <string>boosted by you and %ld others</string>
+        <string>boostnuto vámi a %ld dalšími</string>
       </dict>
     </dict>
     <key>plural.count.you_and_others_favorited</key>
@@ -153,13 +153,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>favorited by you and one other</string>
+        <string>oblíbeno vámi a jedním dalším</string>
         <key>few</key>
-        <string>favorited by you and %ld others</string>
+        <string>oblíbeno vámi a %ld dalšími</string>
         <key>many</key>
-        <string>favorited by you and %ld others</string>
+        <string>oblíbeno vámi a %ld dalšími</string>
         <key>other</key>
-        <string>favorited by you and %ld others</string>
+        <string>oblíbeno vámi a %ld dalšími</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
