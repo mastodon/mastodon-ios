@@ -756,17 +756,17 @@
                 "your_poll_has_ended": "Ваша апытанне скончылася",
                 "single_name_edited_a_post": "%@ адрэдагаваў допіс, з якім вы ўзаемадзейнічалі",
                 "single_name_ran_poll": "%@ ran %@",
-                "single_name_mentioned_you": "%@ mentioned you",
-                "single_name_requested_to_follow_you": "%@ requested to follow you",
+                "single_name_mentioned_you": "%@ згадаў(-ла) Вас",
+                "single_name_requested_to_follow_you": "%@ адправіў(-ла) запыт на падпіску",
                 "single_name_posted": "%@ posted:",
-                "single_name_boosted": "%@ boosted:",
-                "single_name_favourited": "%@ favorited:",
-                "single_name_followed_you": "%@ followed you",
-                "multiple_people_boosted": "%@ boosted:",
-                "multiple_people_favourited": "%@ favorited:",
-                "multiple_people_followed_you": "%@ followed you",
+                "single_name_boosted": "%@ пашырыў(-ла):",
+                "single_name_favourited": "%@ упадабаў(-ла):",
+                "single_name_followed_you": "%@ падпісаўся(-лась) на Вас",
+                "multiple_people_boosted": "%@ пашырыў(-ла):",
+                "multiple_people_favourited": "%@ упадабаў(-ла):",
+                "multiple_people_followed_you": "%@ падпісаўся(-лась) на Вас",
                 "mulitple_people_signed_up": "%@ new signups",
-                "single_name_signed_up": "%@ signed up",
+                "single_name_signed_up": "%@ зарэгістраваўся(-лась)",
                 "someone_reported_account_for_rule_violation": "Someone reported %@ for rule violation.",
                 "someone_reported_posts_from_account_for_rule_violation": "Someone reported %@ from %@ for rule violation."
             },
@@ -801,12 +801,12 @@
             },
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
-                "title": "Filtered Notifications",
+                "title": "Адфільтраваныя апавяшчэнні",
                 "accept": "Прыняць",
                 "dismiss": "Адхіліць"
             },
             "policy": {
-                "title": "Filter Notifications from…",
+                "title": "Адфільтроўваць апавяшчэнні ад…",
                 "not_following": {
                     "title": "Людзі, на якіх вы не падпісаны",
                     "subtitle": "Пакуль вы не пацвердзіце іх уручную"
@@ -923,7 +923,7 @@
             },
             "donation": {
                 "title": "Падтрымаць Mastodon",
-                "manage": "Manage donations"
+                "manage": "Кіраваць ахвяраваннямі"
             }
         },
         "report": {
@@ -1012,18 +1012,18 @@
         },
         "donation": {
             "picker": {
-                "once_title": "Just once",
-                "monthly_title": "Monthly",
-                "yearly_title": "Yearly"
+                "once_title": "Толькі адзін раз",
+                "monthly_title": "Штомесяц",
+                "yearly_title": "Штогод"
             },
-            "donatebuttontitle": "Donate",
-            "currency": "Currency",
+            "donatebuttontitle": "Ахвяраваць",
+            "currency": "Валюта",
             "success": {
-                "title": "Thank you for your contribution!",
-                "subtitle": "You should receive an email confirming your donation soon.",
-                "server_error_title": "Payment failed",
-                "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
-                "share_button_title": "Spread the word"
+                "title": "Дзякуй за Ваш унёсак!",
+                "subtitle": "У бліжэйшы час Вы атрымаеце электронны ліст з пацвярджэннем Вашага ахвяравання.",
+                "server_error_title": "Збой плацяжу",
+                "server_error_message": "Нам вельмі шкада, але адбылася памылка, і мы не змаглі апрацаваць Вашае ахвяраванне.\n\nКалі ласка, паспрабуйце яшчэ праз некалькі хвілін.",
+                "share_button_title": "Падзяліцеся гэтым"
             }
         }
     },
