@@ -253,7 +253,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 video</string>
+        <string>1 vîdyo</string>
         <key>other</key>
         <string>%ld vîdyo</string>
       </dict>
@@ -493,7 +493,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 account that you follow</string>
+        <string>1 jimar ku tu dişopînî</string>
         <key>other</key>
         <string>%ld jimaran ku tu dişopînî</string>
       </dict>
