@@ -111,7 +111,6 @@ struct LinkPreviewCard: View {
                                 // use the blurhash as a backdrop because the preview image is often the wrong aspect ratio
                                 Image(uiImage: blurhash)
                                     .resizable()
-                                    .scaledToFill()
                                     .accessibilityHidden(true)
                             }
                             image
