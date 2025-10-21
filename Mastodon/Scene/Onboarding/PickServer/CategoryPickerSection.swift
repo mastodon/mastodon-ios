@@ -24,7 +24,7 @@ extension CategoryPickerSection {
             guard let _ = dependency else { return nil }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PickServerCategoryCollectionViewCell.reuseIdentifier, for: indexPath) as! PickServerCategoryCollectionViewCell
 
-            cell.titleLabel.text = item.title
+            cell.setTitle(item.title)
 
             switch item {
             case .category(_):
@@ -32,20 +32,20 @@ extension CategoryPickerSection {
                 cell.menuButton.isUserInteractionEnabled = false
                 cell.menuButton.isHidden = true
                 cell.menuButton.menu = nil
-            case .language(_):
+            case .language(let string):
                 guard viewModel.allLanguages.value.isNotEmpty else { break }
 
                 let allLanguagesAction = UIAction(title: L10n.Scene.ServerPicker.Language.all) { _ in
                     viewModel.selectedLanguage.value = nil
                     FeedbackGenerator.shared.generate(.selectionChanged)
-                    cell.titleLabel.text = L10n.Scene.ServerPicker.Button.language
+                    cell.setTitle(L10n.Scene.ServerPicker.Button.language)
                 }
 
                 let languageActions = viewModel.allLanguages.value.compactMap { language in
                     UIAction(title: language.language ?? language.locale) { action in
                         FeedbackGenerator.shared.generate(.selectionChanged)
                         viewModel.selectedLanguage.value = language.locale
-                        cell.titleLabel.text = language.language
+                        cell.setTitle(language.language ?? language.locale)
                     }
                 }
 
@@ -64,19 +64,19 @@ extension CategoryPickerSection {
             case .signupSpeed(_):
                 let doesntMatterAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.all) { _ in
                     viewModel.manualApprovalRequired.value = nil
-                    cell.titleLabel.text = L10n.Scene.ServerPicker.Button.signupSpeed
+                    cell.setTitle(L10n.Scene.ServerPicker.Button.signupSpeed)
                     FeedbackGenerator.shared.generate(.selectionChanged)
                 }
 
                 let manualApprovalAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.manuallyReviewed) { action in
                     viewModel.manualApprovalRequired.value = true
-                    cell.titleLabel.text = action.title
+                    cell.setTitle(action.title)
                     FeedbackGenerator.shared.generate(.selectionChanged)
                 }
 
                 let instantSignupAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.instant) { action in
                     viewModel.manualApprovalRequired.value = false
-                    cell.titleLabel.text = action.title
+                    cell.setTitle(action.title)
                     FeedbackGenerator.shared.generate(.selectionChanged)
                 }
 
@@ -107,7 +107,7 @@ extension CategoryPickerSection {
                 }
 
                 cell.backgroundColor = backgroundColor
-                cell.titleLabel.textColor = textColor
+                cell.setTitleColor(textColor)
                 cell.layer.borderColor = borderColor.cgColor
                 cell.chevron.tintColor = textColor
             }

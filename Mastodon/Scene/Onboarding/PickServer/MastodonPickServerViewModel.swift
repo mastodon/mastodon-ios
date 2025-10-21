@@ -91,7 +91,35 @@ extension MastodonPickServerViewModel {
         APIService.shared.languages().sink { completion in
             
         } receiveValue: { response in
-            self.allLanguages.value = response.value
+            var availableLanguages = response.value.reduce(into: [ String : Mastodon.Entity.Language ]()) { partialResult, language in
+                partialResult[language.locale] = language
+            }
+            let userPreferredLanguages = Locale.preferredLanguages.compactMap { appleLanguageIdentifier in
+                let localeIdentifier: String
+                if let firstPortion = appleLanguageIdentifier.split(separator: "-", maxSplits: 1).first {
+                    localeIdentifier = String(firstPortion)
+                } else {
+                    localeIdentifier = appleLanguageIdentifier
+                }
+                return availableLanguages.removeValue(forKey: localeIdentifier)
+            }
+            let otherLanguages = response.value.compactMap { language in
+                return availableLanguages[language.locale]
+            }
+            let sortedOthers = otherLanguages.sorted { first, second in
+                switch (first.language, second.language) {
+                case (nil, nil):
+                    return false
+                case (nil, _):
+                    return false
+                case (_, nil):
+                    return true
+                default:
+                    return false
+                }
+            }
+            
+            self.allLanguages.value = userPreferredLanguages + sortedOthers
         }
         .store(in: &disposeBag)
 

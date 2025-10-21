@@ -15,13 +15,20 @@ class PickServerCategoryCollectionViewCell: UICollectionViewCell {
 
     static let reuseIdentifier = "PickServerCategoryCollectionViewCell"
 
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 15, weight: .regular)
         label.textColor = Asset.Colors.Label.secondary.color
         return label
     }()
+    
+    func setTitle(_ title: String) {
+        titleLabel.text = title
+    }
+    func setTitleColor(_ color: UIColor) {
+        titleLabel.textColor = color
+    }
 
     let chevron: UIImageView = {
         let chevron = UIImageView(image: UIImage(systemName: "chevron.down"))
