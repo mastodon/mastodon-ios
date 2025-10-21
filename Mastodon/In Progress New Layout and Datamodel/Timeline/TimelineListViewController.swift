@@ -2074,7 +2074,9 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                             case .loadingIndicator, .filteredNotificationsInfo, .hashtag:
                                 break
                             case .post(let viewModel):
-                                viewModel.isShowingTranslation = true
+                                if viewModel.fullPost?.actionablePost?.id == actionablePost.id {
+                                    viewModel.isShowingTranslation = true
+                                }
                             case .notification, .account:
                                 break
                             }
@@ -2087,7 +2089,9 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                             case .loadingIndicator, .filteredNotificationsInfo, .hashtag:
                                 break
                             case .post(let viewModel):
-                                viewModel.isShowingTranslation = false
+                                if viewModel.fullPost?.actionablePost?.id == actionablePost.id {
+                                    viewModel.isShowingTranslation = false
+                                }
                             case .notification, .account:
                                 break
                             }
