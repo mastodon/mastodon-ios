@@ -76,6 +76,8 @@ enum MastodonPostMenuAction: String {
     
     // POST ACTIONS
     case sharePost
+    case copyOriginalText
+    case copyTranslatedText
     case openPostInBrowser
     case copyLinkToPost
 
@@ -111,7 +113,7 @@ enum MastodonPostMenuAction: String {
         case .follow, .unfollow, .mute, .unmute:
             true
             
-        case .sharePost, .openPostInBrowser, .copyLinkToPost:
+        case .sharePost, .copyOriginalText, .copyTranslatedText, .openPostInBrowser, .copyLinkToPost:
             false
             
         case .removeQuote:
@@ -145,7 +147,7 @@ enum MastodonPostMenuAction: String {
         case .follow, .unfollow, .mute, .unmute:
             false
             
-        case .sharePost, .openPostInBrowser, .copyLinkToPost:
+        case .sharePost, .copyOriginalText, .copyTranslatedText, .openPostInBrowser, .copyLinkToPost:
             false
             
         case .blockUser, .unblockUser:
@@ -195,6 +197,8 @@ enum MastodonPostMenuAction: String {
             "hand.raised"
         case .sharePost:
             "square.and.arrow.up"
+        case .copyOriginalText, .copyTranslatedText:
+            "document.on.document"
         case .deletePost:
             "minus.circle"
         case .editPost:
@@ -202,7 +206,7 @@ enum MastodonPostMenuAction: String {
         case .changeQuotePolicy:
             "quote.opening"
         case .copyLinkToPost:
-            "doc.on.doc"
+            "link"
         case .openPostInBrowser:
             "safari"
         }
@@ -249,6 +253,8 @@ enum MastodonPostMenuAction: String {
             return L10n.Common.Controls.Friendship.unblockUser(username)
         case .sharePost:
             return L10n.Common.Controls.Actions.sharePost
+        case .copyOriginalText, .copyTranslatedText:
+            return L10n.Common.Controls.Actions.copy
         case .deletePost:
             return L10n.Common.Controls.Actions.delete
         case .editPost:
@@ -287,7 +293,7 @@ enum MastodonPostMenuAction: String {
             return  [isShowingTranslation ? .showOriginalLanguage : .translatePost]
         }()
         
-        let postActions = [MastodonPostMenuAction.sharePost, .copyLinkToPost, .openPostInBrowser]
+        let postActions = [MastodonPostMenuAction.sharePost, .copyLinkToPost, isShowingTranslation == true ? .copyTranslatedText : .copyOriginalText, .openPostInBrowser]
         
         let relationshipActions: [MastodonPostMenuAction]?
         let defensiveActions: [MastodonPostMenuAction]?

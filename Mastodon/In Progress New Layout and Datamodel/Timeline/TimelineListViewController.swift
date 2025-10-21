@@ -5,6 +5,7 @@ import MastodonAsset
 import MastodonCore
 import MastodonLocalization
 import MastodonSDK
+import MastoParse
 import Combine
 import MastodonUI
 import Meta
@@ -2141,6 +2142,33 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     guard let urlString = actionablePost.metaData.url else { throw PostActionFailure.noActionablePostId }
                     UIPasteboard.general.string = urlString
                     
+                case .copyOriginalText:
+                    let string = {
+                        if let plainString = actionablePost.content.plainText {
+                            return plainString
+                        }
+                        if let htmlString = actionablePost.content.htmlWithEntities?.html {
+                            return plainText(from: htmlString)
+                        } else {
+                            return ""
+                        }
+                    }()
+                    UIPasteboard.general.string = string
+                    
+                case .copyTranslatedText:
+                    let string = {
+                        if let translationHtml = translations[actionablePost.id]?.content {
+                            return plainText(from: translationHtml)
+                        } else if let string = actionablePost.content.plainText {
+                            return string
+                        } else if let htmlString = actionablePost.content.htmlWithEntities?.html {
+                            return plainText(from: htmlString)
+                        } else {
+                            return ""
+                        }
+                    }()
+                    UIPasteboard.general.string = string
+                    
                 case .openPostInBrowser:
                     guard let urlString = actionablePost.metaData.url, let url = URL(string: urlString) else { throw PostActionFailure.noActionablePostId }
                     presentScene(.safari(url: url), fromPost: nil, transition: .safariPresent(animated: true))
@@ -2197,6 +2225,45 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             } catch {
                 didReceiveError(error)
             }
+        }
+    }
+    
+    func plainText(from html: String) -> String {
+        if let blocks = try? getParseBlocks(from: html) {
+            let plain = blocks.reduce(into: "") { partialResult, block in
+                if let quote = block as? MastoParseBlockquote {
+                    partialResult.append(partialResult.isEmpty ? "\"" : "\n\"")
+                    for (idx, row) in quote.contents.enumerated() {
+                        if idx > 0 {
+                            partialResult.append("\n")
+                        }
+                        for inlineElement in row.contents {
+                            switch inlineElement.type {
+                            case .text:
+                                partialResult.append(inlineElement.contents)
+                            case .code:
+                                partialResult.append("\'\(inlineElement.contents)\'")
+                            }
+                        }
+                    }
+                    partialResult.append("\"")
+                } else if let row = block as? MastoParseContentRow {
+                    if !partialResult.isEmpty {
+                        partialResult.append("\n")
+                    }
+                    for inlineElement in row.contents {
+                        switch inlineElement.type {
+                        case .text:
+                            partialResult.append(inlineElement.contents)
+                        case .code:
+                            partialResult.append("`\(inlineElement.contents)`")
+                        }
+                    }
+                }
+            }
+            return plain
+        } else {
+            return ""
         }
     }
     
