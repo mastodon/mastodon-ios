@@ -178,12 +178,21 @@ struct MastodonRegisterView: View {
                     .modifier(FormTextFieldModifier(validateState: viewModel.dateOfBirthValidateState))
                 HStack {
                     Spacer().frame(maxWidth: .infinity)
-                    DatePicker(selection: $viewModel.dateOfBirth,  in: ...Date.now, displayedComponents: .date) { }
+                    DatePicker(selection: $viewModel.dateOfBirth,  in: earliestPossibleBirthdate...Date.now, displayedComponents: .date) { }
                     Spacer()
                 }
             }
             Text(L10n.Scene.Register.Input.BirthDate.explanationMessage(minAge, viewModel.domain)).font(.callout)
         }
+    }
+    
+    var earliestPossibleBirthdate: Date {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.timeZone = .current
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        return formatter.date(from: "1900-01-01")!
     }
 }
 
