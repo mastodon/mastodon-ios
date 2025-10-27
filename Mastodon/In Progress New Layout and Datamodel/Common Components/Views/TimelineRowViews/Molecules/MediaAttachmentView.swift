@@ -764,6 +764,7 @@ extension MediaAttachment {
     }
 }
 
+@MainActor
 class PlayerObserver: ObservableObject {
     @Published var playingState: AVPlayer.TimeControlStatus = .paused
     @Published var totalSeconds: Double?
@@ -809,8 +810,10 @@ class PlayerObserver: ObservableObject {
         if timeObserverToken == nil {
             let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
             timeObserverToken = player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
-                self?.totalSeconds = player.currentItem?.duration.seconds
-                self?.currentTimeInSeconds = time.seconds
+                DispatchQueue.main.async {
+                    self?.totalSeconds = player.currentItem?.duration.seconds
+                    self?.currentTimeInSeconds = time.seconds
+                }
             }
         }
         
@@ -819,11 +822,13 @@ class PlayerObserver: ObservableObject {
             object: player.currentItem,
             queue: .main
         ) { [weak self] _ in
-            if shouldLoop {
-                self?.player?.seek(to: .zero)
-                self?.player?.play()
-            } else {
-                self?.playShouldSeekToStart = true
+            DispatchQueue.main.async {
+                if shouldLoop {
+                    self?.player?.seek(to: .zero)
+                    self?.player?.play()
+                } else {
+                    self?.playShouldSeekToStart = true
+                }
             }
         }
     }
@@ -854,9 +859,11 @@ class PlayerObserver: ObservableObject {
             let scale = item.duration.timescale
             let time = CMTime(seconds: newTime, preferredTimescale: scale)
             player?.seek(to: time) { [weak self] finished in
-                guard let self, let totalSeconds else { return }
-                self.currentTimeInSeconds = item.currentTime().seconds
-                self.playShouldSeekToStart = time.seconds >= totalSeconds
+                DispatchQueue.main.async {
+                    guard let self, let totalSeconds = self.totalSeconds else { return }
+                    self.currentTimeInSeconds = item.currentTime().seconds
+                    self.playShouldSeekToStart = time.seconds >= totalSeconds
+                }
             }
         }
     }
