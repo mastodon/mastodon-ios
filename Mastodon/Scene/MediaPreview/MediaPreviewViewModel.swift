@@ -84,7 +84,7 @@ final class MediaPreviewViewModel: NSObject {
                     viewControllers.append(viewController)
                 }   // end switch attachment.kind { … }
             }   // end for … in …
-        case .attachments(let attachments, let initialIndex, let altTexts):
+        case .attachments(let attachments, let initialIndex, let placeholderImages, let altTexts):
             getAltText = { altTexts[$0] }
             
             currentPage = initialIndex ?? 0
@@ -95,7 +95,7 @@ final class MediaPreviewViewModel: NSObject {
                     let viewModel = MediaPreviewImageViewModel(
                         item: .init(
                             assetURL: attachment.url.flatMap { URL(string: $0) },
-                            thumbnail: nil,
+                            thumbnail: placeholderImages[i],
                             altText: altTexts[i]
                         )
                     )
@@ -180,7 +180,7 @@ extension MediaPreviewViewModel {
         case profileAvatar(ProfileAvatarPreviewContext)
         case profileBanner(ProfileBannerPreviewContext)
 //        case local(LocalImagePreviewMeta)
-        case attachments([Mastodon.Entity.Attachment], initialIndex: Int?, altTexts: [String?])
+        case attachments([Mastodon.Entity.Attachment], initialIndex: Int?, placeholderImages: [UIImage?], altTexts: [String?])
         
         var isAssetURLValid: Bool {
             switch self {
@@ -242,7 +242,7 @@ extension MediaPreviewViewModel: PageboyViewControllerDataSource {
         switch item {
         case .attachment(let previewContext):
             return .at(index: previewContext.initialIndex)
-        case .attachments(_, let initialIndex, _):
+        case .attachments(_, let initialIndex, _, _):
             let index = initialIndex ?? 0
             return .at(index: index)
         default:

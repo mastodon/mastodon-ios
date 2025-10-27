@@ -289,7 +289,7 @@ struct ImageGridView: View {
                                     if waitingToShowFullSize == img.id {
                                         waitingToShowFullSize = nil
                                         Task { @MainActor in
-                                            showImageGallery(focusing: img.id)
+                                            showImageGallery(focusing: img.id, withPlaceholderImages: viewModel.imageAttachments.map { viewModel.blurhashes[$0.id] })
                                         }
                                     }
                                 }
@@ -326,7 +326,7 @@ struct ImageGridView: View {
         .animation(.easeInOut, value: contentConcealViewModel.currentMode.isShowingMedia)
     }
     
-    func showImageGallery(focusing: Mastodon.Entity.Attachment.ID) {
+    func showImageGallery(focusing: Mastodon.Entity.Attachment.ID, withPlaceholderImages placeholderImages: [UIImage?]) {
         guard let presentingViewController = viewModel.actionHandler.mediaPreviewableViewController else { return }
         
         let focusedIndex = viewModel.imageAttachments.firstIndex { $0.id == focusing }
@@ -334,7 +334,7 @@ struct ImageGridView: View {
         let altTextTranslations = viewModel.altTextTranslations
         let altTexts = viewModel.imageAttachments.map { altTextTranslations?[$0.id] ?? $0.basicData.altText }
        
-        let previewItem: MediaPreviewViewModel.PreviewItem = .attachments(viewModel.imageAttachments.map{ $0._legacyEntity }, initialIndex: focusedIndex, altTexts: altTexts)
+        let previewItem: MediaPreviewViewModel.PreviewItem = .attachments(viewModel.imageAttachments.map{ $0._legacyEntity }, initialIndex: focusedIndex, placeholderImages: placeholderImages, altTexts: altTexts)
         let mediaPreviewTransitionItem: MediaPreviewTransitionItem = {
             @MainActor func clippingFrame(forID id: Mastodon.Entity.Attachment.ID) -> CGRect { viewModel.frame(forID: id) ?? CGRect(x: 50, y: 50, width: 50, height: 50)
             }
@@ -722,7 +722,7 @@ struct VideoPlayerView: View {
     func showFullSize() {
         playerObserver.didPressPause()
         guard let _legacyEntity = media.attachmentInfo?._legacyEntity, let previewableViewController = actionHandler.mediaPreviewableViewController else { return }
-        let previewItem: MediaPreviewViewModel.PreviewItem = .attachments([_legacyEntity], initialIndex: 0, altTexts: [media.attachmentInfo?.basicData.altText ?? ""])
+        let previewItem: MediaPreviewViewModel.PreviewItem = .attachments([_legacyEntity], initialIndex: 0, placeholderImages: [playerObserver.blurImage], altTexts: [media.attachmentInfo?.basicData.altText ?? ""])
         let mediaPreviewTransitionItem: MediaPreviewTransitionItem = {
             let item = MediaPreviewTransitionItem(source: .swiftUI(sourceFramesInScreenCoordinates: [playerObserver.mostRecentFrameInScreenCoordinates]), previewableViewController: previewableViewController)
             

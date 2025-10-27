@@ -111,7 +111,7 @@ extension MediaPreviewViewController {
                         let attachment = previewContext.attachments[index]
                         return attachment.kind == .video || attachment.kind == .audio
                     }()
-                case .attachments(let attachments, _, _):
+                case .attachments(let attachments, _, _, _):
                     self.topToolbar.isHidden = {
                         guard index < attachments.count else { return false }
                         let attachment = attachments[index]
