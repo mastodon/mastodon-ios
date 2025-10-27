@@ -7,15 +7,15 @@
 
 import func AVFoundation.AVMakeRect
 import UIKit
-import FLAnimatedImage
+import SDWebImage
 import VisionKit
 
 final class MediaPreviewImageView: UIScrollView {
     
     private static let imageAnalyzer = ImageAnalyzer()
     
-    let imageView: FLAnimatedImageView = {
-        let imageView = FLAnimatedImageView()
+    let imageView: SDAnimatedImageView = {
+        let imageView = SDAnimatedImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true

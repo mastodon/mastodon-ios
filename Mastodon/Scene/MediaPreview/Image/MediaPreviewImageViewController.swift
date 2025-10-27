@@ -65,11 +65,7 @@ extension MediaPreviewImageViewController {
             previewImageView.setup(image: thumbnail, container: self.previewImageView, forceUpdate: true)
         }
 
-        previewImageView.imageView.setImage(
-            url: viewModel.item.assetURL,
-            placeholder: viewModel.item.thumbnail,
-            scaleToSize: nil
-        ) { [weak self] image in
+        previewImageView.imageView.sd_setImage(with: viewModel.item.assetURL, placeholderImage: viewModel.item.thumbnail) { [weak self] image, error, _, _ in
             guard let self = self else { return }
             guard let image = image else { return }
             self.previewImageView.setup(image: image, container: self.previewImageView, forceUpdate: true)
