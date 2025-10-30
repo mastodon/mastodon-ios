@@ -704,7 +704,6 @@ private class TimelineListViewModel: ObservableObject {
     @Published var currentDisplaySlice = ArraySlice<TimelineItem>()
     func setCurrentDisplaySlice(_ newSlice: ArraySlice<TimelineItem>) {
         // space to add any necessary bookkeeping before setting the slice
-        recentlyDeletedPosts.removeAll()
         switch timeline {
         case .notifications(.everything), .notifications(.mentions):
             if newSlice.startIndex == 0 {
@@ -722,14 +721,12 @@ private class TimelineListViewModel: ObservableObject {
     
     @Published var unreadCount: Int = 0
     @Published var scrollToTopRequested: Bool = false
-    @Published var recentlyDeletedPosts = Set<Mastodon.Entity.Status.ID>()
     
     private var followersAndBlockedChangeSubscription: AnyCancellable?
     private var feedLoader: TimelineFeedLoader?
     private var feedLoaderResultsSubscription: AnyCancellable?
     private var feedLoaderErrorSubscription: AnyCancellable?
     private var notificationCountUpdateSubscription: AnyCancellable?
-    private var feedCoordinatorUpdateSubscription: AnyCancellable?
     
     var scrollManager: ScrollManager?
     
@@ -785,33 +782,6 @@ private class TimelineListViewModel: ObservableObject {
             .sink{ [weak self] updatedDomain in
                 guard let self, self.authenticatedUser?.domain == updatedDomain else { return }
                 self.authenticatedUser = AuthenticationServiceProvider.shared.currentActiveUser.value
-            }
-        
-        self.feedCoordinatorUpdateSubscription = FeedCoordinator.shared.$mostRecentUpdate
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] update in
-                guard let self, let update else { return }
-                switch update {
-                case .deletedPost(let deletedID):
-                    recentlyDeletedPosts.insert(deletedID)
-                default:
-                    break
-                }
-                
-                for item in currentDisplaySlice {
-                    switch item {
-                    case .account(let accountModel):
-                        accountModel.incorporateUpdate(update)
-                    case .post(let postModel):
-                        postModel.incorporateUpdate(update)
-                    case .notification(let notificationModel):
-                        notificationModel.incorporateUpdate(update)
-                    case .hashtag(let hashtagModel):
-                        hashtagModel.incorporateUpdate(update)
-                    case .filteredNotificationsInfo, .loadingIndicator:
-                        break
-                    }
-                }
             }
         
         Task {
@@ -1636,41 +1606,36 @@ struct TimelineListView: View {
                         .font(.footnote)
                 }
 #endif
-                if viewModel.recentlyDeletedPosts.contains(postViewModel.initialDisplayInfo.id) {
-                    QuotedPostPlaceholderView()
-                        .environment(QuotedPostPlaceholderViewModel(MastodonQuotedPost.init(deletedID: postViewModel.initialDisplayInfo.id), authorName: nil))
-                        .padding(doublePadding)
-                } else {
-                    MastodonPostRowView(contentWidth: contentWidth)
-                        .environment(postViewModel)
-                        .environment(viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID))
-                        .padding(EdgeInsets(top: 0, leading: standardPadding, bottom: 0, trailing: doublePadding))
-                        .frame(width: usableWidth)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            switch viewModel.timeline {
-                            case .thread(let root):
-                                guard root.id != postViewModel.initialDisplayInfo.id else { return }
-                            case .remoteThread(remoteType: .status(let id)):
-                                guard id != postViewModel.initialDisplayInfo.id else { return }
-                            default:
-                                break
-                            }
-                            postViewModel.openThreadView()
+                
+                MastodonPostRowView(contentWidth: contentWidth)
+                .environment(postViewModel)
+                .environment(viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID))
+                .padding(EdgeInsets(top: 0, leading: standardPadding, bottom: 0, trailing: doublePadding))
+                .frame(width: usableWidth)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    switch viewModel.timeline {
+                    case .thread(let root):
+                        guard root.id != postViewModel.initialDisplayInfo.id else { return }
+                    case .remoteThread(remoteType: .status(let id)):
+                        guard id != postViewModel.initialDisplayInfo.id else { return }
+                    default:
+                        break
+                    }
+                    postViewModel.openThreadView()
+                }
+                .background() {
+                    switch viewModel.timeline {
+                    case .notifications:
+                        switch postViewModel.initialDisplayInfo.actionableVisibility {
+                        case .mentionedOnly:
+                            backgroundView(isPrivate: true, isUnread: false) // TODO: implement unread for notifications
+                        default:
+                            EmptyView()
                         }
-                        .background() {
-                            switch viewModel.timeline {
-                            case .notifications:
-                                switch postViewModel.initialDisplayInfo.actionableVisibility {
-                                case .mentionedOnly:
-                                    backgroundView(isPrivate: true, isUnread: false) // TODO: implement unread for notifications
-                                default:
-                                    EmptyView()
-                                }
-                            default:
-                                EmptyView()
-                            }
-                        }
+                    default:
+                        EmptyView()
+                    }
                 }
             case .notification(let notificationViewModel):
                 NotificationRowView(contentWidth: contentWidth)
