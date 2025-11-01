@@ -28,6 +28,6 @@ jobs:
           NotificationEndpointRelease: ${{ secrets.NotificationEndpointRelease }}
         run: exec ./.github/scripts/setup.sh
       - name: Select required Xcode version
-        run: sudo xcode-select -switch /Applications/Xcode_16.4.app
+        run: sudo xcode-select -switch /Applications/Xcode_26.0.1.app
       - name: Build App
         run: bundle exec fastlane ios build_only
