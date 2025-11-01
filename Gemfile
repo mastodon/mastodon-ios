@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 gem "xcpretty"
+gem "abbrev" # Required for Ruby 3.4+ compatibility
 
 # Fastlane
 gem "fastlane"
