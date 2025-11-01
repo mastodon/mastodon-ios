@@ -40,7 +40,6 @@ which ruby
 rbenv install
 
 # install gem dependencies
-gem install bundler:2.7.2
 bundle install
 ```
 
