@@ -19,6 +19,13 @@ jobs:
   build:
     name: CI build
     runs-on: macos-15
+    strategy:
+      matrix:
+        destination:
+          - "platform=iOS Simulator,name=iPhone 16,OS=18.5"
+          - "platform=iOS Simulator,name=iPhone 17,OS=26.0"
+          - "platform=iOS Simulator,name=iPad (A16),OS=18.5"
+          - "platform=iOS Simulator,name=iPad Air 11-inch (M2),OS=26.0"
     steps:
       - name: Repository
         uses: actions/checkout@v2
@@ -31,3 +38,8 @@ jobs:
         run: sudo xcode-select -switch /Applications/Xcode_16.4.app
       - name: Build App
         run: bundle exec fastlane ios build_only
+      - name: Run UI Smoke Test on ${{ matrix.device_name }}
+        run: bundle exec fastlane run scan \
+          scheme:"Mastodon" \
+          destination:"${{ matrix.destination }}" \
+          only_testing:"MastodonUITests/MastodonUITests/testSmoke"
