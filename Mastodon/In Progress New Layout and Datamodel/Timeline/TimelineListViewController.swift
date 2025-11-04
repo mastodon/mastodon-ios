@@ -615,6 +615,8 @@ enum MastodonTimelineSheet {
     var scrollAnchorItem: TimelineItem = .noItem
     var ignoreNextTopItemBecomeVisible: Bool = false // This is required to correct for the fact that the system will not update the scrollPosition when the user taps the status bar to scroll all the way to the top, and that the system will initially layout the view with the content scrolled all the way to the top any time the view reappears.
     
+    let interactiveReloadTriggerModel = InteractiveLoadingTriggerModel()
+    
     enum ReloadReason {
         case notificationFilterPolicyUpdated
         case userRequestedRefresh
@@ -642,6 +644,16 @@ enum MastodonTimelineSheet {
     var activeSheet: MastodonTimelineSheet? = nil
     
     func setCurrentDisplaySlice(_ newSlice: ArraySlice<TimelineItem>, newScrollAnchor: TimelineItem?, mayNeedHeightCalculations: Bool, addLoadingIndicator: Bool) {
+        
+        defer {
+            switch loadingState {
+            case .initializing:
+                break
+            default:
+                interactiveReloadTriggerModel.reset(triggered: false)
+            }
+        }
+        
         // space to add any necessary bookkeeping before setting the slice
         let prefix: [TimelineItem] = {
             switch timeline {
@@ -884,6 +896,21 @@ enum MastodonTimelineSheet {
     func doInitialLoad() async throws {
         guard feedLoader == nil else { return }
         guard let authenticatedUser else { return }
+        
+        interactiveReloadTriggerModel.reset(triggered: true)
+        
+        interactiveReloadTriggerModel.onTrigger = {
+            switch self.loadingState {
+            case .initializing:
+                return false
+            case .untracked:
+                self.loadMoreFromBottom()
+                return true
+            case .requestedPrependedHeightCalculations, .requestedReloadFromBottom, .requestedReloadFromTop:
+                return false
+            }
+        }
+        
         clearPendingActions()
         feedLoader = TimelineFeedLoader(currentUser: authenticatedUser, timeline: timeline)
         
@@ -1301,6 +1328,12 @@ struct TimelineListView: View {
                         }, set: { newAnchorItem in
                             viewModel.scrollAnchorItem = newAnchorItem ?? .noItem
                         }), anchor: .top)
+                        .onAppear() {
+                            viewModel.interactiveReloadTriggerModel.triggerFrame = geo.frame(in: .global)
+                        }
+                        .onChange(of: geo.frame(in: .global)) { _, newValue in
+                            viewModel.interactiveReloadTriggerModel.triggerFrame = newValue
+                        }
                         .onChange(of: geo.size.width, initial: true) { _, _ in
                             viewModel.currentUseableWidth = useableWidth(fromGeoProxy: geo)
                         }
@@ -1492,39 +1525,20 @@ struct TimelineListView: View {
     @ViewBuilder func feedContents(_ geo: GeometryProxy) -> some View {
         let useableWidth = useableWidth(fromGeoProxy: geo)
         let contentWidth = contentWidth(forUseableWidth: useableWidth)
-
+        
         ForEach(viewModel.currentDisplaySlice, id: \.self) { item in
             switch item {
             case .loadingIndicator:
-                HStack {
-                    Spacer()
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                    Spacer()
-                }
-                .padding(EdgeInsets(top: 100, leading: 0, bottom: 100, trailing: 0))
-                .accessibilityAction(named: L10n.Common.Controls.Actions.loadOlder) {
-                    switch viewModel.loadingState {
-                    case .untracked:
-                        viewModel.loadMoreFromBottom()
-                    default:
-                        break
-                    }
-                }
-                VisibilityTrackingView(scrollCoordinateSpace: scrollViewCoordinateSpace,
-                                       visibleAreaHeight: geo.size.height, visibilityDidChange: { isVisible in
-                    if isVisible {
+                InteractiveLoadingIndicatorRow()
+                    .environment(viewModel.interactiveReloadTriggerModel)
+                    .accessibilityAction(named: L10n.Common.Controls.Actions.loadOlder) {
                         switch viewModel.loadingState {
-                        case .initializing:
-                            viewModel.resetToUntrackedAfterDelay()
                         case .untracked:
                             viewModel.loadMoreFromBottom()
                         default:
                             break
                         }
                     }
-                })
-                .frame(width: 10, height: 1)
                 
             case .filteredNotificationsInfo(_, let filteredNotificationsViewModel):
                 if let filteredNotificationsViewModel {
