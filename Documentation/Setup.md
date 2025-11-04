@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Xcode 16+
+- Xcode 26+
 - Swift 5.7+
 - iOS 18.0+
 
