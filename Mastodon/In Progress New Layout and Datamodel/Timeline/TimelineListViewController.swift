@@ -678,7 +678,7 @@ enum MastodonTimelineSheet {
                 let split = fullList.split(maxSplits: 1, omittingEmptySubsequences: true) { item in
                     return item == newScrollAnchor
                 }
-                if !mayNeedHeightCalculations || split.count == 1 {
+                if !mayNeedHeightCalculations || split.count <= 1 {
                     currentDisplaySlice = fullList.prefix(fullList.count)
                     self.resetToUntrackedAfterDelay(from: loadingState)
                 } else if let belowAnchor = split.last, let aboveSplit = split.first {
