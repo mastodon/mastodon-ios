@@ -450,7 +450,7 @@ extension TimelineListViewController {
         switch viewModel.timeline {
         case .notifications(let scope):
             if scope != newScope {
-                viewModel.resetToUntrackedAfterDelay()
+                viewModel.resetToUntrackedAfterDelay(from: viewModel.loadingState)
                 viewModel.timeline = .notifications(scope: newScope)
             }
         default:
@@ -680,18 +680,18 @@ enum MastodonTimelineSheet {
                 }
                 if !mayNeedHeightCalculations || split.count == 1 {
                     currentDisplaySlice = fullList.prefix(fullList.count)
-                    self.resetToUntrackedAfterDelay()
+                    self.resetToUntrackedAfterDelay(from: loadingState)
                 } else if let belowAnchor = split.last, let aboveSplit = split.first {
                     currentDisplaySlice = [newScrollAnchor] + belowAnchor
                     self.requestCalculateHeightsAndPrependToCurrentDisplay(aboveSplit)
                 }
             case .notification, .hashtag, .account, .filteredNotificationsInfo, .loadingIndicator, .noItem:
                 currentDisplaySlice = prefix + newSlice + suffix
-                self.resetToUntrackedAfterDelay()
+                self.resetToUntrackedAfterDelay(from: loadingState)
             }
         } else {
             currentDisplaySlice = prefix + newSlice + suffix
-            self.resetToUntrackedAfterDelay()
+            self.resetToUntrackedAfterDelay(from: loadingState)
         }
     }
     
@@ -886,7 +886,7 @@ enum MastodonTimelineSheet {
         }
         
         if safeToSetNewItemsImmediately {
-            self.resetToUntrackedAfterDelay()
+            self.resetToUntrackedAfterDelay(from: loadingState)
             self.setCurrentDisplaySlice(items.prefix(items.count), newScrollAnchor: initialThreadAnchorItem ?? newScrollAnchor, mayNeedHeightCalculations: true, addLoadingIndicator: canLoadOlder)
         } else {
             self.waitingReplacementItems = items
@@ -963,12 +963,12 @@ enum MastodonTimelineSheet {
     }
     
     func loadMoreFromBottom() {
-        loadingState = .requestedReloadFromBottom
         guard let feedLoader else {
             // this is a valid state when switching between timelines
-            resetToUntrackedAfterDelay()
+            resetToUntrackedAfterDelay(from: loadingState)
             return
         }
+        loadingState = .requestedReloadFromBottom
         feedLoader.requestLoad(.older)
     }
     
@@ -979,7 +979,7 @@ enum MastodonTimelineSheet {
     
     func forceReload(_ reason: ReloadReason) async {
         guard let feedLoader else {
-            resetToUntrackedAfterDelay()
+            resetToUntrackedAfterDelay(from: loadingState)
             assertionFailure()
             return
         }
@@ -1234,10 +1234,12 @@ extension TimelineListViewModel {
         case requestedReloadFromTop
     }
     
-    func resetToUntrackedAfterDelay() {
+    func resetToUntrackedAfterDelay(from currentState: LoadingState) {
         debugScroll("will reset to untracked")
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-            // the delay prevents loads immediately triggering new loads
+            // the delay prevents loads immediately triggering new loads.
+            // the state check prevents state races, especially when preparing precalculated heights.
+            guard currentState == self.loadingState else { return }
             self.loadingState = .untracked
             debugScroll("did reset to untracked")
         }
@@ -1359,7 +1361,7 @@ struct TimelineListView: View {
                                     viewModel.scrollToTop()
                                 } else {
                                     await viewModel.refreshFromTop()
-                                    viewModel.resetToUntrackedAfterDelay()
+                                    viewModel.resetToUntrackedAfterDelay(from: viewModel.loadingState)
                                 }
                             case .requestedReloadFromTop, .requestedReloadFromBottom, .requestedPrependedHeightCalculations:
                                 debugScroll("not refreshing feed.  current state is \(viewModel.loadingState)")
@@ -1374,7 +1376,7 @@ struct TimelineListView: View {
                                 viewModel.loadingState = .requestedReloadFromTop
                                 Task {
                                     await viewModel.refreshFromTop()
-                                    viewModel.resetToUntrackedAfterDelay()
+                                    viewModel.resetToUntrackedAfterDelay(from: .requestedReloadFromTop)
                                 }
                             case .requestedReloadFromTop, .requestedReloadFromBottom, .requestedPrependedHeightCalculations:
                                 break
