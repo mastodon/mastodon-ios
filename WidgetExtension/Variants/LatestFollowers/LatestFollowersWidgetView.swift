@@ -90,7 +90,12 @@ struct LatestFollowersWidgetView: View {
                 Text(L10n.Widget.LatestFollowers.title)
                     .font(.system(size: UIFontMetrics.default.scaledValue(for: 16)))
                 Spacer()
-                Image("BrandIconColored")
+                if #available(iOS 18, *) {
+                    Image("BrandIconColored")
+                        .widgetAccentedRenderingMode(.fullColor)
+                } else {
+                    Image("BrandIconColored")
+                }
             }
             
             ForEach(accounts, id: \.acct) { account in
