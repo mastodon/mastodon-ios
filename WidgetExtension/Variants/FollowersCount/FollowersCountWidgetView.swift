@@ -81,10 +81,18 @@ struct FollowersCountWidgetView: View {
     private func viewForSmallWidgetYesChart(_ account: FollowersEntryAccountable) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Image(uiImage: account.avatarImage)
-                    .resizable()
-                    .frame(width: 23, height: 23)
-                    .cornerRadius(5)
+                Group {
+                    if #available(iOS 18, *) {
+                        Image(uiImage: account.avatarImage)
+                            .resizable()
+                            .widgetAccentedRenderingMode(.fullColor)
+                    } else {
+                        Image(uiImage: account.avatarImage)
+                            .resizable()
+                    }
+                }
+                .frame(width: 23, height: 23)
+                .cornerRadius(5)
                 VStack(alignment: .leading) {
                     Text(account.displayNameWithFallback)
                         .font(.caption)
