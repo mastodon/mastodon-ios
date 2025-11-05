@@ -67,7 +67,7 @@
                 "unboost": "Unboost"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
+                "title": "Kas lõpetad %@ kasutaja jälgimise?",
                 "cancel": "Katkesta",
                 "unfollow": "Unfollow"
             }
@@ -177,13 +177,13 @@
                 "meta_entity": {
                     "url": "Link: %s",
                     "hashtag": "Teemaviide: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "mention": "Näita profiili: %s",
+                    "email": "E-posti aadress: %s"
                 },
                 "actions": {
                     "reply": "Vasta",
                     "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "unreblog": "Võta hooandmine tagasi",
                     "favorite": "Märgi lemmikuks",
                     "unfavorite": "Eemaldatud lemmikute hulgast",
                     "menu": "Menüü",
@@ -195,7 +195,7 @@
                     "tap_then_hold_to_show_menu": "Menüü kuvamiseks puuduta ja hoia",
                     "a11y_labels": {
                         "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "unreblog": "Võta hooandmine tagasi"
                     },
                     "copy_link": "Kopeeri link"
                 },
@@ -302,22 +302,22 @@
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "Tere tulemast Mastodoni",
+                    "description": "Mastodon on hajutatud sotsiaalvõrgustik, mis tähendab, et seda ei kontrolli üks ja ainus organisatsioon või äriühing. Võrgustikus tegutsevad omavahel ühendatud paljud erinevad koduserverid."
                 },
                 "servers": {
-                    "title": "What are servers?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "title": "Mis on koduserverid?",
+                    "description": "Iga Mastodoni konto asub mõnes serveris - neist igal ühel on omad reeglid, väärtused ja haldajad. Pole vahet, mis serverit sa kasutad - sa võid jälgida kasutajaid kõikidest teistest koduservereist ning nendega suhelda."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Mis on Mastodon?"
                     }
                 }
             }
         },
         "login": {
-            "title": "Welcome Back",
+            "title": "Tere tulemast tagasi",
             "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
             "server_search_field": {
                 "placeholder": "Enter URL or search for your server"
