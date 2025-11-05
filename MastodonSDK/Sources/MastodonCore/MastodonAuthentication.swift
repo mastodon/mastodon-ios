@@ -9,6 +9,7 @@ public enum ApiFeature {
     case groupNotifications
     case quotePostSettings
     case quotePosts
+    case localTimeline
 }
 
 public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
@@ -65,6 +66,7 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
             return version
         }
         
+        @MainActor
         public func isAvailable(_ feature: ApiFeature) -> Bool {
             switch feature {
             case .followTags:
@@ -78,6 +80,26 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
             case .quotePosts:
                 guard let apiVersion else { return false }
                 return apiVersion >= 7
+            case .localTimeline:
+                switch self {
+                case .fromEndpointV1:
+                    return true
+                case .fromEndpointV2(let config, _):
+                    let allowedRegardlessOfRole: Bool? = {
+                        if let localPostsAllowed = config.configuration?.timelinesAccess?.liveFeeds?.localPosts {
+                            return localPostsAllowed == .anyone || localPostsAllowed == .loggedInUsers
+                        } else if let remotePostsAllowed = config.configuration?.timelinesAccess?.liveFeeds?.remotePosts {
+                            return remotePostsAllowed == .anyone || remotePostsAllowed == .anyone
+                        } else {
+                            return nil
+                        }
+                    }()
+                    if let allowedRegardlessOfRole {
+                        return allowedRegardlessOfRole ? true : (AuthenticationServiceProvider.shared.currentActiveUser.value?.cachedAccount?.role?.rolePermissions().contains(.viewLiveAndTopicFeeds) ?? false)
+                    } else {
+                        return true
+                    }
+                }
             }
         }
         

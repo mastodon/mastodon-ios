@@ -213,6 +213,8 @@ extension Mastodon.Entity.Account {
             public static let manageRoles = Permissions(rawValue: 1 << 17)
             public static let manageUserAccess = Permissions(rawValue: 1 << 18)
             public static let deleteUserData = Permissions(rawValue: 1 << 19)
+            
+            public static let viewLiveAndTopicFeeds = Permissions(rawValue: 1 << 20)
         }
     }
 }

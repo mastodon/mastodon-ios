@@ -74,6 +74,7 @@ extension Mastodon.Entity.V2.Instance {
         public let mediaAttachments: Mastodon.Entity.Instance.Configuration.MediaAttachments?
         public let polls: Mastodon.Entity.Instance.Configuration.Polls?
         public let translation: Mastodon.Entity.V2.Instance.Configuration.Translation?
+        public let timelinesAccess: Mastodon.Entity.V2.Instance.Configuration.TimelinesAccess?
     
         enum CodingKeys: String, CodingKey {
             case urls
@@ -81,6 +82,7 @@ extension Mastodon.Entity.V2.Instance {
             case mediaAttachments = "media_attachments"
             case polls
             case translation
+            case timelinesAccess = "timelines_access"
         }
     }
 }
@@ -104,6 +106,36 @@ extension Mastodon.Entity.V2.Instance {
 extension Mastodon.Entity.V2.Instance.Configuration {
     public struct Translation: Codable {
         public let enabled: Bool
+    }
+}
+
+extension Mastodon.Entity.V2.Instance.Configuration {
+    public struct TimelinesAccess: Codable, Sendable {
+        public let liveFeeds: TimelinesAccessSetting?
+        public let hashtagFeeds: TimelinesAccessSetting?
+        public let trendingLinkFeeds: TimelinesAccessSetting?
+        
+        enum CodingKeys: String, CodingKey {
+            case liveFeeds = "live_feeds"
+            case hashtagFeeds = "hashtag_feeds"
+            case trendingLinkFeeds = "trending_link_feeds"
+        }
+        
+        public struct TimelinesAccessSetting: Codable, Sendable {
+            public let localPosts: TimelineViewer?
+            public let remotePosts: TimelineViewer?
+            
+            enum CodingKeys: String, CodingKey {
+                case localPosts = "local"
+                case remotePosts = "remote"
+            }
+        }
+        
+        public enum TimelineViewer: String, Codable, Sendable {
+            case anyone = "public"
+            case loggedInUsers = "authenticated"
+            case usersWithRolePermission = "disabled"
+        }
     }
 }
 

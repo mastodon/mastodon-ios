@@ -227,6 +227,7 @@ extension TimelineListViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: timelineSelectorButton)
     }
     
+    @MainActor
     private func generateTimelineSelectorMenu() -> UIMenu {
         let showFollowingAction = UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.following, image: .init(systemName: "house")) { [weak self] _ in
             guard let self else { return }
@@ -359,8 +360,14 @@ extension TimelineListViewController {
         )
         
         let listsDivider = UIMenu(title: "", options: .displayInline, children: [listsMenu, hashtagsMenu])
- 
-        return UIMenu(children: [showFollowingAction, showLocalTimelineAction, listsDivider])
+        
+        // check if the instance allows the local timeline
+        if AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.localTimeline) ?? true {
+            return UIMenu(children: [showFollowingAction, showLocalTimelineAction, listsDivider])
+        } else {
+            guard listsMenu.children.count > 0 || hashtagsMenu.children.count > 0 else { return UIMenu(children: [showFollowingAction]) }
+            return UIMenu(children: [showFollowingAction, listsDivider])
+        }
     }
     
     private func generateNotificationRequestMenu(_ request: Mastodon.Entity.NotificationRequest) -> UIMenu {

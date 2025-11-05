@@ -68,6 +68,7 @@ class PrivacySafetyViewModel: ObservableObject, PrivacySafetySettingApplicable {
     private var authenticationBox: MastodonAuthenticationBox?
     private var coordinator: SceneCoordinator?
     
+    @MainActor
     public var canSetQuotability: Bool {
         return authenticationBox?.authentication.instanceConfiguration?.isAvailable(.quotePostSettings) ?? false
     }
@@ -179,7 +180,7 @@ extension PrivacySafetyViewModel {
     }
     
     func saveSettings() {
-        Task {
+        Task { @MainActor in
             guard let authenticationBox else {
                 return
             }
@@ -189,7 +190,7 @@ extension PrivacySafetyViewModel {
             
             let quotabilityToSet = canSetQuotability ? quotability : nil
             do {
-                let updatedAccount = try await APIService.shared.accountUpdateCredentials(
+                let _ = try await APIService.shared.accountUpdateCredentials(
                     domain: domain,
                     query: .init(
                         discoverable: suggestMyAccountToOthers,
