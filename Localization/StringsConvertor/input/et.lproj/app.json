@@ -574,7 +574,7 @@
                 "enable_content_warning": "Enable Content Warning",
                 "disable_content_warning": "Disable Content Warning",
                 "post_visibility_menu": "Post Visibility Menu",
-                "post_options": "Post Options",
+                "post_options": "Postituse valikud",
                 "posting_as": "Posting as %s"
             },
             "keyboard": {
@@ -599,18 +599,18 @@
             "dashboard": {
                 "my_posts": "posts",
                 "my_following": "following",
-                "my_followers": "followers",
+                "my_followers": "jälgijat",
                 "other_posts": "posts",
                 "other_following": "following",
-                "other_followers": "followers",
+                "other_followers": "jälgijat",
                 "familiar_followers": "mutuals"
             },
             "fields": {
-                "joined": "Joined",
-                "add_row": "Add Row",
+                "joined": "Liitumise aeg",
+                "add_row": "Lisa rida",
                 "placeholder": {
-                    "label": "Label",
-                    "content": "Content"
+                    "label": "Silt",
+                    "content": "Sisu"
                 },
                 "verified": {
                     "short": "Verified on %s",
@@ -634,8 +634,8 @@
                     "message": "Kinnita kasutajakonto summutamise lõpetamine: %s"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "Blokeeri kasutajakonto",
+                    "message": "Kinnita kasutajakonto blokeerimine: %s"
                 },
                 "confirm_unblock_user": {
                     "title": "Lõpeta konto blokeerimine",
@@ -771,11 +771,11 @@
                 "someone_reported_posts_from_account_for_rule_violation": "Someone reported %@ from %@ for rule violation."
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "boosted your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
+                "followed_you": "alustas sinu jälgimist",
+                "favorited_your_post": "märkis su postituse lemmikuks",
+                "reblogged_your_post": "andis postitusele hoogu",
+                "mentioned_you": "mainis sind",
+                "request_to_follow_you": "soovib sind jälgida",
                 "poll_has_ended": "küsitlus on lõppenud",
                 "relationship_severance": "An admin from %@ has blocked %@, including %@."
             },
@@ -791,19 +791,19 @@
             },
             "warning": {
                 "none": "Su kasutajakonto on saanud moderaatoritelt hoiatuse.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
+                "disable": "Su kasutajakontokonto on keelatud.",
+                "mark_statuses_as_sensitive": "Mõni su postitustest on märgitud delikaatseteks.",
+                "delete_statuses": "Mõni su postitustest on eemaldatud.",
+                "sensitive": "Su postitused märgitakse nüüdsest delikaatseteks.",
+                "silence": "Su kasutajakontole on kehtestatud piirangud.",
                 "suspend": "Sinu kasutajakonto tegevus on peatatud.",
                 "learn_more": "Lisateave"
             },
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
-                "title": "Filtered Notifications",
+                "title": "Filtreeritud teavitused",
                 "accept": "Nõustu",
-                "dismiss": "Dismiss"
+                "dismiss": "Loobu"
             },
             "policy": {
                 "title": "Filtreeri teavitused allikatest…",
@@ -842,7 +842,7 @@
             },
             "about_mastodon": {
                 "title": "About",
-                "more_settings": "Even More Settings",
+                "more_settings": "Veel rohkem seadistusi",
                 "contribute_to_mastodon": "Tee kaastööd Mastodonile",
                 "privacy_policy": "Privaatsus- ja andmekaitsepõhimõtted",
                 "clear_media_storage": "Kustuta meediumi andmeruum"
