@@ -33,28 +33,28 @@
                 "confirm": "Logi välja"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "title": "Oled ikka päris-päris kindel, et soovid blokeerida terve %s? Enamikel juhtudel piisab mõnest sihitud blokist või summutamisest, mis on eelistatavam. Sa ei näe selle domeeni sisu ühelgi viisil ja su jälgijad sellest domeenist eemaldatakse.",
+                "block_entire_domain": "Blokeeri domeen"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
-                "message": "Please enable the photo library access permission to save the photo."
+                "title": "Viga foto salvestamisel",
+                "message": "Fotode salvestamiseks anna rakendusele juurdepääs fotode kogule."
             },
             "delete_post": {
-                "title": "Delete Post",
-                "message": "Are you sure you want to delete this post?"
+                "title": "Kustuta postitus",
+                "message": "Kas oled kindel, et soovid selle postituse kustutada?"
             },
             "clean_cache": {
-                "title": "Clean Cache",
-                "message": "Successfully cleaned %s cache."
+                "title": "Kustuta puhverdatud andmed",
+                "message": "%s andmete kustutamine õnnestus."
             },
             "translation_failed": {
-                "title": "Note",
+                "title": "Märge",
                 "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
                 "button": "Sobib"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
+                "title": "Meediafailil puudub selgitustekst",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
                 "cancel": "Katkesta",
                 "post": "Post"
@@ -95,51 +95,51 @@
                 "copy_photo": "Kopeeri foto",
                 "sign_in": "Log in",
                 "see_more": "See More",
-                "preview": "Preview",
-                "copy": "Copy",
-                "share": "Share",
-                "share_user": "Share %s",
-                "share_post": "Share Post",
-                "open_in_safari": "Open in Safari",
-                "open_in_browser": "Open in Browser",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete",
+                "preview": "Eelvaade",
+                "copy": "Kopeeri",
+                "share": "Jaga",
+                "share_user": "Jaga kasutajat %s",
+                "share_post": "Jaga postitust",
+                "open_in_safari": "Ava Safaris",
+                "open_in_browser": "Ava veebibrauseris",
+                "find_people": "Otsi inimesi, keda tahaksid jälgida",
+                "manually_search": "Pigem otsi käsitsi",
+                "skip": "Jäta vahele",
+                "reply": "Vasta",
+                "report_user": "Teata kasutajast %s",
+                "block_domain": "Blokeeri %s",
+                "unblock_domain": "Lõpeta %s domeeni blokeerimine",
+                "settings": "Seadistused",
+                "delete": "Kustuta",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "Tõlgi keelest: %s",
+                    "unknown_language": "Teadmata"
                 },
                 "edit_post": "Muuda",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
+                "bookmark": "Lisa järjehoidjana",
+                "remove_bookmark": "Eemalda järjehoidja",
+                "follow": "Jälgi kasutajat %s",
                 "unfollow": "Unfollow %s"
             },
             "tabs": {
-                "home": "Home",
-                "search_and_explore": "Search and Explore",
-                "notifications": "Notifications",
-                "profile": "Profile",
+                "home": "Avaleht",
+                "search_and_explore": "Otsing ja avastamine",
+                "notifications": "Teavitused",
+                "profile": "Profiil",
                 "a11y": {
                     "search": "Search",
-                    "explore": "Explore"
+                    "explore": "Avasta"
                 }
             },
             "keyboard": {
                 "common": {
                     "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "compose_new_post": "Koosta uus postitus",
+                    "show_favorites": "Näita lemmikuid",
+                    "open_settings": "Ava seadistused"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
+                    "previous_status": "Eelmine postitus",
                     "next_status": "Järgmine postitus",
                     "open_status": "Ava postitus",
                     "open_author_profile": "Ava autori profiil",
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "Vasta",
                 "private_reply": "Privaatne vastus",
                 "mention": "Mainimine",
                 "private_mention": "Privaatne mainimine",
@@ -181,7 +181,7 @@
                     "email": "Email address: %s"
                 },
                 "actions": {
-                    "reply": "Reply",
+                    "reply": "Vasta",
                     "reblog": "Boost",
                     "unreblog": "Undo boost",
                     "favorite": "Märgi lemmikuks",
@@ -215,8 +215,8 @@
                 },
                 "translation": {
                     "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
+                    "unknown_language": "Teadmata",
+                    "unknown_provider": "Teadmata",
                     "show_original": "Show Original"
                 },
                 "media": {
@@ -250,33 +250,33 @@
                 "request": "Request",
                 "pending": "Pending",
                 "block": "Block",
-                "block_user": "Block %s",
+                "block_user": "Blokeeri %s",
                 "block_domain": "Block domain %s",
                 "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
+                "unblock_user": "Lõpeta %s domeeni blokeerimine",
                 "blocked": "Blocked",
                 "domain_blocked": "Domain Blocked",
                 "mute": "Mute",
                 "mute_user": "Mute %s",
                 "unmute": "Unmute",
                 "unmute_user": "Unmute %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "muted": "Summutatud",
+                "edit_info": "Muuda teavet",
+                "show_reblogs": "Näita hooandmisi",
+                "hide_reblogs": "Peida hooandmised"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Filtreeritud",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "Just nüüd"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "load_missing_posts": "Laadi puuduvaid postitusi",
+                    "loading_missing_posts": "Laadin puuduvaid postitusi...",
+                    "show_more_replies": "Näita veel vastuseid"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
+                    "no_status_found": "Ühtegi postitust ei leidunud",
                     "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
@@ -392,7 +392,7 @@
                     "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
                 },
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Kustuta"
                 },
                 "username": {
                     "placeholder": "username",
@@ -484,7 +484,7 @@
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Avaleht",
             "timeline_menu": {
                 "following": "Following",
                 "local_community": "Local",
@@ -642,11 +642,11 @@
                     "message": "Confirm to unblock %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
+                    "title": "Näita hooandmisi",
                     "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
+                    "title": "Peida hooandmised",
                     "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
@@ -831,9 +831,9 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
+                "title": "Seadistused",
                 "general": "General",
-                "notifications": "Notifications",
+                "notifications": "Teavitused",
                 "privacy_safety": "Privacy & Safety",
                 "support_mastodon": "Donate to Mastodon",
                 "about_mastodon": "About Mastodon",
@@ -882,11 +882,11 @@
                 "links": {
                     "section_title": "Links",
                     "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_browser": "Ava veebibrauseris"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Teavitused",
                 "policy": {
                     "title": "Get Notifications from",
                     "anyone": "Anyone",
@@ -928,7 +928,7 @@
         },
         "report": {
             "title_report": "Report",
-            "title": "Report %s",
+            "title": "Teata kasutajast %s",
             "step1": "Step 1 of 2",
             "step2": "Step 2 of 2",
             "content1": "Are there any other posts you’d like to add to the report?",
@@ -976,7 +976,7 @@
                 "unfollow_user": "Unfollow %s",
                 "mute_user": "Mute %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
+                "block_user": "Blokeeri %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
                 "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
             }
