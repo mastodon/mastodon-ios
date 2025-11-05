@@ -701,9 +701,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>One person you may know</string>
+        <string>Üks kasutaja, keda sa võid teada</string>
         <key>other</key>
-        <string>%ld people you may know</string>
+        <string>%ld kasutajat, keda sa võid teada</string>
       </dict>
     </dict>
   </dict>
