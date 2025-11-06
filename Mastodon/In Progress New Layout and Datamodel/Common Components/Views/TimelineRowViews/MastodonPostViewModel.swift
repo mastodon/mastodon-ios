@@ -73,21 +73,32 @@ struct PrecalculatedHeight {
     private(set) var translation: Mastodon.Entity.Translation? = nil
     
     var currentUserQuoteButton: (title: String?, subtitle: String?, isEnabled: Bool) {
+        
+        let defaultPostingVisibilityIsMentionedOnly = {
+            guard let currentUserDefault = AuthenticationServiceProvider.shared.currentActiveUser.value?.cachedAccount?.source?.privacy else { return false }
+            return currentUserDefault == .direct
+        }()
+        
+        guard !defaultPostingVisibilityIsMentionedOnly else {
+            // Mastodon does not currently allow setting your default posting visibility to mentionedOnly, but we handle the possibility (by not allowing quotes) just in case
+            return (nil, L10n.Common.Alerts.QuoteAPost.directMentionQuotesForbidden, false)
+        }
+        
         if let specified = fullPost?.actionablePost?._legacyEntity.quoteApproval?.currentUser {
             switch specified {
             case .automatic:
-                (L10n.Common.Alerts.QuoteAPost.quote, nil, true)
+                return (L10n.Common.Alerts.QuoteAPost.quote, nil, true)
             case .manual:
-                (L10n.Common.Alerts.QuoteAPost.requestToQuote, L10n.Common.Alerts.QuoteAPost.authorWillReview, true)
+                return (L10n.Common.Alerts.QuoteAPost.requestToQuote, L10n.Common.Alerts.QuoteAPost.authorWillReview, true)
             default:
                 if let policy = fullPost?.actionablePost?._legacyEntity.quoteApproval?.automatic, policy.contains(.followersOnly) {
-                    (nil, L10n.Common.Alerts.QuoteAPost.mustFollowToQuote, false)
+                    return (nil, L10n.Common.Alerts.QuoteAPost.mustFollowToQuote, false)
                 } else {
-                    (nil, L10n.Common.Alerts.QuoteAPost.quotesDisabled, false)
+                    return (nil, L10n.Common.Alerts.QuoteAPost.quotesDisabled, false)
                 }
             }
         } else {
-            (nil, L10n.Common.Alerts.QuoteAPost.quotesDisabled, false)
+            return (nil, L10n.Common.Alerts.QuoteAPost.quotesDisabled, false)
         }
     }
     
