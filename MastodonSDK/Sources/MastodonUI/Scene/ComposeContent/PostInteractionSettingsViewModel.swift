@@ -6,11 +6,26 @@ import MastodonSDK
 @Observable public class PostInteractionSettingsViewModel {
     
     public enum InitialSettings {
+        case accountDefaults
         case fresh(replyingToVisibility: Mastodon.Entity.Status.Visibility?)  // default visibility depends on the replyTo's visibility
         case editing(visibility: Mastodon.Entity.Status.Visibility, quotability: Mastodon.Entity.Source.QuotePolicy)  // visibility choice is fixed, but quotability can be changed
         
         public func defaultSettings(forAuthor account: Mastodon.Entity.Account?) -> (visibility: Mastodon.Entity.Status.Visibility, quotability: Mastodon.Entity.Source.QuotePolicy) {
+            
+            func quotability(givenVisibility visibility: Mastodon.Entity.Status.Visibility) -> Mastodon.Entity.Source.QuotePolicy{
+                    let authorDefault = defaultQuotability(forAuthor: account)
+                    let allowableQuotabilities = visibility.allowableQuotePolicies
+                    if allowableQuotabilities.contains(authorDefault) {
+                        return authorDefault
+                    } else {
+                        return defaultQuotePolicy(forVisibility: visibility)
+                    }
+            }
             switch self {
+            case .accountDefaults:
+                let _visibility = defaultVisibility(forAuthor: account)
+                let _quotability = quotability(givenVisibility: _visibility)
+                return (_visibility, _quotability)
             case .fresh(let replyingToVisibility):
                 let _visibility = {
                     let authorDefault = defaultVisibility(forAuthor: account)
@@ -20,15 +35,7 @@ import MastodonSDK
                         return authorDefault
                     }
                 }()
-                let _quotability = {
-                   let authorDefault = defaultQuotability(forAuthor: account)
-                    let allowableQuotabilities = _visibility.allowableQuotePolicies
-                    if allowableQuotabilities.contains(authorDefault) {
-                        return authorDefault
-                    } else {
-                        return defaultQuotePolicy(forVisibility: _visibility)
-                    }
-                }()
+                let _quotability = quotability(givenVisibility: _visibility)
                 return (_visibility, _quotability)
             case .editing(let visibility, let quotability):
                 return (visibility, quotability)
@@ -61,6 +68,8 @@ import MastodonSDK
         
         var visibilityOptions: [Mastodon.Entity.Status.Visibility] {
             switch self {
+            case .accountDefaults:
+                return [.public, .unlisted, .private]
             case .editing(let visibility, _):
                 return [visibility]
             case .fresh(let replyingToVisibility):
@@ -75,8 +84,8 @@ import MastodonSDK
         
         var canEditVisibility: Bool {
             switch self {
+            case .accountDefaults, .fresh: true
             case .editing: false
-            case .fresh: true
             }
         }
     }
