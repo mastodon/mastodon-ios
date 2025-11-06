@@ -2,11 +2,15 @@
 
 import SwiftUI
 
-struct MastodonSecondaryBackground: View {
+public struct MastodonSecondaryBackground: View {
     @Environment(\.colorScheme) private var colorScheme
-    let fillInDarkModeOnly: Bool
+    public let fillInDarkModeOnly: Bool
     
-    var body: some View {
+    public init(fillInDarkModeOnly: Bool) {
+        self.fillInDarkModeOnly = fillInDarkModeOnly
+    }
+    
+    public var body: some View {
         RoundedRectangle(cornerRadius: 8)
             .fill(
                 AnyShapeStyle(fillColor)

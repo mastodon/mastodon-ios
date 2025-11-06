@@ -169,7 +169,7 @@ public struct ComposeContentView: View {
         .coordinateSpace(name: ComposeContentView.contentViewCoordinateSpace)
         .sheet(isPresented: $isPresentingInteractionSettings) {
             interactionSettingsView
-                .presentationDetents([.fraction(0.3), .medium, .large])
+                .presentationDetents([.fraction(0.5), .medium, .large])
                 .presentationDragIndicator(.visible)
         }
         
@@ -222,7 +222,12 @@ public struct ComposeContentView: View {
     var interactionSettingsView: some View {
         PostInteractionSettingsView(closeAndSave: { shouldSave in
             if shouldSave {
-                // already set, nothing to do until posting
+                if viewModel.composeContext.quotedID != nil && interactionSettingsViewModel.interactionSettings.visibility == .direct {
+                    viewModel.convertQuoteToLink()
+                    interactionSettingsViewModel.removeQuote()
+                } else {
+                    // already set, nothing to do until posting
+                }
             } else {
                 if let restoreSettings = viewModel.previousInteractionSettings {
                     interactionSettingsViewModel.setInteractionSettings(visibility: restoreSettings.visibility, quotability: restoreSettings.quotability)
@@ -372,5 +377,24 @@ extension PollComposeItem.Option: NSItemProviderWriting {
     
     public static var writableTypeIdentifiersForItemProvider: [String] {
         return [Self.typeIdentifier]
+    }
+}
+
+extension ComposeContentViewModel {
+    func convertQuoteToLink() {
+        switch composeContext {
+        case .composeStatus(let quoting):
+            if let quotedStatus = quoting?.0, let quoteUrl = quotedStatus.url {
+                if content.isEmpty {
+                    content.append(quoteUrl)
+                } else {
+                    content.append(" \(quoteUrl)")
+                }
+                self.composeContext = .composeStatus(quoting: nil)
+            }
+        case .editStatus:
+            assertionFailure("It should not be possible to change the visibility of a post when editing it, which means there should never be a need to convert the quoted post to a link.")
+            break
+        }
     }
 }

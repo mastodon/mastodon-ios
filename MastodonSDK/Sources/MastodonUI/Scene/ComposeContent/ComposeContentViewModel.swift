@@ -52,7 +52,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     let composeContentTableViewCell = ComposeContentTableViewCell()
     
     // input
-    let composeContext: ComposeContext
+    @Published var composeContext: ComposeContext
     let destination: Destination
     weak var delegate: ComposeContentViewModelDelegate?
     let completion: ((Bool)->())?
@@ -182,8 +182,10 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.language = UserDefaults.shared.defaultPostLanguage
         
         let _initialInteractionSettings: PostInteractionSettingsViewModel.InitialSettings
+        let _contentIncludesQuote: Bool
         switch composeContext {
-        case .composeStatus:
+        case .composeStatus(let quoteInfo):
+            _contentIncludesQuote = quoteInfo != nil
             switch destination {
             case .reply(let record):
                 _initialInteractionSettings = .fresh(replyingToVisibility: record.entity.visibility)
@@ -193,8 +195,9 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         case .editStatus(let status, _, _):
             let _quotability = status.entity.specifiedQuotePolicyOrNobody
             _initialInteractionSettings = .editing(visibility: status.entity.visibility ?? .public, quotability: _quotability)
+            _contentIncludesQuote = status.entity.quote != nil
         }
-        self.interactionSettingsModel = PostInteractionSettingsViewModel(account: authenticationBox.cachedAccount, initialSettings: _initialInteractionSettings)
+        self.interactionSettingsModel = PostInteractionSettingsViewModel(account: authenticationBox.cachedAccount, initialSettings: _initialInteractionSettings, contentIncludesQuote: _contentIncludesQuote)
         
         super.init()
         // end init

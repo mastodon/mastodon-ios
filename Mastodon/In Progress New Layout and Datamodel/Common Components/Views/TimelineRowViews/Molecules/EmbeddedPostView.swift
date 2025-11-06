@@ -4,6 +4,7 @@ import MastodonSDK
 import SwiftUI
 import MastodonLocalization
 import SDWebImageSwiftUI
+import MastodonUI
 
 struct EmbeddedPostView: View {
     @Environment(MastodonPostViewModel.self) private var viewModel

@@ -4,6 +4,7 @@ import AVKit
 import SwiftUI
 import MastodonSDK
 import MastodonCore
+import MastodonUI
 import MastodonLocalization
 import Combine
 import MastodonAsset

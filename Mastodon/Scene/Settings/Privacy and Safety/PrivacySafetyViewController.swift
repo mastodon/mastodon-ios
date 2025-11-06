@@ -21,7 +21,7 @@ final class PrivacySafetyViewController: UIHostingController<AnyView> {
         let rootView = PrivacySafetyView(
             viewModel: self.viewModel
         )
-            .environment(PostInteractionSettingsViewModel(account: authenticationBox.cachedAccount, initialSettings: interactionSettingsDefaults))
+            .environment(PostInteractionSettingsViewModel(account: authenticationBox.cachedAccount, initialSettings: interactionSettingsDefaults, contentIncludesQuote: false))
         super.init(
             rootView: AnyView(rootView)
         )

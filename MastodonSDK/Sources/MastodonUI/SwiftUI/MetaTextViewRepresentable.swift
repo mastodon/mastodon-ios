@@ -60,6 +60,10 @@ public struct MetaTextViewRepresentable: UIViewRepresentable {
     }
 
     public func updateUIView(_ metaTextView: MetaTextView, context: Context) {
+        
+        if metaTextView.text != string {
+            metaTextView.text = string // this updates the text view's contents if the string is changed programmatically rather than by user input (for instance, when a quote is converted to a link and appended to the content)
+        }
         // update layout
         context.coordinator.widthLayoutConstraint.constant = width
         

@@ -2,6 +2,7 @@
 import SwiftUI
 import MastodonAsset
 import MastodonLocalization
+import MastodonUI
 import UIKit // for the attributed string colors
 
 struct ShowMoreLozenge: View {

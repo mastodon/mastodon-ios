@@ -1186,7 +1186,6 @@
 				"Common Components/Views/MastodonTimelineOverlayView/AltTextView.swift",
 				"Common Components/Views/MastodonTimelineOverlayView/BoostOrQuoteDialog.swift",
 				"Common Components/Views/MastodonTimelineOverlayView/ZoomableBlurhashImageView.swift",
-				"Common Components/Views/SecondaryBackground.swift",
 				"Common Components/Views/StatefulActionButton.swift",
 				"Common Components/Views/TextViewWithCustomEmoji.swift",
 				"Common Components/Views/TimelineRowViews/AccountRowView.swift",

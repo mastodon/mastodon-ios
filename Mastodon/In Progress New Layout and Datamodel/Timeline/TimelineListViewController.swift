@@ -1482,7 +1482,7 @@ struct TimelineListView: View {
                     }
                 })
                 .environment(editModel)
-                .presentationDetents([.fraction(0.3), .medium, .large])
+                .presentationDetents([.fraction(0.5), .medium, .large])
                 .presentationDragIndicator(.hidden)
                 .interactiveDismissDisabled(true)
             case .boostOrQuoteDialog(let postViewModel):
@@ -2049,7 +2049,8 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                                     .editing(
                                         visibility: actionablePost._legacyEntity.visibility ?? .public,
                                         quotability: actionablePost._legacyEntity.specifiedQuotePolicyOrNobody
-                                    )
+                                    ),
+                            contentIncludesQuote: postViewModel.fullQuotedPostViewModel != nil || postViewModel.placeholderQuotedPost != nil
                         )
                     )
                     

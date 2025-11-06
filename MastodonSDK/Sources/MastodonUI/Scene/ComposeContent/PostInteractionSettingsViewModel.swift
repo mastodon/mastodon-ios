@@ -83,12 +83,14 @@ import MastodonSDK
     
     public var interactionSettings: (visibility: Mastodon.Entity.Status.Visibility, quotability: Mastodon.Entity.Source.QuotePolicy)
     public var canEditVisibility: Bool
+    public var contentIncludesQuote: Bool
     
     public let availableVisibilities: [Mastodon.Entity.Status.Visibility]
     
-    public init(account: Mastodon.Entity.Account?, initialSettings: InitialSettings) {
+    public init(account: Mastodon.Entity.Account?, initialSettings: InitialSettings, contentIncludesQuote: Bool) {
         self.canEditVisibility = initialSettings.canEditVisibility
         self.availableVisibilities = initialSettings.visibilityOptions
+        self.contentIncludesQuote = contentIncludesQuote
         interactionSettings = initialSettings.defaultSettings(forAuthor: account)
     }
     
@@ -102,6 +104,10 @@ import MastodonSDK
         } else {
             interactionSettings = (newVisibility, .nobody)
         }
+    }
+    
+    public func removeQuote() {
+        contentIncludesQuote = false
     }
 }
 

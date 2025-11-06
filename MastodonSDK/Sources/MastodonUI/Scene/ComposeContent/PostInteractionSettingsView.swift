@@ -15,31 +15,31 @@ public struct PostInteractionSettingsView: View {
     }
     
     public var body: some View {
-            VStack {
-                Spacer()
-                    .frame(height: 4)
-                // header and save/cancel buttons
-                HStack {
-                    Button(L10n.Common.Controls.Actions.cancel, role: .cancel) {
-                       closeAndSave(false)
-                    }
-                    .tint(.blue)
-                    Spacer()
-                    Text(L10n.Scene.Compose.VisibilityAndQuotability.title)
-                        .fontWeight(.semibold)
-                    Spacer()
-                    Button(L10n.Common.Controls.Actions.save, role: .none) {
-                        closeAndSave(true)
-                    }
-                    .fontWeight(.semibold)
-                    .tint(.blue)
+        VStack {
+            Spacer()
+                .frame(height: 4)
+            // header and save/cancel buttons
+            HStack {
+                Button(L10n.Common.Controls.Actions.cancel, role: .cancel) {
+                    closeAndSave(false)
                 }
+                .tint(.blue)
                 Spacer()
-                    .frame(height: 16)
+                Text(L10n.Scene.Compose.VisibilityAndQuotability.title)
+                    .fontWeight(.semibold)
+                Spacer()
+                Button(L10n.Common.Controls.Actions.save, role: .none) {
+                    closeAndSave(true)
+                }
+                .fontWeight(.semibold)
+                .tint(.blue)
+            }
+            Spacer()
+                .frame(height: 16)
+            
+            
+            ScrollView {
                 
-                
-                ScrollView {
-                    
                 Text(L10n.Scene.Compose.VisibilityAndQuotability.subtitle)
                     .font(.caption)
                 Spacer()
@@ -75,6 +75,24 @@ public struct PostInteractionSettingsView: View {
                         .fill(.background)
                 }
                 .accessibilityElement(children: .combine)
+                
+                if viewModel.contentIncludesQuote && viewModel.interactionSettings.visibility == .direct {
+                    VStack(alignment: .leading) {
+                        Text(L10n.Scene.Compose.QuoteVisibilityConflict.PrivateMentionQuoteTip.title)
+                            .fontWeight(.semibold)
+                            .fixedSize(horizontal: false, vertical: true)
+                        Text(L10n.Scene.Compose.QuoteVisibilityConflict.PrivateMentionQuoteTip.subtitle)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .accessibilityElement(children: .combine)
+                    .background {
+                        MastodonSecondaryBackground(fillInDarkModeOnly: false)
+                    }
+                }
             }
         }
         .padding(EdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 16))

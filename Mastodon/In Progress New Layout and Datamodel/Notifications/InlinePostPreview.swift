@@ -9,6 +9,7 @@
 import MastodonSDK
 import SwiftUI
 import SDWebImageSwiftUI
+import MastodonUI
 
 struct InlinePostPreview: View {
     let viewModel: Mastodon.Entity.Status.ViewModel
