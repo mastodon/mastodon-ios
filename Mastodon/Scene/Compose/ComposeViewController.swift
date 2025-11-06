@@ -280,6 +280,29 @@ extension ComposeViewController {
             return
         }
         
+        if composeContentViewModel.interactionSettingsModel.interactionSettings.visibility == .private {
+            switch composeContentViewModel.composeContext {
+            case .composeStatus(let quoting):
+                if quoting != nil && quoting?.0.account.id != viewModel.authenticationBox.userID {
+                    let alertController = UIAlertController(
+                        title: L10n.Scene.Compose.QuoteVisibilityConflict.FollowersOnlyQuoteDialog.title,
+                        message: L10n.Scene.Compose.QuoteVisibilityConflict.FollowersOnlyQuoteDialog.description,
+                        preferredStyle: .alert
+                    )
+                    let cancelAction = UIAlertAction(title: L10n.Scene.Compose.QuoteVisibilityConflict.FollowersOnlyQuoteDialog.backToEditing, style: .cancel, handler: nil)
+                    alertController.addAction(cancelAction)
+                    let confirmAction = UIAlertAction(title: L10n.Scene.Compose.composeAction, style: .default) { [weak self] action in
+                        self?.enqueuePublishStatus()
+                    }
+                    alertController.addAction(confirmAction)
+                    _ = self.sceneCoordinator?.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
+                    return
+                }
+            case .editStatus:
+                break
+            }
+        }
+        
         enqueuePublishStatus()
     }
     

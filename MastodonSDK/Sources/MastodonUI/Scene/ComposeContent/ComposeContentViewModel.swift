@@ -52,7 +52,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     let composeContentTableViewCell = ComposeContentTableViewCell()
     
     // input
-    @Published var composeContext: ComposeContext
+    @Published public internal(set) var composeContext: ComposeContext
     let destination: Destination
     weak var delegate: ComposeContentViewModelDelegate?
     let completion: ((Bool)->())?
