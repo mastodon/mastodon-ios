@@ -95,6 +95,8 @@ public enum L10n {
       public enum QuoteAPost {
         /// Author will manually review
         public static let authorWillReview = L10n.tr("Localizable", "Common.Alerts.QuoteAPost.AuthorWillReview", fallback: "Author will manually review")
+        /// Quoting is not allowed with direct mentions.
+        public static let directMentionQuotesForbidden = L10n.tr("Localizable", "Common.Alerts.QuoteAPost.DirectMentionQuotesForbidden", fallback: "Quoting is not allowed with direct mentions.")
         /// Only followers can quote this post
         public static let mustFollowToQuote = L10n.tr("Localizable", "Common.Alerts.QuoteAPost.MustFollowToQuote", fallback: "Only followers can quote this post")
         /// Quote
@@ -826,6 +828,22 @@ public enum L10n {
         public static let onlyMe = L10n.tr("Localizable", "Scene.Compose.QuotePermissionPolicy.onlyMe", fallback: "Just me")
         /// Who can quote
         public static let title = L10n.tr("Localizable", "Scene.Compose.QuotePermissionPolicy.title", fallback: "Who can quote")
+      }
+      public enum QuoteVisibilityConflict {
+        public enum FollowersOnlyQuoteDialog {
+          /// Back to editing
+          public static let backToEditing = L10n.tr("Localizable", "Scene.Compose.QuoteVisibilityConflict.FollowersOnlyQuoteDialog.BackToEditing", fallback: "Back to editing")
+          /// The person you are quoting and other mentions will be notified and will be able to view your post, even if they're not following you.
+          public static let description = L10n.tr("Localizable", "Scene.Compose.QuoteVisibilityConflict.FollowersOnlyQuoteDialog.Description", fallback: "The person you are quoting and other mentions will be notified and will be able to view your post, even if they're not following you.")
+          /// Share with followers and mentioned users?
+          public static let title = L10n.tr("Localizable", "Scene.Compose.QuoteVisibilityConflict.FollowersOnlyQuoteDialog.Title", fallback: "Share with followers and mentioned users?")
+        }
+        public enum PrivateMentionQuoteTip {
+          /// If you save the current settings, the embedded quote will be converted to a link.
+          public static let subtitle = L10n.tr("Localizable", "Scene.Compose.QuoteVisibilityConflict.PrivateMentionQuoteTip.Subtitle", fallback: "If you save the current settings, the embedded quote will be converted to a link.")
+          /// Quotes can't be embedded in private mentions
+          public static let title = L10n.tr("Localizable", "Scene.Compose.QuoteVisibilityConflict.PrivateMentionQuoteTip.Title", fallback: "Quotes can't be embedded in private mentions")
+        }
       }
       public enum Title {
         /// Edit Post

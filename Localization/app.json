@@ -76,7 +76,8 @@
               "request_to_quote": "Request to quote",
               "must_follow_to_quote": "Only followers can quote this post",
               "quotes_disabled": "You are not allowed to quote this post",
-              "author_will_review": "Author will manually review"
+              "author_will_review": "Author will manually review",
+              "direct_mention_quotes_forbidden": "Quoting is not allowed with direct mentions.",
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
@@ -623,6 +624,17 @@
                 "anyone": "Anyone",
                 "followers": "Followers only",
                 "only_me": "Just me"
+            },
+            "quote_visibility_conflict": {
+                "private_mention_quote_tip": {
+                    "title": "Quotes can't be embedded in private mentions",
+                    "subtitle": "If you save the current settings, the embedded quote will be converted to a link."
+                },
+                "followers_only_quote_dialog": {
+                    "title": "Share with followers and mentioned users?",
+                    "description": "The person you are quoting and other mentions will be notified and will be able to view your post, even if they're not following you.",
+                    "back_to_editing": "Back to editing"
+                }
             },
             "auto_complete": {
                 "space_to_add": "Space to add"
