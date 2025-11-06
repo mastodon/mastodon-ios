@@ -166,7 +166,7 @@ extension Mastodon.Entity.Status.Visibility {
         case .unlisted:
             return other == .public
         case .private:
-            return other == .public || other == .direct
+            return other == .public || other == .unlisted
         case .direct:
             return other != .direct
         default:
