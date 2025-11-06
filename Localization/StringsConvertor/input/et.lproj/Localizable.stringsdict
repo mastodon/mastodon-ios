@@ -53,7 +53,7 @@
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>Sisestatud tähemärkide ülempiiri jääb %#@character_count@ märki</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one other</string>
+        <string>üks teine kasutaja</string>
         <key>other</key>
-        <string>%ld others</string>
+        <string>%ld teist kasutajat</string>
       </dict>
     </dict>
     <key>plural.count.you_and_others_boosted</key>
@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>boosted by you and one other</string>
+        <string>sellele andsid hoogu sina ja veel üks teine kasutaja</string>
         <key>other</key>
-        <string>boosted by you and %ld others</string>
+        <string>sellele andsid hoogu sina ja veel %ld teist kasutajat</string>
       </dict>
     </dict>
     <key>plural.count.you_and_others_favorited</key>
@@ -125,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>favorited by you and one other</string>
+        <string>selle oled lemmikuks märkinud sina ja veel üks teine kasutaja</string>
         <key>other</key>
-        <string>favorited by you and %ld others</string>
+        <string>selle oled lemmikuks märkinud sina ja veel %ld teist kasutajat</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
@@ -349,9 +349,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>1 hooandmine</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld hooandmist</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
@@ -365,9 +365,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 re-blog</string>
+        <string>1 hooandmine</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld hooandmist</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -605,9 +605,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>1 aasta eest</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>%ld aasta eest</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -621,9 +621,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>1 kuu tagasi</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>%ld kuud tagasi</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -637,9 +637,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>1 päev tagasi</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>%ld päeva tagasi</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -653,9 +653,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>1 tund tagasi</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>%ld tundi tagasi</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -669,9 +669,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>1 min eest</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>%ld min eest</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -685,9 +685,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>1 sek tagasi</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>%ld sek tagasi</string>
       </dict>
     </dict>
     <key>plural.filtered_notification_banner.subtitle</key>
