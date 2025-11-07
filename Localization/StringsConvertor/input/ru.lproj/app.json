@@ -157,9 +157,9 @@
             },
             "status": {
                 "reply": "Ответить",
-                "private_reply": "Private reply",
+                "private_reply": "Приватный ответ",
                 "mention": "Упоминание",
-                "private_mention": "Private mention",
+                "private_mention": "Личное упоминание",
                 "user_reblogged": "%s продвинул(а)",
                 "user_replied_to": "Ответил(а) %s",
                 "show_post": "Показать пост",
@@ -408,7 +408,7 @@
                 "password": {
                     "placeholder": "пароль",
                     "confirmation_placeholder": "Подтверждение пароля",
-                    "require": "Your password needs at least:",
+                    "require": "Пароль должен содержать хотя бы:",
                     "character_limit": "8 символов",
                     "accessibility": {
                         "checked": "",
@@ -493,8 +493,8 @@
                     "empty_message": "У вас нет ни одного списка"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "Подписки на хештеги",
+                    "empty_message": "Вы не подписаны ни на какие хештеги"
                 }
             },
             "timeline_pill": {
@@ -650,19 +650,19 @@
                     "message": "Подтвердите скрытие продвижений"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
-                    "message": "Confirm to block domain %s"
+                    "title": "Заблокировать домен",
+                    "message": "Вы уверены, что хотите заблокировать %s"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
-                    "message": "Confirm to unblock domain %s"
+                    "title": "Разблокировать домен",
+                    "message": "Вы уверены, что хотите разблокировать %s"
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "show_avatar_image": "Показывать фото профиля",
+                "edit_avatar_image": "Изменить фото профиля",
+                "show_banner_image": "Показывать баннер в профиле",
+                "double_tap_to_open_the_list": "Коснитесь дважды, чтобы открыть список"
             }
         },
         "follower": {
