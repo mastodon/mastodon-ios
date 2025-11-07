@@ -666,7 +666,7 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "подписчик",
             "footer": "Followers from other servers are not displayed."
         },
         "following": {
@@ -771,7 +771,7 @@
                 "someone_reported_posts_from_account_for_rule_violation": "Someone reported %@ from %@ for rule violation."
             },
             "notification_description": {
-                "followed_you": "followed you",
+                "followed_you": "подписался(ась) на вас",
                 "favorited_your_post": "favorited your post",
                 "reblogged_your_post": "продвинул(а) ваш пост",
                 "mentioned_you": "mentioned you",
