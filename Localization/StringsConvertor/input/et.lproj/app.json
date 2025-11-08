@@ -375,7 +375,7 @@
         },
         "privacy": {
             "title": "Sinu privaatsus",
-            "description": "Kuigi Mastodoni rakendus ei kogu mingeid andmeid, siis koduserveris, kus kavatsed liituda, võivad kehtida muud reeglid.\n\nKui sulle **%s** koduserveri reeglid ei sobi, siis saad sa valiida mõne muu koduserveri.",
+            "description": "Kuigi Mastodoni rakendus ei kogu mingeid andmeid, siis koduserveris, kus kavatsed liituda, võivad kehtida muud reeglid.\n\nKui sulle **%s** koduserveri reeglid ei sobi, siis saad sa valida mõne muu koduserveri.",
             "policy": {
                 "ios": "Privaatsus- ja andmekaitsepõhimõtted: Mastodon iOS-i jaoks",
                 "server": "Privaatsus- ja andmekaitsepõhimõtted: %s"
