@@ -221,9 +221,9 @@
                 },
                 "media": {
                     "accessibility_label": "%s, %d. manus kokku %d-st manusest",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "expand_image_hint": "Näitab pilti laiemalt. Tegevusi näed, kui topeltklõpsad ja hoiad all",
+                    "expand_gif_hint": "Näitab GIF-faili laiemalt. Tegevusi näed, kui topeltklõpsad ja hoiad all",
+                    "expand_video_hint": "Näitab videoesitajat. Tegevusi näed, kui topeltklõpsad ja hoiad all"
                 },
                 "posted_via_application": "%s kasutajalt %s",
                 "buttons": {
@@ -575,7 +575,7 @@
                 "disable_content_warning": "Lülita sisuhoiatus välja",
                 "post_visibility_menu": "Postituse nähtavuse menüü",
                 "post_options": "Postituse valikud",
-                "posting_as": "Psotitad kasutajana %s"
+                "posting_as": "Postitad kasutajana %s"
             },
             "keyboard": {
                 "discard_post": "Loobu postitusest",
