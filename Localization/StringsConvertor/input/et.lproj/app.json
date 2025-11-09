@@ -238,8 +238,8 @@
                     "original_post": "Algne postitus · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "Autor",
+                    "by_author": "Autorilt %s"
                 }
             },
             "friendship": {
@@ -247,7 +247,7 @@
                 "follow_back": "Jälgi vastu",
                 "following": "Sa jälgid",
                 "mutual": "Jälgite teineteist",
-                "request": "Request",
+                "request": "Päring",
                 "pending": "Ootel",
                 "block": "Blokeeri",
                 "block_user": "Blokeeri %s",
@@ -468,7 +468,7 @@
             },
             "dont_receive_email": {
                 "title": "Kontrolli oma e-posti",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
+                "description": "Palun kontrolli, kas sinu e-posti aadress on õige ja igaks juhuks vaata ka rämsposti kausta.",
                 "resend_email": "Saada e-kiri uuesti"
             },
             "open_email_app": {
@@ -570,7 +570,7 @@
                 "append_attachment": "Lisa manus",
                 "append_poll": "Lisa küsitlus",
                 "remove_poll": "Eemalda küsitlus",
-                "custom_emoji_picker": "Custom Emoji Picker",
+                "custom_emoji_picker": "Sinu emojode valija",
                 "enable_content_warning": "Lülita sisuhoiatus sisse",
                 "disable_content_warning": "Lülita sisuhoiatus välja",
                 "post_visibility_menu": "Postituse nähtavuse menüü",
@@ -603,7 +603,7 @@
                 "other_posts": "postitused",
                 "other_following": "jälgitav",
                 "other_followers": "jälgijat",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "üksteise jälgijad"
             },
             "fields": {
                 "joined": "Liitumise aeg",
@@ -613,8 +613,8 @@
                     "content": "Sisu"
                 },
                 "verified": {
-                    "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "short": "Kontrollitud teenuses %s",
+                    "long": "Selle lingi omand on kontrollitud teenusega %s"
                 }
             },
             "segmented_control": {
@@ -622,7 +622,7 @@
                 "replies": "Vastused",
                 "posts_and_replies": "Postitused ja vastused",
                 "media": "Meedium",
-                "about": "About"
+                "about": "Teave"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
@@ -643,11 +643,11 @@
                 },
                 "confirm_show_reblogs": {
                     "title": "Näita hooandmisi",
-                    "message": "Confirm to show boosts"
+                    "message": "Hooandmiste kuvamiseks kinnita"
                 },
                 "confirm_hide_reblogs": {
                     "title": "Peida hooandmised",
-                    "message": "Confirm to hide boosts"
+                    "message": "Hooandmiste peitmiseks kinnita"
                 },
                 "confirm_block_domain": {
                     "title": "Blokeeri domeen",
@@ -768,7 +768,7 @@
                 "mulitple_people_signed_up": "%@ uut liitumist",
                 "single_name_signed_up": "%@ liitus",
                 "someone_reported_account_for_rule_violation": "Keegi andis teada, et %@ rikub reegleid.",
-                "someone_reported_posts_from_account_for_rule_violation": "Someone reported %@ from %@ for rule violation."
+                "someone_reported_posts_from_account_for_rule_violation": "Keegi andis teada, et %@ serverist %@ rikub reegleid."
             },
             "notification_description": {
                 "followed_you": "alustas sinu jälgimist",
@@ -777,7 +777,7 @@
                 "mentioned_you": "mainis sind",
                 "request_to_follow_you": "soovib sind jälgida",
                 "poll_has_ended": "küsitlus on lõppenud",
-                "relationship_severance": "An admin from %@ has blocked %@, including %@."
+                "relationship_severance": "Peakasutaja serverist %@ on blokeerinud %@, sealhulgas %@."
             },
             "keyobard": {
                 "show_everything": "Näita kõike",
@@ -841,14 +841,14 @@
                 "logout": "Logi %@ välja"
             },
             "about_mastodon": {
-                "title": "About",
+                "title": "Teave",
                 "more_settings": "Veel rohkem seadistusi",
                 "contribute_to_mastodon": "Tee kaastööd Mastodonile",
                 "privacy_policy": "Privaatsus- ja andmekaitsepõhimõtted",
                 "clear_media_storage": "Kustuta meediumi andmeruum"
             },
             "server_details": {
-                "about": "About",
+                "about": "Teave",
                 "rules": "Reeglid",
                 "about_instance": {
                     "title": "Peakasutaja",
