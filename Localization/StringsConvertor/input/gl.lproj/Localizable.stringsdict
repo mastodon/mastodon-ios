@@ -2,22 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
-    <key>plural.count.new_signups</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@count_signups@</string>
-      <key>count_signups</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>ld</string>
-        <key>one</key>
-        <string>rexistrouse unha persoa</string>
-        <key>other</key>
-        <string>rexistráronse %ld persoas</string>
-      </dict>
-    </dict>
     <key>a11y.plural.count.unread.notification</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -96,38 +80,6 @@
         <string>un máis</string>
         <key>other</key>
         <string>%ld máis</string>
-      </dict>
-    </dict>
-    <key>plural.count.you_and_others_boosted</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@count_others@</string>
-      <key>count_others</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>ld</string>
-        <key>one</key>
-        <string>promovida por ti e outra persoa</string>
-        <key>other</key>
-        <string>promovida por ti e outras %ld persoas</string>
-      </dict>
-    </dict>
-    <key>plural.count.you_and_others_favorited</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@count_others@</string>
-      <key>count_others</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>ld</string>
-        <key>one</key>
-        <string>favorecida por ti e outra persoa</string>
-        <key>other</key>
-        <string>favorecida por ti e outras %ld persoas</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
