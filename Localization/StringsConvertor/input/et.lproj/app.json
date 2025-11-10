@@ -33,43 +33,43 @@
                 "confirm": "Logi välja"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "title": "Oled ikka päris-päris kindel, et soovid blokeerida terve %s? Enamikel juhtudel piisab mõnest sihitud blokist või summutamisest, mis on eelistatavam. Sa ei näe selle domeeni sisu ühelgi viisil ja su jälgijad sellest domeenist eemaldatakse.",
+                "block_entire_domain": "Blokeeri domeen"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
-                "message": "Please enable the photo library access permission to save the photo."
+                "title": "Viga foto salvestamisel",
+                "message": "Fotode salvestamiseks anna rakendusele juurdepääs fotode kogule."
             },
             "delete_post": {
-                "title": "Delete Post",
-                "message": "Are you sure you want to delete this post?"
+                "title": "Kustuta postitus",
+                "message": "Kas oled kindel, et soovid selle postituse kustutada?"
             },
             "clean_cache": {
-                "title": "Clean Cache",
-                "message": "Successfully cleaned %s cache."
+                "title": "Kustuta puhverdatud andmed",
+                "message": "%s andmete kustutamine õnnestus."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "title": "Märge",
+                "message": "Tõlkimine ei õnnestunud. Võibolla pole serveri peakasutaja võtnud tõlketeenust kasutusele või selle serveri tarkvara on vana ning tõlkimine pole veel toetatud.",
                 "button": "Sobib"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
+                "title": "Meediafailil puudub selgitustekst",
+                "message": "%d-l sinu lisatud pildil puuduvad selgitustekstid.\nKas jätkad postitamisega?",
                 "cancel": "Katkesta",
-                "post": "Post"
+                "post": "Postita"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
-                "title_unboost": "Unboost Post?",
+                "title_boost": "Kas annad postitusele hoogu?",
+                "title_unboost": "Kas lõpetad postitusele hooandmise?",
                 "cancel": "Katkesta",
-                "boost": "Boost",
-                "unboost": "Unboost"
+                "boost": "Anna hoogu",
+                "unboost": "Lõpeta hooandmine"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
+                "title": "Kas lõpetad %@ kasutaja jälgimise?",
                 "cancel": "Katkesta",
-                "unfollow": "Unfollow"
+                "unfollow": "Lõpeta jälgimine"
             }
         },
         "controls": {
@@ -93,53 +93,53 @@
                 "take_photo": "Pildista",
                 "save_photo": "Salvesta foto",
                 "copy_photo": "Kopeeri foto",
-                "sign_in": "Log in",
-                "see_more": "See More",
-                "preview": "Preview",
-                "copy": "Copy",
-                "share": "Share",
-                "share_user": "Share %s",
-                "share_post": "Share Post",
-                "open_in_safari": "Open in Safari",
-                "open_in_browser": "Open in Browser",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete",
+                "sign_in": "Logi sisse",
+                "see_more": "Vaata veel",
+                "preview": "Eelvaade",
+                "copy": "Kopeeri",
+                "share": "Jaga",
+                "share_user": "Jaga kasutajat %s",
+                "share_post": "Jaga postitust",
+                "open_in_safari": "Ava Safaris",
+                "open_in_browser": "Ava veebibrauseris",
+                "find_people": "Otsi inimesi, keda tahaksid jälgida",
+                "manually_search": "Pigem otsi käsitsi",
+                "skip": "Jäta vahele",
+                "reply": "Vasta",
+                "report_user": "Teata kasutajast %s",
+                "block_domain": "Blokeeri %s",
+                "unblock_domain": "Lõpeta %s domeeni blokeerimine",
+                "settings": "Seadistused",
+                "delete": "Kustuta",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "Tõlgi keelest: %s",
+                    "unknown_language": "Teadmata"
                 },
                 "edit_post": "Muuda",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "Lisa järjehoidjana",
+                "remove_bookmark": "Eemalda järjehoidja",
+                "follow": "Jälgi kasutajat %s",
+                "unfollow": "Lõpeta %s kasutaja jälgimine"
             },
             "tabs": {
-                "home": "Home",
-                "search_and_explore": "Search and Explore",
-                "notifications": "Notifications",
-                "profile": "Profile",
+                "home": "Avaleht",
+                "search_and_explore": "Otsing ja avastamine",
+                "notifications": "Teavitused",
+                "profile": "Profiil",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Otsi",
+                    "explore": "Avasta"
                 }
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "switch_to_tab": "Lülitu vahekaardile: %s",
+                    "compose_new_post": "Koosta uus postitus",
+                    "show_favorites": "Näita lemmikuid",
+                    "open_settings": "Ava seadistused"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
+                    "previous_status": "Eelmine postitus",
                     "next_status": "Järgmine postitus",
                     "open_status": "Ava postitus",
                     "open_author_profile": "Ava autori profiil",
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "Vasta",
                 "private_reply": "Privaatne vastus",
                 "mention": "Mainimine",
                 "private_mention": "Privaatne mainimine",
@@ -169,21 +169,21 @@
                 "media_content_warning": "Näitamiseks klõpsi ekraanil",
                 "tap_to_reveal": "Näitamiseks klõpsi",
                 "load_embed": "Laadi lõimitud sisu",
-                "link_via_user": "%s via %s",
+                "link_via_user": "%s kasutajalt %s",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "Hääleta",
+                    "closed": "Suletud"
                 },
                 "meta_entity": {
                     "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "hashtag": "Teemaviide: %s",
+                    "mention": "Näita profiili: %s",
+                    "email": "E-posti aadress: %s"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reply": "Vasta",
+                    "reblog": "Anna hoogu",
+                    "unreblog": "Võta hooandmine tagasi",
                     "favorite": "Märgi lemmikuks",
                     "unfavorite": "Eemaldatud lemmikute hulgast",
                     "menu": "Menüü",
@@ -194,8 +194,8 @@
                     "share_link_in_post": "Jaga postituses linki",
                     "tap_then_hold_to_show_menu": "Menüü kuvamiseks puuduta ja hoia",
                     "a11y_labels": {
-                        "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "reblog": "Anna hoogu",
+                        "unreblog": "Võta hooandmine tagasi"
                     },
                     "copy_link": "Kopeeri link"
                 },
@@ -208,869 +208,869 @@
                     "emoji": "Emoji"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "Kõik saavad seda postitust näha, aga teda ei kuvata avalikul ajajoonel.",
+                    "private": "Vaid tema jälgijad saavad seda postitust näha.",
+                    "private_from_me": "Vaid minu jälgijad saavad seda postitust näha.",
+                    "direct": "Vaid need, kes on mainitud, saavad seda postitust näha."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
-                    "show_original": "Show Original"
+                    "translated_from": "Tõlgitud %s keelest kasutades teenust %s",
+                    "unknown_language": "Teadmata",
+                    "unknown_provider": "Teadmata",
+                    "show_original": "Näita algteksti"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "accessibility_label": "%s, %d. manus kokku %d-st manusest",
+                    "expand_image_hint": "Näitab pilti laiemalt. Tegevusi näed, kui topeltklõpsad ja hoiad all",
+                    "expand_gif_hint": "Näitab GIF-faili laiemalt. Tegevusi näed, kui topeltklõpsad ja hoiad all",
+                    "expand_video_hint": "Näitab videoesitajat. Tegevusi näed, kui topeltklõpsad ja hoiad all"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s kasutajalt %s",
                 "buttons": {
-                    "reblogs_title": "Boosts",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "reblogs_title": "Hooandmised",
+                    "favorites_title": "Lemmikud",
+                    "edit_history_title": "Muudatuste ajalugu",
+                    "edit_history_detail": "Viimane muudatus: %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Muudetud %s",
                 "edit_history": {
-                    "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "title": "Muudatuste ajalugu",
+                    "original_post": "Algne postitus · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "Autor",
+                    "by_author": "Autorilt %s"
                 }
             },
             "friendship": {
-                "follow": "Follow",
-                "follow_back": "Follow back",
-                "following": "Following",
-                "mutual": "Mutual",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block domain %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
-                "domain_blocked": "Domain Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "follow": "Jälgi",
+                "follow_back": "Jälgi vastu",
+                "following": "Sa jälgid",
+                "mutual": "Jälgite teineteist",
+                "request": "Päring",
+                "pending": "Ootel",
+                "block": "Blokeeri",
+                "block_user": "Blokeeri %s",
+                "block_domain": "Blokeeri %s domeen",
+                "unblock": "Lõpeta blokeerimine",
+                "unblock_user": "Lõpeta %s domeeni blokeerimine",
+                "blocked": "Blokeeritud",
+                "domain_blocked": "Domeen on blokeeritud",
+                "mute": "Summuta",
+                "mute_user": "Summuta %s",
+                "unmute": "Lõpeta summutamine",
+                "unmute_user": "Lõpeta %s kasutaja summutamine",
+                "muted": "Summutatud",
+                "edit_info": "Muuda teavet",
+                "show_reblogs": "Näita hooandmisi",
+                "hide_reblogs": "Peida hooandmised"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Filtreeritud",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "Just nüüd"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "load_missing_posts": "Laadi puuduvaid postitusi",
+                    "loading_missing_posts": "Laadin puuduvaid postitusi...",
+                    "show_more_replies": "Näita veel vastuseid"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "no_status_found": "Ühtegi postitust ei leidunud",
+                    "blocking_warning": "Kuni sa tema blokeeringut ei eemalda,\nsiis sa ei saa näha tema profiili.\nSinu profiil paistab temale alljärgnevana.",
+                    "user_blocking_warning": "Kuni sa kasutaja „%s“ blokeeringut\nei eemalda, siis sa ei saa näha tema profiili.\nSinu profiil paistab temale alljärgnevana.",
+                    "blocked_warning": "Seni, kuni teine osapool sinu blokeeringut\nei eemalda, sa ei saa vaadata tema profiili.",
+                    "user_blocked_warning": "Seni, kuni %s sinu blokeeringut\nei eemalda, sa ei saa vaadata tema profiili.",
+                    "suspended_warning": "Selle kasutajakonto tegevus on peatatud.",
+                    "user_suspended_warning": "Kasutajakonto tegevus on peatatud: %s."
                 }
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "Link pole kontrollitud",
+            "followers_count": "%@ jälgijat"
         }
     },
     "scene": {
         "welcome": {
-            "log_in": "Log In",
-            "learn_more": "Learn more",
-            "join_default_server": "Join %@",
-            "pick_server": "Pick another server",
+            "log_in": "Logi sisse",
+            "learn_more": "Lisateave",
+            "join_default_server": "Liitu: %@",
+            "pick_server": "Vali mõni muu server",
             "separator": {
-                "or": "or"
+                "or": "või"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "Tere tulemast Mastodoni",
+                    "description": "Mastodon on hajutatud sotsiaalvõrgustik, mis tähendab, et seda ei kontrolli üks ja ainus organisatsioon või äriühing. Võrgustikus tegutsevad omavahel ühendatud paljud erinevad koduserverid."
                 },
                 "servers": {
-                    "title": "What are servers?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "title": "Mis on koduserverid?",
+                    "description": "Iga Mastodoni konto asub mõnes serveris - neist igal ühel on omad reeglid, väärtused ja haldajad. Pole vahet, mis serverit sa kasutad - sa võid jälgida kasutajaid kõikidest teistest koduservereist ning nendega suhelda."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Mis on Mastodon?"
                     }
                 }
             }
         },
         "login": {
-            "title": "Welcome Back",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "title": "Tere tulemast tagasi",
+            "subtitle": "Sisselogimisel kasuta serverit, kuhu sa oma kasutajakonto lisasid. Kui näiteks sinu konto on @sina@toreserver.social, siis sisesta serveriks „toreserver.social“.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Sisesta võrguaadress või otsi serverit"
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Vali server",
             "button": {
-                "language": "Language",
-                "signup_speed": "Sign-up Speed",
+                "language": "Keel",
+                "signup_speed": "Registreerumise kiirus",
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
-                    "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
-                    "furry": "furry",
-                    "games": "games",
-                    "general": "general",
-                    "journalism": "journalism",
+                    "all": "Kõik",
+                    "all_accessiblity_description": "Kategooria: kõik",
+                    "academia": "akadeemiline maailm",
+                    "activism": "aktivism",
+                    "food": "toit",
+                    "furry": "kohev ja karvane",
+                    "games": "mängud",
+                    "general": "üldine",
+                    "journalism": "ajakirjandus",
                     "lgbt": "lgbt",
-                    "regional": "regional",
-                    "art": "art",
-                    "music": "music",
-                    "tech": "tech"
+                    "regional": "piirkondlik",
+                    "art": "kunst",
+                    "music": "muusika",
+                    "tech": "tehnoloogia"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "Näita vähem",
+                "see_more": "Vaata veel"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "KEEL",
+                "users": "KASUTAJAD",
+                "category": "KATEGOORIA"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Otsi kogukondi või sisesta võrguaadress"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "finding_servers": "Otsin kasutatavaid servereid...",
+                "bad_network": "Andmete laadimisel läks midagi valesti. Palun kontrolli oma nutiseadme internetiühenduse toimimist.",
+                "no_results": "Tulemusi pole"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "Kõik",
+                "instant": "Kohene liitumine",
+                "manually_reviewed": "Käsitsi ülevaatamine"
             },
             "language": {
-                "all": "All"
+                "all": "Kõik"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Otsi nime või võrguaadressi"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Kui sa ise serverit ei vali, siis sinu kasutatava keele põhjal teeme seda meie ise."
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "Sinu privaatsus",
+            "description": "Kuigi Mastodoni rakendus ei kogu mingeid andmeid, siis koduserveris, kus kavatsed liituda, võivad kehtida muud reeglid.\n\nKui sulle **%s** koduserveri reeglid ei sobi, siis saad sa valida mõne muu koduserveri.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "Privaatsus- ja andmekaitsepõhimõtted: Mastodon iOS-i jaoks",
+                "server": "Privaatsus- ja andmekaitsepõhimõtted: %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Ma nõustun"
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Lisa kasutajakonto",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
-                    "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+                    "label": "Sünnikuupäev",
+                    "explanation_message": "Mastodoni kasutamiseks me peame tagama, et liitumisel teenusega %@ sa oled vähemalt %d aastat vana. Peale liitumist neid andmeid ei salvestata."
                 },
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Kustuta"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken.",
-                    "suggestion": "amazing_%@"
+                    "placeholder": "kasutajanimi",
+                    "duplicate_prompt": "Selline kasutajanimi on juba olemas.",
+                    "suggestion": "vahva_%@"
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "kuvatav nimi"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "e-posti aadress"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "confirmation_placeholder": "Confirm Password",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "placeholder": "salasõna",
+                    "confirmation_placeholder": "Korda salasõna",
+                    "require": "Sinu salasõnas peab olema vähemalt:",
+                    "character_limit": "8 tähemärki",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "kontrollitud",
+                        "unchecked": "kontrollimata"
                     },
-                    "hint": "Your password needs at least eight characters"
+                    "hint": "Sinu salasõnas peab olema vähemalt kaheksa tähemärki"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Miks sa soovid liituda?"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
+                    "username": "Kasutajanimi",
                     "email": "E-post",
-                    "password": "Password",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "password": "Salasõna",
+                    "agreement": "Leping",
+                    "locale": "Keelepakett",
+                    "reason": "Põhjus"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already taken. How about:",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "blocked": "%s kasutab mitte lubatud e-posti teenusepakkujat",
+                    "unreachable": "%s ei tundu olema olemas",
+                    "taken": "%s on juba kasutusel. Aga näiteks:",
+                    "reserved": "%s on reserveeritud sõna",
+                    "accepted": "Pead järgnevaga nõustuma: %s",
+                    "blank": "%s on nõutav",
+                    "invalid": "%s on vigane",
+                    "too_long": "%s on liiga pikk",
+                    "too_short": "%s on liiga lühikene",
+                    "inclusion": "%s pole toetatud väärtus"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "Kasutajanimes võivad olla vaid tähed, numbrid ja alakriipsud",
+                    "username_too_long": "Kasutajanimi on liiga pikk (ei tohi olla pikem, kui 30 tähemärki)",
+                    "email_invalid": "See pole korrektne e-posti aadress",
+                    "password_too_short": "Salasõna on liiga lühike (pikkus peab olema vähemalt 8 tähemärki)"
                 }
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "title": "Serveri reeglid",
+            "subtitle": "Jätkates nõustud sa järgima **%s** serveri moderaatorite poolt koostatud ja jõustatud reegleid.",
+            "prompt": "Jätkates kohalduvad %s teenuse kasutustingimused ja andmekaitse- ning privaatsusreeglid.",
+            "terms_of_service": "kasutustingimused",
+            "privacy_policy": "privaatsus- ja andmekaitsepõhimõtted",
             "button": {
-                "confirm": "I Agree",
-                "disagree": "Disagree"
+                "confirm": "Ma nõustun",
+                "disagree": "Ei nõustu"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "title": "Vaata oma saabuvaid e-kirju",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Klõpsa linki, mille me saatsime %@ kinnitamiseks sulle. Seni me rahulikult ootame.",
             "button": {
-                "resend": "Resend"
+                "resend": "Saada uuesti"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "Kontrolli oma e-posti",
+                "description": "Palun kontrolli, kas sinu e-posti aadress on õige ja igaks juhuks vaata ka rämsposti kausta.",
+                "resend_email": "Saada e-kiri uuesti"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "title": "Vaata oma saabuvaid e-kirju.",
+                "description": "Me just saatsime sulle e-kirja. Kui sa pole seda saanud, siis vaata igaks juhuks ka spämmikausta.",
+                "mail": "E-kiri",
+                "open_email_client": "Ava e-posti klient"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "prefix": "Kas sa ei saanud linki?",
+                "resend_in": "Saada uuesti (%@)",
+                "resend_now": "Saada kohe uuesti."
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Avaleht",
             "timeline_menu": {
-                "following": "Following",
-                "local_community": "Local",
+                "following": "Sa jälgid",
+                "local_community": "Kohalik",
                 "lists": {
-                    "title": "Lists",
-                    "empty_message": "You don't have any Lists"
+                    "title": "Loendid",
+                    "empty_message": "Sul pole ühtegi loendit"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "Jälgitavad teemaviited",
+                    "empty_message": "Sa ei jälgi ühtegi teemaviidet"
                 }
             },
             "timeline_pill": {
-                "offline": "Offline",
-                "new_posts": "New Posts",
-                "post_sent": "Post Sent"
+                "offline": "Pole võrgus",
+                "new_posts": "Uued postitused",
+                "post_sent": "Postitus on tehtud"
             },
             "empty_state": {
-                "list_empty_message_title": "This list is empty"
+                "list_empty_message_title": "See loend on tühi"
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
-            "follow_all": "Follow all"
+            "title": "Populaarne Mastodonis",
+            "follow_all": "Jälgi kõiki"
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
-                "new_reply": "New Reply",
-                "edit_post": "Edit Post"
+                "new_post": "Uus postitus",
+                "new_reply": "Uus vastus",
+                "edit_post": "Muuda postitust"
             },
             "media_selection": {
                 "camera": "Pildista",
-                "photo_library": "Photo Library",
-                "browse": "Browse"
+                "photo_library": "Pildigalerii",
+                "browse": "Sirvi"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "content_input_placeholder": "Sisesta või aseta lõikelaualt sisu, millest tahad rääkida",
+            "compose_action": "Postita",
+            "replying_to_user": "vastas kasutajale %s",
             "attachment": {
-                "photo": "photo",
+                "photo": "foto",
                 "video": "video",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
-                "attachment_too_large": "Attachment too large",
-                "compressing_state": "Compressing...",
-                "server_processing_state": "Server Processing..."
+                "attachment_broken": "See %s on katki ja teda ei saa\nMastodoni üles laadida.",
+                "description_photo": "Kirjelda fotot vaegnägijatele...",
+                "description_video": "Kirjelda videot vaegnägijatele...",
+                "load_failed": "Laadimine ei õnnestunud",
+                "upload_failed": "Üleslaadimine ei õnnestunud",
+                "can_not_recognize_this_media_attachment": "Seda meediamanust ei õnnestu tuvastada",
+                "attachment_too_large": "Manus on liiga suur",
+                "compressing_state": "Pakin kokku...",
+                "server_processing_state": "Töötlus serveris..."
             },
             "poll": {
-                "title": "Poll",
-                "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
-                "option_number": "Option %ld",
-                "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "title": "Küsitlus",
+                "duration_time": "Kestus: %s",
+                "thirty_minutes": "30 minutit",
+                "one_hour": "1 tund",
+                "six_hours": "6 tundi",
+                "one_day": "1 päev",
+                "three_days": "3 päeva",
+                "seven_days": "7 päeva",
+                "option_number": "Valik %ld",
+                "the_poll_is_invalid": "Küsitlus on vigane",
+                "the_poll_has_empty_option": "Küsitlusel on tühi valikvastus",
+                "add_option": "Lisa valikvastus",
+                "remove_option": "Eemalda valikvastus",
+                "move_up": "Liiguta üles",
+                "move_down": "Liiguta alla"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Sisesta täpne hoiatus siia..."
             },
             "visibility": {
-                "public": "Public",
-                "unlisted": "Unlisted",
-                "private": "Followers only",
-                "direct": "Only people I mention"
+                "public": "Avalik",
+                "unlisted": "Ajajooneväline",
+                "private": "Ainult jälgijad",
+                "direct": "Vaid kasutajad, keda mainin"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "Lisatav tühik"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
-                "append_poll": "Add Poll",
-                "remove_poll": "Remove Poll",
-                "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
-                "post_visibility_menu": "Post Visibility Menu",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "append_attachment": "Lisa manus",
+                "append_poll": "Lisa küsitlus",
+                "remove_poll": "Eemalda küsitlus",
+                "custom_emoji_picker": "Sinu emojode valija",
+                "enable_content_warning": "Lülita sisuhoiatus sisse",
+                "disable_content_warning": "Lülita sisuhoiatus välja",
+                "post_visibility_menu": "Postituse nähtavuse menüü",
+                "post_options": "Postituse valikud",
+                "posting_as": "Postitad kasutajana %s"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
-                "toggle_poll": "Toggle Poll",
+                "discard_post": "Loobu postitusest",
+                "publish_post": "Avalda postitus",
+                "toggle_poll": "Näita/peida küsitlus",
                 "toggle_content_warning": "Lülita sisuhoiatus sisse/välja",
-                "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "append_attachment_entry": "Lisa manus - %s",
+                "select_visibility_entry": "Vali nähtavus - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
-                "recent": "Recent",
-                "other": "Other Language…"
+                "title": "Postituse keel",
+                "suggested": "Soovitatud",
+                "recent": "Hiljutine",
+                "other": "Muu keel…"
             }
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "Jälgib sind"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers",
-                "familiar_followers": "mutuals"
+                "my_posts": "postitused",
+                "my_following": "jälgitav",
+                "my_followers": "jälgijat",
+                "other_posts": "postitused",
+                "other_following": "jälgitav",
+                "other_followers": "jälgijat",
+                "familiar_followers": "üksteise jälgijad"
             },
             "fields": {
-                "joined": "Joined",
-                "add_row": "Add Row",
+                "joined": "Liitumise aeg",
+                "add_row": "Lisa rida",
                 "placeholder": {
-                    "label": "Label",
-                    "content": "Content"
+                    "label": "Silt",
+                    "content": "Sisu"
                 },
                 "verified": {
-                    "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "short": "Kontrollitud teenuses %s",
+                    "long": "Selle lingi omand on kontrollitud teenusega %s"
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
-                "replies": "Replies",
-                "posts_and_replies": "Posts and Replies",
-                "media": "Media",
-                "about": "About"
+                "posts": "Postitused",
+                "replies": "Vastused",
+                "posts_and_replies": "Postitused ja vastused",
+                "media": "Meedium",
+                "about": "Teave"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "Summuta kasutajakonto",
+                    "message": "Kinnita kasutajakonto summutamine: %s"
                 },
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
-                    "message": "Confirm to unmute %s"
+                    "title": "Lõpeta kasutajakonto summutamine",
+                    "message": "Kinnita kasutajakonto summutamise lõpetamine: %s"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "Blokeeri kasutajakonto",
+                    "message": "Kinnita kasutajakonto blokeerimine: %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Lõpeta konto blokeerimine",
+                    "message": "Kinnita kasutajakonto blokeerimise lõpetamine: %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "Näita hooandmisi",
+                    "message": "Hooandmiste kuvamiseks kinnita"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "Peida hooandmised",
+                    "message": "Hooandmiste peitmiseks kinnita"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
-                    "message": "Confirm to block domain %s"
+                    "title": "Blokeeri domeen",
+                    "message": "Kinnita domeeni blokeerimine: %s"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
-                    "message": "Confirm to unblock domain %s"
+                    "title": "Lõpeta domeeni blokeerimine",
+                    "message": "Kinnita domeeni blokeerimise lõpetamine: %s"
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "show_avatar_image": "Näita tunnuspilti",
+                "edit_avatar_image": "Muuda tunnuspilti",
+                "show_banner_image": "Näita päisepilti",
+                "double_tap_to_open_the_list": "Topeltklõpsa loendi avamiseks"
             }
         },
         "follower": {
-            "title": "follower",
-            "footer": "Followers from other servers are not displayed."
+            "title": "jälgija",
+            "footer": "Jälgijad teistest serveritest ei ole kuvatud."
         },
         "following": {
-            "title": "following",
-            "footer": "Follows from other servers are not displayed."
+            "title": "jälgitav",
+            "footer": "Jälgitavad teistest serveritest ei ole kuvatud."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Seotud jälgijad",
+            "followed_by_names": "Jälgijaks %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Märkis lemmikuks"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "Andis hoogu"
         },
         "search": {
-            "title": "Search",
+            "title": "Otsi",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
+                "placeholder": "Otsi teemaviiteid ja kasutajaid",
                 "cancel": "Katkesta"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "Vaata kõiki",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "title": "Kogub Mastodonis populaarsust",
+                    "description": "Teemaviited, mis on saanud palju tähelepanu",
+                    "people_talking": "%s inimest suhtlevad sel teemal"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "title": "Kasutajakontod, mis võivad sulle meeldida",
+                    "description": "Võib-olla tahad neid kontosid jälgida",
+                    "follow": "Jälgi"
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "Postitused, mis vastavad otsingule „%s“",
+                "people": "Inimesed, kes vastavad otsingule „%s“",
+                "profile": "Ava @%s@%s",
+                "url": "Ava võrguaadress Mastodonis",
+                "hashtag": "Ava teemaviide #%s",
                 "no_user": {
-                    "title": "No User Account Found",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "title": "Ühtegi kasutajakontot ei leidunud",
+                    "message": "Serveris %s pole kasutajakontot „%s“"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "Tulemusi pole"
                 },
-                "recent_search": "Recent searches",
-                "no_recent_searches": "No recent searches.",
-                "clear_all": "Clear all",
-                "clear": "Clear"
+                "recent_search": "Hiljutised otsingud",
+                "no_recent_searches": "Hiljutisi otsinguid pole.",
+                "clear_all": "Eemalda kõik",
+                "clear": "Eemalda"
             }
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
-                "community": "Community",
-                "for_you": "For You"
+                "posts": "Postitused",
+                "hashtags": "Teemaviited",
+                "news": "Uudised",
+                "community": "Kogukond",
+                "for_you": "Sinu jaoks"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Need postitused on äratanud huvi sinu Mastodoni lähikonnas."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Lemmikud"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "Kõik",
+                "Mentions": "Mainimised"
             },
             "headers": {
-                "report": "Report",
-                "sign_up": "Signup",
+                "report": "Teata kasutajast või postitusest",
+                "sign_up": "Registreerumine",
                 "favourite": "Märgi lemmikuks",
-                "follow": "Follow",
-                "follow_request": "Follow request",
-                "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
-                "severed_relationships": "Domain block",
-                "status": "Post",
+                "follow": "Jälgi",
+                "follow_request": "Jälgimispäring",
+                "moderation_warning": "Hoiatus",
+                "poll": "Küsitlus",
+                "boost": "Anna hoogu",
+                "severed_relationships": "Domeeniblokeering",
+                "status": "Postita",
                 "edit": "Muuda"
             },
             "grouped_notification_description": {
-                "your_poll_has_ended": "Your poll has ended",
-                "single_name_edited_a_post": "%@ edited a post you interacted with",
-                "single_name_ran_poll": "%@ ran %@",
-                "single_name_mentioned_you": "%@ mentioned you",
-                "single_name_requested_to_follow_you": "%@ requested to follow you",
-                "single_name_posted": "%@ posted:",
-                "single_name_boosted": "%@ boosted:",
-                "single_name_favourited": "%@ favorited:",
-                "single_name_followed_you": "%@ followed you",
-                "multiple_people_boosted": "%@ boosted:",
-                "multiple_people_favourited": "%@ favorited:",
-                "multiple_people_followed_you": "%@ followed you",
-                "mulitple_people_signed_up": "%@ new signups",
-                "single_name_signed_up": "%@ signed up",
-                "someone_reported_account_for_rule_violation": "Someone reported %@ for rule violation.",
-                "someone_reported_posts_from_account_for_rule_violation": "Someone reported %@ from %@ for rule violation."
+                "your_poll_has_ended": "Sinu küsitlus on lõppenud",
+                "single_name_edited_a_post": "%@ muutis postitust, millega sa olid suhestunud",
+                "single_name_ran_poll": "%@ koostas küsitluse: %@",
+                "single_name_mentioned_you": "%@ mainis sind",
+                "single_name_requested_to_follow_you": "%@ soovib sind jälgida",
+                "single_name_posted": "%@ postitas:",
+                "single_name_boosted": "%@ andis hoogu:",
+                "single_name_favourited": "%@ märkis lemmikuks:",
+                "single_name_followed_you": "%@ alustas sinu jälgimist",
+                "multiple_people_boosted": "%@ andis hoogu:",
+                "multiple_people_favourited": "%@ märkis lemmikuks:",
+                "multiple_people_followed_you": "%@ alustas sinu jälgimist",
+                "mulitple_people_signed_up": "%@ uut liitumist",
+                "single_name_signed_up": "%@ liitus",
+                "someone_reported_account_for_rule_violation": "Keegi andis teada, et %@ rikub reegleid.",
+                "someone_reported_posts_from_account_for_rule_violation": "Keegi andis teada, et %@ serverist %@ rikub reegleid."
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "boosted your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
-                "poll_has_ended": "poll has ended",
-                "relationship_severance": "An admin from %@ has blocked %@, including %@."
+                "followed_you": "alustas sinu jälgimist",
+                "favorited_your_post": "märkis su postituse lemmikuks",
+                "reblogged_your_post": "andis postitusele hoogu",
+                "mentioned_you": "mainis sind",
+                "request_to_follow_you": "soovib sind jälgida",
+                "poll_has_ended": "küsitlus on lõppenud",
+                "relationship_severance": "Peakasutaja serverist %@ on blokeerinud %@, sealhulgas %@."
             },
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "Näita kõike",
+                "show_mentions": "Näita mainimisi"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Nõustu",
+                "accepted": "Vastu võetud",
+                "reject": "keeldu",
+                "rejected": "Tagasi lükatud"
             },
             "warning": {
-                "none": "Your account has received a moderation warning.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
-                "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "none": "Su kasutajakonto on saanud moderaatoritelt hoiatuse.",
+                "disable": "Su kasutajakontokonto on keelatud.",
+                "mark_statuses_as_sensitive": "Mõni su postitustest on märgitud delikaatseteks.",
+                "delete_statuses": "Mõni su postitustest on eemaldatud.",
+                "sensitive": "Su postitused märgitakse nüüdsest delikaatseteks.",
+                "silence": "Su kasutajakontole on kehtestatud piirangud.",
+                "suspend": "Sinu kasutajakonto tegevus on peatatud.",
+                "learn_more": "Lisateave"
             },
-            "learn_more_about_server_blocks": "Learn more about server blocks",
+            "learn_more_about_server_blocks": "Lisateave serveripoolsete blokeeringute kohta",
             "filtered_notification": {
-                "title": "Filtered Notifications",
-                "accept": "Accept",
-                "dismiss": "Dismiss"
+                "title": "Filtreeritud teavitused",
+                "accept": "Nõustu",
+                "dismiss": "Loobu"
             },
             "policy": {
-                "title": "Filter Notifications from…",
+                "title": "Filtreeri teavitused allikatest…",
                 "not_following": {
-                    "title": "People you don't follow",
-                    "subtitle": "Until you manually approve them"
+                    "title": "Inimesed, keda sa ei jälgi",
+                    "subtitle": "Kuni sa jälgimise käsitsi kinnitad"
                 },
                 "no_follower": {
-                    "title": "People not following you",
-                    "subtitle": "Including people who have been following you fewer than 3 days"
+                    "title": "Sind mittejälgivad kasutajad",
+                    "subtitle": "Sealhulgas need, kes on sind jälginud alla 3 päeva"
                 },
                 "new_account": {
-                    "title": "New accounts",
-                    "subtitle": "Created within the past 30 days"
+                    "title": "Uued kasutajakontod",
+                    "subtitle": "Loodud viimase 30 päeva jooksul"
                 },
                 "private_mentions": {
-                    "title": "Unsolicited private mentions",
-                    "subtitle": "Filtered unless it’s in reply to your own mention or if you follow the sender"
+                    "title": "Soovimatud privaatsed mainimised",
+                    "subtitle": "Filtreeritud, kui see pole vastus sinupoolt mainimisele või kui jälgid saatjat"
                 }
             }
         },
         "thread": {
-            "back_title": "Post",
-            "title": "Post from %s"
+            "back_title": "Postita",
+            "title": "Postitus kasutajalt %s"
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
-                "privacy_safety": "Privacy & Safety",
-                "support_mastodon": "Donate to Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "title": "Seadistused",
+                "general": "Üldist",
+                "notifications": "Teavitused",
+                "privacy_safety": "Privaatsus ja ohutus",
+                "support_mastodon": "Toeta Mastodoni",
+                "about_mastodon": "Rakenduse teave: Mastodon",
+                "server_details": "Serveri andmed",
+                "logout": "Logi %@ välja"
             },
             "about_mastodon": {
-                "title": "About",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
-                "clear_media_storage": "Clear Media Storage"
+                "title": "Teave",
+                "more_settings": "Veel rohkem seadistusi",
+                "contribute_to_mastodon": "Tee kaastööd Mastodonile",
+                "privacy_policy": "Privaatsus- ja andmekaitsepõhimõtted",
+                "clear_media_storage": "Kustuta meediumi andmeruum"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "Teave",
+                "rules": "Reeglid",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
-                    "legal_notice": "A legal notice"
+                    "title": "Peakasutaja",
+                    "message_admin": "Saada sõnum peakasutajale",
+                    "legal_notice": "Juriidiline teade"
                 }
             },
             "general": {
-                "title": "General",
+                "title": "Üldist",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "Välimus",
+                    "dark": "Tume kujundus",
+                    "light": "Hele kujundus",
+                    "system": "Kasuta seadme välimust"
                 },
                 "ask_before": {
-                    "section_title": "Ask before…",
-                    "posting_without_alt_text": "Posting without Alt Text",
-                    "unfollowing_someone": "Unfollowing Someone",
-                    "boosting_a_post": "Boosting a Post",
-                    "deleting_a_post": "Deleting a Post"
+                    "section_title": "Küsi enne…",
+                    "posting_without_alt_text": "Meedia postitamist enen selgutustekstita",
+                    "unfollowing_someone": "Kellegi jälgimisest loobumist",
+                    "boosting_a_post": "Postitusele hooandmist",
+                    "deleting_a_post": "Postituse kustutamist"
                 },
                 "design": {
-                    "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "section_title": "Kujundus",
+                    "show_animations": "Esita animeeritud tunnuspilte ja emojisid"
                 },
                 "language": {
-                    "section_title": "Language",
-                    "default_post_language": "Default Post Language"
+                    "section_title": "Keel",
+                    "default_post_language": "Postituse vaikimisi keel"
                 },
                 "links": {
-                    "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "section_title": "Lingid",
+                    "open_in_mastodon": "Ava võrguaadress Mastodonis",
+                    "open_in_browser": "Ava veebibrauseris"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Teavitused",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "Saa teavitusi alljärgnevalt",
+                    "anyone": "Kõik",
+                    "followers": "Neilt, kes sind jälgivad",
+                    "follow": "Neilt, keda sina jälgid",
+                    "noone": "Mitte keegi"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "Mainimised ja vastused",
+                    "boosts": "Hooandmised",
+                    "favorites": "Lemmikud",
+                    "new_followers": "Uued Järgijad"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "notification_hint": "Lülita teavitused oma nutiseadme seadistustest sisse ja näed lukustusvaates viimaseid sõnumeid.",
+                    "go_to_settings": "Ava teavituste seadistused"
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "Privaatsus ja ohutus",
                 "preset": {
-                    "title": "Preset",
-                    "open_and_public": "Open & Public",
-                    "private_and_restricted": "Private & Restricted",
-                    "custom": "Custom"
+                    "title": "Eelseadistus",
+                    "open_and_public": "Avatud ja avalik",
+                    "private_and_restricted": "Privaaten ja piiratud",
+                    "custom": "Kohandatud"
                 },
                 "default_post_visibility": {
-                    "title": "Default Post Visibility"
+                    "title": "Postituse vaikimisi nähtavus"
                 },
-                "manually_approve_follow_requests": "Manually Approve Follow Requests",
-                "show_followers_and_following": "Show Followers & Following",
-                "suggest_my_account_to_others": "Suggest My Account to Others",
-                "appear_in_search_engines": "Appear in Search Engines"
+                "manually_approve_follow_requests": "Kinnita jälgimispalved käsitsi",
+                "show_followers_and_following": "Näita jälgijaid ja jälgitavaid",
+                "suggest_my_account_to_others": "Soovita minu kasutajakontot teistele",
+                "appear_in_search_engines": "Ole leitav otsingumootoritest"
             },
             "donation": {
-                "title": "Donate to Mastodon",
-                "manage": "Manage donations"
+                "title": "Toeta Mastodoni",
+                "manage": "Halda rahalisi toetusi"
             }
         },
         "report": {
-            "title_report": "Report",
-            "title": "Report %s",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
-            "content2": "Is there anything the moderators should know about this report?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
-            "send": "Send Report",
-            "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments",
-            "reported": "REPORTED",
+            "title_report": "Teata kasutajast või postitusest",
+            "title": "Teata kasutajast %s",
+            "step1": "Samm 1/2",
+            "step2": "Samm 2/2",
+            "content1": "Ka on veel mõni muu postitus, millest tahaksid teatada?",
+            "content2": "Kas on midagi veel, mida mioderaatorid peaksid selle kohta teadma?",
+            "report_sent_title": "Täname teavitamise eest, uurime seda.",
+            "send": "Saada teavitus",
+            "skip_to_send": "Saada ilma kommentaarita",
+            "text_placeholder": "Siesta või kopeeri täiendavaid kommentaare",
+            "reported": "TEADE ON SAADETUD",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "step_1_of_4": "Samm 1/4",
+                "whats_wrong_with_this_post": "Mis on sellel postitusel viga?",
+                "whats_wrong_with_this_account": "Mis on sellel kasutajakontol viga?",
+                "whats_wrong_with_this_username": "Mis on valesti kasutajaga %s?",
+                "select_the_best_match": "Vali parim vaste",
+                "i_dont_like_it": "Mulle ei meeldi see",
+                "it_is_not_something_you_want_to_see": "See on midagi sellist, mida ma näha ei taha",
+                "its_spam": "See on rämpspost",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Pahatahtlikud lingid, võltssuhtlus või korduvad vastused",
+                "it_violates_server_rules": "Rikub serveri reegleid",
+                "you_are_aware_that_it_breaks_specific_rules": "Tead, et see rikub konkreetseid reegleid",
+                "its_something_else": "See on midagi muud",
+                "the_issue_does_not_fit_into_other_categories": "Probleem ei sobi teistesse kategooriatesse"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "Samm 2/4",
+                "which_rules_are_being_violated": "Milliseid reegleid rikutakse?",
+                "select_all_that_apply": "Vali kõik, mis sobivad",
+                "i_just_don’t_like_it": "Mulle ei meeldi see"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "Samm 3/4",
+                "are_there_any_posts_that_back_up_this_report": "Kas on olemas postitusi, mis on sellele teavitusele tõenduseks?",
+                "select_all_that_apply": "Vali kõik, mis sobivad"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "Samm 4/4",
+                "is_there_anything_else_we_should_know": "Kas arvad, et on veel midagi, mida me peaks teadma?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "dont_want_to_see_this": "Sa ei taha seda näha?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Kui näed midagi, mis sulle Mastodonis ei meeldi, siis saad selle autori oma infovoost välistada.",
+                "unfollow": "Lõpeta jälgimine",
+                "unfollowed": "Lõpetasin kasutaja jälgimise",
+                "unfollow_user": "Lõpeta %s kasutaja jälgimine",
+                "mute_user": "Summuta %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Sa ei näe tema postituse ega hooandmise oma sisuvoos. Tema ei tea, et on summutatud.",
+                "block_user": "Blokeeri %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ta enam ei saa sind jälgid ega sinu postitusi lugeda ning tal on väimalik teada kaaada, kas ta on blokeeritud.",
+                "while_we_review_this_you_can_take_action_against_user": "Kuniks me seda üle vaatame, võid %s vastu toimida alljärgnevalt"
             }
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "Sulge eelvaade",
+                "show_next": "Näita järgmist",
+                "show_previous": "Näita eelmist"
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account",
-            "logout_all_accounts": "Log Out Of All Accounts",
-            "logout": "Logout"
+            "tab_bar_hint": "Hetkel valitud profiil on %s. Kontovahetaja nägemiseks topeltklõpsa nime ja hoia seda all",
+            "dismiss_account_switcher": "Sulge kontode vahetaja",
+            "add_account": "Lisa kasutajakonto",
+            "logout_all_accounts": "Logi kõikidest kasutajakontodest välja",
+            "logout": "Logi välja"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Järjehoidjad"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Jälgitavad teemaviited",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "postitused",
+                "participants": "osalejat",
+                "posts_today": "postitust täna"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Jälgi",
+                "unfollow": "Lõpeta jälgimine"
             }
         },
         "donation": {
             "picker": {
-                "once_title": "Just once",
-                "monthly_title": "Monthly",
-                "yearly_title": "Yearly"
+                "once_title": "Ainult üks kord",
+                "monthly_title": "Kord kuus",
+                "yearly_title": "Kord aastas"
             },
-            "donatebuttontitle": "Donate",
-            "currency": "Currency",
+            "donatebuttontitle": "Toeta rahaliselt",
+            "currency": "Valuuta",
             "success": {
-                "title": "Thank you for your contribution!",
-                "subtitle": "You should receive an email confirming your donation soon.",
-                "server_error_title": "Payment failed",
-                "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
-                "share_button_title": "Spread the word"
+                "title": "Täname sind sinu toetuse eest!",
+                "subtitle": "Üsna pea peaksid saama toetuse kohta kinnituskirja.",
+                "server_error_title": "Makse ei õnnestunud",
+                "server_error_message": "Peame vabandama, tekkis viga ja meil pole võimalik sinu toetust töödelda.\n\nPalun proovi uuesti mõne minuti pärast.",
+                "share_button_title": "Räägi meist"
             }
         }
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "See ei tundu olema korrektne Mastodoni link."
         }
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "unsupported_widget_family": "Vabandust, aga seda tüüpi vidinad pole toetatud.",
+            "user_not_logged_in": "Logimaks sisse oma kasutajakontoga, palun ava Mastodon."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_display_name": "Jälgijad",
+            "configuration_description": "Näita jälgijate arvu.",
+            "title": "JÄLGIJAD",
+            "followers_today": "%s jälgijat täna"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "Mitmekonto jälgijad",
+            "configuration_description": "Näita jälgijate arvu mitme konto kohta.",
             "mock_user": {
-                "display_name": "Another follower",
-                "account_name": "another@follower.social"
+                "display_name": "Veel üks jälgija",
+                "account_name": "veelyks@jälgija.social"
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "Viimased jälgijad",
+            "configuration_description": "Näita viimaseid jälgijaid.",
+            "title": "Viimased jälgijad",
+            "last_update": "Viimati uuendatud: %s"
         },
         "hashtag": {
             "configuration": {
                 "display_name": "Teemaviide",
-                "description": "Shows a recent post with the selected hashtag."
+                "description": "Näitab viimast postitust, milles on valitud teemaviide."
             },
             "not_found": {
-                "account_name": "John Mastodon",
-                "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "account_name": "Mati Mastodon",
+                "account": "@matiMastodon@pole-seda.kontot",
+                "content": "Vabandust, me ei leidnud ühtegi postitust teemaviitega <a>#%@</a>. Palun proovi <a>#MuudTeemaviidet</a> või kontrollin vidina seadistusi."
             },
             "placeholder": {
-                "account_name": "John Mastodon",
-                "account": "@johnMastodon@no-such.account",
-                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+                "account_name": "Mati Mastodon",
+                "account": "@matiMastodon@pole-seda.kontot",
+                "content": "Nii näeb välaj postitus <a>#teemaviitega</a>. Vidinate seadistustes saad valida mis tahes <a>#teemaviite</a>."
             }
         }
     }

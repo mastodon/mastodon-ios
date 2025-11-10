@@ -12,11 +12,11 @@
 
 "RHxKOw" = "Postita tekstilist sisu";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Postita";
 
 "WCIR3D" = "Postita Mastodonis: ${content}";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Postita";
 
 "ZS1XaK" = "${content}";
 
@@ -34,7 +34,7 @@
 
 "dUyuGg" = "Postita Mastodonis";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Avalik";
 
 "ehFLjY" = "Ainult jälgijatele";
 
