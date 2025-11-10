@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-set -ev
+set -v
 
 # Crowin_Latest_Build="https://crowdin.com/backend/download/project/<TBD>.zip"
 

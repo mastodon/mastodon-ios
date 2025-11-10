@@ -3,6 +3,7 @@ import Foundation
 // convert i18n JSON templates to strings files
 private func convert(from inputDirectoryURL: URL, to outputDirectory: URL) {
     do {
+        print("attempting to get contents of directory at \(inputDirectoryURL)")
         let inputLanguageDirectoryURLs = try FileManager.default.contentsOfDirectory(
             at: inputDirectoryURL,
             includingPropertiesForKeys: [.nameKey, .isDirectoryKey],
@@ -10,8 +11,10 @@ private func convert(from inputDirectoryURL: URL, to outputDirectory: URL) {
         )
         for inputLanguageDirectoryURL in inputLanguageDirectoryURLs {
             let language = inputLanguageDirectoryURL.lastPathComponent
+            print("attempting to convert \(language)")
             guard let mappedLanguage = map(language: language) else { continue }
-
+            print("found mapping for \(language)")
+            
             let fileURLs = try FileManager.default.contentsOfDirectory(
                 at: inputLanguageDirectoryURL,
                 includingPropertiesForKeys: [.nameKey, .isDirectoryKey],
@@ -37,6 +40,7 @@ private func convert(from inputDirectoryURL: URL, to outputDirectory: URL) {
             }
         }
     } catch {
+        print("error: \(error)")
         exit(1)
     }
 }
@@ -164,12 +168,15 @@ let packageRootURL = currentFileURL.deletingLastPathComponent().deletingLastPath
 let inputDirectoryURL = packageRootURL.appendingPathComponent("input", isDirectory: true)
 let outputDirectoryURL = packageRootURL.appendingPathComponent("output", isDirectory: true)
 convert(from: inputDirectoryURL, to: outputDirectoryURL)
+print("did convert from \(inputDirectoryURL) to \(outputDirectoryURL)")
 
 let moduleDirectoryURL = outputDirectoryURL.appendingPathComponent("module", isDirectory: true)
 move(from: inputDirectoryURL, to: moduleDirectoryURL, pathExtension: "stringsdict")
+print("did move from \(inputDirectoryURL) to \(moduleDirectoryURL)")
 
 // i18n from "Intents/input" to "Intents/output"
 let intentsDirectoryURL = packageRootURL.appendingPathComponent("Intents", isDirectory: true)
 let inputIntentsDirectoryURL = intentsDirectoryURL.appendingPathComponent("input", isDirectory: true)
 let outputIntentsDirectoryURL = intentsDirectoryURL.appendingPathComponent("output", isDirectory: true)
 move(from: inputIntentsDirectoryURL, to: outputIntentsDirectoryURL, pathExtension: "strings")
+print("did move from \(inputIntentsDirectoryURL) to \(outputIntentsDirectoryURL)")
