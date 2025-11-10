@@ -2,22 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
-    <key>plural.count.new_signups</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@count_signups@</string>
-      <key>count_signups</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>ld</string>
-        <key>one</key>
-        <string>kesekî xwe tomar kir</string>
-        <key>other</key>
-        <string>%ld kes xwe tomarkirin</string>
-      </dict>
-    </dict>
     <key>a11y.plural.count.unread.notification</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -96,38 +80,6 @@
         <string>yekî din</string>
         <key>other</key>
         <string>%ld din</string>
-      </dict>
-    </dict>
-    <key>plural.count.you_and_others_boosted</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@count_others@</string>
-      <key>count_others</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>ld</string>
-        <key>one</key>
-        <string>ji aliyê te û yekî din ve hatiye bilindkirin</string>
-        <key>other</key>
-        <string>ji aliyê te û %ld din ve hatiye bilindkirin</string>
-      </dict>
-    </dict>
-    <key>plural.count.you_and_others_favorited</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@count_others@</string>
-      <key>count_others</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>ld</string>
-        <key>one</key>
-        <string>ji aliyê te û yekî din ve hatiye hezkirin</string>
-        <key>other</key>
-        <string>ji aliyê te û %ld din ve hatiye hezkirin</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
