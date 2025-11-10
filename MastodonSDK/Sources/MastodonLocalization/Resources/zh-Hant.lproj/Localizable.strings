@@ -230,7 +230,7 @@
 "Scene.Compose.Attachment.ServerProcessingState" = "伺服器處理中...";
 "Scene.Compose.Attachment.UploadFailed" = "上傳失敗";
 "Scene.Compose.Attachment.Video" = "影片";
-"Scene.Compose.AutoComplete.SpaceToAdd" = "添加的空白";
+"Scene.Compose.AutoComplete.SpaceToAdd" = "按下空白键輸入";
 "Scene.Compose.ComposeAction" = "嘟出去";
 "Scene.Compose.ContentInputPlaceholder" = "正在想些什麼嗎？";
 "Scene.Compose.ContentWarning.Placeholder" = "請於此處寫下精準的警告...";
@@ -336,10 +336,12 @@
 "Scene.Notification.FollowRequest.Accepted" = "已接受";
 "Scene.Notification.FollowRequest.Reject" = "拒絕";
 "Scene.Notification.FollowRequest.Rejected" = "已拒絕";
+"Scene.Notification.GroupedNotificationDescription.MulitplePeopleSignedUp" = "%@ 個新註冊";
 "Scene.Notification.GroupedNotificationDescription.MultiplePeopleBoosted" = "%@ 轉嘟：";
 "Scene.Notification.GroupedNotificationDescription.MultiplePeopleFavourited" = "%@ 已加入最愛：";
 "Scene.Notification.GroupedNotificationDescription.MultiplePeopleFollowedYou" = "%@ 已跟隨您";
 "Scene.Notification.GroupedNotificationDescription.SingleNameBoosted" = "%@ 轉嘟：";
+"Scene.Notification.GroupedNotificationDescription.SingleNameEditedAPost" = "%@ 已編輯一則您曾互動過之嘟文";
 "Scene.Notification.GroupedNotificationDescription.SingleNameFavourited" = "%@ 已加入最愛：";
 "Scene.Notification.GroupedNotificationDescription.SingleNameFollowedYou" = "%@ 已跟隨您";
 "Scene.Notification.GroupedNotificationDescription.SingleNameMentionedYou" = "%@ 已提及您";

@@ -2,6 +2,26 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>plural.count.new_signups</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_signups@</string>
+      <key>count_signups</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>jedna osoba se zaregistrovala</string>
+        <key>few</key>
+        <string>%ld lidé se zaregistrovali</string>
+        <key>many</key>
+        <string>%ld lidí se zaregistrovalo</string>
+        <key>other</key>
+        <string>%ld lidí se zaregistrovalo</string>
+      </dict>
+    </dict>
     <key>a11y.plural.count.unread.notification</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -100,6 +120,46 @@
         <string>%ld jiných</string>
         <key>other</key>
         <string>%ld jiných</string>
+      </dict>
+    </dict>
+    <key>plural.count.you_and_others_boosted</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_others@</string>
+      <key>count_others</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>boostnuto vámi a jedním dalším</string>
+        <key>few</key>
+        <string>boostnuto vámi a %ld dalšími</string>
+        <key>many</key>
+        <string>boostnuto vámi a %ld dalšími</string>
+        <key>other</key>
+        <string>boostnuto vámi a %ld dalšími</string>
+      </dict>
+    </dict>
+    <key>plural.count.you_and_others_favorited</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_others@</string>
+      <key>count_others</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>oblíbeno vámi a jedním dalším</string>
+        <key>few</key>
+        <string>oblíbeno vámi a %ld dalšími</string>
+        <key>many</key>
+        <string>oblíbeno vámi a %ld dalšími</string>
+        <key>other</key>
+        <string>oblíbeno vámi a %ld dalšími</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>

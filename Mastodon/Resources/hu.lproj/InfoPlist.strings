@@ -1,4 +1,4 @@
-"NSCameraUsageDescription" = "Used to take photo for post status";
-"NSPhotoLibraryAddUsageDescription" = "Used to save photo into the Photo Library";
-"NewPostShortcutItemTitle" = "New Post";
-"SearchShortcutItemTitle" = "Search";
+"NSCameraUsageDescription" = "Használva a bejegyzés státuszhoz készített fotókhoz";
+"NSPhotoLibraryAddUsageDescription" = "Használva a fotók Fotókönyvtárba mentéséhez";
+"NewPostShortcutItemTitle" = "Új bejegyzés";
+"SearchShortcutItemTitle" = "Keresés";

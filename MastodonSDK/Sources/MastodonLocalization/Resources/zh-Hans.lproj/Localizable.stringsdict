@@ -2,6 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>plural.count.new_signups</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_signups@</string>
+      <key>count_signups</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string>%ld people signed up</string>
+      </dict>
+    </dict>
     <key>a11y.plural.count.unread.notification</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -19,7 +33,7 @@
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>输入字符限制超出 %#@character_count@</string>
+      <string>字符输入限制超出 %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -33,7 +47,7 @@
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>输入字符限制剩余 %#@character_count@</string>
+      <string>字符输入限制剩余 %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -69,7 +83,35 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>另外 %ld 个</string>
+        <string>%ld 人</string>
+      </dict>
+    </dict>
+    <key>plural.count.you_and_others_boosted</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_others@</string>
+      <key>count_others</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string>boosted by you and %ld others</string>
+      </dict>
+    </dict>
+    <key>plural.count.you_and_others_favorited</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_others@</string>
+      <key>count_others</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string>favorited by you and %ld others</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
@@ -97,7 +139,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 人收藏了：</string>
+        <string>%ld 人喜欢了：</string>
       </dict>
     </dict>
     <key>plural.count.people_followed_you</key>
@@ -125,7 +167,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>您与 %ld 人参与过的投票</string>
+        <string>您与其他 %ld 人参与过的投票</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -167,7 +209,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 张GIF</string>
+        <string>%ld 张动图</string>
       </dict>
     </dict>
     <key>plural.count.video</key>
@@ -181,7 +223,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 段视频</string>
+        <string>%ld 条视频</string>
       </dict>
     </dict>
     <key>plural.count.audio</key>
@@ -237,7 +279,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 条嘟文</string>
+        <string>%ld 篇嘟文</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -321,7 +363,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 人</string>
+        <string>%ld 位投票者</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -349,7 +391,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 人正在关注</string>
+        <string>%ld 人已关注</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -363,7 +405,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 个关注者</string>
+        <string>关注的 %ld 人</string>
       </dict>
     </dict>
     <key>plural.count.of_your_followers</key>
@@ -377,7 +419,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>您的 %ld 个关注者</string>
+        <string>您关注的 %ld 人</string>
       </dict>
     </dict>
     <key>plural.count.accounts_that_you_follow</key>
@@ -391,7 +433,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>您关注的 %ld 个用户</string>
+        <string>您关注的 %ld 人</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -545,7 +587,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 分前</string>
+        <string>%ld 分钟前</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -573,7 +615,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>您可能认识的 %ld 个人</string>
+        <string>您可能认识的 %ld 人</string>
       </dict>
     </dict>
   </dict>

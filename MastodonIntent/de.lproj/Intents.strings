@@ -14,7 +14,7 @@
 
 "RxSqsb" = "Beitrag";
 
-"WCIR3D" = "Poste ${content} auf Mastodon";
+"WCIR3D" = "${content} auf Mastodon veröffentlichen";
 
 "ZKJSNu" = "Beitrag";
 
@@ -22,7 +22,7 @@
 
 "ZbSjzC" = "Sichtbarkeit";
 
-"Zo4jgJ" = "Sichtbarkeit des Beitrags";
+"Zo4jgJ" = "Beitragssichtbarkeit";
 
 "apSxMG-dYQ5NN" = "Es gibt ${count} Optionen, die zu ''öffentlich\" passen.";
 
@@ -42,7 +42,7 @@
 
 "k7dbKQ" = "Beitrag wurde erfolgreich gesendet.";
 
-"oGiqmY-dYQ5NN" = "Nur zur Bestätigung, du wolltest \"Öffentlich\"?";
+"oGiqmY-dYQ5NN" = "Möchtest du wirklich „Öffentlich“?";
 
 "oGiqmY-ehFLjY" = "Nur zur Bestätigung, du wolltest \"Nur für Follower\"?";
 

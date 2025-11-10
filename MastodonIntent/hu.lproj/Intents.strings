@@ -1,70 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Bejegyzés a Mastodon-on";
 
-"3sNRTG" = "Username";
+"751xkl" = "Szöveges tartalom";
 
-"4kVQfr" = "Just to confirm, you wanted ‘${accounts}’?";
+"CsR7G2" = "Bejegyzés a Mastodon-on";
 
-"751xkl" = "Text Content";
+"HZSGTr" = "Milyen tartalmat tesz közzé?";
 
-"CsR7G2" = "Post on Mastodon";
+"HdGikU" = "Az elküldés sikertelen";
 
-"D2h76g" = "Post on Mastodon";
+"KDNTJ4" = "A hiba oka";
 
-"Gcmnot" = "Account";
+"RHxKOw" = "Bejegyzés küldése szöveges tartalommal";
 
-"HZSGTr" = "What content to post?";
+"RxSqsb" = "Bejegyzés";
 
-"HdGikU" = "Posting failed";
+"WCIR3D" = "${content} bejegyzés a Mastodon-on";
 
-"KDNTJ4" = "Failure Reason";
-
-"RHxKOw" = "Send Post with text content";
-
-"RxSqsb" = "Post";
-
-"WCIR3D" = "Post ${content} on Mastodon";
-
-"YMuITB-dYQ5NN" = "${content}. Post via ${accounts}. (Public)";
-
-"YMuITB-ehFLjY" = "${content}. Post via ${accounts}. (Followers Only)";
-
-"ZKJSNu" = "Posts";
+"ZKJSNu" = "Bejegyzés";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Láthatóság";
 
-"Zim0Js" = "Name";
+"Zo4jgJ" = "Bejegyzés láthatósága";
 
-"Zo4jgJ" = "Post Visibility";
+"apSxMG-dYQ5NN" = "Van ${count} opció, melyek megfelelnek a 'Nyilvános' opciónak.";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-ehFLjY" = "A 'Csak követőknek' opciónak megfelelő ${count} opció van.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"ayoYEb-dYQ5NN" = "${content}, nyilvános";
 
-"ayoYEb-dYQ5NN" = "${content}. (Public)";
+"ayoYEb-ehFLjY" = "${content}, Csak követőknek";
 
-"ayoYEb-ehFLjY" = "${content}. (Followers Only)";
+"dUyuGg" = "Bejegyzés a Mastodon-on";
 
-"ciITyC" = "There are ${count} options matching ‘${accounts}’.";
+"dYQ5NN" = "Nyilvános";
 
-"dUyuGg" = "Post on Mastodon";
+"ehFLjY" = "Csak követőknek";
 
-"dYQ5NN" = "Public";
+"gfePDu" = "Az elküldés sikertelen. ${failureReason}";
 
-"ehFLjY" = "Followers Only";
+"k7dbKQ" = "A bejegyzés sikeresen elküldésre került.";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"oGiqmY-dYQ5NN" = "Csak megerősítésként, a \"Nyilvános\" opciót akarta?";
 
-"k7dbKQ" = "Post was sent successfully.";
+"oGiqmY-ehFLjY" = "Csak megerősítésként, a \"Csak követőknek\" opciót akarta?";
 
-"nQtHsT" = "Accounts";
+"rM6dvp" = "Webcím";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
-
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
-
-"rM6dvp" = "URL";
-
-"ryJLwG" = "Post was sent successfully.";
-
+"ryJLwG" = "A bejegyzés sikeresen elküldésre került. ";

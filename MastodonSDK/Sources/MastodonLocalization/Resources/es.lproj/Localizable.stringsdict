@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>plural.count.new_signups</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_signups@</string>
+      <key>count_signups</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>one person signed up</string>
+        <key>other</key>
+        <string>%ld people signed up</string>
+      </dict>
+    </dict>
     <key>a11y.plural.count.unread.notification</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -77,9 +93,41 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one other</string>
+        <string>uno más</string>
         <key>other</key>
-        <string>%ld others</string>
+        <string>%ld más</string>
+      </dict>
+    </dict>
+    <key>plural.count.you_and_others_boosted</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_others@</string>
+      <key>count_others</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>boosted by you and one other</string>
+        <key>other</key>
+        <string>boosted by you and %ld others</string>
+      </dict>
+    </dict>
+    <key>plural.count.you_and_others_favorited</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_others@</string>
+      <key>count_others</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>favorited by you and one other</string>
+        <key>other</key>
+        <string>favorited by you and %ld others</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
@@ -93,9 +141,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person boosted:</string>
+        <string>una persona impulsó:</string>
         <key>other</key>
-        <string>%ld people boosted:</string>
+        <string>%ld personas impulsaron:</string>
       </dict>
     </dict>
     <key>plural.count.people_favourited</key>
@@ -109,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person favorited:</string>
+        <string>una persona marcó a favoritos:</string>
         <key>other</key>
-        <string>%ld people favorited:</string>
+        <string>%ld personas marcaron a favoritos:</string>
       </dict>
     </dict>
     <key>plural.count.people_followed_you</key>
@@ -125,9 +173,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person followed you</string>
+        <string>una persona te siguió</string>
         <key>other</key>
-        <string>%ld people followed you</string>
+        <string>%ld personas te siguieron</string>
       </dict>
     </dict>
     <key>plural.count.poll_that_you_and_others_voted_in</key>
@@ -141,9 +189,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>a poll that you and one other voted in</string>
+        <string>una encuesta en la que tú y otro más votaron</string>
         <key>other</key>
-        <string>a poll that you and %ld others voted in</string>
+        <string>una encuesta en la que tú y %ld otros más votaron</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -157,9 +205,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 media</string>
+        <string>1 archivo multimedia</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld archivos multimedia</string>
       </dict>
     </dict>
     <key>plural.count.image</key>
@@ -173,9 +221,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 image</string>
+        <string>1 imagen</string>
         <key>other</key>
-        <string>%ld images</string>
+        <string>%ld fotos</string>
       </dict>
     </dict>
     <key>plural.count.gif</key>
@@ -205,7 +253,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 video</string>
+        <string>1 vídeo</string>
         <key>other</key>
         <string>%ld videos</string>
       </dict>
@@ -223,7 +271,7 @@
         <key>one</key>
         <string>1 audio</string>
         <key>other</key>
-        <string>%ld audios</string>
+        <string>%ld audio</string>
       </dict>
     </dict>
     <key>plural.count.attachment</key>
@@ -237,9 +285,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 attachment</string>
+        <string>1 adjunto</string>
         <key>other</key>
-        <string>%ld attachments</string>
+        <string>%ld adjuntos</string>
       </dict>
     </dict>
     <key>plural.count.poll</key>
@@ -253,9 +301,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 poll</string>
+        <string>1 encuesta</string>
         <key>other</key>
-        <string>%ld polls</string>
+        <string>%ld encuestas</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -429,7 +477,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 of your followers</string>
+        <string>1 de tus seguidores</string>
         <key>other</key>
         <string>%ld de tus seguidores</string>
       </dict>
@@ -445,7 +493,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 account that you follow</string>
+        <string>1 cuenta que sigues</string>
         <key>other</key>
         <string>%ld cuentas que sigues</string>
       </dict>

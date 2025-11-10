@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>plural.count.new_signups</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_signups@</string>
+      <key>count_signups</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>one person signed up</string>
+        <key>other</key>
+        <string>%ld people signed up</string>
+      </dict>
+    </dict>
     <key>a11y.plural.count.unread.notification</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -80,6 +96,38 @@
         <string>one other</string>
         <key>other</key>
         <string>%ld others</string>
+      </dict>
+    </dict>
+    <key>plural.count.you_and_others_boosted</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_others@</string>
+      <key>count_others</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>boosted by you and one other</string>
+        <key>other</key>
+        <string>boosted by you and %ld others</string>
+      </dict>
+    </dict>
+    <key>plural.count.you_and_others_favorited</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_others@</string>
+      <key>count_others</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>favorited by you and one other</string>
+        <key>other</key>
+        <string>favorited by you and %ld others</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
@@ -173,9 +221,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 image</string>
+        <string>1 n tugna</string>
         <key>other</key>
-        <string>%ld images</string>
+        <string>%ld n tugniwin</string>
       </dict>
     </dict>
     <key>plural.count.gif</key>
@@ -205,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 video</string>
+        <string>1 n tvidyutt</string>
         <key>other</key>
-        <string>%ld videos</string>
+        <string>%ld n tvidyutin</string>
       </dict>
     </dict>
     <key>plural.count.audio</key>
@@ -333,9 +381,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 tririt</string>
+        <string>1 n tririt</string>
         <key>other</key>
-        <string>%ld tririyin</string>
+        <string>%ld n tririyin</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -351,7 +399,7 @@
         <key>one</key>
         <string>1 tefrant</string>
         <key>other</key>
-        <string>%ld tefranin</string>
+        <string>%ld n tefranin</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -365,9 +413,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1umefran</string>
+        <string>1 n umefran</string>
         <key>other</key>
-        <string>%ld imefranen</string>
+        <string>%ld n imefranen</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -383,7 +431,7 @@
         <key>one</key>
         <string>1 umdan i yettmeslayen</string>
         <key>other</key>
-        <string>%ld yimdanen i yettmeslayen</string>
+        <string>%ld n yimdanen i yettmeslayen</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -399,7 +447,7 @@
         <key>one</key>
         <string>1 uneḍfar</string>
         <key>other</key>
-        <string>%ld yineḍfaren</string>
+        <string>%ld n ineḍfaren</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>

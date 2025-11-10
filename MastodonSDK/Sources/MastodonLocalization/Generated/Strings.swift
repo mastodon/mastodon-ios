@@ -49,8 +49,8 @@ public enum L10n {
         public static let pleaseTryAgainLater = L10n.tr("Localizable", "Common.Alerts.Common.PleaseTryAgainLater", fallback: "Please try again later.")
       }
       public enum ConfirmRemoveQuote {
-        /// Your post will be replaced with the text 'Post removed by author'. This action can not be undone.
-        public static let message = L10n.tr("Localizable", "Common.Alerts.ConfirmRemoveQuote.Message", fallback: "Your post will be replaced with the text 'Post removed by author'. This action can not be undone.")
+        /// Your post will be replaced with the text 'Post removed by author'. This action cannot be undone.
+        public static let message = L10n.tr("Localizable", "Common.Alerts.ConfirmRemoveQuote.Message", fallback: "Your post will be replaced with the text 'Post removed by author'. This action cannot be undone.")
         /// Remove quoted post?
         public static let title = L10n.tr("Localizable", "Common.Alerts.ConfirmRemoveQuote.Title", fallback: "Remove quoted post?")
       }
@@ -220,7 +220,7 @@ public enum L10n {
         /// Remove Bookmark
         public static let removeBookmark = L10n.tr("Localizable", "Common.Controls.Actions.RemoveBookmark", fallback: "Remove Bookmark")
         /// Remove my post
-        public static let removeQuote = L10n.tr("Localizable", "Common.Controls.Actions.RemoveQuote", fallback: "Remove my post")
+        public static let removequote = L10n.tr("Localizable", "Common.Controls.Actions.Removequote", fallback: "Remove my post")
         /// Reply
         public static let reply = L10n.tr("Localizable", "Common.Controls.Actions.Reply", fallback: "Reply")
         /// Report %@
@@ -372,7 +372,7 @@ public enum L10n {
           return L10n.tr("Localizable", "Common.Controls.Status.EditedAtTimestampPrefix", String(describing: p1), fallback: "Edited %@")
         }
         /// Link:
-        public static let linkA11yLabel = L10n.tr("Localizable", "Common.Controls.Status.LinkA11yLabel", fallback: "Link:")
+        public static let linkA11YLabel = L10n.tr("Localizable", "Common.Controls.Status.LinkA11YLabel", fallback: "Link:")
         /// %@ via %@
         public static func linkViaUser(_ p1: Any, _ p2: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Status.LinkViaUser", String(describing: p1), String(describing: p2), fallback: "%@ via %@")
@@ -525,11 +525,11 @@ public enum L10n {
           /// Hide Results
           public static let hideResults = L10n.tr("Localizable", "Common.Controls.Status.Poll.HideResults", fallback: "Hide Results")
           /// Select one or more
-          public static let multiselectA11yHint = L10n.tr("Localizable", "Common.Controls.Status.Poll.MultiselectA11yHint", fallback: "Select one or more")
+          public static let multiselectA11YHint = L10n.tr("Localizable", "Common.Controls.Status.Poll.MultiselectA11YHint", fallback: "Select one or more")
           /// See Results
           public static let seeResults = L10n.tr("Localizable", "Common.Controls.Status.Poll.SeeResults", fallback: "See Results")
           /// Select one
-          public static let singleSelectA11yHint = L10n.tr("Localizable", "Common.Controls.Status.Poll.SingleSelectA11yHint", fallback: "Select one")
+          public static let singleSelectA11YHint = L10n.tr("Localizable", "Common.Controls.Status.Poll.SingleSelectA11YHint", fallback: "Select one")
           /// Vote
           public static let vote = L10n.tr("Localizable", "Common.Controls.Status.Poll.Vote", fallback: "Vote")
           /// Voted
@@ -537,7 +537,7 @@ public enum L10n {
         }
         public enum Quote {
           /// Quoted:
-          public static let a11yLabel = L10n.tr("Localizable", "Common.Controls.Status.Quote.A11yLabel", fallback: "Quoted:")
+          public static let a11YLabel = L10n.tr("Localizable", "Common.Controls.Status.Quote.A11YLabel", fallback: "Quoted:")
           /// Hidden due to one of your filters
           public static let hiddenByFilter = L10n.tr("Localizable", "Common.Controls.Status.Quote.HiddenByFilter", fallback: "Hidden due to one of your filters")
           /// Post pending
@@ -821,13 +821,13 @@ public enum L10n {
       }
       public enum QuotePermissionPolicy {
         /// Anyone
-        public static let anyone = L10n.tr("Localizable", "Scene.Compose.QuotePermissionPolicy.anyone", fallback: "Anyone")
+        public static let anyone = L10n.tr("Localizable", "Scene.Compose.QuotePermissionPolicy.Anyone", fallback: "Anyone")
         /// Followers only
-        public static let followers = L10n.tr("Localizable", "Scene.Compose.QuotePermissionPolicy.followers", fallback: "Followers only")
+        public static let followers = L10n.tr("Localizable", "Scene.Compose.QuotePermissionPolicy.Followers", fallback: "Followers only")
         /// Just me
-        public static let onlyMe = L10n.tr("Localizable", "Scene.Compose.QuotePermissionPolicy.onlyMe", fallback: "Just me")
+        public static let onlyMe = L10n.tr("Localizable", "Scene.Compose.QuotePermissionPolicy.OnlyMe", fallback: "Just me")
         /// Who can quote
-        public static let title = L10n.tr("Localizable", "Scene.Compose.QuotePermissionPolicy.title", fallback: "Who can quote")
+        public static let title = L10n.tr("Localizable", "Scene.Compose.QuotePermissionPolicy.Title", fallback: "Who can quote")
       }
       public enum QuoteVisibilityConflict {
         public enum FollowersOnlyQuoteDialog {
@@ -867,25 +867,25 @@ public enum L10n {
       }
       public enum VisibilityAndQuotability {
         /// Private mention
-        public static let directOnlyMe = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.directOnlyMe", fallback: "Private mention")
+        public static let directOnlyMe = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.DirectOnlyMe", fallback: "Private mention")
         /// Followers
-        public static let privateOnlyMe = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.privateOnlyMe", fallback: "Followers")
+        public static let privateOnlyMe = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.PrivateOnlyMe", fallback: "Followers")
         /// Public, anyone can quote
-        public static let publicAnyone = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.publicAnyone", fallback: "Public, anyone can quote")
+        public static let publicAnyone = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.PublicAnyone", fallback: "Public, anyone can quote")
         /// Public, quotes limited
-        public static let publicFollowers = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.publicFollowers", fallback: "Public, quotes limited")
+        public static let publicFollowers = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.PublicFollowers", fallback: "Public, quotes limited")
         /// Public, quotes disabled
-        public static let publicOnlyMe = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.publicOnlyMe", fallback: "Public, quotes disabled")
+        public static let publicOnlyMe = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.PublicOnlyMe", fallback: "Public, quotes disabled")
         /// Control who can interact with this post. Global settings can be found under Settings > Privacy & Safety.
-        public static let subtitle = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.subtitle", fallback: "Control who can interact with this post. Global settings can be found under Settings > Privacy & Safety.")
+        public static let subtitle = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.Subtitle", fallback: "Control who can interact with this post. Global settings can be found under Settings > Privacy & Safety.")
         /// Visibility and Interaction
-        public static let title = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.title", fallback: "Visibility and Interaction")
+        public static let title = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.Title", fallback: "Visibility and Interaction")
         /// Quiet public, anyone can quote
-        public static let unlistedAnyone = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.unlistedAnyone", fallback: "Quiet public, anyone can quote")
+        public static let unlistedAnyone = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.UnlistedAnyone", fallback: "Quiet public, anyone can quote")
         /// Quiet public, quotes limited
-        public static let unlistedFollowers = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.unlistedFollowers", fallback: "Quiet public, quotes limited")
+        public static let unlistedFollowers = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.UnlistedFollowers", fallback: "Quiet public, quotes limited")
         /// Quiet public, quotes disabled
-        public static let unlistedOnlyMe = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.unlistedOnlyMe", fallback: "Quiet public, quotes disabled")
+        public static let unlistedOnlyMe = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.UnlistedOnlyMe", fallback: "Quiet public, quotes disabled")
       }
     }
     public enum ConfirmEmail {
@@ -1071,8 +1071,8 @@ public enum L10n {
         /// Admin Notifications
         public static let title = L10n.tr("Localizable", "Scene.Notification.AdminFilter.Title", fallback: "Admin Notifications")
         public enum Reports {
-          /// Show reports of spam, rule violations, and other complaints
-          public static let subtitle = L10n.tr("Localizable", "Scene.Notification.AdminFilter.Reports.Subtitle", fallback: "Show reports of spam, rule violations, and other complaints")
+          /// Show reports of spam, rule violations, and other complaints on this instance
+          public static let subtitle = L10n.tr("Localizable", "Scene.Notification.AdminFilter.Reports.Subtitle", fallback: "Show reports of spam, rule violations, and other complaints on this instance")
           /// Admin reports
           public static let title = L10n.tr("Localizable", "Scene.Notification.AdminFilter.Reports.Title", fallback: "Admin reports")
         }
@@ -1328,6 +1328,10 @@ public enum L10n {
       /// If you disagree with the policy for **%@**, you can go back and pick a different server.
       public static func description(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.Privacy.Description", String(describing: p1), fallback: "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%@**, you can go back and pick a different server.")
+      }
+      /// Terms of Service - %@
+      public static func termsOfService(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Privacy.TermsOfService", String(describing: p1), fallback: "Terms of Service - %@")
       }
       /// Please review the terms of service for **%@**. If you disagree, you can go back and pick a different server.
       public static func termsOfServiceDescription(_ p1: Any) -> String {
@@ -2335,10 +2339,6 @@ public enum L10n {
       public static func media(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.media", p1, fallback: "Plural format key: \"%#@media_count@\"")
       }
-      /// Plural format key: "%#@count_signups@"
-      public static func newSignups(_ p1: Int) -> String {
-        return L10n.tr("Localizable", "plural.count.new_signups", p1, fallback: "Plural format key: \"%#@count_signups@\"")
-      }
       /// Plural format key: "%#@count_of_your_followers@"
       public static func ofYourFollowers(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.of_your_followers", p1, fallback: "Plural format key: \"%#@count_of_your_followers@\"")
@@ -2394,14 +2394,6 @@ public enum L10n {
       /// Plural format key: "%#@voter_count@"
       public static func voter(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.voter", p1, fallback: "Plural format key: \"%#@voter_count@\"")
-      }
-      /// Plural format key: "%#@count_others@"
-      public static func youAndOthersBoosted(_ p1: Int) -> String {
-        return L10n.tr("Localizable", "plural.count.you_and_others_boosted", p1, fallback: "Plural format key: \"%#@count_others@\"")
-      }
-      /// Plural format key: "%#@count_others@"
-      public static func youAndOthersFavorited(_ p1: Int) -> String {
-        return L10n.tr("Localizable", "plural.count.you_and_others_favorited", p1, fallback: "Plural format key: \"%#@count_others@\"")
       }
     }
     public enum FilteredNotificationBanner {

@@ -1,12 +1,12 @@
-"16wxgf" = "在Mastodon上发布";
+"16wxgf" = "在 Mastodon 上发布";
 
 "751xkl" = "文本内容";
 
-"CsR7G2" = "在Mastodon上发布";
+"CsR7G2" = "在 Mastodon 上发布";
 
-"HZSGTr" = "要发布的内容是什么？";
+"HZSGTr" = "要发布的内容是？";
 
-"HdGikU" = "发送失败";
+"HdGikU" = "发布失败";
 
 "KDNTJ4" = "失败原因";
 
@@ -14,7 +14,7 @@
 
 "RxSqsb" = "嘟文";
 
-"WCIR3D" = "在Mastodon上发布 ${content}";
+"WCIR3D" = "在 Mastodon 上发布 ${content}";
 
 "ZKJSNu" = "嘟文";
 
@@ -32,7 +32,7 @@
 
 "ayoYEb-ehFLjY" = "${content}，仅关注者";
 
-"dUyuGg" = "在Mastodon上发布";
+"dUyuGg" = "在 Mastodon 上发布";
 
 "dYQ5NN" = "公开";
 
@@ -42,10 +42,10 @@
 
 "k7dbKQ" = "嘟文发布成功。";
 
-"oGiqmY-dYQ5NN" = "确定要选择“公开”吗？";
+"oGiqmY-dYQ5NN" = "您确定要选择“公开”吗？";
 
-"oGiqmY-ehFLjY" = "确定要选择“仅关注者”吗？";
+"oGiqmY-ehFLjY" = "您确定要选择“仅关注者”吗？";
 
-"rM6dvp" = "URL";
+"rM6dvp" = "网址";
 
 "ryJLwG" = "帖子发送成功。";
