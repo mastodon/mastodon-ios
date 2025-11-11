@@ -422,30 +422,30 @@
             },
             "error": {
                 "item": {
-                    "username": "Username",
+                    "username": "Naudotojo vardas",
                     "email": "El. paštas",
-                    "password": "Password",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "password": "Slaptažodis",
+                    "agreement": "Susitarimas",
+                    "locale": "Lokalė",
+                    "reason": "Priežastis"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already taken. How about:",
-                    "reserved": "%s is a reserved keyword",
+                    "blocked": "%s yra neleistinas el. pašto teikėjas.",
+                    "unreachable": "%s neatrodo, kad egzistuoja.",
+                    "taken": "%s jau paimtas. Kaip dėl:",
+                    "reserved": "%s yra rezervuotas raktažodis.",
                     "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "blank": "%s privalomas.",
+                    "invalid": "%s netinkamas.",
+                    "too_long": "%s per ilgas.",
+                    "too_short": "%s per trumpas.",
+                    "inclusion": "%s nėra palaikoma reikšmė."
                 },
                 "special": {
                     "username_invalid": "Username must only contain alphanumeric characters and underscores",
                     "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "email_invalid": "Tai nėra tinkamas el. pašto adresas.",
+                    "password_too_short": "Slaptažodis per trumpas (turi būti bent 8 simbolių)."
                 }
             }
         },
@@ -1021,15 +1021,15 @@
             "success": {
                 "title": "Thank you for your contribution!",
                 "subtitle": "You should receive an email confirming your donation soon.",
-                "server_error_title": "Payment failed",
-                "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
+                "server_error_title": "Mokėjimas nepavyko",
+                "server_error_message": "Atsiprašome. Įvyko klaida ir negalėjome apdoroti jūsų aukos.\n\nPakartokite po kelių minučių.",
                 "share_button_title": "Spread the word"
             }
         }
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Tai neatrodo kaip tinkama „Mastodon“ nuoroda."
         }
     },
     "widget": {
