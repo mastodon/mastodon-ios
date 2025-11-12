@@ -61,7 +61,7 @@ struct LinkPreviewCard: View {
                 .stroke(.separator, lineWidth: 0.3)
         }
         .accessibilityElement(children: .contain)
-        .accessibilityLabel(L10n.Common.Controls.Status.linkA11yLabel)
+        .accessibilityLabel(L10n.Common.Controls.Status.linkA11YLabel)
         .onTapGesture {
             guard let url = URL(string: cardEntity.url) else { return }
             navigateToScene(.safari(url: url), .safariPresent(animated: true, completion: nil))

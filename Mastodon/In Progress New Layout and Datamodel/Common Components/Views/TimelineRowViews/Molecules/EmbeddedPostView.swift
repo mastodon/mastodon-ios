@@ -232,7 +232,7 @@ struct EmbeddedPostContentDisplayedView: View {
         }
         .contentShape(Rectangle())
         .accessibilityElement(children: .contain)
-        .accessibilityLabel(L10n.Common.Controls.Status.Quote.a11yLabel)
+        .accessibilityLabel(L10n.Common.Controls.Status.Quote.a11YLabel)
     }
     
     private let avatarShape = RoundedRectangle(cornerRadius: 4)

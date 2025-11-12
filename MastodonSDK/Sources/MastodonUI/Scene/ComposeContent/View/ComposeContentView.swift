@@ -149,7 +149,7 @@ public struct ComposeContentView: View {
                     quotedPostViewBuilder()
                         .padding()
                         .accessibilityElement(children: .contain)
-                        .accessibilityLabel(L10n.Common.Controls.Status.Quote.a11yLabel)
+                        .accessibilityLabel(L10n.Common.Controls.Status.Quote.a11YLabel)
                 }
             }
             .background(

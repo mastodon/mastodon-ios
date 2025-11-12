@@ -83,11 +83,11 @@ struct PollView: View {
             switch selectionState {
             case .multiSelect(let selected):
                 if selected.count == 0 {
-                    return L10n.Common.Controls.Status.Poll.multiselectA11yHint
+                    return L10n.Common.Controls.Status.Poll.multiselectA11YHint
                 }
             case .singleSelect(let selected):
                 if selected == nil {
-                    return L10n.Common.Controls.Status.Poll.singleSelectA11yHint
+                    return L10n.Common.Controls.Status.Poll.singleSelectA11YHint
                 }
             }
         default:

@@ -220,7 +220,7 @@ public enum L10n {
         /// Remove Bookmark
         public static let removeBookmark = L10n.tr("Localizable", "Common.Controls.Actions.RemoveBookmark", fallback: "Remove Bookmark")
         /// Remove my post
-        public static let removequote = L10n.tr("Localizable", "Common.Controls.Actions.Removequote", fallback: "Remove my post")
+        public static let removeQuote = L10n.tr("Localizable", "Common.Controls.Actions.RemoveQuote", fallback: "Remove my post")
         /// Reply
         public static let reply = L10n.tr("Localizable", "Common.Controls.Actions.Reply", fallback: "Reply")
         /// Report %@
@@ -2339,6 +2339,10 @@ public enum L10n {
       public static func media(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.media", p1, fallback: "Plural format key: \"%#@media_count@\"")
       }
+      /// Plural format key: "%#@count_signups@"
+      public static func newSignups(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "plural.count.new_signups", p1, fallback: "Plural format key: \"%#@count_signups@\"")
+      }
       /// Plural format key: "%#@count_of_your_followers@"
       public static func ofYourFollowers(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.of_your_followers", p1, fallback: "Plural format key: \"%#@count_of_your_followers@\"")
@@ -2394,6 +2398,14 @@ public enum L10n {
       /// Plural format key: "%#@voter_count@"
       public static func voter(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.voter", p1, fallback: "Plural format key: \"%#@voter_count@\"")
+      }
+      /// Plural format key: "%#@count_others@"
+      public static func youAndOthersBoosted(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "plural.count.you_and_others_boosted", p1, fallback: "Plural format key: \"%#@count_others@\"")
+      }
+      /// Plural format key: "%#@count_others@"
+      public static func youAndOthersFavorited(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "plural.count.you_and_others_favorited", p1, fallback: "Plural format key: \"%#@count_others@\"")
       }
     }
     public enum FilteredNotificationBanner {

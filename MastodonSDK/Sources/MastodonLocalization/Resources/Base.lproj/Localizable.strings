@@ -77,7 +77,7 @@ Please check your internet connection.";
 "Common.Controls.Actions.Previous" = "Previous";
 "Common.Controls.Actions.Remove" = "Remove";
 "Common.Controls.Actions.RemoveBookmark" = "Remove Bookmark";
-"Common.Controls.Actions.Removequote" = "Remove my post";
+"Common.Controls.Actions.RemoveQuote" = "Remove my post";
 "Common.Controls.Actions.Reply" = "Reply";
 "Common.Controls.Actions.ReportUser" = "Report %@";
 "Common.Controls.Actions.Save" = "Save";
