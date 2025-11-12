@@ -8880,7 +8880,7 @@
       }
     },
     "Common.Alerts.DiscardPostContent.Message" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -8891,7 +8891,7 @@
       }
     },
     "Common.Alerts.DiscardPostContent.Title" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -27680,7 +27680,7 @@
       }
     },
     "Common.Controls.Actions.SignUp" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -60893,7 +60893,7 @@
       }
     },
     "Common.Controls.Tabs.Notification" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -61508,7 +61508,7 @@
       }
     },
     "Common.Controls.Tabs.Search" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -82676,7 +82676,7 @@
       }
     },
     "plural.count.followed_by_and_mutual" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "hy-AM" : {
           "stringUnit" : {
@@ -87762,7 +87762,7 @@
       }
     },
     "plural.count.metric_formatted.post" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "hy-AM" : {
           "stringUnit" : {
@@ -126808,7 +126808,7 @@
       }
     },
     "Scene.ConfirmEmail.Button.OpenEmailApp" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -130156,7 +130156,7 @@
       }
     },
     "Scene.ConfirmEmail.Subtitle" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -139992,7 +139992,7 @@
       }
     },
     "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "hy-AM" : {
           "stringUnit" : {
@@ -140003,7 +140003,7 @@
       }
     },
     "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "hy-AM" : {
           "stringUnit" : {
@@ -140014,7 +140014,7 @@
       }
     },
     "Scene.HomeTimeline.NavigationBarState.NewPosts" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "hy-AM" : {
           "stringUnit" : {
@@ -140031,7 +140031,7 @@
       }
     },
     "Scene.HomeTimeline.NavigationBarState.Offline" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "hy-AM" : {
           "stringUnit" : {
@@ -140048,7 +140048,7 @@
       }
     },
     "Scene.HomeTimeline.NavigationBarState.Published" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "hy-AM" : {
           "stringUnit" : {
@@ -140065,7 +140065,7 @@
       }
     },
     "Scene.HomeTimeline.NavigationBarState.Publishing" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "hy-AM" : {
           "stringUnit" : {
@@ -145996,7 +145996,7 @@
       }
     },
     "Scene.Notification.GroupedNotificationDescription.MulitplePeopleSignedUp" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "an" : {
           "stringUnit" : {
@@ -166429,7 +166429,7 @@
       }
     },
     "Scene.Profile.Dashboard.Followers" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -166440,7 +166440,7 @@
       }
     },
     "Scene.Profile.Dashboard.Following" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -168245,7 +168245,7 @@
       }
     },
     "Scene.Profile.Dashboard.Posts" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -207217,7 +207217,7 @@
       }
     },
     "Scene.Search.Searching.Segment.All" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -207228,7 +207228,7 @@
       }
     },
     "Scene.Search.Searching.Segment.Hashtags" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -207239,7 +207239,7 @@
       }
     },
     "Scene.Search.Searching.Segment.People" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -207250,7 +207250,7 @@
       }
     },
     "Scene.Search.Searching.Segment.Posts" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -214258,7 +214258,7 @@
       }
     },
     "Scene.ServerPicker.Input.Placeholder" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -217277,7 +217277,7 @@
       }
     },
     "Scene.ServerPicker.Subtitle" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -217288,7 +217288,7 @@
       }
     },
     "Scene.ServerPicker.SubtitleExtend" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -221808,7 +221808,7 @@
       }
     },
     "Scene.Settings.Footer.MastodonDescription" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -226860,7 +226860,7 @@
       }
     },
     "Scene.Settings.Keyboard.CloseSettingsWindow" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -233138,7 +233138,7 @@
       }
     },
     "Scene.Settings.PrivacySafety.DefaultPostVisibility.Title" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "an" : {
           "stringUnit" : {
@@ -235775,7 +235775,7 @@
       }
     },
     "Scene.Settings.Section.Appearance.Automatic" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235786,7 +235786,7 @@
       }
     },
     "Scene.Settings.Section.Appearance.Dark" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235797,7 +235797,7 @@
       }
     },
     "Scene.Settings.Section.Appearance.Light" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235808,7 +235808,7 @@
       }
     },
     "Scene.Settings.Section.Appearance.Title" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235819,7 +235819,7 @@
       }
     },
     "Scene.Settings.Section.BoringZone.AccountSettings" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235830,7 +235830,7 @@
       }
     },
     "Scene.Settings.Section.BoringZone.Privacy" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235841,7 +235841,7 @@
       }
     },
     "Scene.Settings.Section.BoringZone.Terms" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235852,7 +235852,7 @@
       }
     },
     "Scene.Settings.Section.BoringZone.Title" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235863,7 +235863,7 @@
       }
     },
     "Scene.Settings.Section.LookAndFeel.Light" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235874,7 +235874,7 @@
       }
     },
     "Scene.Settings.Section.LookAndFeel.ReallyDark" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235885,7 +235885,7 @@
       }
     },
     "Scene.Settings.Section.LookAndFeel.SortaDark" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235896,7 +235896,7 @@
       }
     },
     "Scene.Settings.Section.LookAndFeel.Title" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235907,7 +235907,7 @@
       }
     },
     "Scene.Settings.Section.LookAndFeel.UseSystem" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235918,7 +235918,7 @@
       }
     },
     "Scene.Settings.Section.Notifications.Boosts" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235929,7 +235929,7 @@
       }
     },
     "Scene.Settings.Section.Notifications.Favorites" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235940,7 +235940,7 @@
       }
     },
     "Scene.Settings.Section.Notifications.Follows" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235951,7 +235951,7 @@
       }
     },
     "Scene.Settings.Section.Notifications.Mentions" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235962,7 +235962,7 @@
       }
     },
     "Scene.Settings.Section.Notifications.Title" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235973,7 +235973,7 @@
       }
     },
     "Scene.Settings.Section.Notifications.Trigger.Anyone" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235984,7 +235984,7 @@
       }
     },
     "Scene.Settings.Section.Notifications.Trigger.Follow" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -235995,7 +235995,7 @@
       }
     },
     "Scene.Settings.Section.Notifications.Trigger.Follower" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -236006,7 +236006,7 @@
       }
     },
     "Scene.Settings.Section.Notifications.Trigger.Noone" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -236017,7 +236017,7 @@
       }
     },
     "Scene.Settings.Section.Notifications.Trigger.Title" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -236028,7 +236028,7 @@
       }
     },
     "Scene.Settings.Section.Preference.DisableAvatarAnimation" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -236039,7 +236039,7 @@
       }
     },
     "Scene.Settings.Section.Preference.DisableEmojiAnimation" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -236050,7 +236050,7 @@
       }
     },
     "Scene.Settings.Section.Preference.Title" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -236061,7 +236061,7 @@
       }
     },
     "Scene.Settings.Section.Preference.UsingDefaultBrowser" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -236072,7 +236072,7 @@
       }
     },
     "Scene.Settings.Section.SpicyZone.Clear" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -236083,7 +236083,7 @@
       }
     },
     "Scene.Settings.Section.SpicyZone.Signout" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -236094,7 +236094,7 @@
       }
     },
     "Scene.Settings.Section.SpicyZone.Title" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -237600,7 +237600,7 @@
       }
     },
     "Scene.Settings.Title" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -237910,7 +237910,7 @@
       }
     },
     "Scene.SuggestionAccount.FollowExplain" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -240331,7 +240331,7 @@
       }
     },
     "Scene.Welcome.GetStarted" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -241843,7 +241843,7 @@
       }
     },
     "Scene.Welcome.Slogan" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -241854,7 +241854,7 @@
       }
     },
     "Scene.Wizard.AccessibilityHint" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -241865,7 +241865,7 @@
       }
     },
     "Scene.Wizard.MultipleAccountSwitchIntroDescription" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
@@ -241876,7 +241876,7 @@
       }
     },
     "Scene.Wizard.NewInMastodon" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "ku-TR" : {
           "stringUnit" : {
