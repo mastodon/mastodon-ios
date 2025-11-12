@@ -82675,6 +82675,29 @@
         }
       }
     },
+    "plural.count.followed_by_and_mutual" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Followed by %2$(followerNames)@, and another mutual"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Followed by %2$(followerNames)@, and %1$(mutuals)lld mutuals"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "plural.count.follower" : {
       "extractionState" : "migrated",
       "localizations" : {
