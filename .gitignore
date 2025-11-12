@@ -101,6 +101,7 @@ iOSInjectionProject/
 Packages
 xcuserdata
 *.xcodeproj
+!Mastodon.xcodeproj
 
 
 ### Xcode ###
@@ -114,10 +115,10 @@ xcuserdata
 /*.gcno
 
 ### Xcode Patch ###
-*.xcodeproj/*
-!*.xcodeproj/project.pbxproj
-!*.xcodeproj/xcshareddata/
-!*.xcworkspace/contents.xcworkspacedata
+Mastodon.xcodeproj/*
+!Mastodon.xcodeproj/project.pbxproj
+!Mastodon.xcodeproj/xcshareddata/
+!Mastodon.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,swiftpm,xcode,cocoapods
