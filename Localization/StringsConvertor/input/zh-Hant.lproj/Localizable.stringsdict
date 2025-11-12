@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld people signed up</string>
+        <string>%ld 人以註冊</string>
       </dict>
     </dict>
     <key>a11y.plural.count.unread.notification</key>
@@ -97,7 +97,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>boosted by you and %ld others</string>
+        <string>被您與 %ld 位其他人轉嘟</string>
       </dict>
     </dict>
     <key>plural.count.you_and_others_favorited</key>
@@ -111,7 +111,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>favorited by you and %ld others</string>
+        <string>被您與 %ld 位其他人加入最愛</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
