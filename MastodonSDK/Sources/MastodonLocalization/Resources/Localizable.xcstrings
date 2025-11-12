@@ -49152,295 +49152,295 @@
       "localizations" : {
         "an" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, attachment %d of %d"
           }
         },
         "ar" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@، مرفق %d من %d"
           }
         },
         "be" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, далучэнне %d з %d"
           }
         },
         "ca" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, adjunt %d de %d"
           }
         },
         "ckb" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, attachment %d of %d"
           }
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, příloha %d z %d"
           }
         },
         "cy" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, atodiad %d o %d"
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, vedhæftning %d af %d"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, Anhang %d von %d"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, συνημμένο %d από %d"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@, attachment %d of %d"
+            "value" : "%1$@, attachment %2$d of %3$d"
           }
         },
         "en-US" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, attachment %d of %d"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, adjunto %d de %d"
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, %d. manus kokku %d-st manusest"
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@, %2$d tik %1$d garren eranskina"
+            "value" : "%1$@, %2$d tik %3$d garren eranskina"
           }
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, liite %d/%d"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, pièce jointe %d sur %d"
           }
         },
         "gd" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, ceanglachan %d à %d"
           }
         },
         "gl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, adxunto %d de %d"
           }
         },
         "he" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, attachment %d of %d"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, attachment %d of %d"
           }
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, attachment %d of %d"
           }
         },
         "hy" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, attachment %d of %d"
           }
         },
         "hy-AM" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, attachment %d of %d"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, lampiran %d dari %d"
           }
         },
         "is" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, viðhengi %d af %d"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, allegato %d di %d"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, これは %d 件目の添付メディアです。全部で %d 件の添付メディアがあります。"
           }
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, attachment %d of %d"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, attachment %d of %d"
           }
         },
         "ku" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, pêvek %d ji %d"
           }
         },
         "lt" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, attachment %d of %d"
           }
         },
         "lv" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, pielikums %d no %d"
           }
         },
         "my" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, attachment %d of %d"
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, bijlage %d van %d"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, załącznik %d z %d"
           }
         },
         "pt" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, anexo %d de %d"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, anexo %d de %d"
           }
         },
         "ro" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, attachment %d of %d"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, вложение %d из %d"
           }
         },
         "si" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, attachment %d of %d"
           }
         },
         "sl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, priponka %d od %d"
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, bilaga %d av %d"
           }
         },
         "th" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@ ไฟล์แนบ %d จาก %d"
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, gönderideki %d. ek. Toplamda %d ek var"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, вкладення %d із %d"
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@, đính kèm %d từ %d"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@，附件 %d/%d"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%@ 附件 %d 之 %d"
           }
         }
@@ -76054,25 +76054,25 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "translated",
-                      "value" : "Zostało %arg sekundy"
+                      "value" : "Zostało %ld sekundy"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "translated",
-                      "value" : "Zostało %arg sekund"
+                      "value" : "Zostało %ld sekund"
                     }
                   },
                   "one" : {
                     "stringUnit" : {
                       "state" : "translated",
-                      "value" : "Została %d sekunda"
+                      "value" : "Została %ld sekunda"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
                       "state" : "translated",
-                      "value" : "Zostało %arg sekund"
+                      "value" : "Zostało %ld sekund"
                     }
                   }
                 }
@@ -82668,57 +82668,6 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%ld 個最愛"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "plural.count.followed_by_and_mutual" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "hy-AM" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%#@names@%#@count_mutual@"
-          },
-          "substitutions" : {
-            "count_mutual" : {
-              "formatSpecifier" : "ld",
-              "variations" : {
-                "plural" : {
-                  "one" : {
-                    "stringUnit" : {
-                      "state" : "translated",
-                      "value" : "Followed by %1$@, and another mutual"
-                    }
-                  },
-                  "other" : {
-                    "stringUnit" : {
-                      "state" : "translated",
-                      "value" : "Followed by %1$@, and %arg mutuals"
-                    }
-                  }
-                }
-              }
-            },
-            "names" : {
-              "formatSpecifier" : "ld",
-              "variations" : {
-                "plural" : {
-                  "one" : {
-                    "stringUnit" : {
-                      "state" : "translated",
-                      "value" : ""
-                    }
-                  },
-                  "other" : {
-                    "stringUnit" : {
-                      "state" : "translated",
-                      "value" : ""
-                    }
-                  }
                 }
               }
             }
@@ -183408,289 +183357,289 @@
       "localizations" : {
         "an" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "ar" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "be" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Мы павінны пераканацца, што вам не менш за %d, каб далучыцца да %@. Пасля рэгістрацыі гэта не будзе захавана."
           }
         },
         "ca" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "ckb" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Musíme se ujistit, že je Vám alespoň %d, abyste se mohli připojit k %@. Toto nebude po registraci uloženo."
           }
         },
         "cy" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Vi er nødt til at sikre os, at du er mindst %d for at blive medlem af %@. Dette bliver ikke gemt efter tilmelding."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Wir müssen sicherstellen, dass du mindestens %d alt bist, um %@ beitreten zu können. Das Alter wird nicht gespeichert."
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Πρέπει να βεβαιωθούμε ότι είσαι τουλάχιστον %d για να συμμετάσχεις στο %@. Αυτό δεν θα αποθηκευτεί μετά την εγγραφή."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %1$d to join %2$@. This won't get stored after signup."
           }
         },
         "en-US" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Tenemos que asegurarnos de que eres al menos %d para unirte a %@. Esto no se guardará después del registro."
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mastodoni kasutamiseks me peame tagama, et liitumisel teenusega %@ sa oled vähemalt %d aastat vana. Peale liitumist neid andmeid ei salvestata."
+            "value" : "Mastodoni kasutamiseks me peame tagama, et liitumisel teenusega %2$@ sa oled vähemalt %1$d aastat vana. Peale liitumist neid andmeid ei salvestata."
           }
         },
         "eu" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "gd" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Feumaidh sinn dèanamh cinnteach gu bheil thu %d bliadhna(ichean) a dh’aois air a char as lugha mus fhaigh thu ballrachd air %@. Cha stòr sinn seo às dèidh do chlàradh."
           }
         },
         "gl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Temos que comprobar que tes polo menos %d para poder crear %@. Este dato non se garda despois de crear a conta."
           }
         },
         "he" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "hy" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "is" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Við verðum að ganga úr skugga um að þú hafir náð %d aldri til að nota %@. Við munum ekki geyma þessar upplýsingar eftir nýskráningu."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Dobbiamo assicurarci che tu abbia almeno %d anni per unirti a %@. Questo non verrà memorizzato dopo la registrazione."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@に参加するには少なくとも%d歳以上であることを確認する必要があります。サインアップの際のみに使用され、その後保存されません。"
+            "value" : "%2$@に参加するには少なくとも%1$d歳以上であることを確認する必要があります。サインアップの際のみに使用され、その後保存されません。"
           }
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "ku" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "lt" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Turime įsitikinti, kad esate bent %d norint jungtis prie %@. Tai nebus išsaugota po registracijos."
           }
         },
         "lv" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "my" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We moeten er zeker van zijn dat je minstens %d bent om je bij %@ te registreren. Dit zal niet worden opgeslagen."
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "pt" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "ro" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Мы должны убедиться, что вам по крайней мере %d, чтобы присоединиться к %@. Это не будет сохранено после регистрации."
           }
         },
         "si" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "sl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Vi måste se till att du är minst %d för att ansluta till %@. Detta kommer inte att lagras efter registreringen."
           }
         },
         "th" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ sunucusuna kaydolmak için en az %d yaşında olduğunuzu doğrulamamız gerekiyor. Bu bilgi kaydolduktan sonra saklanmayacaktır."
+            "value" : "%2$@ sunucusuna kaydolmak için en az %1$d yaşında olduğunuzu doğrulamamız gerekiyor. Bu bilgi kaydolduktan sonra saklanmayacaktır."
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Chúng tôi phải đảm bảo rằng bạn ít nhất %d tuổi để tham gia %@. Thông tin này không lưu trữ sau khi đăng ký."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "我们必须确认您年满 %d 周岁以加入 %@。这条信息不会在注册后保留。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "我們必須確認您至少年滿 %d 以使用 %@。我們不會儲存此資料。"
           }
         }
