@@ -10,6 +10,9 @@ on:
       - MastodonIntent/en.lproj/Intents.stringsdict
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   upload-translations:
     runs-on: ubuntu-latest
