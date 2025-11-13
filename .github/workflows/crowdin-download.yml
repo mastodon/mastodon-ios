@@ -24,7 +24,6 @@ jobs:
           upload_sources: false
           upload_translations: false
           download_translations: true
-          download_bundle: 2
           crowdin_branch_name: develop
           push_translations: true
           create_pull_request: true
