@@ -33,3 +33,4 @@ jobs:
           pull_request_base_branch_name: develop
         env:
           CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_BOT }}
