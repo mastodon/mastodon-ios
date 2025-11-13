@@ -1,0 +1,35 @@
+name: Crowdin / Download translations
+on:
+  schedule:
+    - cron: "17 4 * * *" # Every day
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  download-translations:
+    runs-on: ubuntu-latest
+    if: github.repository == 'mastodon/mastodon-ios'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Download the translation files from Crowdin
+      - name: crowdin action
+        uses: crowdin/github-action@v2
+        with:
+          upload_sources: false
+          upload_translations: false
+          download_translations: true
+          download_bundle: 2
+          crowdin_branch_name: develop
+          push_translations: true
+          create_pull_request: true
+          localization_branch_name: i18n/crowdin/translations
+          pull_request_labels: i18n
+          pull_request_base_branch_name: develop
+        env:
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
