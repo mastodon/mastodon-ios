@@ -38,12 +38,33 @@ struct StatefulCountedActionButton: View {
     private let iconFont: Font = .body
     
     var body: some View {
-        Button(action: { doAction?() }) {
+        Button(action: {
+            if type == .reply {
+                // Immediate haptic feedback on tap rather than waiting for the state changes
+                let generator = UIImpactFeedbackGenerator(style: .light)
+                generator.impactOccurred()
+            }
+            doAction?()
+        }) {
             HStack(spacing: 4) {
                 imageComponent
                 countLabelComponent
             }
         }
+        .sensoryFeedback({ () -> SensoryFeedback in
+            switch actionState.isSelected {
+            case .isTrue:
+                switch type {
+                case .boost: return .impact(weight: .heavy)
+                case .favourite: return .impact(weight: .medium)
+                case .reply, .bookmark: return .impact(weight: .light)
+                }
+            case .isFalse:
+                return .impact(weight: .light)
+            default:
+                return .impact(weight: .light)
+            }
+        }(), trigger: actionState.isSelected)
         .buttonStyle(.borderless) // Without this, all the buttons in the row activate when one is tapped.  What a remarkably unexpected result with no documentation.
         .fontWeight(actionState.isSelected == .isTrue ? .semibold : .regular)
         .foregroundStyle(color)
@@ -100,4 +121,3 @@ struct StatefulCountedActionButton: View {
     }
 
 }
-
