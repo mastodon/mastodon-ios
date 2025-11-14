@@ -50,7 +50,7 @@ class TimelineListViewController: UIHostingController<AnyView>
         self.type = type
         switch type {
         case .home:
-            viewModel = TimelineListViewModel(timeline: .following)
+            viewModel = TimelineListViewModel(timeline: .postsFromThoseFollowedByMe)
         case .notifications(let scope):
             viewModel = TimelineListViewModel(timeline: .notifications(scope: scope))
         case .discover(let type):
@@ -232,7 +232,7 @@ extension TimelineListViewController {
         let showFollowingAction = UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.following, image: .init(systemName: "house")) { [weak self] _ in
             guard let self else { return }
             
-            viewModel.timeline = .following
+            viewModel.timeline = .postsFromThoseFollowedByMe
             self.timelineSelectorButton.setAttributedTitle(
                 .init(string: L10n.Scene.HomeTimeline.TimelineMenu.following, attributes: [
                     .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
@@ -257,7 +257,7 @@ extension TimelineListViewController {
         }
         
         switch viewModel.timeline {
-        case .following:
+        case .postsFromThoseFollowedByMe:
             showLocalTimelineAction.state = .off
             showFollowingAction.state = .on
         case .local:
@@ -2644,7 +2644,7 @@ struct Snackbar: View {
 extension MastodonTimelineType {
     var canDisplayNewItemsSnackbar: Bool {
         switch self {
-        case .following:
+        case .postsFromThoseFollowedByMe:
             true
         default:
             false

@@ -65,7 +65,7 @@ public enum DiscoveryType: Equatable {
 }
                                 
 public enum MastodonTimelineType: Equatable {
-    case following
+    case postsFromThoseFollowedByMe
     case myBookmarks
     case myFavorites
     case myFollowedHashtags
@@ -81,7 +81,7 @@ public enum MastodonTimelineType: Equatable {
 
     public static func == (lhs: MastodonTimelineType, rhs: MastodonTimelineType) -> Bool {
         switch (lhs, rhs) {
-        case (.following, .following):
+        case (.postsFromThoseFollowedByMe, .postsFromThoseFollowedByMe):
             return true
         case (.local, .local):
             return true
@@ -124,7 +124,7 @@ public enum MastodonTimelineType: Equatable {
     
     public var canDisplayDonationBanner: Bool {
         switch self {
-        case .following:
+        case .postsFromThoseFollowedByMe:
             return true
         default:
             return false
@@ -133,7 +133,7 @@ public enum MastodonTimelineType: Equatable {
     
     public var filterContext: Mastodon.Entity.FilterContext? {
         switch self {
-        case .following:
+        case .postsFromThoseFollowedByMe:
                 .home
         case .hashtag:
                 .public
@@ -299,7 +299,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         self.timeline = timeline
         authenticatedUser = currentUser
         myAccountID = authenticatedUser.cachedAccount?.id
-        let trackLastRead = timeline == .following
+        let trackLastRead = timeline == .postsFromThoseFollowedByMe
         let cacheManager = TimelineCacheManager(currentUser: currentUser, trackLastRead: trackLastRead, useDiskCache: false)
         
         super.init(cacheManager)
@@ -454,7 +454,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
 
         let newBatch: [TimelineItem]
         switch timeline {
-        case .following:
+        case .postsFromThoseFollowedByMe:
             let result = try await APIService.shared.homeTimeline(itemsNoOlderThan: itemsNoOlderThan, itemsImmediatelyAfter: itemsImmediatelyAfter, itemsImmediatelyBefore: itemsImmediatelyBefore, authenticationBox: authenticatedUser).value
             newBatch = result.map { timelineItem(fromStatus:$0) }
         case .local:
