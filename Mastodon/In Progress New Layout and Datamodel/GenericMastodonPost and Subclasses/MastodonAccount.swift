@@ -4,8 +4,8 @@ import Foundation
 import MastodonCore
 import MastodonSDK
 
-struct MastodonAccount: Identifiable, Codable {
-    let id: Mastodon.Entity.Account.ID
+public struct MastodonAccount: Identifiable, Codable {
+    public let id: Mastodon.Entity.Account.ID
     let metadata: MetaData
     let displayInfo: DisplayInfo
     let metrics: Metrics

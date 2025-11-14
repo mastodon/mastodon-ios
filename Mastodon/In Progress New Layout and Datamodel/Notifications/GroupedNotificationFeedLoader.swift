@@ -71,8 +71,6 @@ final class UngroupedNotificationsFeedLoader: MastodonFeedLoader<GroupedNotifica
         case .reload:
             olderThan = nil
             newerThan = nil
-        case .newerThan, .olderThan:
-            throw MastodonFeedLoaderError.requestNotImplemented
         }
         
         switch kind {
@@ -135,8 +133,6 @@ final class GroupedNotificationsFeedLoader: MastodonFeedLoader<GroupedNotificati
         case .reload:
             olderThan = nil
             newerThan = nil
-        case .newerThan, .olderThan:
-            throw MastodonFeedLoaderError.requestNotImplemented
         }
         
         switch kind {
@@ -219,7 +215,7 @@ extension GroupedNotificationsFeedLoader {
             authenticationBox: authenticationBox
         )
 
-        return results
+        return results.value
     }
 }
 

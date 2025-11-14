@@ -103,9 +103,6 @@ class UngroupedNotificationCacheManager: MastodonFeedCacheManager {
                 updatedMostRecentChunk = (previouslyFetched + newlyFetched)
             case .replace:
                 updatedMostRecentChunk = newlyFetched
-            case .asOlderThan, .asNewerThan:
-                assertionFailure("not implemented")
-                updatedMostRecentChunk = newlyFetched
             }
         } else {
             updatedMostRecentChunk = newlyFetched
@@ -210,10 +207,6 @@ class GroupedNotificationCacheManager: MastodonFeedCacheManager {
             case .replace:
                 includePreviouslyFetched = false
                 updatedNewerChunk = newlyFetched.notificationGroups
-            case .asOlderThan, .asNewerThan:
-                assertionFailure("not implemented")
-                includePreviouslyFetched = false
-                updatedNewerChunk = newlyFetched.notificationGroups
             }
         } else {
             includePreviouslyFetched = false
@@ -226,9 +219,6 @@ class GroupedNotificationCacheManager: MastodonFeedCacheManager {
                 return Array(notificationGroups.prefix(maxNotificationsListLength))
             case .end:
                 return Array(notificationGroups.suffix(maxNotificationsListLength))
-            case .asOlderThan, .asNewerThan:
-                assertionFailure("not implemented")
-                return Array(notificationGroups.prefix(maxNotificationsListLength))
             }
         }
         

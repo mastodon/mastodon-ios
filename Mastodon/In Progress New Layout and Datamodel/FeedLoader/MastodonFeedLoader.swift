@@ -31,15 +31,29 @@ protocol MastodonFeedCacheManager<CachedType> {
 
 public struct MastodonFeedLoaderResult<ResultType> {
     let allRecords: [ResultType]
-    let canLoadOlder: Bool
+    let nextBottomLoad: BottomLoad
+    
+    var canLoadOlder: Bool {
+        switch nextBottomLoad {
+        case .nothingMoreToLoad:
+            return false
+        case .initializing, .link, .offset:
+            return true
+        }
+    }
+}
+
+public enum BottomLoad: Equatable {
+    case initializing
+    case nothingMoreToLoad
+    case link(URL)
+    case offset(Int)
 }
 
 public enum MastodonFeedLoaderRequest: Equatable {
     case older
     case newer
     case reload
-    case newerThan(String)
-    case olderThan(String)
     
     var resultsInsertionPoint: InsertLocation {
         switch self {
@@ -49,18 +63,12 @@ public enum MastodonFeedLoaderRequest: Equatable {
             return .start
         case .reload:
             return .replace
-        case .newerThan(let id):
-            return .asNewerThan(id)
-        case .olderThan(let id):
-            return .asOlderThan(id)
         }
     }
     enum InsertLocation {
         case start
         case end
         case replace
-        case asNewerThan(String)
-        case asOlderThan(String)
     }
 }
 
@@ -76,7 +84,7 @@ public class MastodonFeedLoader<PublishedType: Identifiable, CachedType: Cacheab
     let cacheManager: (any MastodonFeedCacheManager<CachedType>)
     
     @Published private(set) var records = MastodonFeedLoaderResult<PublishedType>(
-        allRecords: [], canLoadOlder: true)
+        allRecords: [], nextBottomLoad: .initializing)
     @Published private(set) var currentError: Error? = nil
     
     init(_ cacheManager: (any MastodonFeedCacheManager<CachedType>)) {
@@ -88,7 +96,7 @@ public class MastodonFeedLoader<PublishedType: Identifiable, CachedType: Cacheab
                 guard let self else { return }
                 if let currentResults = cacheManager.currentResults(), currentResults.hasResults {
                     let refiltered = self.filteredResults(fromCachedType: currentResults)
-                    self.replaceRecords(refiltered, canLoadOlder: records.canLoadOlder)
+                    self.replaceRecords(refiltered, nextBottomLoad: records.nextBottomLoad)
                 }
             }
     }
@@ -192,42 +200,21 @@ extension MastodonFeedLoader {
         updateCacheByInserting(newlyFetchedResults: newlyFetchedResults, at: insertionPoint)
         
         let currentResults = cacheManager.currentResults() ?? newlyFetchedResults
+        let nextBottomLoad = (cacheManager.currentResults() as? CacheableTimeline)?.nextBottomLoad ?? (newlyFetchedResults as? CacheableTimeline)?.nextBottomLoad ?? .nothingMoreToLoad
         let filtered = filteredResults(fromCachedType: currentResults)
         
-        let canLoadOlder: Bool? = {
-            switch insertionPoint {
-            case .start:
-                return nil
-            case .asOlderThan, .asNewerThan:
-                return records.canLoadOlder
-            case .end:
-                return nil
-            case .replace:
-                return filtered.count > 20 // We expect to receive batches of up to 40 items from the server. Setting this threshold gives us enough items to keep the loading indicator off screen, so that when it does appear we can attempt to load older items and if we receive nothing, then remove the loading indicator. Otherwise, if we always assume that more could be loaded but we start off with so few items that the loading indicator is already on screen, then there's no way to get rid of it.
-            }
-        }()
-        replaceRecords(filtered, canLoadOlder: canLoadOlder)
+        replaceRecords(filtered, nextBottomLoad: nextBottomLoad)
         currentError = nil
     }
     
     private func noMoreResultsToFetch() {
-        if records.canLoadOlder {
-            setRecords(MastodonFeedLoaderResult(allRecords: records.allRecords, canLoadOlder: false))
+        if records.nextBottomLoad != .nothingMoreToLoad {
+            setRecords(MastodonFeedLoaderResult(allRecords: records.allRecords, nextBottomLoad: .nothingMoreToLoad))
         }
     }
     
-    private func replaceRecords(_ filtered: [PublishedType], canLoadOlder: Bool? = nil) {
-        let actuallyCanLoadOlder = {
-            if let newLast = filtered.last?.id, let oldLast = records.allRecords.last?.id {
-                return canLoadOlder ?? (newLast != oldLast)
-            } else if filtered.isEmpty && records.allRecords.isEmpty {
-                return canLoadOlder ?? false
-            } else {
-                return canLoadOlder ?? true
-            }
-        }()
-        
-        setRecords(MastodonFeedLoaderResult(allRecords: checkForDuplicates(filtered), canLoadOlder: actuallyCanLoadOlder))
+    private func replaceRecords(_ filtered: [PublishedType], nextBottomLoad: BottomLoad) {
+        setRecords(MastodonFeedLoaderResult(allRecords: checkForDuplicates(filtered), nextBottomLoad: nextBottomLoad))
     }
     
     private func checkForDuplicates(_ items: [PublishedType]) -> [PublishedType] {
@@ -276,14 +263,14 @@ extension MastodonFeedLoader {
             isFetching = false
         }
         if let currentResults = cacheManager.currentResults() {
-            replaceRecords(filteredResults(fromCachedType: currentResults), canLoadOlder: true)
+            replaceRecords(filteredResults(fromCachedType: currentResults), nextBottomLoad: .nothingMoreToLoad)
         }
     }
 
     private func updateCacheByInserting(newlyFetchedResults: CachedType,
                                         at insertionPoint: MastodonFeedLoaderRequest.InsertLocation) {
         switch insertionPoint {
-        case .start, .asNewerThan, .asOlderThan:
+        case .start:
             guard newlyFetchedResults.hasResults else { return }
         case .replace:
             break

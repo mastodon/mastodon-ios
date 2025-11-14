@@ -63,19 +63,19 @@ struct AuthorHeaderView: View {
 }
 
 extension MastodonAccount: AccountInfo {
-    var handle: String {
+    public var handle: String {
         return displayInfo.handle
     }
     
-    var avatarURL: URL? {
+    public var avatarURL: URL? {
         return displayInfo.avatarUrl
     }
     
-    var locked: Bool {
+    public var locked: Bool {
         return metadata.manuallyApprovesNewFollows
     }
     
-    var fullAccount: Mastodon.Entity.Account? {
+    public var fullAccount: Mastodon.Entity.Account? {
         return nil
     }
 }

@@ -299,7 +299,9 @@ private extension MastodonFeedLoader {
         
         guard let authenticationBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { throw APIService.APIError.implicit(.authenticationMissing) }
         
-        let results = try await APIService.shared.groupedNotifications(olderThan: maxID, newerThan: minID, fromAccount: accountID, scope: scope, excludingAdminTypes: excludingAdminTypes, authenticationBox: authenticationBox)
+        let response = try await APIService.shared.groupedNotifications(olderThan: maxID, newerThan: minID, fromAccount: accountID, scope: scope, excludingAdminTypes: excludingAdminTypes, authenticationBox: authenticationBox)
+        
+        let results = response.value
         
         for account in results.accounts {
             MastodonFeedItemCacheManager.shared.addToCache(account)
@@ -330,7 +332,7 @@ private extension MastodonFeedLoader {
         
         let results = try await APIService.shared.groupedNotifications(olderThan: maxID, newerThan: minID, fromAccount: accountID, scope: scope, excludingAdminTypes: excludingAdminTypes, authenticationBox: authenticationBox)
         
-        return results
+        return results.value
     }
 }
 

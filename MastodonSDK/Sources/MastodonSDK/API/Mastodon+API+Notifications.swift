@@ -47,7 +47,7 @@ extension Mastodon.API.Notifications {
         domain: String,
         query: Mastodon.API.Notifications.GroupedQuery,
         authorization: Mastodon.API.OAuth.Authorization
-    ) async throws -> Mastodon.Entity.GroupedNotificationsResults {
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.GroupedNotificationsResults> {
         let request = Mastodon.API.get(
             url: notificationsEndpointURL(domain: domain, grouped: true),
             query: query,
@@ -57,7 +57,8 @@ extension Mastodon.API.Notifications {
         let value = try Mastodon.API.decode(
             type: Mastodon.Entity.GroupedNotificationsResults.self, from: data,
             response: response)
-        return value
+        
+        return Mastodon.Response.Content(value: value, response: response)
     }
 
     /// Get all notifications

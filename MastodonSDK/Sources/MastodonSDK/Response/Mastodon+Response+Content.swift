@@ -155,6 +155,16 @@ extension Mastodon.Response {
                 return linkIDs
             }()
         }
+        
+        public var nextUrl: URL? {
+            guard let string = linkIDs["next"] else { return nil }
+            return URL(string: string)
+        }
+        
+        public var prevUrl: URL? {
+            guard let string = linkIDs["prev"] else { return nil }
+            return URL(string: string)
+        }
     }
 }
 

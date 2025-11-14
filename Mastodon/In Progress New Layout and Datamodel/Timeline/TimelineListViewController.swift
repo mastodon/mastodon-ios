@@ -23,6 +23,8 @@ enum TimelineViewType {
     case myBookmarks
     case myFavorites
     case myFollowedHashtags
+    case followers(of: MastodonAccount)
+    case accountsFollowed(by: MastodonAccount)
     case search(String, scope: SearchScope)
     case profilePosts(tabTitle: String?, userID: String, queryFilter: TimelineQueryFilter)
     case thread(root: MastodonContentPost)
@@ -63,6 +65,10 @@ class TimelineListViewController: UIHostingController<AnyView>
             viewModel = TimelineListViewModel(timeline: .thread(root: root))
         case .remoteThread(let remoteThreadType):
             viewModel = TimelineListViewModel(timeline: .remoteThread(remoteType: remoteThreadType))
+        case .followers(let followedAccount):
+            viewModel = TimelineListViewModel(timeline: .followers(of: followedAccount))
+        case .accountsFollowed(let followingAccount):
+            viewModel = TimelineListViewModel(timeline: .accountsFollowed(by: followingAccount))
         case .myFollowedHashtags:
             viewModel = TimelineListViewModel(timeline: .myFollowedHashtags)
         case .myBookmarks:
@@ -106,6 +112,12 @@ class TimelineListViewController: UIHostingController<AnyView>
             
         case .discover, .myBookmarks, .myFavorites, .profilePosts, .remoteThread:
             break
+            
+        case .followers:
+            navigationItem.title = L10n.Scene.Follower.title
+        case .accountsFollowed:
+            navigationItem.title = L10n.Scene.Following.title
+            
         case .search(let string, _):
             navigationItem.title = string
         case .hashtag(let tag):
@@ -269,7 +281,7 @@ extension TimelineListViewController {
         case .hashtag:
             showLocalTimelineAction.state = .off
             showFollowingAction.state = .off
-        case .discover, .search, .userPosts, .thread, .remoteThread, .myFollowedHashtags, .myBookmarks, .myFavorites, .notifications:
+        case .discover, .search, .userPosts, .thread, .remoteThread, .myFollowedHashtags, .myBookmarks, .myFavorites, .notifications, .followers, .accountsFollowed:
             assertionFailure()
         }
         

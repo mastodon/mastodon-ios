@@ -132,6 +132,22 @@ extension Mastodon.API.V2 {
 
 extension Mastodon.API {
     
+    static func get(fromPrecompiledUrl requestUrl: URL, authorization: OAuth.Authorization? = nil) -> URLRequest {
+        var request = URLRequest(
+            url: requestUrl,
+            cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
+            timeoutInterval: Mastodon.API.timeoutInterval
+        )
+        request.httpMethod = RequestMethod.GET.rawValue
+        if let authorization = authorization {
+            request.setValue(
+                "Bearer \(authorization.accessToken)",
+                forHTTPHeaderField: Mastodon.API.OAuth.authorizationField
+            )
+        }
+        return request
+    }
+    
     static func get(
         url: URL,
         query: GetQuery? = nil,

@@ -65,7 +65,7 @@ extension APIService {
         scope: MastodonNotificationScope?,
         excludingAdminTypes: [Mastodon.Entity.NotificationType]?,
         authenticationBox: MastodonAuthenticationBox
-    ) async throws -> Mastodon.Entity.GroupedNotificationsResults {
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.GroupedNotificationsResults> {
         let authorization = authenticationBox.userAuthorization
         
         let types: [Mastodon.Entity.NotificationType]?

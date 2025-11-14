@@ -75,6 +75,8 @@ public enum MastodonTimelineType: Equatable {
     case discover(DiscoveryType)
     case search(String, SearchScope)
     case userPosts(userID: String, queryFilter: TimelineQueryFilter)
+    case followers(of: MastodonAccount)
+    case accountsFollowed(by: MastodonAccount)
     case thread(root: MastodonContentPost)
     case remoteThread(remoteType: RemoteThreadType)
     case notifications(scope: NotificationsScope)
@@ -147,6 +149,8 @@ public enum MastodonTimelineType: Equatable {
             nil
         case .userPosts:
                 .account
+        case .accountsFollowed, .followers:
+            nil
         case .thread, .remoteThread:
                 .account
         case .myFollowedHashtags:
@@ -342,57 +346,21 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         
         await AuthenticationServiceProvider.shared.fetchAccounts(onlyIfItHasBeenAwhile: true) // TODO: legacy comments indicated this may not be the best place for this call
         
-        let itemsNoOlderThan: String?
-        let itemsImmediatelyBefore: String?
-        let itemsImmediatelyAfter: String?
-        let fetchOffset: Int?
-        
-        switch request {
-        case .newer:
-            let mostRecentID = {
-                switch records.allRecords.count {
-                case 0, 1:
-                    return records.allRecords.first?.mastodonID
-                default:
-                    return records.allRecords[1].mastodonID  // we want to allow the possibility of an overlap in order to detect gaps
+        let loadUrl: URL? = {
+            switch request {
+            case .newer, .reload:
+                return nil
+            case .older:
+                switch records.nextBottomLoad {
+                case .initializing, .nothingMoreToLoad:
+                    return nil
+                case .link(let url):
+                    return url
+                case .offset:
+                    return nil
                 }
-            }()
-            itemsNoOlderThan = mostRecentID
-            itemsImmediatelyBefore = nil
-            itemsImmediatelyAfter = nil
-            fetchOffset = nil
-        case .older:
-            let olderThan = {
-                let count = records.allRecords.count
-                switch count {
-                case 0, 1:
-                    return records.allRecords.last?.mastodonID
-                default:
-                    return records.allRecords[count - 2].mastodonID  // we want to allow the possibility of an overlap in order to detect gaps
-                }
-            }()
-            itemsImmediatelyBefore = olderThan
-            itemsNoOlderThan = nil
-            itemsImmediatelyAfter = nil
-            fetchOffset = max(0, records.allRecords.count - 1)  // -1 for overlap so the previous items don't get thrown out
-        case .reload:
-            itemsNoOlderThan = nil
-            itemsImmediatelyBefore = nil
-            itemsImmediatelyAfter = nil
-            fetchOffset = nil
-        case .newerThan(let id):
-            itemsImmediatelyAfter = id
-            itemsImmediatelyBefore = nil
-            itemsNoOlderThan = nil
-            fetchOffset = nil
-        case .olderThan(let id):
-            itemsImmediatelyBefore = id
-            itemsImmediatelyAfter = nil
-            itemsNoOlderThan = nil
-            fetchOffset = nil
-        }
-        
-        
+            }
+        }()
         var newPostModels = [Mastodon.Entity.Status.ID : MastodonPostViewModel]()
         var newNotificationModels = [Mastodon.Entity.NotificationGroup.ID : NotificationRowViewModel]()
         var newAccountModels = [Mastodon.Entity.Account.ID : AccountRowViewModel]()
@@ -453,28 +421,76 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         }
 
         let newBatch: [TimelineItem]
+        let newBatchBottomLoad: BottomLoad
         switch timeline {
         case .postsFromThoseFollowedByMe:
-            let result = try await APIService.shared.homeTimeline(itemsNoOlderThan: itemsNoOlderThan, itemsImmediatelyAfter: itemsImmediatelyAfter, itemsImmediatelyBefore: itemsImmediatelyBefore, authenticationBox: authenticatedUser).value
+            let response = try await {
+                if let loadUrl {
+                    return try await APIService.shared.statuses(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                } else {
+                    return try await APIService.shared.homeTimeline(authenticationBox: authenticatedUser)
+                }
+            }()
+            let result = response.value
             newBatch = result.map { timelineItem(fromStatus:$0) }
+            newBatchBottomLoad = {
+                if let url = response.link?.nextUrl, timeline == .postsFromThoseFollowedByMe {
+                    return .link(url)
+                } else {
+                    return .nothingMoreToLoad
+                }
+            }()
         case .local:
-            newBatch = try await APIService.shared.publicTimeline(
-                query: .init(local: true, maxID: itemsImmediatelyBefore, sinceID: itemsNoOlderThan, minID: itemsImmediatelyAfter),
-                authenticationBox: authenticatedUser
-            ).value.map { timelineItem(fromStatus: $0) }
+            let response = try await {
+                if let loadUrl {
+                    return try await APIService.shared.statuses(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                } else {
+                    return try await APIService.shared.publicTimeline(
+                        query: .init(local: true),
+                        authenticationBox: authenticatedUser
+                    )
+                }
+            }()
+            newBatch = response.value.map { timelineItem(fromStatus: $0) }
+            newBatchBottomLoad = {
+                if let url = response.link?.nextUrl {
+                    return .link(url)
+                } else {
+                    return .nothingMoreToLoad
+                }
+            }()
         case .list(let listId):
-            newBatch = try await APIService.shared.listTimeline(
-                id: listId,
-                query: .init(local: true, maxID: itemsImmediatelyBefore, sinceID: itemsNoOlderThan, minID: itemsImmediatelyAfter),
-                authenticationBox: authenticatedUser
-            ).value.map { timelineItem(fromStatus: $0) }
+            let response = try await {
+                if let loadUrl {
+                    return try await APIService.shared.statuses(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                } else {
+                    return try await APIService.shared.listTimeline(
+                        id: listId,
+                        query: .init(local: true),
+                        authenticationBox: authenticatedUser
+                    )
+                }
+            }()
+            newBatch = response.value.map { timelineItem(fromStatus: $0) }
+            newBatchBottomLoad = {
+                if let url = response.link?.nextUrl {
+                    return .link(url)
+                } else {
+                    return .nothingMoreToLoad
+                }
+            }()
         case .hashtag(let hashtag, let includeHeader):
-            let statuses = try await APIService.shared.hashtagTimeline(
-                sinceID: itemsNoOlderThan,
-                maxID: itemsImmediatelyBefore,
-                hashtag: hashtag.name,
-                authenticationBox: authenticatedUser
-            ).value.map { timelineItem(fromStatus: $0) }
+            let response = try await {
+                if let loadUrl {
+                    return try await APIService.shared.statuses(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                } else {
+                    return try await APIService.shared.hashtagTimeline(
+                        hashtag: hashtag.name,
+                        authenticationBox: authenticatedUser
+                    )
+                }
+            }()
+            let statuses = response.value.map { timelineItem(fromStatus: $0) }
             if includeHeader {
                 let header: TimelineItem
                 if request == .reload || request == .newer,
@@ -490,25 +506,60 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             } else {
                 newBatch = statuses
             }
+            newBatchBottomLoad = {
+                if let url = response.link?.nextUrl {
+                    return .link(url)
+                } else {
+                    return .nothingMoreToLoad
+                }
+            }()
         case .discover(let discoverType):
             switch discoverType {
             case .posts:
-                newBatch = try await APIService.shared.trendStatuses(
-                    domain: authenticatedUser.domain,
-                    query: Mastodon.API.Trends.StatusQuery(
-                        offset: fetchOffset,
-                        limit: nil
-                    ),
-                    authenticationBox: authenticatedUser
-                ).value.map { timelineItem(fromStatus: $0) }
+                let response = try await {
+                    if let loadUrl {
+                        return try await APIService.shared.statuses(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                    } else {
+                        return try await APIService.shared.trendStatuses(
+                            domain: authenticatedUser.domain,
+                            query: Mastodon.API.Trends.StatusQuery(
+                                offset: 0,
+                                limit: nil
+                            ),
+                            authenticationBox: authenticatedUser
+                        )
+                    }
+                }()
+                newBatch = response.value.map { timelineItem(fromStatus: $0) }
+                newBatchBottomLoad = {
+                    if let url = response.link?.nextUrl {
+                        return .link(url)
+                    } else {
+                        return .nothingMoreToLoad
+                    }
+                }()
             case .hashtags:
-                newBatch = try await APIService.shared.trendHashtags(
-                    domain: authenticatedUser.domain,
-                    query: Mastodon.API.Trends.HashtagQuery(
-                        limit: nil
-                    ),
-                    authenticationBox: authenticatedUser
-                ).value.map { timelineItem(fromHashtag: $0) }
+                let response = try await {
+                    if let loadUrl {
+                        return try await APIService.shared.hashtags(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                    } else {
+                        return try await APIService.shared.trendHashtags(
+                            domain: authenticatedUser.domain,
+                            query: Mastodon.API.Trends.HashtagQuery(
+                                limit: nil
+                            ),
+                            authenticationBox: authenticatedUser
+                        )
+                    }
+                }()
+                newBatch = response.value.map { timelineItem(fromHashtag: $0) }
+                newBatchBottomLoad = {
+                    if let url = response.link?.nextUrl {
+                        return .link(url)
+                    } else {
+                        return .nothingMoreToLoad
+                    }
+                }()
             }
         case .search(let searchText, let scope):
             let query = Mastodon.API.V2.Search.Query(
@@ -520,27 +571,59 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 excludeUnreviewed: nil,
                 resolve: true,
                 limit: nil,
-                offset: fetchOffset,
+                offset: 0,
                 following: nil
             )
-            let results = try await APIService.shared.search(
-                        query: query,
-                        authenticationBox: authenticatedUser
-            ).value
+            let response = try await APIService.shared.search(
+                query: query,
+                authenticationBox: authenticatedUser
+            )
+            let results = response.value
             let statuses = results.statuses.map { timelineItem(fromStatus: $0) }
             let hashtags = results.hashtags.map { timelineItem(fromHashtag: $0) }
             let accounts = results.accounts.map { timelineItem(fromAccount: $0) }
             newBatch = accounts + hashtags + statuses
+            newBatchBottomLoad = {
+                if let url = response.link?.nextUrl {
+                    return .link(url)
+                } else {
+                    return .nothingMoreToLoad
+                }
+            }()
+            
         case .userPosts(let userID, let queryFilter):
-            newBatch = try await APIService.shared.userTimeline(
-                accountID: userID,
-                maxID: itemsImmediatelyBefore,
-                sinceID: nil,
-                excludeReplies: queryFilter.excludeReplies,
-                excludeReblogs: queryFilter.excludeReblogs,
-                onlyMedia: queryFilter.onlyMedia,
-                authenticationBox: authenticatedUser
-            ).value.map { timelineItem(fromStatus: $0) }
+            let response = try await {
+                if let loadUrl {
+                    return try await APIService.shared.statuses(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                } else {
+                    return try await APIService.shared.userTimeline(
+                        accountID: userID,
+                        excludeReplies: queryFilter.excludeReplies,
+                        excludeReblogs: queryFilter.excludeReblogs,
+                        onlyMedia: queryFilter.onlyMedia,
+                        authenticationBox: authenticatedUser
+                    )
+                }
+            }()
+            newBatch = response.value.map { timelineItem(fromStatus: $0) }
+            newBatchBottomLoad = {
+                if let url = response.link?.nextUrl {
+                    return .link(url)
+                } else {
+                    return .nothingMoreToLoad
+                }
+            }()
+            
+        case .accountsFollowed(let account):
+            assertionFailure("not implemented")
+            newBatch = []// try await APIService.shared
+            newBatchBottomLoad = .initializing
+            
+        case .followers(let account):
+            assertionFailure("not implemented")
+            newBatch = []
+            newBatchBottomLoad = .initializing
+            
         case .remoteThread(let remoteThreadType):
             let status: Mastodon.Entity.Status
             switch remoteThreadType {
@@ -558,7 +641,9 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             ).value
             let threadModel = ThreadedConversationModel(threadContext: context, focusedPost: post)
             threadedConversationModel = threadModel
-                newBatch = threadModel.fullThread.map { timelineItem(fromStatus: $0) }
+            newBatch = threadModel.fullThread.map { timelineItem(fromStatus: $0) }
+            newBatchBottomLoad = .nothingMoreToLoad  // pagination is not possible, only reloading
+            
         case .thread(let root):
             let context = try await APIService.shared.statusContext(
                 statusID: root.id,
@@ -574,25 +659,77 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             }
             threadedConversationModel = threadModel
             newBatch = threadModel.fullThread.map { timelineItem(fromStatus: $0) }
+            newBatchBottomLoad = .nothingMoreToLoad  // pagination is not possible, only reloading
+            
         case .myFollowedHashtags:
-            newBatch = try await APIService.shared.getFollowedTags(
-                domain: authenticatedUser.domain,
-                query: Mastodon.API.Account.FollowedTagsQuery(limit: nil),
-                authenticationBox: authenticatedUser
-            ).value.map { timelineItem(fromHashtag: $0) }
+            let response = try await {
+                if let loadUrl {
+                    return try await APIService.shared.hashtags(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                } else {
+                    return try await APIService.shared.getFollowedTags(
+                        domain: authenticatedUser.domain,
+                        query: Mastodon.API.Account.FollowedTagsQuery(limit: nil),
+                        authenticationBox: authenticatedUser
+                    )
+                }
+            }()
+            newBatch = response.value.map { timelineItem(fromHashtag: $0) }
+            newBatchBottomLoad = {
+                if let url = response.link?.nextUrl {
+                    return .link(url)
+                } else {
+                    return .nothingMoreToLoad
+                }
+            }()
+            
         case .myBookmarks:
-            newBatch = try await APIService.shared.bookmarkedStatuses(
-                maxID: itemsImmediatelyBefore,
-                authenticationBox: authenticatedUser
-            ).value.map { timelineItem(fromStatus: $0) }
+            let response = try await {
+                if let loadUrl {
+                    return try await APIService.shared.statuses(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                } else {
+                    return try await APIService.shared.bookmarkedStatuses(
+                        authenticationBox: authenticatedUser
+                    )
+                }
+            }()
+            newBatch = response.value.map { timelineItem(fromStatus: $0) }
+            newBatchBottomLoad = {
+                if let url = response.link?.nextUrl {
+                    return .link(url)
+                } else {
+                    return .nothingMoreToLoad
+                }
+            }()
+            
         case .myFavorites:
-            newBatch = try await APIService.shared.favoritedStatuses(
-                maxID: itemsImmediatelyBefore,
-                authenticationBox: authenticatedUser
-            ).value.map { timelineItem(fromStatus: $0) }
+            let response = try await {
+                if let loadUrl {
+                    return try await APIService.shared.statuses(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                } else {
+                    return try await APIService.shared.favoritedStatuses(
+                        authenticationBox: authenticatedUser
+                    )
+                }
+            }()
+            newBatch = response.value.map { timelineItem(fromStatus: $0) }
+            newBatchBottomLoad = {
+                if let url = response.link?.nextUrl {
+                    return .link(url)
+                } else {
+                    return .nothingMoreToLoad
+                }
+            }()
+            
         case .notifications(scope: let scope):
             print("loading notifications request \(request)")
-            newBatch = try await NotificationsLoader.getNotifications(withScope: scope, olderThan: itemsImmediatelyAfter, newerThan: itemsImmediatelyBefore).map { groupedNotificationInfo in
+            let response = try await {
+                if let loadUrl {
+                    return try await NotificationsLoader.getNotifications(fromUrl: loadUrl, scope: scope)
+                } else {
+                    return try await NotificationsLoader.getNotifications(withScope: scope, olderThan: nil, newerThan: nil)
+                }
+            }()
+            newBatch = response.0.map { groupedNotificationInfo in
                 if groupedNotificationInfo.groupedNotificationType.wantsFullStatusLayout, let post = groupedNotificationInfo.post {
                     return timelineItem(fromPost: post)
                 } else {
@@ -604,6 +741,13 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     return TimelineItem.notification(notificationViewModel)
                 }
             }
+            newBatchBottomLoad = {
+                if let url = response.1?.nextUrl {
+                    return .link(url)
+                } else {
+                    return .nothingMoreToLoad
+                }
+            }()
         }
         
         let newCache: CacheableTimeline
@@ -623,7 +767,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             newCache = CacheableTimeline(older: [], newer: newBatch)
         }
 #else
-        newCache = CacheableTimeline(older: [], newer: newBatch)
+        newCache = CacheableTimeline(older: [], olderBottomLoad: newBatchBottomLoad, newer: newBatch, newerBottomLoad: newBatchBottomLoad, discardOlderIfNoOverlap: false)
 #endif
 
         postViewModels = newPostModels
@@ -666,6 +810,7 @@ private func polls(_ statuses: [Mastodon.Entity.Status], addedTo existing: [Mast
 struct CacheableTimeline: CacheableFeed {
     
     let items: [TimelineItem]
+    let nextBottomLoad: BottomLoad
     
     @MainActor
     func filteredItems(inContext context: Mastodon.Entity.FilterContext?) -> [TimelineItem] {
@@ -698,52 +843,63 @@ struct CacheableTimeline: CacheableFeed {
         return !items.isEmpty
     }
  
-    init(older: [TimelineItem], newer: [TimelineItem]) {
+    init(older: [TimelineItem], olderBottomLoad: BottomLoad, newer: [TimelineItem], newerBottomLoad: BottomLoad, discardOlderIfNoOverlap: Bool) {
         
-        var combined: [TimelineItem]
+        let combined: [TimelineItem]
+        let bottomLoad: BottomLoad
         
-        let oldestIdInNewBatch = newer.last(where: { item in
-            switch item {
-            case .loadingIndicator, .filteredNotificationsInfo, .noItem: return false
-            case .post: return true
-            case .notification: return true
-            case .hashtag: return true
-            case .account: return true
-            }
-        })?.id
-        
-        if let oldestIdInNewBatch {
-            let overlapIndex = older.firstIndex(where: { item in
+        if discardOlderIfNoOverlap {
+            let oldestIdInNewBatch = newer.last(where: { item in
                 switch item {
-                case .post:
-                    return item.id == oldestIdInNewBatch
-                case .notification:
-                    return item.id == oldestIdInNewBatch
-                case .hashtag:
-                    return item.id == oldestIdInNewBatch
-                case .account:
-                    return item.id == oldestIdInNewBatch
-                case .loadingIndicator, .filteredNotificationsInfo, .noItem:
-                    return false
+                case .loadingIndicator, .filteredNotificationsInfo, .noItem: return false
+                case .post: return true
+                case .notification: return true
+                case .hashtag: return true
+                case .account: return true
                 }
-            })
-            if let overlapIndex {
-                let firstOlderIndexToRetain = overlapIndex + 1
-                if firstOlderIndexToRetain < older.count {
-                    let olderTail = older.suffix(from: firstOlderIndexToRetain)
-                    combined = newer + olderTail
+            })?.id
+            
+            if let oldestIdInNewBatch {
+                let overlapIndex = older.firstIndex(where: { item in
+                    switch item {
+                    case .post:
+                        return item.id == oldestIdInNewBatch
+                    case .notification:
+                        return item.id == oldestIdInNewBatch
+                    case .hashtag:
+                        return item.id == oldestIdInNewBatch
+                    case .account:
+                        return item.id == oldestIdInNewBatch
+                    case .loadingIndicator, .filteredNotificationsInfo, .noItem:
+                        return false
+                    }
+                })
+                if let overlapIndex {
+                    let firstOlderIndexToRetain = overlapIndex + 1
+                    if firstOlderIndexToRetain < older.count {
+                        let olderTail = older.suffix(from: firstOlderIndexToRetain)
+                        combined = newer + olderTail
+                        bottomLoad = olderBottomLoad
+                    } else {
+                        combined = newer
+                        bottomLoad = newerBottomLoad
+                    }
                 } else {
-                    combined = newer
+                    combined = newer  // do not allow gaps
+                    bottomLoad = newerBottomLoad
                 }
             } else {
-                combined = newer  // do not allow gaps
+                assert(newer.isEmpty, "How else did we get here?")
+                combined = older
+                bottomLoad = olderBottomLoad
             }
         } else {
-            assert(newer.isEmpty, "How else did we get here?")
-            combined = older
+            combined = newer + older
+            bottomLoad = olderBottomLoad
         }
         
         items = combined
+        nextBottomLoad = bottomLoad
     }
   
     @MainActor
@@ -762,7 +918,7 @@ struct CacheableTimeline: CacheableFeed {
             }
         }
         
-        return CacheableTimeline(older: [], newer: newItems)
+        return CacheableTimeline(older: [], olderBottomLoad: nextBottomLoad, newer: newItems, newerBottomLoad: nextBottomLoad, discardOlderIfNoOverlap: false)
     }
 }
 
@@ -784,7 +940,7 @@ class TimelineCacheManager: MastodonFeedCacheManager {
                 if trackLastRead {
                     self.currentLastReadMarker = await BodegaPersistence.LastRead.lastReadMarkers(for: currentUser)?.lastRead(forKind: .home)
                 }
-                self.staleResults = CacheableTimeline(older: [], newer: timeline)
+                self.staleResults = CacheableTimeline(older: [], olderBottomLoad: .nothingMoreToLoad, newer: timeline, newerBottomLoad: .nothingMoreToLoad, discardOlderIfNoOverlap: false)
             }
         }
     }
@@ -802,19 +958,14 @@ class TimelineCacheManager: MastodonFeedCacheManager {
     var mostRecentlyFetchedResults: CacheableTimeline?
     
     func updateByInserting(newlyFetched: CacheableTimeline, at insertionPoint: MastodonFeedLoaderRequest.InsertLocation) {
+        let current = currentResults()
         switch insertionPoint {
         case .start:
-            mostRecentlyFetchedResults = CacheableTimeline(older: currentResults()?.items ?? [], newer: newlyFetched.items)
+            mostRecentlyFetchedResults = CacheableTimeline(older: current?.items ?? [], olderBottomLoad: current?.nextBottomLoad ?? .initializing, newer: newlyFetched.items, newerBottomLoad: newlyFetched.nextBottomLoad, discardOlderIfNoOverlap: true)
         case .end:
-            mostRecentlyFetchedResults = CacheableTimeline(older: newlyFetched.items, newer: currentResults()?.items ?? [])
+            mostRecentlyFetchedResults = CacheableTimeline(older: newlyFetched.items, olderBottomLoad: newlyFetched.nextBottomLoad, newer: current?.items ?? [], newerBottomLoad: current?.nextBottomLoad ?? .initializing, discardOlderIfNoOverlap: false)
         case .replace:
             mostRecentlyFetchedResults = newlyFetched
-        case .asOlderThan(let id):
-            assertionFailure("loading results missing from the middle of a feed is no longer supported")
-            break
-        case .asNewerThan(let id):
-            assertionFailure("loading results missing from the middle of a feed is no longer supported")
-            break
         }
     }
     
@@ -973,7 +1124,7 @@ extension GenericMastodonPost {
 @MainActor
 struct NotificationsLoader {
     
-    static func getNotifications(withScope scope: NotificationsScope, olderThan: String? = nil, newerThan: String?) async throws -> [GroupedNotificationInfo] {
+    static func getNotifications(withScope scope: NotificationsScope, olderThan: String? = nil, newerThan: String?) async throws -> ([GroupedNotificationInfo], Mastodon.Response.Link?) {
         guard let currentInstance = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration else {
             throw(APIService.APIError.implicit(.authenticationMissing))
         }
@@ -987,13 +1138,28 @@ struct NotificationsLoader {
             }
         }()
         
-        let results: [GroupedNotificationInfo]
         if canUseGroupedNotifications {
-            results = try await getGroupedNotifications(withScope: scope, olderThan: olderThan, newerThan: newerThan)
+            return try await getGroupedNotifications(withScope: scope, olderThan: olderThan, newerThan: newerThan)
         } else {
-            results = try await getUngroupedNotifications(withScope: scope, olderThan: olderThan, newerThan: newerThan)
+            return try await getUngroupedNotifications(withScope: scope, olderThan: olderThan, newerThan: newerThan)
         }
-        return results
+    }
+    
+    static func getNotifications(fromUrl url: URL, scope: NotificationsScope) async throws -> ([GroupedNotificationInfo], Mastodon.Response.Link?) {
+        guard let currentInstance = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration else {
+            throw(APIService.APIError.implicit(.authenticationMissing))
+        }
+        
+        let canUseGroupedNotifications = {
+            switch scope {
+            case .everything, .mentions:
+                return currentInstance.isAvailable(.groupNotifications)
+            case .fromRequest:
+                return false
+            }
+        }()
+        
+        return try await getNotifications(fromUrl: url, grouped: canUseGroupedNotifications)
     }
     
     static private func currentUser() throws -> MastodonAuthenticationBox {
@@ -1003,32 +1169,53 @@ struct NotificationsLoader {
         else { throw APIService.APIError.implicit(.authenticationMissing) }
         return authenticationBox
     }
+     
+    static private func getNotifications(fromUrl url: URL, grouped: Bool) async throws -> ([GroupedNotificationInfo], Mastodon.Response.Link?) {
+        let authenticationBox = try currentUser()
+        
+        if grouped {
+            let response = try await APIService.shared.groupedNotifications(fromUrl: url, authenticationBox: authenticationBox)
+            let infos = groupedNotificationInfos(fromGroupedNotifications: response.value, authenticationBox: authenticationBox)
+            return (infos, response.link)
+        } else {
+            let response = try await APIService.shared.ungroupedNotifications(fromUrl: url, authenticationBox: authenticationBox)
+            let infos = groupedNotificationInfos(fromUngroupedNotifications: response.value, authenticationBox: authenticationBox)
+            return (infos, response.link)
+        }
+        
+    }
     
     static private func getUngroupedNotifications(
         withScope scope: NotificationsScope, olderThan maxID: String? = nil, newerThan minID: String?
-    ) async throws -> [GroupedNotificationInfo] {
+    ) async throws -> ([GroupedNotificationInfo], Mastodon.Response.Link?) {
         let authenticationBox = try currentUser()
         
-        let ungrouped: [Mastodon.Entity.Notification]
-        switch scope {
-        case .everything:
-            ungrouped = try await APIService.shared.notifications(
-                olderThan: maxID, fromAccount: nil, scope: .everything,
-                authenticationBox: authenticationBox
-            ).value
-        case .mentions:
-            ungrouped = try await APIService.shared.notifications(
-                olderThan: maxID, fromAccount: nil, scope: .mentions,
-                authenticationBox: authenticationBox
-            ).value
-        case .fromRequest(let request):
-            ungrouped = try await APIService.shared.notifications(
-                olderThan: maxID, fromAccount: request.account.id, scope: nil,
-                authenticationBox: authenticationBox
-            ).value
-        }
+        let response = try await {
+            switch scope {
+            case .everything:
+                return try await APIService.shared.notifications(
+                    olderThan: maxID, fromAccount: nil, scope: .everything,
+                    authenticationBox: authenticationBox
+                )
+            case .mentions:
+                return try await APIService.shared.notifications(
+                    olderThan: maxID, fromAccount: nil, scope: .mentions,
+                    authenticationBox: authenticationBox
+                )
+            case .fromRequest(let request):
+                return try await APIService.shared.notifications(
+                    olderThan: maxID, fromAccount: request.account.id, scope: nil,
+                    authenticationBox: authenticationBox
+                )
+            }
+        }()
         
-        return ungrouped.map { notification in
+        let infos = groupedNotificationInfos(fromUngroupedNotifications: response.value, authenticationBox: authenticationBox)
+        return (infos, response.link)
+    }
+    
+    static private func groupedNotificationInfos(fromUngroupedNotifications ungroupedNotifications: [Mastodon.Entity.Notification], authenticationBox: MastodonAuthenticationBox) -> [GroupedNotificationInfo] {
+        return ungroupedNotifications.map { notification in
             let sourceAccounts = NotificationSourceAccounts(myAccountID: authenticationBox.domain, accounts: [notification.account], totalActorCount: 1)
             let notificationType = GroupedNotificationType(notification, myAccountDomain: authenticationBox.domain, sourceAccounts: sourceAccounts, adminReportID: nil)
             let navigation = NotificationRowViewModel.defaultNavigation(notificationType, isGrouped: false, primaryAccount: notification.account)
@@ -1038,50 +1225,25 @@ struct NotificationsLoader {
         }
     }
     
-    static private func getGroupedNotifications(
-        withScope scope: NotificationsScope, olderThan maxID: String? = nil, newerThan minID: String?
-    ) async throws -> [GroupedNotificationInfo] {
-        let authenticationBox = try currentUser()
-        
-        let adminFilterPreferences = await BodegaPersistence.Notifications.currentPreferences(for: authenticationBox)
-        let results: Mastodon.Entity.GroupedNotificationsResults
-        switch scope {
-        case .everything:
-            results = try await APIService.shared.groupedNotifications(
-                olderThan: maxID, newerThan: minID, fromAccount: nil, scope: .everything, excludingAdminTypes: adminFilterPreferences?.excludedNotificationTypes,
-                authenticationBox: authenticationBox
-            )
-        case .mentions:
-            results = try await APIService.shared.groupedNotifications(
-                olderThan: maxID, newerThan: minID, fromAccount: nil, scope: .mentions, excludingAdminTypes: adminFilterPreferences?.excludedNotificationTypes,
-                authenticationBox: authenticationBox
-            )
-        case .fromRequest:
-            assertionFailure("notifications from a particular account must use the ungrouped api")
-            results = try await APIService.shared.groupedNotifications(
-                olderThan: maxID, newerThan: minID, fromAccount: nil, scope: nil, excludingAdminTypes: adminFilterPreferences?.excludedNotificationTypes,
-                authenticationBox: authenticationBox
-            )
-        }
-        
-        let fullAccounts = results.accounts.reduce(
+    static private func groupedNotificationInfos(fromGroupedNotifications groupedNotifications: Mastodon.Entity.GroupedNotificationsResults, authenticationBox: MastodonAuthenticationBox) -> [GroupedNotificationInfo] {
+        let fullAccounts = groupedNotifications.accounts.reduce(
             into: [String: Mastodon.Entity.Account]()
         ) { partialResult, account in
             partialResult[account.id] = account
         }
-        let partialAccounts = results.partialAccounts?.reduce(
+        let partialAccounts = groupedNotifications.partialAccounts?.reduce(
             into: [String: Mastodon.Entity.PartialAccountWithAvatar]()
         ) { partialResult, account in
             partialResult[account.id] = account
         }
         
-        let statuses = results.statuses.reduce(
+        let statuses = groupedNotifications.statuses.reduce(
             into: [String: Mastodon.Entity.Status](),
             { partialResult, status in
                 partialResult[status.id] = status
             })
         
-        return results.notificationGroups.map { group in
+        let groups = groupedNotifications.notificationGroups.map { group in
             let accounts: [AccountInfo] = group.sampleAccountIDs.compactMap { accountID in
                 return fullAccounts[accountID] ?? partialAccounts?[accountID]
             }
@@ -1110,6 +1272,42 @@ struct NotificationsLoader {
                     primaryAccount: sourceAccounts.primaryAuthorAccount)
             )
         }
+        
+        return groups
+    }
+    
+    static private func getGroupedNotifications(
+        withScope scope: NotificationsScope, olderThan maxID: String? = nil, newerThan minID: String?
+    ) async throws -> ([GroupedNotificationInfo], Mastodon.Response.Link?) {
+        let authenticationBox = try currentUser()
+        
+        let adminFilterPreferences = await BodegaPersistence.Notifications.currentPreferences(for: authenticationBox)
+        let response: Mastodon.Response.Content<Mastodon.Entity.GroupedNotificationsResults> = try await {
+            switch scope {
+            case .everything:
+                return try await APIService.shared.groupedNotifications(
+                    olderThan: maxID, newerThan: minID, fromAccount: nil, scope: .everything, excludingAdminTypes: adminFilterPreferences?.excludedNotificationTypes,
+                    authenticationBox: authenticationBox
+                )
+            case .mentions:
+                return try await APIService.shared.groupedNotifications(
+                    olderThan: maxID, newerThan: minID, fromAccount: nil, scope: .mentions, excludingAdminTypes: adminFilterPreferences?.excludedNotificationTypes,
+                    authenticationBox: authenticationBox
+                )
+            case .fromRequest:
+                assertionFailure("notifications from a particular account must use the ungrouped api")
+                return try await APIService.shared.groupedNotifications(
+                    olderThan: maxID, newerThan: minID, fromAccount: nil, scope: nil, excludingAdminTypes: adminFilterPreferences?.excludedNotificationTypes,
+                    authenticationBox: authenticationBox
+                )
+            }
+        }()
+        
+        let results = response.value
+        
+        let groups = groupedNotificationInfos(fromGroupedNotifications: results, authenticationBox: authenticationBox)
+        
+        return (groups, response.link)
     }
     
 }
