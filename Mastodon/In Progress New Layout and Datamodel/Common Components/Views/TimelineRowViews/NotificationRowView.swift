@@ -127,8 +127,7 @@ extension GroupedNotificationType {
                     plainString = firstAuthorName
                 case .poll(let status):
                     let votersCount = status?.poll?.votersCount ?? 0
-                    let pollDescription = L10n.Plural.Count.pollThatYouAndOthersVotedIn(votersCount - 1)
-                    plainString = L10n.Scene.Notification.GroupedNotificationDescription.singleNameRanPoll(firstAuthorName, pollDescription)
+                    plainString = L10nLookup.Scene.Notification.GroupedNotificationDescription.pollHasEnded(pollAuthor: firstAuthorName, otherVotersCount: votersCount - 1)
                 case .status:
                     plainString = firstAuthorName
                 case .adminSignUp:
@@ -143,7 +142,7 @@ extension GroupedNotificationType {
             } else {
                 switch self {
                 case .favourite:
-                    plainString = L10n.Plural.Count.peopleFavourited(totalAuthorCount)
+                    plainString = L10nLookup.Scene.Notification.GroupedNotificationDescription.peopleFavourited(favouriteCount: totalAuthorCount)
                 case .follow:
                     plainString = L10n.Plural.Count.peopleFollowedYou(totalAuthorCount)
                 case .reblog:
@@ -167,31 +166,25 @@ extension Mastodon.Entity.Report {
     var summaryHtml: String {
         if let targetedAccount = targetAccount {
             let targetedAccountName = targetedAccount.displayNameWithFallback
-            let postCountString: String? = {
-                if let postCount = flaggedStatusIDs?.count {
-                    return L10n.Plural.Count.post(postCount)
-                } else {
-                    return nil
-                }
-            }()
+            let postCount: Int? = flaggedStatusIDs?.count
             
             let summaryPlainstring: String = {
                 switch category {
                 case .spam:
-                    if let postCountString {
-                        return L10n.Scene.Notification.GroupedNotificationDescription.someoneReportedPostsFromAccountForSpam(postCountString, targetedAccountName)
+                    if let postCount {
+                        return L10nLookup.Scene.Notification.GroupedNotificationDescription.someoneReportedPostsForSpam(postCount: postCount, violatingAccountName: targetedAccountName)
                     } else {
                         return L10n.Scene.Notification.GroupedNotificationDescription.someoneReportedAccountForSpam(targetedAccountName)
                     }
                 case .violation:
-                    if let postCountString {
-                        return L10n.Scene.Notification.GroupedNotificationDescription.someoneReportedPostsFromAccountForRuleViolation(postCountString, targetedAccountName)
+                    if let postCount {
+                        return L10nLookup.Scene.Notification.GroupedNotificationDescription.someoneReportedPostsForRuleViolation(postCount: postCount, violatingAccountName: targetedAccountName)
                     } else {
                         return L10n.Scene.Notification.GroupedNotificationDescription.someoneReportedAccountForRuleViolation(targetedAccountName)
                     }
                 case ._other, nil:
-                    if let postCountString {
-                        return L10n.Scene.Notification.GroupedNotificationDescription.someoneReportedPostsFromAccount(postCountString, targetedAccountName)
+                    if let postCount {
+                        return L10nLookup.Scene.Notification.GroupedNotificationDescription.someoneReportedPosts(postCount: postCount, violatingAccountName: targetedAccountName)
                     } else {
                         return L10n.Scene.Notification.GroupedNotificationDescription.someoneReportedAccount(targetedAccountName)
                     }
@@ -732,7 +725,7 @@ extension Mastodon.Entity.Status {
             case .generic(let count):
                 return L10n.Plural.Count.attachment(count)
             case .poll:
-                return L10n.Plural.Count.poll(1)
+                return L10nLookup.pluralCountPoll(1)
             }
         }
 

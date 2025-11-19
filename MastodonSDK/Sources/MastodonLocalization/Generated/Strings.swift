@@ -1103,18 +1103,6 @@ public enum L10n {
       }
       public enum GroupedNotificationDescription {
         /// %@ boosted:
-        public static func multiplePeopleBoosted(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.MultiplePeopleBoosted", String(describing: p1), fallback: "%@ boosted:")
-        }
-        /// %@ favorited:
-        public static func multiplePeopleFavourited(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.MultiplePeopleFavourited", String(describing: p1), fallback: "%@ favorited:")
-        }
-        /// %@ followed you
-        public static func multiplePeopleFollowedYou(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.MultiplePeopleFollowedYou", String(describing: p1), fallback: "%@ followed you")
-        }
-        /// %@ boosted:
         public static func singleNameBoosted(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SingleNameBoosted", String(describing: p1), fallback: "%@ boosted:")
         }
@@ -1146,10 +1134,6 @@ public enum L10n {
         public static func singleNameQuoted(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SingleNameQuoted", String(describing: p1), fallback: "%@ quoted you")
         }
-        /// %@ ran %@
-        public static func singleNameRanPoll(_ p1: Any, _ p2: Any) -> String {
-          return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SingleNameRanPoll", String(describing: p1), String(describing: p2), fallback: "%@ ran %@")
-        }
         /// %@ requested to follow you
         public static func singleNameRequestedToFollowYou(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SingleNameRequestedToFollowYou", String(describing: p1), fallback: "%@ requested to follow you")
@@ -1169,18 +1153,6 @@ public enum L10n {
         /// Someone reported %@ for spam.
         public static func someoneReportedAccountForSpam(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SomeoneReportedAccountForSpam", String(describing: p1), fallback: "Someone reported %@ for spam.")
-        }
-        /// Someone reported %@ from %@.
-        public static func someoneReportedPostsFromAccount(_ p1: Any, _ p2: Any) -> String {
-          return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SomeoneReportedPostsFromAccount", String(describing: p1), String(describing: p2), fallback: "Someone reported %@ from %@.")
-        }
-        /// Someone reported %@ from %@ for rule violation.
-        public static func someoneReportedPostsFromAccountForRuleViolation(_ p1: Any, _ p2: Any) -> String {
-          return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SomeoneReportedPostsFromAccountForRuleViolation", String(describing: p1), String(describing: p2), fallback: "Someone reported %@ from %@ for rule violation.")
-        }
-        /// Someone reported %@ from %@ for spam.
-        public static func someoneReportedPostsFromAccountForSpam(_ p1: Any, _ p2: Any) -> String {
-          return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SomeoneReportedPostsFromAccountForSpam", String(describing: p1), String(describing: p2), fallback: "Someone reported %@ from %@ for spam.")
         }
         /// Your poll has ended
         public static let yourPollHasEnded = L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.YourPollHasEnded", fallback: "Your poll has ended")
@@ -1216,16 +1188,6 @@ public enum L10n {
         public static let showMentions = L10n.tr("Localizable", "Scene.Notification.Keyobard.ShowMentions", fallback: "Show Mentions")
       }
       public enum NotificationDescription {
-        /// favorited your post
-        public static let favoritedYourPost = L10n.tr("Localizable", "Scene.Notification.NotificationDescription.FavoritedYourPost", fallback: "favorited your post")
-        /// followed you
-        public static let followedYou = L10n.tr("Localizable", "Scene.Notification.NotificationDescription.FollowedYou", fallback: "followed you")
-        /// mentioned you
-        public static let mentionedYou = L10n.tr("Localizable", "Scene.Notification.NotificationDescription.MentionedYou", fallback: "mentioned you")
-        /// poll has ended
-        public static let pollHasEnded = L10n.tr("Localizable", "Scene.Notification.NotificationDescription.PollHasEnded", fallback: "poll has ended")
-        /// boosted your post
-        public static let rebloggedYourPost = L10n.tr("Localizable", "Scene.Notification.NotificationDescription.RebloggedYourPost", fallback: "boosted your post")
         /// An admin from %@ has blocked %@, including %@.
         public static func relationshipSeverance(_ p1: Any, _ p2: Any, _ p3: Any) -> String {
           return L10n.tr("Localizable", "Scene.Notification.NotificationDescription.RelationshipSeverance", String(describing: p1), String(describing: p2), String(describing: p3), fallback: "An admin from %@ has blocked %@, including %@.")
@@ -2356,20 +2318,8 @@ public enum L10n {
         return L10n.tr("Localizable", "plural.count.people_boosted", p1, fallback: "Plural format key: \"%#@count_people@\"")
       }
       /// Plural format key: "%#@count_people@"
-      public static func peopleFavourited(_ p1: Int) -> String {
-        return L10n.tr("Localizable", "plural.count.people_favourited", p1, fallback: "Plural format key: \"%#@count_people@\"")
-      }
-      /// Plural format key: "%#@count_people@"
       public static func peopleFollowedYou(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.people_followed_you", p1, fallback: "Plural format key: \"%#@count_people@\"")
-      }
-      /// Plural format key: "%#@poll_count@"
-      public static func poll(_ p1: Int) -> String {
-        return L10n.tr("Localizable", "plural.count.poll", p1, fallback: "Plural format key: \"%#@poll_count@\"")
-      }
-      /// Plural format key: "%#@count_others@"
-      public static func pollThatYouAndOthersVotedIn(_ p1: Int) -> String {
-        return L10n.tr("Localizable", "plural.count.poll_that_you_and_others_voted_in", p1, fallback: "Plural format key: \"%#@count_others@\"")
       }
       /// Plural format key: "%#@post_count@"
       public static func post(_ p1: Int) -> String {
@@ -2398,14 +2348,6 @@ public enum L10n {
       /// Plural format key: "%#@voter_count@"
       public static func voter(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.voter", p1, fallback: "Plural format key: \"%#@voter_count@\"")
-      }
-      /// Plural format key: "%#@count_others@"
-      public static func youAndOthersBoosted(_ p1: Int) -> String {
-        return L10n.tr("Localizable", "plural.count.you_and_others_boosted", p1, fallback: "Plural format key: \"%#@count_others@\"")
-      }
-      /// Plural format key: "%#@count_others@"
-      public static func youAndOthersFavorited(_ p1: Int) -> String {
-        return L10n.tr("Localizable", "plural.count.you_and_others_favorited", p1, fallback: "Plural format key: \"%#@count_others@\"")
       }
     }
     public enum FilteredNotificationBanner {

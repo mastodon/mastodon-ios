@@ -237,17 +237,17 @@ extension MastodonPostViewModel {
         let boostLabel: String? = {
             guard metrics.boostCount > 0 else { return nil }
             if myActions.boosted {
-                return L10n.Plural.Count.youAndOthersBoosted(metrics.boostCount - 1)
+                return L10nLookup.Scene.Notification.GroupedNotificationDescription.youAndOthersBoosted(othersCount: metrics.boostCount - 1)
             } else {
-                return L10n.Plural.Count.reblogA11y(metrics.boostCount)
+                return L10nLookup.Scene.Notification.GroupedNotificationDescription.peopleBoosted(boostCount: metrics.boostCount)
             }
         }()
         let favoriteLabel: String? = {
             guard metrics.favoriteCount > 0 else { return nil }
             if myActions.favorited {
-                return L10n.Plural.Count.youAndOthersFavorited(metrics.favoriteCount - 1)
+                return L10nLookup.Scene.Notification.GroupedNotificationDescription.youAndOthersFavorited(othersCount: metrics.favoriteCount - 1)
             } else {
-                return L10n.Plural.Count.favorite(metrics.favoriteCount)
+                return L10nLookup.Scene.Notification.GroupedNotificationDescription.peopleFavourited(favouriteCount: metrics.favoriteCount)
             }
         }()
         let bookmarkLabel: String? = {

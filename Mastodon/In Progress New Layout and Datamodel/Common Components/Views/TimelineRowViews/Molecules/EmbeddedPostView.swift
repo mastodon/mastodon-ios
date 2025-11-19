@@ -365,7 +365,7 @@ extension GenericMastodonPost.PostAttachment {
                 return L10n.Plural.Count.attachment(array.count)
             }
         case .poll:
-            return L10n.Plural.Count.poll(1)
+            return L10nLookup.pluralCountPoll(1)
         case .linkPreviewCard:
             return nil
         }
