@@ -38,14 +38,14 @@ struct StatefulCountedActionButton: View {
     private let iconFont: Font = .body
     
     var body: some View {
-        Button(action: {
+        Button {
             if type == .reply {
                 // Immediate haptic feedback on tap rather than waiting for the state changes
                 let generator = UIImpactFeedbackGenerator(style: .light)
                 generator.impactOccurred()
             }
             doAction?()
-        }) {
+        } label: {
             HStack(spacing: 4) {
                 imageComponent
                 countLabelComponent
