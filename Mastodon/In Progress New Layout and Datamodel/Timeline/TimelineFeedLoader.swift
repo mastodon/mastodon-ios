@@ -65,7 +65,7 @@ public enum DiscoveryType: Equatable {
 }
                                 
 public enum MastodonTimelineType: Equatable {
-    case postsFromThoseFollowedByMe
+    case homeTimeline
     case myBookmarks
     case myFavorites
     case myFollowedHashtags
@@ -83,7 +83,7 @@ public enum MastodonTimelineType: Equatable {
 
     public static func == (lhs: MastodonTimelineType, rhs: MastodonTimelineType) -> Bool {
         switch (lhs, rhs) {
-        case (.postsFromThoseFollowedByMe, .postsFromThoseFollowedByMe):
+        case (.homeTimeline, .homeTimeline):
             return true
         case (.local, .local):
             return true
@@ -126,7 +126,7 @@ public enum MastodonTimelineType: Equatable {
     
     public var canDisplayDonationBanner: Bool {
         switch self {
-        case .postsFromThoseFollowedByMe:
+        case .homeTimeline:
             return true
         default:
             return false
@@ -135,7 +135,7 @@ public enum MastodonTimelineType: Equatable {
     
     public var filterContext: Mastodon.Entity.FilterContext? {
         switch self {
-        case .postsFromThoseFollowedByMe:
+        case .homeTimeline:
                 .home
         case .hashtag:
                 .public
@@ -303,7 +303,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         self.timeline = timeline
         authenticatedUser = currentUser
         myAccountID = authenticatedUser.cachedAccount?.id
-        let trackLastRead = timeline == .postsFromThoseFollowedByMe
+        let trackLastRead = timeline == .homeTimeline
         let cacheManager = TimelineCacheManager(currentUser: currentUser, trackLastRead: trackLastRead, useDiskCache: false)
         
         super.init(cacheManager)
@@ -423,7 +423,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         let newBatch: [TimelineItem]
         let newBatchBottomLoad: BottomLoad
         switch timeline {
-        case .postsFromThoseFollowedByMe:
+        case .homeTimeline:
             let response = try await {
                 if let loadUrl {
                     return try await APIService.shared.statuses(fromUrl: loadUrl, authenticationBox: authenticatedUser)
@@ -434,7 +434,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             let result = response.value
             newBatch = result.map { timelineItem(fromStatus:$0) }
             newBatchBottomLoad = {
-                if let url = response.link?.nextUrl, timeline == .postsFromThoseFollowedByMe {
+                if let url = response.link?.nextUrl, timeline == .homeTimeline {
                     return .link(url)
                 } else {
                     return .nothingMoreToLoad
