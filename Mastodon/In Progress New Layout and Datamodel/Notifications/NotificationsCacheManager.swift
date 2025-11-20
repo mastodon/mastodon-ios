@@ -17,6 +17,19 @@ extension Array<Mastodon.Entity.Notification>: NotificationsResultType {
     }
 }
 
+extension Array<Mastodon.Entity.Notification>: CacheableFeed {
+    public var hasResults: Bool {
+        return !isEmpty
+    }
+}
+
+extension Mastodon.Entity.GroupedNotificationsResults: CacheableFeed {
+    public var hasResults: Bool {
+        hasContents
+    }
+}
+
+
 @MainActor
 class UngroupedNotificationCacheManager: MastodonFeedCacheManager {
     typealias T = [Mastodon.Entity.Notification]

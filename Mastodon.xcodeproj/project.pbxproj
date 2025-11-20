@@ -1180,7 +1180,6 @@
 				"GenericMastodonPost and Subclasses/GenericMastodonPost.swift",
 				"GenericMastodonPost and Subclasses/GenericMastodonPost+Subclasses.swift",
 				"GenericMastodonPost and Subclasses/MastodonAccount.swift",
-				Notifications/GroupedNotificationFeedLoader.swift,
 				Notifications/InlinePostPreview.swift,
 				Notifications/NotificationInfo.swift,
 				Notifications/NotificationsCacheManager.swift,
