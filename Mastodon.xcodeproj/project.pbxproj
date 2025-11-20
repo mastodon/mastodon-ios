@@ -271,10 +271,8 @@
 		DB5B549D2833A67400DEF8B2 /* FamiliarFollowersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B549C2833A67400DEF8B2 /* FamiliarFollowersViewModel.swift */; };
 		DB5B54A32833BD1A00DEF8B2 /* UserListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54A22833BD1A00DEF8B2 /* UserListViewModel.swift */; };
 		DB5B54A62833BE0000DEF8B2 /* UserListViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54A52833BE0000DEF8B2 /* UserListViewModel+State.swift */; };
-		DB5B54A82833BFA500DEF8B2 /* FavoritedByViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54A72833BFA500DEF8B2 /* FavoritedByViewController.swift */; };
 		DB5B54AB2833C12A00DEF8B2 /* RebloggedByViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54AA2833C12A00DEF8B2 /* RebloggedByViewController.swift */; };
 		DB5B54AE2833C15F00DEF8B2 /* UserListViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54AD2833C15F00DEF8B2 /* UserListViewModel+Diffable.swift */; };
-		DB5B54B02833C24200DEF8B2 /* FavoritedByViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54AF2833C24200DEF8B2 /* FavoritedByViewController+DataSourceProvider.swift */; };
 		DB5B54B22833C24B00DEF8B2 /* RebloggedByViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54B12833C24B00DEF8B2 /* RebloggedByViewController+DataSourceProvider.swift */; };
 		DB603111279EB38500A935FE /* DataSourceFacade+Mute.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB603110279EB38500A935FE /* DataSourceFacade+Mute.swift */; };
 		DB603113279EBEBA00A935FE /* DataSourceFacade+Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB603112279EBEBA00A935FE /* DataSourceFacade+Block.swift */; };
@@ -906,10 +904,8 @@
 		DB5B549C2833A67400DEF8B2 /* FamiliarFollowersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamiliarFollowersViewModel.swift; sourceTree = "<group>"; };
 		DB5B54A22833BD1A00DEF8B2 /* UserListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewModel.swift; sourceTree = "<group>"; };
 		DB5B54A52833BE0000DEF8B2 /* UserListViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserListViewModel+State.swift"; sourceTree = "<group>"; };
-		DB5B54A72833BFA500DEF8B2 /* FavoritedByViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritedByViewController.swift; sourceTree = "<group>"; };
 		DB5B54AA2833C12A00DEF8B2 /* RebloggedByViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RebloggedByViewController.swift; sourceTree = "<group>"; };
 		DB5B54AD2833C15F00DEF8B2 /* UserListViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserListViewModel+Diffable.swift"; sourceTree = "<group>"; };
-		DB5B54AF2833C24200DEF8B2 /* FavoritedByViewController+DataSourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoritedByViewController+DataSourceProvider.swift"; sourceTree = "<group>"; };
 		DB5B54B12833C24B00DEF8B2 /* RebloggedByViewController+DataSourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RebloggedByViewController+DataSourceProvider.swift"; sourceTree = "<group>"; };
 		DB603110279EB38500A935FE /* DataSourceFacade+Mute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Mute.swift"; sourceTree = "<group>"; };
 		DB603112279EBEBA00A935FE /* DataSourceFacade+Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Block.swift"; sourceTree = "<group>"; };
@@ -2151,19 +2147,9 @@
 				DB5B54A22833BD1A00DEF8B2 /* UserListViewModel.swift */,
 				DB5B54AD2833C15F00DEF8B2 /* UserListViewModel+Diffable.swift */,
 				DB5B54A52833BE0000DEF8B2 /* UserListViewModel+State.swift */,
-				DB5B54A92833BFAC00DEF8B2 /* FavoritedBy */,
 				DB5B54AC2833C12D00DEF8B2 /* RebloggedBy */,
 			);
 			path = UserList;
-			sourceTree = "<group>";
-		};
-		DB5B54A92833BFAC00DEF8B2 /* FavoritedBy */ = {
-			isa = PBXGroup;
-			children = (
-				DB5B54A72833BFA500DEF8B2 /* FavoritedByViewController.swift */,
-				DB5B54AF2833C24200DEF8B2 /* FavoritedByViewController+DataSourceProvider.swift */,
-			);
-			path = FavoritedBy;
 			sourceTree = "<group>";
 		};
 		DB5B54AC2833C12D00DEF8B2 /* RebloggedBy */ = {
@@ -3288,7 +3274,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBB525212611EBD6002F1F29 /* ProfilePagingViewController.swift in Sources */,
-				DB5B54A82833BFA500DEF8B2 /* FavoritedByViewController.swift in Sources */,
 				DB6180EB26391C140018D199 /* MediaPreviewTransitionItem.swift in Sources */,
 				DB63F74727990B0600455B82 /* DataSourceFacade+Hashtag.swift in Sources */,
 				DBE3CDCF261C42ED00430CC6 /* TimelineHeaderView.swift in Sources */,
@@ -3397,7 +3382,6 @@
 				2D939AB525EDD8A90076FA61 /* String.swift in Sources */,
 				D8B5E4F22A4EBCF90008970C /* NotificationSettings.swift in Sources */,
 				DB4481B925EE289600BEFB67 /* UITableView.swift in Sources */,
-				DB5B54B02833C24200DEF8B2 /* FavoritedByViewController+DataSourceProvider.swift in Sources */,
 				DBE3CDBB261C427900430CC6 /* TimelineHeaderTableViewCell.swift in Sources */,
 				DB159C2B27A17BAC0068DC77 /* DataSourceFacade+Media.swift in Sources */,
 				D8F917082A4B0B16008A5370 /* GeneralSettingSelectionCell.swift in Sources */,
