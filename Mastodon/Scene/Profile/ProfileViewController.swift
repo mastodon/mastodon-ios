@@ -919,13 +919,11 @@ extension ProfileViewController {
     }
     
     @objc private func favoriteBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        let favoriteViewModel = FavoriteViewModel(authenticationBox: authenticationBox)
-        _ = self.sceneCoordinator?.present(scene: .favorite(viewModel: favoriteViewModel), from: self, transition: .show)
+        _ = self.sceneCoordinator?.present(scene: .myFavorites, from: self, transition: .show)
     }
     
     @objc private func bookmarkBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        let bookmarkViewModel = BookmarkViewModel(authenticationBox: authenticationBox)
-        _ = self.sceneCoordinator?.present(scene: .bookmark(viewModel: bookmarkViewModel), from: self, transition: .show)
+        _ = self.sceneCoordinator?.present(scene: .myBookmarks, from: self, transition: .show)
     }
     
     @objc private func replyBarButtonItemPressed(_ sender: UIBarButtonItem) {
@@ -941,7 +939,7 @@ extension ProfileViewController {
     }
     
     @objc private func followedTagsItemPressed(_ sender: UIBarButtonItem) {
-        _ = self.sceneCoordinator?.present(scene: .followedTags, from: self, transition: .show)
+        _ = self.sceneCoordinator?.present(scene: .myFollowedTags, from: self, transition: .show)
     }
 }
 

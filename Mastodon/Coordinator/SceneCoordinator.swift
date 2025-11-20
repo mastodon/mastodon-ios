@@ -185,14 +185,14 @@ extension SceneCoordinator {
         // profile
         case accountList(viewModel: AccountListViewModel)
         case profile(ProfileViewController.ProfileType)
-        case favorite(viewModel: FavoriteViewModel)
+        case myFavorites
         case followers(ofUserId: Mastodon.Entity.Account.ID)
-        case following(viewModel: FollowingListViewModel)
+        case followedBy(userId: Mastodon.Entity.Account.ID)
         case familiarFollowers(viewModel: FamiliarFollowersViewModel)
         case rebloggedBy(viewModel: UserListViewModel)
         case favoritedBy(viewModel: UserListViewModel)
-        case bookmark(viewModel: BookmarkViewModel)
-        case followedTags
+        case myBookmarks
+        case myFollowedTags
 
         // setting
         case settings(setting: Setting)
@@ -446,17 +446,17 @@ private extension SceneCoordinator {
         case .profile(let profileType):
             let _viewController = ProfileViewController(profileType, authenticationBox: AuthenticationServiceProvider.shared.currentActiveUser.value!)
             viewController = _viewController
-        case .bookmark(let viewModel):
+        case .myBookmarks:
             viewController = TimelineListViewController(.myBookmarks)
-        case .followedTags:
+        case .myFollowedTags:
             viewController = TimelineListViewController(.myFollowedHashtags)
-        case .favorite(let viewModel):
+        case .myFavorites:
             viewController = TimelineListViewController(.myFavorites)
         case .followers(let followedId):
             let followerListViewController = TimelineListViewController(.followers(ofUserId: followedId))
             viewController = followerListViewController
-        case .following(let viewModel):
-            let followingListViewController = FollowingListViewController(viewModel: viewModel)
+        case .followedBy(let userId):
+            let followingListViewController = TimelineListViewController(.accountsFollowed(byUserId: userId))
             viewController = followingListViewController
         case .familiarFollowers(let viewModel):
             viewController = FamiliarFollowersViewController(viewModel: viewModel)

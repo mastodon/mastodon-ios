@@ -344,16 +344,9 @@ extension ProfileHeaderViewController: ProfileHeaderViewDelegate {
             )
 
         case .following:
-            guard let domain = viewModel.account.domain else { return }
-
             let userID = viewModel.account.id
-            let followingListViewModel = FollowingListViewModel(
-                authenticationBox: viewModel.authenticationBox,
-                domain: domain,
-                userID: userID
-            )
             _ = self.sceneCoordinator?.present(
-                scene: .following(viewModel: followingListViewModel),
+                scene: .followedBy(userId: userID),
                 from: self,
                 transition: .show
             )

@@ -602,8 +602,7 @@ extension MainTabBarController {
     
     @objc private func showFavoritesKeyCommandHandler(_ sender: UIKeyCommand) {
         guard let authenticationBox else { return }
-        let favoriteViewModel = FavoriteViewModel(authenticationBox: authenticationBox)
-        _ = self.sceneCoordinator?.present(scene: .favorite(viewModel: favoriteViewModel), from: nil, transition: .show)
+        _ = self.sceneCoordinator?.present(scene: .myFavorites, from: nil, transition: .show)
     }
     
     @objc private func openSettingsKeyCommandHandler(_ sender: UIKeyCommand) {
