@@ -130,7 +130,7 @@ extension UserListViewModel.State {
                     switch viewModel.kind {
                     case .favoritedBy(let status):
                         accountResponse = try await APIService.shared.favoritedBy(
-                            status: status,
+                            actionableStatusID: status.id,
                             query: .init(maxID: maxID, limit: nil),
                             authenticationBox: authenticationBox
                         )

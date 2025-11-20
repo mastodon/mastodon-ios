@@ -560,13 +560,8 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 assertionFailure("only works for status data provider")
                 return
             }
-            let userListViewModel = await UserListViewModel(
-                context: AppContext.shared,
-                authenticationBox: authenticationBox,
-                kind: .favoritedBy(status: status)
-            )
             _ = await self.sceneCoordinator?.present(
-                scene: .favoritedBy(viewModel: userListViewModel),
+                scene: .whoFavourited(actionableStatusID: status.reblog?.id ?? status.id),
                 from: self,
                 transition: .show
             )

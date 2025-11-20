@@ -33,11 +33,11 @@ extension Mastodon.API.Statuses {
     ///   - statusID: id for status
     ///   - authorization: User token. Could be nil if status is public
     /// - Returns: `AnyPublisher` contains `Status` nested in the response
-    public static func favoriteBy(
+    public static func favoritedBy(
         session: URLSession,
         domain: String,
         statusID: Mastodon.Entity.Status.ID,
-        query: FavoriteByQuery,
+        query: FavoritedByQuery,
         authorization: Mastodon.API.OAuth.Authorization?
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error>  {
         let request = Mastodon.API.get(
@@ -53,7 +53,7 @@ extension Mastodon.API.Statuses {
             .eraseToAnyPublisher()
     }
     
-    public struct FavoriteByQuery: Codable, GetQuery {
+    public struct FavoritedByQuery: Codable, GetQuery {
                 
         public let maxID: String?
         public let limit: Int?      // default 40

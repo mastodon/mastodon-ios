@@ -30,6 +30,7 @@ enum TimelineViewType {
     case thread(root: MastodonContentPost)
     case remoteThread(root: RemoteThreadType)
     case hashtag(Mastodon.Entity.Tag)
+    case whoFavourited(actionableStatusID: Mastodon.Entity.Status.ID)
     
     var tabTitle: String? {
         switch self {
@@ -77,6 +78,8 @@ class TimelineListViewController: UIHostingController<AnyView>
             viewModel = TimelineListViewModel(timeline: .myFavorites)
         case .hashtag(let tag):
             viewModel = TimelineListViewModel(timeline: .hashtag(tag, includeHeader: true))
+        case .whoFavourited(let statusID):
+            viewModel = TimelineListViewModel(timeline: .whoFavourited(actionableStatusID: statusID))
         }
         let root = TimelineListView().environment(viewModel)
         super.init(rootView: AnyView(root))
@@ -112,6 +115,9 @@ class TimelineListViewController: UIHostingController<AnyView>
             
         case .discover, .myBookmarks, .myFavorites, .profilePosts, .remoteThread:
             break
+            
+        case .whoFavourited:
+            navigationItem.title = L10n.Scene.FavoritedBy.title
             
         case .followers:
             navigationItem.title = L10n.Scene.Follower.title
@@ -281,7 +287,7 @@ extension TimelineListViewController {
         case .hashtag:
             showLocalTimelineAction.state = .off
             showFollowingAction.state = .off
-        case .discover, .search, .userPosts, .thread, .remoteThread, .myFollowedHashtags, .myBookmarks, .myFavorites, .notifications, .followers, .accountsFollowed:
+        case .discover, .search, .userPosts, .thread, .remoteThread, .myFollowedHashtags, .myBookmarks, .myFavorites, .notifications, .followers, .accountsFollowed, .whoFavourited:
             assertionFailure()
         }
         

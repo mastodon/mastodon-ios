@@ -364,12 +364,8 @@ extension MastodonPostRowView {
                     }
                     if favoriteCount > 0 {
                         Button {
-                            let userListViewModel = UserListViewModel(
-                                context: AppContext.shared,
-                                authenticationBox: authBox,
-                                kind: .favoritedBy(status: MastodonStatus(entity: fullPost._legacyEntity, showDespiteContentWarning: false))
-                            )
-                            actionHandler?.presentScene(.favoritedBy(viewModel: userListViewModel), fromPost: nil, transition: .show)
+                            guard let statusID = fullPost.actionablePost?.id else { return }
+                            actionHandler?.presentScene(.whoFavourited(actionableStatusID: statusID), fromPost: nil, transition: .show)
                         } label: {
                             HStack {
                                 Text(L10n.Plural.Count.favorite(favoriteCount))

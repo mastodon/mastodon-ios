@@ -80,6 +80,7 @@ public enum MastodonTimelineType: Equatable {
     case thread(root: MastodonContentPost)
     case remoteThread(remoteType: RemoteThreadType)
     case notifications(scope: NotificationsScope)
+    case whoFavourited(actionableStatusID: Mastodon.Entity.Status.ID)
 
     public static func == (lhs: MastodonTimelineType, rhs: MastodonTimelineType) -> Bool {
         switch (lhs, rhs) {
@@ -161,6 +162,8 @@ public enum MastodonTimelineType: Equatable {
             nil
         case .notifications:
                 .notifications
+        case .whoFavourited:
+            nil
         }
     }
 }
@@ -736,6 +739,27 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }()
             newBatch = response.value.map { timelineItem(fromStatus: $0) }
+            newBatchBottomLoad = {
+                if let url = response.link?.nextUrl {
+                    return .link(url)
+                } else {
+                    return .nothingMoreToLoad
+                }
+            }()
+            
+        case .whoFavourited(let actionableStatusID):
+            let response = try await {
+                if let loadUrl {
+                    return try await APIService.shared.accounts(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                } else {
+                    return try await APIService.shared.favoritedBy(
+                        actionableStatusID: actionableStatusID,
+                        query: .init(maxID: nil, limit: nil),
+                        authenticationBox: authenticatedUser
+                    )
+                }
+            }()
+            newBatch = response.value.map { timelineItem(fromAccount: $0) }
             newBatchBottomLoad = {
                 if let url = response.link?.nextUrl {
                     return .link(url)
