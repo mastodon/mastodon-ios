@@ -24,6 +24,19 @@ extension APIService {
         return response
     }
     
+    public func accounts(
+        fromUrl url: URL,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Account]> {
+        let response = try await Mastodon.API.Timeline.accounts(
+            session: session,
+            url: url,
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+        
+        return response
+    }
+    
     public func hashtags(
         fromUrl url: URL,
         authenticationBox: MastodonAuthenticationBox

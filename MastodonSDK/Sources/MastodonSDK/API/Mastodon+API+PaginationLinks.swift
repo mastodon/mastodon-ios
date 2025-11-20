@@ -26,6 +26,23 @@ extension Mastodon.API.Timeline {
             .eraseToAnyPublisher()
     }
     
+    public static func accounts(
+        session: URLSession,
+        url: URL,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error> {
+        let request = Mastodon.API.get(
+            fromPrecompiledUrl: url,
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Account].self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
     public static func hashtags(
         session: URLSession,
         url: URL,

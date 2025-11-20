@@ -23,8 +23,8 @@ enum TimelineViewType {
     case myBookmarks
     case myFavorites
     case myFollowedHashtags
-    case followers(of: MastodonAccount)
-    case accountsFollowed(by: MastodonAccount)
+    case followers(ofUserId: Mastodon.Entity.Account.ID)
+    case accountsFollowed(byUserId: Mastodon.Entity.Account.ID)
     case search(String, scope: SearchScope)
     case profilePosts(tabTitle: String?, userID: String, queryFilter: TimelineQueryFilter)
     case thread(root: MastodonContentPost)
@@ -66,9 +66,9 @@ class TimelineListViewController: UIHostingController<AnyView>
         case .remoteThread(let remoteThreadType):
             viewModel = TimelineListViewModel(timeline: .remoteThread(remoteType: remoteThreadType))
         case .followers(let followedAccount):
-            viewModel = TimelineListViewModel(timeline: .followers(of: followedAccount))
+            viewModel = TimelineListViewModel(timeline: .followers(ofUserId: followedAccount))
         case .accountsFollowed(let followingAccount):
-            viewModel = TimelineListViewModel(timeline: .accountsFollowed(by: followingAccount))
+            viewModel = TimelineListViewModel(timeline: .accountsFollowed(byUserId: followingAccount))
         case .myFollowedHashtags:
             viewModel = TimelineListViewModel(timeline: .myFollowedHashtags)
         case .myBookmarks:

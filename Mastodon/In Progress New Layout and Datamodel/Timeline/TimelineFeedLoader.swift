@@ -75,8 +75,8 @@ public enum MastodonTimelineType: Equatable {
     case discover(DiscoveryType)
     case search(String, SearchScope)
     case userPosts(userID: String, queryFilter: TimelineQueryFilter)
-    case followers(of: MastodonAccount)
-    case accountsFollowed(by: MastodonAccount)
+    case followers(ofUserId: String)
+    case accountsFollowed(byUserId: String)
     case thread(root: MastodonContentPost)
     case remoteThread(remoteType: RemoteThreadType)
     case notifications(scope: NotificationsScope)
@@ -614,15 +614,39 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }()
             
-        case .accountsFollowed(let account):
-            assertionFailure("not implemented")
-            newBatch = []// try await APIService.shared
-            newBatchBottomLoad = .initializing
+        case .accountsFollowed(let userId):
+            let response = try await {
+                if let loadUrl {
+                    return try await APIService.shared.accounts(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                } else {
+                    return try await APIService.shared.following(userID: userId, maxID: nil, authenticationBox: authenticatedUser)
+                }
+            }()
+            newBatch = response.value.map { timelineItem(fromAccount: $0) }
+            newBatchBottomLoad = {
+                if let url = response.link?.nextUrl {
+                    return .link(url)
+                } else {
+                    return .nothingMoreToLoad
+                }
+            }()
             
-        case .followers(let account):
-            assertionFailure("not implemented")
-            newBatch = []
-            newBatchBottomLoad = .initializing
+        case .followers(let userId):
+            let response = try await {
+                if let loadUrl {
+                    return try await APIService.shared.accounts(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                } else {
+                    return try await APIService.shared.followers(userID: userId, maxID: nil, authenticationBox: authenticatedUser)
+                }
+            }()
+            newBatch = response.value.map { timelineItem(fromAccount: $0) }
+            newBatchBottomLoad = {
+                if let url = response.link?.nextUrl {
+                    return .link(url)
+                } else {
+                    return .nothingMoreToLoad
+                }
+            }()
             
         case .remoteThread(let remoteThreadType):
             let status: Mastodon.Entity.Status
