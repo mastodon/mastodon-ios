@@ -346,12 +346,8 @@ extension MastodonPostRowView {
                     let favoriteCount = fullPost.content.metrics.favoriteCount
                     if boostCount > 0 {
                         Button {
-                            let userListViewModel = UserListViewModel(
-                                context: AppContext.shared,
-                                authenticationBox: authBox,
-                                kind: .rebloggedBy(status: MastodonStatus(entity: fullPost._legacyEntity, showDespiteContentWarning: false))
-                            )
-                            actionHandler?.presentScene(.rebloggedBy(viewModel: userListViewModel), fromPost: nil, transition: .show)
+                            guard let statusID = fullPost.actionablePost?.id else { return }
+                            actionHandler?.presentScene(.whoBoosted(actionableStatusID: statusID), fromPost: nil, transition: .show)
                         } label: {
                             HStack {
                                 Text(L10n.Plural.Count.reblog(boostCount))

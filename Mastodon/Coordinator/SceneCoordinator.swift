@@ -189,7 +189,7 @@ extension SceneCoordinator {
         case followers(ofUserId: Mastodon.Entity.Account.ID)
         case followedBy(userId: Mastodon.Entity.Account.ID)
         case familiarFollowers(viewModel: FamiliarFollowersViewModel)
-        case rebloggedBy(viewModel: UserListViewModel)
+        case whoBoosted(actionableStatusID: Mastodon.Entity.Status.ID)
         case whoFavourited(actionableStatusID: Mastodon.Entity.Status.ID)
         case myBookmarks
         case myFollowedTags
@@ -460,9 +460,8 @@ private extension SceneCoordinator {
             viewController = followingListViewController
         case .familiarFollowers(let viewModel):
             viewController = FamiliarFollowersViewController(viewModel: viewModel)
-        case .rebloggedBy(let viewModel):
-            let _viewController = RebloggedByViewController()
-            _viewController.viewModel = viewModel
+        case .whoBoosted(let statusID):
+            let _viewController = TimelineListViewController(.whoBoosted(actionableStatusID: statusID))
             viewController = _viewController
         case .whoFavourited(let statusID):
             let _viewController = TimelineListViewController(.whoFavourited(actionableStatusID: statusID))

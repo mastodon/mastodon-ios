@@ -536,13 +536,8 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 assertionFailure("only works for status data provider")
                 return
             }
-            let userListViewModel = await UserListViewModel(
-                context: AppContext.shared,
-                authenticationBox: authenticationBox,
-                kind: .rebloggedBy(status: status)
-            )
             _ = await self.sceneCoordinator?.present(
-                scene: .rebloggedBy(viewModel: userListViewModel),
+                scene: .whoBoosted(actionableStatusID: status.id),
                 from: self,
                 transition: .show
             )

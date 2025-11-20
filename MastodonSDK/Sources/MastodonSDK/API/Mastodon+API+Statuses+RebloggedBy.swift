@@ -33,10 +33,10 @@ extension Mastodon.API.Statuses {
     ///   - statusID: id for status
     ///   - authorization: User token. Could be nil if status is public
     /// - Returns: `AnyPublisher` contains `Status` nested in the response
-    public static func rebloggedBy(
+    public static func boostedBy(
         session: URLSession,
         domain: String,
-        statusID: Mastodon.Entity.Poll.ID,
+        statusID: Mastodon.Entity.Status.ID,
         query: RebloggedByQuery,
         authorization: Mastodon.API.OAuth.Authorization?
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error>  {

@@ -103,17 +103,15 @@ extension APIService {
 }
 
 extension APIService {
-    public func rebloggedBy(
-        status: MastodonStatus,
+    public func boostedBy(
+        actionableStatusID: Mastodon.Entity.Status.ID,
         query: Mastodon.API.Statuses.RebloggedByQuery,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Account]> {
-        let statusID: Status.ID = status.reblog?.id ?? status.id
-
-        let response = try await Mastodon.API.Statuses.rebloggedBy(
+        let response = try await Mastodon.API.Statuses.boostedBy(
             session: session,
             domain: authenticationBox.domain,
-            statusID: statusID,
+            statusID: actionableStatusID,
             query: query,
             authorization: authenticationBox.userAuthorization
         ).singleOutput()

@@ -269,11 +269,6 @@
 		DB4FFC2C269EC39600D62E92 /* SearchTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4FFC2A269EC39600D62E92 /* SearchTransitionController.swift */; };
 		DB5B549A2833A60400DEF8B2 /* FamiliarFollowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54992833A60400DEF8B2 /* FamiliarFollowersViewController.swift */; };
 		DB5B549D2833A67400DEF8B2 /* FamiliarFollowersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B549C2833A67400DEF8B2 /* FamiliarFollowersViewModel.swift */; };
-		DB5B54A32833BD1A00DEF8B2 /* UserListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54A22833BD1A00DEF8B2 /* UserListViewModel.swift */; };
-		DB5B54A62833BE0000DEF8B2 /* UserListViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54A52833BE0000DEF8B2 /* UserListViewModel+State.swift */; };
-		DB5B54AB2833C12A00DEF8B2 /* RebloggedByViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54AA2833C12A00DEF8B2 /* RebloggedByViewController.swift */; };
-		DB5B54AE2833C15F00DEF8B2 /* UserListViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54AD2833C15F00DEF8B2 /* UserListViewModel+Diffable.swift */; };
-		DB5B54B22833C24B00DEF8B2 /* RebloggedByViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54B12833C24B00DEF8B2 /* RebloggedByViewController+DataSourceProvider.swift */; };
 		DB603111279EB38500A935FE /* DataSourceFacade+Mute.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB603110279EB38500A935FE /* DataSourceFacade+Mute.swift */; };
 		DB603113279EBEBA00A935FE /* DataSourceFacade+Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB603112279EBEBA00A935FE /* DataSourceFacade+Block.swift */; };
 		DB6180DD263918E30018D199 /* MediaPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180DC263918E30018D199 /* MediaPreviewViewController.swift */; };
@@ -902,11 +897,6 @@
 		DB519B17281BCC2F00F0C99D /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tr; path = tr.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB5B54992833A60400DEF8B2 /* FamiliarFollowersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamiliarFollowersViewController.swift; sourceTree = "<group>"; };
 		DB5B549C2833A67400DEF8B2 /* FamiliarFollowersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamiliarFollowersViewModel.swift; sourceTree = "<group>"; };
-		DB5B54A22833BD1A00DEF8B2 /* UserListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewModel.swift; sourceTree = "<group>"; };
-		DB5B54A52833BE0000DEF8B2 /* UserListViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserListViewModel+State.swift"; sourceTree = "<group>"; };
-		DB5B54AA2833C12A00DEF8B2 /* RebloggedByViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RebloggedByViewController.swift; sourceTree = "<group>"; };
-		DB5B54AD2833C15F00DEF8B2 /* UserListViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserListViewModel+Diffable.swift"; sourceTree = "<group>"; };
-		DB5B54B12833C24B00DEF8B2 /* RebloggedByViewController+DataSourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RebloggedByViewController+DataSourceProvider.swift"; sourceTree = "<group>"; };
 		DB603110279EB38500A935FE /* DataSourceFacade+Mute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Mute.swift"; sourceTree = "<group>"; };
 		DB603112279EBEBA00A935FE /* DataSourceFacade+Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Block.swift"; sourceTree = "<group>"; };
 		DB6180DC263918E30018D199 /* MediaPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewViewController.swift; sourceTree = "<group>"; };
@@ -2141,26 +2131,6 @@
 			path = FamiliarFollowers;
 			sourceTree = "<group>";
 		};
-		DB5B54A42833BD1D00DEF8B2 /* UserList */ = {
-			isa = PBXGroup;
-			children = (
-				DB5B54A22833BD1A00DEF8B2 /* UserListViewModel.swift */,
-				DB5B54AD2833C15F00DEF8B2 /* UserListViewModel+Diffable.swift */,
-				DB5B54A52833BE0000DEF8B2 /* UserListViewModel+State.swift */,
-				DB5B54AC2833C12D00DEF8B2 /* RebloggedBy */,
-			);
-			path = UserList;
-			sourceTree = "<group>";
-		};
-		DB5B54AC2833C12D00DEF8B2 /* RebloggedBy */ = {
-			isa = PBXGroup;
-			children = (
-				DB5B54AA2833C12A00DEF8B2 /* RebloggedByViewController.swift */,
-				DB5B54B12833C24B00DEF8B2 /* RebloggedByViewController+DataSourceProvider.swift */,
-			);
-			path = RebloggedBy;
-			sourceTree = "<group>";
-		};
 		DB6180DE263919350018D199 /* MediaPreview */ = {
 			isa = PBXGroup;
 			children = (
@@ -2555,7 +2525,6 @@
 				DBB525462611ED57002F1F29 /* Header */,
 				DBB525262611EBDA002F1F29 /* Paging */,
 				DB5B549B2833A60600DEF8B2 /* FamiliarFollowers */,
-				DB5B54A42833BD1D00DEF8B2 /* UserList */,
 				DBFEEC97279BDC6A004F81DD /* About */,
 				DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */,
 				DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */,
@@ -3281,14 +3250,12 @@
 				D8BE30B32A179E26006B8270 /* SuggestionAccountTableViewFooter.swift in Sources */,
 				0FAA0FDF25E0B57E0017CCDE /* WelcomeViewController.swift in Sources */,
 				DB65C63727A2AF6C008BAC2E /* ReportItem.swift in Sources */,
-				DB5B54B22833C24B00DEF8B2 /* RebloggedByViewController+DataSourceProvider.swift in Sources */,
 				2D59819B25E4A581000FB903 /* MastodonConfirmEmailViewController.swift in Sources */,
 				DB03A793272A7E5700EE37C5 /* SidebarListHeaderView.swift in Sources */,
 				DB4FFC2B269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift in Sources */,
 				27D701F5292FC2D60031BCBB /* DataSourceFacade+URL.swift in Sources */,
 				0FB3D2F725E4C24D00AAD544 /* MastodonPickServerViewModel.swift in Sources */,
 				2A5242752C199CBD005B9E22 /* CheckableButton.swift in Sources */,
-				DB5B54AE2833C15F00DEF8B2 /* UserListViewModel+Diffable.swift in Sources */,
 				DB0FCB7427956939006C02E2 /* DataSourceFacade+Status.swift in Sources */,
 				D81A22782AB4782400905D71 /* SearchResultOverviewSection.swift in Sources */,
 				DBB525502611ED6D002F1F29 /* ProfileHeaderView.swift in Sources */,
@@ -3331,7 +3298,6 @@
 				DB938F0F2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift in Sources */,
 				DB6180F226391CF40018D199 /* MediaPreviewImageViewModel.swift in Sources */,
 				2A64A2942C92F71500E5E913 /* DonationViewController.swift in Sources */,
-				DB5B54AB2833C12A00DEF8B2 /* RebloggedByViewController.swift in Sources */,
 				D81D12462A4E1861005009D4 /* PolicySelectionViewController.swift in Sources */,
 				DB848E33282B62A800A302CC /* ReportResultView.swift in Sources */,
 				DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */,
@@ -3348,14 +3314,12 @@
 				DB98EB5E27B10A7A0082E365 /* ReportSupplementaryViewModel+Diffable.swift in Sources */,
 				DB0FCB7C2795821F006C02E2 /* StatusThreadRootTableViewCell.swift in Sources */,
 				DB72601C25E36A2100235243 /* MastodonServerRulesViewController.swift in Sources */,
-				DB5B54A32833BD1A00DEF8B2 /* UserListViewModel.swift in Sources */,
 				DBF156DF2701B17600EC00B7 /* SidebarAddAccountCollectionViewCell.swift in Sources */,
 				DB0617F1278413D00030EE79 /* PickServerServerSectionTableHeaderView.swift in Sources */,
 				D87BFC8F291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift in Sources */,
 				DB0FCB7E27958957006C02E2 /* StatusThreadRootTableViewCell+ViewModel.swift in Sources */,
 				DB789A0B25F9F2950071ACA0 /* ComposeViewController.swift in Sources */,
 				DB938F0926240F3C00E5B6C1 /* RemoteThreadViewModel.swift in Sources */,
-				DB5B54A62833BE0000DEF8B2 /* UserListViewModel+State.swift in Sources */,
 				DB0617ED277F02C50030EE79 /* OnboardingNavigationController.swift in Sources */,
 				D85DF9722C481B1100A01408 /* NotificationRequestTableViewCell.swift in Sources */,
 				D808B94C296ECFDC0031EB1E /* StatusEditHistoryViewModel.swift in Sources */,

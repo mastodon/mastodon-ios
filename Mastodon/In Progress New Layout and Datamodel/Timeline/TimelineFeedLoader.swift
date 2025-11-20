@@ -81,6 +81,7 @@ public enum MastodonTimelineType: Equatable {
     case remoteThread(remoteType: RemoteThreadType)
     case notifications(scope: NotificationsScope)
     case whoFavourited(actionableStatusID: Mastodon.Entity.Status.ID)
+    case whoBoosted(actionableStatusID: Mastodon.Entity.Status.ID)
 
     public static func == (lhs: MastodonTimelineType, rhs: MastodonTimelineType) -> Bool {
         switch (lhs, rhs) {
@@ -162,7 +163,7 @@ public enum MastodonTimelineType: Equatable {
             nil
         case .notifications:
                 .notifications
-        case .whoFavourited:
+        case .whoFavourited, .whoBoosted:
             nil
         }
     }
@@ -753,6 +754,27 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     return try await APIService.shared.accounts(fromUrl: loadUrl, authenticationBox: authenticatedUser)
                 } else {
                     return try await APIService.shared.favoritedBy(
+                        actionableStatusID: actionableStatusID,
+                        query: .init(maxID: nil, limit: nil),
+                        authenticationBox: authenticatedUser
+                    )
+                }
+            }()
+            newBatch = response.value.map { timelineItem(fromAccount: $0) }
+            newBatchBottomLoad = {
+                if let url = response.link?.nextUrl {
+                    return .link(url)
+                } else {
+                    return .nothingMoreToLoad
+                }
+            }()
+            
+        case .whoBoosted(let actionableStatusID):
+            let response = try await {
+                if let loadUrl {
+                    return try await APIService.shared.accounts(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                } else {
+                    return try await APIService.shared.boostedBy(
                         actionableStatusID: actionableStatusID,
                         query: .init(maxID: nil, limit: nil),
                         authenticationBox: authenticatedUser
