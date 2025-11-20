@@ -92486,7 +92486,7 @@
       }
     },
     "plural.count.reblog" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "an" : {
           "variations" : {
@@ -92500,7 +92500,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92512,37 +92512,37 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
                 "stringUnit" : {
-                  "state" : "translated",
+                  "state" : "needs_review",
                   "value" : "إعادَةُ تَدوينٍ واحِدَة"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "zero" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92554,25 +92554,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
                 "stringUnit" : {
-                  "state" : "translated",
+                  "state" : "needs_review",
                   "value" : "1 пашырэнне"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92590,7 +92590,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92608,7 +92608,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92620,13 +92620,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -92638,7 +92638,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92650,13 +92650,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -92668,19 +92668,19 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "zero" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92698,7 +92698,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92716,7 +92716,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92734,7 +92734,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92746,13 +92746,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "1 reblog"
+                  "value" : "%(reblogCount)lld boost"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)lld boosts"
                 }
               }
             }
@@ -92770,7 +92770,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92788,7 +92788,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92806,7 +92806,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92817,14 +92817,14 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "translated",
+                  "state" : "needs_review",
                   "value" : "1 hooandmine"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92842,7 +92842,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92860,7 +92860,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92878,7 +92878,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92890,7 +92890,7 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -92902,13 +92902,13 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92926,7 +92926,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92938,7 +92938,7 @@
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -92950,13 +92950,13 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92974,7 +92974,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -92992,7 +92992,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93010,7 +93010,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93022,7 +93022,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93040,7 +93040,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93058,7 +93058,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93070,7 +93070,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93081,14 +93081,14 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "translated",
+                  "state" : "needs_review",
                   "value" : "1uɛiwed n usuffeɣ"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%ld n uɛiwed n usuffeɣ"
+                  "state" : "needs_review",
+                  "value" : "%(reblogCount)ld n uɛiwed n usuffeɣ"
                 }
               }
             }
@@ -93100,7 +93100,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93118,7 +93118,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93130,13 +93130,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -93148,7 +93148,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93166,13 +93166,13 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "zero" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93184,7 +93184,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93202,7 +93202,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93214,13 +93214,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -93232,7 +93232,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93250,7 +93250,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93268,7 +93268,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93280,7 +93280,7 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -93292,7 +93292,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93304,13 +93304,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -93322,7 +93322,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93340,7 +93340,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93352,7 +93352,7 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -93364,13 +93364,13 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93388,7 +93388,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93400,7 +93400,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93418,7 +93418,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93430,13 +93430,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -93448,7 +93448,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93460,7 +93460,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93472,7 +93472,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93483,8 +93483,8 @@
             "plural" : {
               "other" : {
                 "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%ld 則轉嘟"
+                  "state" : "needs_review",
+                  "value" : "%(reblogCount)ld 則轉嘟"
                 }
               }
             }
@@ -93507,7 +93507,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93519,13 +93519,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -93537,19 +93537,19 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "zero" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93561,25 +93561,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
                 "stringUnit" : {
-                  "state" : "translated",
+                  "state" : "needs_review",
                   "value" : "1 пашырэнне"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93597,7 +93597,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93615,7 +93615,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93627,13 +93627,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -93645,7 +93645,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93657,13 +93657,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -93675,19 +93675,19 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "zero" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93705,7 +93705,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93723,7 +93723,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93741,7 +93741,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93753,13 +93753,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "1 re-blog"
+                  "value" : "%(reblogCount)lld boost"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)lld boosts"
                 }
               }
             }
@@ -93777,7 +93777,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93795,7 +93795,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93813,7 +93813,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93824,14 +93824,14 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "translated",
+                  "state" : "needs_review",
                   "value" : "1 hooandmine"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93849,7 +93849,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93867,7 +93867,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93878,14 +93878,14 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "translated",
+                  "state" : "needs_review",
                   "value" : "1 reblog"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93897,7 +93897,7 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -93909,13 +93909,13 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93933,7 +93933,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93945,7 +93945,7 @@
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -93957,13 +93957,13 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93981,7 +93981,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -93999,7 +93999,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94017,7 +94017,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94029,7 +94029,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94047,7 +94047,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94065,7 +94065,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94077,7 +94077,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94094,8 +94094,8 @@
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%ld re-blogs"
+                  "state" : "needs_review",
+                  "value" : "%(reblogCount)ld re-blogs"
                 }
               }
             }
@@ -94107,7 +94107,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94125,7 +94125,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94137,13 +94137,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -94155,7 +94155,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94173,13 +94173,13 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "zero" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94191,7 +94191,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94209,7 +94209,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94221,13 +94221,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -94239,7 +94239,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94257,7 +94257,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94275,7 +94275,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94287,7 +94287,7 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -94299,7 +94299,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94311,13 +94311,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -94329,7 +94329,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94347,7 +94347,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94359,7 +94359,7 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -94371,13 +94371,13 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94395,7 +94395,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94407,7 +94407,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94425,7 +94425,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94437,13 +94437,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               },
               "one" : {
@@ -94455,7 +94455,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94467,7 +94467,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94479,7 +94479,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%ld boosts"
+                  "value" : "%(reblogCount)ld boosts"
                 }
               }
             }
@@ -94490,8 +94490,8 @@
             "plural" : {
               "other" : {
                 "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%ld 則轉嘟"
+                  "state" : "needs_review",
+                  "value" : "%(reblogCount)ld 則轉嘟"
                 }
               }
             }
