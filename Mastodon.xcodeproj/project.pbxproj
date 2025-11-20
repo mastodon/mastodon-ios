@@ -258,7 +258,6 @@
 		DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */; };
 		DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */; };
 		DB47AB6227CF752B00CD73C7 /* MastodonUISnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB47AB6127CF752B00CD73C7 /* MastodonUISnapshotTests.swift */; };
-		DB482A3F261331E8008AE74C /* UserTimelineViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB482A3E261331E8008AE74C /* UserTimelineViewModel+State.swift */; };
 		DB4932B926F31AD300EF46D4 /* BadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4932B826F31AD300EF46D4 /* BadgeButton.swift */; };
 		DB4AA6B327BA34B6009EC082 /* CellFrameCacheContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4AA6B227BA34B6009EC082 /* CellFrameCacheContainer.swift */; };
 		DB4F0966269ED52200D62E92 /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F0965269ED52200D62E92 /* SearchResultViewModel.swift */; };
@@ -390,7 +389,6 @@
 		DBB525302611EBF3002F1F29 /* ProfilePagingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5252F2611EBF3002F1F29 /* ProfilePagingViewModel.swift */; };
 		DBB525412611ED54002F1F29 /* ProfileHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB525402611ED54002F1F29 /* ProfileHeaderViewController.swift */; };
 		DBB525502611ED6D002F1F29 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5254F2611ED6D002F1F29 /* ProfileHeaderView.swift */; };
-		DBB525562611EDCA002F1F29 /* UserTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB525552611EDCA002F1F29 /* UserTimelineViewModel.swift */; };
 		DBB5255E2611F07A002F1F29 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */; };
 		DBB8AB4626AECDE200F6D281 /* SendPostIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */; };
 		DBB8AB4F26AED13F00F6D281 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDE25BAA00100D1B89D /* Assets.xcassets */; };
@@ -404,7 +402,6 @@
 		DBC7A672260C897100E57475 /* StatusContentWarningEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */; };
 		DBCA0EBC282BB38A0029E2B0 /* PageboyNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCA0EBB282BB38A0029E2B0 /* PageboyNavigateable.swift */; };
 		DBCBCBF4267CB070000F5B51 /* Decode85.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBCBF3267CB070000F5B51 /* Decode85.swift */; };
-		DBCBED1726132DB500B49291 /* UserTimelineViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBED1626132DB500B49291 /* UserTimelineViewModel+Diffable.swift */; };
 		DBCC3B30261440A50045B23D /* UITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B2F261440A50045B23D /* UITabBarController.swift */; };
 		DBD376B2269302A4007FEC24 /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD376B1269302A4007FEC24 /* UITableViewCell.swift */; };
 		DBD5B1F827BCFD9D00BD6B38 /* DataSourceProvider+TableViewControllerNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD5B1F727BCFD9D00BD6B38 /* DataSourceProvider+TableViewControllerNavigateable.swift */; };
@@ -867,7 +864,6 @@
 		DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItem.swift; sourceTree = "<group>"; };
 		DB47AB6127CF752B00CD73C7 /* MastodonUISnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonUISnapshotTests.swift; sourceTree = "<group>"; };
 		DB47AB6327CF858400CD73C7 /* AppStoreSnapshotTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = AppStoreSnapshotTestPlan.xctestplan; sourceTree = "<group>"; };
-		DB482A3E261331E8008AE74C /* UserTimelineViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTimelineViewModel+State.swift"; sourceTree = "<group>"; };
 		DB4932B826F31AD300EF46D4 /* BadgeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeButton.swift; sourceTree = "<group>"; };
 		DB4AA6B227BA34B6009EC082 /* CellFrameCacheContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellFrameCacheContainer.swift; sourceTree = "<group>"; };
 		DB4B777F26CA4EFA00B087B3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Intents.strings; sourceTree = "<group>"; };
@@ -1055,7 +1051,6 @@
 		DBB5252F2611EBF3002F1F29 /* ProfilePagingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePagingViewModel.swift; sourceTree = "<group>"; };
 		DBB525402611ED54002F1F29 /* ProfileHeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewController.swift; sourceTree = "<group>"; };
 		DBB5254F2611ED6D002F1F29 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
-		DBB525552611EDCA002F1F29 /* UserTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTimelineViewModel.swift; sourceTree = "<group>"; };
 		DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPostIntentHandler.swift; sourceTree = "<group>"; };
 		DBB9759B262462E1004620BD /* ThreadMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadMetaView.swift; sourceTree = "<group>"; };
@@ -1077,7 +1072,6 @@
 		DBC9E3AB282E17DF0063A4D9 /* es-AR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "es-AR"; path = "es-AR.lproj/Intents.stringsdict"; sourceTree = "<group>"; };
 		DBCA0EBB282BB38A0029E2B0 /* PageboyNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageboyNavigateable.swift; sourceTree = "<group>"; };
 		DBCBCBF3267CB070000F5B51 /* Decode85.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decode85.swift; sourceTree = "<group>"; };
-		DBCBED1626132DB500B49291 /* UserTimelineViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTimelineViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DBCC3B2F261440A50045B23D /* UITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarController.swift; sourceTree = "<group>"; };
 		DBD376B1269302A4007FEC24 /* UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
 		DBD5B1F727BCFD9D00BD6B38 /* DataSourceProvider+TableViewControllerNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceProvider+TableViewControllerNavigateable.swift"; sourceTree = "<group>"; };
@@ -2575,7 +2569,6 @@
 			children = (
 				DBB525462611ED57002F1F29 /* Header */,
 				DBB525262611EBDA002F1F29 /* Paging */,
-				DBB5253B2611ECF5002F1F29 /* Timeline */,
 				DB5B549B2833A60600DEF8B2 /* FamiliarFollowers */,
 				DB5B54A42833BD1D00DEF8B2 /* UserList */,
 				DBFEEC97279BDC6A004F81DD /* About */,
@@ -2668,16 +2661,6 @@
 				DBB5252F2611EBF3002F1F29 /* ProfilePagingViewModel.swift */,
 			);
 			path = Paging;
-			sourceTree = "<group>";
-		};
-		DBB5253B2611ECF5002F1F29 /* Timeline */ = {
-			isa = PBXGroup;
-			children = (
-				DBB525552611EDCA002F1F29 /* UserTimelineViewModel.swift */,
-				DBCBED1626132DB500B49291 /* UserTimelineViewModel+Diffable.swift */,
-				DB482A3E261331E8008AE74C /* UserTimelineViewModel+State.swift */,
-			);
-			path = Timeline;
 			sourceTree = "<group>";
 		};
 		DBB525462611ED57002F1F29 /* Header */ = {
@@ -3322,7 +3305,6 @@
 				0FB3D2F725E4C24D00AAD544 /* MastodonPickServerViewModel.swift in Sources */,
 				2A5242752C199CBD005B9E22 /* CheckableButton.swift in Sources */,
 				DB5B54AE2833C15F00DEF8B2 /* UserListViewModel+Diffable.swift in Sources */,
-				DB482A3F261331E8008AE74C /* UserTimelineViewModel+State.swift in Sources */,
 				DB0FCB7427956939006C02E2 /* DataSourceFacade+Status.swift in Sources */,
 				D81A22782AB4782400905D71 /* SearchResultOverviewSection.swift in Sources */,
 				DBB525502611ED6D002F1F29 /* ProfileHeaderView.swift in Sources */,
@@ -3403,7 +3385,6 @@
 				2D24E1232626ED9D00A59D4F /* UIView+Gesture.swift in Sources */,
 				DBFEEC9D279C12C1004F81DD /* ProfileFieldEditCollectionViewCell.swift in Sources */,
 				DB3E6FEC2806D7F100B035AE /* DiscoveryNewsViewController.swift in Sources */,
-				DBCBED1726132DB500B49291 /* UserTimelineViewModel+Diffable.swift in Sources */,
 				D8FAAE412AD0475900DC1832 /* AboutInstanceTableViewHeader.swift in Sources */,
 				2DE0FACE2615F7AD00CDF649 /* RecommendAccountSection.swift in Sources */,
 				2DAC9E3E262FC2400062E1A6 /* SuggestionAccountViewModel.swift in Sources */,
@@ -3488,7 +3469,6 @@
 				DB98EB4C27B0F2BC0082E365 /* ReportStatusTableViewCell+ViewModel.swift in Sources */,
 				DB852D1F26FB037800FC9D81 /* SidebarViewModel.swift in Sources */,
 				DBFEEC9B279BDDD9004F81DD /* ProfileAboutViewModel+Diffable.swift in Sources */,
-				DBB525562611EDCA002F1F29 /* UserTimelineViewModel.swift in Sources */,
 				D81A94192B07A1D30067A19D /* ProfileCardView+ViewModel.swift in Sources */,
 				D8916DC029211BE500124085 /* ContentSizedTableView.swift in Sources */,
 				DB0618012785732C0030EE79 /* ServerRulesTableViewCell.swift in Sources */,

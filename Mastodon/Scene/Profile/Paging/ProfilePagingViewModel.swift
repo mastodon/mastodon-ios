@@ -21,21 +21,13 @@ final class ProfilePagingViewModel: NSObject {
     @Published var needsSetupBottomShadow = true
     
     init(
-        postsUserTimelineViewModel: UserTimelineViewModel,
-        repliesUserTimelineViewModel: UserTimelineViewModel,
-        mediaUserTimelineViewModel: UserTimelineViewModel,
         profileAboutViewModel: ProfileAboutViewModel
     ) {
-        if let user = postsUserTimelineViewModel.userIdentifier?.userID {
-            postUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.posts, userID: user, queryFilter: TimelineQueryFilter(excludeReplies: true)))
-            repliesUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.postsAndReplies, userID: user, queryFilter: TimelineQueryFilter(excludeReplies: false, excludeReblogs: true)))
-            mediaUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.media, userID: user, queryFilter: TimelineQueryFilter(onlyMedia: true)))
-        } else {
-            // TODO: remove these placeholders for error case when the profile view has been rewritten
-            postUserTimelineViewController = TimelineListViewController(.discover(.posts))
-            repliesUserTimelineViewController = TimelineListViewController(.discover(.posts))
-            mediaUserTimelineViewController = TimelineListViewController(.discover(.posts))
-        }
+        let user = profileAboutViewModel.account.id
+        postUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.posts, userID: user, queryFilter: TimelineQueryFilter(excludeReplies: true)))
+        repliesUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.postsAndReplies, userID: user, queryFilter: TimelineQueryFilter(excludeReplies: false, excludeReblogs: true)))
+        mediaUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.media, userID: user, queryFilter: TimelineQueryFilter(onlyMedia: true)))
+        
         profileAboutViewController.viewModel = profileAboutViewModel
         super.init()
     }

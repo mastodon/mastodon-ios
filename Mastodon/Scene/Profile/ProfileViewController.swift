@@ -474,18 +474,8 @@ class ProfileViewController: UIViewController, MediaPreviewableViewController, A
         let profilePagingViewController = ProfilePagingViewController()
         let timelineUserIdentifier = viewModel.profileType
         
-        let posts = userTimelineViewModel(.posts)
-        let postsAndReplies = userTimelineViewModel(.postsAndReplies)
-        let media = userTimelineViewModel(.media)
-        posts.userIdentifier = timelineUserIdentifier
-        postsAndReplies.userIdentifier = timelineUserIdentifier
-        media.userIdentifier = timelineUserIdentifier
-        
         profilePagingViewController.viewModel = {
             let profilePagingViewModel = ProfilePagingViewModel(
-                postsUserTimelineViewModel: posts,
-                repliesUserTimelineViewModel: postsAndReplies,
-                mediaUserTimelineViewModel: media,
                 profileAboutViewModel: profileAboutViewModel
             )
             return profilePagingViewModel
@@ -504,14 +494,6 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
     func profileHeaderViewController(_ profileHeaderViewController: ProfileHeaderViewController, profileHeaderView: ProfileHeaderView, metaTextView: MetaTextKit.MetaTextView, metaDidPressed meta: Meta) {
         handleMetaPress(meta)
     }
-    
-    private func userTimelineViewModel(_ timelineType: TimelineType) -> UserTimelineViewModel {
-        return UserTimelineViewModel(
-        authenticationBox: authenticationBox,
-        title: timelineType.title,
-        queryFilter: timelineType.queryFilter
-    )
-    }
 
     private var profileAboutViewModel: ProfileAboutViewModel { ProfileAboutViewModel(account: viewModel.profileType.accountToDisplay)
     }
@@ -529,17 +511,6 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                 return L10n.Scene.Profile.SegmentedControl.postsAndReplies
             case .media:
                 return L10n.Scene.Profile.SegmentedControl.media
-            }
-        }
-        
-        var queryFilter: UserTimelineViewModel.QueryFilter {
-            switch self {
-            case .posts:
-                return UserTimelineViewModel.QueryFilter(excludeReplies: true)
-            case .postsAndReplies:
-                return UserTimelineViewModel.QueryFilter(excludeReplies: false, excludeReblogs: true)
-            case .media:
-                return UserTimelineViewModel.QueryFilter(onlyMedia: true)
             }
         }
         
