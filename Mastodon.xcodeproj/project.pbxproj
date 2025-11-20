@@ -418,9 +418,6 @@
 		DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */; };
 		DBE3CDBB261C427900430CC6 /* TimelineHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CDBA261C427900430CC6 /* TimelineHeaderTableViewCell.swift */; };
 		DBE3CDCF261C42ED00430CC6 /* TimelineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CDCE261C42ED00430CC6 /* TimelineHeaderView.swift */; };
-		DBE3CDFB261C6CA500430CC6 /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CDFA261C6CA500430CC6 /* FavoriteViewModel.swift */; };
-		DBE3CE01261D623D00430CC6 /* FavoriteViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CE00261D623D00430CC6 /* FavoriteViewModel+State.swift */; };
-		DBE3CE07261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CE06261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift */; };
 		DBEFCD71282A12B200C0ABEA /* ReportReasonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEFCD70282A12B200C0ABEA /* ReportReasonViewController.swift */; };
 		DBEFCD74282A130400C0ABEA /* ReportReasonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEFCD73282A130400C0ABEA /* ReportReasonViewModel.swift */; };
 		DBEFCD76282A143F00C0ABEA /* ReportStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEFCD75282A143F00C0ABEA /* ReportStatusViewController.swift */; };
@@ -1097,9 +1094,6 @@
 		DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewModel.swift; sourceTree = "<group>"; };
 		DBE3CDBA261C427900430CC6 /* TimelineHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		DBE3CDCE261C42ED00430CC6 /* TimelineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineHeaderView.swift; sourceTree = "<group>"; };
-		DBE3CDFA261C6CA500430CC6 /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
-		DBE3CE00261D623D00430CC6 /* FavoriteViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteViewModel+State.swift"; sourceTree = "<group>"; };
-		DBE3CE06261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DBEB19E927E4F37B00B0E80E /* ku */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ku; path = ku.lproj/Intents.strings; sourceTree = "<group>"; };
 		DBEB19EA27E4F37B00B0E80E /* ku */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ku; path = ku.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBEB19EB27E4F37B00B0E80E /* ku */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ku; path = ku.lproj/Intents.stringsdict; sourceTree = "<group>"; };
@@ -2599,7 +2593,6 @@
 				DBB525462611ED57002F1F29 /* Header */,
 				DBB525262611EBDA002F1F29 /* Paging */,
 				DBB5253B2611ECF5002F1F29 /* Timeline */,
-				DBE3CDF1261C6B3100430CC6 /* Favorite */,
 				DB5B549B2833A60600DEF8B2 /* FamiliarFollowers */,
 				DB5B54A42833BD1D00DEF8B2 /* UserList */,
 				DBFEEC97279BDC6A004F81DD /* About */,
@@ -2770,16 +2763,6 @@
 				DB7A9F902818EAF10016AF98 /* MastodonRegisterView.swift */,
 			);
 			path = Register;
-			sourceTree = "<group>";
-		};
-		DBE3CDF1261C6B3100430CC6 /* Favorite */ = {
-			isa = PBXGroup;
-			children = (
-				DBE3CDFA261C6CA500430CC6 /* FavoriteViewModel.swift */,
-				DBE3CE06261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift */,
-				DBE3CE00261D623D00430CC6 /* FavoriteViewModel+State.swift */,
-			);
-			path = Favorite;
 			sourceTree = "<group>";
 		};
 		DBEFCD72282A12B900C0ABEA /* ReportReason */ = {
@@ -3433,7 +3416,6 @@
 				0FAA102725E1126A0017CCDE /* MastodonPickServerViewController.swift in Sources */,
 				DB6B74FE272FF59000C70B6E /* UserItem.swift in Sources */,
 				DB68586425E619B700F0A850 /* NSKeyValueObservation.swift in Sources */,
-				DBE3CE07261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift in Sources */,
 				DBA9443E265CFA6400C537E1 /* ProfileFieldCollectionViewCell.swift in Sources */,
 				FBD689B52CCBF0AC00CE29F3 /* DonationCampaignViewModel.swift in Sources */,
 				2D24E1232626ED9D00A59D4F /* UIView+Gesture.swift in Sources */,
@@ -3464,9 +3446,7 @@
 				DB63F7542799491600455B82 /* DataSourceFacade+SearchHistory.swift in Sources */,
 				DB7A9F912818EAF10016AF98 /* MastodonRegisterView.swift in Sources */,
 				DBF1572F27046F1A00EC00B7 /* SecondaryPlaceholderViewController.swift in Sources */,
-				DBE3CDFB261C6CA500430CC6 /* FavoriteViewModel.swift in Sources */,
 				2AB12E4629362F27006BC925 /* DataSourceFacade+Translate.swift in Sources */,
-				DBE3CE01261D623D00430CC6 /* FavoriteViewModel+State.swift in Sources */,
 				2D82BA0525E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift in Sources */,
 				D81A94172B07A1D30067A19D /* ProfileCardView+Configuration.swift in Sources */,
 				DB63F7452799056400455B82 /* HashtagTableViewCell.swift in Sources */,
