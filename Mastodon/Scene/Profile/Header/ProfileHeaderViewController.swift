@@ -336,15 +336,9 @@ extension ProfileHeaderViewController: ProfileHeaderViewDelegate {
             // do nothing
             break
         case .follower:
-            guard let domain = viewModel.account.domain else { return }
             let userID = viewModel.account.id
-            let followerListViewModel = FollowerListViewModel(
-                authenticationBox: viewModel.authenticationBox,
-                domain: domain,
-                userID: userID
-            )
             _ = self.sceneCoordinator?.present(
-                scene: .follower(viewModel: followerListViewModel),
+                scene: .followers(ofUserId: userID),
                 from: self,
                 transition: .show
             )

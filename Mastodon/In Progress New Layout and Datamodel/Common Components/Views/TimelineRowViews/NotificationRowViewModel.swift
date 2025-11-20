@@ -372,10 +372,7 @@ extension NotificationRowViewModel {
                 guard let link else { return nil }
                 return .mastodonWebView(viewModel: WebViewModel(url: link))
             case .myFollowers:
-                return .follower(
-                    viewModel: FollowerListViewModel(
-                        authenticationBox: authBox, domain: myAccount.domain,
-                        userID: myAccount.id))
+                return .followers(ofUserId: myAccount.id)
             case .profile(let account):
                 if myAccount.id == account.id {
                     return .profile(.me(account))

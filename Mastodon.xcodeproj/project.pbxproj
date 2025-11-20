@@ -327,10 +327,6 @@
 		DB697DE1278F5296004EF2F7 /* DataSourceFacade+Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB697DE0278F5296004EF2F7 /* DataSourceFacade+Model.swift */; };
 		DB6988DE2848D11C002398EF /* PagerTabStripNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6988DD2848D11C002398EF /* PagerTabStripNavigateable.swift */; };
 		DB6B351E2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B351D2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift */; };
-		DB6B74EF272FB55000C70B6E /* FollowerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B74EE272FB55000C70B6E /* FollowerListViewController.swift */; };
-		DB6B74F2272FB67600C70B6E /* FollowerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B74F1272FB67600C70B6E /* FollowerListViewModel.swift */; };
-		DB6B74F4272FBAE700C70B6E /* FollowerListViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B74F3272FBAE700C70B6E /* FollowerListViewModel+Diffable.swift */; };
-		DB6B74F6272FBCDB00C70B6E /* FollowerListViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B74F5272FBCDB00C70B6E /* FollowerListViewModel+State.swift */; };
 		DB6B74FC272FF55800C70B6E /* UserSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B74FB272FF55800C70B6E /* UserSection.swift */; };
 		DB6B74FE272FF59000C70B6E /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B74FD272FF59000C70B6E /* UserItem.swift */; };
 		DB6B7500272FF73800C70B6E /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B74FF272FF73800C70B6E /* UserTableViewCell.swift */; };
@@ -979,10 +975,6 @@
 		DB697DE0278F5296004EF2F7 /* DataSourceFacade+Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Model.swift"; sourceTree = "<group>"; };
 		DB6988DD2848D11C002398EF /* PagerTabStripNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerTabStripNavigateable.swift; sourceTree = "<group>"; };
 		DB6B351D2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusAttachmentCollectionViewCell.swift; sourceTree = "<group>"; };
-		DB6B74EE272FB55000C70B6E /* FollowerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerListViewController.swift; sourceTree = "<group>"; };
-		DB6B74F1272FB67600C70B6E /* FollowerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerListViewModel.swift; sourceTree = "<group>"; };
-		DB6B74F3272FBAE700C70B6E /* FollowerListViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowerListViewModel+Diffable.swift"; sourceTree = "<group>"; };
-		DB6B74F5272FBCDB00C70B6E /* FollowerListViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowerListViewModel+State.swift"; sourceTree = "<group>"; };
 		DB6B74FB272FF55800C70B6E /* UserSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSection.swift; sourceTree = "<group>"; };
 		DB6B74FD272FF59000C70B6E /* UserItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserItem.swift; sourceTree = "<group>"; };
 		DB6B74FF272FF73800C70B6E /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
@@ -2388,10 +2380,6 @@
 		DB6B74F0272FB55400C70B6E /* Follower */ = {
 			isa = PBXGroup;
 			children = (
-				DB6B74EE272FB55000C70B6E /* FollowerListViewController.swift */,
-				DB6B74F1272FB67600C70B6E /* FollowerListViewModel.swift */,
-				DB6B74F3272FBAE700C70B6E /* FollowerListViewModel+Diffable.swift */,
-				DB6B74F5272FBCDB00C70B6E /* FollowerListViewModel+State.swift */,
 			);
 			path = Follower;
 			sourceTree = "<group>";
@@ -3562,8 +3550,6 @@
 				DB0FCB7827957678006C02E2 /* DataSourceProvider+UITableViewDelegate.swift in Sources */,
 				5D0393902612D259007FE196 /* WebViewController.swift in Sources */,
 				DB98EB6227B215EB0082E365 /* ReportResultViewController.swift in Sources */,
-				DB6B74F4272FBAE700C70B6E /* FollowerListViewModel+Diffable.swift in Sources */,
-				DB6B74F2272FB67600C70B6E /* FollowerListViewModel.swift in Sources */,
 				DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */,
 				D8F917032A4B063D008A5370 /* Settings.swift in Sources */,
 				5DF1056425F887CB00D6C0D4 /* AVPlayer.swift in Sources */,
@@ -3587,7 +3573,6 @@
 				DBF156E42702DB3F00EC00B7 /* HandleTapAction.swift in Sources */,
 				DB98EB4727B0DFAA0082E365 /* ReportStatusViewModel+State.swift in Sources */,
 				2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */,
-				DB6B74F6272FBCDB00C70B6E /* FollowerListViewModel+State.swift in Sources */,
 				DB87D4452609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift in Sources */,
 				DB0FCB7A279576A2006C02E2 /* DataSourceFacade+Thread.swift in Sources */,
 				DB9F58EF26EF491E00E7BBE9 /* AccountListViewModel.swift in Sources */,
@@ -3602,7 +3587,6 @@
 				DB7274F4273BB9B200577D95 /* UIScrollViewDelegate.swift in Sources */,
 				DB0618052785A73D0030EE79 /* RegisterItem.swift in Sources */,
 				2A5242732C199C96005B9E22 /* PrivacySafetyView.swift in Sources */,
-				DB6B74EF272FB55000C70B6E /* FollowerListViewController.swift in Sources */,
 				2A4C3B5D2C579CFB008DD42B /* NotificationRequestConstants.swift in Sources */,
 				DB4AA6B327BA34B6009EC082 /* CellFrameCacheContainer.swift in Sources */,
 				DB0FCB942797E2B0006C02E2 /* SearchResultViewModel+Diffable.swift in Sources */,
