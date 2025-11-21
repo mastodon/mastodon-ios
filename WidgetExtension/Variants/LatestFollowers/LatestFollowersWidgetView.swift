@@ -45,10 +45,18 @@ struct LatestFollowersWidgetView: View {
             
             ForEach(accounts, id: \.acct) { account in
                 HStack {
-                    Image(uiImage: account.avatarImage)
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                        .cornerRadius(5)
+                    Group {
+                        if #available(iOS 18, *) {
+                            Image(uiImage: account.avatarImage)
+                                .resizable()
+                                .widgetAccentedRenderingMode(.fullColor)
+                        } else {
+                            Image(uiImage: account.avatarImage)
+                                .resizable()
+                        }
+                    }
+                    .frame(width: 32, height: 32)
+                    .cornerRadius(5)
                     VStack(alignment: .leading) {
                         
                     Text(account.displayNameWithFallback)
@@ -82,15 +90,28 @@ struct LatestFollowersWidgetView: View {
                 Text(L10n.Widget.LatestFollowers.title)
                     .font(.system(size: UIFontMetrics.default.scaledValue(for: 16)))
                 Spacer()
-                Image("BrandIconColored")
+                if #available(iOS 18, *) {
+                    Image("BrandIconColored")
+                        .widgetAccentedRenderingMode(.fullColor)
+                } else {
+                    Image("BrandIconColored")
+                }
             }
             
             ForEach(accounts, id: \.acct) { account in
                 HStack {
-                    Image(uiImage: account.avatarImage)
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                        .cornerRadius(5)
+                    Group {
+                        if #available(iOS 18, *) {
+                            Image(uiImage: account.avatarImage)
+                                .resizable()
+                                .widgetAccentedRenderingMode(.fullColor)
+                        } else {
+                            Image(uiImage: account.avatarImage)
+                                .resizable()
+                        }
+                    }
+                    .frame(width: 32, height: 32)
+                    .cornerRadius(5)
                     VStack(alignment: .leading) {
                         
                         HStack {

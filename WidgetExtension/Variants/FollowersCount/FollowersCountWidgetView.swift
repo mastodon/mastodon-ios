@@ -41,11 +41,19 @@ struct FollowersCountWidgetView: View {
     private func viewForSmallWidgetNoChart(_ account: FollowersEntryAccountable) -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 0) {
-                Image(uiImage: account.avatarImage)
-                    .resizable()
-                    .frame(width: 50, height: 50)
-                    .cornerRadius(12)
-                    .padding(.bottom, 8)
+                Group {
+                    if #available(iOS 18, *) {
+                        Image(uiImage: account.avatarImage)
+                            .resizable()
+                            .widgetAccentedRenderingMode(.fullColor)
+                    } else {
+                        Image(uiImage: account.avatarImage)
+                            .resizable()
+                    }
+                }
+                .frame(width: 50, height: 50)
+                .cornerRadius(12)
+                .padding(.bottom, 8)
 
                 Text(account.followersCount.asAbbreviatedCountString())
                     .font(.largeTitle)
@@ -73,10 +81,18 @@ struct FollowersCountWidgetView: View {
     private func viewForSmallWidgetYesChart(_ account: FollowersEntryAccountable) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Image(uiImage: account.avatarImage)
-                    .resizable()
-                    .frame(width: 23, height: 23)
-                    .cornerRadius(5)
+                Group {
+                    if #available(iOS 18, *) {
+                        Image(uiImage: account.avatarImage)
+                            .resizable()
+                            .widgetAccentedRenderingMode(.fullColor)
+                    } else {
+                        Image(uiImage: account.avatarImage)
+                            .resizable()
+                    }
+                }
+                .frame(width: 23, height: 23)
+                .cornerRadius(5)
                 VStack(alignment: .leading) {
                     Text(account.displayNameWithFallback)
                         .font(.caption)

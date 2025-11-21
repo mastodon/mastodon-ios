@@ -33,10 +33,18 @@ struct MultiFollowersCountWidgetView: View {
         VStack(alignment: .leading, spacing: 0) {
             ForEach(accounts, id: \.acct) { account in
                 HStack {
-                    Image(uiImage: account.avatarImage)
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                        .cornerRadius(5)
+                    Group {
+                        if #available(iOS 18, *) {
+                            Image(uiImage: account.avatarImage)
+                                .resizable()
+                                .widgetAccentedRenderingMode(.fullColor)
+                        } else {
+                            Image(uiImage: account.avatarImage)
+                                .resizable()
+                        }
+                    }
+                    .frame(width: 32, height: 32)
+                    .cornerRadius(5)
                     VStack(alignment: .leading) {
                         Text(account.followersCount.asAbbreviatedCountString())
                             .font(.title2)
@@ -67,10 +75,18 @@ struct MultiFollowersCountWidgetView: View {
             ]) {
                 ForEach(accounts, id: \.acct) { account in
                     HStack {
-                        Image(uiImage: account.avatarImage)
-                            .resizable()
-                            .frame(width: 32, height: 32)
-                            .cornerRadius(5)
+                        Group {
+                            if #available(iOS 18, *) {
+                                Image(uiImage: account.avatarImage)
+                                    .resizable()
+                                    .widgetAccentedRenderingMode(.fullColor)
+                            } else {
+                                Image(uiImage: account.avatarImage)
+                                    .resizable()
+                            }
+                        }
+                        .frame(width: 32, height: 32)
+                        .cornerRadius(5)
                         VStack(alignment: .leading) {
                             Text(account.followersCount.asAbbreviatedCountString())
                                 .font(.title2)
