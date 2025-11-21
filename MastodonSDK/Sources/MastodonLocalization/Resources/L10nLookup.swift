@@ -9,12 +9,7 @@ import Foundation
 
 /// This bridge seems to be necessary for now because our localizations are contained within a Swift package. Also, nesting inside meaningful structs is helpful for organization and the automatic symbol generation is limited in that regard.
 ///
-/// To add new strings:
-///  1. Add the entry in .xcstrings with the English string and any pluralization variants
-///  2. Use the "Convert Strings to Symbols" option in .xcstrings to create the function name and set the argument labels
-///  3. Add a function here (in the expected nested struct) that matches the new function signature and looks up the new key.
-///
-/// NOTE: Take care not to modify existing keys without checking to maintain agreement here and on CrowdIn.
+/// See Documentation/CONTRIBUTING.md for details on adding new strings and updating translations (and keep that file updated with any changes to the workflow).
 
 public struct L10nLookup {
     
@@ -22,47 +17,47 @@ public struct L10nLookup {
         public struct Notification {
             public struct GroupedNotificationDescription {
                 public static func youAndOthersFavorited(othersCount: Int) -> String {
-                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.YouAndOthersFavorited", othersCount, fallback: "sceneNotificationGroupedNotificationDescriptionYouAndOthersFavorited")
+                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.YouAndOthersFavorited", othersCount)
                     return result
                 }
                 
                 public static func peopleFavourited(favouriteCount: Int) -> String {
-                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.PeopleFavourited", favouriteCount, fallback: "Scene.Notification.GroupedNotificationDescription.PeopleFavourited")
+                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.PeopleFavourited", favouriteCount)
                     return result
                 }
                 
                 public static func youAndOthersBoosted(othersCount: Int) -> String {
-                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.YouAndOthersBoosted", othersCount, fallback: "Scene.Notification.GroupedNotificationDescription.YouAndOthersBoosted")
+                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.YouAndOthersBoosted", othersCount)
                     return result
                 }
                 
                 public static func peopleBoosted(boostCount: Int) -> String {
-                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.PeopleBoosted", boostCount, fallback: "Scene.Notification.GroupedNotificationDescription.PeopleBoosted")
+                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.PeopleBoosted", boostCount)
                     return result
                 }
                 
                 public static func peopleFollowedYou(newFollowerCount: Int) -> String {
-                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.PeopleFollowedYou", newFollowerCount, fallback: "sceneNotificationGroupedNotificationDescriptionPeopleFollowedYou")
+                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.PeopleFollowedYou", newFollowerCount)
                     return result
                 }
                 
                 public static func pollHasEnded(pollAuthor: String, otherVotersCount: Int) -> String {
-                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.PollHasEnded", pollAuthor, otherVotersCount, fallback: "sceneNotificationGroupedNotificationDescriptionPollHasEnded")
+                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.PollHasEnded", pollAuthor, otherVotersCount)
                     return result
                 }
                 
                 public static func someoneReportedPosts(postCount: Int, violatingAccountName: String) -> String {
-                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SomeonReportedPosts", postCount, violatingAccountName, fallback: "sceneNotificationGroupedNotificationDescriptionSomeoneReportedPosts")
+                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SomeonReportedPosts", postCount, violatingAccountName)
                     return result
                 }
                 
                 public static func someoneReportedPostsForRuleViolation(postCount: Int, violatingAccountName: String) -> String {
-                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SomeonReportedPostsForRuleViolation", postCount, violatingAccountName, fallback: "sceneNotificationGroupedNotificationDescriptionSomeoneReportedPostsForRuleViolation")
+                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SomeonReportedPostsForRuleViolation", postCount, violatingAccountName)
                     return result
                 }
                 
                 public static func someoneReportedPostsForSpam(postCount: Int, violatingAccountName: String) -> String {
-                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SomeonReportedPostsForSpam", postCount, violatingAccountName, fallback: "sceneNotificationGroupedNotificationDescriptionSomeoneReportedPostsForSpam")
+                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SomeonReportedPostsForSpam", postCount, violatingAccountName)
                     return result
                 }
             }
@@ -70,18 +65,18 @@ public struct L10nLookup {
     }
 
     public static func pluralCountPoll(_ count: Int) -> String {
-        let result = tr("Localizable", "plural.count.poll", count, fallback: "pluralCountPoll")
+        let result = tr("Localizable", "plural.count.poll", count)
         return result
     }
     
-    private static func tr(_ table: String, _ key: String, _ args: CVarArg..., fallback value: String) -> String {
+    private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
         let missingKey = "_MISSING_"
         let format = {
             let localized = Bundle.module.localizedString(forKey: key, value: missingKey, table: table)
             if localized != missingKey {
                 return localized
             } else {
-                return englishBundle?.localizedString(forKey: key, value: value, table: table) ?? value
+                return englishBundle?.localizedString(forKey: key, value: key, table: table) ?? key
             }
         }()
         return String(format: format, locale: Locale.current, arguments: args)

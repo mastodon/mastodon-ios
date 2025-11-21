@@ -10,20 +10,28 @@ File an issue about the bug or feature request. Make sure you are installing the
 ## Translation
 [![Crowdin](https://badges.crowdin.net/mastodon-for-ios/localized.svg)](https://crowdin.com/project/mastodon-for-ios)
 
-The translation will update regularly. Please request the language if it is not listed via an issue.
+The app uses CrowdIn to crowdsource translations. Translations will update regularly via a GitHub action. Please request the language if it is not listed via an issue.
+
+Note that we have switched the main app localizations from using `.strings` and `.stringsdict` files (and `swiftgen` to create typed accessors) to using `.xcstrings` (and a manually-maintained `L10nLookup` struct to provide the typed accessors).
+- The typed accessors in the swiftgen-generated `L10n` struct are still in use in the app, but the file is no longer automatically updated and no new accessors should be added to it manually. As the accessors are replaced by new ones in the `L10nLookup` struct (hopefully with more meaningful argument names), they should be removed from the old `L10n` struct.
 
 To add new localized strings:
 
-Basic:
-- Edit `Localization/app.json` to add new strings in an appropriate section of the JSON.
-- Edit `MastodonSDK/Sources/MastodonLocalizations/Resources/Base.lproj/Localizable.strings` to add the same strings as in `app.json`. Take care to follow to formatting pattern of existing examples.
-- Run `swiftgen` inside the project directory to generate the typed string resources.
-- Use the new typed strings by importing `MastodonLocalization` and using the `L10n` struct.
-  
-Plurals:
-- Add appropriate entry to `MastodonSDK/Sources/MastodonLocalizations/Resources/Base.lproj/Localizable.stringsdict` (feel free to copy a similar example and then edit it).
-- Run `swiftgen` inside the project directory to generate the typed string resources.
-- Use the new plural format strings by importing `MastodonLocalization` and using the `L10n` struct.
+- Edit `MastodonSDK/Sources/MastodonLocalizations/Resources/Localizable.xcstrings` to add the new string:
+    - The key should follow our hierarchical naming conventions as you will see in other entries. The key should not be the English string itself.
+    - Add the English user-facing text corresponding to the new key.
+    - If plural variation is required, use the context menu option "Vary by Plural" to add it.
+- Add a typed accessor in the `L10nLookup` struct:
+    - Its place in the hierarchy should match the key you created.
+    - Any argument names should match those in the `.xcstrings` entry you created.
+    - Static strings can be `let` constants (the device language cannot change without a restart). Strings with substitutions must be functions.
+- Use the new typed strings by importing `MastodonLocalization` and using the `L10nLookup` struct.
+    - The `L10nLookup` struct will return the proper localization if it is available or fallback to English if it is not.
+    - If you see the key itself in the UI, that means the string was not found in the `.xcstrings` file. Check for typos.
+
+Changes to keys that have already been uploaded to CrowdIn are likely to cause problems with the CrowdIn integration, so try not to change them. English translations can be updated directly in Xcode, but updates to other language translations must be made through the CrowdIn interface and integrated into the app by merging the resulting PR. This is because changes to other language translations made directly in the project in Xcode will be overwritten with the old values the next time CrowdIn changes are merged.
+
+One more note: The `.strings` files in `WidgetExtension`, `MastodonIntent`, and `InfoPlist` have not yet been converted to `.xcstrings`, but they also don't seem to have been included in the `swiftgen` workflow.
 
 ## Pull Request
 

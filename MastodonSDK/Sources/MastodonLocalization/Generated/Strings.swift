@@ -1,5 +1,7 @@
 // swiftlint:disable all
-// Generated using SwiftGen — https://github.com/SwiftGen/SwiftGen
+// ORIGINALLY generated using SwiftGen — https://github.com/SwiftGen/SwiftGen
+// BUT THIS FILE IS NOW STATIC/MANUALLY UPDATED. Our localization flow has changed and now relies on sending and receiving .xcstrings files directly from CrowdIn.
+// Code still references the strings contained in this file, but as they are replaced with accessors in the new manually-maintained L10nLookup.swift, the equivalent accessors here should be deleted. For more details, see Documentation/CONTRIBUTING.md.
 
 import Foundation
 
