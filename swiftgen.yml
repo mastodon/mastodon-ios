@@ -1,13 +1,3 @@
-strings:
-  inputs:
-    - MastodonSDK/Sources/MastodonLocalization/Resources/Base.lproj/Localizable.strings
-    - MastodonSDK/Sources/MastodonLocalization/Resources/Base.lproj/Localizable.stringsdict
-  outputs:
-    - templateName: structured-swift5
-      output: MastodonSDK/Sources/MastodonLocalization/Generated/Strings.swift
-      params:
-        bundle: Bundle.module
-        publicAccess: true
 xcassets:
   inputs: MastodonSDK/Sources/MastodonAsset/Assets.xcassets
   outputs:

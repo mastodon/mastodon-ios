@@ -739,7 +739,6 @@
 		D8A6FE6129325F5900666A47 /* Intents.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Intents.stringsdict; sourceTree = "<group>"; };
 		D8A6FE6229325F5900666A47 /* app.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = app.json; sourceTree = "<group>"; };
 		D8A6FE6329325F5900666A47 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		D8A6FE6429325F5900666A47 /* StringsConvertor */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = StringsConvertor; sourceTree = "<group>"; };
 		D8A6FE6529325F5900666A47 /* ios-infoPlist.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "ios-infoPlist.json"; sourceTree = "<group>"; };
 		D8A6FE6629325F5900666A47 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		D8B5E4ED2A4EB8920008970C /* NotificationSettingTableViewToggleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingTableViewToggleCell.swift; sourceTree = "<group>"; };
@@ -1762,7 +1761,6 @@
 				D8A6FE6129325F5900666A47 /* Intents.stringsdict */,
 				D8A6FE6229325F5900666A47 /* app.json */,
 				D8A6FE6329325F5900666A47 /* README.md */,
-				D8A6FE6429325F5900666A47 /* StringsConvertor */,
 				D8A6FE6529325F5900666A47 /* ios-infoPlist.json */,
 				D8A6FE6629325F5900666A47 /* Localizable.stringsdict */,
 			);
