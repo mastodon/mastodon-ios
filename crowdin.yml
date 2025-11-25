@@ -9,11 +9,11 @@ files:
     translation: "/MastodonSDK/Sources/MastodonLocalization/Resources/%file_name%.xcstrings"
     multilingual: true
 
-  - source: "/MastodonIntent/en.lproj/Intents.strings"
-    translation: "/Localization/StringsConvertor/Intents/input/%osx_code%/%original_file_name%"
+  #- source: "/MastodonIntent/en.lproj/Intents.strings"
+  #  translation: "/Localization/StringsConvertor/Intents/input/%osx_code%/%original_file_name%"
 
-  - source: "/MastodonIntent/en.lproj/Intents.stringsdict"
-    translation: "/Localization/StringsConvertor/Intents/input/%osx_code%/%original_file_name%"
+  #- source: "/MastodonIntent/en.lproj/Intents.stringsdict"
+  #  translation: "/Localization/StringsConvertor/Intents/input/%osx_code%/%original_file_name%"
 
-  - source: "/Localization/ios-infoPlist.json"
-    translation: "/Localization/StringsConvertor/input/%osx_code%/%original_file_name%"
+  #- source: "/Localization/ios-infoPlist.json"
+  #  translation: "/Localization/StringsConvertor/input/%osx_code%/%original_file_name%"
