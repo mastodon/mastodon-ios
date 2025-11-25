@@ -20,6 +20,7 @@ extension Mastodon.Response {
         // application fields
         public let rateLimit: RateLimit?
         public let link: Link?
+        public let asyncRefreshAvaliable: AsyncRefreshAvailable?
         public let responseTime: Int?
         
         public var networkDate: Date {
@@ -41,6 +42,11 @@ extension Mastodon.Response {
                 guard let string = (response as? HTTPURLResponse)?.value(forHTTPHeaderField: "link") else { return nil }
                 return Link(link: string)
             }()
+            
+            self.asyncRefreshAvaliable = {
+                guard let string = (response as? HTTPURLResponse)?.value(forHTTPHeaderField: "mastodon-async-refresh") else { return nil }
+                return AsyncRefreshAvailable(asyncRefreshHeader: string)
+            }()
              
             self.responseTime = {
                 guard let string = (response as? HTTPURLResponse)?.value(forHTTPHeaderField: "x-response-time") else { return nil }
@@ -54,6 +60,7 @@ extension Mastodon.Response {
             self.date = old.date
             self.rateLimit = old.rateLimit
             self.link = old.link
+            self.asyncRefreshAvaliable = old.asyncRefreshAvaliable
             self.responseTime = old.responseTime
         }
         
@@ -174,5 +181,51 @@ public extension Mastodon.Entity.Status.ID {
     
     var sinceId: String? {
         components(separatedBy: "&since_id=").last
+    }
+}
+
+extension Mastodon.Response {
+    public struct AsyncRefreshAvailable: Sendable {
+        public let id: String
+        public let retryInterval: Int   // number of seconds to wait before requerying either the original endpoint or the async refresh update endpoint
+        public let resultCount: Int?    // number of results already fetched
+        
+        init?(asyncRefreshHeader: String) {
+            let _retryInterval: Int? = {
+                guard let regex = try? NSRegularExpression(pattern: "retry=([[:digit:]]+)", options: []) else { return nil }
+                let results = regex.matches(in: asyncRefreshHeader, options: [], range: NSRange(asyncRefreshHeader.startIndex..<asyncRefreshHeader.endIndex, in: asyncRefreshHeader))
+                guard let match = results.first else { return nil }
+                guard let range = Range(match.range(at: 1), in: asyncRefreshHeader) else { return nil }
+                let retry = asyncRefreshHeader[range]
+                return Int(retry)
+            }()
+            
+            guard let retryInterval = _retryInterval else { return nil }
+            self.retryInterval = retryInterval
+            
+            let _resultCount: Int? = {
+                guard let regex = try? NSRegularExpression(pattern: "result_count=([[:digit:]]+)", options: []) else { return nil }
+                let results = regex.matches(in: asyncRefreshHeader, options: [], range: NSRange(asyncRefreshHeader.startIndex..<asyncRefreshHeader.endIndex, in: asyncRefreshHeader))
+                guard let match = results.first else { return nil }
+                guard let range = Range(match.range(at: 1), in: asyncRefreshHeader) else { return nil }
+                let count = asyncRefreshHeader[range]
+                return Int(count)
+            }()
+            
+            guard let resultCount = _resultCount else { return nil }
+            self.resultCount = resultCount
+            
+            let _id: String? = {
+                guard let regex = try? NSRegularExpression(pattern: "id=\"([^\"]+)", options: []) else { return nil }
+                let results = regex.matches(in: asyncRefreshHeader, options: [], range: NSRange(asyncRefreshHeader.startIndex..<asyncRefreshHeader.endIndex, in: asyncRefreshHeader))
+                guard let match = results.first else { return nil }
+                guard let range = Range(match.range(at: 1), in: asyncRefreshHeader) else { return nil }
+                let id = asyncRefreshHeader[range]
+                return String(id)
+            }()
+            
+            guard let id = _id else { return nil }
+            self.id = id
+        }
     }
 }

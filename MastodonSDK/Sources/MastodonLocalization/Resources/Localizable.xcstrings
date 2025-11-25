@@ -64487,7 +64487,8 @@
       }
     },
     "Common.Controls.Timeline.Loader.ShowMoreReplies" : {
-      "extractionState" : "migrated",
+      "comment" : "Indicates that there may be additional replies that could be loaded into this thread. Tapping on this button loads the new replies.",
+      "extractionState" : "manual",
       "localizations" : {
         "an" : {
           "stringUnit" : {
@@ -64781,6 +64782,30 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "顯示更多回覆"
+          }
+        }
+      }
+    },
+    "Common.Controls.Timeline.Loader.UnreadItemsButtonTitle" : {
+      "comment" : "Indicates the number of new items that have been loaded above the current scroll position. Tapping on this button jumps to the top of the timeline to view the new items.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "%(unreadCount)lld new"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%(unreadCount)lld new"
+                }
+              }
+            }
           }
         }
       }
@@ -78064,12 +78089,6 @@
           }
         }
       }
-    },
-    "Key" : {
-      "extractionState" : "manual"
-    },
-    "Key 1" : {
-      "extractionState" : "manual"
     },
     "plural.count.accounts_that_you_follow" : {
       "extractionState" : "migrated",

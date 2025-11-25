@@ -27,7 +27,7 @@ final class ThreadReplyLoaderTableViewCell: UITableViewCell {
         let button = HighlightDimmableButton()
         button.titleLabel?.font = TimelineLoaderTableViewCell.labelFont
         button.setTitleColor(SystemTheme.tintColor, for: .normal)
-        button.setTitle(L10n.Common.Controls.Timeline.Loader.showMoreReplies, for: .normal)
+        button.setTitle(L10nLookup.Common.Controls.Timeline.Loader.showMoreReplies, for: .normal)
         return button
     }()
     

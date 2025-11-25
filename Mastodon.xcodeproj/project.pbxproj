@@ -1126,6 +1126,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				AccountInfo.swift,
+				AsyncRefreshViewModel.swift,
 				"Common Components/AlignmentGuides.swift",
 				"Common Components/Common Actions on Statuses and Accounts/ContentConcealViewModel.swift",
 				"Common Components/Common Actions on Statuses and Accounts/MastodonPostMenuAction.swift",

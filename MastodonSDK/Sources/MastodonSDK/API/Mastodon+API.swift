@@ -81,6 +81,9 @@ extension Mastodon.API {
     static func endpointV2URL(domain: String) -> URL {
         return URL(string: "\(URL.httpScheme(domain: domain))://" + domain + "/api/v2/")!
     }
+    static func endpointV1BetaURL(domain: String) -> URL {
+        return URL(string: "\(URL.httpScheme(domain: domain))://" + domain + "/api/v1_alpha/")!
+    }
     
     static let joinMastodonEndpointURL = URL(string: "https://api.joinmastodon.org/")!
     
@@ -102,6 +105,7 @@ extension Mastodon.API {
     public enum Account { }
     public enum App { }
     public enum Bookmarks { }
+    public enum AsyncRefresh { }
     public enum CustomEmojis { }
     public enum Favorites { }
     public enum Instance { }

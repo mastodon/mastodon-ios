@@ -13,7 +13,25 @@ import Foundation
 
 public struct L10nLookup {
     
+    public struct Common {
+        public struct Controls {
+            public struct Timeline {
+                public struct Loader {
+                    public static func unreadItemsButtonTitle(unreadCount: Int) -> String {
+                        let result = tr("Localizable", "Common.Controls.Timeline.Loader.UnreadItemsButtonTitle", unreadCount)
+                        return result
+                    }
+                    public static let showMoreReplies: String = {
+                        let result = tr("Localizable", "Common.Controls.Timeline.Loader.ShowMoreReplies")
+                        return result
+                    }()
+                }
+            }
+        }
+    }
+    
     public struct Scene {
+        
         public struct Notification {
             public struct GroupedNotificationDescription {
                 public static func youAndOthersFavorited(othersCount: Int) -> String {

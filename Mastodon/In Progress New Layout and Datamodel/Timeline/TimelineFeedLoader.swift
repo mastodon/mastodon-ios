@@ -302,9 +302,11 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
     
     let timeline: MastodonTimelineType
     var threadedConversationModel: ThreadedConversationModel?
+    let asyncRefreshViewModel: AsyncRefreshViewModel?
     
-    init(currentUser: MastodonAuthenticationBox, timeline: MastodonTimelineType) {
+    init(currentUser: MastodonAuthenticationBox, timeline: MastodonTimelineType, asyncRefreshViewModel: AsyncRefreshViewModel?) {
         self.timeline = timeline
+        self.asyncRefreshViewModel = asyncRefreshViewModel
         authenticatedUser = currentUser
         myAccountID = authenticatedUser.cachedAccount?.id
         let trackLastRead = timeline == .homeTimeline
@@ -426,6 +428,14 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
 
         let newBatch: [TimelineItem]
         let newBatchBottomLoad: BottomLoad
+        let newAsyncRefreshAvailable: Mastodon.Response.AsyncRefreshAvailable?
+        func bottomLoad(fromLink link: Mastodon.Response.Link?) -> BottomLoad {
+            if let url = link?.nextUrl {
+                return .link(url)
+            } else {
+                return .nothingMoreToLoad
+            }
+        }
         switch timeline {
         case .homeTimeline:
             let response = try await {
@@ -437,13 +447,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             }()
             let result = response.value
             newBatch = result.map { timelineItem(fromStatus:$0) }
-            newBatchBottomLoad = {
-                if let url = response.link?.nextUrl, timeline == .homeTimeline {
-                    return .link(url)
-                } else {
-                    return .nothingMoreToLoad
-                }
-            }()
+            newBatchBottomLoad = bottomLoad(fromLink: response.link)
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
         case .local:
             let response = try await {
                 if let loadUrl {
@@ -456,13 +461,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }()
             newBatch = response.value.map { timelineItem(fromStatus: $0) }
-            newBatchBottomLoad = {
-                if let url = response.link?.nextUrl {
-                    return .link(url)
-                } else {
-                    return .nothingMoreToLoad
-                }
-            }()
+            newBatchBottomLoad = bottomLoad(fromLink: response.link)
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
         case .list(let listId):
             let response = try await {
                 if let loadUrl {
@@ -476,13 +476,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }()
             newBatch = response.value.map { timelineItem(fromStatus: $0) }
-            newBatchBottomLoad = {
-                if let url = response.link?.nextUrl {
-                    return .link(url)
-                } else {
-                    return .nothingMoreToLoad
-                }
-            }()
+            newBatchBottomLoad = bottomLoad(fromLink: response.link)
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
         case .hashtag(let hashtag, let includeHeader):
             let response = try await {
                 if let loadUrl {
@@ -510,13 +505,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             } else {
                 newBatch = statuses
             }
-            newBatchBottomLoad = {
-                if let url = response.link?.nextUrl {
-                    return .link(url)
-                } else {
-                    return .nothingMoreToLoad
-                }
-            }()
+            newBatchBottomLoad = bottomLoad(fromLink: response.link)
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
         case .discover(let discoverType):
             switch discoverType {
             case .posts:
@@ -535,13 +525,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     }
                 }()
                 newBatch = response.value.map { timelineItem(fromStatus: $0) }
-                newBatchBottomLoad = {
-                    if let url = response.link?.nextUrl {
-                        return .link(url)
-                    } else {
-                        return .nothingMoreToLoad
-                    }
-                }()
+                newBatchBottomLoad = bottomLoad(fromLink: response.link)
+                newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             case .hashtags:
                 let response = try await {
                     if let loadUrl {
@@ -557,13 +542,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     }
                 }()
                 newBatch = response.value.map { timelineItem(fromHashtag: $0) }
-                newBatchBottomLoad = {
-                    if let url = response.link?.nextUrl {
-                        return .link(url)
-                    } else {
-                        return .nothingMoreToLoad
-                    }
-                }()
+                newBatchBottomLoad = bottomLoad(fromLink: response.link)
+                newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             }
         case .search(let searchText, let scope):
             let query = Mastodon.API.V2.Search.Query(
@@ -587,13 +567,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             let hashtags = results.hashtags.map { timelineItem(fromHashtag: $0) }
             let accounts = results.accounts.map { timelineItem(fromAccount: $0) }
             newBatch = accounts + hashtags + statuses
-            newBatchBottomLoad = {
-                if let url = response.link?.nextUrl {
-                    return .link(url)
-                } else {
-                    return .nothingMoreToLoad
-                }
-            }()
+            newBatchBottomLoad = bottomLoad(fromLink: response.link)
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
         case .userPosts(let userID, let queryFilter):
             let response = try await {
@@ -610,13 +585,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }()
             newBatch = response.value.map { timelineItem(fromStatus: $0) }
-            newBatchBottomLoad = {
-                if let url = response.link?.nextUrl {
-                    return .link(url)
-                } else {
-                    return .nothingMoreToLoad
-                }
-            }()
+            newBatchBottomLoad = bottomLoad(fromLink: response.link)
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
         case .accountsFollowed(let userId):
             let response = try await {
@@ -627,13 +597,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }()
             newBatch = response.value.map { timelineItem(fromAccount: $0) }
-            newBatchBottomLoad = {
-                if let url = response.link?.nextUrl {
-                    return .link(url)
-                } else {
-                    return .nothingMoreToLoad
-                }
-            }()
+            newBatchBottomLoad = bottomLoad(fromLink: response.link)
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
         case .followers(let userId):
             let response = try await {
@@ -644,13 +609,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }()
             newBatch = response.value.map { timelineItem(fromAccount: $0) }
-            newBatchBottomLoad = {
-                if let url = response.link?.nextUrl {
-                    return .link(url)
-                } else {
-                    return .nothingMoreToLoad
-                }
-            }()
+            newBatchBottomLoad = bottomLoad(fromLink: response.link)
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
         case .remoteThread(let remoteThreadType):
             let status: Mastodon.Entity.Status
@@ -663,20 +623,23 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 status = notification.status!
             }
             let post = GenericMastodonPost.fromStatus(status)
-            let context = try await APIService.shared.statusContext(
+            let response = try await APIService.shared.statusContext(
                 statusID: status.id,
                 authenticationBox: authenticatedUser
-            ).value
+            )
+            let context = response.value
             let threadModel = ThreadedConversationModel(threadContext: context, focusedPost: post)
             threadedConversationModel = threadModel
             newBatch = threadModel.fullThread.map { timelineItem(fromStatus: $0) }
             newBatchBottomLoad = .nothingMoreToLoad  // pagination is not possible, only reloading
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
         case .thread(let root):
-            let context = try await APIService.shared.statusContext(
+            let response = try await APIService.shared.statusContext(
                 statusID: root.id,
                 authenticationBox: authenticatedUser
-            ).value
+            )
+            let context = response.value
             let threadModel: ThreadedConversationModel
             if let basicPost = root as? MastodonBasicPost, let quote = basicPost.quotedPost, quote.fullPost == nil, quote.quotedPostID != nil {
                 // likely this is a nested quote that is now being opened and therefore we should refetch the status in hopes of getting the full quoted status to display instead of the placeholder
@@ -688,6 +651,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             threadedConversationModel = threadModel
             newBatch = threadModel.fullThread.map { timelineItem(fromStatus: $0) }
             newBatchBottomLoad = .nothingMoreToLoad  // pagination is not possible, only reloading
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
         case .myFollowedHashtags:
             let response = try await {
@@ -702,13 +666,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }()
             newBatch = response.value.map { timelineItem(fromHashtag: $0) }
-            newBatchBottomLoad = {
-                if let url = response.link?.nextUrl {
-                    return .link(url)
-                } else {
-                    return .nothingMoreToLoad
-                }
-            }()
+            newBatchBottomLoad = bottomLoad(fromLink: response.link)
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
         case .myBookmarks:
             let response = try await {
@@ -721,13 +680,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }()
             newBatch = response.value.map { timelineItem(fromStatus: $0) }
-            newBatchBottomLoad = {
-                if let url = response.link?.nextUrl {
-                    return .link(url)
-                } else {
-                    return .nothingMoreToLoad
-                }
-            }()
+            newBatchBottomLoad = bottomLoad(fromLink: response.link)
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
         case .myFavorites:
             let response = try await {
@@ -740,13 +694,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }()
             newBatch = response.value.map { timelineItem(fromStatus: $0) }
-            newBatchBottomLoad = {
-                if let url = response.link?.nextUrl {
-                    return .link(url)
-                } else {
-                    return .nothingMoreToLoad
-                }
-            }()
+            newBatchBottomLoad = bottomLoad(fromLink: response.link)
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
         case .whoFavourited(let actionableStatusID):
             let response = try await {
@@ -761,13 +710,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }()
             newBatch = response.value.map { timelineItem(fromAccount: $0) }
-            newBatchBottomLoad = {
-                if let url = response.link?.nextUrl {
-                    return .link(url)
-                } else {
-                    return .nothingMoreToLoad
-                }
-            }()
+            newBatchBottomLoad = bottomLoad(fromLink: response.link)
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
         case .whoBoosted(let actionableStatusID):
             let response = try await {
@@ -782,13 +726,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }()
             newBatch = response.value.map { timelineItem(fromAccount: $0) }
-            newBatchBottomLoad = {
-                if let url = response.link?.nextUrl {
-                    return .link(url)
-                } else {
-                    return .nothingMoreToLoad
-                }
-            }()
+            newBatchBottomLoad = bottomLoad(fromLink: response.link)
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
         case .notifications(scope: let scope):
             print("loading notifications request \(request)")
@@ -811,13 +750,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     return TimelineItem.notification(notificationViewModel)
                 }
             }
-            newBatchBottomLoad = {
-                if let url = response.1?.nextUrl {
-                    return .link(url)
-                } else {
-                    return .nothingMoreToLoad
-                }
-            }()
+            newBatchBottomLoad = bottomLoad(fromLink: response.1)
+            newAsyncRefreshAvailable = response.2
         }
         
         let newCache: CacheableTimeline
@@ -845,6 +779,9 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         accountViewModels = newAccountModels
         hashtagViewModels = newHashtagModels
         createContentConcealViewModels(newCache)
+        if let newAsyncRefreshAvailable {
+            asyncRefreshViewModel?.beginPollingForResults(newAsyncRefreshAvailable, withSecondsBetweenButtonUpdate: 10, authenticationBox: authenticatedUser)
+        }
         try? await fetchReplyTos(newCache)
         
         return newCache
@@ -1194,7 +1131,7 @@ extension GenericMastodonPost {
 @MainActor
 struct NotificationsLoader {
     
-    static func getNotifications(withScope scope: NotificationsScope, olderThan: String? = nil, newerThan: String?) async throws -> ([GroupedNotificationInfo], Mastodon.Response.Link?) {
+    static func getNotifications(withScope scope: NotificationsScope, olderThan: String? = nil, newerThan: String?) async throws -> ([GroupedNotificationInfo], Mastodon.Response.Link?, Mastodon.Response.AsyncRefreshAvailable?) {
         guard let currentInstance = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration else {
             throw(APIService.APIError.implicit(.authenticationMissing))
         }
@@ -1215,7 +1152,7 @@ struct NotificationsLoader {
         }
     }
     
-    static func getNotifications(fromUrl url: URL, scope: NotificationsScope) async throws -> ([GroupedNotificationInfo], Mastodon.Response.Link?) {
+    static func getNotifications(fromUrl url: URL, scope: NotificationsScope) async throws -> ([GroupedNotificationInfo], Mastodon.Response.Link?, Mastodon.Response.AsyncRefreshAvailable?) {
         guard let currentInstance = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration else {
             throw(APIService.APIError.implicit(.authenticationMissing))
         }
@@ -1240,24 +1177,24 @@ struct NotificationsLoader {
         return authenticationBox
     }
      
-    static private func getNotifications(fromUrl url: URL, grouped: Bool) async throws -> ([GroupedNotificationInfo], Mastodon.Response.Link?) {
+    static private func getNotifications(fromUrl url: URL, grouped: Bool) async throws -> ([GroupedNotificationInfo], Mastodon.Response.Link?, Mastodon.Response.AsyncRefreshAvailable?) {
         let authenticationBox = try currentUser()
         
         if grouped {
             let response = try await APIService.shared.groupedNotifications(fromUrl: url, authenticationBox: authenticationBox)
             let infos = groupedNotificationInfos(fromGroupedNotifications: response.value, authenticationBox: authenticationBox)
-            return (infos, response.link)
+            return (infos, response.link, response.asyncRefreshAvaliable)
         } else {
             let response = try await APIService.shared.ungroupedNotifications(fromUrl: url, authenticationBox: authenticationBox)
             let infos = groupedNotificationInfos(fromUngroupedNotifications: response.value, authenticationBox: authenticationBox)
-            return (infos, response.link)
+            return (infos, response.link, response.asyncRefreshAvaliable)
         }
         
     }
     
     static private func getUngroupedNotifications(
         withScope scope: NotificationsScope, olderThan maxID: String? = nil, newerThan minID: String?
-    ) async throws -> ([GroupedNotificationInfo], Mastodon.Response.Link?) {
+    ) async throws -> ([GroupedNotificationInfo], Mastodon.Response.Link?, Mastodon.Response.AsyncRefreshAvailable?) {
         let authenticationBox = try currentUser()
         
         let response = try await {
@@ -1281,7 +1218,7 @@ struct NotificationsLoader {
         }()
         
         let infos = groupedNotificationInfos(fromUngroupedNotifications: response.value, authenticationBox: authenticationBox)
-        return (infos, response.link)
+        return (infos, response.link, response.asyncRefreshAvaliable)
     }
     
     static private func groupedNotificationInfos(fromUngroupedNotifications ungroupedNotifications: [Mastodon.Entity.Notification], authenticationBox: MastodonAuthenticationBox) -> [GroupedNotificationInfo] {
@@ -1348,7 +1285,7 @@ struct NotificationsLoader {
     
     static private func getGroupedNotifications(
         withScope scope: NotificationsScope, olderThan maxID: String? = nil, newerThan minID: String?
-    ) async throws -> ([GroupedNotificationInfo], Mastodon.Response.Link?) {
+    ) async throws -> ([GroupedNotificationInfo], Mastodon.Response.Link?, Mastodon.Response.AsyncRefreshAvailable?) {
         let authenticationBox = try currentUser()
         
         let adminFilterPreferences = await BodegaPersistence.Notifications.currentPreferences(for: authenticationBox)
@@ -1377,7 +1314,7 @@ struct NotificationsLoader {
         
         let groups = groupedNotificationInfos(fromGroupedNotifications: results, authenticationBox: authenticationBox)
         
-        return (groups, response.link)
+        return (groups, response.link, response.asyncRefreshAvaliable)
     }
     
 }

@@ -47,6 +47,7 @@ class TimelineListViewController: UIHostingController<AnyView>
 {
     public let type: TimelineViewType
     private let viewModel: TimelineListViewModel
+    private let asyncRefreshViewModel = AsyncRefreshViewModel()
     private var navigationFlow: NavigationFlow?
     private let _mediaPreviewTransitionController = MediaPreviewTransitionController()
     
@@ -54,37 +55,37 @@ class TimelineListViewController: UIHostingController<AnyView>
         self.type = type
         switch type {
         case .home:
-            viewModel = TimelineListViewModel(timeline: .homeTimeline)
+            viewModel = TimelineListViewModel(timeline: .homeTimeline, asyncRefreshViewModel: asyncRefreshViewModel)
         case .notifications(let scope):
-            viewModel = TimelineListViewModel(timeline: .notifications(scope: scope))
+            viewModel = TimelineListViewModel(timeline: .notifications(scope: scope), asyncRefreshViewModel: asyncRefreshViewModel)
         case .discover(let type):
-            viewModel = TimelineListViewModel(timeline: .discover(type))
+            viewModel = TimelineListViewModel(timeline: .discover(type), asyncRefreshViewModel: asyncRefreshViewModel)
         case .search(let searchText, let scope):
-            viewModel = TimelineListViewModel(timeline: .search(searchText, scope))
+            viewModel = TimelineListViewModel(timeline: .search(searchText, scope), asyncRefreshViewModel: asyncRefreshViewModel)
         case .profilePosts(_, let user, let queryFilter):
-            viewModel = TimelineListViewModel(timeline: .userPosts(userID: user, queryFilter: queryFilter))
+            viewModel = TimelineListViewModel(timeline: .userPosts(userID: user, queryFilter: queryFilter), asyncRefreshViewModel: asyncRefreshViewModel)
         case .thread(let root):
-            viewModel = TimelineListViewModel(timeline: .thread(root: root))
+            viewModel = TimelineListViewModel(timeline: .thread(root: root), asyncRefreshViewModel: asyncRefreshViewModel)
         case .remoteThread(let remoteThreadType):
-            viewModel = TimelineListViewModel(timeline: .remoteThread(remoteType: remoteThreadType))
+            viewModel = TimelineListViewModel(timeline: .remoteThread(remoteType: remoteThreadType), asyncRefreshViewModel: asyncRefreshViewModel)
         case .followers(let followedAccount):
-            viewModel = TimelineListViewModel(timeline: .followers(ofUserId: followedAccount))
+            viewModel = TimelineListViewModel(timeline: .followers(ofUserId: followedAccount), asyncRefreshViewModel: asyncRefreshViewModel)
         case .accountsFollowed(let followingAccount):
-            viewModel = TimelineListViewModel(timeline: .accountsFollowed(byUserId: followingAccount))
+            viewModel = TimelineListViewModel(timeline: .accountsFollowed(byUserId: followingAccount), asyncRefreshViewModel: asyncRefreshViewModel)
         case .myFollowedHashtags:
-            viewModel = TimelineListViewModel(timeline: .myFollowedHashtags)
+            viewModel = TimelineListViewModel(timeline: .myFollowedHashtags, asyncRefreshViewModel: asyncRefreshViewModel)
         case .myBookmarks:
-            viewModel = TimelineListViewModel(timeline: .myBookmarks)
+            viewModel = TimelineListViewModel(timeline: .myBookmarks, asyncRefreshViewModel: asyncRefreshViewModel)
         case .myFavorites:
-            viewModel = TimelineListViewModel(timeline: .myFavorites)
+            viewModel = TimelineListViewModel(timeline: .myFavorites, asyncRefreshViewModel: asyncRefreshViewModel)
         case .hashtag(let tag):
-            viewModel = TimelineListViewModel(timeline: .hashtag(tag, includeHeader: true))
+            viewModel = TimelineListViewModel(timeline: .hashtag(tag, includeHeader: true), asyncRefreshViewModel: asyncRefreshViewModel)
         case .whoFavourited(let statusID):
-            viewModel = TimelineListViewModel(timeline: .whoFavourited(actionableStatusID: statusID))
+            viewModel = TimelineListViewModel(timeline: .whoFavourited(actionableStatusID: statusID), asyncRefreshViewModel: asyncRefreshViewModel)
         case .whoBoosted(let statusID):
-            viewModel = TimelineListViewModel(timeline: .whoBoosted(actionableStatusID: statusID))
+            viewModel = TimelineListViewModel(timeline: .whoBoosted(actionableStatusID: statusID), asyncRefreshViewModel: asyncRefreshViewModel)
         }
-        let root = TimelineListView().environment(viewModel)
+        let root = TimelineListView().environment(viewModel).environment(asyncRefreshViewModel)
         super.init(rootView: AnyView(root))
         viewModel.parentVcPresentScene = { (scene, transition) in
             self.sceneCoordinator?.present(scene: scene, from: self, transition: transition)
@@ -653,6 +654,7 @@ enum MastodonTimelineSheet {
         case notificationFilterPolicyUpdated
         case userRequestedRefresh
         case notificationCountUpdated
+        case asyncRefreshResultsRequested
     }
     
     public var parentVcPresentScene: ((SceneCoordinator.Scene, SceneCoordinator.Transition) -> ())?
@@ -775,8 +777,11 @@ enum MastodonTimelineSheet {
         }
     }
     
-    init(timeline: MastodonTimelineType) {
+    private let _asyncRefreshViewModel: AsyncRefreshViewModel?
+    
+    init(timeline: MastodonTimelineType, asyncRefreshViewModel: AsyncRefreshViewModel?) {
         self.timeline = timeline
+        self._asyncRefreshViewModel = asyncRefreshViewModel
         
         self.instanceConfigurationUpdateSubscription = AuthenticationServiceProvider.shared.instanceConfigurationUpdates
             .receive(on: DispatchQueue.main)
@@ -894,6 +899,9 @@ enum MastodonTimelineSheet {
                 }
             }
             
+        case .requestedAsyncRefreshResults:
+            _asyncRefreshViewModel?.didRefreshFromOriginalEndpoint()
+            fallthrough
         case .requestedReloadFromBottom:
             // leave the scrollPosition alone, it should work
             safeToSetNewItemsImmediately = true
@@ -938,13 +946,13 @@ enum MastodonTimelineSheet {
             case .untracked:
                 self.loadMoreFromBottom()
                 return true
-            case .requestedPrependedHeightCalculations, .requestedReloadFromBottom, .requestedReloadFromTop:
+            case .requestedPrependedHeightCalculations, .requestedReloadFromBottom, .requestedReloadFromTop, .requestedAsyncRefreshResults:
                 return false
             }
         }
         
         clearPendingActions()
-        feedLoader = TimelineFeedLoader(currentUser: authenticatedUser, timeline: timeline)
+        feedLoader = TimelineFeedLoader(currentUser: authenticatedUser, timeline: timeline, asyncRefreshViewModel: _asyncRefreshViewModel)
         
         setUpFeedLoaderResultsSubscription()
         
@@ -1021,6 +1029,9 @@ enum MastodonTimelineSheet {
             fetchFilteredNotificationsPolicy(andReloadFeed: true)
         case .notificationFilterPolicyUpdated:
             loadingState = .requestedReloadFromTop
+            feedLoader.requestLoad(.reload)
+        case .asyncRefreshResultsRequested:
+            loadingState = .requestedAsyncRefreshResults
             feedLoader.requestLoad(.reload)
         case .userRequestedRefresh:
             if timeline.canDisplayFilteredNotifications {
@@ -1126,7 +1137,7 @@ extension TimelineListViewModel {
         switch loadingState {
         case .initializing:
             break
-        case .requestedReloadFromTop, .requestedReloadFromBottom, .requestedPrependedHeightCalculations:
+        case .requestedReloadFromTop, .requestedReloadFromBottom, .requestedPrependedHeightCalculations, .requestedAsyncRefreshResults:
             break
         case .untracked:
             Task {
@@ -1264,6 +1275,7 @@ extension TimelineListViewModel {
         case requestedPrependedHeightCalculations(UUID)
         case requestedReloadFromBottom
         case requestedReloadFromTop
+        case requestedAsyncRefreshResults
     }
     
     func resetToUntrackedAfterDelay(from currentState: LoadingState) {
@@ -1329,6 +1341,7 @@ func contentWidth(forUseableWidth useableWidth: CGFloat) -> CGFloat {
 
 struct TimelineListView: View {
     @Environment(TimelineListViewModel.self) private var viewModel
+    @Environment(AsyncRefreshViewModel.self) private var asyncRefreshViewModel
     
     var body: some View {
         GeometryReader { geo in
@@ -1395,7 +1408,7 @@ struct TimelineListView: View {
                                     await viewModel.refreshFromTop()
                                     viewModel.resetToUntrackedAfterDelay(from: viewModel.loadingState)
                                 }
-                            case .requestedReloadFromTop, .requestedReloadFromBottom, .requestedPrependedHeightCalculations:
+                            case .requestedReloadFromTop, .requestedReloadFromBottom, .requestedPrependedHeightCalculations, .requestedAsyncRefreshResults:
                                 debugScroll("not refreshing feed.  current state is \(viewModel.loadingState)")
                                 break
                             }
@@ -1410,7 +1423,7 @@ struct TimelineListView: View {
                                     await viewModel.refreshFromTop()
                                     viewModel.resetToUntrackedAfterDelay(from: .requestedReloadFromTop)
                                 }
-                            case .requestedReloadFromTop, .requestedReloadFromBottom, .requestedPrependedHeightCalculations:
+                            case .requestedReloadFromTop, .requestedReloadFromBottom, .requestedPrependedHeightCalculations, .requestedAsyncRefreshResults:
                                 break
                             }
                         }
@@ -1434,17 +1447,36 @@ struct TimelineListView: View {
                         .fixedSize(horizontal: false, vertical: true)
                     }
                     
-                    if viewModel.unreadCount > 0 {
-                        VStack(alignment: .trailing) {
+                    // Snackbars at the top right
+                    VStack(alignment: .trailing) {
+                        if viewModel.unreadCount > 0 {
                             Snackbar(barType: .newUnreadItems(viewModel.unreadCount))
                                 .onTapGesture {
                                     viewModel.scrollToTop()
                                 }
-                            Spacer()
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        } else {
+                            switch asyncRefreshViewModel.refreshButtonState {
+                            case .hidden:
+                                EmptyView()
+                            case .newResultsExpected:
+                                Snackbar(barType: .asyncRefreshUpdateAvailable)
+                                    .onTapGesture {
+                                        guard asyncRefreshViewModel.willRefreshFromOriginalEndpoint() else {
+                                            return
+                                        }
+                                        viewModel.loadingState = .requestedAsyncRefreshResults
+                                        Task {
+                                            await viewModel.forceReload(.asyncRefreshResultsRequested)
+                                        }
+                                    }
+                            case .fetching:
+                                Snackbar(barType: .asyncRefreshUpdateFetching)
+                            }
                         }
-                        .padding(tinySpacing)
+                        Spacer()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
+                    .padding(tinySpacing)
                 }
             } // ZStack(alignment: .bottom)
         } // GeometryReader
@@ -1632,7 +1664,7 @@ struct TimelineListView: View {
                                 guard let actual = postViewModel.actualLayoutHeight else { return nil }
                                 return actual - expectedHeight
                             }()
-                            Text("calculated: \(expectedHeight)\nactual: \(postViewModel.actualLayoutHeight)\ndifference: \(difference)")
+                            Text("calculated: \(expectedHeight)\nactual: \(String(describing: postViewModel.actualLayoutHeight))\ndifference: \(String(describing: difference))")
                                 .foregroundStyle(.red)
                                 .padding()
                                 .background {
@@ -1862,7 +1894,7 @@ struct TimelineListView: View {
             } label: {
                 Text(L10n.Common.Controls.Friendship.unblockUser(username))
             }
-        case .error(let error):
+        case .error:
             Button(L10n.Common.Controls.Actions.ok) {
             }
         }
@@ -2644,16 +2676,45 @@ struct GapLoaderView: View {
 struct Snackbar: View {
     enum SnackbarType {
         case newUnreadItems(Int)
+        case asyncRefreshUpdateAvailable
+        case asyncRefreshUpdateFetching
+        
+        var hidesText: Bool {
+            switch self {
+            case .newUnreadItems, .asyncRefreshUpdateAvailable:
+                return false
+            case .asyncRefreshUpdateFetching:
+                return true
+            }
+        }
     }
     
     let barType: SnackbarType
     
     var body: some View {
-        switch barType {
-        case .newUnreadItems(let int):
+        let text = {
+            switch barType {
+            case .newUnreadItems(let unreadCount):
+                return L10nLookup.Common.Controls.Timeline.Loader.unreadItemsButtonTitle(unreadCount: unreadCount)
+            case .asyncRefreshUpdateAvailable, .asyncRefreshUpdateFetching:
+                return L10nLookup.Common.Controls.Timeline.Loader.showMoreReplies
+            }
+        }()
+        
+        ZStack {
             HStack(spacing: tinySpacing) {
-                Image(systemName: "chevron.up")
-                Text("\(int) new")
+                switch barType {
+                case .newUnreadItems:
+                    Image(systemName: "chevron.up")
+                case .asyncRefreshUpdateAvailable, .asyncRefreshUpdateFetching:
+                    EmptyView()
+                }
+                if barType.hidesText {
+                    Text(text)
+                        .hidden()
+                } else {
+                    Text(text)
+                }
             }
             .font(.footnote)
             .foregroundStyle(.white)
@@ -2661,6 +2722,15 @@ struct Snackbar: View {
             .background {
                 Capsule()
                     .fill(Asset.Colors.accent.swiftUIColor)
+            }
+            
+            switch barType {
+            case .newUnreadItems, .asyncRefreshUpdateAvailable:
+                EmptyView()
+            case .asyncRefreshUpdateFetching:
+                ProgressView()
+                    .progressViewStyle(.circular)
+                    .tint(.white)
             }
         }
     }

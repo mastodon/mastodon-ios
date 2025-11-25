@@ -640,8 +640,6 @@ public enum L10n {
           public static let loadingMissingPosts = L10n.tr("Localizable", "Common.Controls.Timeline.Loader.LoadingMissingPosts", fallback: "Loading missing posts...")
           /// Load missing posts
           public static let loadMissingPosts = L10n.tr("Localizable", "Common.Controls.Timeline.Loader.LoadMissingPosts", fallback: "Load missing posts")
-          /// Show more replies
-          public static let showMoreReplies = L10n.tr("Localizable", "Common.Controls.Timeline.Loader.ShowMoreReplies", fallback: "Show more replies")
         }
         public enum Timestamp {
           /// Now
