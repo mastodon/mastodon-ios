@@ -1,0 +1,6 @@
+{
+    "NSCameraUsageDescription": "ใช้เพื่อถ่ายรูปสำหรับโพสต์สถานะ",
+    "NSPhotoLibraryAddUsageDescription": "ใช้เพื่อบันทึกรูปภาพลงในคลังรูปภาพ",
+    "NewPostShortcutItemTitle": "โพสต์ใหม่",
+    "SearchShortcutItemTitle": "ค้นหา"
+}

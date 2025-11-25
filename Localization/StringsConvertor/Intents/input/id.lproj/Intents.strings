@@ -1,0 +1,51 @@
+"16wxgf" = "Buat Postingan di Mastodon";
+
+"751xkl" = "Teks Isi";
+
+"CsR7G2" = "Buat Postingan di Mastodon";
+
+"HZSGTr" = "Konten apa yang ingin diposting?";
+
+"HdGikU" = "Gagal memposting";
+
+"KDNTJ4" = "Alasan Kegagalan";
+
+"RHxKOw" = "Kirim Postingan dengan konten berupa teks";
+
+"RxSqsb" = "Postingan";
+
+"WCIR3D" = "Posting ${content} di Mastodon";
+
+"ZKJSNu" = "Postingan";
+
+"ZS1XaK" = "${content}";
+
+"ZbSjzC" = "Visibilitas";
+
+"Zo4jgJ" = "Visibilitas Postingan";
+
+"apSxMG-dYQ5NN" = "Tidak ada ${count} opsi yang cocok dengan 'Publik'.";
+
+"apSxMG-ehFLjY" = "Tidak ada ${count} opsi yang cocok dengan 'Untuk Pengikut Saja'.";
+
+"ayoYEb-dYQ5NN" = "${content}, Publik";
+
+"ayoYEb-ehFLjY" = "${content}, Hanya Pengikut";
+
+"dUyuGg" = "Buat Postingan di Mastodon";
+
+"dYQ5NN" = "Publik";
+
+"ehFLjY" = "Hanya Pengikut";
+
+"gfePDu" = "Gagal memposting. ${failureReason}";
+
+"k7dbKQ" = "Postingan berhasil dikirim.";
+
+"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+
+"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+
+"rM6dvp" = "URL";
+
+"ryJLwG" = "Postingan berhasil dikirim. ";

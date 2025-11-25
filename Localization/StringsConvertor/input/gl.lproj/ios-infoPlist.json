@@ -1,0 +1,6 @@
+{
+    "NSCameraUsageDescription": "Utilizado para facer foto e publicar estado",
+    "NSPhotoLibraryAddUsageDescription": "Utilizado para gardar a foto na Biblioteca",
+    "NewPostShortcutItemTitle": "Nova publicación",
+    "SearchShortcutItemTitle": "Buscar"
+}

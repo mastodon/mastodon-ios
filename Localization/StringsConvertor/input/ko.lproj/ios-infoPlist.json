@@ -1,0 +1,6 @@
+{
+    "NSCameraUsageDescription": "게시물에 사용할 사진을 찍기 위해 쓰임",
+    "NSPhotoLibraryAddUsageDescription": "갤러리에 사진을 저장하기 위해 쓰임",
+    "NewPostShortcutItemTitle": "새 글",
+    "SearchShortcutItemTitle": "검색"
+}

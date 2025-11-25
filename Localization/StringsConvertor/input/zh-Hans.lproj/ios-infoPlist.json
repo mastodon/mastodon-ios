@@ -1,0 +1,6 @@
+{
+    "NSCameraUsageDescription": "用于在嘟文中附加图片",
+    "NSPhotoLibraryAddUsageDescription": "用于将图片保存到照片图库",
+    "NewPostShortcutItemTitle": "新嘟文",
+    "SearchShortcutItemTitle": "搜索"
+}

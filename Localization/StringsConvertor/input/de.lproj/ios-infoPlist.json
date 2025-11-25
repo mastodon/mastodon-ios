@@ -1,0 +1,6 @@
+{
+    "NSCameraUsageDescription": "Wird verwendet, um Fotos für neue Beiträge aufzunehmen",
+    "NSPhotoLibraryAddUsageDescription": "Wird verwendet, um Foto in der Foto-Mediathek zu speichern",
+    "NewPostShortcutItemTitle": "Neuer Beitrag",
+    "SearchShortcutItemTitle": "Suchen"
+}
