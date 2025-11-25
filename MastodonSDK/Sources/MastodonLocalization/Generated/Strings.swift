@@ -2313,14 +2313,6 @@ public enum L10n {
       public static func others(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.others", p1, fallback: "Plural format key: \"%#@count_others@\"")
       }
-      /// Plural format key: "%#@count_people@"
-      public static func peopleBoosted(_ p1: Int) -> String {
-        return L10n.tr("Localizable", "plural.count.people_boosted", p1, fallback: "Plural format key: \"%#@count_people@\"")
-      }
-      /// Plural format key: "%#@count_people@"
-      public static func peopleFollowedYou(_ p1: Int) -> String {
-        return L10n.tr("Localizable", "plural.count.people_followed_you", p1, fallback: "Plural format key: \"%#@count_people@\"")
-      }
       /// Plural format key: "%#@post_count@"
       public static func post(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.post", p1, fallback: "Plural format key: \"%#@post_count@\"")

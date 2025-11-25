@@ -144,9 +144,9 @@ extension GroupedNotificationType {
                 case .favourite:
                     plainString = L10nLookup.Scene.Notification.GroupedNotificationDescription.peopleFavourited(favouriteCount: totalAuthorCount)
                 case .follow:
-                    plainString = L10n.Plural.Count.peopleFollowedYou(totalAuthorCount)
+                    plainString = L10nLookup.Scene.Notification.GroupedNotificationDescription.peopleFollowedYou(newFollowerCount: totalAuthorCount)
                 case .reblog:
-                    plainString = L10n.Plural.Count.peopleBoosted(totalAuthorCount)
+                    plainString = L10nLookup.Scene.Notification.GroupedNotificationDescription.peopleBoosted(boostCount: totalAuthorCount)
                 case .adminSignUp:
                     plainString = L10n.Plural.Count.newSignups(totalAuthorCount)
                 default:
