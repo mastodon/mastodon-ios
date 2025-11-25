@@ -1,0 +1,6 @@
+{
+    "NSCameraUsageDescription": "Används för att ta foto till inlägg",
+    "NSPhotoLibraryAddUsageDescription": "Används för att spara foto till bildbiblioteket",
+    "NewPostShortcutItemTitle": "Nytt inlägg",
+    "SearchShortcutItemTitle": "Sök"
+}

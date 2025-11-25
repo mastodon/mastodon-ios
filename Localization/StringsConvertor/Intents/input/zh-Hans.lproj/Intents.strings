@@ -1,0 +1,51 @@
+"16wxgf" = "在 Mastodon 上发布";
+
+"751xkl" = "文本内容";
+
+"CsR7G2" = "在 Mastodon 上发布";
+
+"HZSGTr" = "要发布的内容是？";
+
+"HdGikU" = "发布失败";
+
+"KDNTJ4" = "失败原因";
+
+"RHxKOw" = "发布带有文本内容的嘟文";
+
+"RxSqsb" = "嘟文";
+
+"WCIR3D" = "在 Mastodon 上发布 ${content}";
+
+"ZKJSNu" = "嘟文";
+
+"ZS1XaK" = "${content}";
+
+"ZbSjzC" = "可见性";
+
+"Zo4jgJ" = "嘟文可见性";
+
+"apSxMG-dYQ5NN" = "有 ${count} 个选项匹配“公开”。";
+
+"apSxMG-ehFLjY" = "有 ${count} 个选项匹配“仅关注者”。";
+
+"ayoYEb-dYQ5NN" = "${content}，公开";
+
+"ayoYEb-ehFLjY" = "${content}，仅关注者";
+
+"dUyuGg" = "在 Mastodon 上发布";
+
+"dYQ5NN" = "公开";
+
+"ehFLjY" = "仅关注者";
+
+"gfePDu" = "发布失败。${failureReason}";
+
+"k7dbKQ" = "嘟文发布成功。";
+
+"oGiqmY-dYQ5NN" = "您确定要选择“公开”吗？";
+
+"oGiqmY-ehFLjY" = "您确定要选择“仅关注者”吗？";
+
+"rM6dvp" = "网址";
+
+"ryJLwG" = "帖子发送成功。";

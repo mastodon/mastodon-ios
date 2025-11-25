@@ -1,0 +1,6 @@
+{
+    "NSCameraUsageDescription": "Usado para tomar fotos para los mensajes",
+    "NSPhotoLibraryAddUsageDescription": "Usado para guardar la foto en la Biblioteca de fotos",
+    "NewPostShortcutItemTitle": "Nuevo mensaje",
+    "SearchShortcutItemTitle": "Buscar"
+}

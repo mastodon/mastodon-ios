@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>There are ${count} options matching ‘${content}’. - 2</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>هُناك %#@count_option@ تتطابق مَعَ '${content}'.</string>
+      <key>count_option</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>%ld</string>
+        <key>zero</key>
+        <string>لا خيار</string>
+        <key>one</key>
+        <string>خيار واحد</string>
+        <key>two</key>
+        <string>خياران</string>
+        <key>few</key>
+        <string>%ld خيارات</string>
+        <key>many</key>
+        <string>%ld خيارًا</string>
+        <key>other</key>
+        <string>%ld خيار</string>
+      </dict>
+    </dict>
+    <key>There are ${count} options matching ‘${visibility}’.</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>هُناك %#@count_option@ تتطابق مَعَ '${visibility}'.</string>
+      <key>count_option</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>%ld</string>
+        <key>zero</key>
+        <string>لا خيار</string>
+        <key>one</key>
+        <string>خيار واحد</string>
+        <key>two</key>
+        <string>خياران</string>
+        <key>few</key>
+        <string>%ld خيارات</string>
+        <key>many</key>
+        <string>%ld خيارًا</string>
+        <key>other</key>
+        <string>%ld خيار</string>
+      </dict>
+    </dict>
+  </dict>
+</plist>
