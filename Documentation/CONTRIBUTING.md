@@ -15,7 +15,7 @@ The app uses CrowdIn to crowdsource translations. Translations will update regul
 Note that we have switched the main app localizations from using `.strings` and `.stringsdict` files (and `swiftgen` to create typed accessors) to using `.xcstrings` (and a manually-maintained `L10nLookup` struct to provide the typed accessors).
 - The typed accessors in the swiftgen-generated `L10n` struct are still in use in the app, but the file is no longer automatically updated and no new accessors should be added to it manually. As the accessors are replaced by new ones in the `L10nLookup` struct (hopefully with more meaningful argument names), they should be removed from the old `L10n` struct.
 
-To add new localized strings:
+### To add new localized strings:
 
 - Edit `MastodonSDK/Sources/MastodonLocalizations/Resources/Localizable.xcstrings` to add the new string:
     - The key should follow our hierarchical naming conventions as you will see in other entries. The key should not be the English string itself.
@@ -28,10 +28,19 @@ To add new localized strings:
 - Use the new typed strings by importing `MastodonLocalization` and using the `L10nLookup` struct.
     - The `L10nLookup` struct will return the proper localization if it is available or fallback to English if it is not.
     - If you see the key itself in the UI, that means the string was not found in the `.xcstrings` file. Check for typos.
+    
+### To modify translations:
+- English translations can be updated by modifying them locally in the `.xcstrings` file with the Xcode editor and pushing the change to GitHub. See "To merge translations" below for next steps.
+- Other languages' translations must be made through the CrowdIn interface and integrated into the app by merging the resulting PR. This is because the next time CrowdIn changes are merged, any locally-made changes to those values will be overwritten with the previous values.
+- Changes to *keys* that have already been uploaded to CrowdIn are likely to cause problems with the CrowdIn integration, so try not to change them.
 
-Changes to keys that have already been uploaded to CrowdIn are likely to cause problems with the CrowdIn integration, so try not to change them. English translations can be updated directly in Xcode, but updates to other language translations must be made through the CrowdIn interface and integrated into the app by merging the resulting PR. This is because changes to other language translations made directly in the project in Xcode will be overwritten with the old values the next time CrowdIn changes are merged.
+### To merge translations:
+- If you have any new strings or changes to English translations, commit those changes and push them to GitHub. This will immediately trigger the `CrowdIn/Upload translations` GitHub action.
+- Log in to CrowdIn and check the "Activity" tab to confirm that CrowdIn has received your updates.
+- Manually trigger the `CrowdIn/Download translations` GitHub action to pull in any updated translations.
+- Merge the resulting PR from `i18n/crowdin/translations`.
 
-One more note: The `.strings` files in `WidgetExtension`, `MastodonIntent`, and `InfoPlist` have not yet been converted to `.xcstrings`, but they also don't seem to have been included in the `swiftgen` workflow.
+Note: The `.strings` files in `WidgetExtension`, `MastodonIntent`, and `InfoPlist` have not yet been converted to `.xcstrings`, but they also don't seem to have been included in the `swiftgen` workflow.
 
 ## Pull Request
 
