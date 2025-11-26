@@ -65,7 +65,7 @@ public struct L10nLookup {
                 }
                 
                 public static func someoneReportedPosts(postCount: Int, violatingAccountName: String) -> String {
-                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SomeonReportedPosts", postCount, violatingAccountName)
+                    let result = tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SomeoneReportedPosts", postCount, violatingAccountName)
                     return result
                 }
                 
