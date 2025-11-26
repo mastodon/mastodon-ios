@@ -615,8 +615,8 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "1 character left"
+                  "state" : "translated",
+                  "value" : "1 tîp maye"
                 }
               },
               "other" : {
@@ -19748,8 +19748,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Block %@"
+            "state" : "translated",
+            "value" : "%@ asteng bike"
           }
         },
         "ko" : {
@@ -24234,8 +24234,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Follow %@"
+            "state" : "translated",
+            "value" : "%@ bişopîne"
           }
         },
         "ko" : {
@@ -28720,8 +28720,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Report %@"
+            "state" : "translated",
+            "value" : "%@ ragihîne"
           }
         },
         "ko" : {
@@ -30813,8 +30813,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Share %@"
+            "state" : "translated",
+            "value" : "%@ parve bike"
           }
         },
         "ko" : {
@@ -32009,8 +32009,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Translate from %@"
+            "state" : "translated",
+            "value" : "Ji %@ wergerîne"
           }
         },
         "ko" : {
@@ -32906,8 +32906,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Unblock %@"
+            "state" : "translated",
+            "value" : "%@ asteng neke"
           }
         },
         "ko" : {
@@ -33205,8 +33205,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Unfollow %@"
+            "state" : "translated",
+            "value" : "Ji şopa %@ derkeve"
           }
         },
         "ko" : {
@@ -33803,8 +33803,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Block domain %@"
+            "state" : "translated",
+            "value" : "Navpera %@ asteng bike"
           }
         },
         "ko" : {
@@ -34401,8 +34401,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Block %@"
+            "state" : "translated",
+            "value" : "%@ asteng bike"
           }
         },
         "ko" : {
@@ -34700,8 +34700,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Domain Blocked"
+            "state" : "translated",
+            "value" : "Navper hate astengkirin"
           }
         },
         "ko" : {
@@ -37092,8 +37092,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Mute %@"
+            "state" : "translated",
+            "value" : "%@ bêdeng bike"
           }
         },
         "ko" : {
@@ -37391,8 +37391,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Mutual"
+            "state" : "translated",
+            "value" : "Hevpar"
           }
         },
         "ko" : {
@@ -38886,8 +38886,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Unblock %@"
+            "state" : "translated",
+            "value" : "%@ asteng neke"
           }
         },
         "ko" : {
@@ -39484,8 +39484,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Unmute %@"
+            "state" : "translated",
+            "value" : "%@ bêdeng neke"
           }
         },
         "ko" : {
@@ -40680,8 +40680,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Switch to %@"
+            "state" : "translated",
+            "value" : "Biguherîne bo %@"
           }
         },
         "ko" : {
@@ -47557,8 +47557,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Show"
+            "state" : "translated",
+            "value" : "Nîşan bike"
           }
         },
         "ko" : {
@@ -74605,14 +74605,14 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%(unreadCount)lld new"
+                  "state" : "translated",
+                  "value" : "%(unreadCount)lld nuevo"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%(unreadCount)lld new"
+                  "state" : "translated",
+                  "value" : "%(unreadCount)lld nuevos"
                 }
               }
             }
@@ -75289,8 +75289,8 @@
             "plural" : {
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%(unreadCount)lld new"
+                  "state" : "translated",
+                  "value" : "%(unreadCount)lld 則新未讀嘟文"
                 }
               }
             }
@@ -217341,8 +217341,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Block %@"
+            "state" : "translated",
+            "value" : "%@ asteng bike"
           }
         },
         "ko" : {
@@ -217939,8 +217939,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Mute %@"
+            "state" : "translated",
+            "value" : "%@ bêdeng bike"
           }
         },
         "ko" : {
@@ -219135,8 +219135,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Unfollow %@"
+            "state" : "translated",
+            "value" : "Ji şopa %@ derkeve"
           }
         },
         "ko" : {
@@ -227208,8 +227208,8 @@
         },
         "kmr-TR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Report %@"
+            "state" : "translated",
+            "value" : "%@ ragihîne"
           }
         },
         "ko" : {
