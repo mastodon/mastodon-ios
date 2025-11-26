@@ -589,7 +589,7 @@ extension ComposeContentViewController: AutoCompleteViewControllerDelegate {
         
         // set selected range
         let newRange = NSRange(location: range.location + (replacedText as NSString).length, length: 0)
-        guard metaText.textStorage.length <= newRange.location else { return }
+        guard metaText.textStorage.length >= newRange.location else { return }
         metaText.textView.selectedRange = newRange
         
         // append a space and trigger textView delegate update
@@ -659,7 +659,7 @@ extension ComposeContentViewController: ComposeContentViewModelDelegate {
         
         // set selected range
         let newRange = NSRange(location: range.location + (replacedText as NSString).length, length: 0)
-        guard metaText.textStorage.length <= newRange.location else { return true }
+        guard metaText.textStorage.length >= newRange.location else { return true }
         metaText.textView.selectedRange = newRange
         
         // append a space and trigger textView delegate update

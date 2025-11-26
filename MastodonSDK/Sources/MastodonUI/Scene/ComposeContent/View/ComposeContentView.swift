@@ -385,11 +385,13 @@ extension ComposeContentViewModel {
         switch composeContext {
         case .composeStatus(let quoting):
             if let quotedStatus = quoting?.0, let quoteUrl = quotedStatus.url {
-                if content.isEmpty {
-                    content.append(quoteUrl)
-                } else {
-                    content.append(" \(quoteUrl)")
-                }
+                guard let metaText = self.contentMetaText else { break }
+                let endRangeStart = metaText.textStorage.length
+                metaText.textStorage.replaceCharacters(in: NSRange(location: endRangeStart, length: 0), with: "\n\(quoteUrl)")
+                // set selected range
+                let newRange = NSRange(location: endRangeStart, length: 0)
+                guard metaText.textStorage.length >= newRange.location else { return }
+                metaText.textView.selectedRange = newRange
                 self.composeContext = .composeStatus(quoting: nil)
             }
         case .editStatus:
