@@ -1,0 +1,756 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "CFBundleName" : {
+      "comment" : "Bundle name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        }
+      }
+    },
+    "NewPostShortcutItemTitle" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مَنشُورٌ جَديد"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новы допіс"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nova Publicació"
+          }
+        },
+        "ckb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پۆستی نوێ"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nový příspěvek"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neuer Beitrag"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Νέα Ανάρτηση"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Post"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nueva Publicación"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Post"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bidalketa berria"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uusi julkaisu"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouvelle Publication"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Post ùr"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nova publicación"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Új bejegyzés"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Նոր գրառում"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuovo post"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新規投稿"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tasuffeɣt tamaynut"
+          }
+        },
+        "ku" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şandiya nû"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nieuw bericht"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новая почта"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nova objava"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nytt inlägg"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "โพสต์ใหม่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni Gönderi"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soạn tút"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新嘟文"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增嘟文"
+          }
+        }
+      }
+    },
+    "NSCameraUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يُستخدم لالتقاط الصورة عِندَ نشر الحالات"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выкарыстоўваецца, каб зрабіць фатаграфію для статусу допісу"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S'utilitza per fer fotos per les publicacions"
+          }
+        },
+        "ckb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بەکار دێت بۆ گرتنی وێنەیەک بۆ پۆستەکە"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slouží k pořízení fotografie pro příspěvek"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wird verwendet, um Fotos für neue Beiträge aufzunehmen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Χρησιμοποιείται για λήψη φωτογραφίας για την κατάσταση της ανάρτησης"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Used to take photo for post status"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se usa para sacar fotos para las publicaciones"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Used to take photo for post status"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bidalketetarako argazkiak ateratzeko erabiltzen da"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Käytetään kuvan ottamiseen julkaisua varten"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisé pour prendre une photo lors de la publication d’un statut"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "’Ga chleachdadh airson dealbh a thogail do staid puist"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilizado para facer foto e publicar estado"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Használva a bejegyzés státuszhoz készített fotókhoz"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Used to take photo for post status"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usato per scattare foto per lo stato del post"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "投稿用の写真撮影に使用します"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yettwaseqdac i tuṭṭfa n tewlafin deg usuffeɣ n waddaden"
+          }
+        },
+        "ku" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bo kişandina wêneyê ji bo rewşa şandiyan tê bikaranîn"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gebruikt om foto's te nemen voor je berichten"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Используется для съемки фото для статуса поста"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uporabljeno za zajem fotografij za stanje objave"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Används för att ta foto till inlägg"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ใช้เพื่อถ่ายรูปสำหรับโพสต์สถานะ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fotoğraf çekerek durum paylaşmak için kullanılır"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Được sử dụng để chụp ảnh cho tút"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用于在嘟文中附加图片"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用以拍照發嘟文"
+          }
+        }
+      }
+    },
+    "NSPhotoLibraryAddUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يُستخدم لحِفظ الصورة في مكتبة الصور"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выкарыстоўваецца для захавання фатаграфій у бібліятэку"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S'utilitza per a desar fotos en la Fototeca"
+          }
+        },
+        "ckb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بەکار دێت بۆ هەڵگرتنی وێنە"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slouží k uložení fotografie do knihovny fotografií"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wird verwendet, um Foto in der Foto-Mediathek zu speichern"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Χρησιμοποιείται για αποθήκευση φωτογραφιών στις Φωτογραφίες"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Used to save photo into the Photo Library"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se usa para guardar fotos en la Galería de Fotos"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Used to save photo into the Photo Library"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Argazkiak Argazki-liburutegian gordetzeko erabiltzen da"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Käytetään kuvan tallentamiseen kuvakirjastoon"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisé pour enregistrer les photos dans la Photothèque"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "’Ga chleachdadh airson dealbh a shàbhaladh ann an tasg-lann nan dealbhan"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilizado para gardar a foto na Biblioteca"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Használva a fotók Fotókönyvtárba mentéséhez"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Used to save photo into the Photo Library"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilizzato per salvare la foto nella galleria immagini"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "写真をフォトライブラリに保存するために使用します"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yettwaseqdac i usekles n tewlafin deg temkarḍit n tewlafin"
+          }
+        },
+        "ku" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ji bo tomarkirina wêneyê di pirtûkxaneya wêneyan de tê bikaranîn"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gebruikt om foto's op te slaan in de fotobibliotheek"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Используется для сохранения фотографии в Фототеке"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uporabljeno za shranjevanje fotografije v knjižnico fotografij"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Används för att spara foto till bildbiblioteket"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ใช้เพื่อบันทึกรูปภาพลงในคลังรูปภาพ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fotoğraf Albümü'ne fotoğraf kaydetmek için kullanılır"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Được sử dụng để lưu ảnh vào Thư viện ảnh"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用于将图片保存到照片图库"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用以儲存照片至圖片庫"
+          }
+        }
+      }
+    },
+    "SearchShortcutItemTitle" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "البحث"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пошук"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerca"
+          }
+        },
+        "ckb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بگەڕێ"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hledat"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suchen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αναζήτηση"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bilatu"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haku"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rechercher"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lorg"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keresés"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Որոնել"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerca"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "検索"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nadi"
+          }
+        },
+        "ku" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bigere"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoek"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поиск"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iskanje"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sök"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ค้นหา"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arama"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tìm kiếm"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "搜索"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "搜尋"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.1"
+}

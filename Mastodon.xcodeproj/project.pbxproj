@@ -235,7 +235,6 @@
 		DB1FD44425F26CCC004CFCFC /* PickServerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */; };
 		DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD44F25F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift */; };
 		DB1FD45A25F27898004CFCFC /* CategoryPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */; };
-		DB2B3ABC25E37E15007045F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB2B3ABE25E37E15007045F9 /* InfoPlist.strings */; };
 		DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */; };
 		DB336F3F278E668C0031E64B /* StatusTableViewCell+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB336F3E278E668C0031E64B /* StatusTableViewCell+ViewModel.swift */; };
 		DB3E6FE42806A5B800B035AE /* DiscoverySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FE32806A5B800B035AE /* DiscoverySection.swift */; };
@@ -438,6 +437,7 @@
 		FB8F73662E8425D6005C2492 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FB8F73652E8425D6005C2492 /* SDWebImageSwiftUI */; };
 		FB91184C2D9EB96E003F410B /* Bodega in Frameworks */ = {isa = PBXBuildFile; productRef = FB91184B2D9EB96E003F410B /* Bodega */; };
 		FB91188D2D9EECE7003F410B /* BodegaPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB91188C2D9EC208003F410B /* BodegaPersistence.swift */; };
+		FBA184DA2ED9CB1600108354 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FBA184D92ED9CB1600108354 /* InfoPlist.xcstrings */; };
 		FBA2EA9B2E1C0CEA005ADEF0 /* MastoParse in Frameworks */ = {isa = PBXBuildFile; productRef = FBA2EA9A2E1C0CEA005ADEF0 /* MastoParse */; };
 		FBD689B52CCBF0AC00CE29F3 /* DonationCampaignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD689B42CCBF09F00CE29F3 /* DonationCampaignViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -688,10 +688,7 @@
 		D81A22742AB4643200905D71 /* SearchResultsOverviewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsOverviewTableViewController.swift; sourceTree = "<group>"; };
 		D81A22772AB4782400905D71 /* SearchResultOverviewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultOverviewSection.swift; sourceTree = "<group>"; };
 		D81A227A2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultDefaultSectionTableViewCell.swift; sourceTree = "<group>"; };
-		D81A940C2B04E7AC0067A19D /* hy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hy; path = hy.lproj/Main.strings; sourceTree = "<group>"; };
-		D81A940D2B04E7AC0067A19D /* hy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hy; path = hy.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		D81A940E2B04E7AD0067A19D /* hy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hy; path = hy.lproj/MainInterface.strings; sourceTree = "<group>"; };
-		D81A940F2B04E7AD0067A19D /* hy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hy; path = hy.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D81A94102B07A1BE0067A19D /* ProfileCardTableViewCell+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileCardTableViewCell+Configuration.swift"; sourceTree = "<group>"; };
 		D81A94112B07A1BE0067A19D /* ProfileCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCardTableViewCell.swift; sourceTree = "<group>"; };
 		D81A94142B07A1D30067A19D /* ProfileCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCardView.swift; sourceTree = "<group>"; };
@@ -701,7 +698,6 @@
 		D81D124A2A4E1914005009D4 /* ToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTableViewCell.swift; sourceTree = "<group>"; };
 		D82463522A52B47B00A3DBDD /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/Intents.strings; sourceTree = "<group>"; };
 		D82463532A52B47B00A3DBDD /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
-		D82463542A52B47B00A3DBDD /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D82463552A52B47B00A3DBDD /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = be; path = be.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		D82BD7542ABC73AF009A374A /* NotificationPolicyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPolicyTableViewCell.swift; sourceTree = "<group>"; };
 		D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
@@ -731,7 +727,6 @@
 		D87BFC8E291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginServerTableViewCell.swift; sourceTree = "<group>"; };
 		D87DC50B2A17C32E00219C5F /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Intents.strings; sourceTree = "<group>"; };
 		D87DC50C2A17C32F00219C5F /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
-		D87DC50D2A17C32F00219C5F /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D87DC50E2A17C32F00219C5F /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = el; path = el.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		D886FBD229DF710F00272017 /* WelcomeSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSeparatorView.swift; sourceTree = "<group>"; };
 		D8916DBF29211BE500124085 /* ContentSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
@@ -788,7 +783,6 @@
 		DB0A322D280EE9FD001729D2 /* DiscoveryIntroBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryIntroBannerView.swift; sourceTree = "<group>"; };
 		DB0EF72A26FDB1D200347686 /* SidebarListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarListCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB0EF72D26FDB24F00347686 /* SidebarListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarListContentView.swift; sourceTree = "<group>"; };
-		DB0F814E264CFFD300F2A12B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		DB0F9D53283EB3C000379AF8 /* ProfileHeaderView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileHeaderView+ViewModel.swift"; sourceTree = "<group>"; };
 		DB0F9D55283EB46200379AF8 /* ProfileHeaderView+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileHeaderView+Configuration.swift"; sourceTree = "<group>"; };
@@ -820,7 +814,6 @@
 		DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerSection.swift; sourceTree = "<group>"; };
 		DB1FD44F25F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonPickServerViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerItem.swift; sourceTree = "<group>"; };
-		DB2B3ABD25E37E15007045F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		DB336F3E278E668C0031E64B /* StatusTableViewCell+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatusTableViewCell+ViewModel.swift"; sourceTree = "<group>"; };
 		DB3D0FED25BAA42200EAA174 /* MastodonSDK */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MastodonSDK; sourceTree = "<group>"; };
@@ -854,7 +847,6 @@
 		DB4932B826F31AD300EF46D4 /* BadgeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeButton.swift; sourceTree = "<group>"; };
 		DB4AA6B227BA34B6009EC082 /* CellFrameCacheContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellFrameCacheContainer.swift; sourceTree = "<group>"; };
 		DB4B777F26CA4EFA00B087B3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Intents.strings; sourceTree = "<group>"; };
-		DB4B778226CA4EFA00B087B3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB4B778326CA4EFA00B087B3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB4B778926CA504100B087B3 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = es; path = es.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB4B778B26CA504300B087B3 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ar; path = ar.lproj/Intents.stringsdict; sourceTree = "<group>"; };
@@ -865,7 +857,6 @@
 		DB4B779026CA504900B087B3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB4B779126CA504A00B087B3 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ja; path = ja.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB4B779226CA50BA00B087B3 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Intents.strings; sourceTree = "<group>"; };
-		DB4B779526CA50BA00B087B3 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB4B779626CA50BA00B087B3 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = th; path = th.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB4F0965269ED52200D62E92 /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
 		DB4F0969269EDAD200D62E92 /* SearchResultViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchResultViewModel+State.swift"; sourceTree = "<group>"; };
@@ -875,19 +866,14 @@
 		DB4FFC29269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchToSearchDetailViewControllerAnimatedTransitioning.swift; sourceTree = "<group>"; };
 		DB4FFC2A269EC39600D62E92 /* SearchTransitionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTransitionController.swift; sourceTree = "<group>"; };
 		DB519B09281BCA2E00F0C99D /* ckb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ckb; path = ckb.lproj/Intents.strings; sourceTree = "<group>"; };
-		DB519B0A281BCA2E00F0C99D /* ckb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ckb; path = ckb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB519B0B281BCA4300F0C99D /* ckb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ckb; path = ckb.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB519B0C281BCAC300F0C99D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Intents.strings"; sourceTree = "<group>"; };
-		DB519B0D281BCAC300F0C99D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DB519B0E281BCAC300F0C99D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hant"; path = "zh-Hant.lproj/Intents.stringsdict"; sourceTree = "<group>"; };
 		DB519B0F281BCB3300F0C99D /* gl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gl; path = gl.lproj/Intents.strings; sourceTree = "<group>"; };
-		DB519B10281BCB3300F0C99D /* gl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gl; path = gl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB519B11281BCB3400F0C99D /* gl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = gl; path = gl.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB519B12281BCBC400F0C99D /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Intents.strings; sourceTree = "<group>"; };
-		DB519B13281BCBC400F0C99D /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB519B14281BCBC400F0C99D /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = it; path = it.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB519B15281BCC2F00F0C99D /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Intents.strings; sourceTree = "<group>"; };
-		DB519B16281BCC2F00F0C99D /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB519B17281BCC2F00F0C99D /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tr; path = tr.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB5B54992833A60400DEF8B2 /* FamiliarFollowersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamiliarFollowersViewController.swift; sourceTree = "<group>"; };
 		DB5B549C2833A67400DEF8B2 /* FamiliarFollowersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamiliarFollowersViewModel.swift; sourceTree = "<group>"; };
@@ -959,10 +945,8 @@
 		DB8AF54F25C13703002E6C99 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		DB8AF55C25C138B7002E6C99 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		DB8D8E3128196FA0009FD90F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Intents.strings; sourceTree = "<group>"; };
-		DB8D8E3228196FA0009FD90F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB8D8E3328196FA0009FD90F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = sv; path = sv.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB8F40042835EE5E006E7513 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Intents.strings; sourceTree = "<group>"; };
-		DB8F40052835EE5E006E7513 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB8F40062835EE5E006E7513 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fi; path = fi.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB8F7075279E954700E1225B /* DataSourceFacade+Follow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Follow.swift"; sourceTree = "<group>"; };
 		DB8FAB9E26AEC3A2008E5AF4 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
@@ -977,10 +961,8 @@
 		DB938F0E2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThreadViewModel+LoadThreadState.swift"; sourceTree = "<group>"; };
 		DB938F1E2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThreadViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB96C25D292505FE00F3B85D /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Intents.strings; sourceTree = "<group>"; };
-		DB96C25E292505FF00F3B85D /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB96C25F292505FF00F3B85D /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = cs; path = cs.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB96C260292506D600F3B85D /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Intents.strings; sourceTree = "<group>"; };
-		DB96C261292506D700F3B85D /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB96C262292506D700F3B85D /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = sl; path = sl.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB98EB4627B0DFAA0082E365 /* ReportStatusViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReportStatusViewModel+State.swift"; sourceTree = "<group>"; };
 		DB98EB4827B0F0CD0082E365 /* ReportStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportStatusTableViewCell.swift; sourceTree = "<group>"; };
@@ -1000,17 +982,11 @@
 		DB9F58EE26EF491E00E7BBE9 /* AccountListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListViewModel.swift; sourceTree = "<group>"; };
 		DB9F58F026EF512300E7BBE9 /* AccountListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListTableViewCell.swift; sourceTree = "<group>"; };
 		DBA4B0D326BD10AC0077136E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Intents.strings"; sourceTree = "<group>"; };
-		DBA4B0D626BD10AD0077136E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DBA4B0D726BD10F40077136E /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Intents.strings; sourceTree = "<group>"; };
-		DBA4B0DA26BD10F40077136E /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBA4B0DB26BD11130077136E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Intents.strings; sourceTree = "<group>"; };
-		DBA4B0DE26BD11130077136E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBA4B0DF26BD11C70077136E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Intents.strings; sourceTree = "<group>"; };
-		DBA4B0E226BD11C80077136E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBA4B0E826C153820077136E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Intents.strings; sourceTree = "<group>"; };
-		DBA4B0EB26C153820077136E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBA4B0EC26C153B10077136E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Intents.strings; sourceTree = "<group>"; };
-		DBA4B0EF26C153B20077136E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBA4B0F526C2621D0077136E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Intents.strings; sourceTree = "<group>"; };
 		DBA4B0F826C269880077136E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DBA5A53026F08EF000CACBAA /* DragIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragIndicatorView.swift; sourceTree = "<group>"; };
@@ -1042,13 +1018,10 @@
 		DBC6462226A1712000B0E31B /* ShareViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareViewModel.swift; sourceTree = "<group>"; };
 		DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusContentWarningEditorView.swift; sourceTree = "<group>"; };
 		DBC9E3A3282E13BB0063A4D9 /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = eu; path = eu.lproj/Intents.strings; sourceTree = "<group>"; };
-		DBC9E3A4282E13BB0063A4D9 /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = eu; path = eu.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBC9E3A5282E13BB0063A4D9 /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = eu; path = eu.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DBC9E3A6282E15190063A4D9 /* gd */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gd; path = gd.lproj/Intents.strings; sourceTree = "<group>"; };
-		DBC9E3A7282E15190063A4D9 /* gd */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gd; path = gd.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBC9E3A8282E15190063A4D9 /* gd */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = gd; path = gd.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DBC9E3A9282E17DF0063A4D9 /* es-AR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-AR"; path = "es-AR.lproj/Intents.strings"; sourceTree = "<group>"; };
-		DBC9E3AA282E17DF0063A4D9 /* es-AR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-AR"; path = "es-AR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DBC9E3AB282E17DF0063A4D9 /* es-AR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "es-AR"; path = "es-AR.lproj/Intents.stringsdict"; sourceTree = "<group>"; };
 		DBCA0EBB282BB38A0029E2B0 /* PageboyNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageboyNavigateable.swift; sourceTree = "<group>"; };
 		DBCBCBF3267CB070000F5B51 /* Decode85.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decode85.swift; sourceTree = "<group>"; };
@@ -1063,7 +1036,6 @@
 		DBE3CDBA261C427900430CC6 /* TimelineHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		DBE3CDCE261C42ED00430CC6 /* TimelineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineHeaderView.swift; sourceTree = "<group>"; };
 		DBEB19E927E4F37B00B0E80E /* ku */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ku; path = ku.lproj/Intents.strings; sourceTree = "<group>"; };
-		DBEB19EA27E4F37B00B0E80E /* ku */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ku; path = ku.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBEB19EB27E4F37B00B0E80E /* ku */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ku; path = ku.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DBEFCD70282A12B200C0ABEA /* ReportReasonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReasonViewController.swift; sourceTree = "<group>"; };
 		DBEFCD73282A130400C0ABEA /* ReportReasonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReasonViewModel.swift; sourceTree = "<group>"; };
@@ -1086,10 +1058,8 @@
 		DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Mastodon.xctestplan; path = Mastodon/Mastodon.xctestplan; sourceTree = "<group>"; };
 		DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MastodonSDK.xctestplan; sourceTree = "<group>"; };
 		DBF81C7427F68F5A00004A56 /* kab */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kab; path = kab.lproj/Intents.strings; sourceTree = "<group>"; };
-		DBF81C7527F68F5A00004A56 /* kab */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kab; path = kab.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBF81C7627F68F5A00004A56 /* kab */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = kab; path = kab.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DBF81C7727F6913300004A56 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Intents.strings; sourceTree = "<group>"; };
-		DBF81C7827F6913300004A56 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBF81C7927F6913300004A56 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = vi; path = vi.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DBF8AE13263293E400C9C23C /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBF8AE15263293E400C9C23C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -1103,16 +1073,15 @@
 		DBFEEC9C279C12C1004F81DD /* ProfileFieldEditCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFieldEditCollectionViewCell.swift; sourceTree = "<group>"; };
 		DBFEF06726A58D07006D7ED1 /* ShareActionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareActionExtension.entitlements; sourceTree = "<group>"; };
 		E9AABD3D26B64B8C00E237DA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Intents.strings; sourceTree = "<group>"; };
-		E9AABD4026B64B8D00E237DA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FB0F8E922DA54A090058C09E /* NotificationPolicyHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPolicyHostingViewController.swift; sourceTree = "<group>"; };
 		FB7C4CC52CD2CAA800F6129A /* DonationCompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationCompletionViewController.swift; sourceTree = "<group>"; };
 		FB7C4CCB2CD55DEB00F6129A /* NavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationFlow.swift; sourceTree = "<group>"; };
 		FB7C4CCD2CD55DFE00F6129A /* NewDonationNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDonationNavigationFlow.swift; sourceTree = "<group>"; };
 		FB8522702CEE302300BA2757 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Intents.strings; sourceTree = "<group>"; };
 		FB8522712CEE302300BA2757 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
-		FB8522722CEE302300BA2757 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FB8522732CEE302300BA2757 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = hu; path = hu.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		FB91188C2D9EC208003F410B /* BodegaPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodegaPersistence.swift; sourceTree = "<group>"; };
+		FBA184D92ED9CB1600108354 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		FBD689B42CCBF09F00CE29F3 /* DonationCampaignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationCampaignViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1924,7 +1893,7 @@
 				DBF3B73E2733EAED00E21627 /* local-codes.json */,
 				DB427DDE25BAA00100D1B89D /* Assets.xcassets */,
 				DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */,
-				DB2B3ABE25E37E15007045F9 /* InfoPlist.strings */,
+				FBA184D92ED9CB1600108354 /* InfoPlist.xcstrings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -3086,8 +3055,8 @@
 				DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */,
 				DBA4B0F626C269880077136E /* Intents.stringsdict in Resources */,
 				DBF3B73F2733EAED00E21627 /* local-codes.json in Resources */,
+				FBA184DA2ED9CB1600108354 /* InfoPlist.xcstrings in Resources */,
 				DB118A8225E4B6E600FAB162 /* Preview Assets.xcassets in Resources */,
-				DB2B3ABC25E37E15007045F9 /* InfoPlist.strings in Resources */,
 				DB68A05D25E9055900CFDF14 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3753,48 +3722,10 @@
 			name = Intents.intentdefinition;
 			sourceTree = "<group>";
 		};
-		DB2B3ABE25E37E15007045F9 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DB2B3ABD25E37E15007045F9 /* en */,
-				DB0F814E264CFFD300F2A12B /* ar */,
-				E9AABD4026B64B8D00E237DA /* ja */,
-				DBA4B0D626BD10AD0077136E /* zh-Hans */,
-				DBA4B0DA26BD10F40077136E /* ca */,
-				DBA4B0DE26BD11130077136E /* fr */,
-				DBA4B0E226BD11C80077136E /* es */,
-				DBA4B0EB26C153820077136E /* de */,
-				DBA4B0EF26C153B20077136E /* nl */,
-				DB4B778226CA4EFA00B087B3 /* ru */,
-				DB4B779526CA50BA00B087B3 /* th */,
-				DBEB19EA27E4F37B00B0E80E /* ku */,
-				DBF81C7527F68F5A00004A56 /* kab */,
-				DBF81C7827F6913300004A56 /* vi */,
-				DB8D8E3228196FA0009FD90F /* sv */,
-				DB519B0A281BCA2E00F0C99D /* ckb */,
-				DB519B0D281BCAC300F0C99D /* zh-Hant */,
-				DB519B10281BCB3300F0C99D /* gl */,
-				DB519B13281BCBC400F0C99D /* it */,
-				DB519B16281BCC2F00F0C99D /* tr */,
-				DBC9E3A4282E13BB0063A4D9 /* eu */,
-				DBC9E3A7282E15190063A4D9 /* gd */,
-				DBC9E3AA282E17DF0063A4D9 /* es-AR */,
-				DB8F40052835EE5E006E7513 /* fi */,
-				DB96C25E292505FF00F3B85D /* cs */,
-				DB96C261292506D700F3B85D /* sl */,
-				D87DC50D2A17C32F00219C5F /* el */,
-				D82463542A52B47B00A3DBDD /* be */,
-				D81A940F2B04E7AD0067A19D /* hy */,
-				FB8522722CEE302300BA2757 /* hu */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		DB427DDB25BAA00100D1B89D /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				DB427DDC25BAA00100D1B89D /* Base */,
-				D81A940C2B04E7AC0067A19D /* hy */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -3803,7 +3734,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				DB427DE125BAA00100D1B89D /* Base */,
-				D81A940D2B04E7AC0067A19D /* hy */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -4150,6 +4080,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -4210,6 +4141,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4434,6 +4366,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PROFILE;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Profile;
@@ -4743,6 +4676,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SNAPSHOT;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
