@@ -431,6 +431,7 @@
 		DBFEEC9B279BDDD9004F81DD /* ProfileAboutViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEEC9A279BDDD9004F81DD /* ProfileAboutViewModel+Diffable.swift */; };
 		DBFEEC9D279C12C1004F81DD /* ProfileFieldEditCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEEC9C279C12C1004F81DD /* ProfileFieldEditCollectionViewCell.swift */; };
 		FB0F8E932DA54A180058C09E /* NotificationPolicyHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0F8E922DA54A090058C09E /* NotificationPolicyHostingViewController.swift */; };
+		FB3EABBF2ED9E33900400A04 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FB3EABBE2ED9E33900400A04 /* Localizable.xcstrings */; };
 		FB7C4CC62CD2CAB000F6129A /* DonationCompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7C4CC52CD2CAA800F6129A /* DonationCompletionViewController.swift */; };
 		FB7C4CCC2CD55DEB00F6129A /* NavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7C4CCB2CD55DEB00F6129A /* NavigationFlow.swift */; };
 		FB7C4CCE2CD55DFF00F6129A /* NewDonationNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7C4CCD2CD55DFE00F6129A /* NewDonationNavigationFlow.swift */; };
@@ -1074,6 +1075,7 @@
 		DBFEF06726A58D07006D7ED1 /* ShareActionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareActionExtension.entitlements; sourceTree = "<group>"; };
 		E9AABD3D26B64B8C00E237DA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Intents.strings; sourceTree = "<group>"; };
 		FB0F8E922DA54A090058C09E /* NotificationPolicyHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPolicyHostingViewController.swift; sourceTree = "<group>"; };
+		FB3EABBE2ED9E33900400A04 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		FB7C4CC52CD2CAA800F6129A /* DonationCompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationCompletionViewController.swift; sourceTree = "<group>"; };
 		FB7C4CCB2CD55DEB00F6129A /* NavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationFlow.swift; sourceTree = "<group>"; };
 		FB7C4CCD2CD55DFE00F6129A /* NewDonationNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDonationNavigationFlow.swift; sourceTree = "<group>"; };
@@ -1894,6 +1896,7 @@
 				DB427DDE25BAA00100D1B89D /* Assets.xcassets */,
 				DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */,
 				FBA184D92ED9CB1600108354 /* InfoPlist.xcstrings */,
+				FB3EABBE2ED9E33900400A04 /* Localizable.xcstrings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -3001,6 +3004,26 @@
 				be,
 				hy,
 				hu,
+				et,
+				"ckb-IR",
+				he,
+				uk,
+				is,
+				da,
+				"ku-TR",
+				si,
+				ko,
+				an,
+				my,
+				pl,
+				"pt-BR",
+				lv,
+				lt,
+				"en-US",
+				id,
+				pt,
+				ro,
+				hi,
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
@@ -3055,6 +3078,7 @@
 				DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */,
 				DBA4B0F626C269880077136E /* Intents.stringsdict in Resources */,
 				DBF3B73F2733EAED00E21627 /* local-codes.json in Resources */,
+				FB3EABBF2ED9E33900400A04 /* Localizable.xcstrings in Resources */,
 				FBA184DA2ED9CB1600108354 /* InfoPlist.xcstrings in Resources */,
 				DB118A8225E4B6E600FAB162 /* Preview Assets.xcassets in Resources */,
 				DB68A05D25E9055900CFDF14 /* Settings.bundle in Resources */,
@@ -4075,12 +4099,13 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INTENTS_CODEGEN_LANGUAGE = Swift;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZED_STRING_SWIFTUI_SUPPORT = NO;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -4137,11 +4162,12 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INTENTS_CODEGEN_LANGUAGE = Swift;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZED_STRING_SWIFTUI_SUPPORT = NO;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4361,12 +4387,13 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INTENTS_CODEGEN_LANGUAGE = Swift;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZED_STRING_SWIFTUI_SUPPORT = NO;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PROFILE;
-				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Profile;
@@ -4671,12 +4698,13 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INTENTS_CODEGEN_LANGUAGE = Swift;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZED_STRING_SWIFTUI_SUPPORT = NO;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SNAPSHOT;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};

@@ -42,6 +42,10 @@ Note that we have switched the main app localizations from using `.strings` and 
 
 Note: The `.strings` files in `WidgetExtension`, `MastodonIntent`, and `InfoPlist` have not yet been converted to `.xcstrings`, but they also don't seem to have been included in the `swiftgen` workflow.
 
+### To add a new translation language:
+- New languages added via CrowdIn should be incorporated automatically.
+- If a new language is not being shown in the UI despite translations being available, ensure that the language code is included in the `.pbxproj` file's `knownRegions` section. This is best accomplished automatically by editing the main bundle's Localizable.xcstrings file at `Mastodon/Resources/Localizable.xcstrings` to add the new language (this MUST be done via the string catalog editor in order to have an effect on the `.pbxproj`; manually editing the json will fail to change the `.pbxproj`). Ensure that you also add a "translation" for the one string in that file for the new language (the "translation" can be any string).
+
 ## Pull Request
 
 You can create a pull request directly with small block code changes for bugfix or feature implementations. Before making a pull request with hundred lines of changes to this repository, please first discuss the change you wish to make via an issue. 
