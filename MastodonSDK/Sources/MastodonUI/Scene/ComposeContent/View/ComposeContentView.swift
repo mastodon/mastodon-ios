@@ -10,7 +10,6 @@ import MastodonAsset
 import MastodonSDK
 import MastodonCore
 import MastodonLocalization
-import Stripes
 
 public struct ComposeContentView: View {
     
@@ -58,7 +57,7 @@ public struct ComposeContentView: View {
                                 var attributes = metaText.textAttributes
                                 attributes[.foregroundColor] = UIColor.secondaryLabel
                                 return NSAttributedString(
-                                    string: L10n.Scene.Compose.contentInputPlaceholder,
+                                    string: L10n.Scene.Compose.ContentWarning.placeholder,
                                     attributes: attributes
                                 )
                             }()
@@ -74,24 +73,14 @@ public struct ComposeContentView: View {
                         Color(UIColor.systemBackground)
                             .overlay(
                                 HStack {
-                                    Stripes(config: StripesConfig(
-                                        background: Color.yellow,
-                                        foreground: Color.black,
-                                        degrees: 45,
-                                        barWidth: 2.5,
-                                        barSpacing: 3.5
-                                    ))
+                                    ContentWarningSidebar()
                                     .frame(width: ComposeContentView.margin * 0.5)
                                     .frame(maxHeight: .infinity)
                                     .id(UUID())
+                                    
                                     Spacer()
-                                    Stripes(config: StripesConfig(
-                                        background: Color.yellow,
-                                        foreground: Color.black,
-                                        degrees: 45,
-                                        barWidth: 2.5,
-                                        barSpacing: 3.5
-                                    ))
+                                    
+                                    ContentWarningSidebar()
                                     .frame(width: ComposeContentView.margin * 0.5)
                                     .frame(maxHeight: .infinity)
                                     .scaleEffect(x: -1, y: 1, anchor: .center)
@@ -398,5 +387,11 @@ extension ComposeContentViewModel {
             assertionFailure("It should not be possible to change the visibility of a post when editing it, which means there should never be a need to convert the quoted post to a link.")
             break
         }
+    }
+}
+
+struct ContentWarningSidebar: View {
+    var body: some View {
+        Color.yellow
     }
 }
