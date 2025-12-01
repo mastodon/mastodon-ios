@@ -73,6 +73,11 @@ class MastodonLoginViewController: UIViewController {
                 fatalError("Wrong cell")
             }
             
+            guard indexPath.row < self.viewModel.filteredServers.count else {
+                /* avoid a crash in data race situation */
+                return cell
+            }
+            
             let server = self.viewModel.filteredServers[indexPath.row]
             let isLastServer: Bool
 
