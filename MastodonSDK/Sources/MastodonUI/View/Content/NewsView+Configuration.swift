@@ -20,9 +20,9 @@ extension NewsView {
             let token = providerFaviconImageView.tag
             Task {
                 do {
-                    let favicon = try await FaviconFinder(url: url).downloadFavicon()
+                    let favicon = try await FaviconFinder(url: url).fetchFaviconURLs().download().largest()
                     guard self.providerFaviconImageView.tag == token else { return }
-                    self.providerFaviconImageView.image = favicon.image
+                    self.providerFaviconImageView.image = favicon.image?.image
                 } catch {
                     // no-op
                 }
