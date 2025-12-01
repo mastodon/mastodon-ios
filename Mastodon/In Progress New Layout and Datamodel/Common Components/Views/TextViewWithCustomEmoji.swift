@@ -370,8 +370,34 @@ struct RowView: View {
                 return Text(attributed)
             }
         }
-        pieces.reduce(Text(""), +)
+        buildBalancedTextTree(pieces)
             .fixedSize(horizontal: false, vertical: true)
+    }
+    
+    func buildBalancedTextTree(_ elements: [Text]) -> Text {
+        // After seeing crash reports caused by too many levels of recursion in ConcatenatedTextStorage.resolve, some research suggested that it is fairly easy to overwhelm the Text concatenation system by simply concatenating one element after the other. Hoping to avoid this by combining the Text elements in a balanced tree instead.
+        guard !elements.isEmpty else { return Text("") }
+        
+        var currentLevel = elements // we will combine these in pairs one level of the tree at a time until only one node remains
+        while currentLevel.count > 1 {
+            var nextLevel: [Text] = []
+            
+            var i = 0
+            while i < currentLevel.count {
+                if i + 1 < currentLevel.count {
+                    nextLevel.append(currentLevel[i] + currentLevel[i + 1]) // combine a pair, using Text concatenation (Text + Text => Text)
+                    i += 2
+                } else {
+                    // Odd node, carry it forward
+                    nextLevel.append(currentLevel[i])
+                    i += 1
+                }
+            }
+            
+            currentLevel = nextLevel
+        }
+        
+        return currentLevel[0]
     }
 }
 
