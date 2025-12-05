@@ -39,9 +39,7 @@ struct AccountRowView: View {
                     Spacer()
                     
                     HStack(spacing: doublePadding) {
-                        ForEach(StatType.allCases, id: \.self) { stat in
-                            statsView(stat)
-                        }
+                        AccountStatsView(accountMetrics: viewModel.account.metrics, onTapOfMetric: nil)
                         Spacer()
                         viewModel.relationshipButton.button {
                             Task {
@@ -60,44 +58,5 @@ struct AccountRowView: View {
     
     @ViewBuilder var authorDisplayName: some View {
         MastodonContentView.header(html: viewModel.account.displayInfo.displayName, emojis: viewModel.account.displayInfo.emojis, style: .author(isInlinePreview: false))
-    }
-    
-    @ViewBuilder func statsView(_ stat: StatType) -> some View {
-        VStack(spacing: 0) {
-            Text(MastodonMetricFormatter().string(from: statCount(stat)) ?? "-")
-                .font(.subheadline)
-                .fontWeight(.semibold)
-            Text(stat.label)
-                .font(.footnote)
-                .lineLimit(1)
-        }
-    }
-    
-    func statCount(_ stat: StatType) -> Int {
-        switch stat {
-        case .postCount:
-            return viewModel.account.metrics.postCount
-        case .followingCount:
-            return viewModel.account.metrics.followingCount
-        case .followersCount:
-            return viewModel.account.metrics.followersCount
-        }
-    }
-    
-    enum StatType: CaseIterable {
-        case postCount
-        case followingCount
-        case followersCount
-        
-        var label: String {
-            switch self {
-            case .postCount:
-                L10n.Scene.Profile.Dashboard.otherPosts
-            case .followingCount:
-                L10n.Scene.Profile.Dashboard.otherFollowing
-            case .followersCount:
-                L10n.Scene.Profile.Dashboard.otherFollowers
-            }
-        }
     }
 }

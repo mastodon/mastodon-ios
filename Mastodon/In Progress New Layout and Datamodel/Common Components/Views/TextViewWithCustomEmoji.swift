@@ -43,6 +43,7 @@ public enum MastodonContentView {
 }
 
 public enum PostViewHeaderStyle {
+    case profileDisplayName
     case author(isInlinePreview: Bool)
     case socialContext(isPrivate: Bool)
     case linkPreviewCardAuthorButton
@@ -50,6 +51,8 @@ public enum PostViewHeaderStyle {
     
     var font: SwiftUI.Font.TextStyle {
         switch self {
+        case .profileDisplayName:
+                .title2
         case .author(let isInlinePreview):
             isInlinePreview ? .caption : .subheadline
         case .socialContext:
@@ -63,6 +66,8 @@ public enum PostViewHeaderStyle {
     
     var fontWeight: SwiftUI.Font.Weight {
         switch self {
+        case .profileDisplayName:
+                .semibold
         case .author:
                 .semibold
         case .linkPreviewCardAuthorButton:
@@ -76,6 +81,8 @@ public enum PostViewHeaderStyle {
     
     var color: Color {
         switch self {
+        case .profileDisplayName:
+                .primary
         case .author:
                 .primary
         case .socialContext(let isPrivate):

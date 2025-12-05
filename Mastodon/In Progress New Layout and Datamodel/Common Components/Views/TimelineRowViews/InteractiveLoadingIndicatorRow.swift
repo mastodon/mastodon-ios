@@ -46,7 +46,6 @@ import SwiftUI
         }
     }
     
-    var triggerFrame: CGRect?
     var onTrigger: (()->(Bool))?
     
     var triggerState: TriggerState = .progressing(.defaultSpecs(triggered: false))
@@ -61,7 +60,7 @@ import SwiftUI
         }
     }
     
-    fileprivate var visiblePercent: Double = 0 {
+    private(set) var visiblePercent: Double = 0 {
         didSet {
             let progress = max(0, min(visiblePercent, 1))
             
@@ -91,6 +90,26 @@ import SwiftUI
         }
     }
     
+    func visiblePercent(withScrollGeometry scrollGeometry: ScrollGeometry) -> Double {
+        let animationDistance: CGFloat = 300
+        let animationStartingOffset: CGFloat = scrollGeometry.contentSize.height - animationDistance
+        let animationDistanceVisible: CGFloat = (scrollGeometry.contentOffset.y + scrollGeometry.containerSize.height) - animationStartingOffset
+        if animationDistanceVisible >= animationDistance {
+            return 1
+        } else if animationDistanceVisible <= 0 {
+            return 0
+        } else {
+            let clamped =  min(1, animationDistanceVisible / animationDistance)
+            return floor(clamped * 100) / 100
+        }
+    }
+    
+    func updateVisiblePercent(_ newVisiblePercent: Double) {
+        if newVisiblePercent != visiblePercent {
+            visiblePercent = newVisiblePercent
+        }
+    }
+    
     var currentState: Double = 0
     
     let totalSteps: Double = 8
@@ -111,13 +130,10 @@ import SwiftUI
     }
 
     func scale(_ progress: Double) -> Double {
-        if progress == 1 {
-            return DisplaySpecs.baseScale
-        }
-        
-        let progressOfFinalStep = min(0, progress - ((totalSteps - 1) * singleStepPercentage))
-        return DisplaySpecs.baseScale + (progressOfFinalStep)
+        return DisplaySpecs.baseScale
     }
+    
+    static let maxScale: CGFloat = DisplaySpecs.baseScale + 1
 }
 
 extension InteractiveLoadingTriggerModel.TriggerState : CustomDebugStringConvertible {
@@ -137,34 +153,26 @@ struct InteractiveLoadingIndicatorRow: View {
     
     var body: some View {
         VStack {
-                HStack {
-                    Spacer()
-                    ZStack {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                            .scaleEffect(triggerModel.triggerState.scale)
-                            .opacity(triggerModel.triggerState.opacity)
-                            .mask(
-                                PartialPie(startAngle: progressViewMaskStartAngle, percentCovered: triggerModel.triggerState.steppedProgress)
-                                    .frame(width: 30, height: 30)
-                                    .scaleEffect(triggerModel.triggerState.scale)
-                            )
-                    }
-                    Spacer()
+            HStack {
+                Spacer()
+                ZStack {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .scaleEffect(InteractiveLoadingTriggerModel.maxScale)
+                        .hidden()  // to keep the overall size stable
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .scaleEffect(triggerModel.triggerState.scale)
+                        .opacity(triggerModel.triggerState.opacity)
+                        .mask(
+                            PartialPie(startAngle: progressViewMaskStartAngle, percentCovered: triggerModel.triggerState.steppedProgress)
+                                .frame(width: 30, height: 30)
+                                .scaleEffect(triggerModel.triggerState.scale)
+                        )
                 }
-                .padding(EdgeInsets(top: 100, leading: 0, bottom: 100, trailing: 0))
-                .background() {
-                    GeometryReader { geo in
-                        Color.clear
-                            .frame(maxHeight: .infinity)
-                            .onChange(of: geo.frame(in: .global)) { oldValue, newValue in
-                                triggerModel.visiblePercent = visibleRatio(withFrame: newValue)
-                            }
-                            .onAppear() {
-                                triggerModel.visiblePercent = visibleRatio(withFrame: geo.frame(in: .global))
-                            }
-                    }
-                }
+                Spacer()
+            }
+            .padding(EdgeInsets(top: 100, leading: 0, bottom: 100, trailing: 0))
         }
     }
     
@@ -172,18 +180,6 @@ struct InteractiveLoadingIndicatorRow: View {
     
     var progressViewMaskStartAngle: Angle {
         Angle(degrees: -90 - (180 / triggerModel.totalSteps)) // start a little before "noon", so that the topmost element of the progress view displays in full)
-    }
-                                                  
-    func visibleRatio(withFrame frame: CGRect) -> Double {
-        guard let triggerFrame = triggerModel.triggerFrame else { return 0 }
-        let frameHeight = frame.size.height
-        let visibleHeight = max(0, (triggerFrame.maxY - delayPadding) - frame.minY)
-        if visibleHeight >= frameHeight {
-            return 1
-        } else {
-            let clamped =  min(1, visibleHeight / frameHeight)
-            return clamped
-        }
     }
 }
 

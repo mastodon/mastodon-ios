@@ -59,7 +59,8 @@ extension MastodonAccount {
 
 extension MastodonAccount {
     struct DisplayInfo: Codable {
-        let handle: String
+        let minimalHandle: String
+        let fullHandle: String
         let displayName: String
         let emojis: [Mastodon.Entity.Emoji]
         private let avatarImage: ImageUrl
@@ -69,7 +70,7 @@ extension MastodonAccount {
             return avatarImage.preferredUrl
         }
 
-        var headerUrl: URL? {
+        var bannerImageUrl: URL? {
             return headerImage?.preferredUrl
         }
     }
@@ -112,20 +113,18 @@ extension MastodonAccount.DisplayInfo: FromAccountEntityDerivable {
     static func fromEntity(
         _ entity: Mastodon.Entity.Account
     ) -> Self {
-        // TODO: GET THE ACTUAL USER DOMAIN! or just get the image and keep it somewhere
-        let currentUserDomain = "mastodon.social"
+        let currentUserDomain = "mastodon.social" // TODO: get the actual user domain, to use the proper fallback image
         let avatarImage = ImageUrl(
             potentiallyAnimated: entity.avatar,
             definitelyStatic: entity.avatarStatic,
             fallback: fallbackAvatarURL(
                 fromCurrentUserDomain: currentUserDomain))!
         let headerImage = ImageUrl(
-            potentiallyAnimated: entity.avatar,
-            definitelyStatic: entity.avatarStatic,
-            fallback: fallbackAvatarURL(
-                fromCurrentUserDomain: currentUserDomain))
+            potentiallyAnimated: entity.header,
+            definitelyStatic: entity.headerStatic,
+            fallback: nil)
         return Self(
-            handle: entity.acct, displayName: entity.displayNameWithFallback,
+            minimalHandle: entity.acct, fullHandle: "@\(entity.username)@\(currentUserDomain)", displayName: entity.displayNameWithFallback,
             emojis: entity.emojis, avatarImage: avatarImage,
             headerImage: headerImage)
     }

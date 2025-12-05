@@ -250,6 +250,9 @@ extension TimelineListViewController {
     
     func setUpTimelineSelectorButton() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: timelineSelectorButton)
+        if #available(iOS 26.0, *) {
+            self.navigationItem.leftBarButtonItem?.hidesSharedBackground = true
+        }
     }
     
     @MainActor
@@ -629,7 +632,7 @@ enum MastodonTimelineSheet {
 }
 
 @MainActor
-@Observable private class TimelineListViewModel {
+@Observable class TimelineListViewModel {
     
     private(set) var authenticatedUser: MastodonAuthenticationBox? = AuthenticationServiceProvider.shared.currentActiveUser.value
     
@@ -644,9 +647,51 @@ enum MastodonTimelineSheet {
     var feedIsEmpty: Bool = false
     
     var currentDisplaySlice = ArraySlice<TimelineItem>()
-    var currentUseableWidth: CGFloat?
+    private(set) var currentUseableWidth: CGFloat?
     var scrollAnchorItem: TimelineItem = .noItem
-    var ignoreNextTopItemBecomeVisible: Bool = false // This is required to correct for the fact that the system will not update the scrollPosition when the user taps the status bar to scroll all the way to the top, and that the system will initially layout the view with the content scrolled all the way to the top any time the view reappears.
+    var scrollAnchorItemBinding: Binding<TimelineItem?> {
+        Binding(get: {
+            return self.scrollAnchorItem
+        }, set: { newAnchorItem in
+            guard let newAnchorItem else { self.scrollAnchorItem = .noItem; return }
+            switch newAnchorItem {
+            case .loadingIndicator:
+                self.scrollAnchorItem = .noItem
+            default:
+                self.scrollAnchorItem = newAnchorItem
+            }
+        })
+    }
+    var isScrollEnabled: Bool = true
+    
+    private var _updatedVisibleItems: [TimelineItem]?
+    func visibleItemsDidChange(_ newVisibleItems: [TimelineItem]) {
+        // This is required to correct for the fact that the system will not update the scrollPosition when the user taps the status bar to scroll all the way to the top, which will then cause the scroll to "restore" to the stale position if you navigate to another view and then come back to this one.
+        _updatedVisibleItems = newVisibleItems
+        DispatchQueue.main.async {
+            guard let _updatedVisibleItems = self._updatedVisibleItems, let firstItem = self.currentDisplaySlice.first else { return }
+            if _updatedVisibleItems.contains(firstItem) {
+                if self.scrollAnchorItem.id != firstItem.id {
+                    self.scrollAnchorItem = firstItem
+                }
+            }
+        }
+    }
+    
+    func updateUseableWidth(_ useableWidth: CGFloat) {
+        let updatedUsableWidth = useableWidth
+        if self.currentUseableWidth != updatedUsableWidth {
+            self.currentUseableWidth = updatedUsableWidth
+        }
+    }
+    
+    func updateUnreadCount(scrollAnchor: TimelineItem) {
+        if unreadCount > 0 {
+            if let indexOfNewScrollAnchor = currentDisplaySlice.firstIndex(of: scrollAnchor), indexOfNewScrollAnchor < unreadCount {
+                unreadCount = indexOfNewScrollAnchor
+            }
+        }
+    }
     
     let interactiveReloadTriggerModel = InteractiveLoadingTriggerModel()
     
@@ -668,15 +713,93 @@ enum MastodonTimelineSheet {
         FilteredNotificationsRowView.ViewModel(policy: nil)
     var needsReloadOnNextAppear = false
     
+    // MARK - Alerts
     var errorsWaitingToDisplay = [Error]()
     var activeAlert: MastodonPostMenuAction.AlertType = .noAlert {
         didSet {
             displayNextErrorIfPossible()
         }
     }
-    var activeOverlay: MastodonTimelineOverlayView? = nil
-    var activeSheet: MastodonTimelineSheet? = nil
+    var alertIsPresented: Binding<Bool> {
+        Binding(get: { [weak self] in
+            return self?.activeAlert.shouldBePresented ?? false
+        }, set: { [weak self] isPresenting in
+            if !isPresenting {
+                self?.activeAlert = .noAlert
+            }
+        })
+    }
     
+    // MARK - Overlays
+    var activeOverlay: MastodonTimelineOverlayView? = nil
+    @ViewBuilder func overlayContents(_ overlay: MastodonTimelineOverlayView) -> some View {
+        GeometryReader { geo in
+            ZStack(alignment: .topLeading) {
+                ZStack {
+                    Color.black.opacity(0.6)
+                        .ignoresSafeArea()
+                        .onTapGesture { [weak self] in
+                            self?.activeOverlay = nil
+                        }
+                    
+                    overlay.view(sizedForFrame: geo.size, closeOverlay: { self.showOverlay(nil) })
+                }
+                
+                Button {
+                    self.activeOverlay = nil
+                } label: {
+                    Image(systemName: "xmark.circle")
+                        .font(.title)
+                        .foregroundStyle(.white)
+                }
+                .padding(standardPadding)
+            }
+        }
+    }
+    
+    // MARK - Sheets
+    var activeSheet: MastodonTimelineSheet? = nil
+    var sheetIsPresented: Binding<Bool> {
+        Binding(get: { [weak self] in
+            self?.activeSheet != nil
+        }, set: { [weak self] isPresented in
+            if !isPresented {
+                self?.activeSheet = nil
+            }
+        })
+    }
+    @ViewBuilder var activeSheetContents: some View {
+        switch activeSheet {
+        case .postInteractionSettingsEdit(let editModel):
+            PostInteractionSettingsView(closeAndSave: { [weak self] save in
+                if save {
+                    Task {
+                        do {
+                            try await self?.commitCurrentQuotePolicyEdit()
+                            self?.clearPendingActions()
+                        } catch {
+                            self?.clearPendingActions()
+                            self?.didReceiveError(error)
+                        }
+                    }
+                } else {
+                    self?.clearPendingActions()
+                }
+            })
+            .environment(editModel)
+            .presentationDetents([.fraction(0.5), .medium, .large])
+            .presentationDragIndicator(.hidden)
+            .interactiveDismissDisabled(true)
+        case .boostOrQuoteDialog(let postViewModel):
+            BoostOrQuoteDialog(actionHandler: self)
+                .environment(postViewModel)
+                .presentationDetents([.fraction(0.3), .medium, .large])
+        case .none:
+            EmptyView()
+        }
+    }
+    
+    // MARK - Feed Contents
     func setCurrentDisplaySlice(_ newSlice: ArraySlice<TimelineItem>, newScrollAnchor: TimelineItem?, mayNeedHeightCalculations: Bool, addLoadingIndicator: Bool) {
         
         defer {
@@ -781,6 +904,7 @@ enum MastodonTimelineSheet {
     
     init(timeline: MastodonTimelineType, asyncRefreshViewModel: AsyncRefreshViewModel?) {
         self.timeline = timeline
+        self.isScrollEnabled = timeline.canPullToRefresh
         self._asyncRefreshViewModel = asyncRefreshViewModel
         
         self.instanceConfigurationUpdateSubscription = AuthenticationServiceProvider.shared.instanceConfigurationUpdates
@@ -1013,6 +1137,16 @@ enum MastodonTimelineSheet {
     }
     
     func refreshFromTop() async {
+        assert(loadingState == .requestedReloadFromTop, "Caller must synchronously set loading state before requesting async reload.")
+        if let waiting = waitingReplacementItems, !waiting.isEmpty {
+            scrollToTop()
+        } else {
+            await _refreshFromTop()
+        }
+        resetToUntrackedAfterDelay(from: loadingState)
+    }
+    
+    private func _refreshFromTop() async {
         assert(loadingState == .requestedReloadFromTop)
         await forceReload(.userRequestedRefresh)
     }
@@ -1276,6 +1410,15 @@ extension TimelineListViewModel {
         case requestedReloadFromBottom
         case requestedReloadFromTop
         case requestedAsyncRefreshResults
+        
+        var canReload: Bool {
+            switch self {
+            case .untracked:
+                true
+            default:
+                false
+            }
+        }
     }
     
     func resetToUntrackedAfterDelay(from currentState: LoadingState) {
@@ -1328,8 +1471,6 @@ extension TimelineListViewModel {
     }
 }
 
-private let scrollViewCoordinateSpace = "ScrollViewCoordinateSpace"
-
 var avatarSize = AvatarSize.large
 func useableWidth(fromGeoProxy geo: GeometryProxy) -> CGFloat {
     return geo.size.width - geo.safeAreaInsets.leading - geo.safeAreaInsets.trailing
@@ -1343,6 +1484,11 @@ struct TimelineListView: View {
     @Environment(TimelineListViewModel.self) private var viewModel
     @Environment(AsyncRefreshViewModel.self) private var asyncRefreshViewModel
     
+    @State var _updatedGeometry: GeometryProxy?
+    @State var _updatedScrollAnchor: TimelineItem?
+    @State var _updatedVisibleItems: [TimelineItem]?
+    @State var _pendingGeometryUpdates = false
+    
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .bottom) { // to show ALT text when needed, and donation banner, and snackbar
@@ -1355,79 +1501,54 @@ struct TimelineListView: View {
                         viewModel.suggestAccountsToFollow()
                     } label: {
                         Text(L10n.Common.Controls.Actions.findPeople)
-                        .bold()
-                        .foregroundStyle(.white)
-                        .padding()
-                        .background(Asset.Colors.accent.swiftUIColor)
-                        .cornerRadius(CornerRadius.standard)
+                            .bold()
+                            .foregroundStyle(.white)
+                            .padding()
+                            .background(Asset.Colors.accent.swiftUIColor)
+                            .cornerRadius(CornerRadius.standard)
                     }
                     .padding(EdgeInsets(top: doublePadding, leading: 0, bottom: doublePadding, trailing: 0))
                 } else {
-                    ScrollViewReader { proxy in
-                        ScrollView(showsIndicators: false) {
-                            LazyVStack(spacing: 0) {
-                                feedContents(geo)
-                            }
-                            .scrollTargetLayout()
+                    ScrollView(showsIndicators: false) {
+                        LazyVStack(spacing: 0) {
+                            feedContents(geo)
                         }
-                        .scrollPosition(id: Binding(get: {
-                            return viewModel.scrollAnchorItem
-                        }, set: { newAnchorItem in
-                            viewModel.scrollAnchorItem = newAnchorItem ?? .noItem
-                        }), anchor: .top)
-                        .onAppear() {
-                            viewModel.interactiveReloadTriggerModel.triggerFrame = geo.frame(in: .global)
+                        .scrollTargetLayout()
+                    }
+                    .onScrollGeometryChange(for: Double.self) { scrollGeometry in
+                        let result = viewModel.interactiveReloadTriggerModel.visiblePercent(withScrollGeometry: scrollGeometry)
+                        return result
+                    } action: { oldPercent, newPercent in
+                        if oldPercent != newPercent {
+                            viewModel.interactiveReloadTriggerModel.updateVisiblePercent(newPercent)
                         }
-                        .onChange(of: geo.frame(in: .global)) { _, newValue in
-                            viewModel.interactiveReloadTriggerModel.triggerFrame = newValue
+                    }
+                    .scrollPosition(id: viewModel.scrollAnchorItemBinding, anchor: .top)
+                    .onScrollTargetVisibilityChange(idType: TimelineItem.self, threshold: 0.5) { visibleRowIds in
+                        queueUpdates(visibleItems: visibleRowIds)
+                    }
+                    .onChange(of: geo.frame(in: .global), initial: true) { _, newValue in
+                        queueUpdates(geometry: geo)
+                    }
+                    .onChange(of: geo.safeAreaInsets, initial: true) { _, _ in
+                        queueUpdates(geometry: geo)
+                    }
+                    .onChange(of: viewModel.scrollAnchorItem) { _, newValue in
+                        queueUpdates(scrollAnchor: newValue)
+                    }
+                    .scrollDisabled(!viewModel.isScrollEnabled)
+                    .refreshable {
+                        guard viewModel.timeline.canPullToRefresh else { viewModel.isScrollEnabled = false; return }
+                        guard viewModel.loadingState.canReload else { return }
+                        viewModel.loadingState = .requestedReloadFromTop
+                        await viewModel.refreshFromTop()
+                    }
+                    .accessibilityAction(named: L10n.Common.Controls.Actions.loadNewer) {
+                        guard viewModel.loadingState.canReload else { return }
+                        viewModel.loadingState = .requestedReloadFromTop
+                        Task {
+                            await viewModel.refreshFromTop()
                         }
-                        .onChange(of: geo.size.width, initial: true) { _, _ in
-                            viewModel.currentUseableWidth = useableWidth(fromGeoProxy: geo)
-                        }
-                        .onChange(of: geo.safeAreaInsets, initial: true) { oldValue, newValue in
-                            viewModel.currentUseableWidth = useableWidth(fromGeoProxy: geo)
-                        }
-                        .onChange(of: viewModel.scrollAnchorItem) { oldValue, newValue in
-                            if viewModel.unreadCount > 0 {
-                                if let indexOfNewScrollAnchor = viewModel.currentDisplaySlice.firstIndex(of: newValue), indexOfNewScrollAnchor < viewModel.unreadCount {
-                                    viewModel.unreadCount = indexOfNewScrollAnchor
-                                }
-                            }
-                        }
-                        .refreshable {
-                            debugScroll("REFRESHABLE?")
-                            switch viewModel.loadingState {
-                            case .initializing:
-                                break
-                            case .untracked:
-                                viewModel.loadingState = .requestedReloadFromTop
-                                debugScroll("refreshing feed")
-                                if let waiting = viewModel.waitingReplacementItems, !waiting.isEmpty {
-                                    viewModel.scrollToTop()
-                                } else {
-                                    await viewModel.refreshFromTop()
-                                    viewModel.resetToUntrackedAfterDelay(from: viewModel.loadingState)
-                                }
-                            case .requestedReloadFromTop, .requestedReloadFromBottom, .requestedPrependedHeightCalculations, .requestedAsyncRefreshResults:
-                                debugScroll("not refreshing feed.  current state is \(viewModel.loadingState)")
-                                break
-                            }
-                        }
-                        .accessibilityAction(named: L10n.Common.Controls.Actions.loadNewer) {
-                            switch viewModel.loadingState {
-                            case .initializing:
-                                break
-                            case .untracked:
-                                viewModel.loadingState = .requestedReloadFromTop
-                                Task {
-                                    await viewModel.refreshFromTop()
-                                    viewModel.resetToUntrackedAfterDelay(from: .requestedReloadFromTop)
-                                }
-                            case .requestedReloadFromTop, .requestedReloadFromBottom, .requestedPrependedHeightCalculations, .requestedAsyncRefreshResults:
-                                break
-                            }
-                        }
-                        .coordinateSpace(name: scrollViewCoordinateSpace)
                     }
                     
                     if let campaign = viewModel.presentedDonationCampaign {
@@ -1498,85 +1619,53 @@ struct TimelineListView: View {
             }
         }
         .onDisappear() {
-            viewModel.ignoreNextTopItemBecomeVisible = true
             viewModel.loadingState = .untracked
         }
-        .alert(viewModel.activeAlert.title, isPresented: Binding(get: {
-            return viewModel.activeAlert.shouldBePresented
-        }, set: { isPresenting in
-            if !isPresenting {
-                viewModel.activeAlert = .noAlert
-            }
-        }), presenting: viewModel.activeAlert) { alert in
+        .alert(viewModel.activeAlert.title, isPresented: viewModel.alertIsPresented, presenting: viewModel.activeAlert) { alert in
             alertContents(alert)
         } message: { alert in
             if let messageText = alert.messageText {
                 Text(messageText)
             }
         }
-        .sheet(isPresented: Binding(get: {
-            viewModel.activeSheet != nil
-        }, set: { isPresented in
-            if !isPresented {
-                viewModel.activeSheet = nil
-            }
-        })) {
-            switch viewModel.activeSheet {
-            case .postInteractionSettingsEdit(let editModel):
-                PostInteractionSettingsView(closeAndSave: { save in
-                    if save {
-                        Task {
-                            do {
-                                try await viewModel.commitCurrentQuotePolicyEdit()
-                                viewModel.clearPendingActions()
-                            } catch {
-                                viewModel.clearPendingActions()
-                                self.viewModel.didReceiveError(error)
-                            }
-                        }
-                    } else {
-                        viewModel.clearPendingActions()
-                    }
-                })
-                .environment(editModel)
-                .presentationDetents([.fraction(0.5), .medium, .large])
-                .presentationDragIndicator(.hidden)
-                .interactiveDismissDisabled(true)
-            case .boostOrQuoteDialog(let postViewModel):
-                BoostOrQuoteDialog(actionHandler: viewModel)
-                    .environment(postViewModel)
-                    .presentationDetents([.fraction(0.3), .medium, .large])
-            case .none:
-                EmptyView()
-            }
+        .sheet(isPresented: viewModel.sheetIsPresented) {
+            viewModel.activeSheetContents
         }
         .overlay {
             if let activeOverlay = viewModel.activeOverlay {
-                GeometryReader { geo in
-                    ZStack(alignment: .topLeading) {
-                        ZStack {
-                            Color.black.opacity(0.6)
-                                .ignoresSafeArea()
-                                .onTapGesture {
-                                    viewModel.activeOverlay = nil
-                                }
-                            
-                            activeOverlay.view(sizedForFrame: geo.size, closeOverlay: { viewModel.showOverlay(nil) })
-                        }
-                        
-                        Button {
-                            viewModel.activeOverlay = nil
-                        } label: {
-                            Image(systemName: "xmark.circle")
-                                .font(.title)
-                                .foregroundStyle(.white)
-                        }
-                        .padding(standardPadding)
-                    }
-                }
+                viewModel.overlayContents(activeOverlay)
             }
         }
         .environment(TimestampUpdater.timestamper(withInterval: 30))
+    }
+    
+    private func queueUpdates(geometry: GeometryProxy? = nil, visibleItems: [TimelineItem]? = nil, scrollAnchor: TimelineItem? = nil) {
+        if let geometry {
+            _updatedGeometry = geometry
+        }
+        if let visibleItems {
+            _updatedVisibleItems = visibleItems
+        }
+        if let scrollAnchor {
+            _updatedScrollAnchor = scrollAnchor
+        }
+        guard !_pendingGeometryUpdates else { return }
+        _pendingGeometryUpdates = true
+        DispatchQueue.main.async {
+            _pendingGeometryUpdates = false
+            if let geo = self._updatedGeometry {
+                self.viewModel.updateUseableWidth(useableWidth(fromGeoProxy: geo))
+                self._updatedGeometry = nil
+            }
+            if let updatedVisibleItems = self._updatedVisibleItems {
+                self.viewModel.visibleItemsDidChange(updatedVisibleItems)
+                self._updatedVisibleItems = nil
+            }
+            if let updatedScrollAnchor = self._updatedScrollAnchor {
+                viewModel.updateUnreadCount(scrollAnchor: updatedScrollAnchor)
+                self._updatedScrollAnchor = nil
+            }
+        }
     }
     
     func precalculatedHeight(fromCalculations calculations: [PrecalculatedHeight], contentWidth width: CGFloat, contentConcealMode: ContentConcealViewModel.ContentDisplayMode, isShowingTranslation: Bool) -> CGFloat? {
@@ -1645,7 +1734,7 @@ struct TimelineListView: View {
                 .environment(contentConcealModel)
                 .padding(EdgeInsets(top: 0, leading: standardPadding, bottom: 0, trailing: doublePadding))
                 .frame(width: useableWidth, height: expectedHeight, alignment: .top)
-                #if DEBUG
+#if DEBUG
                 .background {
                     ZStack(alignment: .topTrailing) {
                         HStack {
@@ -1657,8 +1746,7 @@ struct TimelineListView: View {
                             Spacer()
                                 .frame(maxWidth: .infinity)
                         }
-                        
-#if DEBUG
+
                         if let expectedHeight {
                             let difference: CGFloat? = {
                                 guard let actual = postViewModel.actualLayoutHeight else { return nil }
@@ -1674,20 +1762,6 @@ struct TimelineListView: View {
                             FrameReader() { newFrame in
                                 postViewModel.actualLayoutHeight = newFrame.size.height
                             }
-                        }
-#endif
-                        
-                        if item == viewModel.currentDisplaySlice.first {
-                            VisibilityTrackingView(scrollCoordinateSpace: scrollViewCoordinateSpace,
-                                                   visibleAreaHeight: geo.size.height, visibilityDidChange: { isVisible in
-                                if isVisible {
-                                    if !viewModel.ignoreNextTopItemBecomeVisible && viewModel.scrollAnchorItem.id != item.id {
-                                        viewModel.scrollAnchorItem = .noItem
-                                    } else {
-                                        viewModel.ignoreNextTopItemBecomeVisible = false
-                                    }
-                                }
-                            })
                         }
                     }
                 }
@@ -1771,19 +1845,21 @@ struct TimelineListView: View {
             Color.clear
                 .frame(height: geo.size.height * 0.5)
         }
-        switch viewModel.timeline {
-        case .userPosts:
-            // include a spacer to allow content to scroll above the tab bar while we are still using the old ProfileViewController (which lays out these view controllers so that they hang mostly off the bottom of the screen, to allow the overall view to scroll up and show these views at full screen height)
-            let spacerHeightHackToMakeScrollingWorkUntilWeReplaceProfileViewController: CGFloat = {
-                let frame = geo.frame(in: .global)
-                let screenHeight = UIScreen.main.bounds.height
-                let offscreenBottom = max(frame.maxY - screenHeight, 0)
-                return offscreenBottom + geo.safeAreaInsets.bottom
-            }()
-            Spacer()
-                .frame(width: 200, height: spacerHeightHackToMakeScrollingWorkUntilWeReplaceProfileViewController)  // TODO: remove when replacing ProfileViewController
-        default:
-            EmptyView()
+        if !UserDefaults.standard.useBetaProfileView {
+            switch viewModel.timeline {
+            case .userPosts:
+                // include a spacer to allow content to scroll above the tab bar while we are still using the old ProfileViewController (which lays out these view controllers so that they hang mostly off the bottom of the screen, to allow the overall view to scroll up and show these views at full screen height)
+                let spacerHeightHackToMakeScrollingWorkUntilWeReplaceProfileViewController: CGFloat = {
+                    let frame = geo.frame(in: .global)
+                    let screenHeight = UIScreen.main.bounds.height
+                    let offscreenBottom = max(frame.maxY - screenHeight, 0)
+                    return offscreenBottom + geo.safeAreaInsets.bottom
+                }()
+                Spacer()
+                    .frame(width: 200, height: spacerHeightHackToMakeScrollingWorkUntilWeReplaceProfileViewController)  // TODO: remove when replacing ProfileViewController
+            default:
+                EmptyView()
+            }
         }
     }
     
@@ -2743,6 +2819,17 @@ extension MastodonTimelineType {
             true
         default:
             false
+        }
+    }
+}
+
+extension MastodonTimelineType {
+    var canPullToRefresh: Bool {
+        switch self {
+        case .userPosts, .thread, .remoteThread:
+            false
+        default:
+            true
         }
     }
 }

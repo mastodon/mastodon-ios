@@ -444,7 +444,25 @@ private extension SceneCoordinator {
             accountListViewController.viewModel = viewModel
             viewController = accountListViewController
         case .profile(let profileType):
-            let _viewController = ProfileViewController(profileType, authenticationBox: AuthenticationServiceProvider.shared.currentActiveUser.value!)
+            let _viewController: UIViewController =  {
+                if UserDefaults.standard.useBetaProfileView {
+                    let controller = ProfileHostingViewController(wrapInNavigationController: false)
+                    let account = MastodonAccount.fromEntity(profileType.accountToDisplay)
+                    controller.set(account: account, relationship: .isNotMe(nil))
+                    Task {
+                        let relationshipFetchID = profileType.accountToDisplay.id
+                        if let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
+                            Task {
+                                guard let relationship = try await APIService.shared.relationship(forAccountIds: [relationshipFetchID], authenticationBox: authBox).value.first else { return }
+                                controller.set(account: account, relationship: .isNotMe(MastodonAccount.RelationshipInfo(relationship, fetchedAt: .now)))
+                            }
+                        }
+                    }
+                    return controller
+                } else {
+                    return ProfileViewController(profileType, authenticationBox: AuthenticationServiceProvider.shared.currentActiveUser.value!)
+                }
+            }()
             viewController = _viewController
         case .myBookmarks:
             viewController = TimelineListViewController(.myBookmarks)

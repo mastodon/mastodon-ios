@@ -11,12 +11,14 @@ let doublePadding: CGFloat = _eight * 2
 let tinySpacing: CGFloat = _eight / 2
 
 struct AvatarSize {
+    static var extraLarge: CGFloat = 98
     static var large: CGFloat = 44
     static var small: CGFloat = 32
     static var tiny: CGFloat = 16
 }
 
 struct CornerRadius {
+    static var extraLarge: CGFloat = 25
     static var standard: CGFloat = _eight
     static var small: CGFloat = _eight / 2
     static var tiny: CGFloat = 3

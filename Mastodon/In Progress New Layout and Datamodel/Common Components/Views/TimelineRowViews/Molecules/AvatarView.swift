@@ -3,9 +3,8 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-private let avatarShape = RoundedRectangle(cornerRadius: 8)
-
 struct AvatarView: View {
+    var sizeExtraLarge = AvatarSize.extraLarge
     var sizeLarge = AvatarSize.large
     var sizeSmall = AvatarSize.small
     var sizeTiny = AvatarSize.tiny
@@ -13,12 +12,15 @@ struct AvatarView: View {
     @State var isNavigating: Bool = false
     
     enum Size {
+        case extraLarge
         case large
         case small
         case tiny
         
         var shape: RoundedRectangle {
             switch self {
+            case .extraLarge:
+                RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
             case .large:
                 RoundedRectangle(cornerRadius: CornerRadius.standard)
             case .small:
@@ -35,10 +37,15 @@ struct AvatarView: View {
     
     private var viewDimension: CGFloat {
         switch size {
+        case .extraLarge: sizeExtraLarge
         case .large: sizeLarge
         case .small: sizeSmall
         case .tiny: sizeTiny
         }
+    }
+    
+    var avatarShape: RoundedRectangle {
+        size.shape
     }
     
     var body: some View {
@@ -50,9 +57,6 @@ struct AvatarView: View {
                         image.resizable()
                             .aspectRatio(contentMode: .fit)
                             .clipShape(avatarShape)
-                            .overlay {
-                                avatarShape.stroke(.separator, lineWidth: 0.3)
-                            }
                     },
                     placeholder: {
                         avatarShape
@@ -60,6 +64,14 @@ struct AvatarView: View {
                                 Color(UIColor.secondarySystemFill))
                     }
                 )
+                .overlay {
+                    switch size {
+                    case .extraLarge:
+                        avatarShape.stroke(.background, lineWidth: 2)
+                    default:
+                        avatarShape.stroke(.separator, lineWidth: 0.3)
+                    }
+                }
             } else {
                 avatarShape
                     .foregroundStyle(

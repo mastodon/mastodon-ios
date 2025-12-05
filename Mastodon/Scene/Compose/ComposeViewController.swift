@@ -44,17 +44,21 @@ final class ComposeViewController: UIViewController {
     func setUpPublishingIndicator() {
         for (button, progressView) in [(publishButton, publishProgressView), (saveButton, editPublishProgressView)] {
             progressView.translatesAutoresizingMaskIntoConstraints = false
-            progressView.tintColor = .systemIndigo
-            progressView.trackTintColor = .systemGray
-            button.addSubview(progressView)
-            let constraints = [
-                progressView.leadingAnchor.constraint(equalTo: button.leadingAnchor),
-                progressView.trailingAnchor.constraint(equalTo: button.trailingAnchor),
-                progressView.topAnchor.constraint(equalTo: button.topAnchor),
-                progressView.bottomAnchor.constraint(equalTo: button.bottomAnchor),
-                progressView.heightAnchor.constraint(greaterThanOrEqualToConstant: 35)
-            ]
-            NSLayoutConstraint.activate(constraints)
+            progressView.tintColor = Asset.Colors.accent.color
+            if #available(iOS 26.0, *) {
+                // progress view will be displayed across the top of the view
+            } else {
+                progressView.trackTintColor = .systemGray
+                button.addSubview(progressView)
+                let constraints = [
+                    progressView.leadingAnchor.constraint(equalTo: button.leadingAnchor),
+                    progressView.trailingAnchor.constraint(equalTo: button.trailingAnchor),
+                    progressView.topAnchor.constraint(equalTo: button.topAnchor),
+                    progressView.bottomAnchor.constraint(equalTo: button.bottomAnchor),
+                    progressView.heightAnchor.constraint(greaterThanOrEqualToConstant: 35)
+                ]
+                NSLayoutConstraint.activate(constraints)
+            }
         }
         
         PublisherService.shared.$currentPublishProgress
@@ -125,23 +129,51 @@ final class ComposeViewController: UIViewController {
     }()
 
     private(set) lazy var saveBarButtonItem: UIBarButtonItem = {
-        configurePublishButtonApperance(button: saveButton)
-        let shadowBackgroundContainer = ShadowBackgroundContainer()
-        saveButton.translatesAutoresizingMaskIntoConstraints = false
-        shadowBackgroundContainer.addSubview(saveButton)
-        saveButton.pinToParent()
-        let barButtonItem = UIBarButtonItem(customView: shadowBackgroundContainer)
-        return barButtonItem
+        if #available(iOS 26.0, *) {
+            let buttonItem = UIBarButtonItem(
+                title: L10n.Common.Controls.Actions.save,
+                image: nil,
+                primaryAction: UIAction(handler: { [weak self] _ in
+                    guard let button = self?.saveButton else { return }
+                    self?.publishStatusEdit(button) }),
+                menu: nil
+                )
+            buttonItem.style = .prominent
+            buttonItem.tintColor = Asset.Colors.accent.color
+            return buttonItem
+        } else {
+            configurePublishButtonApperance(button: saveButton)
+            let shadowBackgroundContainer = ShadowBackgroundContainer()
+            saveButton.translatesAutoresizingMaskIntoConstraints = false
+            shadowBackgroundContainer.addSubview(saveButton)
+            saveButton.pinToParent()
+            let barButtonItem = UIBarButtonItem(customView: shadowBackgroundContainer)
+            return barButtonItem
+        }
     }()
 
     private(set) lazy var publishBarButtonItem: UIBarButtonItem = {
-        configurePublishButtonApperance(button: publishButton)
-        let shadowBackgroundContainer = ShadowBackgroundContainer()
-        publishButton.translatesAutoresizingMaskIntoConstraints = false
-        shadowBackgroundContainer.addSubview(publishButton)
-        publishButton.pinToParent()
-        let barButtonItem = UIBarButtonItem(customView: shadowBackgroundContainer)
-        return barButtonItem
+        if #available(iOS 26.0, *) {
+            let buttonItem = UIBarButtonItem(
+                title: L10n.Scene.Compose.composeAction,
+                image: nil,
+                primaryAction: UIAction(handler: { [weak self] _ in
+                    guard let button = self?.publishButton else { return }
+                    self?.publishBarButtonItemPressed(UIBarButtonItem()) }),
+                menu: nil
+            )
+            buttonItem.style = .prominent
+            buttonItem.tintColor = Asset.Colors.accent.color
+            return buttonItem
+        } else {
+            configurePublishButtonApperance(button: publishButton)
+            let shadowBackgroundContainer = ShadowBackgroundContainer()
+            publishButton.translatesAutoresizingMaskIntoConstraints = false
+            shadowBackgroundContainer.addSubview(publishButton)
+            publishButton.pinToParent()
+            let barButtonItem = UIBarButtonItem(customView: shadowBackgroundContainer)
+            return barButtonItem
+        }
     }()
 
     private func configurePublishButtonApperance(button: UIButton) {
@@ -177,6 +209,28 @@ extension ComposeViewController {
         view.addSubview(composeContentViewController.view)
         composeContentViewController.view.pinToParent()
         composeContentViewController.didMove(toParent: self)
+        if #available(iOS 26.0, *) {
+            switch viewModel.composeContext {
+            case .composeStatus:
+                view.addSubview(publishProgressView)
+                publishProgressView.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    publishProgressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                    publishProgressView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                    publishProgressView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                    publishProgressView.heightAnchor.constraint(equalToConstant: 5)
+                ])
+            case .editStatus:
+                view.addSubview(editPublishProgressView)
+                editPublishProgressView.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    editPublishProgressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                    editPublishProgressView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                    editPublishProgressView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                    editPublishProgressView.heightAnchor.constraint(equalToConstant: 5)
+                ])
+            }
+        }
 
         // bind title
         viewModel.$title

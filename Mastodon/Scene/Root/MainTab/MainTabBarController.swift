@@ -175,9 +175,17 @@ extension MainTabBarController {
                 
                 if currentTab == .me {
                     guard let authBox = authenticationBox, let myAccount = authBox.cachedAccount else { return }
-                    guard !(meProfileViewController is ProfileViewController) else { return }
+                    guard !(meProfileViewController is ProfileViewController) && !(meProfileViewController is ProfileHostingViewController) else { return }
                     let oldMe = meProfileViewController
-                    let updatedProfile = ProfileViewController(.me(myAccount), authenticationBox: authBox)
+                    let updatedProfile: UIViewController =  {
+                        if UserDefaults.standard.useBetaProfileView {
+                            let controller = ProfileHostingViewController(wrapInNavigationController: true)
+                            controller.set(account: MastodonAccount.fromEntity(myAccount), relationship: .isMe)
+                            return controller
+                        } else {
+                            return ProfileViewController(.me(myAccount), authenticationBox: authBox)
+                        }
+                    }()
                     meProfileViewController = updatedProfile
                     updatedProfile.configureTabBarItem(with: .me)
                     self.replace(oldMe, with: updatedProfile)
@@ -418,8 +426,17 @@ extension MainTabBarController {
 extension MainTabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if let tab = Tab(rawValue: viewController.tabBarItem.tag), tab == .compose {
+            let previousTab = selectedTab
             composeButtonDidPressed(tabBarController)
-            return false
+            if #available(iOS 26.0, *) {
+                // a bit of a hack to avoid interrupting the liquid glass animation when you tap the compose button in the tab bar
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                    self.selectedTab = previousTab
+                }
+                return true
+            } else {
+                return false
+            }
         }
         
         // Different tab has been selected, send haptic feedback
@@ -440,7 +457,7 @@ extension MainTabBarController: UITabBarControllerDelegate {
     }
 
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        if let tab = Tab(rawValue: viewController.tabBarItem.tag) {
+        if let tab = Tab(rawValue: viewController.tabBarItem.tag), tab != .compose {
             currentTab = tab
         }
     }
