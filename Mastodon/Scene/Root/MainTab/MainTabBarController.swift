@@ -73,7 +73,13 @@ class MainTabBarController: UITabBarController {
 
         super.init(nibName: nil, bundle: nil)
 
-        viewControllers = [homeTimelineViewController, searchViewController, composeViewController, notificationViewController, meProfileViewController].map { AdaptiveStatusBarStyleNavigationController(rootViewController: $0) }
+        viewControllers = [homeTimelineViewController, searchViewController, composeViewController, notificationViewController, meProfileViewController].map {
+            if UserDefaults.standard.useBetaProfileView && $0 == meProfileViewController {
+                return $0
+            } else {
+                return AdaptiveStatusBarStyleNavigationController(rootViewController: $0)
+            }
+        }
         tabBar.addInteraction(largeContentViewerInteraction)
         
         for controller in viewControllers ?? [] {
@@ -85,9 +91,16 @@ class MainTabBarController: UITabBarController {
     }
     
     private func replace(_ oldVC: UIViewController, with newVC: UIViewController) {
-        guard let navControllers = viewControllers as? [UINavigationController] else { return }
-        guard let toReplace = navControllers.first(where: { $0.viewControllers[0] == oldVC }) else { return }
-        toReplace.viewControllers = [newVC]
+        if let containingNavigationController = viewControllers?.first(where: {
+            guard let navController = $0 as? UINavigationController else { return false }
+            return navController.viewControllers[0] == oldVC
+        }) {
+            (containingNavigationController as? UINavigationController)?.viewControllers = [newVC]
+        } else if let replacementIndex = viewControllers?.firstIndex(of: oldVC) {
+            var replaced = viewControllers ?? []
+            replaced[replacementIndex] = newVC
+            viewControllers = replaced
+        }
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
