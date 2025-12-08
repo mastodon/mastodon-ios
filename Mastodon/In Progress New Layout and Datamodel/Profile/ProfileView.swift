@@ -69,7 +69,7 @@ struct ProfileView: View {
     @ViewBuilder var content: some View {
         GeometryReader { geo in
             ScrollView() {
-                VStack(alignment: .leading, spacing: 0) {
+                VStack(alignment: .center, spacing: 0) {
                     subview(.bannerAndAvatar, geometry: geo)
                         .id(Subview.bannerAndAvatar)
                     Spacer()
@@ -77,7 +77,7 @@ struct ProfileView: View {
                     subview(.bio, geometry: geo)
                         .id(Subview.bio)
                         .padding(.horizontal, doublePadding)
-                        .frame(width: geo.size.width)
+                        .frame(width: min(maxFeedContentWidth, geo.size.width))
                     Spacer()
                         .frame(height: doublePadding)
                     
@@ -151,9 +151,17 @@ struct ProfileAvatarAndBannerView: View {
                         }
                         .padding(.trailing, doublePadding)
                     }
+                    .frame(maxWidth: maxFeedContentWidth)
                 }
-                AvatarView(size: .extraLarge, authorAvatarUrl: viewModel.account?.avatarURL, goToProfile: nil)
-                    .padding(.horizontal, doublePadding)
+                HStack() {
+                    Spacer()
+                        .frame(maxWidth: .infinity)
+                    AvatarView(size: .extraLarge, authorAvatarUrl: viewModel.account?.avatarURL, goToProfile: nil)
+                        .padding(.horizontal, doublePadding)
+                        .frame(width: min(maxFeedContentWidth, width), alignment: .leading)
+                    Spacer()
+                        .frame(maxWidth: .infinity)
+                }
             }
         }
     }

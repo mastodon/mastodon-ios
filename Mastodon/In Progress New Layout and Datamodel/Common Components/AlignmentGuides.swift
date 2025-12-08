@@ -10,6 +10,8 @@ let standardPadding: CGFloat = _eight
 let doublePadding: CGFloat = _eight * 2
 let tinySpacing: CGFloat = _eight / 2
 
+let maxFeedContentWidth: CGFloat = 700
+
 struct AvatarSize {
     static var extraLarge: CGFloat = 98
     static var large: CGFloat = 44

@@ -1678,7 +1678,7 @@ struct TimelineListView: View {
     }
     
     @ViewBuilder func feedContents(_ geo: GeometryProxy) -> some View {
-        let useableWidth = useableWidth(fromGeoProxy: geo)
+        let useableWidth = min(maxFeedContentWidth, useableWidth(fromGeoProxy: geo))
         let contentWidth = contentWidth(forUseableWidth: useableWidth)
         
         ForEach(viewModel.currentDisplaySlice, id: \.self) { item in
