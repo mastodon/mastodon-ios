@@ -24,28 +24,32 @@ public final class ThemeService {
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().compactScrollEdgeAppearance = appearance
 
-        // set tab bar appearance
-        let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.configureWithDefaultBackground()
-
-        let tabBarItemAppearance = UITabBarItemAppearance()
-        tabBarItemAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.clear]
-        tabBarItemAppearance.focused.titleTextAttributes = [.foregroundColor: UIColor.clear]
-        tabBarItemAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
-        tabBarItemAppearance.disabled.titleTextAttributes = [.foregroundColor: UIColor.clear]
-        tabBarItemAppearance.selected.iconColor = SystemTheme.tabBarItemSelectedIconColor
-        tabBarItemAppearance.focused.iconColor = SystemTheme.tabBarItemFocusedIconColor
-        tabBarItemAppearance.normal.iconColor = SystemTheme.tabBarItemNormalIconColor
-        tabBarItemAppearance.disabled.iconColor = SystemTheme.tabBarItemDisabledIconColor
-        tabBarAppearance.stackedLayoutAppearance = tabBarItemAppearance
-        tabBarAppearance.inlineLayoutAppearance = tabBarItemAppearance
-        tabBarAppearance.compactInlineLayoutAppearance = tabBarItemAppearance
-
-        tabBarAppearance.backgroundColor = SystemTheme.tabBarBackgroundColor
-        UITabBar.appearance().standardAppearance = tabBarAppearance
-        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
-        UITabBar.appearance().barTintColor = SystemTheme.tabBarBackgroundColor
-
+        if #available(iOS 26, *) {
+            // let the system handle everything
+        } else {
+            // set tab bar appearance
+            let tabBarAppearance = UITabBarAppearance()
+            tabBarAppearance.configureWithDefaultBackground()
+            
+            let tabBarItemAppearance = UITabBarItemAppearance()
+            tabBarItemAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.clear]
+            tabBarItemAppearance.focused.titleTextAttributes = [.foregroundColor: UIColor.clear]
+            tabBarItemAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
+            tabBarItemAppearance.disabled.titleTextAttributes = [.foregroundColor: UIColor.clear]
+            tabBarItemAppearance.selected.iconColor = SystemTheme.tabBarItemSelectedIconColor
+            tabBarItemAppearance.focused.iconColor = SystemTheme.tabBarItemFocusedIconColor
+            tabBarItemAppearance.normal.iconColor = SystemTheme.tabBarItemNormalIconColor
+            tabBarItemAppearance.disabled.iconColor = SystemTheme.tabBarItemDisabledIconColor
+            tabBarAppearance.stackedLayoutAppearance = tabBarItemAppearance
+            tabBarAppearance.inlineLayoutAppearance = tabBarItemAppearance
+            tabBarAppearance.compactInlineLayoutAppearance = tabBarItemAppearance
+            
+            tabBarAppearance.backgroundColor = SystemTheme.tabBarBackgroundColor
+            UITabBar.appearance().standardAppearance = tabBarAppearance
+            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+            UITabBar.appearance().barTintColor = SystemTheme.tabBarBackgroundColor
+        }
+        
         // set table view cell appearance
         UITableView.appearance().backgroundColor = SystemTheme.tableViewBackgroundColor
         UITableViewCell.appearance().backgroundColor = SystemTheme.tableViewCellBackgroundColor

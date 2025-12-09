@@ -69,12 +69,17 @@ enum Tab: Int, CaseIterable {
 extension UIViewController {
     func configureTabBarItem(with tab: Tab) {
         title = tab.shouldDisplayTitle ? tab.title : ""
-        tabBarItem.tag = tab.tag
-        tabBarItem.title = tab.title     // needs for acessiblity large content label
-        tabBarItem.image = tab.image.imageWithoutBaseline()
-        tabBarItem.largeContentSizeImage = tab.largeImage.imageWithoutBaseline()
-        tabBarItem.accessibilityLabel = tab.title
-        tabBarItem.accessibilityUserInputLabels = tab.inputLabels
-        tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        
+        let _tabBarItem = UITabBarItem(title: nil, image: tab.image.imageWithoutBaseline(), tag: tab.tag)
+        _tabBarItem.largeContentSizeImage = tab.largeImage.imageWithoutBaseline()
+        _tabBarItem.accessibilityLabel = tab.title
+        _tabBarItem.accessibilityUserInputLabels = tab.inputLabels
+        if #available(iOS 26, *) {
+            // edge insets are ignored
+        } else {
+            _tabBarItem.title = tab.title     // needs for acessiblity large content label
+            _tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        }
+        tabBarItem = _tabBarItem
     }
 }
