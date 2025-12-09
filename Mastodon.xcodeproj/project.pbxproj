@@ -249,7 +249,6 @@
 		DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD525BAA00100D1B89D /* AppDelegate.swift */; };
 		DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD725BAA00100D1B89D /* SceneDelegate.swift */; };
 		DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDB25BAA00100D1B89D /* Main.storyboard */; };
-		DB427DDF25BAA00100D1B89D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDE25BAA00100D1B89D /* Assets.xcassets */; };
 		DB427DE225BAA00100D1B89D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB427DE025BAA00100D1B89D /* LaunchScreen.storyboard */; };
 		DB427DED25BAA00100D1B89D /* MastodonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DEC25BAA00100D1B89D /* MastodonTests.swift */; };
 		DB427DF825BAA00100D1B89D /* MastodonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DF725BAA00100D1B89D /* MastodonUITests.swift */; };
@@ -383,14 +382,12 @@
 		DBB525502611ED6D002F1F29 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5254F2611ED6D002F1F29 /* ProfileHeaderView.swift */; };
 		DBB5255E2611F07A002F1F29 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */; };
 		DBB8AB4626AECDE200F6D281 /* SendPostIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */; };
-		DBB8AB4F26AED13F00F6D281 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDE25BAA00100D1B89D /* Assets.xcassets */; };
 		DBB9759C262462E1004620BD /* ThreadMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB9759B262462E1004620BD /* ThreadMetaView.swift */; };
 		DBBE1B4525F3474B0081417A /* MastodonPickServerAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */; };
 		DBC3872429214121001EC0FD /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC3872329214121001EC0FD /* ShareViewController.swift */; };
 		DBC6461826A170AB00B0E31B /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBC6461626A170AB00B0E31B /* MainInterface.storyboard */; };
 		DBC6461C26A170AB00B0E31B /* ShareActionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DBC6461226A170AB00B0E31B /* ShareActionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DBC6462326A1712000B0E31B /* ShareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC6462226A1712000B0E31B /* ShareViewModel.swift */; };
-		DBC6462826A1736300B0E31B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDE25BAA00100D1B89D /* Assets.xcassets */; };
 		DBC7A672260C897100E57475 /* StatusContentWarningEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */; };
 		DBCA0EBC282BB38A0029E2B0 /* PageboyNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCA0EBB282BB38A0029E2B0 /* PageboyNavigateable.swift */; };
 		DBCBCBF4267CB070000F5B51 /* Decode85.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBCBF3267CB070000F5B51 /* Decode85.swift */; };
@@ -832,7 +829,6 @@
 		DB427DD525BAA00100D1B89D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB427DD725BAA00100D1B89D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DB427DDC25BAA00100D1B89D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		DB427DDE25BAA00100D1B89D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB427DE125BAA00100D1B89D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DB427DE325BAA00100D1B89D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB427DE825BAA00100D1B89D /* MastodonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MastodonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1897,7 +1893,6 @@
 			children = (
 				164F0EBB267D4FE400249499 /* BoopSound.caf */,
 				DBF3B73E2733EAED00E21627 /* local-codes.json */,
-				DB427DDE25BAA00100D1B89D /* Assets.xcassets */,
 				DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */,
 				FBA184D92ED9CB1600108354 /* InfoPlist.xcstrings */,
 				FB3EABBE2ED9E33900400A04 /* Localizable.xcstrings */,
@@ -3079,7 +3074,6 @@
 			files = (
 				164F0EBC267D4FE400249499 /* BoopSound.caf in Resources */,
 				DB427DE225BAA00100D1B89D /* LaunchScreen.storyboard in Resources */,
-				DB427DDF25BAA00100D1B89D /* Assets.xcassets in Resources */,
 				DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */,
 				DBA4B0F626C269880077136E /* Intents.stringsdict in Resources */,
 				FBD20D382EE86FE800C4422B /* AppIcon.icon in Resources */,
@@ -3110,7 +3104,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBA4B0F726C269880077136E /* Intents.stringsdict in Resources */,
-				DBB8AB4F26AED13F00F6D281 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3119,7 +3112,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBC6461826A170AB00B0E31B /* MainInterface.storyboard in Resources */,
-				DBC6462826A1736300B0E31B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
