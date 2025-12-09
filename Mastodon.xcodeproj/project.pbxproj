@@ -440,6 +440,7 @@
 		FB91188D2D9EECE7003F410B /* BodegaPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB91188C2D9EC208003F410B /* BodegaPersistence.swift */; };
 		FBA184DA2ED9CB1600108354 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FBA184D92ED9CB1600108354 /* InfoPlist.xcstrings */; };
 		FBA2EA9B2E1C0CEA005ADEF0 /* MastoParse in Frameworks */ = {isa = PBXBuildFile; productRef = FBA2EA9A2E1C0CEA005ADEF0 /* MastoParse */; };
+		FBD20D382EE86FE800C4422B /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = FBD20D372EE86FE800C4422B /* AppIcon.icon */; };
 		FBD689B52CCBF0AC00CE29F3 /* DonationCampaignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD689B42CCBF09F00CE29F3 /* DonationCampaignViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -1084,6 +1085,7 @@
 		FB8522732CEE302300BA2757 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = hu; path = hu.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		FB91188C2D9EC208003F410B /* BodegaPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodegaPersistence.swift; sourceTree = "<group>"; };
 		FBA184D92ED9CB1600108354 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		FBD20D372EE86FE800C4422B /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		FBD689B42CCBF09F00CE29F3 /* DonationCampaignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationCampaignViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1932,6 +1934,7 @@
 		DB427DC925BAA00100D1B89D = {
 			isa = PBXGroup;
 			children = (
+				FBD20D372EE86FE800C4422B /* AppIcon.icon */,
 				D84C099D2B0F9E33009E685E /* README.md */,
 				2A60583E2C491C4A0001194D /* AppVersion.xcconfig */,
 				D84C099E2B0F9E41009E685E /* Documentation */,
@@ -3079,6 +3082,7 @@
 				DB427DDF25BAA00100D1B89D /* Assets.xcassets in Resources */,
 				DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */,
 				DBA4B0F626C269880077136E /* Intents.stringsdict in Resources */,
+				FBD20D382EE86FE800C4422B /* AppIcon.icon in Resources */,
 				DBF3B73F2733EAED00E21627 /* local-codes.json in Resources */,
 				FB3EABBF2ED9E33900400A04 /* Localizable.xcstrings in Resources */,
 				FBA184DA2ED9CB1600108354 /* InfoPlist.xcstrings in Resources */,
