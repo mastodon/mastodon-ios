@@ -382,7 +382,10 @@ class ProfileViewController: UIViewController, MediaPreviewableViewController, A
     
     private(set) lazy var cancelEditingBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ProfileViewController.cancelEditingBarButtonItemPressed(_:)))
-        barButtonItem.tintColor = .white
+        if #available(iOS 26, *) {
+        } else {
+            barButtonItem.tintColor = .white
+        }
         return barButtonItem
     }()
     
@@ -393,7 +396,10 @@ class ProfileViewController: UIViewController, MediaPreviewableViewController, A
             target: self,
             action: #selector(ProfileViewController.settingBarButtonItemPressed(_:))
         )
-        barButtonItem.tintColor = .white
+        if #available(iOS 26, *) {
+        } else {
+            barButtonItem.tintColor = .white
+        }
         barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.settings
         return barButtonItem
     }()
@@ -405,7 +411,10 @@ class ProfileViewController: UIViewController, MediaPreviewableViewController, A
             target: self,
             action: #selector(ProfileViewController.shareBarButtonItemPressed(_:))
         )
-        barButtonItem.tintColor = .white
+        if #available(iOS 26, *) {
+        } else {
+            barButtonItem.tintColor = .white
+        }
         barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.share
         return barButtonItem
     }()
@@ -417,7 +426,10 @@ class ProfileViewController: UIViewController, MediaPreviewableViewController, A
             target: self,
             action: #selector(ProfileViewController.favoriteBarButtonItemPressed(_:))
         )
-        barButtonItem.tintColor = .white
+        if #available(iOS 26, *) {
+        } else {
+            barButtonItem.tintColor = .white
+        }
         barButtonItem.accessibilityLabel = L10n.Scene.Favorite.title
         return barButtonItem
     }()
@@ -429,28 +441,40 @@ class ProfileViewController: UIViewController, MediaPreviewableViewController, A
             target: self,
             action: #selector(ProfileViewController.bookmarkBarButtonItemPressed(_:))
         )
-        barButtonItem.tintColor = .white
+        if #available(iOS 26, *) {
+        } else {
+            barButtonItem.tintColor = .white
+        }
         barButtonItem.accessibilityLabel = L10n.Scene.Bookmark.title
         return barButtonItem
     }()
     
     private(set) lazy var replyBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrowshape.turn.up.left"), style: .plain, target: self, action: #selector(ProfileViewController.replyBarButtonItemPressed(_:)))
-        barButtonItem.tintColor = .white
+        if #available(iOS 26, *) {
+        } else {
+            barButtonItem.tintColor = .white
+        }
         barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.reply
         return barButtonItem
     }()
     
     let moreMenuBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: nil, action: nil)
-        barButtonItem.tintColor = .white
+        if #available(iOS 26, *) {
+        } else {
+            barButtonItem.tintColor = .white
+        }
         barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.seeMore
         return barButtonItem
     }()
     
     private(set) lazy var followedTagsBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "number"), style: .plain, target: self, action: #selector(ProfileViewController.followedTagsItemPressed(_:)))
-        barButtonItem.tintColor = .white
+        if #available(iOS 26, *) {
+        } else {
+            barButtonItem.tintColor = .white
+        }
         barButtonItem.accessibilityLabel = L10n.Scene.FollowedTags.title
         return barButtonItem
     }()

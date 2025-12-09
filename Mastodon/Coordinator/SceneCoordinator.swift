@@ -289,7 +289,11 @@ extension SceneCoordinator {
                         return title.count > 10 ? "" : title
                     }()
                     let barButtonItem = UIBarButtonItem(title: title, style: .plain, target: nil, action: nil)
-                    barButtonItem.tintColor = .white
+                    if #available(iOS 26, *) {
+                    
+                    } else {
+                        barButtonItem.tintColor = .white
+                    }
                     navigationControllerVisibleViewController.navigationItem.backBarButtonItem = barButtonItem
                 default:
                     navigationControllerVisibleViewController.navigationItem.backBarButtonItem = nil
