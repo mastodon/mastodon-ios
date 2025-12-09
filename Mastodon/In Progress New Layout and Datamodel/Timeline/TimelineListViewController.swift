@@ -904,7 +904,7 @@ enum MastodonTimelineSheet {
     
     init(timeline: MastodonTimelineType, asyncRefreshViewModel: AsyncRefreshViewModel?) {
         self.timeline = timeline
-        self.isScrollEnabled = timeline.canPullToRefresh
+        self.isScrollEnabled = !timeline.isInNestedScrollview
         self._asyncRefreshViewModel = asyncRefreshViewModel
         
         self.instanceConfigurationUpdateSubscription = AuthenticationServiceProvider.shared.instanceConfigurationUpdates
@@ -1538,7 +1538,12 @@ struct TimelineListView: View {
                     }
                     .scrollDisabled(!viewModel.isScrollEnabled)
                     .refreshable {
-                        guard viewModel.timeline.canPullToRefresh else { viewModel.isScrollEnabled = false; return }
+                        guard viewModel.timeline.canPullToRefresh else {
+                            if viewModel.timeline.isInNestedScrollview {
+                                viewModel.isScrollEnabled = false
+                            }
+                            return
+                        }
                         guard viewModel.loadingState.canReload else { return }
                         viewModel.loadingState = .requestedReloadFromTop
                         await viewModel.refreshFromTop()
@@ -2830,6 +2835,15 @@ extension MastodonTimelineType {
             false
         default:
             true
+        }
+    }
+    
+    var isInNestedScrollview: Bool {
+        switch self {
+        case .userPosts:
+            UserDefaults.standard.useBetaProfileView
+        default:
+            false
         }
     }
 }
