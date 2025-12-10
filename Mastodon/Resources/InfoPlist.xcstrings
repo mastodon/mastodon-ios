@@ -5,9 +5,309 @@
       "comment" : "Bundle name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mastodon"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mastodon"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mastodon"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mastodon"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mastodon"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mastodon"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mastodon"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mastodon"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "Mastodon"
           }
         }
@@ -15,6 +315,12 @@
     },
     "NewPostShortcutItemTitle" : {
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nueva Publicación"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -33,7 +339,7 @@
             "value" : "Nova Publicació"
           }
         },
-        "ckb" : {
+        "ckb-IR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "پۆستی نوێ"
@@ -43,6 +349,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nový příspěvek"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Post Newydd"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nyt indlæg"
           }
         },
         "de" : {
@@ -63,6 +381,12 @@
             "value" : "New Post"
           }
         },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New Post"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -72,7 +396,13 @@
         "es-AR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "New Post"
+            "value" : "Nuevo mensaje"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uus postitus"
           }
         },
         "eu" : {
@@ -93,6 +423,12 @@
             "value" : "Nouvelle Publication"
           }
         },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Post Nua"
+          }
+        },
         "gd" : {
           "stringUnit" : {
             "state" : "translated",
@@ -105,6 +441,18 @@
             "value" : "Nova publicación"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New Post"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New Post"
+          }
+        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -115,6 +463,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Նոր գրառում"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Postingan Baru"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ný færsla"
           }
         },
         "it" : {
@@ -135,10 +495,34 @@
             "value" : "Tasuffeɣt tamaynut"
           }
         },
-        "ku" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Şandiya nû"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "새 글"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Naujas įrašas"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jauna Ziņa"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ပို့စ်အသစ်"
           }
         },
         "nl" : {
@@ -147,16 +531,52 @@
             "value" : "Nieuw bericht"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nowy wpis"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nova publicação"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novo Toot"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New Post"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Новая почта"
           }
         },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New Post"
+          }
+        },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nova objava"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Postimi i Ri"
           }
         },
         "sv" : {
@@ -175,6 +595,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Yeni Gönderi"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новий допис"
           }
         },
         "vi" : {
@@ -200,6 +626,12 @@
     "NSCameraUsageDescription" : {
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S'usa pa quitar fotos pa las publicacions"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -218,7 +650,7 @@
             "value" : "S'utilitza per fer fotos per les publicacions"
           }
         },
-        "ckb" : {
+        "ckb-IR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "بەکار دێت بۆ گرتنی وێنەیەک بۆ پۆستەکە"
@@ -228,6 +660,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Slouží k pořízení fotografie pro příspěvek"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Defnyddir hwn i gymryd llun am bost"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bruges til at tage foto til indlæg"
           }
         },
         "de" : {
@@ -248,6 +692,12 @@
             "value" : "Used to take photo for post status"
           }
         },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Used to take photo for post status"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -257,7 +707,13 @@
         "es-AR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Used to take photo for post status"
+            "value" : "Usado para tomar fotos para los mensajes"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kasutatkse postitusele lisatava foto pildistamiseks"
           }
         },
         "eu" : {
@@ -275,7 +731,13 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Utilisé pour prendre une photo lors de la publication d’un statut"
+            "value" : "Utilisé pour prendre une photo lors de la publication d’un message"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úsáidte chun grianghraf a thógáil le haghaidh stádas poist"
           }
         },
         "gd" : {
@@ -290,6 +752,18 @@
             "value" : "Utilizado para facer foto e publicar estado"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Used to take photo for post status"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Used to take photo for post status"
+          }
+        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -298,8 +772,20 @@
         },
         "hy" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Used to take photo for post status"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gunakan untuk mengambil foto untuk postingan status"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notað til að taka mynd fyrir stöðufærslu"
           }
         },
         "it" : {
@@ -320,10 +806,34 @@
             "value" : "Yettwaseqdac i tuṭṭfa n tewlafin deg usuffeɣ n waddaden"
           }
         },
-        "ku" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bo kişandina wêneyê ji bo rewşa şandiyan tê bikaranîn"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "게시물에 사용할 사진을 찍기 위해 쓰임"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Naudojamas daryti nuotrauką įrašo būsenai"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Izmanto, lai fotografētu ziņas statusu"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ပို့စ်အခြေအနေအတွက် ပုံရိုက်ရန် အသုံးပြုခဲ့သည်"
           }
         },
         "nl" : {
@@ -332,16 +842,52 @@
             "value" : "Gebruikt om foto's te nemen voor je berichten"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Służy do robienia zdjęć do statusu posta"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilizado para tirar fotografias para o estado da publicação"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usado para tirar uma foto para postagem"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Used to take photo for post status"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Используется для съемки фото для статуса поста"
           }
         },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Used to take photo for post status"
+          }
+        },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Uporabljeno za zajem fotografij za stanje objave"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E përdorur për të bërë foto për gjendje postimi"
           }
         },
         "sv" : {
@@ -360,6 +906,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fotoğraf çekerek durum paylaşmak için kullanılır"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Використовується, щоб зробити фотографію для статусу публікації"
           }
         },
         "vi" : {
@@ -385,6 +937,12 @@
     "NSPhotoLibraryAddUsageDescription" : {
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S'usa pa alzar fotos en a Galería de Fotos"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -403,7 +961,7 @@
             "value" : "S'utilitza per a desar fotos en la Fototeca"
           }
         },
-        "ckb" : {
+        "ckb-IR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "بەکار دێت بۆ هەڵگرتنی وێنە"
@@ -413,6 +971,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Slouží k uložení fotografie do knihovny fotografií"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Defnyddir hwn i gadw llun yn eich Photo Library"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bruges til at gemme foto i fotobiblioteket"
           }
         },
         "de" : {
@@ -433,6 +1003,12 @@
             "value" : "Used to save photo into the Photo Library"
           }
         },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Used to save photo into the Photo Library"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -442,7 +1018,13 @@
         "es-AR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Used to save photo into the Photo Library"
+            "value" : "Usado para guardar la foto en la Biblioteca de fotos"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kasutatakse foto salvestamiseks Fotode kogusse"
           }
         },
         "eu" : {
@@ -463,6 +1045,12 @@
             "value" : "Utilisé pour enregistrer les photos dans la Photothèque"
           }
         },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úsáidtear é chun grianghraf a shábháil sa Leabharlann Grianghraf"
+          }
+        },
         "gd" : {
           "stringUnit" : {
             "state" : "translated",
@@ -475,6 +1063,18 @@
             "value" : "Utilizado para gardar a foto na Biblioteca"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Used to save photo into the Photo Library"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Used to save photo into the Photo Library"
+          }
+        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -483,8 +1083,20 @@
         },
         "hy" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Used to save photo into the Photo Library"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gunakan untuk menyimpan foto ke dalam Galeri Foto"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notað til að vista mynd inn í ljósmyndasafnið"
           }
         },
         "it" : {
@@ -505,10 +1117,34 @@
             "value" : "Yettwaseqdac i usekles n tewlafin deg temkarḍit n tewlafin"
           }
         },
-        "ku" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ji bo tomarkirina wêneyê di pirtûkxaneya wêneyan de tê bikaranîn"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "갤러리에 사진을 저장하기 위해 쓰임"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Naudojamas išsaugoti nuotrauką į nuotraukų biblioteką"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Izmanto, lai saglabātu fotoattēlu Photo Library"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ဓာတ်ပုံပြခန်းတွင် ပုံသိမ်းရန် အသုံးပြုခဲ့သည်"
           }
         },
         "nl" : {
@@ -517,16 +1153,52 @@
             "value" : "Gebruikt om foto's op te slaan in de fotobibliotheek"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Służy do zapisywania zdjęć w bibliotece zdjęć"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilizado para guardar a fotografia na biblioteca de fotografias"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usado para salvar foto na Galeria"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Used to save photo into the Photo Library"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Используется для сохранения фотографии в Фототеке"
           }
         },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Used to save photo into the Photo Library"
+          }
+        },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Uporabljeno za shranjevanje fotografije v knjižnico fotografij"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E përdorur për të ruajur foto në Fototekë"
           }
         },
         "sv" : {
@@ -545,6 +1217,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fotoğraf Albümü'ne fotoğraf kaydetmek için kullanılır"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Використовується для збереження фото в бібліотеку"
           }
         },
         "vi" : {
@@ -569,6 +1247,12 @@
     },
     "SearchShortcutItemTitle" : {
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -587,7 +1271,7 @@
             "value" : "Cerca"
           }
         },
-        "ckb" : {
+        "ckb-IR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "بگەڕێ"
@@ -597,6 +1281,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hledat"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chwilio"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Søg"
           }
         },
         "de" : {
@@ -617,6 +1313,12 @@
             "value" : "Search"
           }
         },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Search"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -626,7 +1328,13 @@
         "es-AR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Search"
+            "value" : "Buscar"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otsi"
           }
         },
         "eu" : {
@@ -647,6 +1355,12 @@
             "value" : "Rechercher"
           }
         },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuardaigh"
+          }
+        },
         "gd" : {
           "stringUnit" : {
             "state" : "translated",
@@ -659,6 +1373,18 @@
             "value" : "Buscar"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Search"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Search"
+          }
+        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -669,6 +1395,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Որոնել"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cari"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leita"
           }
         },
         "it" : {
@@ -689,10 +1427,34 @@
             "value" : "Nadi"
           }
         },
-        "ku" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bigere"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "검색"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paieška"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meklēt"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ရှာဖွေရန်"
           }
         },
         "nl" : {
@@ -701,16 +1463,52 @@
             "value" : "Zoek"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Szukaj"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pesquisar"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Search"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Поиск"
           }
         },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "සොයන්න"
+          }
+        },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Iskanje"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kërko"
           }
         },
         "sv" : {
@@ -729,6 +1527,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Arama"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пошук"
           }
         },
         "vi" : {
