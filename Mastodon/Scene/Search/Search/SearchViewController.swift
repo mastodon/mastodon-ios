@@ -54,7 +54,11 @@ final class SearchViewController: UIViewController {
 
         segmentedControlBackground = UIView()
         segmentedControlBackground.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControlBackground.backgroundColor = .systemBackground
+        if #available(iOS 26, *) {
+            segmentedControlBackground.backgroundColor = .clear
+        } else {
+            segmentedControlBackground.backgroundColor = .systemBackground
+        }
 
         super.init(nibName: nil, bundle: nil)
 
@@ -76,15 +80,22 @@ final class SearchViewController: UIViewController {
 
         setupSearchBar()
         guard let discoveryViewController else { return }
-
-        segmentedControlBackground.addSubview(segmentedControl)
-        view.addSubview(segmentedControlBackground)
-
-
+        
         addChild(discoveryViewController)
         discoveryViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(discoveryViewController.view)
         discoveryViewController.didMove(toParent: self)
+
+        segmentedControlBackground.addSubview(segmentedControl)
+        view.addSubview(segmentedControlBackground)
+        
+        let (topConstraint, bottomConstraint) = {
+            if #available(iOS 26, *) {
+                return (view.topAnchor.constraint(equalTo: discoveryViewController.view.topAnchor), view.bottomAnchor.constraint(equalTo: discoveryViewController.view.bottomAnchor))
+            } else {
+                return (discoveryViewController.view.topAnchor.constraint(equalTo: segmentedControlBackground.bottomAnchor), view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: discoveryViewController.view.bottomAnchor))
+            }
+        }()
 
         let constraints = [
             segmentedControl.topAnchor.constraint(equalTo: segmentedControlBackground.topAnchor, constant: 8),
@@ -92,14 +103,14 @@ final class SearchViewController: UIViewController {
             segmentedControlBackground.trailingAnchor.constraint(equalTo: segmentedControl.trailingAnchor, constant: 8),
             segmentedControlBackground.bottomAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 8),
 
-            segmentedControlBackground.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            segmentedControlBackground.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor), // because we add additionalSafeAreaInsets to account for the segmented control, the segmented control should be entirely within the not-safe area
             segmentedControlBackground.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: segmentedControlBackground.trailingAnchor),
 
-            discoveryViewController.view.topAnchor.constraint(equalTo: segmentedControlBackground.bottomAnchor),
+            topConstraint,
             discoveryViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: discoveryViewController.view.trailingAnchor),
-            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: discoveryViewController.view.bottomAnchor),
+            bottomConstraint
         ]
 
         NSLayoutConstraint.activate(constraints)
@@ -109,19 +120,29 @@ final class SearchViewController: UIViewController {
         searchBar.scopeBarBackgroundImage = .placeholder(color: .systemBackground)
     }
 
+    override func viewDidLayoutSubviews() {
+        additionalSafeAreaInsets.top = segmentedControlBackground.frame.height
+    }
+    
     private func setupAppearance() {
-        view.backgroundColor = .systemGroupedBackground
+        
 
-        // Match the DiscoveryViewController tab color and remove the double separator.
-        let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.configureWithOpaqueBackground()
-        navigationBarAppearance.backgroundColor = .systemBackground
-        navigationBarAppearance.shadowColor = nil
-
-        navigationItem.standardAppearance = navigationBarAppearance
-        navigationItem.scrollEdgeAppearance = navigationBarAppearance
-        navigationItem.compactAppearance = navigationBarAppearance
-        navigationItem.compactScrollEdgeAppearance = navigationBarAppearance
+        if #available(iOS 26, *) {
+            // do not mess with appearances
+            
+        } else {
+            view.backgroundColor = .systemGroupedBackground
+            // Match the DiscoveryViewController tab color and remove the double separator.
+            let navigationBarAppearance = UINavigationBarAppearance()
+            navigationBarAppearance.configureWithOpaqueBackground()
+            navigationBarAppearance.backgroundColor = .systemBackground
+            navigationBarAppearance.shadowColor = nil
+            
+            navigationItem.standardAppearance = navigationBarAppearance
+            navigationItem.scrollEdgeAppearance = navigationBarAppearance
+            navigationItem.compactAppearance = navigationBarAppearance
+            navigationItem.compactScrollEdgeAppearance = navigationBarAppearance
+        }
     }
 
     private func setupSearchBar() {
