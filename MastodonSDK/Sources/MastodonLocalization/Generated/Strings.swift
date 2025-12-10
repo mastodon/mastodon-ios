@@ -973,10 +973,6 @@ public enum L10n {
       }
     }
     public enum Familiarfollowers {
-      /// Followed by %@
-      public static func followedByNames(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "Scene.Familiarfollowers.FollowedByNames", String(describing: p1), fallback: "Followed by %@")
-      }
       /// Followers you familiar
       public static let title = L10n.tr("Localizable", "Scene.Familiarfollowers.Title", fallback: "Followers you familiar")
     }

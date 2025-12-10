@@ -80,6 +80,24 @@ public struct L10nLookup {
                 }
             }
         }
+        
+        public struct FamiliarFollowers {
+            
+            public static func followedByOneName(_ account: String) -> String {
+                let result = tr("Localizable", "Scene.FamiliarFollowers.FollowedByNames", account)
+                return result
+            }
+            
+            public static func followedByTwoNames(firstAccount: String, secondAccount: String) -> String {
+                let result = tr("Localizable", "Scene.FamiliarFollowers.FollowedByTwoNames", firstAccount, secondAccount)
+                return result
+            }
+            
+            public static func followedByTwoNamesAndOthers(firstAccount: String, secondAccount: String, otherCount: Int) -> String {
+                let result = tr("Localizable", "Scene.FamiliarFollowers.FollowedByTwoNamesAndOthers", firstAccount, secondAccount, otherCount)
+                return result
+            }
+        }
     }
 
     public static func pluralCountPoll(_ count: Int) -> String {

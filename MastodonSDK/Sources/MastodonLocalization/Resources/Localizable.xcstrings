@@ -146433,7 +146433,8 @@
       }
     },
     "Scene.Familiarfollowers.FollowedByNames" : {
-      "extractionState" : "migrated",
+      "comment" : "Followed by a single named account",
+      "extractionState" : "manual",
       "localizations" : {
         "an" : {
           "stringUnit" : {
@@ -146727,6 +146728,42 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "被 %@ 跟隨"
+          }
+        }
+      }
+    },
+    "Scene.FamiliarFollowers.FollowedByTwoNames" : {
+      "comment" : "Followed by two named accounts",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Followed by %(firstAccount)@ and %(secondAccount)@"
+          }
+        }
+      }
+    },
+    "Scene.FamiliarFollowers.FollowedByTwoNamesAndOthers" : {
+      "comment" : "Followed by two named accounts and a count of others",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Followed by %(firstAccount)@, %(secondAccount)@, and %(otherCount)lld other"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Followed by %(firstAccount)@, %(secondAccount)@, and %(otherCount)lld others"
+                }
+              }
+            }
           }
         }
       }

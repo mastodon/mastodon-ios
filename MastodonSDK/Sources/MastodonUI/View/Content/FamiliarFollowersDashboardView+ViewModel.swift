@@ -78,16 +78,15 @@ extension FamiliarFollowersDashboardView.ViewModel {
                 guard names.count > 0 else { return " " }
                 
                 let count = names.count
-                let firstTwoNames = names.prefix(2).joined(separator: ", ")
                 
                 switch names.count {
-                case 1..<3:
-                    return L10n.Scene.Familiarfollowers.followedByNames(firstTwoNames)
+                case 1:
+                    return L10nLookup.Scene.FamiliarFollowers.followedByOneName(names[0])
+                case 2:
+                    return L10nLookup.Scene.FamiliarFollowers.followedByTwoNames(firstAccount: names[0], secondAccount: names[1])
                 default:
-                    // Note: SwiftGen generates wrong formate argv for "%1$@" 
-                    let remains = count - 2
-                    let format = MastodonLocalization.bundle.localizedString(forKey: "plural.count.followed_by_and_mutual", value: nil, table: "Localizable")
-                    return String(format: format, locale: .current, arguments: [firstTwoNames, remains])
+                    let remainingCount = count - 2
+                    return L10nLookup.Scene.FamiliarFollowers.followedByTwoNamesAndOthers(firstAccount: names[0], secondAccount: names[1], otherCount: remainingCount)
                 }
             }()
             let document = MastodonContent(content: content, emojis: emojis)
