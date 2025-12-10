@@ -68,7 +68,11 @@ final class SearchViewController: UIViewController {
 
         setupAppearance()
 
-        title = L10n.Scene.Search.title
+        if #available(iOS 26, *) {
+            // setting the title adds text to the tab bar, which we don't want
+        } else {
+            title = L10n.Scene.Search.title
+        }
 
         setupSearchBar()
         guard let discoveryViewController else { return }
