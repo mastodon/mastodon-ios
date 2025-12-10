@@ -13,6 +13,7 @@ import MastodonAsset
 import MastodonCore
 import MastodonLocalization
 import MastodonUI
+import SDWebImage
 
 class MainTabBarController: UITabBarController {
 
@@ -218,11 +219,15 @@ extension MainTabBarController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] avatarURL in
                 guard let self else { return }
-                self.avatarButton.avatarImageView.setImage(
-                    url: avatarURL,
-                    placeholder: .placeholder(color: .systemFill),
-                    scaleToSize: MainTabBarController.avatarButtonSize
-                )
+                if #available(iOS 26, *) {
+                    self.layoutAvatarButton()
+                } else {
+                    self.avatarButton.avatarImageView.setImage(
+                        url: avatarURL,
+                        placeholder: .placeholder(color: .systemFill),
+                        scaleToSize: MainTabBarController.avatarButtonSize
+                    )
+                }
             }
             .store(in: &disposeBag)
         
@@ -379,39 +384,50 @@ extension MainTabBarController {
     }
 
     private func layoutAvatarButton() {
-        guard avatarButton.superview == nil else { return }
-        
-        guard let profileTabItem = meProfileViewController.tabBarItem else { return }
-        guard let view = profileTabItem.value(forKey: "view") as? UIView else {
-            return
+        if #available(iOS 26, *) {
+            guard let avatarURL else { return }
+            Task { [weak self] in
+                guard let self else { return }
+                let avatarImage = try await AvatarButtonImageLoader.getImage(url: avatarURL)
+                guard self.avatarURL == avatarURL else { return }
+                let tabBarItem = UITabBarItem(title: nil, image: avatarImage?.withRenderingMode(.alwaysOriginal), tag: Tab.me.tag)
+                self.meProfileViewController.tabBarItem = tabBarItem
+            }
+        } else {
+            guard avatarButton.superview == nil else { return }
+            
+            guard let profileTabItem = meProfileViewController.tabBarItem else { return }
+            guard let view = profileTabItem.value(forKey: "view") as? UIView else {
+                return
+            }
+            
+            let _anchorImageView = view.subviews.first { subview in subview is UIImageView } as? UIImageView
+            guard let anchorImageView = _anchorImageView else {
+                assertionFailure()
+                return
+            }
+            anchorImageView.alpha = 0
+            
+            accountSwitcherChevron.removeFromSuperview()
+            accountSwitcherChevron.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(accountSwitcherChevron)
+            
+            self.avatarButton.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(self.avatarButton)
+            NSLayoutConstraint.activate([
+                self.avatarButton.centerXAnchor.constraint(equalTo: anchorImageView.centerXAnchor),
+                self.avatarButton.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor),
+                self.avatarButton.widthAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.width).priority(.required - 1),
+                self.avatarButton.heightAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.height).priority(.required - 1),
+                accountSwitcherChevron.widthAnchor.constraint(equalToConstant: 10),
+                accountSwitcherChevron.heightAnchor.constraint(equalToConstant: 18),
+                accountSwitcherChevron.leadingAnchor.constraint(equalTo: avatarButton.trailingAnchor, constant: 8),
+                accountSwitcherChevron.centerYAnchor.constraint(equalTo: avatarButton.centerYAnchor)
+            ])
+            self.avatarButton.setContentHuggingPriority(.required - 1, for: .horizontal)
+            self.avatarButton.setContentHuggingPriority(.required - 1, for: .vertical)
+            self.avatarButton.isUserInteractionEnabled = false
         }
-        
-        let _anchorImageView = view.subviews.first { subview in subview is UIImageView } as? UIImageView
-        guard let anchorImageView = _anchorImageView else {
-            assertionFailure()
-            return
-        }
-        anchorImageView.alpha = 0
-        
-        accountSwitcherChevron.removeFromSuperview()
-        accountSwitcherChevron.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(accountSwitcherChevron)
-        
-        self.avatarButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(self.avatarButton)
-        NSLayoutConstraint.activate([
-            self.avatarButton.centerXAnchor.constraint(equalTo: anchorImageView.centerXAnchor),
-            self.avatarButton.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor),
-            self.avatarButton.widthAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.width).priority(.required - 1),
-            self.avatarButton.heightAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.height).priority(.required - 1),
-            accountSwitcherChevron.widthAnchor.constraint(equalToConstant: 10),
-            accountSwitcherChevron.heightAnchor.constraint(equalToConstant: 18),
-            accountSwitcherChevron.leadingAnchor.constraint(equalTo: avatarButton.trailingAnchor, constant: 8),
-            accountSwitcherChevron.centerYAnchor.constraint(equalTo: avatarButton.centerYAnchor)
-        ])
-        self.avatarButton.setContentHuggingPriority(.required - 1, for: .horizontal)
-        self.avatarButton.setContentHuggingPriority(.required - 1, for: .vertical)
-        self.avatarButton.isUserInteractionEnabled = false
     }
     
     private func updateAvatarButtonAppearance() {
@@ -687,6 +703,61 @@ extension MainTabBarController: UINavigationControllerDelegate {
             } else {
                 navigationController.setNeedsStatusBarAppearanceUpdate()
             }
+        }
+    }
+}
+
+struct AvatarButtonImageLoader {
+    static var _cache = [URL : UIImage]()
+    
+    static func getImage(url: URL) async throws -> UIImage? {
+        if let cached = _cache[url] {
+            return cached
+        } else {
+            let baseImage: UIImage? = try await withCheckedThrowingContinuation { continuation in
+                SDWebImageDownloader.shared.downloadImage(with: url) { image, data, error, finished in
+                    if let error {
+                        continuation.resume(throwing: error)
+                    } else {
+                        continuation.resume(returning: image)
+                    }
+                }
+            }
+            
+            guard let circular = baseImage?.circularMasked(diameter: 40) else { return nil }
+            _cache[url] = circular
+            return circular
+        }
+    }
+    
+}
+
+var circularAvatarRenderer: UIGraphicsImageRenderer?
+
+extension UIImage {
+    func circularMasked(diameter: CGFloat) -> UIImage? {
+        guard let cgImage = self.cgImage else { return nil }
+        let scale = max(diameter/size.width, diameter/size.height)
+        let drawingRect = CGRect(
+            x: (size.width * scale - diameter) / 2,
+            y: (size.height * scale - diameter) / 2,
+            width: size.width * scale,
+            height: size.height * scale
+            )
+        
+        let renderer = {
+            if let circularAvatarRenderer {
+                return circularAvatarRenderer
+            } else {
+                let _newRenderer = UIGraphicsImageRenderer(size: CGSize(width: diameter, height: diameter))
+                circularAvatarRenderer = _newRenderer
+                return _newRenderer
+            }
+        }()
+        return renderer.image { context in
+            let circleRect = CGRect(origin: .zero, size: CGSize(width: diameter, height: diameter))
+            UIBezierPath(ovalIn: circleRect).addClip()
+            UIImage(cgImage: cgImage).draw(in: drawingRect)
         }
     }
 }
