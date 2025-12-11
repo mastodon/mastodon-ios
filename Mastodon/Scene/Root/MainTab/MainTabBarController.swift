@@ -707,7 +707,7 @@ extension MainTabBarController: UINavigationControllerDelegate {
     }
 }
 
-struct AvatarButtonImageLoader {
+actor AvatarButtonImageLoader {
     static var _cache = [URL : UIImage]()
     
     static func getImage(url: URL) async throws -> UIImage? {
