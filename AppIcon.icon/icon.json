@@ -35,17 +35,15 @@
               }
             }
           ],
-          "hidden-specializations" : [
-            {
-              "value" : false
-            },
-            {
-              "appearance" : "dark",
-              "value" : true
-            }
-          ],
+          "hidden" : false,
           "image-name" : "Icon-Dark-1024x1024.png",
           "name" : "Icon-Dark-1024x1024"
+        }
+      ],
+      "lighting-specializations" : [
+        {
+          "appearance" : "tinted",
+          "value" : "individual"
         }
       ],
       "shadow" : {
