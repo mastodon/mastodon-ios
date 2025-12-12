@@ -6,6 +6,33 @@
     {
       "layers" : [
         {
+          "hidden-specializations" : [
+            {
+              "appearance" : "light",
+              "value" : true
+            },
+            {
+              "appearance" : "dark",
+              "value" : true
+            }
+          ],
+          "image-name" : "Icon-Light-1024x1024 2.png",
+          "name" : "Icon-Light-1024x1024 2"
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "specular" : false,
+      "translucency" : {
+        "enabled" : false,
+        "value" : 0.5
+      }
+    },
+    {
+      "layers" : [
+        {
           "fill" : {
             "solid" : "srgb:0.52157,0.54118,0.98039,1.00000"
           },
