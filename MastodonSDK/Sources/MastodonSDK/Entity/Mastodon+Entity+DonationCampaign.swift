@@ -62,11 +62,15 @@ extension Mastodon.Entity {
         static public func isEligibleForDonationsSettingsSection(domain: String)
             -> Bool
         {
+            return false
+            
+            #if false
             let becauseOnOfficialServer = [
                 "mastodon.social", "mastodon.online",
             ].contains(domain)
             let becauseTesting = domain == "staging.mastodon.social"
             return becauseOnOfficialServer || becauseTesting
+            #endif
         }
 
         static public func donationSeed(username: String, domain: String) -> Int
