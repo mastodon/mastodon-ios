@@ -919,10 +919,6 @@ enum MastodonTimelineSheet {
         }
     }
     
-    var isThreadView: Bool {
-        return feedLoader?.threadedConversationModel != nil
-    }
-    
     func setUpFeedLoaderResultsSubscription() {
         feedLoaderResultsSubscription = feedLoader?.$records
             .sink{ [weak self] results in
