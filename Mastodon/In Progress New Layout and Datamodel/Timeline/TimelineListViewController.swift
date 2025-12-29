@@ -663,6 +663,7 @@ enum MastodonTimelineSheet {
         })
     }
     var isScrollEnabled: Bool = true
+    var isCurrentlyScrolling: Bool = false  // The interactive pop gesture (added by the system when this view is not the root view of the navigation controller) causes changes to the gesture recognition system that end up making it easy to trigger the action buttons while scrolling. Tracking the scroll phase allows us to avoid that.
     
     private var _updatedVisibleItems: [TimelineItem]?
     func visibleItemsDidChange(_ newVisibleItems: [TimelineItem]) {
@@ -1511,6 +1512,12 @@ struct TimelineListView: View {
                         }
                         .scrollTargetLayout()
                     }
+                    .onScrollPhaseChange({ oldPhase, newPhase in
+                        let isNowScrolling = newPhase != .idle
+                        if isNowScrolling != viewModel.isCurrentlyScrolling {
+                            viewModel.isCurrentlyScrolling = isNowScrolling
+                        }
+                    })
                     .onScrollGeometryChange(for: Double.self) { scrollGeometry in
                         let result = viewModel.interactiveReloadTriggerModel.visiblePercent(withScrollGeometry: scrollGeometry)
                         return result
@@ -2050,6 +2057,8 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
     }
     
     func doAction(_ action: MastodonPostMenuAction, forPost postViewModel: MastodonPostViewModel) {
+        
+        guard !isCurrentlyScrolling else { return }
         
         // Check not currently performing an action.
         guard isPerformingPostAction == nil && isPerformingAccountAction == nil else { return }
