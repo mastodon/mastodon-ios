@@ -1819,13 +1819,13 @@ struct TimelineListView: View {
             case .hashtag(let tagViewModel):
                 switch viewModel.timeline {
                 case .hashtag:
-                    HashtagHeaderView()
+                    HashtagHeaderView(availableWidth: useableWidth - doublePadding * 2)
                         .environment(tagViewModel)
                         .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
                         .frame(width: useableWidth)
                     Divider()
                 case .myFollowedHashtags:
-                    HashtagHeaderView()
+                    HashtagHeaderView(availableWidth: useableWidth - doublePadding * 2)
                         .environment(tagViewModel)
                         .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
                         .frame(width: useableWidth)

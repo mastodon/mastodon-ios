@@ -35,6 +35,7 @@ struct HashtagHeaderView: View {
     
     @Environment(HashtagRowViewModel.self) var viewModel
     @State var isUpdating: Bool = false
+    let availableWidth: CGFloat
     
     var body: some View {
         HStack {
@@ -46,9 +47,9 @@ struct HashtagHeaderView: View {
                     .lineLimit(1)
                     .fixedSize()
 
-                HStack(alignment: .bottom, spacing: doublePadding) {
+                HStack(alignment: .top, spacing: doublePadding) {
                     ForEach(StatType.allCases, id: \.self) { stat in
-                        statsView(stat)
+                        statView(stat)
                     }
                 }
             }
@@ -89,6 +90,7 @@ struct HashtagHeaderView: View {
                 }
             }
         }
+        .frame(width: availableWidth)
         .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
     }
@@ -99,15 +101,14 @@ struct HashtagHeaderView: View {
         return isFollowing ? .iFollowThem(theyFollowMe: false) : .iDoNotFollowThem(theyFollowMe: false, theirAccountIsLocked: false)
     }
     
-    @ViewBuilder func statsView(_ stat: StatType) -> some View {
+    @ViewBuilder func statView(_ stat: StatType) -> some View {
         VStack(spacing: 0) {
             Text(MastodonMetricFormatter().string(from: statCount(stat)) ?? "-")
                 .font(.subheadline)
                 .fontWeight(.semibold)
             Text(stat.label)
                 .font(.footnote)
-                .lineLimit(1)
-                .fixedSize()
+                .multilineTextAlignment(.center)
         }
     }
     
