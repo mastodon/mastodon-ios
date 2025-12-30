@@ -314,7 +314,9 @@ extension TimelineListViewController {
                     authorization: currentUser.userAuthorization
                 ).singleOutput().value) ?? []
                 
-                var listEntries = lists.map { entry in
+                var listEntries = lists.sorted(by: { first, second in
+                    return first.title < second.title
+                }).map { entry in
                     return LabeledAction(title: entry.title, image: nil, handler: { [weak self] in
                         guard let self else { return }
                         viewModel.timeline = .list(entry.id)
