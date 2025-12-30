@@ -408,14 +408,10 @@ private struct ActionBar: View {
         ViewThatFits {
             HStack() {
                 if let actionablePost = viewModel.fullPost?.actionablePost {
-                    actionButton(forPost: actionablePost, action: .reply, layout: .adaptive)
-                    Spacer()
-                    actionButton(forPost: actionablePost, action: .boost, layout: .adaptive)
-                    Spacer()
-                    actionButton(forPost: actionablePost, action: .favourite, layout: .adaptive)
-                    Spacer()
-                    actionButton(forPost: actionablePost, action: .bookmark, layout: .adaptive)
-                    Spacer()
+                    ForEach([PostAction.reply, .boost, .favourite, .bookmark], id: \.self) { action in
+                        actionButton(forPost: actionablePost, action: action, layout: .adaptive)
+                        Spacer()
+                    }
                     ActionBarMenuButton(instanceCanQuotePosts: instanceCanQuotePosts, actionHandler: actionHandler)
                 }
             }
