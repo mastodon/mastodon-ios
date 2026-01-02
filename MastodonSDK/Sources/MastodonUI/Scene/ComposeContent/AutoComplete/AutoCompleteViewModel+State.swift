@@ -29,7 +29,7 @@ extension AutoCompleteViewModel {
 }
 
 extension AutoCompleteViewModel.State {
-    class Initial: AutoCompleteViewModel.State {
+    @MainActor class Initial: AutoCompleteViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             guard let viewModel = viewModel else { return false }
             switch stateClass {
