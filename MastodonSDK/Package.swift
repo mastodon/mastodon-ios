@@ -127,7 +127,12 @@ let package = Package(
         ),
         .testTarget(
             name: "MastodonSDKTests",
-            dependencies: ["MastodonSDK"]
+            dependencies: [
+                "MastodonSDK",
+                "CoreDataStack",
+                "MastodonLocalization",
+                "SwiftUI"
+            ]
         ),
     ]
 )
