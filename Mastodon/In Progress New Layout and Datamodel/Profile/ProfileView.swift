@@ -10,9 +10,10 @@ import MastodonSDK
 class ProfileHostingViewController: UIHostingController<AnyView> {
     let viewModel = ProfileViewModel()
     let relationshipViewModel = RelationshipViewModel()
+    let nestedScrollViewModel = NestedScrollInteractionViewModel()
     
     init(wrapInNavigationController: Bool) {
-        let root = ProfileView(wrapInNavigationController: wrapInNavigationController).environment(viewModel).environment(relationshipViewModel)
+        let root = ProfileView(wrapInNavigationController: wrapInNavigationController).environment(viewModel).environment(relationshipViewModel).environment(nestedScrollViewModel)
         super.init(rootView: AnyView(root))
         title = nil
         navigationItem.rightBarButtonItems = viewModel.navigationButtons
@@ -35,6 +36,7 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
 
 struct ProfileView: View {
     @Environment(ProfileViewModel.self) var viewModel
+    @Environment(NestedScrollInteractionViewModel.self) var nestedScrollViewModel
     let wrapInNavigationController: Bool
     
     enum Subview: Hashable {
@@ -87,17 +89,9 @@ struct ProfileView: View {
                         .id(Subview.pages)
                         .frame(height: geo.size.height)
                 }
-                .scrollTargetLayout()
             }
+            .nestedScrollview(.outer)
             .frame(height: geo.size.height)
-            .onScrollTargetVisibilityChange(idType: Subview.self) { visible in
-                let paginatingControlIsNotVisible = !visible.contains(.paginationControl)
-                if paginatingControlIsNotVisible != viewModel.postsViewModel?.isScrollEnabled {
-                    viewModel.postsViewModel?.isScrollEnabled = paginatingControlIsNotVisible
-                    viewModel.postsAndRepliesViewModel?.isScrollEnabled = paginatingControlIsNotVisible
-                    viewModel.mediaViewModel?.isScrollEnabled = paginatingControlIsNotVisible
-                }
-            }
         }
         .ignoresSafeArea()
     }
@@ -270,6 +264,7 @@ struct ProfilePaginatingView: View {
                         case .profileInfo:
                             page.color
                                 .tag(page)
+                                .nestedScrollview(.inner)
                                 .frame(width: geo.size.width, height: geo.size.height)
                         }
                       

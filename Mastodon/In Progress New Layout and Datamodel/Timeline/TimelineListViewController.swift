@@ -48,6 +48,7 @@ class TimelineListViewController: UIHostingController<AnyView>
     public let type: TimelineViewType
     private let viewModel: TimelineListViewModel
     private let asyncRefreshViewModel = AsyncRefreshViewModel()
+    private let nestedScrollViewModel = NestedScrollInteractionViewModel()
     private var navigationFlow: NavigationFlow?
     private let _mediaPreviewTransitionController = MediaPreviewTransitionController()
     
@@ -85,7 +86,7 @@ class TimelineListViewController: UIHostingController<AnyView>
         case .whoBoosted(let statusID):
             viewModel = TimelineListViewModel(timeline: .whoBoosted(actionableStatusID: statusID), asyncRefreshViewModel: asyncRefreshViewModel)
         }
-        let root = TimelineListView().environment(viewModel).environment(asyncRefreshViewModel)
+        let root = TimelineListView().environment(viewModel).environment(asyncRefreshViewModel).environment(nestedScrollViewModel)
         super.init(rootView: AnyView(root))
         viewModel.parentVcPresentScene = { (scene, transition) in
             self.sceneCoordinator?.present(scene: scene, from: self, transition: transition)
@@ -664,7 +665,6 @@ enum MastodonTimelineSheet {
             }
         })
     }
-    var isScrollEnabled: Bool = true
     var isCurrentlyScrolling: Bool = false  // The interactive pop gesture (added by the system when this view is not the root view of the navigation controller) causes changes to the gesture recognition system that end up making it easy to trigger the action buttons while scrolling. Tracking the scroll phase allows us to avoid that.
     
     private var _updatedVisibleItems: [TimelineItem]?
@@ -907,7 +907,6 @@ enum MastodonTimelineSheet {
     
     init(timeline: MastodonTimelineType, asyncRefreshViewModel: AsyncRefreshViewModel?) {
         self.timeline = timeline
-        self.isScrollEnabled = !timeline.isInNestedScrollview
         self._asyncRefreshViewModel = asyncRefreshViewModel
         
         self.instanceConfigurationUpdateSubscription = AuthenticationServiceProvider.shared.instanceConfigurationUpdates
@@ -1482,6 +1481,7 @@ func contentWidth(forUseableWidth useableWidth: CGFloat) -> CGFloat {
 struct TimelineListView: View {
     @Environment(TimelineListViewModel.self) private var viewModel
     @Environment(AsyncRefreshViewModel.self) private var asyncRefreshViewModel
+    @Environment(NestedScrollInteractionViewModel.self) private var nestedScrollViewModel
     
     @State var _updatedGeometry: GeometryProxy?
     @State var _updatedScrollAnchor: TimelineItem?
@@ -1514,6 +1514,7 @@ struct TimelineListView: View {
                         }
                         .scrollTargetLayout()
                     }
+                    .nestedScrollview(viewModel.timeline.isInNestedScrollview ? .inner : .notNested)
                     .onScrollPhaseChange({ oldPhase, newPhase in
                         let isNowScrolling = newPhase != .idle
                         if isNowScrolling != viewModel.isCurrentlyScrolling {
@@ -1541,18 +1542,12 @@ struct TimelineListView: View {
                     .onChange(of: viewModel.scrollAnchorItem) { _, newValue in
                         queueUpdates(scrollAnchor: newValue)
                     }
-                    .scrollDisabled(!viewModel.isScrollEnabled)
-                    .refreshable {
-                        guard viewModel.timeline.canPullToRefresh else {
-                            if viewModel.timeline.isInNestedScrollview {
-                                viewModel.isScrollEnabled = false
-                            }
-                            return
-                        }
+                    .conditionallyRefreshable(viewModel.timeline.canPullToRefresh ? nil : {
                         guard viewModel.loadingState.canReload else { return }
                         viewModel.loadingState = .requestedReloadFromTop
                         await viewModel.refreshFromTop()
                     }
+                    )
                     .accessibilityAction(named: L10n.Common.Controls.Actions.loadNewer) {
                         guard viewModel.loadingState.canReload else { return }
                         viewModel.loadingState = .requestedReloadFromTop

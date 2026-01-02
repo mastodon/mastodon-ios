@@ -1141,6 +1141,7 @@
 				Notifications/InlinePostPreview.swift,
 				Notifications/NotificationInfo.swift,
 				Notifications/NotificationsCacheManager.swift,
+				Profile/NestedScrollViews.swift,
 				Profile/ProfileView.swift,
 				Timeline/CentralPostViewModelCache.swift,
 				Timeline/PrecalculatedRowHeights.swift,
