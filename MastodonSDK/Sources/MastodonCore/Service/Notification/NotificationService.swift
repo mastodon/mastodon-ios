@@ -104,7 +104,7 @@ public final class NotificationService {
             }
             
             UserDefaults.shared.notificationBadgeCount = count
-            UIApplication.shared.applicationIconBadgeNumber = count
+            UNUserNotificationCenter.current().setBadgeCount(count)
             Task { @MainActor in
                 UIApplication.shared.shortcutItems = try? await self.unreadApplicationShortcutItems()
             }
