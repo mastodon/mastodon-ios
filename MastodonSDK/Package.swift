@@ -131,7 +131,6 @@ let package = Package(
                 "MastodonSDK",
                 "CoreDataStack",
                 "MastodonLocalization",
-                "SwiftUI"
             ]
         ),
     ]
