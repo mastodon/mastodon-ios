@@ -228,12 +228,6 @@
 		D82463532A52B47B00A3DBDD /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
 		D82463552A52B47B00A3DBDD /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = be; path = be.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		D84C099D2B0F9E33009E685E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		D84C099F2B0F9E41009E685E /* Setup.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Setup.md; sourceTree = "<group>"; };
-		D84C09A02B0F9E41009E685E /* How-it-works.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "How-it-works.md"; sourceTree = "<group>"; };
-		D84C09A12B0F9E41009E685E /* Snapshot.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Snapshot.md; sourceTree = "<group>"; };
-		D84C09A22B0F9E41009E685E /* Deployment.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Deployment.md; sourceTree = "<group>"; };
-		D84C09A32B0F9E41009E685E /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
-		D84C09A42B0F9E41009E685E /* Acknowledgments.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Acknowledgments.md; sourceTree = "<group>"; };
 		D87DC50B2A17C32E00219C5F /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Intents.strings; sourceTree = "<group>"; };
 		D87DC50C2A17C32F00219C5F /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
 		D87DC50E2A17C32F00219C5F /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = el; path = el.lproj/Intents.stringsdict; sourceTree = "<group>"; };
@@ -462,6 +456,7 @@
 		044D1E852F085F630071ACBB /* Model */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Model; sourceTree = "<group>"; };
 		044D1E8B2F085FAE0071ACBB /* Handler */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Handler; sourceTree = "<group>"; };
 		044D1FFF2F085FD50071ACBB /* Scene */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (044D210E2F085FD60071ACBB /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Scene; sourceTree = "<group>"; };
+		044D21152F0860100071ACBB /* Documentation */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Documentation; sourceTree = "<group>"; };
 		FBBEA04E2D380FC70000A900 /* In Progress New Layout and Datamodel */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (FBBEA04F2D3819080000A900 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "In Progress New Layout and Datamodel"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -573,19 +568,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D84C099E2B0F9E41009E685E /* Documentation */ = {
-			isa = PBXGroup;
-			children = (
-				D84C099F2B0F9E41009E685E /* Setup.md */,
-				D84C09A02B0F9E41009E685E /* How-it-works.md */,
-				D84C09A12B0F9E41009E685E /* Snapshot.md */,
-				D84C09A22B0F9E41009E685E /* Deployment.md */,
-				D84C09A32B0F9E41009E685E /* CONTRIBUTING.md */,
-				D84C09A42B0F9E41009E685E /* Acknowledgments.md */,
-			);
-			path = Documentation;
-			sourceTree = "<group>";
-		};
 		DB3D0FF725BAA68500EAA174 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -616,7 +598,7 @@
 				FBD20F432EECA24C00C4422B /* AppIcon.icon */,
 				D84C099D2B0F9E33009E685E /* README.md */,
 				2A60583E2C491C4A0001194D /* AppVersion.xcconfig */,
-				D84C099E2B0F9E41009E685E /* Documentation */,
+				044D21152F0860100071ACBB /* Documentation */,
 				DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */,
 				DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */,
 				DB47AB6327CF858400CD73C7 /* AppStoreSnapshotTestPlan.xctestplan */,
