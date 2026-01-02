@@ -377,10 +377,10 @@
 			);
 			target = 2A64515C29642A8A00CD8B8A /* OpenInActionExtension */;
 		};
-		042247612F085C5A00B0AFEC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		044D210E2F085FD60071ACBB /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				"Register/MastodonRegisterViewModel+Diffable.swift",
+				"Onboarding/Register/MastodonRegisterViewModel+Diffable.swift",
 			);
 			target = DB427DD125BAA00100D1B89D /* Mastodon */;
 		};
@@ -459,25 +459,9 @@
 		0422465B2F085BA300B0AFEC /* ShareActionExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (042246602F085BA300B0AFEC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ShareActionExtension; sourceTree = "<group>"; };
 		042246662F085BB300B0AFEC /* OpenInActionExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (0422466B2F085BB300B0AFEC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = OpenInActionExtension; sourceTree = "<group>"; };
 		042246792F085BBD00B0AFEC /* Variants */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Variants; sourceTree = "<group>"; };
-		042246892F085BC600B0AFEC /* Donation */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Donation; sourceTree = "<group>"; };
-		042246CC2F085C2700B0AFEC /* Transition */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Transition; sourceTree = "<group>"; };
-		042246E42F085C2A00B0AFEC /* Root */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Root; sourceTree = "<group>"; };
-		0422472F2F085C5A00B0AFEC /* Onboarding */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (042247612F085C5A00B0AFEC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Onboarding; sourceTree = "<group>"; };
-		0422476B2F085C5C00B0AFEC /* Account */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Account; sourceTree = "<group>"; };
-		042247742F085C5E00B0AFEC /* HomeTimeline */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = HomeTimeline; sourceTree = "<group>"; };
-		042247812F085C6600B0AFEC /* Thread */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Thread; sourceTree = "<group>"; };
-		042247AB2F085C6800B0AFEC /* Report */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Report; sourceTree = "<group>"; };
-		042247CB2F085C6900B0AFEC /* Compose */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Compose; sourceTree = "<group>"; };
-		042247DE2F085C6B00B0AFEC /* MediaPreview */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = MediaPreview; sourceTree = "<group>"; };
-		042247EF2F085C6D00B0AFEC /* SuggestionAccount */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SuggestionAccount; sourceTree = "<group>"; };
-		0422480E2F085C6F00B0AFEC /* Profile */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Profile; sourceTree = "<group>"; };
-		042248452F085C7100B0AFEC /* Search */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Search; sourceTree = "<group>"; };
-		042248922F085C7C00B0AFEC /* Settings */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Settings; sourceTree = "<group>"; };
-		044D1A552F085DBD0071ACBB /* Share */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Share; sourceTree = "<group>"; };
-		044D1E392F085EFB0071ACBB /* Notification */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Notification; sourceTree = "<group>"; };
-		044D1E722F085F540071ACBB /* Discovery */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Discovery; sourceTree = "<group>"; };
 		044D1E852F085F630071ACBB /* Model */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Model; sourceTree = "<group>"; };
 		044D1E8B2F085FAE0071ACBB /* Handler */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Handler; sourceTree = "<group>"; };
+		044D1FFF2F085FD50071ACBB /* Scene */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (044D210E2F085FD60071ACBB /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Scene; sourceTree = "<group>"; };
 		FBBEA04E2D380FC70000A900 /* In Progress New Layout and Datamodel */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (FBBEA04F2D3819080000A900 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "In Progress New Layout and Datamodel"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -675,7 +659,7 @@
 				DB89BA1025C10FF5008580ED /* Mastodon.entitlements */,
 				DB427DE325BAA00100D1B89D /* Info.plist */,
 				042245922F085B4000B0AFEC /* Diffable */,
-				DB8AF55525C1379F002E6C99 /* Scene */,
+				044D1FFF2F085FD50071ACBB /* Scene */,
 				042245A12F085B4200B0AFEC /* Coordinator */,
 				042245BB2F085B4400B0AFEC /* Extension */,
 				042245DC2F085B4500B0AFEC /* Vender */,
@@ -698,30 +682,6 @@
 				DB697DD0278F4871004EF2F7 /* AutoGenerateTableViewDelegate.swift */,
 			);
 			path = Template;
-			sourceTree = "<group>";
-		};
-		DB8AF55525C1379F002E6C99 /* Scene */ = {
-			isa = PBXGroup;
-			children = (
-				042246892F085BC600B0AFEC /* Donation */,
-				044D1A552F085DBD0071ACBB /* Share */,
-				042246CC2F085C2700B0AFEC /* Transition */,
-				042246E42F085C2A00B0AFEC /* Root */,
-				0422472F2F085C5A00B0AFEC /* Onboarding */,
-				0422476B2F085C5C00B0AFEC /* Account */,
-				042247742F085C5E00B0AFEC /* HomeTimeline */,
-				044D1E392F085EFB0071ACBB /* Notification */,
-				042247812F085C6600B0AFEC /* Thread */,
-				042247AB2F085C6800B0AFEC /* Report */,
-				042247CB2F085C6900B0AFEC /* Compose */,
-				042247DE2F085C6B00B0AFEC /* MediaPreview */,
-				042247EF2F085C6D00B0AFEC /* SuggestionAccount */,
-				0422480E2F085C6F00B0AFEC /* Profile */,
-				042248452F085C7100B0AFEC /* Search */,
-				044D1E722F085F540071ACBB /* Discovery */,
-				042248922F085C7C00B0AFEC /* Settings */,
-			);
-			path = Scene;
 			sourceTree = "<group>";
 		};
 		DB8FABC826AEC7B2008E5AF4 /* MastodonIntent */ = {
@@ -821,23 +781,7 @@
 				042245EA2F085B4800B0AFEC /* Helper */,
 				042245F02F085B4A00B0AFEC /* Preference */,
 				042246152F085B4D00B0AFEC /* Protocol */,
-				042246892F085BC600B0AFEC /* Donation */,
-				042246CC2F085C2700B0AFEC /* Transition */,
-				042246E42F085C2A00B0AFEC /* Root */,
-				0422472F2F085C5A00B0AFEC /* Onboarding */,
-				0422476B2F085C5C00B0AFEC /* Account */,
-				042247742F085C5E00B0AFEC /* HomeTimeline */,
-				042247812F085C6600B0AFEC /* Thread */,
-				042247AB2F085C6800B0AFEC /* Report */,
-				042247CB2F085C6900B0AFEC /* Compose */,
-				042247DE2F085C6B00B0AFEC /* MediaPreview */,
-				042247EF2F085C6D00B0AFEC /* SuggestionAccount */,
-				0422480E2F085C6F00B0AFEC /* Profile */,
-				042248452F085C7100B0AFEC /* Search */,
-				042248922F085C7C00B0AFEC /* Settings */,
-				044D1A552F085DBD0071ACBB /* Share */,
-				044D1E392F085EFB0071ACBB /* Notification */,
-				044D1E722F085F540071ACBB /* Discovery */,
+				044D1FFF2F085FD50071ACBB /* Scene */,
 			);
 			name = Mastodon;
 			packageProductDependencies = (
