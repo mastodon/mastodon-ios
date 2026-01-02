@@ -103,7 +103,9 @@ let package = Package(
             name: "MastodonSDK",
             dependencies: [
                 .product(name: "NIOHTTP1", package: "swift-nio"),
-                "MastodonCommon"
+                "MastodonCommon",
+                "CoreDataStack",
+                "MastodonLocalization"
             ]
         ),
         .target(
@@ -127,11 +129,7 @@ let package = Package(
         ),
         .testTarget(
             name: "MastodonSDKTests",
-            dependencies: [
-                "MastodonSDK",
-                "CoreDataStack",
-                "MastodonLocalization",
-            ]
+            dependencies: ["MastodonSDK"]
         ),
     ]
 )
