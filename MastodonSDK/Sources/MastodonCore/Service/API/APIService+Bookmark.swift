@@ -58,7 +58,7 @@ extension APIService {
     
 }
 
-extension APIService {
+@MainActor extension APIService {
     public func bookmarkedStatuses(
         limit: Int = onceRequestStatusMaxCount,
         maxID: String? = nil,
