@@ -11,36 +11,20 @@ import Combine
 
 extension MastodonSDKTests {
     
-    func testCreateAnAnpplication() throws {
-        try _testCreateAnAnpplication(domain: domain)
+    func testCreateAnAnpplication() async throws {
+        try await _testCreateAnAnpplication(domain: domain)
     }
     
-    func _testCreateAnAnpplication(domain: String) throws {
-        let theExpectation = expectation(description: "Create An Application")
-        
+    func _testCreateAnAnpplication(domain: String) async throws {
         let query = Mastodon.API.App.CreateQuery(
             clientName: "XCTest",
             redirectURIs: "mastodon://joinmastodon.org/oauth",
             website: nil
         )
-        Mastodon.API.App.create(session: session, domain: domain, query: query)
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    XCTFail(error.localizedDescription)
-                case .finished:
-                    break
-                }
-            } receiveValue: { response in
-                XCTAssertEqual(response.value.name, "XCTest")
-                XCTAssertEqual(response.value.website, nil)
-                XCTAssertEqual(response.value.redirectURI, "urn:ietf:wg:oauth:2.0:oob")
-                theExpectation.fulfill()
-            }
-            .store(in: &disposeBag)
-        
-        wait(for: [theExpectation], timeout: 5.0)
+        let response = try await Mastodon.API.App.create(session: session, domain: domain, query: query)
+        XCTAssertEqual(response.name, "XCTest")
+        XCTAssertEqual(response.website, nil)
+        XCTAssertEqual(response.redirectURI, "urn:ietf:wg:oauth:2.0:oob")
     }
 
 }
