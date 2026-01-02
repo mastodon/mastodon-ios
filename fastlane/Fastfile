@@ -57,7 +57,7 @@ platform :ios do
   end
 
   lane :build_tests do
-    destination = "platform=iOS Simulator,name=iPhone 17 Pro"
+    destination = "platform=iOS Simulator,name=iPhone 16 Pro"
     # Mastodon iOS Tests
     scan(
       build_for_testing: true,
