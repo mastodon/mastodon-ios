@@ -60,6 +60,16 @@ platform :ios do
     )
   end
 
+  lane :build_tests do
+    destination = "platform=iOS Simulator,name=iPhone 17 Pro"
+    # Mastodon iOS Tests
+    scan(
+      build_for_testing: true,
+      destination: destination,
+      scheme: "Mastodon"
+    )
+  end
+
   desc " Build and deploy the App to App Store Connect & TestFlight"
   lane :deploy_appstore do
 

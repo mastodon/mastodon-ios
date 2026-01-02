@@ -39,6 +39,14 @@ Update devices
 
 
 
+### ios build_tests
+
+```sh
+[bundle exec] fastlane ios build_tests
+```
+
+
+
 ### ios deploy_appstore
 
 ```sh
