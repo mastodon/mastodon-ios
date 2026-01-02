@@ -15,7 +15,7 @@ public extension Notification.Name {
     static let userFetched = Notification.Name(rawValue: "org.joinmastodon.app.user-fetched")
 }
 
-extension APIService {
+@MainActor extension APIService {
     
     public func homeTimeline(
         itemsNoOlderThan sinceID: Mastodon.Entity.Status.ID? = nil,

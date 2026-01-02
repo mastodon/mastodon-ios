@@ -33,9 +33,7 @@ public final class SettingService {
 
         // create setting (if non-exist) for authenticated users
         AuthenticationServiceProvider.shared.$mastodonAuthenticationBoxes
-            .compactMap { [weak self] mastodonAuthenticationBoxes -> AnyPublisher<[MastodonAuthenticationBox], Never>? in
-                guard let self = self else { return nil }
-                
+            .compactMap { mastodonAuthenticationBoxes -> AnyPublisher<[MastodonAuthenticationBox], Never>? in
                 let managedObjectContext = PersistenceManager.shared.backgroundManagedObjectContext
                 return managedObjectContext.performChanges {
                     for authenticationBox in mastodonAuthenticationBoxes {

@@ -29,7 +29,7 @@ extension AutoCompleteViewModel {
 }
 
 extension AutoCompleteViewModel.State {
-    class Initial: AutoCompleteViewModel.State {
+    @MainActor class Initial: AutoCompleteViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             guard let viewModel = viewModel else { return false }
             switch stateClass {
@@ -84,17 +84,17 @@ extension AutoCompleteViewModel.State {
         
         private func fetchLocalEmoji(searchText: String) async {
             guard let viewModel = viewModel else {
-                await enter(state: Fail.self)
+                enter(state: Fail.self)
                 return
             }
             
             guard let customEmojiViewModel = viewModel.customEmojiViewModel else {
-                await enter(state: Fail.self)
+                enter(state: Fail.self)
                 return
             }
             
             guard let emojiTrie = customEmojiViewModel.emojiTrie.value else {
-                await enter(state: Fail.self)
+                enter(state: Fail.self)
                 return
             }
             
@@ -108,13 +108,13 @@ extension AutoCompleteViewModel.State {
                 AutoCompleteItem.emoji(emoji: emoji)
             }
 
-            await enter(state: Idle.self)
+            enter(state: Idle.self)
             viewModel.autoCompleteItems.value = items
         }
         
         private func queryRemoteEnitity(searchText: String) async {
             guard let viewModel = viewModel else {
-                await enter(state: Fail.self)
+                enter(state: Fail.self)
                 return
             }
 
@@ -136,7 +136,7 @@ extension AutoCompleteViewModel.State {
                     authenticationBox: viewModel.authenticationBox
                 )
                 
-                await enter(state: Idle.self)
+                enter(state: Idle.self)
 
                 guard viewModel.inputText.value == searchText else { return }     // discard if not matching
                 
@@ -147,7 +147,7 @@ extension AutoCompleteViewModel.State {
                 viewModel.autoCompleteItems.value = items
                 
             } catch {
-                await enter(state: Fail.self)
+                enter(state: Fail.self)
             }
         }
         

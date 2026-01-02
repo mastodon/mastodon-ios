@@ -62,7 +62,6 @@ extension APIService {
     ) async throws -> Mastodon.Entity.Status {
         let authorization = authenticationBox.userAuthorization
         
-        let managedObjectContext = backgroundManagedObjectContext
         let _query: Mastodon.API.Statuses.DeleteStatusQuery? = Mastodon.API.Statuses.DeleteStatusQuery(id: postID)
         guard let query = _query else {
             throw APIError.implicit(.badRequest)

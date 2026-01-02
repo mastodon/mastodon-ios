@@ -11,7 +11,7 @@ import CoreData
 import CoreDataStack
 import MastodonSDK
 
-extension APIService {
+@MainActor extension APIService {
     
     public func hashtagTimeline(
         sinceID: Mastodon.Entity.Status.ID? = nil,

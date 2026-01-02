@@ -100,7 +100,7 @@ extension APIService {
     }
 }
 
-extension APIService {
+@MainActor extension APIService {
     public func favoritedStatuses(
         limit: Int = onceRequestStatusMaxCount,
         maxID: String? = nil,
