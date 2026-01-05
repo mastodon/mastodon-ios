@@ -72,34 +72,36 @@ struct ProfileView: View {
         GeometryReader { geo in
             ScrollView() {
                 VStack(alignment: .center, spacing: 0) {
-                    subview(.bannerAndAvatar, geometry: geo)
+                    subview(.bannerAndAvatar, width: geo.size.width)
                         .id(Subview.bannerAndAvatar)
+                        .frame(width: geo.size.width)
                     Spacer()
                         .frame(height: doublePadding)
-                    subview(.bio, geometry: geo)
+                    subview(.bio, width: geo.size.width)
                         .id(Subview.bio)
                         .padding(.horizontal, doublePadding)
                         .frame(width: min(maxFeedContentWidth, geo.size.width))
                     Spacer()
                         .frame(height: doublePadding)
                     
-                    subview(.paginationControl, geometry: geo)
+                    subview(.paginationControl, width: geo.size.width)
                         .id(Subview.paginationControl)
-                    subview(.pages, geometry: geo)
+                        .frame(width: min(maxFeedContentWidth, geo.size.width))
+                    subview(.pages, width: geo.size.width)
                         .id(Subview.pages)
                         .frame(height: geo.size.height)
                 }
             }
             .nestedScrollview(.outer)
-            .frame(height: geo.size.height)
+            .frame(width: geo.size.width, height: geo.size.height)
         }
         .ignoresSafeArea()
     }
     
-    @ViewBuilder func subview(_ subviewType: Subview, geometry geo: GeometryProxy) -> some View {
+    @ViewBuilder func subview(_ subviewType: Subview, width: CGFloat) -> some View {
         switch subviewType {
         case .bannerAndAvatar:
-            ProfileAvatarAndBannerView(width: geo.size.width)
+            ProfileAvatarAndBannerView(width: width)
         case .bio:
             ProfileInfoView()
         case .paginationControl:
@@ -112,6 +114,7 @@ struct ProfileView: View {
                 }
             }
             .pickerStyle(.segmented)
+            .frame(width: min(width, maxFeedContentWidth))
         case .pages:
             ProfilePaginatingView()
         }
@@ -127,8 +130,8 @@ struct ProfileAvatarAndBannerView: View {
         VStack {
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
                 VStack(spacing: doublePadding) {
-                    bannerView()
-                        .frame(width: width, height: bannerFullHeight)
+                    bannerView(width: width)
+                        .frame(height: bannerFullHeight)
                         .clipped()
                     HStack {
                         Spacer()
@@ -145,22 +148,21 @@ struct ProfileAvatarAndBannerView: View {
                         }
                         .padding(.trailing, doublePadding)
                     }
-                    .frame(maxWidth: maxFeedContentWidth)
+                    .frame(width: min(width, maxFeedContentWidth))
                 }
                 HStack() {
-                    Spacer()
-                        .frame(maxWidth: .infinity)
                     AvatarView(size: .extraLarge, authorAvatarUrl: viewModel.account?.avatarURL, goToProfile: nil)
                         .padding(.horizontal, doublePadding)
-                        .frame(width: min(maxFeedContentWidth, width), alignment: .leading)
+                        .frame(alignment: .leading)
                     Spacer()
                         .frame(maxWidth: .infinity)
                 }
+                .frame(width: min(width, maxFeedContentWidth))
             }
         }
     }
     
-    @ViewBuilder func bannerView() -> some View {
+    @ViewBuilder func bannerView(width: CGFloat) -> some View {
         if let bannerUrl = viewModel.account?.displayInfo.bannerImageUrl {
             WebImage(url: bannerUrl) { phase in
                 switch phase {
@@ -169,7 +171,8 @@ struct ProfileAvatarAndBannerView: View {
                 case .success(let image):
                     image
                         .resizable()
-                        .scaledToFill()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: width)
                 case .failure:
                     Color.secondary
                 @unknown default:
