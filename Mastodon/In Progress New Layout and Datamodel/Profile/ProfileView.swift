@@ -121,7 +121,7 @@ struct ProfileView: View {
     }
 }
 
-let bannerFullHeight: CGFloat = 200
+let bannerFullHeight: CGFloat = 194
 struct ProfileAvatarAndBannerView: View {
     @Environment(ProfileViewModel.self) var viewModel
     var width: CGFloat
