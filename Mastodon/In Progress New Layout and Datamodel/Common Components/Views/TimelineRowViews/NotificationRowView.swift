@@ -609,7 +609,7 @@ struct NotificationRowView: View {
                                 // TODO: allow unfollow here?
                             }
                             .buttonStyle(
-                                RelationshipButtonStyle(.iFollowThem(theyFollowMe: false))
+                                RelationshipButtonStyle(.iFollowThem(theyFollowMe: false), isLarge: false)
                             )
                             .fixedSize()
                             .accessibilityLabel(L10n.Common.Controls.Friendship.following)
@@ -849,59 +849,87 @@ extension Mastodon.Entity.Status {
 
 struct RelationshipButtonStyle: ButtonStyle {
     private let action: RelationshipButtonType.RelationshipAction
+    private let isLarge: Bool
 
-    init(_ relationshipButton: RelationshipButtonType) {
+    init(_ relationshipButton: RelationshipButtonType, isLarge: Bool) {
         action = relationshipButton.buttonAction
+        self.isLarge = isLarge
     }
 
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .lineLimit(1)
-            .minimumScaleFactor(0.4)
-            .padding([.horizontal], 12)
-            .padding([.vertical], 4)
-            .background(backgroundColor)
-            .foregroundStyle(textColor)
-            .controlSize(.small)
-            .fontWeight(fontWeight)
-            .clipShape(Capsule())
+        if isLarge {
+            configuration.label
+                .frame(maxWidth: .infinity)
+                .lineLimit(1)
+                .minimumScaleFactor(0.4)
+                .padding([.horizontal], 12)
+                .padding([.vertical], 14)
+                .background(backgroundColor)
+                .foregroundStyle(textColor)
+                .controlSize(.small)
+                .fontWeight(fontWeight)
+                .clipShape(Capsule())
+        } else {
+            configuration.label
+                .lineLimit(1)
+                .minimumScaleFactor(0.4)
+                .padding([.horizontal], 12)
+                .padding([.vertical], 4)
+                .background(backgroundColor)
+                .foregroundStyle(textColor)
+                .controlSize(.small)
+                .fontWeight(fontWeight)
+                .clipShape(Capsule())
+        }
     }
 
     private var backgroundColor: Color {
-        switch action {
-        case .follow:
+        if isLarge {
             return Asset.Colors.Button.userFollow.swiftUIColor
-        case .unfollow:
-            return Asset.Colors.Button.userFollowing.swiftUIColor
-        case .unmute, .unblock:
-            return Asset.Colors.Button.userBlocked.swiftUIColor
-        case .noAction:
-            assertionFailure()
-            return .clear
+        } else {
+            switch action {
+            case .follow:
+                return Asset.Colors.Button.userFollow.swiftUIColor
+            case .unfollow:
+                return Asset.Colors.Button.userFollowing.swiftUIColor
+            case .unmute, .unblock:
+                return Asset.Colors.Button.userBlocked.swiftUIColor
+            case .noAction:
+                assertionFailure()
+                return .clear
+            }
         }
     }
 
     private var textColor: Color {
-        switch action {
-        case .follow, .unmute, .unblock:
+        if isLarge {
             return .white
-        case .unfollow:
-            return Asset.Colors.Button.userFollowingTitle.swiftUIColor
-        case .noAction:
-            assertionFailure()
-            return .clear
+        } else {
+            switch action {
+            case .follow, .unmute, .unblock:
+                return .white
+            case .unfollow:
+                return Asset.Colors.Button.userFollowingTitle.swiftUIColor
+            case .noAction:
+                assertionFailure()
+                return .clear
+            }
         }
     }
 
     private var fontWeight: SwiftUICore.Font.Weight {
-        switch action {
-        case .follow:
-            return .regular
-        case .unfollow, .unmute, .unblock:
-            return .light
-        case .noAction:
-            assertionFailure()
-            return .regular
+        if isLarge {
+            return .bold
+        } else {
+            switch action {
+            case .follow:
+                return .regular
+            case .unfollow, .unmute, .unblock:
+                return .light
+            case .noAction:
+                assertionFailure()
+                return .regular
+            }
         }
     }
 }

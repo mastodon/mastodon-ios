@@ -153,7 +153,26 @@ enum RelationshipButtonType {
                 Button(buttonText) {
                     action()
                 }
-                .buttonStyle(RelationshipButtonStyle(self))
+                .buttonStyle(RelationshipButtonStyle(self, isLarge: false))
+            }
+        }
+    }
+    
+    @ViewBuilder func largeButton(action: @escaping ()->()) -> some View {
+        switch self {
+        case .updating:
+            ProgressView().progressViewStyle(.circular)
+                .frame(maxWidth: .infinity)
+        case .error:
+            lightwieghtImageView(
+                "exclamationmark.triangle", size: AvatarSize.small)
+            .frame(maxWidth: .infinity)
+        default:
+            if let buttonText {
+                Button(buttonText) {
+                    action()
+                }
+                .buttonStyle(RelationshipButtonStyle(self, isLarge: true))
             }
         }
     }

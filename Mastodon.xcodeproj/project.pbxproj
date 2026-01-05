@@ -1103,6 +1103,7 @@
 				"Common Components/Common Actions on Statuses and Accounts/MastodonPostMenuAction.swift",
 				"Common Components/Common Actions on Statuses and Accounts/PostActions.swift",
 				"Common Components/GeometryHelpers.swift",
+				"Common Components/GlassEffectIfAvailable.swift",
 				"Common Components/ProportionalImageGridLayout.swift",
 				"Common Components/TimestampUpdater.swift",
 				"Common Components/Views/AccountStatsView.swift",

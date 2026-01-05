@@ -16,7 +16,6 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
         let root = ProfileView(wrapInNavigationController: wrapInNavigationController).environment(viewModel).environment(relationshipViewModel).environment(nestedScrollViewModel)
         super.init(rootView: AnyView(root))
         title = nil
-        navigationItem.rightBarButtonItems = viewModel.navigationButtons
     }
     @MainActor @preconcurrency required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -30,7 +29,6 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
         viewModel.postsAndRepliesViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(excludeReplies: false)), asyncRefreshViewModel: AsyncRefreshViewModel())
         viewModel.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(onlyMedia: true)), asyncRefreshViewModel: AsyncRefreshViewModel())
         relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: account.locked)
-        navigationItem.rightBarButtonItems = viewModel.navigationButtons
     }
 }
 
@@ -50,21 +48,9 @@ struct ProfileView: View {
         if wrapInNavigationController {
             NavigationStack() {
                 content
-                    .toolbar {
-                        if let relationship = viewModel.relationship {
-                            viewModel.toolbar(relationship: relationship)
-                        }
-                    }
-                    .toolbarBackground(.clear, for: .navigationBar)
             }
         } else {
             content
-                .toolbar {
-                    if let relationship = viewModel.relationship {
-                        viewModel.toolbar(relationship: relationship)
-                    }
-                }
-                .toolbarBackground(.clear, for: .navigationBar)
         }
     }
     
@@ -101,6 +87,13 @@ struct ProfileView: View {
                             .frame(maxWidth: .infinity)
                     }
                     .frame(width: min(maxFeedContentWidth, geo.size.width))
+                    
+                    Spacer()
+                        .frame(height: doublePadding)
+                    
+                    ProfileActionBar()
+                        .padding(.horizontal, doublePadding)
+                        .frame(width: min(maxFeedContentWidth, geo.size.width))
                     
                     Spacer()
                         .frame(height: doublePadding)
@@ -228,15 +221,51 @@ struct ProfileInfoView: View {
                             .tint(Asset.Colors.accent.swiftUIColor)
                         }
                     case .isNotMe:
-                        if let account = viewModel.account {
-                            relationshipViewModel.button.button {
-                                Task {
-                                    try await relationshipViewModel.doRelationshipAction(relationshipViewModel.button.buttonAction, account: account)
-                                }
-                            }
-                        }
+                        EmptyView()
                     }
                 }
+            }
+        }
+    }
+}
+
+struct ProfileActionBar: View {
+    @Environment(ProfileViewModel.self) var viewModel
+    @Environment(RelationshipViewModel.self) var relationshipViewModel
+    
+    var body: some View {
+        HStack(spacing: standardPadding) {
+            if let account = viewModel.account {
+                relationshipViewModel.button.largeButton {
+                    Task {
+                        try await relationshipViewModel.doRelationshipAction(relationshipViewModel.button.buttonAction, account: account)
+                    }
+                }
+                .glassEffectIfAvailable()
+                
+                Button() {
+                    
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(.clear)
+                            .frame(width: 48, height: 48)
+                        Image(systemName: "at")
+                    }
+                }
+                .glassEffectIfAvailable()
+                
+                Button() {
+                    
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(.clear)
+                            .frame(width: 48, height: 48)
+                        Image(systemName: "ellipsis")
+                    }
+                }
+                .glassEffectIfAvailable()
             }
         }
     }
