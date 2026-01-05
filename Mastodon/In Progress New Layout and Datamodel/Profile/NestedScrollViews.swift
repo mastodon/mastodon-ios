@@ -9,7 +9,7 @@ struct NestedScrollView: ViewModifier {
     func body(content: Content) -> some View {
         GeometryReader { geo in
             content
-                .scrollDisabled(nestedRole == .outer ? false : viewModel.innerScrollDisabled)
+                .scrollDisabled(nestedRole == .inner ? viewModel.innerScrollDisabled : false)
                 .onScrollGeometryChange(for: ScrollInteractionState.self) { scrollGeometry in
                     let contentHeight = scrollGeometry.contentSize.height
                     let snapshot = ScrollSnapshot(yOffset: scrollGeometry.contentOffset.y, contentHeight: contentHeight)
