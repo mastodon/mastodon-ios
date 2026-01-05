@@ -10,6 +10,14 @@ import SwiftUI
     private var relationshipViewModel = RelationshipViewModel()
     var actionHandler: MastodonPostMenuActionHandler?
     var relationshipButton: RelationshipButtonType = .updating
+    var accountFollowsMe: Bool? {
+        switch relationshipViewModel.relationship {
+        case .isMe, .none:
+            nil
+        case .isNotMe(let info):
+            info?.theyFollowMe
+        }
+    }
     nonisolated let id: Mastodon.Entity.Account.ID
     
     init(account: MastodonAccount) {

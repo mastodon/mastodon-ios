@@ -81,6 +81,27 @@ struct ProfileView: View {
                         .id(Subview.bio)
                         .padding(.horizontal, doublePadding)
                         .frame(width: min(maxFeedContentWidth, geo.size.width))
+                    
+                    Spacer()
+                        .frame(height: doublePadding)
+                    
+                    HStack {
+                        AccountStatsView(displayType: .smallInline(joinedOn: viewModel.account?.metadata.createdAt), accountMetrics: viewModel.account?.metrics) { stat in
+                            switch stat {
+                            case .postCount:
+                                break
+                            case .followersCount:
+                                break
+                            case .followingCount:
+                                break
+                            }
+                        }
+                        .padding(.leading, doublePadding)
+                        Spacer()
+                            .frame(maxWidth: .infinity)
+                    }
+                    .frame(width: min(maxFeedContentWidth, geo.size.width))
+                    
                     Spacer()
                         .frame(height: doublePadding)
                     
@@ -129,26 +150,12 @@ struct ProfileAvatarAndBannerView: View {
     var body: some View {
         VStack {
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-                VStack(spacing: doublePadding) {
+                VStack(spacing: 0) {
                     bannerView(width: width)
                         .frame(height: bannerFullHeight)
                         .clipped()
-                    HStack {
-                        Spacer()
-                            .frame(maxWidth: .infinity)
-                        AccountStatsView(accountMetrics: viewModel.account?.metrics) { stat in
-                            switch stat {
-                            case .postCount:
-                                break
-                            case .followersCount:
-                                break
-                            case .followingCount:
-                                break
-                            }
-                        }
-                        .padding(.trailing, doublePadding)
-                    }
-                    .frame(width: min(width, maxFeedContentWidth))
+                    Spacer()
+                        .frame(height: 16)
                 }
                 HStack() {
                     AvatarView(size: .extraLarge, authorAvatarUrl: viewModel.account?.avatarURL, goToProfile: nil)

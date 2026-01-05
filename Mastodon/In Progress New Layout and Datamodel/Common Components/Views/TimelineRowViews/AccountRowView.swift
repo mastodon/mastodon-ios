@@ -39,7 +39,7 @@ struct AccountRowView: View {
                     Spacer()
                     
                     HStack(spacing: doublePadding) {
-                        AccountStatsView(accountMetrics: viewModel.account.metrics, onTapOfMetric: nil)
+                        AccountStatsView(displayType: .largeStacked, accountMetrics: viewModel.account.metrics, onTapOfMetric: nil)
                         Spacer()
                         viewModel.relationshipButton.button {
                             Task {
