@@ -174,6 +174,7 @@ extension MastodonAccount {
         let id: Mastodon.Entity.Account.ID  // id of the account
         let fetchedAt: Date?
         let iFollowThem: Bool
+        let theyFollowMe: Bool?
         let iHaveRequestedToFollowThem: Bool
         let iAmMutingThem: Bool
         let iAmBlockingThem: Bool
@@ -183,6 +184,7 @@ extension MastodonAccount {
             id = entity.id
             self.fetchedAt = fetchedAt
             iFollowThem = entity.following
+            theyFollowMe = entity.followedBy
             iHaveRequestedToFollowThem = entity.requested
             iAmMutingThem = entity.muting
             iAmBlockingThem = entity.blocking

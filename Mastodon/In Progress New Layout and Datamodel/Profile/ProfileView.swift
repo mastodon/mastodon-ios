@@ -16,7 +16,6 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
         let root = ProfileView(wrapInNavigationController: wrapInNavigationController).environment(viewModel).environment(relationshipViewModel).environment(nestedScrollViewModel)
         super.init(rootView: AnyView(root))
         title = nil
-        navigationItem.rightBarButtonItems = viewModel.navigationButtons
     }
     @MainActor @preconcurrency required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -30,7 +29,6 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
         viewModel.postsAndRepliesViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(excludeReplies: false)), asyncRefreshViewModel: AsyncRefreshViewModel())
         viewModel.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(onlyMedia: true)), asyncRefreshViewModel: AsyncRefreshViewModel())
         relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: account.locked)
-        navigationItem.rightBarButtonItems = viewModel.navigationButtons
     }
 }
 
@@ -50,21 +48,9 @@ struct ProfileView: View {
         if wrapInNavigationController {
             NavigationStack() {
                 content
-                    .toolbar {
-                        if let relationship = viewModel.relationship {
-                            viewModel.toolbar(relationship: relationship)
-                        }
-                    }
-                    .toolbarBackground(.clear, for: .navigationBar)
             }
         } else {
             content
-                .toolbar {
-                    if let relationship = viewModel.relationship {
-                        viewModel.toolbar(relationship: relationship)
-                    }
-                }
-                .toolbarBackground(.clear, for: .navigationBar)
         }
     }
     
@@ -72,34 +58,64 @@ struct ProfileView: View {
         GeometryReader { geo in
             ScrollView() {
                 VStack(alignment: .center, spacing: 0) {
-                    subview(.bannerAndAvatar, geometry: geo)
+                    subview(.bannerAndAvatar, width: geo.size.width)
                         .id(Subview.bannerAndAvatar)
+                        .frame(width: geo.size.width)
                     Spacer()
                         .frame(height: doublePadding)
-                    subview(.bio, geometry: geo)
+                    subview(.bio, width: geo.size.width)
                         .id(Subview.bio)
                         .padding(.horizontal, doublePadding)
                         .frame(width: min(maxFeedContentWidth, geo.size.width))
+                    
                     Spacer()
                         .frame(height: doublePadding)
                     
-                    subview(.paginationControl, geometry: geo)
+                    HStack {
+                        AccountStatsView(displayType: .smallInline(joinedOn: viewModel.account?.metadata.createdAt), accountMetrics: viewModel.account?.metrics) { stat in
+                            switch stat {
+                            case .postCount:
+                                break
+                            case .followersCount:
+                                break
+                            case .followingCount:
+                                break
+                            }
+                        }
+                        .padding(.leading, doublePadding)
+                        Spacer()
+                            .frame(maxWidth: .infinity)
+                    }
+                    .frame(width: min(maxFeedContentWidth, geo.size.width))
+                    
+                    Spacer()
+                        .frame(height: doublePadding)
+                    
+                    ProfileActionBar()
+                        .padding(.horizontal, doublePadding)
+                        .frame(width: min(maxFeedContentWidth, geo.size.width))
+                    
+                    Spacer()
+                        .frame(height: doublePadding)
+                    
+                    subview(.paginationControl, width: geo.size.width)
                         .id(Subview.paginationControl)
-                    subview(.pages, geometry: geo)
+                        .frame(width: min(maxFeedContentWidth, geo.size.width))
+                    subview(.pages, width: geo.size.width)
                         .id(Subview.pages)
                         .frame(height: geo.size.height)
                 }
             }
             .nestedScrollview(.outer)
-            .frame(height: geo.size.height)
+            .frame(width: geo.size.width, height: geo.size.height)
         }
         .ignoresSafeArea()
     }
     
-    @ViewBuilder func subview(_ subviewType: Subview, geometry geo: GeometryProxy) -> some View {
+    @ViewBuilder func subview(_ subviewType: Subview, width: CGFloat) -> some View {
         switch subviewType {
         case .bannerAndAvatar:
-            ProfileAvatarAndBannerView(width: geo.size.width)
+            ProfileAvatarAndBannerView(width: width)
         case .bio:
             ProfileInfoView()
         case .paginationControl:
@@ -112,13 +128,14 @@ struct ProfileView: View {
                 }
             }
             .pickerStyle(.segmented)
+            .frame(width: min(width, maxFeedContentWidth))
         case .pages:
             ProfilePaginatingView()
         }
     }
 }
 
-let bannerFullHeight: CGFloat = 200
+let bannerFullHeight: CGFloat = 194
 struct ProfileAvatarAndBannerView: View {
     @Environment(ProfileViewModel.self) var viewModel
     var width: CGFloat
@@ -126,41 +143,26 @@ struct ProfileAvatarAndBannerView: View {
     var body: some View {
         VStack {
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-                VStack(spacing: doublePadding) {
-                    bannerView()
-                        .frame(width: width, height: bannerFullHeight)
+                VStack(spacing: 0) {
+                    bannerView(width: width)
+                        .frame(height: bannerFullHeight)
                         .clipped()
-                    HStack {
-                        Spacer()
-                            .frame(maxWidth: .infinity)
-                        AccountStatsView(accountMetrics: viewModel.account?.metrics) { stat in
-                            switch stat {
-                            case .postCount:
-                                break
-                            case .followersCount:
-                                break
-                            case .followingCount:
-                                break
-                            }
-                        }
-                        .padding(.trailing, doublePadding)
-                    }
-                    .frame(maxWidth: maxFeedContentWidth)
+                    Spacer()
+                        .frame(height: 16)
                 }
                 HStack() {
-                    Spacer()
-                        .frame(maxWidth: .infinity)
                     AvatarView(size: .extraLarge, authorAvatarUrl: viewModel.account?.avatarURL, goToProfile: nil)
                         .padding(.horizontal, doublePadding)
-                        .frame(width: min(maxFeedContentWidth, width), alignment: .leading)
+                        .frame(alignment: .leading)
                     Spacer()
                         .frame(maxWidth: .infinity)
                 }
+                .frame(width: min(width, maxFeedContentWidth))
             }
         }
     }
     
-    @ViewBuilder func bannerView() -> some View {
+    @ViewBuilder func bannerView(width: CGFloat) -> some View {
         if let bannerUrl = viewModel.account?.displayInfo.bannerImageUrl {
             WebImage(url: bannerUrl) { phase in
                 switch phase {
@@ -169,7 +171,8 @@ struct ProfileAvatarAndBannerView: View {
                 case .success(let image):
                     image
                         .resizable()
-                        .scaledToFill()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: width)
                 case .failure:
                     Color.secondary
                 @unknown default:
@@ -218,15 +221,51 @@ struct ProfileInfoView: View {
                             .tint(Asset.Colors.accent.swiftUIColor)
                         }
                     case .isNotMe:
-                        if let account = viewModel.account {
-                            relationshipViewModel.button.button {
-                                Task {
-                                    try await relationshipViewModel.doRelationshipAction(relationshipViewModel.button.buttonAction, account: account)
-                                }
-                            }
-                        }
+                        EmptyView()
                     }
                 }
+            }
+        }
+    }
+}
+
+struct ProfileActionBar: View {
+    @Environment(ProfileViewModel.self) var viewModel
+    @Environment(RelationshipViewModel.self) var relationshipViewModel
+    
+    var body: some View {
+        HStack(spacing: standardPadding) {
+            if let account = viewModel.account {
+                relationshipViewModel.button.largeButton {
+                    Task {
+                        try await relationshipViewModel.doRelationshipAction(relationshipViewModel.button.buttonAction, account: account)
+                    }
+                }
+                .glassEffectIfAvailable()
+                
+                Button() {
+                    
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(.clear)
+                            .frame(width: 48, height: 48)
+                        Image(systemName: "at")
+                    }
+                }
+                .glassEffectIfAvailable()
+                
+                Button() {
+                    
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(.clear)
+                            .frame(width: 48, height: 48)
+                        Image(systemName: "ellipsis")
+                    }
+                }
+                .glassEffectIfAvailable()
             }
         }
     }
