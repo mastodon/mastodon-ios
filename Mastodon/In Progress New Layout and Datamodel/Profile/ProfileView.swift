@@ -119,15 +119,7 @@ struct ProfileView: View {
         case .bio:
             ProfileInfoView()
         case .paginationControl:
-            Picker("", selection: Binding<ProfilePage>(
-                get: { viewModel.selectedPage },
-                set: { newValue in viewModel.selectedPage = newValue }
-            )) {
-                ForEach(ProfilePage.allCases, id: \.self) { page in
-                    Text(page.title)
-                }
-            }
-            .pickerStyle(.segmented)
+            ProfilePaginationControl()
             .frame(width: min(width, maxFeedContentWidth))
         case .pages:
             ProfilePaginatingView()
@@ -229,6 +221,58 @@ struct ProfileInfoView: View {
     }
 }
 
+struct ProfilePaginationControl: View {
+    @Environment(ProfileViewModel.self) var viewModel
+    @Namespace var animationNamespace
+    
+    var body: some View {
+        VStack {
+            // Custom
+            if #available(iOS 26.0, *) {
+                GlassEffectContainer(spacing: 0) {
+                    customPicker
+                }
+            } else {
+                customPicker
+            }
+        }
+    }
+    
+    @ViewBuilder var customPicker: some View {
+        HStack(spacing: 0) {
+            ForEach(ProfilePage.allCases, id: \.self) { page in
+                Button() {
+                    withAnimation {
+                        viewModel.selectedPage = page
+                    }
+                } label: {
+                    ZStack {
+                        VStack {
+                            Text(page.title)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(viewModel.selectedPage == page ? Asset.Colors.accent.swiftUIColor : .primary)
+                                .padding(.horizontal)
+                            if viewModel.selectedPage == page {
+                                    Rectangle()
+                                        .fill(Asset.Colors.accent.swiftUIColor)
+                                        .frame(height: 4)
+                                        .padding(.horizontal)
+                                        .matchedGeometryEffect(id: "profile_pagination_page_selection", in: animationNamespace)
+                            } else {
+                                Rectangle()
+                                    .fill(.clear)
+                                    .frame(height: 4)
+                            }
+                        }
+                        .clipShape(RoundedRectangle(cornerRadius: CornerRadius.standard))
+                    }
+                }
+                .glassEffectIfAvailable()
+            }
+        }
+    }
+}
+
 struct ProfileActionBar: View {
     @Environment(ProfileViewModel.self) var viewModel
     @Environment(RelationshipViewModel.self) var relationshipViewModel
@@ -282,15 +326,9 @@ struct ProfilePaginatingView: View {
                 )) {
                     ForEach(ProfilePage.allCases, id: \.self) { page in
                         switch page {
-                        case .posts:
+                        case .activity:
                             TimelineListView()
                                 .environment(viewModel.postsViewModel)
-                                .environment(AsyncRefreshViewModel())
-                                .tag(page)
-                                .frame(width: geo.size.width, height: geo.size.height)
-                        case .postsAndReplies:
-                            TimelineListView()
-                                .environment(viewModel.postsAndRepliesViewModel)
                                 .environment(AsyncRefreshViewModel())
                                 .tag(page)
                                 .frame(width: geo.size.width, height: geo.size.height)
@@ -300,8 +338,8 @@ struct ProfilePaginatingView: View {
                                 .environment(AsyncRefreshViewModel())
                                 .tag(page)
                                 .frame(width: geo.size.width, height: geo.size.height)
-                        case .profileInfo:
-                            page.color
+                        case .featured:
+                            Color.red
                                 .tag(page)
                                 .nestedScrollview(.inner)
                                 .frame(width: geo.size.width, height: geo.size.height)
@@ -315,47 +353,29 @@ struct ProfilePaginatingView: View {
 }
 
 enum ProfilePage: CaseIterable, Hashable {
-    case posts
-    case postsAndReplies
+    case activity
     case mediaOnly
-    case profileInfo
+    case featured
     
     var title: String {
         switch self {
-        case .posts:
+        case .activity:
             L10n.Scene.Profile.SegmentedControl.posts
-        case .postsAndReplies:
-            L10n.Scene.Profile.SegmentedControl.postsAndReplies
         case .mediaOnly:
             L10n.Scene.Profile.SegmentedControl.media
-        case .profileInfo:
+        case .featured:
             L10n.Scene.Profile.SegmentedControl.about
         }
     }
     
     var nextPage: ProfilePage {
         switch self {
-        case .posts:
-                .postsAndReplies
-        case .postsAndReplies:
+        case .activity:
                 .mediaOnly
         case .mediaOnly:
-                .profileInfo
-        case .profileInfo:
-                .posts
-        }
-    }
-    
-    var color: Color {
-        switch self {
-        case .posts:
-                .blue
-        case .postsAndReplies:
-                .orange
-        case .mediaOnly:
-                .green
-        case .profileInfo:
-                .red
+                .featured
+        case .featured:
+                .activity
         }
     }
 }
@@ -366,7 +386,7 @@ enum ProfilePage: CaseIterable, Hashable {
     var postsViewModel: TimelineListViewModel?
     var postsAndRepliesViewModel: TimelineListViewModel?
     var mediaViewModel: TimelineListViewModel?
-    var selectedPage: ProfilePage = .posts
+    var selectedPage: ProfilePage = .activity
     
     var navigationButtons: [UIBarButtonItem] {
         guard let account, let relationship else { return [] }
