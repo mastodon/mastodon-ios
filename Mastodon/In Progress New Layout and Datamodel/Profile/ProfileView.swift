@@ -97,34 +97,37 @@ struct ProfileView: View {
                         .padding(.horizontal, doublePadding)
                         .frame(width: min(maxFeedContentWidth, geo.size.width))
                     
-                    Spacer()
-                        .frame(height: doublePadding)
-                    
-                    subview(.paginationControl, width: geo.size.width)
-                        .id(Subview.paginationControl)
-                        .frame(width: min(maxFeedContentWidth, geo.size.width))
-                    Divider()
-                    
-                    if viewModel.selectedPage == .activity {
-                        VStack(spacing: 0) {
-                            Spacer()
-                                .frame(height: doublePadding)
-                            
-                            subview(.repliesAndBoostsFilterButton, width: geo.size.width)
-                                .padding(.horizontal, doublePadding)
-                                .id(Subview.repliesAndBoostsFilterButton)
-                                .frame(width: min(maxFeedContentWidth, geo.size.width))
-                            
-                            Spacer()
-                                .frame(height: doublePadding)
+                    VStack(spacing: 0) {
+                        
+                        Spacer()
+                            .frame(height: doublePadding)
+                        
+                        subview(.paginationControl, width: geo.size.width)
+                            .id(Subview.paginationControl)
+                            .frame(width: min(maxFeedContentWidth, geo.size.width))
+                        Divider()
+                        
+                        if viewModel.selectedPage == .activity {
+                            VStack(spacing: 0) {
+                                Spacer()
+                                    .frame(height: doublePadding)
+                                
+                                subview(.repliesAndBoostsFilterButton, width: geo.size.width)
+                                    .padding(.horizontal, doublePadding)
+                                    .id(Subview.repliesAndBoostsFilterButton)
+                                    .frame(width: min(maxFeedContentWidth, geo.size.width))
+                                
+                                Spacer()
+                                    .frame(height: doublePadding)
+                            }
+                            .transition(.move(edge: .leading))
+                            .transition(.push(from: .trailing))
                         }
-                        .transition(.move(edge: .leading))
-                        .transition(.push(from: .trailing))
+                        
+                        subview(.pages, width: geo.size.width)
+                            .id(Subview.pages)
                     }
-                    
-                    subview(.pages, width: geo.size.width)
-                        .id(Subview.pages)
-                        .frame(height: geo.size.height - geo.safeAreaInsets.top)
+                    .frame(height: geo.size.height - geo.safeAreaInsets.top /*this is always 0*/ - 45 /*because the safeAreaInsets lie*/)
                 }
             }
             .nestedScrollview(.outer)
