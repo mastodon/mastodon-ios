@@ -360,11 +360,11 @@ enum ProfilePage: CaseIterable, Hashable {
     var title: String {
         switch self {
         case .activity:
-            L10n.Scene.Profile.SegmentedControl.posts
+            L10nLookup.Scene.Profile.SegmentedControl.activity
         case .mediaOnly:
-            L10n.Scene.Profile.SegmentedControl.media
+            L10nLookup.Scene.Profile.SegmentedControl.media
         case .featured:
-            L10n.Scene.Profile.SegmentedControl.about
+            L10nLookup.Scene.Profile.SegmentedControl.featured
         }
     }
     

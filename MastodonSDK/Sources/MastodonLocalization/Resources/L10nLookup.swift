@@ -98,6 +98,23 @@ public struct L10nLookup {
                 return result
             }
         }
+        
+        public struct Profile {
+            public struct SegmentedControl {
+                public static let activity: String = {
+                    let result = tr("Localizable", "Scene.Profile.SegmentedControl.Activity")
+                    return result
+                }()
+                public static let media: String = {
+                    let result = tr("Localizable", "Scene.Profile.SegmentedControl.Media")
+                    return result
+                }()
+                public static let featured: String = {
+                    let result = tr("Localizable", "Scene.Profile.SegmentedControl.Featured")
+                    return result
+                }()
+            }
+        }
     }
 
     public static func pluralCountPoll(_ count: Int) -> String {
