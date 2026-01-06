@@ -202742,6 +202742,78 @@
         }
       }
     },
+    "Scene.Profile.ActivityFilter.directPostsOnly" : {
+      "comment" : "Summary description of filters currently applied to profile timeline",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posts"
+          }
+        }
+      }
+    },
+    "Scene.Profile.ActivityFilter.includeBoosts" : {
+      "comment" : "Summary description of filters currently applied to profile timeline",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posts and boosts"
+          }
+        }
+      }
+    },
+    "Scene.Profile.ActivityFilter.includeBoostsAndReplies" : {
+      "comment" : "Summary description of filters currently applied to profile timeline",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posts, boosts, and replies"
+          }
+        }
+      }
+    },
+    "Scene.Profile.ActivityFilter.includeReplies" : {
+      "comment" : "Summary description of filters currently applied to profile timeline",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posts and replies"
+          }
+        }
+      }
+    },
+    "Scene.Profile.ActivityFilter.showBoostsToggleLabel" : {
+      "comment" : "label for toggle control to show or hide boosts in profile timeline",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show boosts"
+          }
+        }
+      }
+    },
+    "Scene.Profile.ActivityFilter.showRepliesToggleLabel" : {
+      "comment" : "label for toggle control to show or hide replies in profile timeline",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show replies"
+          }
+        }
+      }
+    },
     "Scene.Profile.Dashboard.FamiliarFollowers" : {
       "extractionState" : "migrated",
       "localizations" : {

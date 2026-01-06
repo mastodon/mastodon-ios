@@ -114,6 +114,33 @@ public struct L10nLookup {
                     return result
                 }()
             }
+            
+            public struct ActivityFilter {
+                public static let directPostsOnly: String = {
+                   let result = tr("Localizable", "Scene.Profile.ActivityFilter.directPostsOnly")
+                    return result
+                }()
+                public static let includeBoosts: String = {
+                    let result = tr("Localizable", "Scene.Profile.ActivityFilter.includeBoosts")
+                    return result
+                }()
+                public static let includeReplies: String = {
+                    let result = tr("Localizable", "Scene.Profile.ActivityFilter.includeReplies")
+                    return result
+                }()
+                public static let includeBoostsAndReplies: String = {
+                    let result = tr("Localizable", "Scene.Profile.ActivityFilter.includeBoostsAndReplies")
+                    return result
+                }()
+                public static let showBoostsToggleLabel: String = {
+                    let result = tr("Localizable", "Scene.Profile.ActivityFilter.showBoostsToggleLabel")
+                    return result
+                }()
+                public static let showRepliesToggleLabel: String = {
+                    let result = tr("Localizable", "Scene.Profile.ActivityFilter.showRepliesToggleLabel")
+                    return result
+                }()
+            }
         }
     }
 
