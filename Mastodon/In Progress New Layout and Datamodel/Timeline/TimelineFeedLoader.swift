@@ -97,8 +97,8 @@ public enum MastodonTimelineType: Equatable {
             return firstType == secondType
         case (.search(let firstText, let firstScope), .search(let secondText, let secondScope)):
             return firstText == secondText && firstScope == secondScope
-        case (.userPosts(let firstID, let firstFilter), .userPosts(let secondID, let secondFilter)):
-            return firstID == secondID && firstFilter == secondFilter
+        case (.userPosts(let firstID, _), .userPosts(let secondID, _)):
+            return firstID == secondID
         case (.thread(let first), .thread(let second)):
             return first.id == second.id
         case (.notifications(let firstScope), .notifications(let secondScope)):
@@ -169,9 +169,9 @@ public enum MastodonTimelineType: Equatable {
     }
 }
 
-public struct TimelineQueryFilter: Equatable {
-    let excludeReplies: Bool?
-    let excludeReblogs: Bool?
+public class TimelineQueryFilter {
+    var excludeReplies: Bool?
+    var excludeReblogs: Bool?
     let onlyMedia: Bool?
     
     init(

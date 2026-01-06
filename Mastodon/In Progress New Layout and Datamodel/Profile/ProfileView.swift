@@ -26,7 +26,6 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
         viewModel.account = account
         viewModel.relationship = relationship
         viewModel.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(excludeReplies: true)), asyncRefreshViewModel: AsyncRefreshViewModel())
-        viewModel.postsAndRepliesViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(excludeReplies: false)), asyncRefreshViewModel: AsyncRefreshViewModel())
         viewModel.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(onlyMedia: true)), asyncRefreshViewModel: AsyncRefreshViewModel())
         relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: account.locked)
     }
@@ -168,14 +167,18 @@ struct ProfileView: View {
                         Toggle(L10nLookup.Scene.Profile.ActivityFilter.showRepliesToggleLabel,
                                isOn: Binding<Bool>(
                                 get: { viewModel.includeReplies },
-                                set: { newValue in viewModel.includeReplies = newValue}
+                                set: { newValue in
+                                    viewModel.includeReplies = newValue
+                                }
                                )
                         )
                         .tint(Asset.Colors.accent.swiftUIColor)
                         Toggle(L10nLookup.Scene.Profile.ActivityFilter.showBoostsToggleLabel,
                                isOn: Binding<Bool>(
                                 get: { viewModel.includeBoosts },
-                                set: { newValue in viewModel.includeBoosts = newValue}
+                                set: { newValue in
+                                    viewModel.includeBoosts = newValue
+                                }
                                )
                         )
                         .tint(Asset.Colors.accent.swiftUIColor)
@@ -451,13 +454,45 @@ enum ProfilePage: CaseIterable, Hashable {
 @Observable class ProfileViewModel {
     var account: MastodonAccount?
     var relationship: MastodonAccount.Relationship?
-    var postsViewModel: TimelineListViewModel?
-    var postsAndRepliesViewModel: TimelineListViewModel?
+    var postsViewModel: TimelineListViewModel? {
+        didSet {
+            Task {
+                switch await postsViewModel?.timeline {
+                case .userPosts(_, let queryFilter):
+                    activityFilter = queryFilter
+                default:
+                    activityFilter = nil
+                }
+            }
+        }
+    }
+    private var activityFilter: TimelineQueryFilter?
     var mediaViewModel: TimelineListViewModel?
     var selectedPage: ProfilePage = .activity
     
-    var includeBoosts: Bool = true
-    var includeReplies: Bool = false
+    var includeBoosts: Bool {
+        get {
+            !(activityFilter?.excludeReblogs ?? false)
+        }
+        set {
+            activityFilter?.excludeReblogs = !newValue
+            Task {
+                await postsViewModel?.forceReload(.activityFilterUpdated)
+            }
+        }
+    }
+    
+    var includeReplies: Bool {
+        get {
+            !(activityFilter?.excludeReplies ?? true)
+        }
+        set {
+            activityFilter?.excludeReplies = !newValue
+            Task {
+                await postsViewModel?.forceReload(.activityFilterUpdated)
+            }
+        }
+    }
 
     var activityFilterButtonTitle: String {
         switch (includeBoosts, includeReplies) {

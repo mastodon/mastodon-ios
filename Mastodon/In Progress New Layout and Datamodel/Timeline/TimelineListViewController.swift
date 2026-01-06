@@ -703,6 +703,7 @@ enum MastodonTimelineSheet {
         case userRequestedRefresh
         case notificationCountUpdated
         case asyncRefreshResultsRequested
+        case activityFilterUpdated
     }
     
     public var parentVcPresentScene: ((SceneCoordinator.Scene, SceneCoordinator.Transition) -> ())?
@@ -1159,7 +1160,7 @@ enum MastodonTimelineSheet {
         switch reason {
         case .notificationCountUpdated:
             fetchFilteredNotificationsPolicy(andReloadFeed: true)
-        case .notificationFilterPolicyUpdated:
+        case .notificationFilterPolicyUpdated, .activityFilterUpdated:
             loadingState = .requestedReloadFromTop
             feedLoader.requestLoad(.reload)
         case .asyncRefreshResultsRequested:
