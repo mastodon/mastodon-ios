@@ -25,8 +25,8 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
     func set(account: MastodonAccount, relationship: MastodonAccount.Relationship) {
         viewModel.account = account
         viewModel.relationship = relationship
-        viewModel.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(excludeReplies: true)), asyncRefreshViewModel: AsyncRefreshViewModel())
-        viewModel.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(onlyMedia: true)), asyncRefreshViewModel: AsyncRefreshViewModel())
+        viewModel.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts)), asyncRefreshViewModel: AsyncRefreshViewModel())
+        viewModel.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.mediaOnly)), asyncRefreshViewModel: AsyncRefreshViewModel())
         relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: account.locked)
     }
 }
@@ -388,12 +388,14 @@ struct ProfilePaginatingView: View {
                         case .activity:
                             TimelineListView()
                                 .environment(viewModel.postsViewModel)
+                                .environment(viewModel.postsViewModel?.timeline.filterModel)
                                 .environment(AsyncRefreshViewModel())
                                 .tag(page)
                                 .frame(width: geo.size.width, height: geo.size.height)
                         case .mediaOnly:
                             TimelineListView()
                                 .environment(viewModel.mediaViewModel)
+                                .environment(viewModel.postsViewModel?.timeline.filterModel)
                                 .environment(AsyncRefreshViewModel())
                                 .tag(page)
                                 .frame(width: geo.size.width, height: geo.size.height)

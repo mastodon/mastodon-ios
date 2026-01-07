@@ -169,19 +169,56 @@ public enum MastodonTimelineType: Equatable {
     }
 }
 
+@Observable
 public class TimelineQueryFilter {
+    
+    enum TimelineFilterType {
+        case mediaOnly
+        case userPosts
+        case unfilterable
+    }
+    
+    let filterType: TimelineFilterType
     var excludeReplies: Bool?
     var excludeReblogs: Bool?
     let onlyMedia: Bool?
+    var featuredHashtags: [Mastodon.Entity.FeaturedTag] = []
+    var selectedHashtag: Mastodon.Entity.FeaturedTag?
     
-    init(
-        excludeReplies: Bool? = nil,
-        excludeReblogs: Bool? = nil,
-        onlyMedia: Bool? = nil
-    ) {
-        self.excludeReplies = excludeReplies
-        self.excludeReblogs = excludeReblogs
-        self.onlyMedia = onlyMedia
+    init(_ type: TimelineFilterType) {
+        switch type {
+        case .mediaOnly:
+            excludeReblogs = nil
+            excludeReplies = nil
+            onlyMedia = true
+        case .userPosts:
+            excludeReblogs = false
+            excludeReplies = true
+            onlyMedia = nil
+        case .unfilterable:
+            excludeReblogs = nil
+            excludeReplies = nil
+            onlyMedia = nil
+        }
+        self.filterType = type
+    }
+    
+    var showBoostsAndRepliesFilterButton: Bool {
+        switch filterType {
+        case .userPosts:
+            return true
+        case .mediaOnly, .unfilterable:
+            return false
+        }
+    }
+    
+    var showFeaturedHashtags: Bool {
+        switch filterType {
+        case .userPosts, .mediaOnly:
+            return true
+        case .unfilterable:
+            return false
+        }
     }
 }
 

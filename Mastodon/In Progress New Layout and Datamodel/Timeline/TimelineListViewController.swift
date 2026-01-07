@@ -86,7 +86,7 @@ class TimelineListViewController: UIHostingController<AnyView>
         case .whoBoosted(let statusID):
             viewModel = TimelineListViewModel(timeline: .whoBoosted(actionableStatusID: statusID), asyncRefreshViewModel: asyncRefreshViewModel)
         }
-        let root = TimelineListView().environment(viewModel).environment(asyncRefreshViewModel).environment(nestedScrollViewModel)
+        let root = TimelineListView().environment(viewModel).environment(viewModel.timeline.filterModel).environment(asyncRefreshViewModel).environment(nestedScrollViewModel)
         super.init(rootView: AnyView(root))
         viewModel.parentVcPresentScene = { (scene, transition) in
             self.sceneCoordinator?.present(scene: scene, from: self, transition: transition)
@@ -806,58 +806,6 @@ enum MastodonTimelineSheet {
     }
     
     // MARK - Feed Contents
-    @ViewBuilder func repliesAndBoostsFilterButton(filterModel: TimelineQueryFilter) -> some View {
-        HStack() {
-            Button() {
-                self.isPresentingActivityFilter = !self.isPresentingActivityFilter
-            } label: {
-                HStack() {
-                    Text(activityFilterButtonTitle)
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .lineLimit(1)
-                        .fixedSize()
-                    Image(systemName: "chevron.up.chevron.down")
-                        .font(.caption)
-                        .padding(tinySpacing)
-                        .background() {
-                            Circle()
-                                .fill(.secondary.quinary)
-                        }
-                }
-            }
-            .popover(isPresented: Binding<Bool>(
-                get: { self.isPresentingActivityFilter },
-                set: { isPresented in self.isPresentingActivityFilter = isPresented }
-            ),
-                arrowEdge: .top) {
-                VStack {
-                    Toggle(L10nLookup.Scene.Profile.ActivityFilter.showRepliesToggleLabel,
-                           isOn: Binding<Bool>(
-                            get: { self.includeReplies },
-                            set: { newValue in self.includeReplies = newValue }
-                           )
-                    )
-                    .tint(Asset.Colors.accent.swiftUIColor)
-                    Toggle(L10nLookup.Scene.Profile.ActivityFilter.showBoostsToggleLabel,
-                           isOn: Binding<Bool>(
-                            get: { self.includeBoosts },
-                            set: { newValue in self.includeBoosts = newValue }
-                           )
-                    )
-                    .tint(Asset.Colors.accent.swiftUIColor)
-                    Spacer()
-                        .frame(maxHeight: .infinity)
-                }
-                .padding(doublePadding * 2)
-                .presentationDetents([.fraction(0.25)])
-            }
-            
-            Spacer()
-                .frame(maxWidth: .infinity)
-        }
-    }
-    
     func setCurrentDisplaySlice(_ newSlice: ArraySlice<TimelineItem>, newScrollAnchor: TimelineItem?, mayNeedHeightCalculations: Bool, addLoadingIndicator: Bool) {
         
         defer {
@@ -973,6 +921,15 @@ enum MastodonTimelineSheet {
         
         Task {
             try await doInitialLoad()
+        }
+    }
+    
+    func fetchFeaturedHashtags() async -> [Mastodon.Entity.FeaturedTag] {
+        guard let authBox = self.authenticatedUser else { return [] }
+        do {
+            return try await APIService.shared.featuredTags(forAccount: self.timeline.accountID, authenticationBox: authBox).value
+        } catch {
+            return []
         }
     }
     
@@ -1583,6 +1540,7 @@ func contentWidth(forUseableWidth useableWidth: CGFloat) -> CGFloat {
 
 struct TimelineListView: View {
     @Environment(TimelineListViewModel.self) private var viewModel
+    @Environment(TimelineQueryFilter.self) private var filterModel
     @Environment(AsyncRefreshViewModel.self) private var asyncRefreshViewModel
     @Environment(NestedScrollInteractionViewModel.self) private var nestedScrollViewModel
     
@@ -1612,13 +1570,14 @@ struct TimelineListView: View {
                     .padding(EdgeInsets(top: doublePadding, leading: 0, bottom: doublePadding, trailing: 0))
                 } else {
                     VStack(alignment: .leading, spacing: 0) {
-                        switch viewModel.timeline {
-                        case .userPosts(_, let queryFilter):
+                        
+                        // PROFILE TIMELINE - FILTER BOOSTS AND REPLIES
+                        if filterModel.showBoostsAndRepliesFilterButton {
                             VStack(spacing: 0) {
                                 Spacer()
                                     .frame(height: doublePadding)
                                 
-                                viewModel.repliesAndBoostsFilterButton(filterModel: queryFilter)
+                                BoostsAndRepliesFilterButton()
                                     .padding(.horizontal, doublePadding)
                                     .frame(width: min(maxFeedContentWidth, geo.size.width))
                                 
@@ -1628,9 +1587,18 @@ struct TimelineListView: View {
                             .id("repliesAndBoostsFilterButton")
                             .transition(.move(edge: .leading))
                             .transition(.push(from: .trailing))
-                        default:
-                            EmptyView()
                         }
+                        
+                        // PROFILE TIMELINE - FEATURED HASHTAGS
+                        if filterModel.showFeaturedHashtags, !filterModel.featuredHashtags.isEmpty {
+                            FeaturedHashtagsFlow(maxItemWidth: min(maxFeedContentWidth, geo.size.width) - doublePadding * 2)
+                                .environment(filterModel)
+                                .padding(.horizontal, doublePadding)
+                                .frame(width: min(maxFeedContentWidth, geo.size.width))
+                            Spacer()
+                                .frame(height: doublePadding)
+                        }
+                        
                         ScrollView(showsIndicators: false) {
                             LazyVStack(spacing: 0) {
                                 feedContents(geo)
@@ -1731,6 +1699,12 @@ struct TimelineListView: View {
             } // ZStack(alignment: .bottom)
         } // GeometryReader
         .onAppear() {
+            if filterModel.showFeaturedHashtags {
+                Task {
+                    let featuredHashtags = await viewModel.fetchFeaturedHashtags()
+                    filterModel.featuredHashtags = featuredHashtags
+                }
+            }
             viewModel.clearPendingActions()
             if viewModel.timeline.canDisplayDonationBanner {
                 Task {
@@ -2970,6 +2944,119 @@ extension MastodonTimelineType {
             UserDefaults.standard.useBetaProfileView
         default:
             false
+        }
+    }
+}
+
+extension MastodonTimelineType {
+    var filterModel: TimelineQueryFilter {
+        switch self {
+        case .userPosts(_, let queryFilter):
+            queryFilter
+        default:
+            TimelineQueryFilter(.unfilterable)
+        }
+    }
+    
+    var accountID: Mastodon.Entity.Account.ID? {
+        switch self {
+        case .userPosts(let userID, _):
+            return userID
+        default:
+            return nil
+        }
+    }
+}
+
+struct FeaturedHashtagsFlow: View {
+    @Environment(\.displayScale) var displayScale
+    @Environment(TimelineListViewModel.self) var viewModel
+    @Environment(TimelineQueryFilter.self) var filterModel
+    
+    var maxItemWidth: CGFloat
+    
+    var body: some View {
+        FlowLayout(maxItemWidth: maxItemWidth) {
+            ForEach(filterModel.featuredHashtags, id: \.self) { hashtag in
+                card(hashtag)
+                    .onTapGesture {
+                        if filterModel.selectedHashtag == hashtag {
+                            filterModel.selectedHashtag = nil
+                        } else {
+                            filterModel.selectedHashtag = hashtag
+                        }
+                    }
+            }
+        }
+    }
+    
+    @ViewBuilder func card(_ hashtag: Mastodon.Entity.FeaturedTag) -> some View {
+        let isSelected = filterModel.selectedHashtag == hashtag
+        Text("#\(hashtag.name)")
+        .font(.subheadline)
+        .foregroundStyle(isSelected ? .white : .primary )
+        .padding(.vertical, tinySpacing)
+        .padding(.horizontal, doublePadding)
+        .background {
+            Capsule()
+                .fill(isSelected ? Asset.Colors.accent.swiftUIColor : .secondary.opacity(0.2))
+        }
+    }
+}
+
+struct BoostsAndRepliesFilterButton: View {
+    @Environment(TimelineQueryFilter.self) var filterModel
+    @Environment(TimelineListViewModel.self) var viewModel
+    
+    var body: some View {
+        HStack() {
+            Button() {
+                viewModel.isPresentingActivityFilter = !viewModel.isPresentingActivityFilter
+            } label: {
+                HStack() {
+                    Text(viewModel.activityFilterButtonTitle)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .lineLimit(1)
+                        .fixedSize()
+                    Image(systemName: "chevron.up.chevron.down")
+                        .font(.caption)
+                        .padding(tinySpacing)
+                        .background() {
+                            Circle()
+                                .fill(.secondary.quinary)
+                        }
+                }
+            }
+            .popover(isPresented: Binding<Bool>(
+                get: { viewModel.isPresentingActivityFilter },
+                set: { isPresented in viewModel.isPresentingActivityFilter = isPresented }
+            ),
+                     arrowEdge: .top) {
+                VStack {
+                    Toggle(L10nLookup.Scene.Profile.ActivityFilter.showRepliesToggleLabel,
+                           isOn: Binding<Bool>(
+                            get: { viewModel.includeReplies },
+                            set: { newValue in viewModel.includeReplies = newValue }
+                           )
+                    )
+                    .tint(Asset.Colors.accent.swiftUIColor)
+                    Toggle(L10nLookup.Scene.Profile.ActivityFilter.showBoostsToggleLabel,
+                           isOn: Binding<Bool>(
+                            get: { viewModel.includeBoosts },
+                            set: { newValue in viewModel.includeBoosts = newValue }
+                           )
+                    )
+                    .tint(Asset.Colors.accent.swiftUIColor)
+                    Spacer()
+                        .frame(maxHeight: .infinity)
+                }
+                .padding(doublePadding * 2)
+                .presentationDetents([.fraction(0.25)])
+            }
+            
+            Spacer()
+                .frame(maxWidth: .infinity)
         }
     }
 }

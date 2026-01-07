@@ -24,9 +24,12 @@ final class ProfilePagingViewModel: NSObject {
         profileAboutViewModel: ProfileAboutViewModel
     ) {
         let user = profileAboutViewModel.account.id
-        postUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.posts, userID: user, queryFilter: TimelineQueryFilter(excludeReplies: true)))
-        repliesUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.postsAndReplies, userID: user, queryFilter: TimelineQueryFilter(excludeReplies: false, excludeReblogs: true)))
-        mediaUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.media, userID: user, queryFilter: TimelineQueryFilter(onlyMedia: true)))
+        postUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.posts, userID: user, queryFilter: TimelineQueryFilter(.userPosts)))
+        let repliesIncludedFilter = TimelineQueryFilter(.userPosts)
+        repliesIncludedFilter.excludeReplies = false
+        repliesIncludedFilter.excludeReblogs = true
+        repliesUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.postsAndReplies, userID: user, queryFilter: repliesIncludedFilter))
+        mediaUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.media, userID: user, queryFilter: TimelineQueryFilter(.mediaOnly)))
         
         profileAboutViewController.viewModel = profileAboutViewModel
         super.init()

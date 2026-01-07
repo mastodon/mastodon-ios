@@ -16,14 +16,14 @@ extension Mastodon.Entity {
     ///   2021/1/28
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/featuredtag/)
-    public struct FeaturedTag: Codable {
+    public struct FeaturedTag: Codable, Hashable {
         public typealias ID = String
         
         public let id: ID
         public let name: String
         public let url: String?
-        public let statusesCount: Int
-        public let lastStatusAt: Date
+        public let statusesCount: String?
+        public let lastStatusAt: Date?
         
         enum CodingKeys: String, CodingKey {
             case id
