@@ -41,6 +41,7 @@ struct ProfileView: View {
     enum Subview: Hashable {
         case bannerAndAvatar
         case bio
+        case customFieldsFlow
         case paginationControl
         case repliesAndBoostsFilterButton
         case pages
@@ -72,6 +73,16 @@ struct ProfileView: View {
                     
                     Spacer()
                         .frame(height: doublePadding)
+                    
+                    if let fields = viewModel.account?.metadata.customFields, !fields.isEmpty {
+                        subview(.customFieldsFlow, width: min(maxFeedContentWidth, geo.size.width) - doublePadding * 2)
+                            .padding(.horizontal, doublePadding)
+                            .frame(width: min(maxFeedContentWidth, geo.size.width))
+                        
+                        Spacer()
+                            .frame(height: doublePadding)
+                    }
+                    
                     
                     HStack {
                         AccountStatsView(displayType: .smallInline(joinedOn: viewModel.account?.metadata.createdAt), accountMetrics: viewModel.account?.metrics) { stat in
@@ -127,7 +138,7 @@ struct ProfileView: View {
                         subview(.pages, width: geo.size.width)
                             .id(Subview.pages)
                     }
-                    .frame(height: geo.size.height - geo.safeAreaInsets.top /*this is always 0*/ - 45 /*because the safeAreaInsets lie*/)
+                    .frame(height: max(0, geo.size.height - geo.safeAreaInsets.top /*this is always 0*/ - 45 /*because the safeAreaInsets lie*/))
                 }
             }
             .nestedScrollview(.outer)
@@ -142,6 +153,8 @@ struct ProfileView: View {
             ProfileAvatarAndBannerView(width: width)
         case .bio:
             ProfileInfoView()
+        case .customFieldsFlow:
+            CustomFieldsFlow(maxItemWidth: min(width, maxFeedContentWidth), fields: viewModel.account?.metadata.customFields ?? [], emojis: viewModel.account?._legacyEntity.emojis ?? [])
         case .paginationControl:
             ProfilePaginationControl()
             .frame(width: min(width, maxFeedContentWidth))
@@ -291,6 +304,46 @@ struct ProfileInfoView: View {
                     }
                 }
             }
+        }
+    }
+}
+
+extension Mastodon.Entity.Field {
+    var url: URL? {
+       try? value.asURL()
+    }
+}
+
+struct CustomFieldsFlow: View {
+    @Environment(\.displayScale) var displayScale
+    var maxItemWidth: CGFloat
+    var fields: [Mastodon.Entity.Field]
+    var emojis: [Mastodon.Entity.Emoji]
+    
+    var body: some View {
+        FlowLayout(maxItemWidth: maxItemWidth) {
+            ForEach(fields, id: \.self) { field in
+                card(field, emojis: emojis)
+            }
+        }
+    }
+    
+    @ViewBuilder func card(_ field: Mastodon.Entity.Field, emojis: [Mastodon.Entity.Emoji]) -> some View {
+        HStack(alignment: .bottom, spacing: tinySpacing) {
+            VStack(alignment: .leading, spacing: tinySpacing) {
+                MastodonContentView.customProfileField(html: field.name, emojis: emojis, bold: false)
+                MastodonContentView.customProfileField(html: field.value, emojis: emojis, bold: true)
+            }
+            if field.verifiedAt != nil {
+                Image(systemName: "checkmark.seal.fill")
+                    .foregroundColor(.green)
+            }
+        }
+        .font(.footnote)
+        .padding(standardPadding)
+        .background {
+            RoundedRectangle(cornerRadius: CornerRadius.standard)
+                .stroke(.secondary, lineWidth: 1 / displayScale)
         }
     }
 }

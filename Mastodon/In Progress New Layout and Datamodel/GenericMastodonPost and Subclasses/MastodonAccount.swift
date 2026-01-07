@@ -54,6 +54,7 @@ extension MastodonAccount {
         let createdAt: Date
         let manuallyApprovesNewFollows: Bool
         let verifiedLink: String?
+        let customFields: [Mastodon.Entity.Field]?
     }
 }
 
@@ -105,7 +106,7 @@ extension MastodonAccount: FromAccountEntityDerivable {
 
 extension MastodonAccount.MetaData: FromAccountEntityDerivable {
     static func fromEntity(_ entity: Mastodon.Entity.Account) -> MastodonAccount.MetaData {
-        return MastodonAccount.MetaData(profileUrl: URL(string: entity.url), createdAt: entity.createdAt, manuallyApprovesNewFollows: entity.locked, verifiedLink: entity.verifiedLink?.value)
+        return MastodonAccount.MetaData(profileUrl: URL(string: entity.url), createdAt: entity.createdAt, manuallyApprovesNewFollows: entity.locked, verifiedLink: entity.verifiedLink?.value, customFields: entity.fields)
     }
 }
 
