@@ -644,6 +644,8 @@ enum MastodonTimelineSheet {
     
     var presentedDonationCampaign: Mastodon.Entity.DonationCampaign?
     
+    var isPresentingActivityFilter: Bool = false
+    
     var isPerformingPostAction: (action: MastodonPostMenuAction, post: MastodonContentPost)? = nil
     var isPerformingAccountAction: (action: MastodonPostMenuAction, account: MastodonAccount)? = nil
     
@@ -804,6 +806,58 @@ enum MastodonTimelineSheet {
     }
     
     // MARK - Feed Contents
+    @ViewBuilder func repliesAndBoostsFilterButton(filterModel: TimelineQueryFilter) -> some View {
+        HStack() {
+            Button() {
+                self.isPresentingActivityFilter = !self.isPresentingActivityFilter
+            } label: {
+                HStack() {
+                    Text(activityFilterButtonTitle)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .lineLimit(1)
+                        .fixedSize()
+                    Image(systemName: "chevron.up.chevron.down")
+                        .font(.caption)
+                        .padding(tinySpacing)
+                        .background() {
+                            Circle()
+                                .fill(.secondary.quinary)
+                        }
+                }
+            }
+            .popover(isPresented: Binding<Bool>(
+                get: { self.isPresentingActivityFilter },
+                set: { isPresented in self.isPresentingActivityFilter = isPresented }
+            ),
+                arrowEdge: .top) {
+                VStack {
+                    Toggle(L10nLookup.Scene.Profile.ActivityFilter.showRepliesToggleLabel,
+                           isOn: Binding<Bool>(
+                            get: { self.includeReplies },
+                            set: { newValue in self.includeReplies = newValue }
+                           )
+                    )
+                    .tint(Asset.Colors.accent.swiftUIColor)
+                    Toggle(L10nLookup.Scene.Profile.ActivityFilter.showBoostsToggleLabel,
+                           isOn: Binding<Bool>(
+                            get: { self.includeBoosts },
+                            set: { newValue in self.includeBoosts = newValue }
+                           )
+                    )
+                    .tint(Asset.Colors.accent.swiftUIColor)
+                    Spacer()
+                        .frame(maxHeight: .infinity)
+                }
+                .padding(doublePadding * 2)
+                .presentationDetents([.fraction(0.25)])
+            }
+            
+            Spacer()
+                .frame(maxWidth: .infinity)
+        }
+    }
+    
     func setCurrentDisplaySlice(_ newSlice: ArraySlice<TimelineItem>, newScrollAnchor: TimelineItem?, mayNeedHeightCalculations: Bool, addLoadingIndicator: Bool) {
         
         defer {
@@ -1207,6 +1261,54 @@ enum MastodonTimelineSheet {
 }
 
 extension TimelineListViewModel {
+    var timelineQueryFilter: TimelineQueryFilter? {
+        switch timeline {
+        case .userPosts(_, let queryFilter):
+            queryFilter
+        default:
+            nil
+        }
+    }
+    
+    var includeBoosts: Bool {
+        get {
+            !(timelineQueryFilter?.excludeReblogs ?? false)
+        }
+        set {
+            timelineQueryFilter?.excludeReblogs = !newValue
+            Task {
+                await forceReload(.activityFilterUpdated)
+            }
+        }
+    }
+    
+    var includeReplies: Bool {
+        get {
+            !(timelineQueryFilter?.excludeReplies ?? true)
+        }
+        set {
+            timelineQueryFilter?.excludeReplies = !newValue
+            Task {
+                await forceReload(.activityFilterUpdated)
+            }
+        }
+    }
+
+    var activityFilterButtonTitle: String {
+        switch (includeBoosts, includeReplies) {
+        case (true, true):
+            return L10nLookup.Scene.Profile.ActivityFilter.includeBoostsAndReplies
+        case (false, false):
+            return L10nLookup.Scene.Profile.ActivityFilter.directPostsOnly
+        case (false, true):
+            return L10nLookup.Scene.Profile.ActivityFilter.includeReplies
+        case (true, false):
+            return L10nLookup.Scene.Profile.ActivityFilter.includeBoosts
+        }
+    }
+}
+
+extension TimelineListViewModel {
     
     func requestCalculateHeightsAndPrependToCurrentDisplay(_ items: ArraySlice<TimelineItem>) {
         let token = UUID()
@@ -1509,51 +1611,72 @@ struct TimelineListView: View {
                     }
                     .padding(EdgeInsets(top: doublePadding, leading: 0, bottom: doublePadding, trailing: 0))
                 } else {
-                    ScrollView(showsIndicators: false) {
-                        LazyVStack(spacing: 0) {
-                            feedContents(geo)
+                    VStack(alignment: .leading, spacing: 0) {
+                        switch viewModel.timeline {
+                        case .userPosts(_, let queryFilter):
+                            VStack(spacing: 0) {
+                                Spacer()
+                                    .frame(height: doublePadding)
+                                
+                                viewModel.repliesAndBoostsFilterButton(filterModel: queryFilter)
+                                    .padding(.horizontal, doublePadding)
+                                    .frame(width: min(maxFeedContentWidth, geo.size.width))
+                                
+                                Spacer()
+                                    .frame(height: doublePadding)
+                            }
+                            .id("repliesAndBoostsFilterButton")
+                            .transition(.move(edge: .leading))
+                            .transition(.push(from: .trailing))
+                        default:
+                            EmptyView()
                         }
-                        .scrollTargetLayout()
-                    }
-                    .nestedScrollview(viewModel.timeline.isInNestedScrollview ? .inner : .notNested)
-                    .onScrollPhaseChange({ oldPhase, newPhase in
-                        let isNowScrolling = newPhase != .idle
-                        if isNowScrolling != viewModel.isCurrentlyScrolling {
-                            viewModel.isCurrentlyScrolling = isNowScrolling
+                        ScrollView(showsIndicators: false) {
+                            LazyVStack(spacing: 0) {
+                                feedContents(geo)
+                            }
+                            .scrollTargetLayout()
                         }
-                    })
-                    .onScrollGeometryChange(for: Double.self) { scrollGeometry in
-                        let result = viewModel.interactiveReloadTriggerModel.visiblePercent(withScrollGeometry: scrollGeometry)
-                        return result
-                    } action: { oldPercent, newPercent in
-                        if oldPercent != newPercent {
-                            viewModel.interactiveReloadTriggerModel.updateVisiblePercent(newPercent)
+                        .nestedScrollview(viewModel.timeline.isInNestedScrollview ? .inner : .notNested)
+                        .onScrollPhaseChange({ oldPhase, newPhase in
+                            let isNowScrolling = newPhase != .idle
+                            if isNowScrolling != viewModel.isCurrentlyScrolling {
+                                viewModel.isCurrentlyScrolling = isNowScrolling
+                            }
+                        })
+                        .onScrollGeometryChange(for: Double.self) { scrollGeometry in
+                            let result = viewModel.interactiveReloadTriggerModel.visiblePercent(withScrollGeometry: scrollGeometry)
+                            return result
+                        } action: { oldPercent, newPercent in
+                            if oldPercent != newPercent {
+                                viewModel.interactiveReloadTriggerModel.updateVisiblePercent(newPercent)
+                            }
                         }
-                    }
-                    .scrollPosition(id: viewModel.scrollAnchorItemBinding, anchor: .top)
-                    .onScrollTargetVisibilityChange(idType: TimelineItem.self, threshold: 0.5) { visibleRowIds in
-                        queueUpdates(visibleItems: visibleRowIds)
-                    }
-                    .onChange(of: geo.frame(in: .global), initial: true) { _, newValue in
-                        queueUpdates(geometry: geo)
-                    }
-                    .onChange(of: geo.safeAreaInsets, initial: true) { _, _ in
-                        queueUpdates(geometry: geo)
-                    }
-                    .onChange(of: viewModel.scrollAnchorItem) { _, newValue in
-                        queueUpdates(scrollAnchor: newValue)
-                    }
-                    .conditionallyRefreshable(viewModel.timeline.canPullToRefresh ? nil : {
-                        guard viewModel.loadingState.canReload else { return }
-                        viewModel.loadingState = .requestedReloadFromTop
-                        await viewModel.refreshFromTop()
-                    }
-                    )
-                    .accessibilityAction(named: L10n.Common.Controls.Actions.loadNewer) {
-                        guard viewModel.loadingState.canReload else { return }
-                        viewModel.loadingState = .requestedReloadFromTop
-                        Task {
+                        .scrollPosition(id: viewModel.scrollAnchorItemBinding, anchor: .top)
+                        .onScrollTargetVisibilityChange(idType: TimelineItem.self, threshold: 0.5) { visibleRowIds in
+                            queueUpdates(visibleItems: visibleRowIds)
+                        }
+                        .onChange(of: geo.frame(in: .global), initial: true) { _, newValue in
+                            queueUpdates(geometry: geo)
+                        }
+                        .onChange(of: geo.safeAreaInsets, initial: true) { _, _ in
+                            queueUpdates(geometry: geo)
+                        }
+                        .onChange(of: viewModel.scrollAnchorItem) { _, newValue in
+                            queueUpdates(scrollAnchor: newValue)
+                        }
+                        .conditionallyRefreshable(viewModel.timeline.canPullToRefresh ? nil : {
+                            guard viewModel.loadingState.canReload else { return }
+                            viewModel.loadingState = .requestedReloadFromTop
                             await viewModel.refreshFromTop()
+                        }
+                        )
+                        .accessibilityAction(named: L10n.Common.Controls.Actions.loadNewer) {
+                            guard viewModel.loadingState.canReload else { return }
+                            viewModel.loadingState = .requestedReloadFromTop
+                            Task {
+                                await viewModel.refreshFromTop()
+                            }
                         }
                     }
                     

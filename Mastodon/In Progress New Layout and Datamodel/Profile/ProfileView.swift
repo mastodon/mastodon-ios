@@ -43,7 +43,6 @@ struct ProfileView: View {
         case bio
         case customFieldsFlow
         case paginationControl
-        case repliesAndBoostsFilterButton
         case pages
     }
     
@@ -118,23 +117,6 @@ struct ProfileView: View {
                             .frame(width: min(maxFeedContentWidth, geo.size.width))
                         Divider()
                         
-                        if viewModel.selectedPage == .activity {
-                            VStack(spacing: 0) {
-                                Spacer()
-                                    .frame(height: doublePadding)
-                                
-                                subview(.repliesAndBoostsFilterButton, width: geo.size.width)
-                                    .padding(.horizontal, doublePadding)
-                                    .id(Subview.repliesAndBoostsFilterButton)
-                                    .frame(width: min(maxFeedContentWidth, geo.size.width))
-                                
-                                Spacer()
-                                    .frame(height: doublePadding)
-                            }
-                            .transition(.move(edge: .leading))
-                            .transition(.push(from: .trailing))
-                        }
-                        
                         subview(.pages, width: geo.size.width)
                             .id(Subview.pages)
                     }
@@ -158,56 +140,6 @@ struct ProfileView: View {
         case .paginationControl:
             ProfilePaginationControl()
             .frame(width: min(width, maxFeedContentWidth))
-        case .repliesAndBoostsFilterButton:
-            HStack() {
-                Button() {
-                    isPresentingActivityFilter = !isPresentingActivityFilter
-                } label: {
-                    HStack() {
-                        Text(viewModel.activityFilterButtonTitle)
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                            .lineLimit(1)
-                            .fixedSize()
-                        Image(systemName: "chevron.up.chevron.down")
-                            .font(.caption)
-                            .padding(tinySpacing)
-                            .background() {
-                                Circle()
-                                    .fill(.secondary.quinary)
-                            }
-                    }
-                }
-                .popover(isPresented: $isPresentingActivityFilter, arrowEdge: .top) {
-                    VStack {
-                        Toggle(L10nLookup.Scene.Profile.ActivityFilter.showRepliesToggleLabel,
-                               isOn: Binding<Bool>(
-                                get: { viewModel.includeReplies },
-                                set: { newValue in
-                                    viewModel.includeReplies = newValue
-                                }
-                               )
-                        )
-                        .tint(Asset.Colors.accent.swiftUIColor)
-                        Toggle(L10nLookup.Scene.Profile.ActivityFilter.showBoostsToggleLabel,
-                               isOn: Binding<Bool>(
-                                get: { viewModel.includeBoosts },
-                                set: { newValue in
-                                    viewModel.includeBoosts = newValue
-                                }
-                               )
-                        )
-                        .tint(Asset.Colors.accent.swiftUIColor)
-                        Spacer()
-                            .frame(maxHeight: .infinity)
-                    }
-                    .padding(doublePadding * 2)
-                    .presentationDetents([.fraction(0.25)])
-                }
-                
-                Spacer()
-                    .frame(maxWidth: .infinity)
-            }
         case .pages:
             ProfilePaginatingView()
         }
@@ -525,43 +457,6 @@ enum ProfilePage: CaseIterable, Hashable {
     private var activityFilter: TimelineQueryFilter?
     var mediaViewModel: TimelineListViewModel?
     var selectedPage: ProfilePage = .activity
-    
-    var includeBoosts: Bool {
-        get {
-            !(activityFilter?.excludeReblogs ?? false)
-        }
-        set {
-            activityFilter?.excludeReblogs = !newValue
-            Task {
-                await postsViewModel?.forceReload(.activityFilterUpdated)
-            }
-        }
-    }
-    
-    var includeReplies: Bool {
-        get {
-            !(activityFilter?.excludeReplies ?? true)
-        }
-        set {
-            activityFilter?.excludeReplies = !newValue
-            Task {
-                await postsViewModel?.forceReload(.activityFilterUpdated)
-            }
-        }
-    }
-
-    var activityFilterButtonTitle: String {
-        switch (includeBoosts, includeReplies) {
-        case (true, true):
-            L10nLookup.Scene.Profile.ActivityFilter.includeBoostsAndReplies
-        case (false, false):
-            L10nLookup.Scene.Profile.ActivityFilter.directPostsOnly
-        case (false, true):
-            L10nLookup.Scene.Profile.ActivityFilter.includeReplies
-        case (true, false):
-            L10nLookup.Scene.Profile.ActivityFilter.includeBoosts
-        }
-    }
     
     var navigationButtons: [UIBarButtonItem] {
         guard let account, let relationship else { return [] }
