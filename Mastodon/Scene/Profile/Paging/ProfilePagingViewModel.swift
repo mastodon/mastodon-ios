@@ -10,6 +10,7 @@ import MastodonAsset
 import MastodonLocalization
 import TabBarPager
 
+@MainActor
 final class ProfilePagingViewModel: NSObject {
     
     let postUserTimelineViewController: UIViewController & TabBarPage

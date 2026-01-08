@@ -170,6 +170,7 @@ public enum MastodonTimelineType: Equatable {
 }
 
 @Observable
+@MainActor
 public class TimelineQueryFilter {
     
     enum TimelineFilterType {
@@ -385,13 +386,17 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             }
     }
 
+    override func resetTimeline() -> CacheableTimeline? {
+        CacheableTimeline(older: [], olderBottomLoad: .initializing, newer: [], newerBottomLoad: .initializing, discardOlderIfNoOverlap: true)
+    }
+    
     override func fetchResults(for request: MastodonFeedLoaderRequest) async throws -> CacheableTimeline {
         
         await AuthenticationServiceProvider.shared.fetchAccounts(onlyIfItHasBeenAwhile: true) // TODO: legacy comments indicated this may not be the best place for this call
         
         let loadUrl: URL? = {
             switch request {
-            case .newer, .reload:
+            case .newer, .reload, .reloadForFilterChange:
                 return nil
             case .older:
                 switch records.nextBottomLoad {
@@ -617,6 +622,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                         excludeReplies: queryFilter.excludeReplies,
                         excludeReblogs: queryFilter.excludeReblogs,
                         onlyMedia: queryFilter.onlyMedia,
+                        tagged: queryFilter.selectedHashtag?.name,
                         authenticationBox: authenticatedUser
                     )
                 }

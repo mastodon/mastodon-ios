@@ -924,12 +924,16 @@ enum MastodonTimelineSheet {
         }
     }
     
-    func fetchFeaturedHashtags() async -> [Mastodon.Entity.FeaturedTag] {
-        guard let authBox = self.authenticatedUser else { return [] }
+    private var hasFetchedFeaturedHashtags: Bool = false
+    func fetchFeaturedHashtags() async -> [Mastodon.Entity.FeaturedTag]? {
+        guard !hasFetchedFeaturedHashtags else { return nil }
+        guard let authBox = self.authenticatedUser else { return nil }
+        hasFetchedFeaturedHashtags = true
         do {
             return try await APIService.shared.featuredTags(forAccount: self.timeline.accountID, authenticationBox: authBox).value
         } catch {
-            return []
+            hasFetchedFeaturedHashtags = false
+            return nil
         }
     }
     
@@ -1171,9 +1175,13 @@ enum MastodonTimelineSheet {
         switch reason {
         case .notificationCountUpdated:
             fetchFilteredNotificationsPolicy(andReloadFeed: true)
-        case .notificationFilterPolicyUpdated, .activityFilterUpdated:
+        case .notificationFilterPolicyUpdated:
             loadingState = .requestedReloadFromTop
             feedLoader.requestLoad(.reload)
+        case .activityFilterUpdated:
+            loadingState = .initializing
+            interactiveReloadTriggerModel.reset(triggered: true)
+            feedLoader.requestLoad(.reloadForFilterChange)
         case .asyncRefreshResultsRequested:
             loadingState = .requestedAsyncRefreshResults
             feedLoader.requestLoad(.reload)
@@ -1590,14 +1598,11 @@ struct TimelineListView: View {
                         }
                         
                         // PROFILE TIMELINE - FEATURED HASHTAGS
-                        if filterModel.showFeaturedHashtags, !filterModel.featuredHashtags.isEmpty {
-                            FeaturedHashtagsFlow(maxItemWidth: min(maxFeedContentWidth, geo.size.width) - doublePadding * 2)
+                        FeaturedHashtagsFlow(maxItemWidth: min(maxFeedContentWidth, geo.size.width) - doublePadding * 2)
                                 .environment(filterModel)
                                 .padding(.horizontal, doublePadding)
                                 .frame(width: min(maxFeedContentWidth, geo.size.width))
-                            Spacer()
-                                .frame(height: doublePadding)
-                        }
+                    
                         
                         ScrollView(showsIndicators: false) {
                             LazyVStack(spacing: 0) {
@@ -1699,12 +1704,6 @@ struct TimelineListView: View {
             } // ZStack(alignment: .bottom)
         } // GeometryReader
         .onAppear() {
-            if filterModel.showFeaturedHashtags {
-                Task {
-                    let featuredHashtags = await viewModel.fetchFeaturedHashtags()
-                    filterModel.featuredHashtags = featuredHashtags
-                }
-            }
             viewModel.clearPendingActions()
             if viewModel.timeline.canDisplayDonationBanner {
                 Task {
@@ -2949,6 +2948,7 @@ extension MastodonTimelineType {
 }
 
 extension MastodonTimelineType {
+    @MainActor
     var filterModel: TimelineQueryFilter {
         switch self {
         case .userPosts(_, let queryFilter):
@@ -2976,16 +2976,40 @@ struct FeaturedHashtagsFlow: View {
     var maxItemWidth: CGFloat
     
     var body: some View {
-        FlowLayout(maxItemWidth: maxItemWidth) {
-            ForEach(filterModel.featuredHashtags, id: \.self) { hashtag in
-                card(hashtag)
-                    .onTapGesture {
-                        if filterModel.selectedHashtag == hashtag {
-                            filterModel.selectedHashtag = nil
-                        } else {
-                            filterModel.selectedHashtag = hashtag
+        VStack {
+            if filterModel.showFeaturedHashtags && !filterModel.featuredHashtags.isEmpty {
+                FlowLayout(maxItemWidth: maxItemWidth) {
+                    ForEach(filterModel.featuredHashtags, id: \.self) { hashtag in
+                        card(hashtag)
+                            .onTapGesture {
+                                if filterModel.selectedHashtag == hashtag {
+                                    filterModel.selectedHashtag = nil
+                                } else {
+                                    filterModel.selectedHashtag = hashtag
+                                }
+                                Task {
+                                    await viewModel.forceReload(.activityFilterUpdated)
+                                }
+                            }
+                    }
+                }
+                Spacer()
+                    .frame(height: doublePadding)
+            } else {
+                EmptyView()
+            }
+        }
+        .task(id: filterModel.featuredHashtags) {
+            Task {
+                if filterModel.showFeaturedHashtags {
+                    if let featuredHashtags = await viewModel.fetchFeaturedHashtags() {
+                        filterModel.featuredHashtags = featuredHashtags
+                        DispatchQueue.main.async {
+                            // This hacky double setting is to make sure the view actually updates. Not clear why setting it once isn't enough.
+                            filterModel.featuredHashtags = featuredHashtags
                         }
                     }
+                }
             }
         }
     }

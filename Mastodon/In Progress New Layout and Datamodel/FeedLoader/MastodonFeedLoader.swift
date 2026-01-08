@@ -54,6 +54,7 @@ public enum MastodonFeedLoaderRequest: Equatable {
     case older
     case newer
     case reload
+    case reloadForFilterChange
     
     var resultsInsertionPoint: InsertLocation {
         switch self {
@@ -61,7 +62,7 @@ public enum MastodonFeedLoaderRequest: Equatable {
             return .end
         case .newer:
             return .start
-        case .reload:
+        case .reload, .reloadForFilterChange:
             return .replace
         }
     }
@@ -129,6 +130,10 @@ public class MastodonFeedLoader<PublishedType: Identifiable, CachedType: Cacheab
     }
     
     // MARK: Subclasses Must Override
+    func resetTimeline() -> CachedType? {
+        return nil
+    }
+    
     func fetchResults(for request: MastodonFeedLoaderRequest) async throws -> CachedType {
         fatalError("Subclasses must override fetchResults(for:)")
     }
@@ -155,6 +160,9 @@ extension MastodonFeedLoader {
     /// Performing a load request calls the subclass’s implementation of `fetchResults(for:﻿)`, then calls the cache manager‘s `updateCacheByInserting(newlyFetchedResults:at:`). The updated `currentResults` from the cache manager are then run through the subclass’s `filteredResults(fromCachedType:﻿)` before being published.
     public func requestLoad(_ request: MastodonFeedLoaderRequest) {
         if !loadRequestQueue.contains(request) {
+            if request == .reloadForFilterChange {
+                loadRequestQueue.removeAll()
+            }
             loadRequestQueue.append(request)
         }
         if let nextDoableRequest = nextRequestThatCanBeLoadedNow() {
@@ -191,6 +199,9 @@ extension MastodonFeedLoader {
     
     func load(_ request: MastodonFeedLoaderRequest) async throws
     {
+        if request == .reloadForFilterChange, let resetTimeline = resetTimeline() {
+            updateAfterInserting(newlyFetchedResults: resetTimeline, at: .replace)
+        }
         defer { isFetching = false }
         let unfiltered = try await fetchResults(for: request)
         updateAfterInserting(newlyFetchedResults: unfiltered, at: request.resultsInsertionPoint)
