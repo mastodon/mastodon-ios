@@ -361,10 +361,11 @@ extension ComposeViewController {
     }
     
     private func enqueuePublishStatus() {
+        guard !composeContentViewModel.isPublishing else { return }
         do {
             let statusPublisher = try composeContentViewModel.statusPublisher()
             cancelBarButtonItem.isEnabled = false
-            publishButton.isEnabled = false
+            composeContentViewModel.beginPublish()
             statusPublisher.state
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] result in
@@ -374,13 +375,15 @@ extension ComposeViewController {
                     case .success:
                         self?.publishProgressView.progress = 100
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                            self?.dismiss(animated: true, completion: { self?.viewModel.postPublishCompletion?(true) })
+                            self?.dismiss(animated: true, completion: { self?.viewModel.postPublishCompletion?(true)
+                                self?.composeContentViewModel.donePublishing()
+                            })
                         }
                     case .failure(let error):
                         UIView.animate(withDuration: 0.25) {
                             self?.publishProgressView.alpha = 0
                         }
-                        self?.publishButton.isEnabled = true
+                        self?.composeContentViewModel.donePublishing()
                         let alertController = UIAlertController.standardAlert(of: error)
                         self?.present(alertController, animated: true)
                         // HomeTimelineViewController is also listening and will post the alert if this view has been dismissed
@@ -395,6 +398,7 @@ extension ComposeViewController {
                 authenticationBox: viewModel.authenticationBox
             )
         } catch {
+            composeContentViewModel.donePublishing()
             let alertController = UIAlertController.standardAlert(of: error)
             present(alertController, animated: true)
             return
@@ -435,10 +439,11 @@ extension ComposeViewController {
     }
     
     private func enqueuePublishStatusEdit() {
+        guard !composeContentViewModel.isPublishing else { return }
         do {
             guard let editStatusPublisher = try composeContentViewModel.statusEditPublisher() else { return }
             cancelBarButtonItem.isEnabled = false
-            saveButton.isEnabled = false
+            composeContentViewModel.beginPublish()
             editStatusPublisher.state
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] result in
@@ -448,13 +453,15 @@ extension ComposeViewController {
                     case .success:
                         self?.editPublishProgressView.progress = 100
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                            self?.dismiss(animated: true, completion: { self?.viewModel.postPublishCompletion?(true) })
+                            self?.dismiss(animated: true, completion: { self?.viewModel.postPublishCompletion?(true)
+                                self?.composeContentViewModel.donePublishing()
+                            })
                         }
                     case .failure(let error):
                         UIView.animate(withDuration: 0.25) {
                             self?.editPublishProgressView.alpha = 0
                         }
-                        self?.saveButton.isEnabled = true
+                        self?.composeContentViewModel.donePublishing()
                         let alertController = UIAlertController.standardAlert(of: error)
                         self?.present(alertController, animated: true)
                         // HomeTimelineViewController is also listening and will post the alert if this view has been dismissed
@@ -468,6 +475,7 @@ extension ComposeViewController {
                 authenticationBox: viewModel.authenticationBox
             )
         } catch {
+            composeContentViewModel.donePublishing()
             let alertController = UIAlertController.standardAlert(of: error)
             present(alertController, animated: true)
             return

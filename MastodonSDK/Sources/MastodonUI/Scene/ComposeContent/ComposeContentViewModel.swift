@@ -21,6 +21,8 @@ public protocol ComposeContentViewModelDelegate: AnyObject {
 
 @MainActor
 public final class ComposeContentViewModel: NSObject, ObservableObject {
+    
+    public private(set) var isPublishing: Bool = false
 
     public enum ComposeContext {
         case composeStatus(quoting: (Mastodon.Entity.Status, ()->(AnyView))?)
@@ -338,6 +340,14 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
 
 
 extension ComposeContentViewModel {
+    public func beginPublish() {
+        isPublishing = true
+    }
+    
+    public func donePublishing() {
+        isPublishing = false
+    }
+    
     private func bind() {
         // bind instance configuration updates
         AuthenticationServiceProvider.shared.instanceConfigurationUpdates
