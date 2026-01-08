@@ -395,7 +395,7 @@ struct ProfilePaginatingView: View {
                         case .mediaOnly:
                             TimelineListView()
                                 .environment(viewModel.mediaViewModel)
-                                .environment(viewModel.postsViewModel?.timeline.filterModel)
+                                .environment(viewModel.mediaViewModel?.timeline.filterModel)
                                 .environment(AsyncRefreshViewModel())
                                 .tag(page)
                                 .frame(width: geo.size.width, height: geo.size.height)
