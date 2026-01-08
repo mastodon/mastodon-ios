@@ -1593,8 +1593,6 @@ struct TimelineListView: View {
                                     .frame(height: doublePadding)
                             }
                             .id("repliesAndBoostsFilterButton")
-                            .transition(.move(edge: .leading))
-                            .transition(.push(from: .trailing))
                         }
                         
                         // PROFILE TIMELINE - FEATURED HASHTAGS
