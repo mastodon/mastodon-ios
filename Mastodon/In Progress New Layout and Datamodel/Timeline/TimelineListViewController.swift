@@ -1636,7 +1636,7 @@ struct TimelineListView: View {
                         .onChange(of: viewModel.scrollAnchorItem) { _, newValue in
                             queueUpdates(scrollAnchor: newValue)
                         }
-                        .conditionallyRefreshable(viewModel.timeline.canPullToRefresh ? nil : {
+                        .conditionallyRefreshable(!viewModel.timeline.canPullToRefresh ? nil : {
                             guard viewModel.loadingState.canReload else { return }
                             viewModel.loadingState = .requestedReloadFromTop
                             await viewModel.refreshFromTop()
