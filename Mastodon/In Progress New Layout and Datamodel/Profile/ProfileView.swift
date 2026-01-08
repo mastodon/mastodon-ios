@@ -37,6 +37,7 @@ struct ProfileView: View {
     let wrapInNavigationController: Bool
     
     @State var isPresentingActivityFilter: Bool = false
+    @State var embeddedActionBarHasCaughtUpToFloatingActionBar: Bool = false
     
     enum Subview: Hashable {
         case bannerAndAvatar
@@ -58,75 +59,107 @@ struct ProfileView: View {
     
     @ViewBuilder var content: some View {
         GeometryReader { geo in
-            ScrollView() {
-                VStack(alignment: .center, spacing: 0) {
-                    subview(.bannerAndAvatar, width: geo.size.width)
-                        .id(Subview.bannerAndAvatar)
-                        .frame(width: geo.size.width)
-                    Spacer()
-                        .frame(height: doublePadding)
-                    subview(.bio, width: geo.size.width)
-                        .id(Subview.bio)
-                        .padding(.horizontal, doublePadding)
-                        .frame(width: min(maxFeedContentWidth, geo.size.width))
-                    
-                    Spacer()
-                        .frame(height: doublePadding)
-                    
-                    if let fields = viewModel.account?.metadata.customFields, !fields.isEmpty {
-                        subview(.customFieldsFlow, width: min(maxFeedContentWidth, geo.size.width) - doublePadding * 2)
+            ZStack(alignment: .top) {
+                ScrollView() {
+                    VStack(alignment: .center, spacing: 0) {
+                        subview(.bannerAndAvatar, width: geo.size.width)
+                            .id(Subview.bannerAndAvatar)
+                            .frame(width: geo.size.width)
+                        Spacer()
+                            .frame(height: doublePadding)
+                        subview(.bio, width: geo.size.width)
+                            .id(Subview.bio)
                             .padding(.horizontal, doublePadding)
                             .frame(width: min(maxFeedContentWidth, geo.size.width))
                         
                         Spacer()
                             .frame(height: doublePadding)
-                    }
-                    
-                    
-                    HStack {
-                        AccountStatsView(displayType: .smallInline(joinedOn: viewModel.account?.metadata.createdAt), accountMetrics: viewModel.account?.metrics) { stat in
-                            switch stat {
-                            case .postCount:
-                                break
-                            case .followersCount:
-                                break
-                            case .followingCount:
-                                break
-                            }
+                        
+                        if let fields = viewModel.account?.metadata.customFields, !fields.isEmpty {
+                            subview(.customFieldsFlow, width: min(maxFeedContentWidth, geo.size.width) - doublePadding * 2)
+                                .padding(.horizontal, doublePadding)
+                                .frame(width: min(maxFeedContentWidth, geo.size.width))
+                            
+                            Spacer()
+                                .frame(height: doublePadding)
                         }
-                        .padding(.leading, doublePadding)
-                        Spacer()
-                            .frame(maxWidth: .infinity)
-                    }
-                    .frame(width: min(maxFeedContentWidth, geo.size.width))
-                    
-                    Spacer()
-                        .frame(height: doublePadding)
-                    
-                    ProfileActionBar()
-                        .padding(.horizontal, doublePadding)
+                        
+                        
+                        HStack {
+                            AccountStatsView(displayType: .smallInline(joinedOn: viewModel.account?.metadata.createdAt), accountMetrics: viewModel.account?.metrics) { stat in
+                                switch stat {
+                                case .postCount:
+                                    break
+                                case .followersCount:
+                                    break
+                                case .followingCount:
+                                    break
+                                }
+                            }
+                            .padding(.leading, doublePadding)
+                            Spacer()
+                                .frame(maxWidth: .infinity)
+                        }
                         .frame(width: min(maxFeedContentWidth, geo.size.width))
-                    
-                    VStack(spacing: 0) {
                         
                         Spacer()
                             .frame(height: doublePadding)
                         
-                        subview(.paginationControl, width: geo.size.width)
-                            .id(Subview.paginationControl)
+                        ProfileActionBar()
+                            .padding(.horizontal, doublePadding)
                             .frame(width: min(maxFeedContentWidth, geo.size.width))
-                        Divider()
+                            .background() {
+                                GeometryReader { embeddedGeo in
+                                    Color.clear
+                                        .preference(key: VerticalPositionKey.self, value: ["embedded": embeddedGeo.frame(in: .global).minY])
+                                }
+                            }
+                            .opacity(embeddedActionBarHasCaughtUpToFloatingActionBar ? 1.0 : 0.0)
                         
-                        subview(.pages, width: geo.size.width)
-                            .id(Subview.pages)
+                        VStack(spacing: 0) {
+                            
+                            Spacer()
+                                .frame(height: doublePadding)
+                            
+                            subview(.paginationControl, width: geo.size.width)
+                                .id(Subview.paginationControl)
+                                .frame(width: min(maxFeedContentWidth, geo.size.width))
+                            Divider()
+                            
+                            subview(.pages, width: geo.size.width)
+                                .id(Subview.pages)
+                        }
+                        .frame(height: max(0, geo.size.height - geo.safeAreaInsets.top /*this is always 0*/ - 45 /*because the safeAreaInsets lie*/))
                     }
-                    .frame(height: max(0, geo.size.height - geo.safeAreaInsets.top /*this is always 0*/ - 45 /*because the safeAreaInsets lie*/))
                 }
+                .nestedScrollview(.outer)
+                .frame(width: geo.size.width, height: geo.size.height)
+                
+                VStack {
+                    Spacer()
+                    ProfileActionBar()
+                        .padding(.horizontal, doublePadding)
+                        .frame(width: min(maxFeedContentWidth, geo.size.width))
+                        .background() {
+                            GeometryReader { floatingGeo in
+                                Color.clear
+                                    .preference(key: VerticalPositionKey.self, value: ["floating": floatingGeo.frame(in: .global).minY])
+                            }
+                        }
+                        .opacity(embeddedActionBarHasCaughtUpToFloatingActionBar ? 0.0 : 1.0)
+                }
+                .frame(width: min(maxFeedContentWidth, geo.size.width), height: geo.size.height - geo.safeAreaInsets.bottom - 90)
             }
-            .nestedScrollview(.outer)
-            .frame(width: geo.size.width, height: geo.size.height)
         }
         .ignoresSafeArea()
+        .onPreferenceChange(VerticalPositionKey.self) { values in
+            guard
+                let embedded = values["embedded"],
+                let floating = values["floating"]
+            else { return }
+            
+            embeddedActionBarHasCaughtUpToFloatingActionBar = floating >= embedded
+        }
     }
     
     @ViewBuilder func subview(_ subviewType: Subview, width: CGFloat) -> some View {
@@ -530,5 +563,14 @@ enum ProfilePage: CaseIterable, Hashable {
                 }
             }
         }
+    }
+}
+
+struct VerticalPositionKey: PreferenceKey {
+    static var defaultValue: [String: CGFloat] = [:]
+    
+    static func reduce(value: inout [String: CGFloat],
+                       nextValue: () -> [String: CGFloat]) {
+        value.merge(nextValue(), uniquingKeysWith: { $1 })
     }
 }
