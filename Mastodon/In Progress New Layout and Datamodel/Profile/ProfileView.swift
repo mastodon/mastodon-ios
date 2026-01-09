@@ -28,6 +28,19 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
         viewModel.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts)), asyncRefreshViewModel: AsyncRefreshViewModel())
         viewModel.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.mediaOnly)), asyncRefreshViewModel: AsyncRefreshViewModel())
         relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: account.locked)
+        Task {
+            let handle = account.handle
+            let handleComponents = handle.split(separator: "@").map { String($0) }
+            if handleComponents.count > 1 {
+                // server is included
+                viewModel.handleDetails = .init(username: handleComponents.first ?? "", domain: handleComponents.last ?? "", isMyDomain: false)
+            } else {
+                // this account is on my server
+                if let myDomain = AuthenticationServiceProvider.shared.currentActiveUser.value?.domain {
+                    viewModel.handleDetails = .init(username: handleComponents.first ?? "", domain: myDomain, isMyDomain: true)
+                }
+            }
+        }
     }
 }
 
@@ -230,15 +243,32 @@ struct ProfileAvatarAndBannerView: View {
 struct ProfileInfoView: View {
     @Environment(ProfileViewModel.self) var viewModel
     @Environment(RelationshipViewModel.self) var relationshipViewModel
+    @State var isShowingHandleInfo = false
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             
             VStack(alignment: .leading) {
+                let handle = viewModel.account?.displayInfo.minimalHandle ?? "@unknown"
                 MastodonContentView.header(html: viewModel.account?.displayInfo.displayName ?? "No Name", emojis: viewModel.account?.displayInfo.emojis ?? [], style: .profileDisplayName)
-                Text(viewModel.account?.displayInfo.fullHandle ?? "@unknown")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                HStack(alignment: .top, spacing: tinySpacing) {
+                    Text(handle)
+                        .foregroundStyle(.secondary)
+                        .font(.subheadline)
+                    if viewModel.handleDetails?.username != nil {
+                        Image(systemName: "info.circle")
+                            .foregroundColor(Asset.Colors.accent.swiftUIColor)
+                            .font(.caption)
+                    }
+                }
+                .onTapGesture {
+                    isShowingHandleInfo = !isShowingHandleInfo
+                }
+                .popover(isPresented: $isShowingHandleInfo) {
+                    ScrollView() {
+                        HandleInfoPopover()
+                    }
+                }
                 MastodonContentView.timelinePost(html: viewModel.account?._legacyEntity.note ?? "", emojis: viewModel.account?.displayInfo.emojis ?? [], isInlinePreview: false)
             }
             
@@ -268,6 +298,134 @@ struct ProfileInfoView: View {
                         EmptyView()
                     }
                 }
+            }
+        }
+    }
+}
+
+struct HandleInfoPopover: View {
+    @Environment(ProfileViewModel.self) var viewModel
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: doublePadding) {
+            HStack() {
+                Image(systemName: "person.crop.square.filled.and.at.rectangle")
+                    .foregroundColor(.white)
+                    .padding()
+                    .background() {
+                        Circle()
+                            .fill(Asset.Colors.accent.swiftUIColor)
+                    }
+                Text("What's in a handle?")
+            }
+            .font(.title)
+            
+            if let handleDetails = viewModel.handleDetails {
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("Their handle:")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                    Spacer()
+                        .frame(height: standardPadding)
+                    
+                    HStack {
+                        Spacer()
+                        VStack(alignment: .leading) {
+                            HStack(alignment: .bottom) {
+                                Image(systemName: "arrow.turn.left.down")
+                                    .font(.caption2)
+                                Text("Username")
+                                    .font(.callout)
+                            }
+                            HStack(alignment: .top) {
+                                Text("@\(handleDetails.username)")
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.primary)
+                                VStack {
+                                    Text("@\(handleDetails.domain)")
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(.primary)
+                                    HStack(alignment: .top) {
+                                        Text("Server")
+                                            .font(.callout)
+                                        Image(systemName: "arrow.turn.right.up")
+                                            .font(.caption2)
+                                    }
+                                }
+                            }
+                        }
+                        Spacer()
+                    }
+                }
+                .padding()
+                .background() {
+                    RoundedRectangle(cornerRadius: standardPadding)
+                        .fill(Asset.Colors.accent.swiftUIColor.opacity(0.2))
+                }
+                .foregroundColor(Asset.Colors.accent.swiftUIColor)
+                .padding()
+            }
+            
+            VStack(alignment: .leading) {
+                explainerRow(.username(viewModel.handleDetails?.username))
+                explainerRow(.server(viewModel.handleDetails?.domain, isMyServer: viewModel.handleDetails?.isMyDomain ?? false))
+            }
+            
+            Text("Since handles say who someone is and where they are, you can interact with people across the social web of [Activity-Pub-powered platforms](https://docs.joinmastodon.org/#fediverse).")
+                .tint(Asset.Colors.accent.swiftUIColor)
+        }
+        .padding(doublePadding)
+    }
+    
+    enum ExplainerRowType {
+        case username(String?)
+        case server(String?, isMyServer: Bool)
+        
+        var image: Image {
+            switch self {
+            case .username:
+                Image(systemName: "at")
+            case .server:
+                Image(systemName: "globe.europe.africa.fill")
+            }
+        }
+        
+        var titleText: String {
+            switch self {
+            case .username:
+                "Username"
+            case .server:
+                "Server"
+            }
+        }
+        
+        var text: String {
+            switch self {
+            case .username(let username):
+                if let username {
+                    return "@\(username) is their unique identifier on their server. On another server, this username may belong to a different person."
+                } else {
+                    return "their unique identifier on their server. On another server, this username may belong to a different person."
+                }
+            case .server(let serverName, let isMyServer):
+                if let serverName {
+                    return "\(serverName) is their digital home, where all of their posts live.\(isMyServer ? " Your account happens to be on \(serverName), too." : "")"
+                } else {
+                    return "Their digital home, where all of their posts live."
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder func explainerRow(_ type: ExplainerRowType) -> some View {
+        HStack(alignment: .top) {
+            type.image
+                .font(.title)
+                .foregroundColor(Asset.Colors.accent.swiftUIColor)
+            VStack(alignment: .leading) {
+                Text(type.titleText)
+                    .font(.title2)
+                Text(type.text)
             }
         }
     }
@@ -475,6 +633,11 @@ enum ProfilePage: CaseIterable, Hashable {
 }
 
 @Observable class ProfileViewModel {
+    struct HandleDetails {
+        let username: String
+        let domain: String
+        let isMyDomain: Bool
+    }
     var account: MastodonAccount?
     var relationship: MastodonAccount.Relationship?
     var postsViewModel: TimelineListViewModel? {
@@ -492,6 +655,7 @@ enum ProfilePage: CaseIterable, Hashable {
     private var activityFilter: TimelineQueryFilter?
     var mediaViewModel: TimelineListViewModel?
     var selectedPage: ProfilePage = .activity
+    var handleDetails: HandleDetails?
     
     var navigationButtons: [UIBarButtonItem] {
         guard let account, let relationship else { return [] }

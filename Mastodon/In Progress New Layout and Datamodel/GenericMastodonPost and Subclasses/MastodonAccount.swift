@@ -61,7 +61,6 @@ extension MastodonAccount {
 extension MastodonAccount {
     struct DisplayInfo: Codable {
         let minimalHandle: String
-        let fullHandle: String
         let displayName: String
         let emojis: [Mastodon.Entity.Emoji]
         private let avatarImage: ImageUrl
@@ -125,7 +124,7 @@ extension MastodonAccount.DisplayInfo: FromAccountEntityDerivable {
             definitelyStatic: entity.headerStatic,
             fallback: nil)
         return Self(
-            minimalHandle: entity.acct, fullHandle: "@\(entity.username)@\(currentUserDomain)", displayName: entity.displayNameWithFallback,
+            minimalHandle: entity.acct, displayName: entity.displayNameWithFallback,
             emojis: entity.emojis, avatarImage: avatarImage,
             headerImage: headerImage)
     }
