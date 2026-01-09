@@ -50,6 +50,7 @@ extension Mastodon.Entity {
         public let bot: Bool?
         public let source: Source?
         public let role: Role?
+        public let publicRoles: [AccountRole]?
         public let suspended: Bool?
         public let muteExpiresAt: Date?
     }
@@ -84,6 +85,7 @@ extension Mastodon.Entity.Account: Codable {
         case bot
         case source
         case role
+        case publicRoles = "roles"
         case suspended
         case muteExpiresAt = "mute_expires_at"
     }
@@ -170,6 +172,16 @@ extension Mastodon.Entity.Account {
 }
 
 extension Mastodon.Entity.Account {
+    public final class AccountRole: Codable, Sendable, Equatable {
+        public static func == (lhs: Mastodon.Entity.Account.AccountRole, rhs: Mastodon.Entity.Account.AccountRole) -> Bool {
+            lhs.id == rhs.id
+        }
+        
+        public let id: String
+        public let name: String
+        public let color: String? // hex code
+    }
+    
     public final class Role: Codable, Sendable {
         public let id: String
         public let name: String

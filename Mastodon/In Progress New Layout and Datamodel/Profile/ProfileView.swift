@@ -250,7 +250,19 @@ struct ProfileInfoView: View {
             
             VStack(alignment: .leading) {
                 let handle = viewModel.account?.displayInfo.minimalHandle ?? "@unknown"
-                MastodonContentView.header(html: viewModel.account?.displayInfo.displayName ?? "No Name", emojis: viewModel.account?.displayInfo.emojis ?? [], style: .profileDisplayName)
+                
+                HStack {
+                    MastodonContentView.header(html: viewModel.account?.displayInfo.displayName ?? "No Name", emojis: viewModel.account?.displayInfo.emojis ?? [], style: .profileDisplayName)
+                    if let roles = viewModel.account?._legacyEntity.publicRoles {
+                        if roles.first(where: { $0.name.contains("admin") || $0.name.contains("Admin") }) != nil {
+                            ProfileBadge.admin
+                        }
+                        if roles.first(where: { $0.name.contains("mod") || $0.name.contains("Mod") }) != nil {
+                            ProfileBadge.moderator
+                        }
+                    }
+                }
+
                 HStack(alignment: .top, spacing: tinySpacing) {
                     Text(handle)
                         .foregroundStyle(.secondary)
@@ -366,7 +378,7 @@ struct HandleInfoPopover: View {
                 .padding()
             }
             
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: standardPadding) {
                 explainerRow(.username(viewModel.handleDetails?.username))
                 explainerRow(.server(viewModel.handleDetails?.domain, isMyServer: viewModel.handleDetails?.isMyDomain ?? false))
             }
@@ -421,6 +433,7 @@ struct HandleInfoPopover: View {
         HStack(alignment: .top) {
             type.image
                 .font(.title)
+                .fontWeight(.semibold)
                 .foregroundColor(Asset.Colors.accent.swiftUIColor)
             VStack(alignment: .leading) {
                 Text(type.titleText)
@@ -736,5 +749,51 @@ struct VerticalPositionKey: PreferenceKey {
     static func reduce(value: inout [String: CGFloat],
                        nextValue: () -> [String: CGFloat]) {
         value.merge(nextValue(), uniquingKeysWith: { $1 })
+    }
+}
+
+enum ProfileBadge {
+    case admin
+    case moderator
+    case pinned
+}
+
+extension ProfileBadge: View {
+    
+    var icon: Image {
+        switch self {
+        case .admin:
+            return Asset.Scene.Profile.profileBadgeAdmin.swiftUIImage
+        case .moderator:
+            return Asset.Scene.Profile.profileBadgeModerator.swiftUIImage
+        case .pinned:
+            return Image(systemName: "pin")
+        }
+    }
+    
+    var text: String {
+        switch self {
+        case .admin:
+            "Admin"
+        case .moderator:
+            "Moderator"
+        case .pinned:
+            "Pinned"
+        }
+    }
+    
+    var body: some View {
+        HStack(spacing: tinySpacing) {
+            icon
+            Text(text)
+        }
+        .font(.footnote)
+        .fontWeight(.semibold)
+        .foregroundColor(.secondary)
+        .padding(tinySpacing)
+        .background() {
+            RoundedRectangle(cornerRadius: CornerRadius.standard)
+                .fill(.secondary.quinary)
+        }
     }
 }

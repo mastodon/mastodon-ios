@@ -196,6 +196,8 @@ public enum Asset {
         public static let background = ColorAsset(name: "Scene/Profile/RelationshipButton/background")
         public static let backgroundHighlighted = ColorAsset(name: "Scene/Profile/RelationshipButton/background.highlighted")
       }
+      public static let profileBadgeAdmin = ImageAsset(name: "Scene/Profile/profileBadge-admin")
+      public static let profileBadgeModerator = ImageAsset(name: "Scene/Profile/profileBadge-moderator")
     }
     public enum Report {
       public static let background = ColorAsset(name: "Scene/Report/background")
