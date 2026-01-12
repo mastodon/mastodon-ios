@@ -17,7 +17,7 @@ class CentralPostViewModelCache {
             .sink { [weak self] update in
                 guard let self, let update else { return }
                 switch update {
-                case .deletedPost(let deletedID):
+                case .deletedPost:
                     return
                 default:
                     break
