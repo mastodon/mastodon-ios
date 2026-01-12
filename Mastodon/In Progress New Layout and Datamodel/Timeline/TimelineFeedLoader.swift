@@ -416,7 +416,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         
         func timelineItem(fromStatus status: Mastodon.Entity.Status, isPinned: Bool) -> TimelineItem {
             let post = GenericMastodonPost.fromStatus(status)
-            return timelineItem(fromPost: post, isPinned: isPinned)
+            return timelineItem(fromPost: post, isPinned: isPinned || (status.pinned == true))
         }
         func timelineItem(fromPost post: GenericMastodonPost, isPinned: Bool) -> TimelineItem {
             let initialDisplayInfo = post.initialDisplayInfo()
@@ -439,7 +439,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     }
                 }
             }()
-            return TimelineItem.post(viewModel, isPinned: isPinned)
+            let isPinnedByMe = (post as? MastodonContentPost)?.content.myActions.pinnedByMe
+            return TimelineItem.post(viewModel, isPinned: isPinned || (isPinnedByMe == true))
         }
         func timelineItem(fromAccount accountEntity: Mastodon.Entity.Account) -> TimelineItem {
             let account = MastodonAccount.fromEntity(accountEntity)

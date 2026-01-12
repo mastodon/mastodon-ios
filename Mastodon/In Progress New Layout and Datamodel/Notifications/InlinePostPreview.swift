@@ -76,7 +76,7 @@ struct InlinePostPreview: View {
                 Text(viewModel.accountFullName ?? "")
                     .foregroundStyle(.secondary)
                 Spacer(minLength: 0)
-            } else if viewModel.isPinned {
+            } else if viewModel.isPinnedByMe {
                 //  This *should* be a Label but it acts funky when this is in a List
                 Group {
                     Image(systemName: "pin.fill")
