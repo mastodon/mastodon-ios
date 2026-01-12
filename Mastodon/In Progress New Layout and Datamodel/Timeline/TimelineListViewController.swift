@@ -956,7 +956,7 @@ enum MastodonTimelineSheet {
                         return nil
                     case .account:
                         return item
-                    case .post(let postViewModel):
+                    case .post(let postViewModel, _):
                         return postViewModel.displayPrepStatus == .unprepared ? item : nil
                     case .notification(let notificationViewModel):
                         return notificationViewModel.displayPrepStatus == .unprepared ? item : nil
@@ -1280,19 +1280,19 @@ extension TimelineListViewModel {
         loadingState = .requestedPrependedHeightCalculations(token)
         let toCalculate = items.compactMap({ item in
             switch item {
-            case .post(let viewModel):
-                return viewModel
+            case .post(let viewModel, let isPinned):
+                return (viewModel, isPinned)
             default:
                 assertionFailure("precalculating height is not supported for \(item.id)")
                 return nil
             }
         })
         Task {
-            for model in toCalculate {
-                await calculateHeight(model)
+            for (model, isPinned) in toCalculate {
+                await calculateHeight(model, isPinned: isPinned)
             }
-            let calculatedItems = toCalculate.map { model in
-                TimelineItem.post(model)
+            let calculatedItems = toCalculate.map { (model, isPinned) in
+                TimelineItem.post(model, isPinned: isPinned)
             }
             switch loadingState {
             case .requestedPrependedHeightCalculations(token):
@@ -1304,10 +1304,10 @@ extension TimelineListViewModel {
         }
     }
     
-    func calculateHeight(_ model: MastodonPostViewModel) async {
+    func calculateHeight(_ model: MastodonPostViewModel, isPinned: Bool) async {
         guard let currentUseableWidth else { return }
         let contentWidth = contentWidth(forUseableWidth: currentUseableWidth)
-        let height = await ViewMeasurer.shared.calculateHeight(for: model, contentConcealModel: contentConcealModel(forActionablePost: model.initialDisplayInfo.actionablePostID), filterContext: timeline.filterContext, threadedContext: threadedConversationModel?.context(for: model.initialDisplayInfo.id), contentWidth: contentWidth, totalWidth: currentUseableWidth)
+        let height = await ViewMeasurer.shared.calculateHeight(for: model, isPinned: isPinned, contentConcealModel: contentConcealModel(forActionablePost: model.initialDisplayInfo.actionablePostID), filterContext: timeline.filterContext, threadedContext: threadedConversationModel?.context(for: model.initialDisplayInfo.id), contentWidth: contentWidth, totalWidth: currentUseableWidth)
         model.precalculatedHeights.insert(height, at: 0)
     }
     
@@ -1383,7 +1383,7 @@ extension TimelineListViewModel {
         
         for item in batch {
             switch item {
-            case .post(let postModel):
+            case .post(let postModel, _):
                 if postModel.displayPrepStatus == .unprepared {
                     needsPrep.append(postModel)
                 }
@@ -1815,7 +1815,7 @@ struct TimelineListView: View {
                 }
                 Divider()
                 
-            case .post(let postViewModel):
+            case .post(let postViewModel, let isPinned):
 #if DEBUG && false
                 Text(postViewModel.initialDisplayInfo.id)
                     .foregroundStyle(.red)
@@ -1829,7 +1829,7 @@ struct TimelineListView: View {
                 
                 let contentConcealModel = viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID)
                 let expectedHeight: CGFloat? = postViewModel.initialDisplayInfo.id == viewModel.threadedConversationModel?.focusedID ? nil :  precalculatedHeight(fromCalculations: postViewModel.precalculatedHeights, contentWidth: contentWidth, contentConcealMode: contentConcealModel.currentMode, isShowingTranslation: postViewModel.isShowingTranslation == true)
-                MastodonPostRowView(contentWidth: contentWidth, precalculatedHeight: expectedHeight, actionHandler: viewModel, threadedContext: viewModel.threadedConversationModel?.context(for: postViewModel.initialDisplayInfo.id), filterContext: viewModel.timeline.filterContext)
+                MastodonPostRowView(contentWidth: contentWidth, precalculatedHeight: expectedHeight, isPinned: isPinned, actionHandler: viewModel, threadedContext: viewModel.threadedConversationModel?.context(for: postViewModel.initialDisplayInfo.id), filterContext: viewModel.timeline.filterContext)
                 .environment(postViewModel)
                 .environment(contentConcealModel)
                 .padding(EdgeInsets(top: 0, leading: standardPadding, bottom: 0, trailing: doublePadding))
@@ -2220,7 +2220,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                             switch item {
                             case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .noItem:
                                 break
-                            case .post(let viewModel):
+                            case .post(let viewModel, _):
                                 if viewModel.fullPost?.actionablePost?.id == actionablePost.id {
                                     viewModel.isShowingTranslation = true
                                 }
@@ -2235,7 +2235,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                             switch item {
                             case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .noItem:
                                 break
-                            case .post(let viewModel):
+                            case .post(let viewModel, _):
                                 if viewModel.fullPost?.actionablePost?.id == actionablePost.id {
                                     viewModel.isShowingTranslation = false
                                 }

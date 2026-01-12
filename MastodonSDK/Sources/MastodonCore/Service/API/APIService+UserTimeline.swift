@@ -22,6 +22,7 @@ extension APIService {
         excludeReblogs: Bool? = nil,
         onlyMedia: Bool? = nil,
         tagged: String? = nil,
+        pinnedOnly: Bool? = nil,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Status]> {
         let domain = authenticationBox.domain
@@ -34,6 +35,7 @@ extension APIService {
             excludeReblogs: excludeReblogs,
             onlyMedia: onlyMedia,
             tagged: tagged,
+            pinned: pinnedOnly,
             limit: limit
         )
         

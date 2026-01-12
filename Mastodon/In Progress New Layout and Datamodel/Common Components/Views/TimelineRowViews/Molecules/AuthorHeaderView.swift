@@ -7,6 +7,7 @@ struct AuthorHeaderView: View {
     
     @Environment(MastodonPostViewModel.self) private var postViewModel
     let threadedContext: ThreadedConversationModel.ThreadContext?
+    let isPinned: Bool
     let getAccount: (Mastodon.Entity.Account.ID)->(MastodonAccount?)
     
     var body: some View {
@@ -18,13 +19,9 @@ struct AuthorHeaderView: View {
                     .alignmentGuide(.gutterAlign) { d in
                         return d[HorizontalAlignment.leading]
                     }
-                //                VisibilityAndTimestamp(timestamper: timestamper, referenceDate: postedDate, visibility: postViewModel.fullPost?.actionablePost?.metaData.privacyLevel ?? postViewModel.initialDisplayInfo.actionableVisibility)
-                //            }
-                //            Text("@\(authorHandle)")
-                //                .lineLimit(1)
-                //                .font(.footnote)
-                //                .foregroundStyle(.secondary)
-                //                .frame(maxWidth: .infinity, alignment: .leading)
+                if isPinned {
+                    ProfileBadge.pinned
+                }
             }
             VisibilityAndTimestampWithUserHandle(referenceDate: postedDate, visibility: postViewModel.fullPost?.actionablePost?.metaData.privacyLevel ?? postViewModel.initialDisplayInfo.actionableVisibility, handle: authorHandle)
                 .frame(maxWidth: .infinity, alignment: .leading)

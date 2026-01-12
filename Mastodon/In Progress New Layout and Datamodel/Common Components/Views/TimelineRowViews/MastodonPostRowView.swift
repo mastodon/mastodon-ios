@@ -13,6 +13,7 @@ struct MastodonPostRowView: View {
 
     let contentWidth: CGFloat
     let precalculatedHeight: CGFloat?
+    let isPinned: Bool
     let actionHandler: MastodonPostMenuActionHandler?
     let threadedContext: ThreadedConversationModel.ThreadContext?
     let filterContext: Mastodon.Entity.FilterContext?
@@ -80,7 +81,7 @@ struct MastodonPostRowView: View {
                 
                 VStack(alignment: .leading, spacing: spacingBetweenGutterAndContent) {
                     // MARK: Author info
-                    AuthorHeaderView(threadedContext: threadedContext, getAccount: { accountID in actionHandler?.account(accountID) })
+                    AuthorHeaderView(threadedContext: threadedContext, isPinned: isPinned, getAccount: { accountID in actionHandler?.account(accountID) })
                         .onTapGesture {
                             goToProfile(author)
                         }

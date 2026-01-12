@@ -238,7 +238,7 @@ extension GenericMastodonPost {
 }
 
 enum TimelineItem: Identifiable {
-    case post(MastodonPostViewModel)
+    case post(MastodonPostViewModel, isPinned: Bool)
     case notification(NotificationRowViewModel)
     case hashtag(HashtagRowViewModel)
     case account(AccountRowViewModel)
@@ -250,8 +250,8 @@ enum TimelineItem: Identifiable {
     
     var id: String {
         switch self {
-        case .post(let postViewModel):
-            return "post-\(postViewModel.initialDisplayInfo.id)"
+        case .post(let postViewModel, let isPinned):
+            return "post-\(postViewModel.initialDisplayInfo.id)\(isPinned ? "-pinned" : "")"
         case .notification(let groupedNotificationInfo):
             return "notification-\(groupedNotificationInfo.id)"
         case .hashtag(let tagViewModel):
@@ -269,7 +269,7 @@ enum TimelineItem: Identifiable {
     
     var mastodonID: String? {
         switch self {
-        case .post(let postViewModel):
+        case .post(let postViewModel, _):
             return postViewModel.initialDisplayInfo.id
         case .notification(let groupedNotificationInfo):
             return groupedNotificationInfo.id
@@ -414,11 +414,11 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         var newAccountModels = [Mastodon.Entity.Account.ID : AccountRowViewModel]()
         var newHashtagModels = [String : HashtagRowViewModel]()
         
-        func timelineItem(fromStatus status: Mastodon.Entity.Status) -> TimelineItem {
+        func timelineItem(fromStatus status: Mastodon.Entity.Status, isPinned: Bool) -> TimelineItem {
             let post = GenericMastodonPost.fromStatus(status)
-            return timelineItem(fromPost: post)
+            return timelineItem(fromPost: post, isPinned: isPinned)
         }
-        func timelineItem(fromPost post: GenericMastodonPost) -> TimelineItem {
+        func timelineItem(fromPost post: GenericMastodonPost, isPinned: Bool) -> TimelineItem {
             let initialDisplayInfo = post.initialDisplayInfo()
             let viewModel = {
                 if let existing = postViewModels[initialDisplayInfo.id] {
@@ -439,7 +439,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     }
                 }
             }()
-            return TimelineItem.post(viewModel)
+            return TimelineItem.post(viewModel, isPinned: isPinned)
         }
         func timelineItem(fromAccount accountEntity: Mastodon.Entity.Account) -> TimelineItem {
             let account = MastodonAccount.fromEntity(accountEntity)
@@ -488,7 +488,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }()
             let result = response.value
-            newBatch = result.map { timelineItem(fromStatus:$0) }
+            newBatch = result.map { timelineItem(fromStatus:$0, isPinned: false) }
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
         case .local:
@@ -502,7 +502,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     )
                 }
             }()
-            newBatch = response.value.map { timelineItem(fromStatus: $0) }
+            newBatch = response.value.map { timelineItem(fromStatus: $0, isPinned: false) }
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
         case .list(let listId):
@@ -517,7 +517,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     )
                 }
             }()
-            newBatch = response.value.map { timelineItem(fromStatus: $0) }
+            newBatch = response.value.map { timelineItem(fromStatus: $0, isPinned: false) }
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
         case .hashtag(let hashtag, let includeHeader):
@@ -531,7 +531,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     )
                 }
             }()
-            let statuses = response.value.map { timelineItem(fromStatus: $0) }
+            let statuses = response.value.map { timelineItem(fromStatus: $0, isPinned: false) }
             if includeHeader {
                 let header: TimelineItem
                 if request == .reload || request == .newer,
@@ -566,7 +566,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                         )
                     }
                 }()
-                newBatch = response.value.map { timelineItem(fromStatus: $0) }
+                newBatch = response.value.map { timelineItem(fromStatus: $0, isPinned: false) }
                 newBatchBottomLoad = bottomLoad(fromLink: response.link)
                 newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             case .hashtags:
@@ -605,7 +605,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 authenticationBox: authenticatedUser
             )
             let results = response.value
-            let statuses = results.statuses.map { timelineItem(fromStatus: $0) }
+            let statuses = results.statuses.map { timelineItem(fromStatus: $0, isPinned: false) }
             let hashtags = results.hashtags.map { timelineItem(fromHashtag: $0) }
             let accounts = results.accounts.map { timelineItem(fromAccount: $0) }
             newBatch = accounts + hashtags + statuses
@@ -613,7 +613,31 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
         case .userPosts(let userID, let queryFilter):
-            let response = try await {
+            let pinnedPosts = try await APIService.shared.userTimeline(
+                accountID: userID,
+                excludeReplies: queryFilter.excludeReplies,
+                excludeReblogs: queryFilter.excludeReblogs,
+                onlyMedia: queryFilter.onlyMedia,
+                tagged: queryFilter.selectedHashtag?.name,
+                pinnedOnly: true,
+                authenticationBox: authenticatedUser
+            ).value.filter { pinnedPost in
+                switch queryFilter.filterType {
+                case .mediaOnly:
+                    let noMedia = pinnedPost.mediaAttachments?.isEmpty ?? true
+                    return !noMedia
+                case .userPosts, .unfilterable:
+                    return true
+                }
+            }.filter { pinnedPost in
+                if let selectedHashtag = queryFilter.selectedHashtag {
+                    return pinnedPost.tags.contains { $0.name == selectedHashtag.name }
+                } else {
+                    return true
+                }
+            }.map { timelineItem(fromStatus: $0, isPinned: true) }
+            
+            let fullTimelineResponse = try await {
                 if let loadUrl {
                     return try await APIService.shared.statuses(fromUrl: loadUrl, authenticationBox: authenticatedUser)
                 } else {
@@ -627,9 +651,10 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     )
                 }
             }()
-            newBatch = response.value.map { timelineItem(fromStatus: $0) }
-            newBatchBottomLoad = bottomLoad(fromLink: response.link)
-            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
+            
+            newBatch = pinnedPosts + fullTimelineResponse.value.map { timelineItem(fromStatus: $0, isPinned: false) }
+            newBatchBottomLoad = bottomLoad(fromLink: fullTimelineResponse.link)
+            newAsyncRefreshAvailable = fullTimelineResponse.asyncRefreshAvaliable
             
         case .accountsFollowed(let userId):
             let response = try await {
@@ -673,7 +698,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             let context = response.value
             let threadModel = ThreadedConversationModel(threadContext: context, focusedPost: post)
             threadedConversationModel = threadModel
-            newBatch = threadModel.fullThread.map { timelineItem(fromStatus: $0) }
+            newBatch = threadModel.fullThread.map { timelineItem(fromStatus: $0, isPinned: false) }
             newBatchBottomLoad = .nothingMoreToLoad  // pagination is not possible, only reloading
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
@@ -692,7 +717,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 threadModel = ThreadedConversationModel(threadContext: context, focusedPost: root)
             }
             threadedConversationModel = threadModel
-            newBatch = threadModel.fullThread.map { timelineItem(fromStatus: $0) }
+            newBatch = threadModel.fullThread.map { timelineItem(fromStatus: $0, isPinned: false) }
             newBatchBottomLoad = .nothingMoreToLoad  // pagination is not possible, only reloading
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
@@ -722,7 +747,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     )
                 }
             }()
-            newBatch = response.value.map { timelineItem(fromStatus: $0) }
+            newBatch = response.value.map { timelineItem(fromStatus: $0, isPinned: false) }
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
@@ -736,7 +761,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     )
                 }
             }()
-            newBatch = response.value.map { timelineItem(fromStatus: $0) }
+            newBatch = response.value.map { timelineItem(fromStatus: $0, isPinned: false) }
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
@@ -783,7 +808,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             }()
             newBatch = response.0.map { groupedNotificationInfo in
                 if groupedNotificationInfo.groupedNotificationType.wantsFullStatusLayout, let post = groupedNotificationInfo.post {
-                    return timelineItem(fromPost: post)
+                    return timelineItem(fromPost: post, isPinned: false)
                 } else {
                     let notificationViewModel = notificationViewModels[groupedNotificationInfo.id] ?? NotificationRowViewModel(groupedNotificationInfo, myAccountDomain: authenticatedUser.domain)
                     if notificationViewModels[groupedNotificationInfo.id] != nil {
@@ -870,7 +895,7 @@ struct CacheableTimeline: CacheableFeed {
                 return true
             case .noItem:
                 return false
-            case .post(let postViewModel):
+            case .post(let postViewModel, _):
                 if let contentPost = postViewModel.fullPost as? MastodonContentPost {
                     return !contentPost.content.shouldBeRemovedFromFeed(inContext: context)
                 } else if let boost = postViewModel.fullPost as? MastodonBoostPost {
@@ -958,7 +983,7 @@ struct CacheableTimeline: CacheableFeed {
             switch item {
             case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account:
                 return true
-            case .post(let postViewModel):
+            case .post(let postViewModel, _):
                 return postViewModel.fullPost?.actionablePost?.id != postId
             case .notification:
                 // TODO: anything?
@@ -1124,7 +1149,7 @@ extension TimelineFeedLoader {
     private func fetchReplyTos(_ timeline: CacheableTimeline) async throws {
         let accountsToFetch = timeline.items.compactMap { item in
             switch item {
-            case .post(let postViewModel):
+            case .post(let postViewModel, _):
                 return (postViewModel.fullPost as? MastodonBasicPost)?.inReplyTo?.accountID
             default:
                 return nil
@@ -1147,7 +1172,7 @@ extension TimelineFeedLoader {
             switch item {
             case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account, .noItem:
                 break
-            case .post(let postViewModel):
+            case .post(let postViewModel, _):
                 if let contentPost = postViewModel.fullPost?.actionablePost, contentConcealViewModels[contentPost.id] == nil {
                     contentConcealViewModels[contentPost.id] = ContentConcealViewModel(contentPost: contentPost, context: timeline.filterContext)
                 }

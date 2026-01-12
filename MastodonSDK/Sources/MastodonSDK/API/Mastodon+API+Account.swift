@@ -151,6 +151,7 @@ extension Mastodon.API.Account {
         public let excludeReblogs: Bool?
         public let onlyMedia: Bool?
         public let tagged: String?
+        public let pinned: Bool?
         public let limit: Int?
         
         public init(
@@ -160,6 +161,7 @@ extension Mastodon.API.Account {
             excludeReblogs: Bool?,
             onlyMedia: Bool?,
             tagged: String?,
+            pinned: Bool?,
             limit: Int?
         ) {
             self.maxID = maxID
@@ -168,6 +170,7 @@ extension Mastodon.API.Account {
             self.excludeReblogs = excludeReblogs
             self.onlyMedia = onlyMedia
             self.tagged = tagged
+            self.pinned = pinned
             self.limit = limit
         }
 
@@ -180,6 +183,7 @@ extension Mastodon.API.Account {
             onlyMedia.flatMap { items.append(URLQueryItem(name: "only_media", value: $0.queryItemValue)) }
             limit.flatMap { items.append(URLQueryItem(name: "limit", value: String($0))) }
             tagged.flatMap { items.append(URLQueryItem(name: "tagged", value: $0)) }
+            pinned.flatMap { items.append(URLQueryItem(name: "pinned", value: $0.queryItemValue)) }
             guard !items.isEmpty else { return nil }
             return items
         }

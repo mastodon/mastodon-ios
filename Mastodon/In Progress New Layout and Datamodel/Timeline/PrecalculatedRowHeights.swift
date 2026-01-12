@@ -14,11 +14,11 @@ final class ViewMeasurer {
         let _ = immediatelyMeasureHeight(throwawayView, width: 300)
     }
     
-    func calculateHeightImmediately(for viewModel: MastodonPostViewModel, contentConcealModel: ContentConcealViewModel, filterContext: Mastodon.Entity.FilterContext?, threadedContext: ThreadedConversationModel.ThreadContext?, contentWidth: CGFloat, totalWidth: CGFloat) -> PrecalculatedHeight {
+    func calculateHeightImmediately(for viewModel: MastodonPostViewModel, isPinned: Bool, contentConcealModel: ContentConcealViewModel, filterContext: Mastodon.Entity.FilterContext?, threadedContext: ThreadedConversationModel.ThreadContext?, contentWidth: CGFloat, totalWidth: CGFloat) -> PrecalculatedHeight {
         
         let contentSizeCategory = UIApplication.shared.preferredContentSizeCategory // so that this offscreen view still respects the user's current settings
         
-        let view = MastodonPostRowView(contentWidth: contentWidth, precalculatedHeight: nil, actionHandler: nil, threadedContext: threadedContext, filterContext: filterContext)
+        let view = MastodonPostRowView(contentWidth: contentWidth, precalculatedHeight: nil, isPinned: isPinned, actionHandler: nil, threadedContext: threadedContext, filterContext: filterContext)
             .environment(viewModel)
             .environment(contentConcealModel)
             .environment(TimestampUpdater.timestamper(withInterval: 60))
@@ -28,11 +28,11 @@ final class ViewMeasurer {
         return PrecalculatedHeight(contentWidth: contentWidth, contentConcealed: contentConcealModel.currentMode, showingTranslation: viewModel.isShowingTranslation == true, calculatedHeight: height)
     }
     
-    func calculateHeight(for viewModel: MastodonPostViewModel, contentConcealModel: ContentConcealViewModel, filterContext: Mastodon.Entity.FilterContext?, threadedContext: ThreadedConversationModel.ThreadContext?, contentWidth: CGFloat, totalWidth: CGFloat) async -> PrecalculatedHeight {
+    func calculateHeight(for viewModel: MastodonPostViewModel, isPinned: Bool, contentConcealModel: ContentConcealViewModel, filterContext: Mastodon.Entity.FilterContext?, threadedContext: ThreadedConversationModel.ThreadContext?, contentWidth: CGFloat, totalWidth: CGFloat) async -> PrecalculatedHeight {
         
         let contentSizeCategory = UIApplication.shared.preferredContentSizeCategory // so that this offscreen view still respects the user's current settings
         
-        let view = MastodonPostRowView(contentWidth: contentWidth, precalculatedHeight: nil, actionHandler: nil, threadedContext: threadedContext, filterContext: filterContext)
+        let view = MastodonPostRowView(contentWidth: contentWidth, precalculatedHeight: nil, isPinned: isPinned, actionHandler: nil, threadedContext: threadedContext, filterContext: filterContext)
             .environment(viewModel)
             .environment(contentConcealModel)
             .environment(TimestampUpdater.timestamper(withInterval: 60))
