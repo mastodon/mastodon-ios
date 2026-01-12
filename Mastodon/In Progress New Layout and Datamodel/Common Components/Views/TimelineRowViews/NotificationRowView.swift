@@ -793,7 +793,7 @@ extension Mastodon.Entity.Status {
         public let createdAt: Date
         public let visibility: Mastodon.Entity.Status.Visibility?
         public let isReplyToMe: Bool
-        public let isPinned: Bool
+        public let isPinnedByMe: Bool
         public let accountDisplayName: String?
         public let accountFullName: String?
         public let accountAvatarUrl: URL?
@@ -838,7 +838,7 @@ extension Mastodon.Entity.Status {
             createdAt: createdAt,
             visibility: visibility,
             isReplyToMe: inReplyToAccountID == myAccountID,
-            isPinned: false,
+            isPinnedByMe: false,
             accountDisplayName: account.displayName,
             accountFullName: accountFullName,
             accountAvatarUrl: account.avatarImageURL(),

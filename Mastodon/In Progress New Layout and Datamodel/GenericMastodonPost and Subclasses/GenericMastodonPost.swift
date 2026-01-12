@@ -29,7 +29,7 @@ extension GenericMastodonPost {
         var boosted: Bool
         var muted: Bool
         var bookmarked: Bool
-        var pinned: Bool?
+        var pinnedByMe: Bool?
     }
 }
 
@@ -113,7 +113,7 @@ extension GenericMastodonPost.PostActions: FromStatusEntityDerivable {
         return Self(
             favorited: status.favourited ?? false,
             boosted: status.reblogged ?? false, muted: status.muted ?? false,
-            bookmarked: status.bookmarked ?? false, pinned: status.pinned)
+            bookmarked: status.bookmarked ?? false, pinnedByMe: status.pinned)
     }
 }
 
