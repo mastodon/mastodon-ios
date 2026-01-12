@@ -149,6 +149,8 @@ extension BodegaPersistence {
             switch item {
             case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account, .noItem:
                 break
+            case .pinnedPosts:
+                break  // this only occurs in user timelines for the profile views, and those are not cached
             case .post(let viewModel, _):
                 if let fullPost = await viewModel.fullPost {
                     posts.append((CacheKey(verbatim: fullPost.id), fullPost._legacyEntity))
@@ -167,6 +169,8 @@ extension BodegaPersistence {
             switch item {
             case .post(let viewModel, _):
                 return .cachedPost(viewModel.initialDisplayInfo)
+            case .pinnedPosts:
+                return nil // this only occurs in user timelines for the profile views, and those are not cached
             case .loadingIndicator, .filteredNotificationsInfo, .account, .hashtag, .noItem:
                 return nil
             case .notification:

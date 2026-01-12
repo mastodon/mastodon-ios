@@ -238,6 +238,7 @@ extension GenericMastodonPost {
 }
 
 enum TimelineItem: Identifiable {
+    case pinnedPosts([TimelineItem])
     case post(MastodonPostViewModel, isPinned: Bool)
     case notification(NotificationRowViewModel)
     case hashtag(HashtagRowViewModel)
@@ -250,6 +251,8 @@ enum TimelineItem: Identifiable {
     
     var id: String {
         switch self {
+        case .pinnedPosts:
+            return "pinnedPosts"
         case .post(let postViewModel, let isPinned):
             return "post-\(postViewModel.initialDisplayInfo.id)\(isPinned ? "-pinned" : "")"
         case .notification(let groupedNotificationInfo):
@@ -269,6 +272,8 @@ enum TimelineItem: Identifiable {
     
     var mastodonID: String? {
         switch self {
+        case .pinnedPosts:
+            return nil
         case .post(let postViewModel, _):
             return postViewModel.initialDisplayInfo.id
         case .notification(let groupedNotificationInfo):
@@ -288,10 +293,24 @@ enum TimelineItem: Identifiable {
     
     var isRealItem: Bool {
         switch self {
-        case .post, .notification, .hashtag, .account:
+        case .pinnedPosts, .post, .notification, .hashtag, .account:
             return true
         case .filteredNotificationsInfo, .loadingIndicator, .noItem:
             return false
+        }
+    }
+    
+    var postViewModels: [MastodonPostViewModel] {
+        switch self {
+        case .pinnedPosts(let items):
+            return items.flatMap {
+                $0.postViewModels
+            }
+        case .post(let postViewModel, _):
+            return [postViewModel]
+        default:
+            assertionFailure()
+            return []
         }
     }
 }
@@ -372,7 +391,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                         switch item {
                         case .account(let accountModel):
                             accountModel.incorporateUpdate(update)
-                        case .post:
+                        case .post, .pinnedPosts:
                             break // this update is handled by the CentralPostViewModelCache
                         case .notification(let notificationModel):
                             notificationModel.incorporateUpdate(update)
@@ -653,7 +672,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }()
             
-            newBatch = pinnedPosts + fullTimelineResponse.value.map { timelineItem(fromStatus: $0, isPinned: false) }
+            newBatch = (pinnedPosts.isEmpty ? [] : [TimelineItem.pinnedPosts(pinnedPosts)]) + fullTimelineResponse.value.map { timelineItem(fromStatus: $0, isPinned: false) }
             newBatchBottomLoad = bottomLoad(fromLink: fullTimelineResponse.link)
             newAsyncRefreshAvailable = fullTimelineResponse.asyncRefreshAvaliable
             
@@ -890,12 +909,8 @@ struct CacheableTimeline: CacheableFeed {
     
     @MainActor
     func filteredItems(inContext context: Mastodon.Entity.FilterContext?) -> [TimelineItem] {
-        return items.filter { item in
-            switch item {
-            case .loadingIndicator, .filteredNotificationsInfo:
-                return true
-            case .noItem:
-                return false
+        func includePostItem(_ postItem: TimelineItem) -> Bool {
+            switch postItem {
             case .post(let postViewModel, _):
                 if let contentPost = postViewModel.fullPost as? MastodonContentPost {
                     return !contentPost.content.shouldBeRemovedFromFeed(inContext: context)
@@ -906,11 +921,29 @@ struct CacheableTimeline: CacheableFeed {
                 } else {
                     return true
                 }
-            case .notification(let groupedInfo):
-                // TODO: filter based on contained statuses
-                return true
+            default:
+                return false
+            }
+        }
+        return items.compactMap { item -> TimelineItem? in
+            switch item {
+            case .loadingIndicator, .filteredNotificationsInfo:
+                return item
+            case .noItem:
+                return nil
+            case .post:
+                return includePostItem(item) ? item : nil
+            case .pinnedPosts(let postItems):
+                let filteredItems = postItems.filter { includePostItem($0) }
+                if filteredItems.isEmpty {
+                    return nil
+                } else {
+                    return .pinnedPosts(filteredItems)
+                }
+            case .notification:
+                return item
             case .hashtag, .account:
-                return true
+                return item
             }
         }
     }
@@ -928,7 +961,7 @@ struct CacheableTimeline: CacheableFeed {
             let oldestIdInNewBatch = newer.last(where: { item in
                 switch item {
                 case .loadingIndicator, .filteredNotificationsInfo, .noItem: return false
-                case .post: return true
+                case .post, .pinnedPosts: return true
                 case .notification: return true
                 case .hashtag: return true
                 case .account: return true
@@ -939,6 +972,8 @@ struct CacheableTimeline: CacheableFeed {
                 let overlapIndex = older.firstIndex(where: { item in
                     switch item {
                     case .post:
+                        return item.id == oldestIdInNewBatch
+                    case .pinnedPosts:
                         return item.id == oldestIdInNewBatch
                     case .notification:
                         return item.id == oldestIdInNewBatch
@@ -980,17 +1015,34 @@ struct CacheableTimeline: CacheableFeed {
   
     @MainActor
     func byDeleting(postId: Mastodon.Entity.Status.ID) -> CacheableTimeline {
-        let newItems = items.filter { item in
+        let newItems = items.compactMap { item -> TimelineItem? in
             switch item {
             case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account:
-                return true
+                return item
             case .post(let postViewModel, _):
-                return postViewModel.fullPost?.actionablePost?.id != postId
+                if postViewModel.fullPost?.actionablePost?.id != postId {
+                    return item
+                } else {
+                    return nil
+                }
+            case .pinnedPosts(let postItems):
+                let undeletedModels = postItems.filter {
+                    switch $0 {
+                    case .post(let postViewModel, _):
+                        return postViewModel.fullPost?.actionablePost?.id != postId
+                    default:
+                        return false
+                    }
+                }
+                if undeletedModels.isEmpty {
+                    return nil
+                } else {
+                    return .pinnedPosts(undeletedModels)
+                }
             case .notification:
-                // TODO: anything?
-                return true
+                return item
             case .noItem:
-                return false
+                return nil
             }
         }
         
@@ -1169,13 +1221,26 @@ extension TimelineFeedLoader {
 // MARK: Filters and Content Warnings
 extension TimelineFeedLoader {
     private func createContentConcealViewModels(_ cache: CacheableTimeline) {
+        func create(forPostItem postItem: TimelineItem) {
+            switch postItem {
+            case .post(let postViewModel, _):
+                if let contentPost = postViewModel.fullPost?.actionablePost, contentConcealViewModels[contentPost.id] == nil {
+                    contentConcealViewModels[contentPost.id] = ContentConcealViewModel(contentPost: contentPost, context: timeline.filterContext)
+                }
+            default:
+                assertionFailure()
+                break
+            }
+        }
         for item in cache.items {
             switch item {
             case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account, .noItem:
                 break
-            case .post(let postViewModel, _):
-                if let contentPost = postViewModel.fullPost?.actionablePost, contentConcealViewModels[contentPost.id] == nil {
-                    contentConcealViewModels[contentPost.id] = ContentConcealViewModel(contentPost: contentPost, context: timeline.filterContext)
+            case .post:
+                create(forPostItem: item)
+            case .pinnedPosts(let postItems):
+                for item in postItems {
+                    create(forPostItem: item)
                 }
             case .notification:
                 // TODO: create conceal models for summarized statuses?

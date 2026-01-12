@@ -646,6 +646,8 @@ enum MastodonTimelineSheet {
     
     var isPresentingActivityFilter: Bool = false
     
+    var pinnedPostsAreCollapsed: Bool = true
+    
     var isPerformingPostAction: (action: MastodonPostMenuAction, post: MastodonContentPost)? = nil
     var isPerformingAccountAction: (action: MastodonPostMenuAction, account: MastodonAccount)? = nil
     
@@ -848,6 +850,9 @@ enum MastodonTimelineSheet {
                     currentDisplaySlice = [newScrollAnchor] + belowAnchor
                     self.requestCalculateHeightsAndPrependToCurrentDisplay(aboveSplit)
                 }
+            case .pinnedPosts:
+                // this should always be the very first item in the list, so we don't need to worry about calculating heights above
+                fallthrough
             case .notification, .hashtag, .account, .filteredNotificationsInfo, .loadingIndicator, .noItem:
                 currentDisplaySlice = prefix + newSlice + suffix
                 self.resetToUntrackedAfterDelay(from: loadingState)
@@ -956,6 +961,16 @@ enum MastodonTimelineSheet {
                         return nil
                     case .account:
                         return item
+                    case .pinnedPosts:
+                        let someModelNeedsPrep = {
+                            for model in item.postViewModels {
+                                if model.displayPrepStatus == .unprepared {
+                                    return true
+                                }
+                            }
+                            return false
+                        }()
+                        return someModelNeedsPrep ? item : nil
                     case .post(let postViewModel, _):
                         return postViewModel.displayPrepStatus == .unprepared ? item : nil
                     case .notification(let notificationViewModel):
@@ -1356,6 +1371,8 @@ extension TimelineListViewModel {
             switch item {
             case .post:
                 return item.id
+            case .pinnedPosts:
+                return item.id
             case .notification:
                 return item.id
             case .hashtag:
@@ -1383,6 +1400,15 @@ extension TimelineListViewModel {
         
         for item in batch {
             switch item {
+            case .pinnedPosts:
+                for postModel in item.postViewModels {
+                    if postModel.displayPrepStatus == .unprepared {
+                        needsPrep.append(postModel)
+                    }
+                    if let fullQuotedPostViewModel = postModel.fullQuotedPostViewModel {
+                        needsPrep.append(fullQuotedPostViewModel)
+                    }
+                }
             case .post(let postModel, _):
                 if postModel.displayPrepStatus == .unprepared {
                     needsPrep.append(postModel)
@@ -1451,7 +1477,7 @@ extension TimelineListViewModel {
                         }
                         accountViewModel.prepareForDisplay(withRelationship: relationship)
                     }
-                case .post:
+                case .post, .pinnedPosts:
                     // handled above
                     break
                 case .hashtag:
@@ -1815,82 +1841,12 @@ struct TimelineListView: View {
                 }
                 Divider()
                 
-            case .post(let postViewModel, let isPinned):
-#if DEBUG && false
-                Text(postViewModel.initialDisplayInfo.id)
-                    .foregroundStyle(.red)
-                    .fontWeight(.bold)
-                if let actionablePostID = postViewModel.fullPost?.actionablePost?.id, actionablePostID != postViewModel.initialDisplayInfo.id {
-                    Text("actionable: \(actionablePostID)")
-                        .foregroundStyle(.red)
-                        .font(.footnote)
-                }
-#endif
+            case .pinnedPosts:
+                pinnedPostsView(item.postViewModels, contentWidth: contentWidth, useableWidth: useableWidth, isScrollAnchor: viewModel.scrollAnchorItem == item)
                 
-                let contentConcealModel = viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID)
-                let expectedHeight: CGFloat? = postViewModel.initialDisplayInfo.id == viewModel.threadedConversationModel?.focusedID ? nil :  precalculatedHeight(fromCalculations: postViewModel.precalculatedHeights, contentWidth: contentWidth, contentConcealMode: contentConcealModel.currentMode, isShowingTranslation: postViewModel.isShowingTranslation == true)
-                MastodonPostRowView(contentWidth: contentWidth, precalculatedHeight: expectedHeight, isPinned: isPinned, actionHandler: viewModel, threadedContext: viewModel.threadedConversationModel?.context(for: postViewModel.initialDisplayInfo.id), filterContext: viewModel.timeline.filterContext)
-                .environment(postViewModel)
-                .environment(contentConcealModel)
-                .padding(EdgeInsets(top: 0, leading: standardPadding, bottom: 0, trailing: doublePadding))
-                .frame(width: useableWidth, height: expectedHeight, alignment: .top)
-#if DEBUG
-                .background {
-                    ZStack(alignment: .topTrailing) {
-                        HStack {
-                            Spacer()
-                                .frame(width: AvatarSize.large + spacingBetweenGutterAndContent)
-                            Rectangle()
-                                .fill(viewModel.scrollAnchorItem == item ? .yellow.opacity(0.2) : .clear)
-                                .frame(width: spacingBetweenGutterAndContent)
-                            Spacer()
-                                .frame(maxWidth: .infinity)
-                        }
-
-                        if let expectedHeight {
-                            let difference: CGFloat? = {
-                                guard let actual = postViewModel.actualLayoutHeight else { return nil }
-                                return actual - expectedHeight
-                            }()
-                            Text("calculated: \(expectedHeight)\nactual: \(String(describing: postViewModel.actualLayoutHeight))\ndifference: \(String(describing: difference))")
-                                .foregroundStyle(.red)
-                                .padding()
-                                .background {
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .fill(.white.opacity(0.3))
-                                }
-                            FrameReader() { newFrame in
-                                postViewModel.actualLayoutHeight = newFrame.size.height
-                            }
-                        }
-                    }
-                }
-#endif
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    switch viewModel.timeline {
-                    case .thread(let root):
-                        guard root.id != postViewModel.initialDisplayInfo.id else { return }
-                    case .remoteThread(remoteType: .status(let id)):
-                        guard id != postViewModel.initialDisplayInfo.id else { return }
-                    default:
-                        break
-                    }
-                    postViewModel.openThreadView(actionHandler: viewModel)
-                }
-                .background() {
-                    switch viewModel.timeline {
-                    case .notifications:
-                        switch postViewModel.initialDisplayInfo.actionableVisibility {
-                        case .mentionedOnly:
-                            backgroundView(isPrivate: true, isUnread: false) // TODO: implement unread for notifications
-                        default:
-                            EmptyView()
-                        }
-                    default:
-                        EmptyView()
-                    }
-                }
+            case .post(let postViewModel, let isPinned):
+                singlePostView(postViewModel, contentWidth: contentWidth, useableWidth: useableWidth, isPinned: isPinned, isScrollAnchor: viewModel.scrollAnchorItem == item)
+                
             case .notification(let notificationViewModel):
                 NotificationRowView(contentWidth: contentWidth, actionHandler: viewModel)
                     .environment(notificationViewModel)
@@ -1959,6 +1915,116 @@ struct TimelineListView: View {
                     .frame(width: 200, height: spacerHeightHackToMakeScrollingWorkUntilWeReplaceProfileViewController)  // TODO: remove when replacing ProfileViewController
             default:
                 EmptyView()
+            }
+        }
+    }
+    
+    @ViewBuilder func singlePostView(_ postViewModel: MastodonPostViewModel, contentWidth: CGFloat, useableWidth: CGFloat, isPinned: Bool, isScrollAnchor: Bool) -> some View {
+#if DEBUG && false
+        Text(postViewModel.initialDisplayInfo.id)
+            .foregroundStyle(.red)
+            .fontWeight(.bold)
+        if let actionablePostID = postViewModel.fullPost?.actionablePost?.id, actionablePostID != postViewModel.initialDisplayInfo.id {
+            Text("actionable: \(actionablePostID)")
+                .foregroundStyle(.red)
+                .font(.footnote)
+        }
+#endif
+        
+        let contentConcealModel = viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID)
+        let expectedHeight: CGFloat? = postViewModel.initialDisplayInfo.id == viewModel.threadedConversationModel?.focusedID ? nil :  precalculatedHeight(fromCalculations: postViewModel.precalculatedHeights, contentWidth: contentWidth, contentConcealMode: contentConcealModel.currentMode, isShowingTranslation: postViewModel.isShowingTranslation == true)
+        MastodonPostRowView(contentWidth: contentWidth, precalculatedHeight: expectedHeight, isPinned: isPinned, actionHandler: viewModel, threadedContext: viewModel.threadedConversationModel?.context(for: postViewModel.initialDisplayInfo.id), filterContext: viewModel.timeline.filterContext)
+            .environment(postViewModel)
+            .environment(contentConcealModel)
+            .padding(EdgeInsets(top: 0, leading: standardPadding, bottom: 0, trailing: doublePadding))
+            .frame(width: useableWidth, height: expectedHeight, alignment: .top)
+#if DEBUG
+            .background {
+                ZStack(alignment: .topTrailing) {
+                    HStack {
+                        Spacer()
+                            .frame(width: AvatarSize.large + spacingBetweenGutterAndContent)
+                        Rectangle()
+                            .fill(isScrollAnchor ? .yellow.opacity(0.2) : .clear)
+                            .frame(width: spacingBetweenGutterAndContent)
+                        Spacer()
+                            .frame(maxWidth: .infinity)
+                    }
+                    
+                    if let expectedHeight {
+                        let difference: CGFloat? = {
+                            guard let actual = postViewModel.actualLayoutHeight else { return nil }
+                            return actual - expectedHeight
+                        }()
+                        Text("calculated: \(expectedHeight)\nactual: \(String(describing: postViewModel.actualLayoutHeight))\ndifference: \(String(describing: difference))")
+                            .foregroundStyle(.red)
+                            .padding()
+                            .background {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(.white.opacity(0.3))
+                            }
+                        FrameReader() { newFrame in
+                            postViewModel.actualLayoutHeight = newFrame.size.height
+                        }
+                    }
+                }
+            }
+#endif
+            .contentShape(Rectangle())
+            .onTapGesture {
+                switch viewModel.timeline {
+                case .thread(let root):
+                    guard root.id != postViewModel.initialDisplayInfo.id else { return }
+                case .remoteThread(remoteType: .status(let id)):
+                    guard id != postViewModel.initialDisplayInfo.id else { return }
+                default:
+                    break
+                }
+                postViewModel.openThreadView(actionHandler: viewModel)
+            }
+            .background() {
+                switch viewModel.timeline {
+                case .notifications:
+                    switch postViewModel.initialDisplayInfo.actionableVisibility {
+                    case .mentionedOnly:
+                        backgroundView(isPrivate: true, isUnread: false) // TODO: implement unread for notifications
+                    default:
+                        EmptyView()
+                    }
+                default:
+                    EmptyView()
+                }
+            }
+    }
+    
+    @ViewBuilder func pinnedPostsView(_ postViewModels: [MastodonPostViewModel], contentWidth: CGFloat, useableWidth: CGFloat, isScrollAnchor: Bool) -> some View {
+        VStack(alignment: .trailing, spacing: 0) {
+            if viewModel.pinnedPostsAreCollapsed, let firstPostModel = postViewModels.first {
+                singlePostView(firstPostModel, contentWidth: contentWidth, useableWidth: useableWidth, isPinned: true, isScrollAnchor: false)
+                
+                if postViewModels.count > 1 {
+                    Button() {
+                        viewModel.pinnedPostsAreCollapsed = false
+                    } label: {
+                        HStack {
+                            Image(systemName: "pin")
+                            Text("View all pinned posts")
+                        }
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .padding(.vertical, tinySpacing)
+                        .padding(.horizontal)
+                        .frame(width: useableWidth - standardPadding - standardPadding)
+                        .background() {
+                            MastodonSecondaryBackground(fillInDarkModeOnly: true)
+                        }
+                    }
+                    .padding(.horizontal, standardPadding)
+                }
+            } else {
+                ForEach(postViewModels, id: \.self.initialDisplayInfo.id) { postModel in
+                    singlePostView(postModel, contentWidth: contentWidth, useableWidth: useableWidth, isPinned: true, isScrollAnchor: false)
+                }
             }
         }
     }
@@ -2220,6 +2286,12 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                             switch item {
                             case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .noItem:
                                 break
+                            case .pinnedPosts:
+                                for viewModel in item.postViewModels {
+                                    if viewModel.fullPost?.actionablePost?.id == actionablePost.id {
+                                        viewModel.isShowingTranslation = true
+                                    }
+                                }
                             case .post(let viewModel, _):
                                 if viewModel.fullPost?.actionablePost?.id == actionablePost.id {
                                     viewModel.isShowingTranslation = true
@@ -2235,6 +2307,12 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                             switch item {
                             case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .noItem:
                                 break
+                            case .pinnedPosts:
+                                for viewModel in item.postViewModels {
+                                    if viewModel.fullPost?.actionablePost?.id == actionablePost.id {
+                                        viewModel.isShowingTranslation = false
+                                    }
+                                }
                             case .post(let viewModel, _):
                                 if viewModel.fullPost?.actionablePost?.id == actionablePost.id {
                                     viewModel.isShowingTranslation = false
