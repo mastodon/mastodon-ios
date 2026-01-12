@@ -28,6 +28,13 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
         viewModel.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts)), asyncRefreshViewModel: AsyncRefreshViewModel())
         viewModel.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.mediaOnly)), asyncRefreshViewModel: AsyncRefreshViewModel())
         relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: account.locked)
+        
+        for timelineModel in [viewModel.postsViewModel, viewModel.mediaViewModel] {
+            timelineModel?.parentVcPresentScene = { (scene, transition) in
+                self.sceneCoordinator?.present(scene: scene, from: self, transition: transition)
+            }
+        }
+        
         Task {
             let handle = account.handle
             let handleComponents = handle.split(separator: "@").map { String($0) }
