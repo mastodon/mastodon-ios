@@ -316,7 +316,8 @@ extension TimelineListViewController {
                 ).singleOutput().value) ?? []
                 
                 var listEntries = lists.sorted(by: { first, second in
-                    return first.title < second.title
+                    let comparisonResult = emojiFirstComparator(first.title, second.title)
+                    return comparisonResult != .orderedDescending
                 }).map { entry in
                     return LabeledAction(title: entry.title, image: nil, handler: { [weak self] in
                         guard let self else { return }
