@@ -2008,7 +2008,7 @@ struct TimelineListView: View {
                     } label: {
                         HStack {
                             Image(systemName: "pin")
-                            Text("View all pinned posts")
+                            Text(L10nLookup.Scene.Profile.viewAllPinnedPosts(pinnedPostCount: postViewModels.count))
                         }
                         .font(.subheadline)
                         .fontWeight(.semibold)

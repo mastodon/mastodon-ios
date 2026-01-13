@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RegexBuilder
 
 /// This bridge seems to be necessary for now because our localizations are contained within a Swift package. Also, nesting inside meaningful structs is helpful for organization and the automatic symbol generation is limited in that regard.
 ///
@@ -138,6 +139,80 @@ public struct L10nLookup {
                 }()
                 public static let showRepliesToggleLabel: String = {
                     let result = tr("Localizable", "Scene.Profile.ActivityFilter.showRepliesToggleLabel")
+                    return result
+                }()
+            }
+            
+            public struct HandleExplainerView {
+                public static let title: String = {
+                    let result = tr("Localizable", "Scene.Profile.HandleExplainerView.Title")
+                    return result
+                }()
+                public static let exampleServerLabel: String = {
+                    let result = tr("Localizable", "Scene.Profile.HandleExplainerView.ExampleServerLabel")
+                    return result
+                }()
+                public static let exampleTitle: String = {
+                    let result = tr("Localizable", "Scene.Profile.HandleExplainerView.ExampleTitle")
+                    return result
+                }()
+                public static let exampleUsernameLabel: String = {
+                    let result = tr("Localizable", "Scene.Profile.HandleExplainerView.ExampleUsernameLabel")
+                    return result
+                }()
+                public static let federationExplainerText: AttributedString = {
+                    // We have to use an AttributedString and insert the link ourselves because localization, modules, and markdown in SwiftUI do not work together at all
+                    var localized = tr("Localizable", "Scene.Profile.HandleExplainerView.FederationExplainerText")
+                    let bracketRegex = try! Regex("\\[.*?\\]")
+                    if let linkRange = localized.matches(of: bracketRegex).first?.range {
+                        let linkTextStripped = localized[linkRange].trimmingCharacters(in: CharacterSet(charactersIn: "[]"))
+                        localized.replaceSubrange(linkRange, with: linkTextStripped)
+                        var attrString = AttributedString(localized)
+                        if let linkRange = attrString.range(of: linkTextStripped) {
+                            attrString[linkRange].link = URL(string: "https://docs.joinmastodon.org/#fediverse")
+                            return attrString
+                        }
+                    }
+                    return AttributedString(localized)
+                }()
+                public static func serverDetailIsMyServer(serverName: String) -> String {
+                    let result = tr("Localizable", "Scene.Profile.HandleExplainerView.ServerDetailIsMyServer", serverName)
+                    return result
+                }
+                public static func serverDetailWithExample(serverName: String) -> String {
+                    let result = tr("Localizable", "Scene.Profile.HandleExplainerView.ServerDetailWithExample", serverName)
+                    return result
+                }
+                public static let serverDetailWithoutExample: String = {
+                    let result = tr("Localizable", "Scene.Profile.HandleExplainerView.ServerDetailWithoutExample")
+                    return result
+                }()
+                public static func usernameDetailWithExample(username: String) -> String {
+                    let result = tr("Localizable", "Scene.Profile.HandleExplainerView.UsernameDetailWithExample", username)
+                    return result
+                }
+                public static let usernameDetailWithoutExample: String = {
+                    let result = tr("Localizable", "Scene.Profile.HandleExplainerView.UsernameDetailWithoutExample")
+                    return result
+                }()
+            }
+            
+            public static func viewAllPinnedPosts(pinnedPostCount: Int) -> String {
+                let result = tr("Localizable", "Scene.Profile.HandleExplainerView.ViewAllPinnedPosts", pinnedPostCount)
+                return result
+            }
+            
+            public struct Badge {
+                public static let admin: String = {
+                    let result = tr("Localizable", "Scene.Profile.Badge.Admin")
+                    return result
+                }()
+                public static let moderator: String = {
+                    let result = tr("Localizable", "Scene.Profile.Badge.Moderator")
+                    return result
+                }()
+                public static let pinned: String = {
+                    let result = tr("Localizable", "Scene.Profile.Badge.Pinned")
                     return result
                 }()
             }

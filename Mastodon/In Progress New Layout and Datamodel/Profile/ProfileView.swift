@@ -335,13 +335,13 @@ struct HandleInfoPopover: View {
                         Circle()
                             .fill(Asset.Colors.accent.swiftUIColor)
                     }
-                Text("What's in a handle?")
+                Text(L10nLookup.Scene.Profile.HandleExplainerView.title)
             }
             .font(.title)
             
             if let handleDetails = viewModel.handleDetails {
                 VStack(alignment: .leading, spacing: 0) {
-                    Text("Their handle:")
+                    Text(L10nLookup.Scene.Profile.HandleExplainerView.exampleTitle)
                         .font(.subheadline)
                         .fontWeight(.semibold)
                     Spacer()
@@ -353,7 +353,7 @@ struct HandleInfoPopover: View {
                             HStack(alignment: .bottom) {
                                 Image(systemName: "arrow.turn.left.down")
                                     .font(.caption2)
-                                Text("Username")
+                                Text(L10nLookup.Scene.Profile.HandleExplainerView.exampleUsernameLabel)
                                     .font(.callout)
                             }
                             HStack(alignment: .top) {
@@ -365,7 +365,7 @@ struct HandleInfoPopover: View {
                                         .fontWeight(.semibold)
                                         .foregroundColor(.primary)
                                     HStack(alignment: .top) {
-                                        Text("Server")
+                                        Text(L10nLookup.Scene.Profile.HandleExplainerView.exampleServerLabel)
                                             .font(.callout)
                                         Image(systemName: "arrow.turn.right.up")
                                             .font(.caption2)
@@ -390,7 +390,7 @@ struct HandleInfoPopover: View {
                 explainerRow(.server(viewModel.handleDetails?.domain, isMyServer: viewModel.handleDetails?.isMyDomain ?? false))
             }
             
-            Text("Since handles say who someone is and where they are, you can interact with people across the social web of [Activity-Pub-powered platforms](https://docs.joinmastodon.org/#fediverse).")
+            Text(L10nLookup.Scene.Profile.HandleExplainerView.federationExplainerText)
                 .tint(Asset.Colors.accent.swiftUIColor)
         }
         .padding(doublePadding)
@@ -412,9 +412,9 @@ struct HandleInfoPopover: View {
         var titleText: String {
             switch self {
             case .username:
-                "Username"
+                L10nLookup.Scene.Profile.HandleExplainerView.exampleUsernameLabel
             case .server:
-                "Server"
+                L10nLookup.Scene.Profile.HandleExplainerView.exampleServerLabel
             }
         }
         
@@ -422,15 +422,15 @@ struct HandleInfoPopover: View {
             switch self {
             case .username(let username):
                 if let username {
-                    return "@\(username) is their unique identifier on their server. On another server, this username may belong to a different person."
+                    return L10nLookup.Scene.Profile.HandleExplainerView.usernameDetailWithExample(username: "@"+username)
                 } else {
-                    return "their unique identifier on their server. On another server, this username may belong to a different person."
+                    return L10nLookup.Scene.Profile.HandleExplainerView.usernameDetailWithoutExample
                 }
             case .server(let serverName, let isMyServer):
                 if let serverName {
-                    return "\(serverName) is their digital home, where all of their posts live.\(isMyServer ? " Your account happens to be on \(serverName), too." : "")"
+                    return L10nLookup.Scene.Profile.HandleExplainerView.serverDetailWithExample(serverName: serverName) + (isMyServer ? " " + L10nLookup.Scene.Profile.HandleExplainerView.serverDetailIsMyServer(serverName: serverName) : "")
                 } else {
-                    return "Their digital home, where all of their posts live."
+                    return L10nLookup.Scene.Profile.HandleExplainerView.serverDetailWithoutExample
                 }
             }
         }
@@ -781,11 +781,11 @@ extension ProfileBadge: View {
     var text: String {
         switch self {
         case .admin:
-            "Admin"
+            L10nLookup.Scene.Profile.Badge.admin
         case .moderator:
-            "Moderator"
+            L10nLookup.Scene.Profile.Badge.moderator
         case .pinned:
-            "Pinned"
+            L10nLookup.Scene.Profile.Badge.pinned
         }
     }
     
