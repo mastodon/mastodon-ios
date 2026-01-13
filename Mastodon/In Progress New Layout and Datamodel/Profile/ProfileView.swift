@@ -6,14 +6,14 @@ import SDWebImageSwiftUI
 import SwiftUI
 import MastodonCore
 import MastodonSDK
+import Combine
 
 class ProfileHostingViewController: UIHostingController<AnyView> {
     let viewModel = ProfileViewModel()
-    let relationshipViewModel = RelationshipViewModel()
     let nestedScrollViewModel = NestedScrollInteractionViewModel()
     
     init(wrapInNavigationController: Bool) {
-        let root = ProfileView(wrapInNavigationController: wrapInNavigationController).environment(viewModel).environment(relationshipViewModel).environment(nestedScrollViewModel)
+        let root = ProfileView(wrapInNavigationController: wrapInNavigationController).environment(viewModel).environment(viewModel.relationshipViewModel).environment(nestedScrollViewModel)
         super.init(rootView: AnyView(root))
         title = nil
     }
@@ -27,13 +27,15 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
         viewModel.relationship = relationship
         viewModel.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts)), asyncRefreshViewModel: AsyncRefreshViewModel())
         viewModel.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.mediaOnly)), asyncRefreshViewModel: AsyncRefreshViewModel())
-        relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: account.locked)
+        viewModel.relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: account.locked)
         
         for timelineModel in [viewModel.postsViewModel, viewModel.mediaViewModel] {
             timelineModel?.parentVcPresentScene = { (scene, transition) in
                 self.sceneCoordinator?.present(scene: scene, from: self, transition: transition)
             }
         }
+        
+        viewModel.relationshipViewModel.actionHandler = viewModel.postsViewModel
         
         Task {
             let handle = account.handle
@@ -654,7 +656,10 @@ enum ProfilePage: CaseIterable, Hashable {
     }
 }
 
+@MainActor
 @Observable class ProfileViewModel {
+    let relationshipViewModel = RelationshipViewModel()
+    
     struct HandleDetails {
         let username: String
         let domain: String
@@ -694,6 +699,16 @@ enum ProfilePage: CaseIterable, Hashable {
             let reply = UIBarButtonItem(image: .init(systemName: "arrow.turn.up.left"), style: .plain, target: self, action: nil)
             return [menu, reply]
         }
+    }
+    
+    private var updateSubscription: AnyCancellable?
+    init() {
+        self.updateSubscription = FeedCoordinator.shared.$mostRecentUpdate
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] update in
+                guard let self, let update else { return }
+                self.incorporateUpdate(update)
+            }
     }
     
     @ToolbarContentBuilder func toolbar(relationship: MastodonAccount.Relationship) -> some ToolbarContent {
@@ -748,6 +763,17 @@ enum ProfilePage: CaseIterable, Hashable {
                     Image(systemName: "ellipsis.circle")
                 }
             }
+        }
+    }
+}
+
+extension ProfileViewModel: FeedCoordinatorUpdatable {
+    func incorporateUpdate(_ update: UpdatedElement) {
+        switch update {
+        case .relationship(let updatedRelationship):
+            relationshipViewModel.prepareForDisplay(relationship: updatedRelationship, theirAccountIsLocked: account?.locked ?? false)
+        default:
+            break
         }
     }
 }

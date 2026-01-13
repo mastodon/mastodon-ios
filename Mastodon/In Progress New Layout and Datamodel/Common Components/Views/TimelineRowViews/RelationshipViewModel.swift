@@ -22,19 +22,26 @@ import SwiftUI
         _ action: RelationshipButtonType.RelationshipAction,
         account: MastodonAccount
     ) async throws {
-        switch action {
-        case .follow:
-            try await actionHandler?.doAction(.follow, forAccount: account)
-        case .unfollow:
-            try await actionHandler?.doAction(.unfollow, forAccount: account)
-        case .unmute:
-            try await actionHandler?.doAction(.unmute, forAccount: account)
-        case .unblock:
-            try await actionHandler?.doAction(.unblockUser, forAccount: account)
-        case .noAction:
-            throw AppError.unexpected(
-                "action attempted for relationship element that has no action"
-            )
+        let currentState = button
+        do {
+            button = .updating
+            switch action {
+            case .follow:
+                try await actionHandler?.doAction(.follow, forAccount: account)
+            case .unfollow:
+                try await actionHandler?.doAction(.unfollow, forAccount: account)
+            case .unmute:
+                try await actionHandler?.doAction(.unmute, forAccount: account)
+            case .unblock:
+                try await actionHandler?.doAction(.unblockUser, forAccount: account)
+            case .noAction:
+                throw AppError.unexpected(
+                    "action attempted for relationship element that has no action"
+                )
+            }
+        } catch {
+            button = currentState
+            throw error
         }
     }
 }
