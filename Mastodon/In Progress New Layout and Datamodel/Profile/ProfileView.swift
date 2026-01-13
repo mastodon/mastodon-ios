@@ -260,6 +260,7 @@ struct ProfileInfoView: View {
                 
                 HStack {
                     MastodonContentView.header(html: viewModel.account?.displayInfo.displayName ?? "No Name", emojis: viewModel.account?.displayInfo.emojis ?? [], style: .profileDisplayName)
+                    #if false
                     if let roles = viewModel.account?._legacyEntity.publicRoles {
                         if roles.first(where: { $0.name.contains("admin") || $0.name.contains("Admin") }) != nil {
                             ProfileBadge.admin
@@ -268,6 +269,7 @@ struct ProfileInfoView: View {
                             ProfileBadge.moderator
                         }
                     }
+                    #endif
                 }
 
                 HStack(alignment: .top, spacing: tinySpacing) {
