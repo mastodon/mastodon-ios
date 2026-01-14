@@ -11,11 +11,11 @@ import Combine
 
 extension MastodonSDKTests {
     
-    func testCreateAnAnpplication() async throws {
-        try await _testCreateAnAnpplication(domain: domain)
+    func testCreateAnApplication() async throws {
+        try await _testCreateAnApplication(domain: domain)
     }
     
-    func _testCreateAnAnpplication(domain: String) async throws {
+    func _testCreateAnApplication(domain: String) async throws {
         let query = Mastodon.API.App.CreateQuery(
             clientName: "XCTest",
             redirectURIs: "mastodon://joinmastodon.org/oauth",
