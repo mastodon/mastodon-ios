@@ -2,6 +2,7 @@
 
 import MastodonLocalization
 import MastodonSDK
+import MastodonUI
 import SwiftUI
 
 enum RelationshipButtonType {
@@ -81,30 +82,26 @@ enum RelationshipButtonType {
         }
     }
     
-    var buttonText: String? {
+    func buttonText(isLarge: Bool) -> String? {
         switch self {
         case .iDoNotFollowThem(let theyFollowMe, let theirAccountIsLocked):
             if theirAccountIsLocked {
-                return L10n.Common.Controls.Friendship.request
+                return L10nLookup.Common.Controls.RelationshipAction.requestToFollow(longForm: isLarge)
             } else {
                 if theyFollowMe {
-                    return L10n.Common.Controls.Friendship.followBack
+                    return L10nLookup.Common.Controls.RelationshipAction.followBack
                 } else {
-                    return L10n.Common.Controls.Friendship.follow
+                    return L10nLookup.Common.Controls.RelationshipAction.follow
                 }
             }
-        case .iFollowThem(let theyFollowMe):
-            if theyFollowMe {
-                return L10n.Common.Controls.Friendship.mutual
-            } else {
-                return L10n.Common.Controls.Friendship.following
-            }
+        case .iFollowThem:
+            return L10nLookup.Common.Controls.RelationshipAction.unfollow
         case .iHaveRequestedToFollowThem:
-            return L10n.Common.Controls.Friendship.pending
+            return L10nLookup.Common.Controls.RelationshipAction.cancelRequestToFollow(longForm: isLarge)
         case .iAmMutingThem:
-            return L10n.Common.Controls.Friendship.muted
+            return L10nLookup.Common.Controls.RelationshipAction.unmute
         case .iAmBlockingThem:
-            return L10n.Common.Controls.Friendship.blocked
+            return L10nLookup.Common.Controls.RelationshipAction.unblock
         case .updating, .error:
             return nil
         }
@@ -128,28 +125,31 @@ enum RelationshipButtonType {
     
     var a11yActionTitle: String? {
         switch self {
-        case .iDoNotFollowThem:
-            return buttonText
-        case .iFollowThem, .iHaveRequestedToFollowThem:
-            return L10n.Common.Alerts.UnfollowUser.unfollow
-        case .iAmBlockingThem:
-            return L10n.Common.Controls.Friendship.unblock
-        case .iAmMutingThem:
-            return L10n.Common.Controls.Friendship.unmute
         case .error, .updating:
             return nil
+        default:
+            return buttonText(isLarge: true)
         }
     }
     
     @ViewBuilder func button(action: @escaping ()->()) -> some View {
         switch self {
         case .updating:
-            ProgressView().progressViewStyle(.circular)
+            Button() {
+                // nothing to do
+            } label: {
+                ProgressView().progressViewStyle(.circular)
+            }
+            .buttonStyle(RelationshipButtonStyle(self, isLarge: false))
         case .error:
-            lightwieghtImageView(
-                "exclamationmark.triangle", size: AvatarSize.small)
+            Button() {
+                // nothing to do
+            } label: {
+                lightwieghtImageView("exclamationmark.triangle", size: AvatarSize.tiny)
+            }
+            .buttonStyle(RelationshipButtonStyle(self, isLarge: false))
         default:
-            if let buttonText {
+            if let buttonText = buttonText(isLarge: false) {
                 Button(buttonText) {
                     action()
                 }
@@ -161,14 +161,22 @@ enum RelationshipButtonType {
     @ViewBuilder func largeButton(action: @escaping ()->()) -> some View {
         switch self {
         case .updating:
-            ProgressView().progressViewStyle(.circular)
-                .frame(maxWidth: .infinity)
+            Button() {
+                // nothing to do
+            } label: {
+                ProgressView().progressViewStyle(.circular)
+            }
+            .buttonStyle(RelationshipButtonStyle(self, isLarge: true))
         case .error:
-            lightwieghtImageView(
-                "exclamationmark.triangle", size: AvatarSize.small)
-            .frame(maxWidth: .infinity)
+            Button() {
+                
+            } label: {
+                lightwieghtImageView(
+                    "exclamationmark.triangle", size: AvatarSize.tiny)
+            }
+            .buttonStyle(RelationshipButtonStyle(self, isLarge: true))
         default:
-            if let buttonText {
+            if let buttonText = buttonText(isLarge: true) {
                 Button(buttonText) {
                     action()
                 }

@@ -882,54 +882,37 @@ struct RelationshipButtonStyle: ButtonStyle {
                 .clipShape(Capsule())
         }
     }
-
+    
     private var backgroundColor: Color {
-        if isLarge {
+        switch action {
+        case .follow:
             return Asset.Colors.Button.userFollow.swiftUIColor
-        } else {
-            switch action {
-            case .follow:
-                return Asset.Colors.Button.userFollow.swiftUIColor
-            case .unfollow:
-                return Asset.Colors.Button.userFollowing.swiftUIColor
-            case .unmute, .unblock:
-                return Asset.Colors.Button.userBlocked.swiftUIColor
-            case .noAction:
-                assertionFailure()
-                return .clear
-            }
+        case .unfollow, .unmute, .unblock:
+            return Asset.Colors.Button.userFollowing.swiftUIColor
+        case .noAction:
+            return .secondary.opacity(0.2)
         }
     }
-
+    
     private var textColor: Color {
-        if isLarge {
+        switch action {
+        case .follow:
             return .white
-        } else {
-            switch action {
-            case .follow, .unmute, .unblock:
-                return .white
-            case .unfollow:
-                return Asset.Colors.Button.userFollowingTitle.swiftUIColor
-            case .noAction:
-                assertionFailure()
-                return .clear
-            }
+        case .unfollow, .unmute, .unblock:
+            return Asset.Colors.Button.userFollowingTitle.swiftUIColor
+        case .noAction:
+            return Asset.Colors.Button.userFollowingTitle.swiftUIColor
         }
     }
 
     private var fontWeight: SwiftUICore.Font.Weight {
-        if isLarge {
-            return .bold
-        } else {
-            switch action {
-            case .follow:
-                return .regular
-            case .unfollow, .unmute, .unblock:
-                return .light
-            case .noAction:
-                assertionFailure()
-                return .regular
-            }
+        switch action {
+        case .follow:
+            return isLarge ? .bold : .regular
+        case .unfollow, .unmute, .unblock:
+            return isLarge ? .regular : .light
+        case .noAction:
+            return isLarge ? .bold : .regular
         }
     }
 }

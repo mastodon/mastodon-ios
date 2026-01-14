@@ -35961,6 +35961,30 @@
         }
       }
     },
+    "Common.Controls.Friendship.Cancel" : {
+      "comment" : "short button text for canceling a pending follow request",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Common.Controls.Friendship.CancelRequest" : {
+      "comment" : "longer button text for canceling a pending follow request",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel request"
+          }
+        }
+      }
+    },
     "Common.Controls.Friendship.DomainBlocked" : {
       "extractionState" : "migrated",
       "localizations" : {
@@ -39383,7 +39407,8 @@
       }
     },
     "Common.Controls.Friendship.Request" : {
-      "extractionState" : "migrated",
+      "comment" : "short button text for requesting to follow a locked account",
+      "extractionState" : "manual",
       "localizations" : {
         "an" : {
           "stringUnit" : {
@@ -39689,6 +39714,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "請求"
+          }
+        }
+      }
+    },
+    "Common.Controls.Friendship.RequestToFollow" : {
+      "comment" : "longer button text for requesting to follow a locked account",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Request to follow"
           }
         }
       }
@@ -40622,6 +40659,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "解除封鎖 %@"
+          }
+        }
+      }
+    },
+    "Common.Controls.Friendship.Unfollow" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unfollow"
           }
         }
       }

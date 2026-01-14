@@ -28,6 +28,47 @@ public struct L10nLookup {
                     }()
                 }
             }
+            
+            public struct RelationshipAction {
+                public static let follow: String = {
+                    let result = tr("Localizable", "Common.Controls.Friendship.Follow")
+                    return result
+                }()
+                public static func requestToFollow(longForm: Bool) -> String {
+                    if longForm {
+                        let result = tr("Localizable", "Common.Controls.Friendship.RequestToFollow") // needs new
+                        return result
+                    } else {
+                        let result = tr("Localizable", "Common.Controls.Friendship.Request")
+                        return result
+                    }
+                }
+                public static func cancelRequestToFollow(longForm: Bool) -> String {
+                    if longForm {
+                        let result = tr("Localizable", "Common.Controls.Friendship.CancelRequest")
+                        return result
+                    } else {
+                        let result = tr("Localizable", "Common.Controls.Friendship.Cancel")
+                        return result
+                    }
+                }
+                public static let unfollow: String = {
+                    let result = tr("Localizable", "Common.Controls.Friendship.Unfollow")
+                    return result
+                }()
+                public static let followBack: String = {
+                    let result = tr("Localizable", "Common.Controls.Friendship.FollowBack")
+                    return result
+                }()
+                public static let unblock: String = {
+                    let result = tr("Localizable", "Common.Controls.Friendship.Unblock")
+                    return result
+                }()
+                public static let unmute: String = {
+                    let result = tr("Localizable", "Common.Controls.Friendship.Unmute")
+                    return result
+                }()
+            }
         }
     }
     
