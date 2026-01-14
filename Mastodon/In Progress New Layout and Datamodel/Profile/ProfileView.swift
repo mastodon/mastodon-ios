@@ -628,6 +628,37 @@ struct ProfilePaginatingView: View {
     }
 }
 
+struct TestAllRelationshipButtons: View {
+    var body: some View {
+        VStack {
+            ForEach(allButtonTypes, id: \.self.description) { buttonType in
+                HStack {
+                    Text(buttonType.description)
+                    buttonType.button {
+                    }
+                    buttonType.largeButton {
+                    }
+                }
+            }
+        }
+    }
+    
+    let allButtonTypes: [RelationshipButtonType] = [
+        .error(nil),
+        .updating,
+        .iAmBlockingThem(isDomainBlock: true),
+        .iAmBlockingThem(isDomainBlock: false),
+        .iAmMutingThem,
+        .iDoNotFollowThem(theyFollowMe: true, theirAccountIsLocked: true),
+        .iDoNotFollowThem(theyFollowMe: false, theirAccountIsLocked: true),
+        .iDoNotFollowThem(theyFollowMe: true, theirAccountIsLocked: false),
+        .iDoNotFollowThem(theyFollowMe: false, theirAccountIsLocked: false),
+        .iFollowThem(theyFollowMe: true),
+        .iFollowThem(theyFollowMe: false),
+        .iHaveRequestedToFollowThem
+        ]
+}
+
 enum ProfilePage: CaseIterable, Hashable {
     case activity
     case mediaOnly
