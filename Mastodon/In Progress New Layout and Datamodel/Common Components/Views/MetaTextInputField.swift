@@ -81,6 +81,9 @@ import MastodonAsset
                     HStack {
                         ForEach(autoCompleteItems, id: \.self) { item in
                             AutoCompleteCard(item: item)
+                                .onTapGesture {
+                                    self.didSelectAutocomplete(item: item)
+                                }
                         }
                     }
                     .padding()
@@ -207,42 +210,7 @@ extension MetaTextInputFieldViewModel {
     func handleAutoComplete(_ info: AutoCompleteInfo) -> Bool {
         guard let item = autoCompleteViewModel?.autoCompleteItems.value.first else { return false }
         
-        // FIXME: redundant code
-        guard let metaText = contentMetaText else { return false }
-        guard let text = metaText.textView.text else { return false }
-        let _replacedText: String? = {
-            var text: String
-            switch item {
-            case .hashtag, .hashtagV1:
-                // do no fill the hashtag
-                // allow user delete suffix and post they want
-                return nil
-            case .account(let account):
-                text = "@" + account.acct
-            case .emoji(let emoji):
-                text = ":" + emoji.shortcode + ":"
-            case .bottomLoader:
-                return nil
-            }
-            return text
-        }()
-        guard let replacedText = _replacedText else { return false }
-        
-        let range = NSRange(info.toHighlightEndRange, in: text)
-        metaText.textStorage.replaceCharacters(in: range, with: replacedText)
-        autoCompleteInfo = nil
-        
-        // set selected range
-        let newRange = NSRange(location: range.location + (replacedText as NSString).length, length: 0)
-        guard metaText.textStorage.length >= newRange.location else { return true }
-        metaText.textView.selectedRange = newRange
-        
-        // append a space and trigger textView delegate update
-        DispatchQueue.main.async {
-            metaText.textView.insertText(" ")
-        }
-        
-        return true
+        return applyAutoComplete(info, item: item, skipHashtags: true /* allow user to delete suffix and post what they want */)
     }
 }
 
@@ -260,6 +228,60 @@ extension MetaTextInputFieldViewModel {
         // geometry
         var textBoundingRect: CGRect = .zero
         var symbolBoundingRect: CGRect = .zero
+    }
+}
+
+extension MetaTextInputFieldViewModel {
+    func applyAutoComplete(_ info: AutoCompleteInfo, item: AutoCompleteItem, skipHashtags: Bool) -> Bool {
+        guard let metaText = contentMetaText else { return false }
+        guard let currentText = metaText.textView.text else { return false}
+        
+        let _replacedText: String? = {
+            var text: String?
+            switch item {
+            case .hashtag(let hashtag):
+                if !skipHashtags {
+                    text = "#" + hashtag.name
+                } else {
+                    text = nil
+                }
+            case .hashtagV1(let hashtagName):
+                if !skipHashtags {
+                    text = "#" + hashtagName
+                } else {
+                    text = nil
+                }
+            case .account(let account):
+                text = "@" + account.acct
+            case .emoji(let emoji):
+                text = ":" + emoji.shortcode + ":"
+            case .bottomLoader:
+                text = nil
+            }
+            return text
+        }()
+        guard let replacedText = _replacedText else { return false }
+        
+        let range = NSRange(info.toHighlightEndRange, in: currentText)
+        metaText.textStorage.replaceCharacters(in: range, with: replacedText)
+        autoCompleteInfo = nil
+        
+        // set selected range
+        let newRange = NSRange(location: range.location + (replacedText as NSString).length, length: 0)
+        guard metaText.textStorage.length >= newRange.location else { return true }
+        metaText.textView.selectedRange = newRange
+        
+        // append a space and trigger textView delegate update
+        DispatchQueue.main.async {
+            metaText.textView.insertText(" ")
+        }
+        
+        return true
+    }
+    
+    func didSelectAutocomplete(item: AutoCompleteItem) {
+        guard let info = autoCompleteInfo else { return }
+        let _ = applyAutoComplete(info, item: item, skipHashtags: false)
     }
 }
 
@@ -320,13 +342,19 @@ struct AutoCompleteCard: View {
                 AvatarView(size: .small, authorAvatarUrl: account.avatarImageURL(), goToProfile: nil)
                 Text("@\(account.acct)")
                     .foregroundColor(Asset.Colors.accent.swiftUIColor)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
                     .padding(.trailing, tinySpacing)
             case .hashtag(let tag):
                 Text("#\(tag.name)")
                     .foregroundColor(Asset.Colors.accent.swiftUIColor)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
             case .hashtagV1(let tag):
                 Text("#\(tag)")
                     .foregroundColor(Asset.Colors.accent.swiftUIColor)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
             case .emoji(let emoji):
                 SDWebImageSwiftUI.WebImage(
                     url: URL(string: emoji.staticURL),
@@ -341,13 +369,13 @@ struct AutoCompleteCard: View {
                 .frame(width: AvatarSize.small, height: AvatarSize.small)
                 Text(":\(emoji.shortcode):")
                     .foregroundStyle(.secondary)
+                    .font(.footnote)
                     .padding(.trailing, tinySpacing)
             case .bottomLoader:
                 EmptyView()
             }
         }
         .padding(tinySpacing)
-        .font(.footnote)
         .background() {
             MastodonSecondaryBackground(fillInDarkModeOnly: true)
         }

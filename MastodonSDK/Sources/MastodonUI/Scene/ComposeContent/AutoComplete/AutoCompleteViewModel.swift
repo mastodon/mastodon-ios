@@ -87,22 +87,24 @@ extension AutoCompleteViewModel {
         case accounts
         case hashtags
         case emoji
+        case noSearch
 
         public var mastodonSearchType: Mastodon.API.V2.Search.SearchType? {
             switch self {
             case .accounts:     return .accounts
             case .hashtags:     return .hashtags
             case .emoji:        return nil
+            case .noSearch:     return nil
             }
         }
         
-        init?(inputText: String) {
+        init(inputText: String) {
             let prefix = inputText.first ?? Character("_")
             switch prefix {
             case "@":   self = .accounts
             case "#":   self = .hashtags
             case ":":   self = .emoji
-            default:    return nil
+            default:    self = .noSearch
             }
         }
     }

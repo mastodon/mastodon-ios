@@ -65,9 +65,15 @@ extension AutoCompleteViewModel.State {
             guard let viewModel = viewModel, let _ = stateMachine else { return }
 
             let searchText = viewModel.inputText.value
-            guard let searchType = AutoCompleteViewModel.SearchType(inputText: searchText) else { return }
+            let searchType = AutoCompleteViewModel.SearchType(inputText: searchText)
             if searchText != previoursSearchText {
                 reset(searchText: searchText)
+            }
+            
+            guard !searchText.isEmpty else {
+                enter(state: Idle.self)
+                viewModel.autoCompleteItems.value = []
+                return
             }
             
             switch searchType {
@@ -119,7 +125,7 @@ extension AutoCompleteViewModel.State {
             }
 
             let searchText = viewModel.inputText.value
-            guard let searchType = AutoCompleteViewModel.SearchType(inputText: searchText) else { return }
+            let searchType = AutoCompleteViewModel.SearchType(inputText: searchText)
             
             let q = String(searchText.dropFirst())
             let query = Mastodon.API.V2.Search.Query(
@@ -138,7 +144,10 @@ extension AutoCompleteViewModel.State {
                 
                 enter(state: Idle.self)
 
-                guard viewModel.inputText.value == searchText else { return }     // discard if not matching
+                guard viewModel.inputText.value == searchText else {
+                    enter(state: Idle.self)
+                    return  // discard if not matching
+                }
                 
                 var items: [AutoCompleteItem] = []
                 items.append(contentsOf: response.value.accounts.map { AutoCompleteItem.account(account: $0) })
