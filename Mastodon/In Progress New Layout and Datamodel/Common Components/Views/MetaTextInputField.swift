@@ -132,6 +132,7 @@ extension MetaTextInputFieldViewModel: MetaTextDelegate {
 extension MetaTextInputFieldViewModel {
     private func setupAutoComplete(for textView: UITextView) {
         guard var autoCompletion = MetaTextInputFieldViewModel.scanAutoCompleteInfo(textView: textView) else {
+            autoCompleteViewModel?.inputText.send("")
             self.autoCompleteInfo = nil
             return
         }
