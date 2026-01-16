@@ -78,7 +78,6 @@ public final class StatusCardControl: UIControl {
     private let authorAccountButton: StatusCardAuthorControl
     private let authorStackView: UIStackView
 
-    private static let cardContentPool = WKProcessPool()
     private var webView: WKWebView?
 
     private var layout: Layout?
@@ -446,7 +445,6 @@ extension StatusCardControl: WKNavigationDelegate, WKUIDelegate {
         if let webView { return webView }
 
         let config = WKWebViewConfiguration()
-        config.processPool = Self.cardContentPool
         config.websiteDataStore = .nonPersistent() // private/incognito mode
         config.suppressesIncrementalRendering = true
         config.allowsInlineMediaPlayback = true
