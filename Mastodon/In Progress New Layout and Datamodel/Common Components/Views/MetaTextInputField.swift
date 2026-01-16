@@ -130,7 +130,7 @@ extension MetaTextInputFieldViewModel: MetaTextDelegate {
         
         let content = MastodonContent(
             content: textInput,
-            emojis: autoCompleteViewModel?.customEmojiViewModel?.emojis.value?.asDictionary ?? [:]
+            emojis: [:]
         )
         let metaContent = MastodonMetaContent.convert(text: content)
         return metaContent
