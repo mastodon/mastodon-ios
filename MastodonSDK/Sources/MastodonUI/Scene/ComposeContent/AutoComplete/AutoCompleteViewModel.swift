@@ -12,7 +12,7 @@ import MastodonSDK
 import MastodonCore
 
 @MainActor
-final class AutoCompleteViewModel {
+public final class AutoCompleteViewModel {
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -37,7 +37,7 @@ final class AutoCompleteViewModel {
         return stateMachine
     }()
     
-    init(authenticationBox: MastodonAuthenticationBox) {
+    public init(authenticationBox: MastodonAuthenticationBox) {
         self.authenticationBox = authenticationBox
         self.customEmojiViewModel = EmojiService.shared.dequeueCustomEmojiViewModel(for: authenticationBox.domain)
         // end init
@@ -87,14 +87,12 @@ extension AutoCompleteViewModel {
         case accounts
         case hashtags
         case emoji
-        case `default`
 
         public var mastodonSearchType: Mastodon.API.V2.Search.SearchType? {
             switch self {
             case .accounts:     return .accounts
             case .hashtags:     return .hashtags
             case .emoji:        return nil
-            case .default:      return .default
             }
         }
         

@@ -10,7 +10,7 @@ import Combine
 import MetaTextKit
 import MastodonCore
 
-final class CustomEmojiPickerInputViewModel {
+public final class CustomEmojiPickerInputViewModel {
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -20,6 +20,10 @@ final class CustomEmojiPickerInputViewModel {
     weak var customEmojiPickerInputView: CustomEmojiPickerInputView?
     
     @Published var isCustomEmojiComposing = false
+    
+    public init() {
+        
+    }
 
 }
 

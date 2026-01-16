@@ -17,11 +17,17 @@ public struct MetaTextViewRepresentable: UIViewRepresentable {
     let metaText = MetaText()
     
     // input
-    @Binding var string: String
+    let string: Binding<String>
     let width: CGFloat
     
     // handler
     let configurationHandler: (MetaText) -> Void
+    
+    public init(string: Binding<String>, width: CGFloat, configurationHandler: @escaping (MetaText) -> Void) {
+        self.string = string
+        self.width = width
+        self.configurationHandler = configurationHandler
+    }
     
     public func makeUIView(context: Context) -> MetaTextView {
         let textView = metaText.textView
@@ -54,7 +60,7 @@ public struct MetaTextViewRepresentable: UIViewRepresentable {
         
         configurationHandler(metaText)
             
-        metaText.configure(content: PlaintextMetaContent(string: string))
+        metaText.configure(content: PlaintextMetaContent(string: string.wrappedValue))
         
         return textView
     }

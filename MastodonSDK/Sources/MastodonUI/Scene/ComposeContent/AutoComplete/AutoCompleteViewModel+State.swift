@@ -65,7 +65,7 @@ extension AutoCompleteViewModel.State {
             guard let viewModel = viewModel, let _ = stateMachine else { return }
 
             let searchText = viewModel.inputText.value
-            let searchType = AutoCompleteViewModel.SearchType(inputText: searchText) ?? .default
+            guard let searchType = AutoCompleteViewModel.SearchType(inputText: searchText) else { return }
             if searchText != previoursSearchText {
                 reset(searchText: searchText)
             }
@@ -119,7 +119,7 @@ extension AutoCompleteViewModel.State {
             }
 
             let searchText = viewModel.inputText.value
-            let searchType = AutoCompleteViewModel.SearchType(inputText: searchText) ?? .default
+            guard let searchType = AutoCompleteViewModel.SearchType(inputText: searchText) else { return }
             
             let q = String(searchText.dropFirst())
             let query = Mastodon.API.V2.Search.Query(
