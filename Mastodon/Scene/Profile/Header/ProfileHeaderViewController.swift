@@ -225,10 +225,9 @@ extension ProfileHeaderViewController {
             cropController.delegate = self
             switch self.currentImageType {
             case .banner:
-                cropController.customAspectRatio = CGSize(width: 3, height: 1)
-                cropController.setAspectRatioPreset(.presetCustom, animated: true)
+                cropController.setAspectRatioPreset(CGSize(width: 3, height: 1), animated: true)
             case .avatar:
-                cropController.setAspectRatioPreset(.presetSquare, animated: true)
+                cropController.setAspectRatioPreset(CGSize(width: 1, height: 1), animated: true)
             }
             cropController.aspectRatioPickerButtonHidden = true
             cropController.aspectRatioLockEnabled = true
