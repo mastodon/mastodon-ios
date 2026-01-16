@@ -18,7 +18,6 @@ class WebViewController: UIViewController {
     
     let webView: WKWebView = {
         let configuration = WKWebViewConfiguration()
-        configuration.processPool = WKProcessPool()
         let webView = WKWebView(frame: .zero, configuration: configuration)
         return webView
     }()

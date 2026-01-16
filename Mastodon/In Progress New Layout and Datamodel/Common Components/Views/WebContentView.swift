@@ -5,8 +5,6 @@ import SwiftUI
 import WebKit
 
 struct WebContentView: UIViewRepresentable {
-    private static let contentPool = WKProcessPool()
-    
     enum Style {
         case linkPreviewCard
         
@@ -25,7 +23,6 @@ struct WebContentView: UIViewRepresentable {
 
     func makeUIView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration()
-        config.processPool = Self.contentPool
         config.websiteDataStore = .nonPersistent() // private/incognito mode
         config.suppressesIncrementalRendering = true
         config.allowsInlineMediaPlayback = true
