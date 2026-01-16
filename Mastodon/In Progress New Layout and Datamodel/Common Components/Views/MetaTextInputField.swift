@@ -69,9 +69,14 @@ import MastodonAsset
         }
     }
     
-    @ViewBuilder public var autoCompleteSuggestionView: some View {
+    @ViewBuilder public func autoCompleteSuggestionView(pinToTopOfKeyboard: Bool) -> some View {
         if let autoCompleteItems = autoCompleteViewModel?.autoCompleteItems.value, !autoCompleteItems.isEmpty {
-            VStack {
+            VStack(spacing: tinySpacing) {
+                if pinToTopOfKeyboard {
+                        Spacer()
+                            .frame(maxHeight: .infinity)
+                        Divider()
+                }
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(autoCompleteItems, id: \.self) { item in
@@ -79,6 +84,9 @@ import MastodonAsset
                         }
                     }
                     .padding()
+                }
+                .background() {
+                    Color(pinToTopOfKeyboard ? .systemBackground : .clear)
                 }
             }
             
