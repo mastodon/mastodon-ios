@@ -114,13 +114,6 @@ extension ComposeStatusPollOptionCollectionViewCell {
         pollOptionView.checkmarkBackgroundView.layer.borderColor = SystemTheme.tableViewCellSelectionBackgroundColor.withAlphaComponent(0.3).cgColor
         pollOptionView.checkmarkBackgroundView.layer.borderWidth = 1
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        setupBorderColor()
-    }
-    
 }
 
 extension ComposeStatusPollOptionCollectionViewCell {
