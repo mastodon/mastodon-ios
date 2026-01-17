@@ -15,7 +15,6 @@
 		2A728127297EA9D7004138C5 /* WidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A728126297EA9D7004138C5 /* WidgetExtensionBundle.swift */; };
 		2A72812E297EA9D8004138C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A72812D297EA9D8004138C5 /* Assets.xcassets */; };
 		2A728134297EA9D8004138C5 /* WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2A728120297EA9D7004138C5 /* WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		2A72813F297EC762004138C5 /* WidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A72813E297EC762004138C5 /* WidgetExtension.swift */; };
 		2A84443C2B84F68100071C5B /* View+WidgetBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A84443B2B84F68100071C5B /* View+WidgetBackground.swift */; };
 		2A90A157296EEE500026C155 /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 2A90A156296EEE500026C155 /* MastodonSDKDynamic */; };
 		2A9D066F298D0FD100BF38CB /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 2A9D066E298D0FD100BF38CB /* MastodonSDKDynamic */; };
@@ -24,7 +23,6 @@
 		2AB5011C299243FB00346092 /* WidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2AB50120299243FB00346092 /* WidgetExtension.intentdefinition */; };
 		2AB5011D299243FB00346092 /* WidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2AB50120299243FB00346092 /* WidgetExtension.intentdefinition */; };
 		2AB5011E299243FB00346092 /* WidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2AB50120299243FB00346092 /* WidgetExtension.intentdefinition */; };
-		2AE202AD297FE1CD00F66E55 /* WidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A72813E297EC762004138C5 /* WidgetExtension.swift */; };
 		357FEEAF29523D470021C9DC /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 357FEEAE29523D470021C9DC /* MastodonSDKDynamic */; };
 		357FEEB029523D470021C9DC /* MastodonSDKDynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 357FEEAE29523D470021C9DC /* MastodonSDKDynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		357FEEB229523D510021C9DC /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 357FEEB129523D510021C9DC /* MastodonSDKDynamic */; };
@@ -193,7 +191,6 @@
 		2A728126297EA9D7004138C5 /* WidgetExtensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetExtensionBundle.swift; sourceTree = "<group>"; };
 		2A72812D297EA9D8004138C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2A72812F297EA9D8004138C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2A72813E297EC762004138C5 /* WidgetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetExtension.swift; sourceTree = "<group>"; };
 		2A84443B2B84F68100071C5B /* View+WidgetBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+WidgetBackground.swift"; sourceTree = "<group>"; };
 		2AAAA34D2B04DE21004C6672 /* VisionKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VisionKit.framework; path = System/Library/Frameworks/VisionKit.framework; sourceTree = SDKROOT; };
 		2AB5011F299243FB00346092 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/WidgetExtension.intentdefinition; sourceTree = "<group>"; };
@@ -548,7 +545,6 @@
 			children = (
 				042246792F085BBD00B0AFEC /* Variants */,
 				2AE202A9297FDDF500F66E55 /* WidgetExtension.entitlements */,
-				2A72813E297EC762004138C5 /* WidgetExtension.swift */,
 				2A728126297EA9D7004138C5 /* WidgetExtensionBundle.swift */,
 				2A84443B2B84F68100071C5B /* View+WidgetBackground.swift */,
 				2AB50120299243FB00346092 /* WidgetExtension.intentdefinition */,
@@ -1166,7 +1162,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2AB5011E299243FB00346092 /* WidgetExtension.intentdefinition in Sources */,
-				2A72813F297EC762004138C5 /* WidgetExtension.swift in Sources */,
 				2A84443C2B84F68100071C5B /* View+WidgetBackground.swift in Sources */,
 				2A728127297EA9D7004138C5 /* WidgetExtensionBundle.swift in Sources */,
 			);
@@ -1206,7 +1201,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */,
-				2AE202AD297FE1CD00F66E55 /* WidgetExtension.swift in Sources */,
 				2AB5011D299243FB00346092 /* WidgetExtension.intentdefinition in Sources */,
 				DB8FABCA26AEC7B2008E5AF4 /* IntentHandler.swift in Sources */,
 			);

@@ -35,19 +35,9 @@ extension Date {
         formatter.timeStyle = .none         // none
         return formatter
     }()
-
-    public static let veryAbbreviatedDateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.setLocalizedDateFormatFromTemplate("dMMM")
-        return formatter
-    }()
     
     public var abbreviatedDate: String {
         return Date.abbreviatedDateFormatter.string(from: self)
-    }
-    
-    public var veryAbbreviatedDate: String {
-        return Date.veryAbbreviatedDateFormatter.string(from: self)
     }
 
     public var localizedAbbreviatedSlowedTimeAgoSinceNow: String {
