@@ -30,12 +30,6 @@ extension BadgeButton {
         setAppearance()
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        setAppearance()
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         
