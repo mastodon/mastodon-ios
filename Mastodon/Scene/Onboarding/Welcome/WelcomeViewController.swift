@@ -65,12 +65,20 @@ final class WelcomeViewController: UIViewController {
                                                   trailing: WelcomeViewController.actionButtonPadding.right)
 
         let button = UIButton(configuration: buttonConfiguration)
-
+        // Respond to runtime Accessibility > Display & Text Size > Bold Text changes
+        button.registerForTraitChanges([UITraitLegibilityWeight.self]) { (button: UIButton, previousTraitCollection: UITraitCollection) in
+            let updatedAttributes = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
+            if let characters = button.configuration?.attributedTitle?.characters {
+                let priorString = String(characters)
+                button.configuration?.attributedTitle = AttributedString(
+                    priorString, attributes: .init([.font: updatedAttributes])
+                )
+            }
+        }
         return button
     }()
 
     private(set) lazy var pickOtherServerButton: UIButton = {
-
         var buttonConfiguration = UIButton.Configuration.borderedTinted()
         buttonConfiguration.attributedTitle = AttributedString(
             L10n.Scene.Welcome.pickServer,
@@ -192,6 +200,8 @@ extension WelcomeViewController {
         view.overrideUserInterfaceStyle = .light
         
         setupOnboardingAppearance()
+        observeLegibilityTraitChanges()
+        observeButtonShapesNotification()
 
         view.addSubview(welcomeIllustrationView)
         welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
@@ -279,12 +289,6 @@ extension WelcomeViewController {
         }
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        view.layoutIfNeeded()
-    }
-    
     private var computedTopAnchorInset: CGFloat {
         (navigationController?.navigationBar.bounds.height ?? UINavigationBar().bounds.height) + Constants.topAnchorInset
     }
@@ -358,12 +362,12 @@ extension WelcomeViewController {
         guard let domain else {
             joinDefaultServerButton.configuration?.showsActivityIndicator = isLoading
             joinDefaultServerButton.isEnabled = false
-            joinDefaultServerButton.configuration?.title = nil
+            joinDefaultServerButton.configuration?.attributedTitle = nil
             return
         }
         
         if isLoading {
-            joinDefaultServerButton.configuration?.title = nil
+            joinDefaultServerButton.configuration?.attributedTitle = nil
             joinDefaultServerButton.isEnabled = false
             joinDefaultServerButton.configuration?.showsActivityIndicator = true
         } else {
@@ -402,6 +406,60 @@ extension WelcomeViewController {
     @objc
     private func dismissBarButtonItemDidPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - Accessibility
+
+extension WelcomeViewController {
+    func observeLegibilityTraitChanges() {
+        joinDefaultServerButton.registerForTraitChanges([UITraitLegibilityWeight.self]) { (button: UIButton, previousTraitCollection: UITraitCollection) in
+            let updatedAttributes = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
+            if let characters = button.configuration?.attributedTitle?.characters {
+                let priorString = String(characters)
+                button.configuration?.attributedTitle = AttributedString(
+                    priorString, attributes: .init([.font: updatedAttributes])
+                )
+            }
+        }
+
+        pickOtherServerButton.registerForTraitChanges([UITraitLegibilityWeight.self]) { (button: UIButton, previousTraitCollection: UITraitCollection) in
+            button.configuration?.attributedTitle = AttributedString(
+                L10n.Scene.Welcome.pickServer,
+                attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
+            )
+        }
+
+        signInButton.registerForTraitChanges([UITraitLegibilityWeight.self]) { (button: UIButton, previousTraitCollection: UITraitCollection) in
+            button.configuration?.attributedTitle = AttributedString(
+                L10n.Scene.Welcome.logIn,
+                attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
+            )
+        }
+
+        learnMoreButton.registerForTraitChanges([UITraitLegibilityWeight.self]) { (button: UIButton, previousTraitCollection: UITraitCollection) in
+            button.configuration?.attributedTitle = AttributedString(
+                L10n.Scene.Welcome.learnMore,
+                attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
+            )
+        }
+    }
+
+    /// https://developer.apple.com/videos/play/wwdc2020/10020/?time=194
+    func observeButtonShapesNotification() {
+        // Make buttons more visible by using shapes.
+        // If your default design does not include button shapes, observe this notification to make visual changes.
+        NotificationCenter.default.addObserver(self, selector: #selector(updateButtonShapes), name: UIAccessibility.buttonShapesEnabledStatusDidChangeNotification, object: nil)
+    }
+
+    @objc func updateButtonShapes() {
+        if UIAccessibility.buttonShapesEnabled {
+            learnMoreButton.configuration?.welcomeBorderedShapeConfiguration()
+            signInButton.configuration?.welcomeBorderedShapeConfiguration()
+        } else {
+            learnMoreButton.configuration?.defaultWelcome()
+            signInButton.configuration?.defaultWelcome()
+        }
     }
 }
 
