@@ -118,12 +118,6 @@ extension ShareViewController {
             }
             .store(in: &disposeBag)
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        configurePublishButtonApperance()
-    }
 }
 
 extension ShareViewController {
