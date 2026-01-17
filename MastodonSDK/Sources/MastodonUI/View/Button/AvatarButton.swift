@@ -37,12 +37,6 @@ open class AvatarButton: UIControl {
         
         updateAppearance()
     }
-    
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        updateAppearance()
-    }
 
     open func updateAppearance() {
         avatarImageView.alpha = primaryActionState.contains(.highlighted)  ? 0.6 : 1.0
