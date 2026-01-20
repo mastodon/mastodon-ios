@@ -8,6 +8,10 @@ import MastodonCore
 import MastodonSDK
 import Combine
 
+enum MastodonNavigationDestination: Hashable {
+    case editProfile
+}
+
 class ProfileHostingViewController: UIHostingController<AnyView> {
     let viewModel = ProfileViewModel()
     let nestedScrollViewModel = NestedScrollInteractionViewModel()
@@ -16,6 +20,17 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
         let root = ProfileView(wrapInNavigationController: wrapInNavigationController).environment(viewModel).environment(viewModel.relationshipViewModel).environment(nestedScrollViewModel)
         super.init(rootView: AnyView(root))
         title = nil
+        
+        viewModel.navigationControllerNavigateToEditProfile = { [weak self] in
+            if wrapInNavigationController {
+                return
+            } else {
+                guard let self else { return }
+                self.viewModel.editingStatus = .editing(hasChanges: false)
+                let editViewController = ProfileEditHostingViewController(viewModel: self.viewModel)
+                self.navigationController?.pushViewController(editViewController, animated: true)
+            }
+        }
     }
     @MainActor @preconcurrency required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -37,6 +52,13 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
         
         viewModel.relationshipViewModel.actionHandler = viewModel.postsViewModel
         
+        switch relationship {
+        case .isMe:
+            viewModel.editingStatus = .notEditing
+        case .isNotMe:
+            viewModel.editingStatus = .cannotEdit
+        }
+        
         Task {
             let handle = account.handle
             let handleComponents = handle.split(separator: "@").map { String($0) }
@@ -54,6 +76,7 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
 }
 
 struct ProfileView: View {
+    @State private var navigationPath = NavigationPath()
     @Environment(ProfileViewModel.self) var viewModel
     @Environment(NestedScrollInteractionViewModel.self) var nestedScrollViewModel
     let wrapInNavigationController: Bool
@@ -69,11 +92,24 @@ struct ProfileView: View {
         case pages
     }
     
+    init(wrapInNavigationController: Bool) {
+        self.wrapInNavigationController = wrapInNavigationController
+    }
+    
     var body: some View {
         if wrapInNavigationController {
-            NavigationStack() {
+            NavigationStack(path: $navigationPath){
                 content
+                    .navigationDestination(for: MastodonNavigationDestination.self) { destination in
+                        switch destination {
+                        case .editProfile:
+                            ProfileEditingView()
+                                .environment(viewModel)
+                                .environment(viewModel.editingViewModel)
+                        }
+                    }
             }
+            
         } else {
             content
         }
@@ -127,7 +163,10 @@ struct ProfileView: View {
                         Spacer()
                             .frame(height: doublePadding)
                         
-                        ProfileActionBar()
+                        ProfileActionBar(navigationStackNavigateToEditProfile: {
+                            viewModel.editingStatus = .editing(hasChanges: false)
+                            navigationPath.append(MastodonNavigationDestination.editProfile)
+                        })
                             .padding(.horizontal, doublePadding)
                             .frame(width: min(maxFeedContentWidth, geo.size.width))
                             .background() {
@@ -159,7 +198,9 @@ struct ProfileView: View {
                 
                 VStack {
                     Spacer()
-                    ProfileActionBar()
+                    ProfileActionBar(navigationStackNavigateToEditProfile: {
+                        navigationPath.append(MastodonNavigationDestination.editProfile)
+                    })
                         .padding(.horizontal, doublePadding)
                         .frame(width: min(maxFeedContentWidth, geo.size.width))
                         .background() {
@@ -170,7 +211,7 @@ struct ProfileView: View {
                         }
                         .opacity(embeddedActionBarHasCaughtUpToFloatingActionBar ? 0.0 : 1.0)
                 }
-                .frame(width: min(maxFeedContentWidth, geo.size.width), height: geo.size.height - geo.safeAreaInsets.bottom - 90)
+                .frame(width: min(maxFeedContentWidth, geo.size.width), height: max(0, geo.size.height - geo.safeAreaInsets.bottom - 90))
             }
         }
         .ignoresSafeArea()
@@ -188,6 +229,7 @@ struct ProfileView: View {
         switch subviewType {
         case .bannerAndAvatar:
             ProfileAvatarAndBannerView(width: width)
+                .environment(viewModel.editingViewModel)
         case .bio:
             ProfileInfoView()
         case .customFieldsFlow:
@@ -203,23 +245,44 @@ struct ProfileView: View {
 
 let bannerFullHeight: CGFloat = 194
 struct ProfileAvatarAndBannerView: View {
-    @Environment(ProfileViewModel.self) var viewModel
+    @Environment(ProfileViewModel.self) var profileViewModel
+    @Environment(ProfileEditingViewModel.self) var editingViewModel
     var width: CGFloat
     
     var body: some View {
         VStack {
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
                 VStack(spacing: 0) {
-                    bannerView(width: width)
-                        .frame(height: bannerFullHeight)
-                        .clipped()
+                    ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
+                        bannerView(width: width)
+                            .frame(height: bannerFullHeight)
+                            .clipped()
+                        
+                        switch profileViewModel.editingStatus {
+                        case .editing:
+                            bannerEditButton
+                                .padding(.horizontal, doublePadding)
+                                .padding(.vertical, standardPadding)
+                        case .cannotEdit, .notEditing, .none:
+                            EmptyView()
+                        }
+                    }
                     Spacer()
                         .frame(height: 16)
                 }
+        
                 HStack() {
-                    AvatarView(size: .extraLarge, authorAvatarUrl: viewModel.account?.avatarURL, goToProfile: nil)
-                        .padding(.horizontal, doublePadding)
-                        .frame(alignment: .leading)
+                    ZStack {
+                        AvatarView(size: .extraLarge, authorAvatarUrl: profileViewModel.account?.avatarURL, goToProfile: nil)
+                            .padding(.horizontal, doublePadding)
+                            .frame(alignment: .leading)
+                        switch profileViewModel.editingStatus {
+                        case .editing:
+                            avatarEditButton
+                        case .cannotEdit, .notEditing, .none:
+                            EmptyView()
+                        }
+                    }
                     Spacer()
                         .frame(maxWidth: .infinity)
                 }
@@ -229,7 +292,7 @@ struct ProfileAvatarAndBannerView: View {
     }
     
     @ViewBuilder func bannerView(width: CGFloat) -> some View {
-        if let bannerUrl = viewModel.account?.displayInfo.bannerImageUrl {
+        if let bannerUrl = profileViewModel.account?.displayInfo.bannerImageUrl {
             WebImage(url: bannerUrl) { phase in
                 switch phase {
                 case .empty:
@@ -246,6 +309,34 @@ struct ProfileAvatarAndBannerView: View {
                 }
             }
         }
+    }
+    
+    @ViewBuilder var bannerEditButton: some View {
+        Button() {
+            
+        } label: {
+            Text("Edit cover image")
+                .padding(.vertical, tinySpacing)
+                .padding(.horizontal)
+                .tintedBlurBackground()
+                .clipShape(.capsule)
+        }
+        .glassEffectIfAvailable(in: .capsule)
+        .foregroundStyle(.white)
+    }
+    
+    @ViewBuilder var avatarEditButton: some View {
+        Button() {
+            
+        } label: {
+            Image(systemName: "camera")
+                .font(.headline)
+                .padding()
+                .tintedBlurBackground()
+                .clipShape(Circle())
+        }
+        .glassEffectIfAvailable(in: .circle)
+        .foregroundStyle(.white)
     }
 }
 
@@ -298,29 +389,6 @@ struct ProfileInfoView: View {
             HStack {
                 Spacer()
                     .frame(maxWidth: .infinity)
-                if let relationship = viewModel.relationship {
-                    switch relationship {
-                    case .isMe:
-                        if #available(iOS 26.0, *) {
-                            Button {
-                                
-                            } label: {
-                                Text("Edit Info")
-                            }
-                            .tint(Asset.Colors.accent.swiftUIColor)
-                            .buttonStyle(.glassProminent)
-                        } else {
-                            Button {
-                                
-                            } label: {
-                                Text("Edit Info")
-                            }
-                            .tint(Asset.Colors.accent.swiftUIColor)
-                        }
-                    case .isNotMe:
-                        EmptyView()
-                    }
-                }
             }
         }
     }
@@ -541,13 +609,14 @@ struct ProfilePaginationControl: View {
                         .clipShape(RoundedRectangle(cornerRadius: CornerRadius.standard))
                     }
                 }
-                .glassEffectIfAvailable()
+                .glassEffectIfAvailable(in: RoundedRectangle(cornerRadius: CornerRadius.standard))
             }
         }
     }
 }
 
 struct ProfileActionBar: View {
+    let navigationStackNavigateToEditProfile: ()->()
     @Environment(ProfileViewModel.self) var viewModel
     @Environment(RelationshipViewModel.self) var relationshipViewModel
     
@@ -555,11 +624,9 @@ struct ProfileActionBar: View {
         HStack(spacing: standardPadding) {
             if let account = viewModel.account {
                 relationshipViewModel.button.largeButton {
-                    Task {
-                        try await relationshipViewModel.doRelationshipAction(relationshipViewModel.button.buttonAction, account: account)
-                    }
+                    navigationStackNavigateToEditProfile()
                 }
-                .glassEffectIfAvailable()
+                .glassEffectIfAvailable(in: .capsule)
                 
                 Button() {
                     
@@ -571,7 +638,7 @@ struct ProfileActionBar: View {
                         Image(systemName: "at")
                     }
                 }
-                .glassEffectIfAvailable()
+                .glassEffectIfAvailable(in: .circle)
                 
                 Button() {
                     
@@ -583,7 +650,7 @@ struct ProfileActionBar: View {
                         Image(systemName: "ellipsis")
                     }
                 }
-                .glassEffectIfAvailable()
+                .glassEffectIfAvailable(in: .circle)
             }
         }
     }
@@ -687,9 +754,21 @@ enum ProfilePage: CaseIterable, Hashable {
     }
 }
 
+enum EditingStatus {
+    case cannotEdit
+    case notEditing
+    case editing(hasChanges: Bool)
+}
+
 @MainActor
 @Observable class ProfileViewModel {
     let relationshipViewModel = RelationshipViewModel()
+    
+    let editingViewModel = {
+        ProfileEditingViewModel()
+    }()
+    
+    var editingStatus: EditingStatus?
     
     struct HandleDetails {
         let username: String
@@ -697,6 +776,7 @@ enum ProfilePage: CaseIterable, Hashable {
         let isMyDomain: Bool
     }
     var account: MastodonAccount?
+    var navigationControllerNavigateToEditProfile: (()->())?
     var relationship: MastodonAccount.Relationship?
     var postsViewModel: TimelineListViewModel? {
         didSet {

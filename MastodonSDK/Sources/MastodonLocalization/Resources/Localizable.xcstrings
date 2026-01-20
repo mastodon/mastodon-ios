@@ -34717,6 +34717,17 @@
         }
       }
     },
+    "Common.Controls.EditProfileButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Profile"
+          }
+        }
+      }
+    },
     "Common.Controls.Friendship.Block" : {
       "extractionState" : "migrated",
       "localizations" : {
@@ -152896,6 +152907,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "感謝您的貢獻！"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Profile"
           }
         }
       }

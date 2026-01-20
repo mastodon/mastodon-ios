@@ -13,8 +13,10 @@ enum RelationshipButtonType {
     case iDoNotFollowThem(theyFollowMe: Bool, theirAccountIsLocked: Bool)
     case iFollowThem(theyFollowMe: Bool)
     case iHaveRequestedToFollowThem
+    case edit
     
     enum RelationshipAction {
+        case editProfile
         case follow
         case unfollow
         case unmute
@@ -31,7 +33,7 @@ enum RelationshipButtonType {
                 return .unmute
             case .unblock:
                 return .unblockUser
-            case .noAction:
+            case .noAction, .editProfile:
                 return nil
             }
         }
@@ -55,6 +57,8 @@ enum RelationshipButtonType {
     
     var description: String {
         switch self {
+        case .edit:
+            return "edit"
         case .updating:
             return "updating"
         case .error:
@@ -84,6 +88,8 @@ enum RelationshipButtonType {
     
     func buttonText(isLarge: Bool) -> String? {
         switch self {
+        case .edit:
+            return L10nLookup.Common.Controls.editProfileButton
         case .iDoNotFollowThem(let theyFollowMe, let theirAccountIsLocked):
             if theirAccountIsLocked {
                 return L10nLookup.Common.Controls.RelationshipAction.requestToFollow(longForm: isLarge)
@@ -109,6 +115,8 @@ enum RelationshipButtonType {
     
     var buttonAction: RelationshipAction {
         switch self {
+        case .edit:
+            return .editProfile
         case .iDoNotFollowThem:
             return .follow
         case .iFollowThem, .iHaveRequestedToFollowThem:

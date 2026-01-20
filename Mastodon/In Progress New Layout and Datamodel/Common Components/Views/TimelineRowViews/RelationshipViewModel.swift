@@ -11,9 +11,13 @@ import SwiftUI
     
     public func prepareForDisplay(relationship: MastodonAccount.Relationship, theirAccountIsLocked: Bool) {
         self.relationship = relationship
-        if let entity = relationship.info?._legacyEntity {
+        switch relationship {
+        case .isNotMe(let info):
+            guard let entity = info?._legacyEntity else { break }
             let updatedButton = RelationshipButtonType(relationship: entity, theirAccountIsLocked: theirAccountIsLocked)
             button = updatedButton
+        case .isMe:
+            button = .edit
         }
     }
     
@@ -26,6 +30,10 @@ import SwiftUI
         do {
             button = .updating
             switch action {
+            case .editProfile:
+                throw AppError.unexpected(
+                    "editProfile action cannot be handled by the RelationshipViewModel"
+                )
             case .follow:
                 try await actionHandler?.doAction(.follow, forAccount: account)
             case .unfollow:
