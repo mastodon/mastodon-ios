@@ -1,5 +1,6 @@
 // Copyright © 2026 Mastodon gGmbH. All rights reserved.
 
+import PhotosUI
 import SwiftUI
 import MastodonUI
 import MastodonLocalization
@@ -39,6 +40,22 @@ struct ProfileEditingView: View {
             .overlay {
                 fieldEditingViewModel.autoCompleteSuggestionView(pinToTopOfKeyboard: true)
             }
+            .sheet(isPresented: editingViewModel.showCroppingView) {
+                if let image = editingViewModel.avatarImageToCrop {
+                    PhotoCropperView(originalImage: image) { confirmedImage in
+                        defer {
+                            self.editingViewModel.avatarImageToCrop = nil
+                        }
+                        
+                        guard let confirmedImage else {
+                            self.editingViewModel.avatarConfirmedCroppedImage = nil
+                            return
+                        }
+                        
+                        self.editingViewModel.avatarConfirmedCroppedImage = Image(uiImage: confirmedImage)
+                    }
+                }
+            }
         }
         .navigationTitle(L10nLookup.Scene.EditProfile.title)
         .toolbar {
@@ -59,4 +76,38 @@ struct ProfileEditingView: View {
 @Observable
 class ProfileEditingViewModel {
     var hasUnsavedChanges: Bool = false
+    
+    var selectedAvatar: Binding<[PhotosPickerItem]>
+    
+    var avatarPhotosPickerItem: PhotosPickerItem?
+    var avatarImageToCrop: UIImage?
+    var avatarConfirmedCroppedImage: Image?
+    
+    var showCroppingView: Binding<Bool>
+    
+    init() {
+        selectedAvatar = Binding<[PhotosPickerItem]>(get: {[]}, set: {_ in})
+        showCroppingView = Binding<Bool>(get: {false}, set: {_ in})
+    
+        showCroppingView = Binding<Bool>(
+            get: { return self.avatarImageToCrop != nil },
+            set: { newValue in }
+        )
+        selectedAvatar = Binding<[PhotosPickerItem]>(
+            get: { [self.avatarPhotosPickerItem].compactMap { $0 } },
+            set: { newValue in
+                self.avatarPhotosPickerItem = newValue.first
+                if let item = self.avatarPhotosPickerItem {
+                    Task {
+                        if let data = try? await item.loadTransferable(type: Data.self),
+                           let image = UIImage(data: data) {
+                            self.avatarImageToCrop = image
+                        } else {
+                            print("Failed to load avatar image")
+                        }
+                    }
+                }
+            }
+        )
+    }
 }

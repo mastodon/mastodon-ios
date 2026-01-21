@@ -31,8 +31,13 @@ struct AvatarView: View {
         }
     }
     
+    enum AvatarSource {
+        case url(URL?)
+        case local(Image)
+    }
+    
     let size: Size
-    let authorAvatarUrl: URL?
+    let avatarSource: AvatarSource?
     let goToProfile: (() async throws -> ())?
     
     private var viewDimension: CGFloat {
@@ -50,32 +55,49 @@ struct AvatarView: View {
     
     var body: some View {
         ZStack {
-            if let authorAvatarUrl {
-                WebImage(
-                    url: authorAvatarUrl,
-                    content: { image in
-                        image.resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .clipShape(avatarShape)
-                    },
-                    placeholder: {
+            if let avatarSource {
+                switch avatarSource {
+                case .url(let url):
+                    if let url {
+                        WebImage(
+                            url: url,
+                            content: { image in
+                                image.resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .clipShape(avatarShape)
+                            },
+                            placeholder: {
+                                avatarShape
+                                    .foregroundStyle(
+                                        Color(UIColor.secondarySystemFill))
+                            }
+                        )
+                        .overlay {
+                            switch size {
+                            case .extraLarge:
+                                avatarShape.stroke(.background, lineWidth: 2)
+                            default:
+                                avatarShape.stroke(.separator, lineWidth: 0.3)
+                            }
+                        }
+                    } else {
                         avatarShape
                             .foregroundStyle(
                                 Color(UIColor.secondarySystemFill))
                     }
-                )
-                .overlay {
-                    switch size {
-                    case .extraLarge:
-                        avatarShape.stroke(.background, lineWidth: 2)
-                    default:
-                        avatarShape.stroke(.separator, lineWidth: 0.3)
-                    }
+                case .local(let image):
+                    image.resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .clipShape(avatarShape)
+                        .overlay {
+                            switch size {
+                            case .extraLarge:
+                                avatarShape.stroke(.background, lineWidth: 2)
+                            default:
+                                avatarShape.stroke(.separator, lineWidth: 0.3)
+                            }
+                        }
                 }
-            } else {
-                avatarShape
-                    .foregroundStyle(
-                        Color(UIColor.secondarySystemFill))
             }
             
             if isNavigating {

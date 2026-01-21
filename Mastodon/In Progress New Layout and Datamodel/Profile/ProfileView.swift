@@ -4,6 +4,7 @@ import MastodonAsset
 import MastodonLocalization
 import SDWebImageSwiftUI
 import SwiftUI
+import PhotosUI
 import MastodonCore
 import MastodonSDK
 import Combine
@@ -273,12 +274,14 @@ struct ProfileAvatarAndBannerView: View {
         
                 HStack() {
                     ZStack {
-                        AvatarView(size: .extraLarge, authorAvatarUrl: profileViewModel.account?.avatarURL, goToProfile: nil)
+                        AvatarView(size: .extraLarge, avatarSource: editingViewModel.avatarConfirmedCroppedImage != nil ? .local(editingViewModel.avatarConfirmedCroppedImage!) : .url(profileViewModel.account?.avatarURL), goToProfile: nil)
                             .padding(.horizontal, doublePadding)
                             .frame(alignment: .leading)
                         switch profileViewModel.editingStatus {
                         case .editing:
-                            avatarEditButton
+                            // if the user has already chosen a new image, let them see it unobscured, but tapping the avatar will still bring up the photo picker
+                            avatarEditButton(showButton: editingViewModel.avatarConfirmedCroppedImage == nil)
+                                .frame(maxWidth: AvatarSize.extraLarge, maxHeight: AvatarSize.extraLarge)
                         case .cannotEdit, .notEditing, .none:
                             EmptyView()
                         }
@@ -325,18 +328,20 @@ struct ProfileAvatarAndBannerView: View {
         .foregroundStyle(.white)
     }
     
-    @ViewBuilder var avatarEditButton: some View {
-        Button() {
-            
-        } label: {
-            Image(systemName: "camera")
-                .font(.headline)
-                .padding()
-                .tintedBlurBackground()
-                .clipShape(Circle())
+    @ViewBuilder func avatarEditButton(showButton: Bool) -> some View {
+        PhotosPicker(selection: editingViewModel.selectedAvatar, maxSelectionCount: 1, matching: .images) {
+            if showButton {
+                Image(systemName: "camera")
+                    .font(.headline)
+                    .padding()
+                    .tintedBlurBackground()
+                    .clipShape(Circle())
+                    .glassEffectIfAvailable(in: .circle)
+                    .foregroundStyle(.white)
+            } else {
+                Color.clear
+            }
         }
-        .glassEffectIfAvailable(in: .circle)
-        .foregroundStyle(.white)
     }
 }
 
