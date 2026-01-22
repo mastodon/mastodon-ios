@@ -274,7 +274,7 @@ struct ProfileAvatarAndBannerView: View {
         
                 HStack() {
                     ZStack {
-                        AvatarView(size: .extraLarge, avatarSource: editingViewModel.avatarConfirmedCroppedImage != nil ? .local(editingViewModel.avatarConfirmedCroppedImage!) : .url(profileViewModel.account?.avatarURL), goToProfile: nil)
+                        AvatarView(size: .extraLarge, avatarSource: editingViewModel.avatarConfirmedCroppedImage != nil ? .local(Image(uiImage: editingViewModel.avatarConfirmedCroppedImage!)) : .url(profileViewModel.account?.avatarURL), goToProfile: nil)
                             .padding(.horizontal, doublePadding)
                             .frame(alignment: .leading)
                         switch profileViewModel.editingStatus {
@@ -295,7 +295,12 @@ struct ProfileAvatarAndBannerView: View {
     }
     
     @ViewBuilder func bannerView(width: CGFloat) -> some View {
-        if let bannerUrl = profileViewModel.account?.displayInfo.bannerImageUrl {
+        if let replacementImage = editingViewModel.confirmedBannerImage {
+            Image(uiImage: replacementImage)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: width)
+        } else if let bannerUrl = profileViewModel.account?.displayInfo.bannerImageUrl {
             WebImage(url: bannerUrl) { phase in
                 switch phase {
                 case .empty:
@@ -315,17 +320,15 @@ struct ProfileAvatarAndBannerView: View {
     }
     
     @ViewBuilder var bannerEditButton: some View {
-        Button() {
-            
-        } label: {
+        PhotosPicker(selection: editingViewModel.selectedBannerImage, maxSelectionCount: 1, matching: .images) {
             Text("Edit cover image")
                 .padding(.vertical, tinySpacing)
                 .padding(.horizontal)
                 .tintedBlurBackground()
                 .clipShape(.capsule)
+                .glassEffectIfAvailable(in: .capsule)
+                .foregroundStyle(.white)
         }
-        .glassEffectIfAvailable(in: .capsule)
-        .foregroundStyle(.white)
     }
     
     @ViewBuilder func avatarEditButton(showButton: Bool) -> some View {

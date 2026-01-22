@@ -52,7 +52,7 @@ struct ProfileEditingView: View {
                             return
                         }
                         
-                        self.editingViewModel.avatarConfirmedCroppedImage = Image(uiImage: confirmedImage)
+                        self.editingViewModel.avatarConfirmedCroppedImage = confirmedImage
                     }
                 }
             }
@@ -77,15 +77,20 @@ struct ProfileEditingView: View {
 class ProfileEditingViewModel {
     var hasUnsavedChanges: Bool = false
     
-    var selectedAvatar: Binding<[PhotosPickerItem]>
+    var selectedBannerImage: Binding<[PhotosPickerItem]>
+    var bannerImagePhotosPickerItem: PhotosPickerItem?
+    var confirmedBannerImage: UIImage?
     
+    var selectedAvatar: Binding<[PhotosPickerItem]>
     var avatarPhotosPickerItem: PhotosPickerItem?
     var avatarImageToCrop: UIImage?
-    var avatarConfirmedCroppedImage: Image?
+    var avatarConfirmedCroppedImage: UIImage?
+    
     
     var showCroppingView: Binding<Bool>
     
     init() {
+        selectedBannerImage = Binding<[PhotosPickerItem]>(get: {[]}, set: {_ in})
         selectedAvatar = Binding<[PhotosPickerItem]>(get: {[]}, set: {_ in})
         showCroppingView = Binding<Bool>(get: {false}, set: {_ in})
     
@@ -93,6 +98,24 @@ class ProfileEditingViewModel {
             get: { return self.avatarImageToCrop != nil },
             set: { newValue in }
         )
+        
+        selectedBannerImage = Binding<[PhotosPickerItem]>(
+            get: { [self.bannerImagePhotosPickerItem].compactMap { $0 } },
+            set: { newValue in
+                self.bannerImagePhotosPickerItem = newValue.first
+                if let item = self.bannerImagePhotosPickerItem {
+                    Task {
+                        if let data = try? await item.loadTransferable(type: Data.self),
+                           let image = UIImage(data: data) {
+                            self.confirmedBannerImage = image
+                        } else {
+                            print("Failed to load banner image")
+                        }
+                    }
+                }
+            }
+        )
+        
         selectedAvatar = Binding<[PhotosPickerItem]>(
             get: { [self.avatarPhotosPickerItem].compactMap { $0 } },
             set: { newValue in
