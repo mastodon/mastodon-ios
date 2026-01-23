@@ -5,6 +5,7 @@ import SwiftUI
 import MastodonUI
 import MastodonLocalization
 import MastodonAsset
+import Kanna // for stripping the html from the account bio
 
 class ProfileEditHostingViewController: UIHostingController<AnyView> {
     private let viewModel: ProfileViewModel
@@ -23,22 +24,36 @@ struct ProfileEditingView: View {
     @Environment(ProfileViewModel.self) var profileViewModel
     @Environment(ProfileEditingViewModel.self) var editingViewModel
     
-    @State var fieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "Placeholder", characterLimit: .softLimit(200))
-    
     var body: some View {
         GeometryReader { geo in
             VStack {
                 ProfileAvatarAndBannerView(width: geo.size.width)
                     .environment(profileViewModel)
                     .environment(editingViewModel)
-                MetaTextInputField()
-                    .environment(fieldEditingViewModel)
-                    .padding()
+                
+                VStack(alignment: .leading, spacing: tinySpacing) {
+                    inputLabel("Display name")
+                    MetaTextInputField()
+                        .environment(editingViewModel.displayNameFieldEditingViewModel)
+                        .frame(height: 36)
+                }
+                .padding()
+                
+                VStack(alignment: .leading, spacing: tinySpacing) {
+                    inputLabel("Bio")
+                    MetaTextInputField()
+                        .environment(editingViewModel.bioFieldEditingViewModel)
+                        .frame(height: 56)
+                }
+                .padding()
+                
                 Spacer()
                     .frame(maxHeight: .infinity)
             }
             .overlay {
-                fieldEditingViewModel.autoCompleteSuggestionView(pinToTopOfKeyboard: true)
+                if editingViewModel.bioFieldEditingViewModel.isEditing {
+                    editingViewModel.bioFieldEditingViewModel.autoCompleteSuggestionView(pinToTopOfKeyboard: true)
+                }
             }
             .sheet(isPresented: editingViewModel.showCroppingView) {
                 if let image = editingViewModel.avatarImageToCrop {
@@ -70,12 +85,20 @@ struct ProfileEditingView: View {
             }
         }
     }
+    
+    @ViewBuilder func inputLabel(_ text: String) -> some View {
+        Text(text)
+            .font(.subheadline)
+            .fontWeight(.semibold)
+    }
 }
 
 @MainActor
 @Observable
 class ProfileEditingViewModel {
     var hasUnsavedChanges: Bool = false
+    let displayNameFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "", characterLimit: .softLimit(100), autocompleteMastodonItems: false)
+    let bioFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "Describe yourself and/or this account.", characterLimit: .softLimit(220), autocompleteMastodonItems: true)
     
     var selectedBannerImage: Binding<[PhotosPickerItem]>
     var bannerImagePhotosPickerItem: PhotosPickerItem?
@@ -86,14 +109,15 @@ class ProfileEditingViewModel {
     var avatarImageToCrop: UIImage?
     var avatarConfirmedCroppedImage: UIImage?
     
-    
     var showCroppingView: Binding<Bool>
+    
+    private(set) var initialInfo: MastodonAccount? = nil
     
     init() {
         selectedBannerImage = Binding<[PhotosPickerItem]>(get: {[]}, set: {_ in})
         selectedAvatar = Binding<[PhotosPickerItem]>(get: {[]}, set: {_ in})
         showCroppingView = Binding<Bool>(get: {false}, set: {_ in})
-    
+        
         showCroppingView = Binding<Bool>(
             get: { return self.avatarImageToCrop != nil },
             set: { newValue in }
@@ -133,4 +157,29 @@ class ProfileEditingViewModel {
             }
         )
     }
+    
+    func setAccount(_ account: MastodonAccount) {
+        initialInfo = account
+        updateAccountTextFields(account: account)
+    }
+    
+    func updateAccountTextFields(account: MastodonAccount) {
+        let displayNameContent = account.displayInfo.displayName
+        displayNameFieldEditingViewModel.stringContent = displayNameContent
+        
+        let bioContent = normalize(htmlString: account.bio)
+        bioFieldEditingViewModel.stringContent = bioContent ?? ""
+    }
+}
+
+func normalize(htmlString: String?) -> String? {
+    let _note = htmlString?.replacingOccurrences(of: "<br>|<br />", with: "\u{2028}", options: .regularExpression, range: nil)
+        .replacingOccurrences(of: "</p>", with: "</p>\u{2029}", range: nil)
+        .trimmingCharacters(in: .whitespacesAndNewlines)
+    guard let note = _note, !note.isEmpty else {
+        return nil
+    }
+    
+    let html = try? HTML(html: note, encoding: .utf8)
+    return html?.text
 }

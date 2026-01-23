@@ -9,6 +9,7 @@ public struct MastodonAccount: Identifiable, Codable {
     let metadata: MetaData
     let displayInfo: DisplayInfo
     let metrics: Metrics
+    let bio: String
     let _legacyEntity: Mastodon.Entity.Account
 }
 
@@ -97,7 +98,7 @@ extension MastodonAccount: FromAccountEntityDerivable {
             metadata: MetaData.fromEntity(entity),
             displayInfo: DisplayInfo.fromEntity(
                 entity),
-            metrics: Metrics.fromEntity(entity),
+            metrics: Metrics.fromEntity(entity), bio: entity.note,
             _legacyEntity: entity
         )
     }

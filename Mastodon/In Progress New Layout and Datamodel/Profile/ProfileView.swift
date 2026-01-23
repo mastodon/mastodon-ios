@@ -40,6 +40,7 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
     
     func set(account: MastodonAccount, relationship: MastodonAccount.Relationship) {
         viewModel.account = account
+        viewModel.editingViewModel.setAccount(account)
         viewModel.relationship = relationship
         viewModel.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts)), asyncRefreshViewModel: AsyncRefreshViewModel())
         viewModel.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.mediaOnly)), asyncRefreshViewModel: AsyncRefreshViewModel())
