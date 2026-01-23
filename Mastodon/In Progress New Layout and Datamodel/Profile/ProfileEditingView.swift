@@ -26,26 +26,24 @@ struct ProfileEditingView: View {
     
     var body: some View {
         GeometryReader { geo in
-            VStack {
+            VStack(spacing: 0) {
                 ProfileAvatarAndBannerView(width: geo.size.width)
-                    .environment(profileViewModel)
-                    .environment(editingViewModel)
                 
-                VStack(alignment: .leading, spacing: tinySpacing) {
-                    inputLabel("Display name")
-                    MetaTextInputField()
-                        .environment(editingViewModel.displayNameFieldEditingViewModel)
-                        .frame(height: 36)
-                }
-                .padding()
+                nameAndBio
+                    .padding(.horizontal)
+                    .padding(.vertical, doublePadding)
                 
-                VStack(alignment: .leading, spacing: tinySpacing) {
-                    inputLabel("Bio")
-                    MetaTextInputField()
-                        .environment(editingViewModel.bioFieldEditingViewModel)
-                        .frame(height: 56)
-                }
-                .padding()
+                Divider()
+                
+                CustomProfileFieldsEditor()
+                    .padding(.horizontal)
+                    .padding(.vertical, doublePadding)
+                
+                Divider()
+                
+                DisplayPreferencesEditor()
+                    .padding(.horizontal)
+                    .padding(.vertical, doublePadding)
                 
                 Spacer()
                     .frame(maxHeight: .infinity)
@@ -84,12 +82,26 @@ struct ProfileEditingView: View {
                 }
             }
         }
+//        .safeAreaPadding()
     }
     
-    @ViewBuilder func inputLabel(_ text: String) -> some View {
-        Text(text)
-            .font(.subheadline)
-            .fontWeight(.semibold)
+    @ViewBuilder var nameAndBio: some View {
+        VStack(spacing: doublePadding) {
+            VStack(alignment: .leading, spacing: tinySpacing) {
+                inputHeading("Display name") // TODO: needs L10n
+                MetaTextInputField()
+                    .environment(editingViewModel.displayNameFieldEditingViewModel)
+                    .frame(height: 36)
+            }
+            
+            VStack(alignment: .leading, spacing: tinySpacing) {
+                inputHeading("Bio")  // TODO: needs L10n
+                inputSubheading("Introduce yourself. Recommended 220 character maximum.") // TODO: needs L10n
+                MetaTextInputField()
+                    .environment(editingViewModel.bioFieldEditingViewModel)
+                    .frame(height: 56)
+            }
+        }
     }
 }
 
@@ -183,3 +195,109 @@ func normalize(htmlString: String?) -> String? {
     let html = try? HTML(html: note, encoding: .utf8)
     return html?.text
 }
+
+enum ProfileSection {
+    case customFields
+    case displayPreferences
+    
+    var title: String? {
+        switch self {
+        case .customFields:
+            return "Custom fields" // TODO: needs L10n
+        case .displayPreferences:
+            return "Display preferences"// TODO: needs L10n
+        }
+    }
+    
+    var tipText: String? {
+        switch self {
+        case .customFields:
+            return "How to add a verified link"// TODO: needs L10n
+        case .displayPreferences:
+            return "Displays may vary across servers and apps."// TODO: needs L10n
+        }
+    }
+}
+
+struct ProfileSectionHeader: View {
+    let section: ProfileSection
+    
+    var body: some View {
+        if let title = section.title {
+            Text(title)
+                .font(.title3)
+                .fontWeight(.semibold)
+        }
+    }
+}
+
+@ViewBuilder func inputHeading(_ text: String) -> some View {
+    Text(text)
+        .font(.subheadline)
+        .fontWeight(.semibold)
+}
+
+@ViewBuilder func inputSubheading(_ text: String) -> some View {
+    Text(text)
+        .font(.footnote)
+        .foregroundColor(.secondary)
+}
+
+struct CustomProfileFieldsEditor: View {
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            ProfileSectionHeader(section: .customFields)
+            inputSubheading("Add your pronouns, external links, or anything else you’d like to share.") // TODO: needs L10n
+            infoButton(.customFields)
+            addFieldButton
+        }
+    }
+    
+    @ViewBuilder var addFieldButton: some View {
+        Button() {
+            // TODO: implement
+        } label: {
+            HStack(spacing: tinySpacing) {
+                Image(systemName: "plus")
+                Text("Add a field") // TODO: needs L10n
+            }
+            .font(.subheadline)
+            .padding(.vertical, tinySpacing)
+            .padding(.horizontal, standardPadding)
+            .background() {
+                Capsule()
+                    .fill(.quinary)
+            }
+        }
+    }
+}
+
+struct DisplayPreferencesEditor: View {
+    var body: some View {
+        VStack {
+            ProfileSectionHeader(section: .displayPreferences)
+            infoButton(.displayPreferences)
+            inputHeading("’Media’ tab settings")
+            inputSubheading("‘Media’ is an optional tab that shows your posts containing images or videos. ")
+        }
+    }
+}
+
+@ViewBuilder func infoButton(_ section: ProfileSection) -> some View {
+    if let text = section.tipText {
+        Button() {
+            // TODO: bring up tip
+        } label: {
+            HStack(spacing: tinySpacing) {
+                Image(systemName: "questionmark.circle")
+                Text(text)
+                    .font(.footnote)
+                    .fontWeight(.semibold)
+                    .underline()
+            }
+            .foregroundColor(.secondary)
+        }
+    }
+}
+
