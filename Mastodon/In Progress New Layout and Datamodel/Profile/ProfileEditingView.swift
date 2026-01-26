@@ -5,6 +5,7 @@ import SwiftUI
 import MastodonUI
 import MastodonLocalization
 import MastodonAsset
+import MastodonSDK
 import Kanna // for stripping the html from the account bio
 
 class ProfileEditHostingViewController: UIHostingController<AnyView> {
@@ -26,46 +27,56 @@ struct ProfileEditingView: View {
     
     var body: some View {
         GeometryReader { geo in
-            VStack(spacing: 0) {
-                ProfileAvatarAndBannerView(width: geo.size.width)
-                
-                nameAndBio
-                    .padding(.horizontal)
-                    .padding(.vertical, doublePadding)
-                
-                Divider()
-                
-                CustomProfileFieldsEditor()
-                    .padding(.horizontal)
-                    .padding(.vertical, doublePadding)
-                
-                Divider()
-                
-                DisplayPreferencesEditor()
-                    .padding(.horizontal)
-                    .padding(.vertical, doublePadding)
-                
-                Spacer()
-                    .frame(maxHeight: .infinity)
-            }
-            .overlay {
-                if editingViewModel.bioFieldEditingViewModel.isEditing {
-                    editingViewModel.bioFieldEditingViewModel.autoCompleteSuggestionView(pinToTopOfKeyboard: true)
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    ProfileAvatarAndBannerView(width: geo.size.width)
+                    
+                    nameAndBio
+                        .padding(.horizontal)
+                        .padding(.vertical, doublePadding)
+                    
+                    Divider()
+                    
+                    CustomProfileFieldsEditor()
+                        .padding(.horizontal)
+                        .padding(.vertical, doublePadding)
+                    
+                    Divider()
+                    
+                    DisplayPreferencesEditor()
+                        .padding(.horizontal)
+                        .padding(.vertical, doublePadding)
+                    
+                    Divider()
+                    
+                    // ADVANCED SETTINGS
+                    
+                    AdvancedSettingsEditor()
+                        .padding(.horizontal)
+                        .padding(.vertical, doublePadding)
+                    
+                    Spacer()
+                        .frame(maxHeight: .infinity)
                 }
-            }
-            .sheet(isPresented: editingViewModel.showCroppingView) {
-                if let image = editingViewModel.avatarImageToCrop {
-                    PhotoCropperView(originalImage: image) { confirmedImage in
-                        defer {
-                            self.editingViewModel.avatarImageToCrop = nil
+                .overlay {
+                    if editingViewModel.bioFieldEditingViewModel.isEditing {
+                        editingViewModel.bioFieldEditingViewModel.autoCompleteSuggestionView(pinToTopOfKeyboard: true)
+                    }
+                }
+                .sheet(isPresented: editingViewModel.showCroppingView) {
+                    if let image = editingViewModel.avatarImageToCrop {
+                        PhotoCropperView(originalImage: image) { confirmedImage in
+                            defer {
+                                self.editingViewModel.avatarImageToCrop = nil
+                            }
+                            
+                            guard let confirmedImage else {
+                                self.editingViewModel.avatarConfirmedCroppedImage = nil
+                                return
+                            }
+                            
+                            self.editingViewModel.avatarConfirmedCroppedImage = confirmedImage
                         }
-                        
-                        guard let confirmedImage else {
-                            self.editingViewModel.avatarConfirmedCroppedImage = nil
-                            return
-                        }
-                        
-                        self.editingViewModel.avatarConfirmedCroppedImage = confirmedImage
                     }
                 }
             }
@@ -88,15 +99,14 @@ struct ProfileEditingView: View {
     @ViewBuilder var nameAndBio: some View {
         VStack(spacing: doublePadding) {
             VStack(alignment: .leading, spacing: tinySpacing) {
-                inputHeading("Display name") // TODO: needs L10n
+                SubsectionHeading(title: "Display name", subtitle: nil) // TODO: needs L10n
                 MetaTextInputField()
                     .environment(editingViewModel.displayNameFieldEditingViewModel)
                     .frame(height: 36)
             }
             
             VStack(alignment: .leading, spacing: tinySpacing) {
-                inputHeading("Bio")  // TODO: needs L10n
-                inputSubheading("Introduce yourself. Recommended 220 character maximum.") // TODO: needs L10n
+                SubsectionHeading(title: "Bio", subtitle: "Introduce yourself. Recommended 220 character maximum.") // TODO: needs L10n
                 MetaTextInputField()
                     .environment(editingViewModel.bioFieldEditingViewModel)
                     .frame(height: 56)
@@ -122,6 +132,13 @@ class ProfileEditingViewModel {
     var avatarConfirmedCroppedImage: UIImage?
     
     var showCroppingView: Binding<Bool>
+    
+    var mediaTabVisibilitySetting: MediaTabVisibilitySetting = .showMediaTab
+    var mediaTabRepliesSetting: MediaTabRepliesSetting = .showDirectPostsOnly
+    var featuredTabVisibilitySetting: FeaturedTabVisibilitySetting = .showFeaturedTab
+    
+    var customFields: [Mastodon.Entity.Field]? = nil
+    var emojis: [Mastodon.Entity.Emoji] = []
     
     private(set) var initialInfo: MastodonAccount? = nil
     
@@ -173,6 +190,7 @@ class ProfileEditingViewModel {
     func setAccount(_ account: MastodonAccount) {
         initialInfo = account
         updateAccountTextFields(account: account)
+        updateCustomFields(account: account)
     }
     
     func updateAccountTextFields(account: MastodonAccount) {
@@ -181,6 +199,28 @@ class ProfileEditingViewModel {
         
         let bioContent = normalize(htmlString: account.bio)
         bioFieldEditingViewModel.stringContent = bioContent ?? ""
+    }
+    
+    func updateCustomFields(account: MastodonAccount) {
+        customFields = account.metadata.customFields
+        emojis = account._legacyEntity.emojis
+    }
+}
+
+extension ProfileEditingViewModel {
+    enum MediaTabVisibilitySetting: Int {
+        case showMediaTab
+        case hideMediaTab
+    }
+    
+    enum MediaTabRepliesSetting: Int {
+        case showDirectPostsOnly
+        case includeMyRepliesToOthers
+    }
+    
+    enum FeaturedTabVisibilitySetting: Int {
+        case showFeaturedTab
+        case hideFeaturedTab
     }
 }
 
@@ -199,6 +239,7 @@ func normalize(htmlString: String?) -> String? {
 enum ProfileSection {
     case customFields
     case displayPreferences
+    case advancedSettings
     
     var title: String? {
         switch self {
@@ -206,6 +247,8 @@ enum ProfileSection {
             return "Custom fields" // TODO: needs L10n
         case .displayPreferences:
             return "Display preferences"// TODO: needs L10n
+        case .advancedSettings:
+            return "Advanced settings"
         }
     }
     
@@ -215,6 +258,8 @@ enum ProfileSection {
             return "How to add a verified link"// TODO: needs L10n
         case .displayPreferences:
             return "Displays may vary across servers and apps."// TODO: needs L10n
+        case .advancedSettings:
+            return "Informs others that most posts from this account are..."
         }
     }
 }
@@ -231,26 +276,21 @@ struct ProfileSectionHeader: View {
     }
 }
 
-@ViewBuilder func inputHeading(_ text: String) -> some View {
-    Text(text)
-        .font(.subheadline)
-        .fontWeight(.semibold)
-}
-
-@ViewBuilder func inputSubheading(_ text: String) -> some View {
-    Text(text)
-        .font(.footnote)
-        .foregroundColor(.secondary)
-}
-
 struct CustomProfileFieldsEditor: View {
+    @Environment(ProfileEditingViewModel.self) var editingViewModel
+    @State private var draggingField: Mastodon.Entity.Field?
     
     var body: some View {
         VStack(alignment: .leading) {
             ProfileSectionHeader(section: .customFields)
-            inputSubheading("Add your pronouns, external links, or anything else you’d like to share.") // TODO: needs L10n
             infoButton(.customFields)
+            SubsectionHeading(title: nil, subtitle: "Add your pronouns, external links, or anything else you’d like to share.") // TODO: needs L10n
+            if let customFields = editingViewModel.customFields, !customFields.isEmpty {
+                customFieldsList(customFields)
+                Divider()
+            }
             addFieldButton
+            verifiedLinksTipBox
         }
     }
     
@@ -271,15 +311,135 @@ struct CustomProfileFieldsEditor: View {
             }
         }
     }
+    
+    @ViewBuilder var verifiedLinksTipBox: some View {
+        HStack(alignment: .top) {
+            Image(systemName: "checkmark.seal")
+                .font(.subheadline)
+                .padding(tinySpacing)
+                .background() {
+                    Circle()
+                        .fill(brandBackgroundColor)
+                }
+            
+            VStack(alignment: .leading) {
+                Spacer()
+                    .frame(height: tinySpacing)
+                Text("Tip: Adding verified links")
+                    .fontWeight(.semibold)
+                Text("You can easily add credibility to your Mastodon account by verifying links to any websites you own.")
+            }
+            .font(.subheadline)
+            
+            Button() {
+                // TODO: close
+            } label: {
+                Image(systemName: "xmark")
+            }
+        }
+        .padding()
+        .background() {
+            RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
+                .fill(brandBackgroundColor)
+        }
+    }
+    
+    @ViewBuilder func customFieldsList(_ customFields: [Mastodon.Entity.Field]) -> some View {
+        VStack {
+            ForEach(customFields, id: \.self) { field in
+                    customFieldRow(field, isDraggable: false)
+            }
+        }
+    }
+    
+    @ViewBuilder func customFieldRow(_ field: Mastodon.Entity.Field, isDraggable: Bool, isDragging: Bool) -> some View {
+        if isDragging {
+            customFieldRow(field, isDraggable: isDraggable)
+                .hidden()
+        } else {
+            customFieldRow(field, isDraggable: isDraggable)
+        }
+    }
+    
+    @ViewBuilder func customFieldRow(_ field: Mastodon.Entity.Field, isDraggable: Bool) -> some View {
+        HStack {
+            if isDraggable {
+                Image(systemName: "line.3.horizontal")
+            }
+            VStack(alignment: .leading) {
+                Text(field.name)
+                    .fixedSize()
+                Text(field.value)
+                    .fontWeight(.semibold)
+                    .fixedSize()
+            }
+            .font(.footnote)
+            Spacer()
+        }
+        .padding()
+    }
 }
 
 struct DisplayPreferencesEditor: View {
+    @Environment(ProfileEditingViewModel.self) var viewModel
     var body: some View {
-        VStack {
-            ProfileSectionHeader(section: .displayPreferences)
-            infoButton(.displayPreferences)
-            inputHeading("’Media’ tab settings")
-            inputSubheading("‘Media’ is an optional tab that shows your posts containing images or videos. ")
+        VStack(alignment: .leading, spacing: doublePadding) {
+            VStack(alignment: .leading) {
+                ProfileSectionHeader(section: .displayPreferences)
+                infoButton(.displayPreferences)
+            }
+            
+            // SHOW/HIDE MEDIA TAB
+            VStack(alignment: .leading) {
+                SubsectionHeading(title: "’Media’ tab settings", subtitle: "‘Media’ is an optional tab that shows your posts containing images or videos.")
+                RadioButtonArray(items: [(ProfileEditingViewModel.MediaTabVisibilitySetting.showMediaTab.rawValue, "Show ‘Media’ tab"), (ProfileEditingViewModel.MediaTabVisibilitySetting.hideMediaTab.rawValue, "Hide ‘Media’ tab")], selectedItem: Binding<Int>(
+                    get: { viewModel.mediaTabVisibilitySetting.rawValue },
+                    set: { newValue in viewModel.mediaTabVisibilitySetting = .init(rawValue: newValue) ?? .showMediaTab }
+                ))
+            }
+            
+            // INCLUDE REPLIES ON MEDIA TAB
+            VStack(alignment: .leading) {
+                SubsectionHeading(title: "Include replies on ’Media’ tab?", subtitle: nil)
+                RadioButtonArray(items: [(ProfileEditingViewModel.MediaTabRepliesSetting.showDirectPostsOnly.rawValue, "Only show my posts"), (ProfileEditingViewModel.MediaTabRepliesSetting.includeMyRepliesToOthers.rawValue, "Show my posts and replies to other people's posts")], selectedItem: Binding<Int>(
+                    get: { viewModel.mediaTabRepliesSetting.rawValue },
+                    set: { newValue in viewModel.mediaTabRepliesSetting = .init(rawValue: newValue) ?? .showDirectPostsOnly }
+                ))
+            }
+            
+            // FEATURED TAB SETTINGS
+            VStack(alignment: .leading) {
+                SubsectionHeading(title: "’Featured’ tab settings", subtitle: "’Featured’ is an optional tab where you can showcase other accounts and collections.")
+                RadioButtonArray(items: [(ProfileEditingViewModel.FeaturedTabVisibilitySetting.showFeaturedTab.rawValue, "Show ’Featured’ tab"), (ProfileEditingViewModel.FeaturedTabVisibilitySetting.hideFeaturedTab.rawValue, "Hide ’Featured’ tab")], selectedItem: Binding<Int>(
+                    get: { viewModel.featuredTabVisibilitySetting.rawValue },
+                    set: { newValue in viewModel.featuredTabVisibilitySetting = .init(rawValue: newValue) ?? .showFeaturedTab }
+                ))
+            }
+            
+            Divider()
+            
+            // FEATURED HASHTAGS
+            
+            HStack {
+                SubsectionHeading(title: "Featured hashtags", subtitle: "Help others identify, and have quick access to, your favorite topics")
+                HStack {
+                    Text("Manage")
+                    Image(systemName: "chevron.forward")
+                }
+                .font(.subheadline)
+                .fontWeight(.semibold)
+            }
+            .onTapGesture {
+                // TODO: navigate
+            }
+        }
+    }
+}
+
+struct AdvancedSettingsEditor: View {
+    var body: some View {
+        VStack(alignment: .leading) {
+            ProfileSectionHeader(section: .advancedSettings)
         }
     }
 }
@@ -300,4 +460,60 @@ struct DisplayPreferencesEditor: View {
         }
     }
 }
+
+struct SubsectionHeading: View {
+    let title: String?
+    let subtitle: String?
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            if let title {
+                Text(title)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+            }
+            if let subtitle {
+                Text(subtitle)
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
+}
+
+struct RadioButtonArray: View {
+    let items: [(Int, String)]
+    var selectedItem: Binding<Int>
+    
+    let selectionIndicatorSize: CGFloat = 16
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            ForEach(items, id: \.self.1) { (index, item) in
+                HStack {
+                    selectionImage(selected: index == selectedItem.wrappedValue)
+                    Text(item)
+                }
+                .onTapGesture {
+                    selectedItem.wrappedValue = index % items.count
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder func selectionImage(selected: Bool) -> some View {
+        ZStack {
+            Circle()
+                .stroke(selected ? .clear : .secondary)
+                .fill(selected ? Asset.Colors.accent.swiftUIColor : .clear)
+                .frame(width: selectionIndicatorSize, height: selectionIndicatorSize)
+            Circle()
+                .blendMode(.destinationOut)
+                .frame(width: selectionIndicatorSize - 8, height: selectionIndicatorSize - 8)
+        }
+        .compositingGroup()
+    }
+}
+
+let brandBackgroundColor: Color = Asset.Colors.Brand.lightBlurple.swiftUIColor.opacity(0.2)
 
