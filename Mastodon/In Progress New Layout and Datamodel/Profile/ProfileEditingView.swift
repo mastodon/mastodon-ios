@@ -136,6 +136,7 @@ struct ProfileEditingView: View {
 @Observable
 class ProfileEditingViewModel {
     var hasUnsavedChanges = false
+    var showVerifiedLinkTip = true
     
     let displayNameFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "", characterLimit: .softLimit(100), autocompleteMastodonItems: false)
     let bioFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "Describe yourself and/or this account.", characterLimit: .softLimit(220), autocompleteMastodonItems: true)
@@ -228,6 +229,9 @@ class ProfileEditingViewModel {
         updateAccountTextFields(account: account)
         updateCustomFields(account: account)
         updateMetaData(account: account)
+        if let verifiedField = customFields?.first(where: { $0.verifiedAt != nil }) {
+            showVerifiedLinkTip = false
+        }
     }
     
     func updateAccountTextFields(account: MastodonAccount) {
@@ -334,7 +338,9 @@ struct CustomProfileFieldsEditor: View {
                 Divider()
             }
             addFieldButton
-            verifiedLinksTipBox
+            if editingViewModel.showVerifiedLinkTip {
+                verifiedLinksTipBox
+            }
         }
     }
     
@@ -376,7 +382,9 @@ struct CustomProfileFieldsEditor: View {
             .font(.subheadline)
             
             Button() {
-                // TODO: close
+                withAnimation {
+                    editingViewModel.showVerifiedLinkTip = false
+                }
             } label: {
                 Image(systemName: "xmark")
             }
