@@ -140,6 +140,9 @@ class ProfileEditingViewModel {
     var customFields: [Mastodon.Entity.Field]? = nil
     var emojis: [Mastodon.Entity.Emoji] = []
     
+    private var isAutomatedAccount: Bool = false
+    var isAutomatedAccountBinding = Binding<Bool>( get: { false }, set: {_ in})
+    
     private(set) var initialInfo: MastodonAccount? = nil
     
     init() {
@@ -184,6 +187,11 @@ class ProfileEditingViewModel {
                     }
                 }
             }
+        )
+        
+        isAutomatedAccountBinding = Binding<Bool>(
+            get: { self._isAutomatedAccount },
+            set: { newValue in self._isAutomatedAccount = newValue }
         )
     }
     
@@ -382,6 +390,7 @@ struct CustomProfileFieldsEditor: View {
 
 struct DisplayPreferencesEditor: View {
     @Environment(ProfileEditingViewModel.self) var viewModel
+    
     var body: some View {
         VStack(alignment: .leading, spacing: doublePadding) {
             VStack(alignment: .leading) {
@@ -437,9 +446,17 @@ struct DisplayPreferencesEditor: View {
 }
 
 struct AdvancedSettingsEditor: View {
+    @Environment(ProfileEditingViewModel.self) var viewModel
+    
     var body: some View {
         VStack(alignment: .leading) {
             ProfileSectionHeader(section: .advancedSettings)
+            Spacer()
+            SubsectionHeading(title: "Automated account", subtitle: "Informs others that most posts from this account are automated and won’t be monitored")
+            Toggle(isOn: viewModel.isAutomatedAccountBinding) {
+                Text("Mark as an automated account")
+            }
+            .tint(Asset.Colors.accent.swiftUIColor)
         }
     }
 }
@@ -516,4 +533,3 @@ struct RadioButtonArray: View {
 }
 
 let brandBackgroundColor: Color = Asset.Colors.Brand.lightBlurple.swiftUIColor.opacity(0.2)
-
