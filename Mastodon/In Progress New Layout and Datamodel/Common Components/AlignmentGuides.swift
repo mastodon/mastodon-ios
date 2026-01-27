@@ -45,3 +45,7 @@ extension HorizontalAlignment {
     
     static let gutterAlign = HorizontalAlignment(GutterAlign.self)
 }
+
+extension Color {
+    static var dimmingBackground = Color.black.opacity(0.6)
+}

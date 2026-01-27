@@ -25,6 +25,27 @@ struct ProfileEditingView: View {
     @Environment(ProfileViewModel.self) var profileViewModel
     @Environment(ProfileEditingViewModel.self) var editingViewModel
     
+    enum FieldEditType {
+        case create
+        case edit(Mastodon.Entity.Field)
+        
+        var title: String {
+            switch self {
+            case .create:
+                "Create custom field"
+            case .edit:
+                "Edit custom field"
+            }
+        }
+    }
+    
+    struct FieldEditingState {
+        let editingField: FieldEditType
+        let labelEditingModel: MetaTextInputFieldViewModel
+        let valueEditingModel: MetaTextInputFieldViewModel
+    }
+    
+    
     var body: some View {
         GeometryReader { geo in
             ScrollView {
@@ -93,6 +114,11 @@ struct ProfileEditingView: View {
                 }
             }
         }
+        .overlay() {
+            if let fieldEditingState = editingViewModel.fieldEditingState {
+                editFieldView(fieldEditingState)
+            }
+        }
         .onChange(of: editingViewModel.isAutomatedAccount) {
             editingViewModel.checkForChanges()
         }
@@ -130,6 +156,80 @@ struct ProfileEditingView: View {
             }
         }
     }
+    
+    @ViewBuilder func editFieldView(_ editState: ProfileEditingView.FieldEditingState) -> some View {
+        GeometryReader { _ in
+            ZStack {
+                Color.dimmingBackground
+                    .onTapGesture {
+                        self.editingViewModel.fieldEditingState = nil
+                    }
+                
+                VStack(alignment: .leading, spacing: doublePadding) {
+                    Text(editState.editingField.title)
+                        .fontWeight(.semibold)
+                    
+                    Divider()
+                    
+                    VStack(alignment: .leading, spacing: tinySpacing) {
+                        SubsectionHeading(title: "Label", subtitle: nil)
+                        MetaTextInputField()
+                            .environment(editState.labelEditingModel)
+                            .frame(height: 36)
+                    }
+                    
+                    VStack(alignment: .leading, spacing: tinySpacing) {
+                        SubsectionHeading(title: "Value", subtitle: nil)
+                        MetaTextInputField()
+                            .environment(editState.valueEditingModel)
+                            .frame(height: 36)
+                    }
+                    
+                    HStack {
+                        Spacer()
+                            .frame(maxWidth: .infinity)
+                        
+                        Button() {
+                            withAnimation {
+                                editingViewModel.fieldEditingState = nil
+                            }
+                        } label: {
+                            Text("Cancel")
+                                .padding(.horizontal)
+                                .padding(.vertical, tinySpacing)
+                                .background() {
+                                    Capsule()
+                                        .stroke(.secondary)
+                                }
+                        }
+                        
+                        Button() {
+                            withAnimation {
+                                editingViewModel.commitEditingField()
+                            }
+                        } label: {
+                            Text("Save")
+                                .foregroundColor(.white)
+                                .padding(.horizontal)
+                                .padding(.vertical, tinySpacing)
+                                .background() {
+                                    Capsule()
+                                        .fill(Asset.Colors.accent.swiftUIColor)
+                                }
+                        }
+                    }
+                    .fontWeight(.semibold)
+                }
+                .frame(maxWidth: 300)
+                .padding(doublePadding)
+                .background() {
+                    RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
+                        .fill(.background)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+            }
+        }
+    }
 }
 
 @MainActor
@@ -140,6 +240,8 @@ class ProfileEditingViewModel {
     
     let displayNameFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "", characterLimit: .softLimit(100), autocompleteMastodonItems: false)
     let bioFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "Describe yourself and/or this account.", characterLimit: .softLimit(220), autocompleteMastodonItems: true)
+    
+    var fieldEditingState: ProfileEditingView.FieldEditingState?
     
     var selectedBannerImage: Binding<[PhotosPickerItem]>
     var bannerImagePhotosPickerItem: PhotosPickerItem?
@@ -253,6 +355,40 @@ class ProfileEditingViewModel {
         featuredTabVisibilitySetting = .showFeaturedTab
         isAutomatedAccount = account.metadata.isBot
     }
+    
+    func beginEditingField(_ fieldType: ProfileEditingView.FieldEditType) {
+        switch fieldType {
+        case .create:
+            fieldEditingState = .init(editingField: fieldType,
+                                      labelEditingModel: MetaTextInputFieldViewModel(stringContent: "", placeholder: "", characterLimit: .softLimit(100), autocompleteMastodonItems: false),
+                                      valueEditingModel: MetaTextInputFieldViewModel(stringContent: "", placeholder: "", characterLimit: .softLimit(220), autocompleteMastodonItems: true))
+        case .edit(let field):
+            fieldEditingState = .init(editingField: fieldType,
+                                      labelEditingModel: MetaTextInputFieldViewModel(stringContent: field.name, placeholder: "", characterLimit: .softLimit(100), autocompleteMastodonItems: false),
+                                      valueEditingModel: MetaTextInputFieldViewModel(stringContent: "", placeholder: field.value, characterLimit: .softLimit(220), autocompleteMastodonItems: true))
+        }
+    }
+    
+    func commitEditingField() {
+        guard let fieldEditingState else { return }
+        let labelText = fieldEditingState.labelEditingModel.stringContent
+        let valueText = fieldEditingState.valueEditingModel.stringContent
+        guard !labelText.isEmpty, !valueText.isEmpty else { return }
+        
+        let newField = Mastodon.Entity.Field(name: labelText, value: valueText)
+        
+        switch fieldEditingState.editingField {
+        case .create:
+            customFields?.append(newField)
+        case .edit(let field):
+            if let replaceIndex = customFields?.firstIndex(of: field) {
+                customFields?[replaceIndex] = newField
+            } else {
+                customFields?.append(newField)
+            }
+        }
+        self.fieldEditingState = nil
+    }
 }
 
 extension ProfileEditingViewModel {
@@ -346,7 +482,9 @@ struct CustomProfileFieldsEditor: View {
     
     @ViewBuilder var addFieldButton: some View {
         Button() {
-            // TODO: implement
+            withAnimation {
+                editingViewModel.beginEditingField(.create)
+            }
         } label: {
             HStack(spacing: tinySpacing) {
                 Image(systemName: "plus")
