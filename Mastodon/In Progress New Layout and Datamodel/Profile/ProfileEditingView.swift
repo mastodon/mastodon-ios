@@ -365,7 +365,7 @@ class ProfileEditingViewModel {
         case .edit(let field):
             fieldEditingState = .init(editingField: fieldType,
                                       labelEditingModel: MetaTextInputFieldViewModel(stringContent: field.name, placeholder: "", characterLimit: .softLimit(100), autocompleteMastodonItems: false),
-                                      valueEditingModel: MetaTextInputFieldViewModel(stringContent: "", placeholder: field.value, characterLimit: .softLimit(220), autocompleteMastodonItems: true))
+                                      valueEditingModel: MetaTextInputFieldViewModel(stringContent: field.value, placeholder: "", characterLimit: .softLimit(220), autocompleteMastodonItems: true))
         }
     }
     
@@ -537,7 +537,12 @@ struct CustomProfileFieldsEditor: View {
     @ViewBuilder func customFieldsList(_ customFields: [Mastodon.Entity.Field]) -> some View {
         VStack {
             ForEach(customFields, id: \.self) { field in
-                    customFieldRow(field, isDraggable: false)
+                customFieldRow(field, isDraggable: false)
+                    .onTapGesture {
+                        withAnimation {
+                            editingViewModel.beginEditingField(.edit(field))
+                        }
+                    }
             }
         }
     }
