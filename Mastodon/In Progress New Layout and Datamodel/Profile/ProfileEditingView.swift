@@ -93,7 +93,24 @@ struct ProfileEditingView: View {
                 }
             }
         }
-//        .safeAreaPadding()
+        .onChange(of: editingViewModel.isAutomatedAccount) {
+            editingViewModel.checkForChanges()
+        }
+        .onChange(of: editingViewModel.avatarConfirmedCroppedImage) {
+            editingViewModel.checkForChanges()
+        }
+        .onChange(of: editingViewModel.confirmedBannerImage) {
+            editingViewModel.checkForChanges()
+        }
+        .onChange(of: editingViewModel.mediaTabVisibilitySetting) {
+            editingViewModel.checkForChanges()
+        }
+        .onChange(of: editingViewModel.mediaTabRepliesSetting) {
+            editingViewModel.checkForChanges()
+        }
+        .onChange(of: editingViewModel.featuredTabVisibilitySetting) {
+            editingViewModel.checkForChanges()
+        }
     }
     
     @ViewBuilder var nameAndBio: some View {
@@ -118,7 +135,8 @@ struct ProfileEditingView: View {
 @MainActor
 @Observable
 class ProfileEditingViewModel {
-    var hasUnsavedChanges: Bool = false
+    var hasUnsavedChanges = false
+    
     let displayNameFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "", characterLimit: .softLimit(100), autocompleteMastodonItems: false)
     let bioFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "Describe yourself and/or this account.", characterLimit: .softLimit(220), autocompleteMastodonItems: true)
     
@@ -140,7 +158,7 @@ class ProfileEditingViewModel {
     var customFields: [Mastodon.Entity.Field]? = nil
     var emojis: [Mastodon.Entity.Emoji] = []
     
-    private var isAutomatedAccount: Bool = false
+    var isAutomatedAccount: Bool = false
     var isAutomatedAccountBinding = Binding<Bool>( get: { false }, set: {_ in})
     
     private(set) var initialInfo: MastodonAccount? = nil
@@ -190,15 +208,26 @@ class ProfileEditingViewModel {
         )
         
         isAutomatedAccountBinding = Binding<Bool>(
-            get: { self._isAutomatedAccount },
-            set: { newValue in self._isAutomatedAccount = newValue }
+            get: { self.isAutomatedAccount },
+            set: { newValue in self.isAutomatedAccount = newValue }
         )
+        
+        displayNameFieldEditingViewModel.contentDidChange = { self.hasUnsavedChanges = true }
+        bioFieldEditingViewModel.contentDidChange = { self.hasUnsavedChanges = true }
+    }
+    
+    func checkForChanges() {
+        let hasChanges = confirmedBannerImage != nil ||
+        avatarConfirmedCroppedImage != nil ||
+        (initialInfo != nil && isAutomatedAccount != initialInfo?.metadata.isBot)
+        hasUnsavedChanges = hasChanges
     }
     
     func setAccount(_ account: MastodonAccount) {
         initialInfo = account
         updateAccountTextFields(account: account)
         updateCustomFields(account: account)
+        updateMetaData(account: account)
     }
     
     func updateAccountTextFields(account: MastodonAccount) {
@@ -212,6 +241,13 @@ class ProfileEditingViewModel {
     func updateCustomFields(account: MastodonAccount) {
         customFields = account.metadata.customFields
         emojis = account._legacyEntity.emojis
+    }
+    
+    func updateMetaData(account: MastodonAccount) {
+        mediaTabVisibilitySetting = .showMediaTab
+        mediaTabRepliesSetting = .showDirectPostsOnly
+        featuredTabVisibilitySetting = .showFeaturedTab
+        isAutomatedAccount = account.metadata.isBot
     }
 }
 

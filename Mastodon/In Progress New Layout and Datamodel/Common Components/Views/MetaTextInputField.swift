@@ -16,6 +16,7 @@ import Combine
     
     var authenticationBox: MastodonAuthenticationBox? // required for custom emojis
     public var isEditing: Bool = false
+    public var contentDidChange: (()->())?
     private var autoCompleteSuggestionViewModel: AutoCompleteSuggestionViewModel?
     
     public var stringContent: String {
@@ -162,6 +163,7 @@ extension MetaTextInputFieldViewModel: UITextViewDelegate {
     }
     
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        defer { contentDidChange?() }
         if text == " ", let autoCompleteInfo = self.autoCompleteSuggestionViewModel?.autoCompleteInfo {
             let isHandled = handleAutoComplete(autoCompleteInfo)
             return !isHandled
