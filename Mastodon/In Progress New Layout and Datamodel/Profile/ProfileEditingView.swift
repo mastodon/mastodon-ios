@@ -412,10 +412,9 @@ struct CustomProfileFieldsEditor: View {
             }
             VStack(alignment: .leading) {
                 Text(field.name)
-                    .fixedSize()
-                Text(field.value)
-                    .fontWeight(.semibold)
-                    .fixedSize()
+                    .fixedSize(horizontal: false, vertical: true)
+                MastodonContentView.customProfileField(html: field.value, emojis: editingViewModel.emojis, bold: true)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .font(.footnote)
             Spacer()
