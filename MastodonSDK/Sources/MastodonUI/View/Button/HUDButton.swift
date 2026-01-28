@@ -26,6 +26,10 @@ public class HUDButton: UIView {
         button.contentEdgeInsets = .constant(7)
         button.imageView?.tintColor = .label
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .bold))
+
+        button.registerForTraitChanges([UITraitLegibilityWeight.self]) { (button: UIButton, previousTraitCollection: UITraitCollection) in
+            button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .bold))
+        }
         return button
     }()
 
@@ -55,11 +59,6 @@ public class HUDButton: UIView {
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: HUDButton.height).priority(.defaultHigh),
         ])
-    }
-
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .bold))
     }
 
     public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
