@@ -341,10 +341,12 @@ extension MetaTextInputFieldViewModel {
 
 public struct MetaTextInputField: View {
     @Environment(MetaTextInputFieldViewModel.self) var viewModel
+    let allowScroll: Bool
     let margin: CGFloat = 8
     let autoCompleteHeight: CGFloat = 60
     
-    public init() {
+    public init(allowScroll: Bool) {
+        self.allowScroll = allowScroll
     }
     
     public var body: some View {
@@ -356,6 +358,7 @@ public struct MetaTextInputField: View {
                         set: { newValue in viewModel.stringContent = newValue }
                     ),
                     width: geo.size.width - margin - margin,
+                    allowScroll: allowScroll,
                     configurationHandler: { metaText in
                         viewModel.contentMetaText = metaText
                         metaText.textView.attributedPlaceholder = {
@@ -371,8 +374,8 @@ public struct MetaTextInputField: View {
                         metaText.delegate = viewModel
                     }
                 )
-                .frame(width: geo.size.width - margin - margin)
                 .padding(.horizontal, margin)
+                .frame(width: geo.size.width, height: geo.size.height)
                 .background(
                     MastodonSecondaryBackground(fillInDarkModeOnly: true)
                 )

@@ -15,6 +15,7 @@ import MastodonCore
 public struct MetaTextViewRepresentable: UIViewRepresentable {
 
     let metaText = MetaText()
+    let allowScroll: Bool
     
     // input
     let string: Binding<String>
@@ -23,7 +24,8 @@ public struct MetaTextViewRepresentable: UIViewRepresentable {
     // handler
     let configurationHandler: (MetaText) -> Void
     
-    public init(string: Binding<String>, width: CGFloat, configurationHandler: @escaping (MetaText) -> Void) {
+    public init(string: Binding<String>, width: CGFloat, allowScroll: Bool, configurationHandler: @escaping (MetaText) -> Void) {
+        self.allowScroll = allowScroll
         self.string = string
         self.width = width
         self.configurationHandler = configurationHandler
@@ -61,6 +63,12 @@ public struct MetaTextViewRepresentable: UIViewRepresentable {
         configurationHandler(metaText)
             
         metaText.configure(content: PlaintextMetaContent(string: string.wrappedValue))
+        
+        if allowScroll {
+            metaText.textView.isScrollEnabled = true
+            metaText.textView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+            metaText.textView.setContentHuggingPriority(.defaultLow, for: .vertical)
+        }
         
         return textView
     }

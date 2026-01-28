@@ -51,6 +51,7 @@ public struct ComposeContentView: View {
                     MetaTextViewRepresentable(
                         string: $viewModel.contentWarning,
                         width: viewModel.viewLayoutFrame.layoutFrame.width - ComposeContentView.margin * 2,
+                        allowScroll: false,
                         configurationHandler: { metaText in
                             viewModel.contentWarningMetaText = metaText
                             metaText.textView.attributedPlaceholder = {
@@ -96,6 +97,7 @@ public struct ComposeContentView: View {
                 MetaTextViewRepresentable(
                     string: $viewModel.content,
                     width: viewModel.viewLayoutFrame.layoutFrame.width - ComposeContentView.margin * 2,
+                    allowScroll: false,
                     configurationHandler: { metaText in
                         viewModel.contentMetaText = metaText
                         metaText.textView.attributedPlaceholder = {

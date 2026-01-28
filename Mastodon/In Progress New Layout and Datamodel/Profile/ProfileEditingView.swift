@@ -171,14 +171,14 @@ struct ProfileEditingView: View {
         VStack(spacing: doublePadding) {
             VStack(alignment: .leading, spacing: tinySpacing) {
                 SubsectionHeading(title: "Display name", subtitle: nil) // TODO: needs L10n
-                MetaTextInputField()
+                MetaTextInputField(allowScroll: false)
                     .environment(editingViewModel.displayNameFieldEditingViewModel)
                     .frame(height: 36)
             }
             
             VStack(alignment: .leading, spacing: tinySpacing) {
                 SubsectionHeading(title: "Bio", subtitle: "Introduce yourself. Recommended 220 character maximum.") // TODO: needs L10n
-                MetaTextInputField()
+                MetaTextInputField(allowScroll: true)
                     .environment(editingViewModel.bioFieldEditingViewModel)
                     .frame(height: 56)
             }
@@ -201,14 +201,14 @@ struct ProfileEditingView: View {
                     
                     VStack(alignment: .leading, spacing: tinySpacing) {
                         SubsectionHeading(title: "Label", subtitle: nil)
-                        MetaTextInputField()
+                        MetaTextInputField(allowScroll: false)
                             .environment(editState.labelEditingModel)
                             .frame(height: 36)
                     }
                     
                     VStack(alignment: .leading, spacing: tinySpacing) {
                         SubsectionHeading(title: "Value", subtitle: nil)
-                        MetaTextInputField()
+                        MetaTextInputField(allowScroll: true)
                             .environment(editState.valueEditingModel)
                             .frame(height: 36)
                     }
