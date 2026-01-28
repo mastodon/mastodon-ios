@@ -110,6 +110,16 @@ struct ProfileView: View {
                                 .environment(viewModel.editingViewModel)
                         }
                     }
+                    .onChange(of: viewModel.editingStatus) { oldValue, newValue in
+                        switch newValue {
+                        case .cannotEdit, .editing, .notEditing:
+                            break
+                        case .pushingChanges(let success):
+                            guard success == true else { break }
+                            viewModel.editingStatus = .notEditing
+                            navigationPath.removeLast()
+                        }
+                    }
             }
             
         } else {
@@ -265,7 +275,7 @@ struct ProfileAvatarAndBannerView: View {
                             bannerEditButton
                                 .padding(.horizontal, doublePadding)
                                 .padding(.vertical, standardPadding)
-                        case .cannotEdit, .notEditing, .none:
+                        case .cannotEdit, .notEditing, .pushingChanges:
                             EmptyView()
                         }
                     }
@@ -283,7 +293,7 @@ struct ProfileAvatarAndBannerView: View {
                             // if the user has already chosen a new image, let them see it unobscured, but tapping the avatar will still bring up the photo picker
                             avatarEditButton(showButton: editingViewModel.avatarConfirmedCroppedImage == nil)
                                 .frame(maxWidth: AvatarSize.extraLarge, maxHeight: AvatarSize.extraLarge)
-                        case .cannotEdit, .notEditing, .none:
+                        case .cannotEdit, .notEditing, .pushingChanges:
                             EmptyView()
                         }
                     }
@@ -763,10 +773,29 @@ enum ProfilePage: CaseIterable, Hashable {
     }
 }
 
-enum EditingStatus {
+enum EditingStatus: Equatable {
     case cannotEdit
     case notEditing
     case editing(hasChanges: Bool)
+    case pushingChanges(success: Bool?)
+    
+    var showSaveButton: Bool {
+        switch self {
+        case .cannotEdit, .notEditing, .pushingChanges:
+            return false
+        case .editing(let hasChanges):
+            return hasChanges
+        }
+    }
+    
+    var showActivityIndicator: Bool {
+        switch self {
+        case .pushingChanges(let success):
+            return success == nil
+        default:
+            return false
+        }
+    }
 }
 
 @MainActor
@@ -777,7 +806,7 @@ enum EditingStatus {
         ProfileEditingViewModel()
     }()
     
-    var editingStatus: EditingStatus?
+    var editingStatus: EditingStatus = .cannotEdit
     
     struct HandleDetails {
         let username: String
@@ -829,6 +858,11 @@ enum EditingStatus {
                 guard let self, let update else { return }
                 self.incorporateUpdate(update)
             }
+        
+        editingViewModel.editingStatusBinding = Binding<EditingStatus>(
+            get: { self.editingStatus },
+            set: { newValue in self.editingStatus = newValue }
+        )
     }
     
     @ToolbarContentBuilder func toolbar(relationship: MastodonAccount.Relationship) -> some ToolbarContent {

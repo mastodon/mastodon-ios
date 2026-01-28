@@ -6,6 +6,7 @@ import MastodonUI
 import MastodonLocalization
 import MastodonAsset
 import MastodonSDK
+import MastodonCore
 import Kanna // for stripping the html from the account bio
 
 class ProfileEditHostingViewController: UIHostingController<AnyView> {
@@ -44,8 +45,7 @@ struct ProfileEditingView: View {
         let labelEditingModel: MetaTextInputFieldViewModel
         let valueEditingModel: MetaTextInputFieldViewModel
     }
-    
-    
+
     var body: some View {
         GeometryReader { geo in
             ScrollView {
@@ -82,6 +82,12 @@ struct ProfileEditingView: View {
                 .overlay {
                     if editingViewModel.bioFieldEditingViewModel.isEditing {
                         editingViewModel.bioFieldEditingViewModel.autoCompleteSuggestionView(pinToTopOfKeyboard: true)
+                    } else if profileViewModel.editingStatus.showActivityIndicator {
+                        ZStack {
+                            Color.dimmingBackground
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                        }
                     }
                 }
                 .sheet(isPresented: editingViewModel.showCroppingView) {
@@ -104,21 +110,43 @@ struct ProfileEditingView: View {
         }
         .navigationTitle(L10nLookup.Scene.EditProfile.title)
         .toolbar {
-            if editingViewModel.hasUnsavedChanges {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(L10n.Common.Controls.Actions.save) {
-                        assertionFailure("not implemented")
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .tint(Asset.Colors.accent.swiftUIColor)
-                }
-            }
+            saveButtonForToolbar
         }
         .overlay() {
             if let fieldEditingState = editingViewModel.fieldEditingState {
                 editFieldView(fieldEditingState)
             }
         }
+        .alert(editingViewModel.presentingAlert?.title ?? "",
+               isPresented: Binding<Bool>(
+                get: { editingViewModel.presentingAlert != nil },
+                set: { newValue in
+                    if newValue == false {
+                        editingViewModel.presentingAlert = nil
+                    }
+                }
+               ),
+               actions: {
+            Button(role: .cancel) {
+                withAnimation {
+                    editingViewModel.cancelDeleteCustomField()
+                }
+            } label: {
+                Text("Cancel")
+            }
+            Button(role: .destructive) {
+                withAnimation {
+                    editingViewModel.confirmDeleteCustomField()
+                }
+            } label: {
+                Text("Delete")
+            }
+        },
+               message: {
+            if let messageText = editingViewModel.presentingAlert?.messageText {
+                Text(messageText)
+            }
+        })
         .onChange(of: editingViewModel.isAutomatedAccount) {
             editingViewModel.checkForChanges()
         }
@@ -230,12 +258,37 @@ struct ProfileEditingView: View {
             }
         }
     }
+    
+    @ViewBuilder func alertContents(_ alert: ProfileEditingViewModel.ProfileEditingAlert) -> some View {
+        Color.red
+            .frame(width: 200, height: 50)
+    }
+    
+    @ToolbarContentBuilder var saveButtonForToolbar: some ToolbarContent {
+        if profileViewModel.editingStatus.showSaveButton {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(L10n.Common.Controls.Actions.save) {
+                    profileViewModel.editingStatus = .pushingChanges(success: nil)
+                    Task {
+                        do {
+                            try await profileViewModel.commitEdits()
+                            profileViewModel.editingStatus = .pushingChanges(success: true)
+                        } catch {
+                            profileViewModel.editingStatus = .pushingChanges(success: false)
+                        }
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Asset.Colors.accent.swiftUIColor)
+            }
+        }
+    }
 }
 
 @MainActor
 @Observable
 class ProfileEditingViewModel {
-    var hasUnsavedChanges = false
+    var editingStatusBinding: Binding<EditingStatus>?
     var showVerifiedLinkTip = true
     
     let displayNameFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "", characterLimit: .softLimit(100), autocompleteMastodonItems: false)
@@ -253,6 +306,7 @@ class ProfileEditingViewModel {
     var avatarConfirmedCroppedImage: UIImage?
     
     var showCroppingView: Binding<Bool>
+    var presentingAlert: ProfileEditingAlert?
     
     var mediaTabVisibilitySetting: MediaTabVisibilitySetting = .showMediaTab
     var mediaTabRepliesSetting: MediaTabRepliesSetting = .showDirectPostsOnly
@@ -315,15 +369,18 @@ class ProfileEditingViewModel {
             set: { newValue in self.isAutomatedAccount = newValue }
         )
         
-        displayNameFieldEditingViewModel.contentDidChange = { self.hasUnsavedChanges = true }
-        bioFieldEditingViewModel.contentDidChange = { self.hasUnsavedChanges = true }
+        displayNameFieldEditingViewModel.contentDidChange = { withAnimation { self.editingStatusBinding?.wrappedValue = .editing(hasChanges: true) } }
+        bioFieldEditingViewModel.contentDidChange = { withAnimation { self.editingStatusBinding?.wrappedValue = .editing(hasChanges: true) } }
     }
     
     func checkForChanges() {
         let hasChanges = confirmedBannerImage != nil ||
         avatarConfirmedCroppedImage != nil ||
-        (initialInfo != nil && isAutomatedAccount != initialInfo?.metadata.isBot)
-        hasUnsavedChanges = hasChanges
+        (initialInfo != nil && isAutomatedAccount != initialInfo?.metadata.isBot) ||
+        customFields != initialInfo?.metadata.customFields
+        if hasChanges {
+            withAnimation { editingStatusBinding?.wrappedValue = .editing(hasChanges: true) }
+        }
     }
     
     func setAccount(_ account: MastodonAccount) {
@@ -331,9 +388,15 @@ class ProfileEditingViewModel {
         updateAccountTextFields(account: account)
         updateCustomFields(account: account)
         updateMetaData(account: account)
-        if let verifiedField = customFields?.first(where: { $0.verifiedAt != nil }) {
+        if customFields?.first(where: { $0.verifiedAt != nil }) != nil {
             showVerifiedLinkTip = false
         }
+        avatarConfirmedCroppedImage = nil
+        avatarPhotosPickerItem = nil
+        avatarImageToCrop = nil
+        confirmedBannerImage = nil
+        bannerImagePhotosPickerItem = nil
+        presentingAlert = nil
     }
     
     func updateAccountTextFields(account: MastodonAccount) {
@@ -388,6 +451,51 @@ class ProfileEditingViewModel {
             }
         }
         self.fieldEditingState = nil
+        
+        checkForChanges()
+    }
+    
+    func requestDeleteCustomField(_ field: Mastodon.Entity.Field) {
+        presentingAlert = .deleteCustomField(field)
+    }
+    
+    func confirmDeleteCustomField() {
+        let deletingField: Mastodon.Entity.Field? = {
+            switch presentingAlert {
+            case .deleteCustomField(let field):
+                return field
+            case nil:
+                return nil
+            }
+        }()
+        guard let field = deletingField, let index = customFields?.firstIndex(of: field) else { return }
+        customFields?.remove(at: index)
+        presentingAlert = nil
+        checkForChanges()
+    }
+    
+    func cancelDeleteCustomField() {
+        presentingAlert = nil
+    }
+}
+
+extension ProfileEditingViewModel {
+    enum ProfileEditingAlert {
+        case deleteCustomField(Mastodon.Entity.Field)
+        
+        var title: String {
+            switch self {
+            case .deleteCustomField:
+                "Delete custom field?"
+            }
+        }
+        
+        var messageText: String {
+            switch self {
+            case .deleteCustomField:
+                "Are you sure you want to delete this custom field? This action can’t be undone."
+            }
+        }
     }
 }
 
@@ -561,6 +669,7 @@ struct CustomProfileFieldsEditor: View {
             if isDraggable {
                 Image(systemName: "line.3.horizontal")
             }
+            
             VStack(alignment: .leading) {
                 Text(field.name)
                     .fixedSize(horizontal: false, vertical: true)
@@ -568,7 +677,24 @@ struct CustomProfileFieldsEditor: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             .font(.footnote)
+            
             Spacer()
+            
+            Button() {
+                withAnimation {
+                    editingViewModel.requestDeleteCustomField(field)
+                }
+            } label: {
+                Image(systemName: "trash")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.red)
+                    .padding(standardPadding)
+                    .background() {
+                        Circle()
+                            .stroke(.quaternary)
+                    }
+            }
         }
         .padding()
     }
@@ -582,6 +708,8 @@ struct DisplayPreferencesEditor: View {
             VStack(alignment: .leading) {
                 ProfileSectionHeader(section: .displayPreferences)
                 infoButton(.displayPreferences)
+                Text("this section is waiting on backend implementation")
+                    .foregroundColor(.red)
             }
             
             // SHOW/HIDE MEDIA TAB
@@ -719,3 +847,51 @@ struct RadioButtonArray: View {
 }
 
 let brandBackgroundColor: Color = Asset.Colors.Brand.lightBlurple.swiftUIColor.opacity(0.2)
+
+extension ProfileViewModel {
+    func commitEdits() async throws {
+        guard let authentication = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication else { throw APIService.APIError.explicit(.authenticationMissing) }
+        
+        let authenticationBox = MastodonAuthenticationBox(authentication: authentication)
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
+        
+        func sizeLimitedImage(_ image: UIImage?, noLargerThan targetPixelSize: CGSize) -> UIImage? {
+            guard let image else { return nil }
+            if image.size.width <= targetPixelSize.width && image.size.height <= targetPixelSize.height {
+                return image
+            } else {
+                let resized = image.af.imageScaled(to: targetPixelSize)
+                return resized
+            }
+        }
+        
+        let updatedAvatarImage = sizeLimitedImage(editingViewModel.avatarConfirmedCroppedImage, noLargerThan: avatarImageMaxSizeInPixels)
+        let updatedBannerImage = sizeLimitedImage(editingViewModel.confirmedBannerImage, noLargerThan: bannerImageMaxSizeInPixels)
+        
+        let customFieldsData = editingViewModel.customFields?.map { Mastodon.Entity.Field(name: $0.name, value: $0.value) }
+        
+        let query = Mastodon.API.Account.UpdateCredentialQuery(
+            discoverable: nil,
+            bot: editingViewModel.isAutomatedAccount,
+            displayName: editingViewModel.displayNameFieldEditingViewModel.stringContent,
+            note: editingViewModel.bioFieldEditingViewModel.stringContent,
+            avatar: updatedAvatarImage.flatMap { Mastodon.Query.MediaAttachment.png($0.pngData()) },
+            header: updatedBannerImage.flatMap { Mastodon.Query.MediaAttachment.png($0.pngData()) },
+            locked: nil,
+            source: nil,
+            fieldsAttributes: customFieldsData
+        )
+        let response = try await APIService.shared.accountUpdateCredentials(
+            domain: domain,
+            query: query,
+            authorization: authorization
+        )
+        let updatedAccount = MastodonAccount.fromEntity(response.value)
+        account = updatedAccount
+        editingViewModel.setAccount(updatedAccount)
+    }
+}
+
+let avatarImageMaxSizeInPixels = CGSize(width: 400, height: 400)
+let bannerImageMaxSizeInPixels = CGSize(width: 1500, height: 500)
