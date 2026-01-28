@@ -644,6 +644,7 @@ struct ProfileActionBar: View {
             if let account = viewModel.account {
                 relationshipViewModel.button.largeButton {
                     navigationStackNavigateToEditProfile()
+                    viewModel.navigationControllerNavigateToEditProfile?()
                 }
                 .glassEffectIfAvailable(in: .capsule)
                 

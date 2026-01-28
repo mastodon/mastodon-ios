@@ -452,13 +452,18 @@ private extension SceneCoordinator {
                 if UserDefaults.standard.useBetaProfileView {
                     let controller = ProfileHostingViewController(wrapInNavigationController: false)
                     let account = MastodonAccount.fromEntity(profileType.accountToDisplay)
-                    controller.set(account: account, relationship: .isNotMe(nil))
-                    Task {
-                        let relationshipFetchID = profileType.accountToDisplay.id
-                        if let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
-                            Task {
-                                guard let relationship = try await APIService.shared.relationship(forAccountIds: [relationshipFetchID], authenticationBox: authBox).value.first else { return }
-                                controller.set(account: account, relationship: .isNotMe(MastodonAccount.RelationshipInfo(relationship, fetchedAt: .now)))
+                    if account.globallyUniqueUserIdentifier == AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier {
+                        controller.set(account: account, relationship: .isMe)
+                    } else {
+                        controller.set(account: account, relationship: .isNotMe(nil))
+                        
+                        Task {
+                            let relationshipFetchID = profileType.accountToDisplay.id
+                            if let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
+                                Task {
+                                    guard let relationship = try await APIService.shared.relationship(forAccountIds: [relationshipFetchID], authenticationBox: authBox).value.first else { return }
+                                    controller.set(account: account, relationship: .isNotMe(MastodonAccount.RelationshipInfo(relationship, fetchedAt: .now)))
+                                }
                             }
                         }
                     }

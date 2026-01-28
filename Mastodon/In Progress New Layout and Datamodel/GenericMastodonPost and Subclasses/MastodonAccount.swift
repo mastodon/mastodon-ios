@@ -202,3 +202,13 @@ extension MastodonAccount {
         }
     }
 }
+
+extension MastodonAccount: UserIdentifier {
+    public var domain: String {
+        _legacyEntity.domain ?? ""
+    }
+    
+    public var userID: MastodonSDK.Mastodon.Entity.Account.ID {
+        id
+    }
+}
