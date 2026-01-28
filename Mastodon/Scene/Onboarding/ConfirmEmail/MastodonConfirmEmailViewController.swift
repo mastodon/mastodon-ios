@@ -64,9 +64,9 @@ final class MastodonConfirmEmailViewController: UIViewController {
 extension MastodonConfirmEmailViewController {
 
     override func viewDidLoad() {
-
         setupOnboardingAppearance()
         configureMargin()
+        registerForTraitChanges([UITraitHorizontalSizeClass.self], action: #selector(configureMargin))
 
         subtitleLabel.text = L10n.Scene.ConfirmEmail.tapTheLinkWeEmailedToYouToVerifyYourAccount(viewModel.email)
 
@@ -135,12 +135,6 @@ extension MastodonConfirmEmailViewController {
         
         title = L10n.Scene.ConfirmEmail.title
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        configureMargin()
-    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -188,7 +182,7 @@ extension MastodonConfirmEmailViewController {
 }
 
 extension MastodonConfirmEmailViewController {
-    private func configureMargin() {
+    @objc func configureMargin() {
         switch traitCollection.horizontalSizeClass {
         case .regular:
             let margin = MastodonConfirmEmailViewController.viewEdgeMargin

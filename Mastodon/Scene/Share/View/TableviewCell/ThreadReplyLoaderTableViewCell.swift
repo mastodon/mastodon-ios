@@ -48,13 +48,6 @@ final class ThreadReplyLoaderTableViewCell: UITableViewCell {
         super.init(coder: coder)
         _init()
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        resetSeparatorLineLayout()
-    }
-
 }
 
 extension ThreadReplyLoaderTableViewCell {
@@ -83,13 +76,14 @@ extension ThreadReplyLoaderTableViewCell {
             separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)),
         ])
         resetSeparatorLineLayout()
-        
+        registerForTraitChanges([UITraitHorizontalSizeClass.self, UITraitUserInterfaceIdiom.self], action: #selector(resetSeparatorLineLayout))
+
         loadMoreButton.addTarget(self, action: #selector(ThreadReplyLoaderTableViewCell.loadMoreButtonDidPressed(_:)), for: .touchUpInside)
 
         backgroundColor = .systemGroupedBackground
     }
     
-    private func resetSeparatorLineLayout() {
+    @objc func resetSeparatorLineLayout() {
         separatorLineToEdgeLeadingLayoutConstraint.isActive = false
         separatorLineToEdgeTrailingLayoutConstraint.isActive = false
         separatorLineToMarginLeadingLayoutConstraint.isActive = false

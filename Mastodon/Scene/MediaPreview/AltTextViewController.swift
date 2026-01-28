@@ -21,7 +21,7 @@ class AltTextViewController: UIViewController {
         textView.textContainerInset = UIEdgeInsets(top: 12, left: 8, bottom: 8, right: 8)
         textView.contentInsetAdjustmentBehavior = .always
         textView.verticalScrollIndicatorInsets.bottom = 4
-
+        textView.adjustsFontForContentSizeCategory = true
         return textView
     }()
 
@@ -64,11 +64,6 @@ class AltTextViewController: UIViewController {
                 height: size.height + 12 + (textView.textContainer.lineFragmentPadding) * 2
             )
         }
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        textView.font = .preferredFont(forTextStyle: .callout)
     }
 }
 
