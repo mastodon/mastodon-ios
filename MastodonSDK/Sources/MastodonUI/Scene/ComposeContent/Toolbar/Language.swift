@@ -17,8 +17,8 @@ public struct Language: Identifiable {
     }
     
     init?(id: String) {
-        guard let endonym = Locale(identifier: id).localizedString(forLanguageCode: id),
-              let exonym = Locale.current.localizedString(forLanguageCode: id)
+        guard let endonym = Locale(identifier: id).localizedString(forIdentifier: id),
+              let exonym = Locale.current.localizedString(forIdentifier: id)
         else { return nil }
         self.endonym = endonym
         self.exonym = exonym
