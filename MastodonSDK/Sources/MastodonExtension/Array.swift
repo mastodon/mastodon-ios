@@ -16,10 +16,6 @@ extension Array where Element: Hashable {
             addedDict.updateValue(true, forKey: $0) == nil
         }
     }
-
-    public mutating func removeDuplicates() {
-        self = self.removingDuplicates()
-    }
 }
 
 //
