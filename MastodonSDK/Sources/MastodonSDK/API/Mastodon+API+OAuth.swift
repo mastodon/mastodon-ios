@@ -182,7 +182,7 @@ extension Mastodon.API.OAuth {
         
     }
     
-    public struct AccessTokenQuery: Codable, PostQuery {
+    public struct AccessTokenQuery: PostQuery {
         public init(
             clientID: String,
             clientSecret: String,
