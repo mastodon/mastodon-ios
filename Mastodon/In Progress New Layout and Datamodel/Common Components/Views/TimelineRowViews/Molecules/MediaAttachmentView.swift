@@ -587,7 +587,7 @@ struct AudioPlayerView: View {
         }
         .environment(\.colorScheme, .dark)
         .onAppear() {
-            playerObserver.setPlayer(withAsset: AVAsset(url: url))
+            playerObserver.setPlayer(withAsset: AVURLAsset(url: url))
             playerObserver.startObserving(shouldLoop: false)
         }
         .onDisappear() {
@@ -689,7 +689,7 @@ struct VideoPlayerView: View {
             }
         }
         .onAppear() {
-            self.playerObserver.setPlayer(withAsset: AVAsset(url: url))
+            self.playerObserver.setPlayer(withAsset: AVURLAsset(url: url))
             playerObserver.startObserving(shouldLoop: shouldLoop)
             if let attachmentInfo = media.attachmentInfo, let url = attachmentInfo.url, let blurhash = attachmentInfo.blurhash, let size = attachmentInfo.size {
                 Task {
