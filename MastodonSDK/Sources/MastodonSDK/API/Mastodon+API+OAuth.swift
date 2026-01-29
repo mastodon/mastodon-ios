@@ -206,15 +206,21 @@ extension Mastodon.API.OAuth {
         public let scope: String?
         public let code: String?
         public let grantType: String
-
-        enum CodingKeys: String, CodingKey {
-            case clientID = "client_id"
-            case clientSecret = "client_secret"
-            case redirectURI = "redirect_uri"
-            case scope
-            case code
-            case grantType = "grant_type"
+        
+        var contentType: String? {
+            return Self.multipartContentType()
+        }
+        var body: Data? {
+            var data = Data()
             
+            data.append(Data.multipart(key: "client_id", value: clientID))
+            data.append(Data.multipart(key: "client_secret", value: clientSecret))
+            data.append(Data.multipart(key: "redirect_uri", value: redirectURI))
+            scope.flatMap { data.append(Data.multipart(key: "scope", value: $0)) }
+            code.flatMap { data.append(Data.multipart(key: "code", value: $0)) }
+            data.append(Data.multipart(key: "grant_type", value: grantType))
+            data.append(Data.multipartEnd())
+            return data
         }
     }
 
