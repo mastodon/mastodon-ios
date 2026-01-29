@@ -6,13 +6,18 @@
 //
 
 import UIKit
+import Combine
 import FLAnimatedImage
+import Alamofire
 import AlamofireImage
 
 public class AvatarImageView: FLAnimatedImageView {
     public var imageViewSize: CGSize?
     public var url: URL? = nil
     public var avatarCornerConfiguration = CornerConfiguration()
+
+    public var activeAvatarRequestURL: URL?
+    public var avatarRequestCancellable: AnyCancellable?
 }
 
 extension AvatarImageView {
@@ -87,7 +92,54 @@ extension AvatarImageView {
             )
         }
     }
-    
+
+    public func setImage(
+        url: URL?,
+        scaleToSize: CGSize? = nil
+    ) {
+        cancelTask()
+
+        // set image
+        guard let url else { return }
+
+        activeAvatarRequestURL = url
+        let avatarRequest = AF.request(url).publishData()
+        avatarRequestCancellable = avatarRequest
+            .sink { response in
+                switch response.result {
+                case .success(let data):
+                    DispatchQueue.global().async {
+                        let image: UIImage? = {
+                            if let scaleToSize = scaleToSize {
+                                return UIImage(data: data)?.af.imageScaled(to: scaleToSize, scale: UIScreen.main.scale)
+                            } else {
+                                return UIImage(data: data)
+                            }
+                        }()
+                        let animatedImage = FLAnimatedImage(animatedGIFData: data)
+
+                        DispatchQueue.main.async { [weak self] in
+                            guard let self = self else { return }
+                            if self.activeAvatarRequestURL == url {
+                                if let animatedImage = animatedImage {
+                                    self.animatedImage = animatedImage
+                                } else {
+                                    self.image = image
+                                }
+                            }
+                        }
+                    }
+                case .failure:
+                    break
+                }
+            }
+    }
+
+    public func cancelTask() {
+        activeAvatarRequestURL = nil
+        avatarRequestCancellable?.cancel()
+    }
+
 }
 
 extension AvatarImageView {

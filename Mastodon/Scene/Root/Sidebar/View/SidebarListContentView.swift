@@ -105,7 +105,6 @@ extension SidebarListContentView {
         accessoryImageView.tintColor = item.isActive ? Asset.Colors.Brand.blurple.color : .secondaryLabel
         avatarButton.avatarImageView.setImage(
             url: item.imageURL,
-            placeholder: avatarButton.avatarImageView.image ?? .placeholder(color: .systemFill),  // reuse to avoid blink
             scaleToSize: nil
         )
         avatarButton.borderWidth = item.isActive ? 2 : 0

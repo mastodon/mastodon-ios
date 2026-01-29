@@ -326,13 +326,6 @@
 			);
 			target = DBF8AE12263293E400C9C23C /* NotificationService */;
 		};
-		042245D62F085B4400B0AFEC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				FLAnimatedImageView.swift,
-			);
-			target = DBC6461126A170AB00B0E31B /* ShareActionExtension */;
-		};
 		0422463F2F085B9E00B0AFEC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -444,7 +437,7 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		042245922F085B4000B0AFEC /* Diffable */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Diffable; sourceTree = "<group>"; };
 		042245A12F085B4200B0AFEC /* Coordinator */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Coordinator; sourceTree = "<group>"; };
-		042245BB2F085B4400B0AFEC /* Extension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (042245D52F085B4400B0AFEC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 042245D62F085B4400B0AFEC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Extension; sourceTree = "<group>"; };
+		042245BB2F085B4400B0AFEC /* Extension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (042245D52F085B4400B0AFEC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Extension; sourceTree = "<group>"; };
 		042245DC2F085B4500B0AFEC /* Vender */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Vender; sourceTree = "<group>"; };
 		042245E32F085B4700B0AFEC /* Activity */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Activity; sourceTree = "<group>"; };
 		042245EA2F085B4800B0AFEC /* Helper */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Helper; sourceTree = "<group>"; };
