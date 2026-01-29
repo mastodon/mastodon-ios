@@ -6,15 +6,11 @@
 //
 
 import UIKit
-import Combine
 import AuthenticationServices
 import MastodonCore
 
 @MainActor
 final class MastodonAuthenticationController {
-    
-    var disposeBag = Set<AnyCancellable>()
-    
     // input
     let authenticateURL: URL
     var authenticationSession: ASWebAuthenticationSession?

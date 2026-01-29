@@ -6,14 +6,12 @@
 //
 
 import Foundation
-import Combine
 import UIKit
 import WebKit
 import MastodonCore
 
 class WebViewController: UIViewController {
-    
-    var disposeBag = Set<AnyCancellable>()
+
     var viewModel: WebViewModel
     
     let webView: WKWebView = {

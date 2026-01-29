@@ -21,9 +21,7 @@ public final class APIService {
     
     public static let callbackURLScheme = "mastodon"
     nonisolated public static let oauthCallbackURL = "mastodon://joinmastodon.org/oauth"
-        
-    var disposeBag = Set<AnyCancellable>()
-    
+
     // internal
     let session: URLSession
     

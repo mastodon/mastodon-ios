@@ -382,9 +382,6 @@ extension NotificationService {
 
 extension NotificationService {
     public final class NotificationViewModel {
-        
-        var disposeBag = Set<AnyCancellable>()
-        
         // input
         let domain: String
         let userID: Mastodon.Entity.Account.ID

@@ -6,16 +6,8 @@
 //
 
 import UIKit
-import Combine
-import Alamofire
-import AlamofireImage
-import FLAnimatedImage
-import MastodonCore
 
 class MediaPreviewImageViewModel {
-
-    var disposeBag = Set<AnyCancellable>()
-    
     // input
     let item: ImagePreviewItem
     

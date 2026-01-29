@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 import MastodonAsset
 import MastodonCore
 import MastodonUI
@@ -21,7 +20,6 @@ final class ThreadReplyLoaderTableViewCell: UITableViewCell {
     static let cellHeight: CGFloat = 44
     
     weak var delegate: ThreadReplyLoaderTableViewCellDelegate?
-    var _disposeBag = Set<AnyCancellable>()
     
     let loadMoreButton: UIButton = {
         let button = HighlightDimmableButton()

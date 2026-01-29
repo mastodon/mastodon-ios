@@ -7,14 +7,10 @@
 
 import UIKit
 import Combine
-import GameplayKit
 import MastodonSDK
 import MastodonCore
 
 final class DiscoveryForYouViewModel {
-    
-    var disposeBag = Set<AnyCancellable>()
-    
     // input
     let authenticationBox: MastodonAuthenticationBox
 

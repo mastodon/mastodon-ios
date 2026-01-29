@@ -5,7 +5,6 @@
 //  Created by sxiaojian on 2021/4/21.
 //
 
-import Combine
 import CoreData
 import CoreDataStack
 import Foundation
@@ -17,7 +16,6 @@ import MastodonLocalization
 
 class SuggestionAccountViewController: UIViewController {
 
-    var disposeBag = Set<AnyCancellable>()
     var viewModel: SuggestionAccountViewModel!
 
     let tableView: UITableView = {

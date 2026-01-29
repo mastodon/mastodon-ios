@@ -6,15 +6,12 @@
 //
 
 import UIKit
-import Combine
 import CoreDataStack
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
 
 class ReportViewController: UIViewController, ReportViewControllerAppearance {
-    
-    var disposeBag = Set<AnyCancellable>()
     private var observations = Set<NSKeyValueObservation>()
     
     let viewModel: ReportViewModel

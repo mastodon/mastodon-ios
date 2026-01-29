@@ -6,7 +6,6 @@
 //
 
 import AlamofireImage
-import Combine
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
@@ -38,8 +37,6 @@ public protocol StatusCardControlDelegate: AnyObject {
 
 public final class StatusCardControl: UIControl {
     public weak var delegate: StatusCardControlDelegate?
-
-    private var disposeBag = Set<AnyCancellable>()
 
     private let containerStackView = UIStackView()
     private let mainContentStackView = UIStackView()

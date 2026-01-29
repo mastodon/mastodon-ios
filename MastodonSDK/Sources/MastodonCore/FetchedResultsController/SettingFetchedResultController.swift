@@ -13,8 +13,6 @@ import MastodonSDK
 
 public final class SettingFetchedResultController: NSObject {
 
-    var disposeBag = Set<AnyCancellable>()
-
     let fetchedResultsController: NSFetchedResultsController<Setting>
 
     // input

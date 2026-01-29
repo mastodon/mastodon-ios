@@ -5,14 +5,11 @@
 //  Created by sxiaojian on 2021/2/23.
 //
 
-import Combine
 import Foundation
 import MastodonCore
 import MastodonSDK
 
 final class MastodonConfirmEmailViewModel {
-    var disposeBag = Set<AnyCancellable>()
-
     // input
     var email: String
     let authenticateInfo: AuthenticationViewModel.AuthenticateInfo

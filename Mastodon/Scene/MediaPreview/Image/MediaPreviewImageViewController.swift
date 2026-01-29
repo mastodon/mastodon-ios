@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 import MastodonAsset
 import MastodonLocalization
 import FLAnimatedImage
@@ -18,8 +17,6 @@ protocol MediaPreviewImageViewControllerDelegate: AnyObject {
 }
 
 final class MediaPreviewImageViewController: UIViewController {
-    
-    var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
     
     var viewModel: MediaPreviewImageViewModel!

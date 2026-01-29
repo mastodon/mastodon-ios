@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 import MastodonAsset
 import MastodonCore
 import MastodonUI
@@ -17,8 +16,6 @@ public protocol DiscoveryIntroBannerViewDelegate: AnyObject {
 }
 
 public final class DiscoveryIntroBannerView: UIView {
-    var _disposeBag = Set<AnyCancellable>()
-    
     public weak var delegate: DiscoveryIntroBannerViewDelegate?
     
     let label: UILabel = {

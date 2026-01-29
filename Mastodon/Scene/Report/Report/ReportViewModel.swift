@@ -5,11 +5,9 @@
 //  Created by ihugo on 2021/4/19.
 //
 
-import Combine
 import CoreData
 import CoreDataStack
 import Foundation
-import GameplayKit
 import MastodonSDK
 import OrderedCollections
 import UIKit
@@ -18,9 +16,6 @@ import MastodonLocalization
 import MastodonUI
 
 class ReportViewModel {
-    
-    var disposeBag = Set<AnyCancellable>()
-    
     let reportReasonViewModel: ReportReasonViewModel
     let reportServerRulesViewModel: ReportServerRulesViewModel
     let reportStatusViewModel: ReportStatusViewModel

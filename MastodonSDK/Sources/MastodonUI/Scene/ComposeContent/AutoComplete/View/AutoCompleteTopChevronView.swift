@@ -6,12 +6,9 @@
 //
 
 import UIKit
-import Combine
 import MastodonCore
 
 final class AutoCompleteTopChevronView: UIView {
-
-    var disposeBag = Set<AnyCancellable>()
     
     static let chevronSize = CGSize(width: 20, height: 12)
     

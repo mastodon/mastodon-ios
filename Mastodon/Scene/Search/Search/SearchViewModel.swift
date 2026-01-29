@@ -16,8 +16,6 @@ import OSLog
 import UIKit
 
 final class SearchViewModel: NSObject {
-    var disposeBag = Set<AnyCancellable>()
-    
     // input
     let authenticationBox: MastodonAuthenticationBox?
     

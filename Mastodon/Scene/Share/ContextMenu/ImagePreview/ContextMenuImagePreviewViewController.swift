@@ -7,11 +7,8 @@
 
 import func AVFoundation.AVMakeRect
 import UIKit
-import Combine
 
 final class ContextMenuImagePreviewViewController: UIViewController {
-    
-    var disposeBag = Set<AnyCancellable>()
     
     var viewModel: ContextMenuImagePreviewViewModel!
 

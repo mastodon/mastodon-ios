@@ -6,14 +6,10 @@
 //
 
 import UIKit
-import Combine
 import CoreDataStack
 import MastodonCore
 
 final class RootSplitViewController: UISplitViewController {
-    
-    var disposeBag = Set<AnyCancellable>()
-    
     static let sidebarWidth: CGFloat = 89
     
     var authenticationBox: MastodonAuthenticationBox?

@@ -19,8 +19,6 @@ import MastodonCore
 
 final class ShareViewModel {
     
-    var disposeBag = Set<AnyCancellable>()
-    
     // input
     let context: AppContext
     @Published var authenticationBox: MastodonAuthenticationBox?
