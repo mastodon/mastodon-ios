@@ -69,6 +69,11 @@ public struct L10nLookup {
                     return result
                 }()
             }
+            
+            public static let editProfileButton: String = {
+                let result = tr("Localizable", "Common.Controls.EditProfileButton")
+                return result
+            }()
         }
     }
     
@@ -257,6 +262,13 @@ public struct L10nLookup {
                     return result
                 }()
             }
+        }
+        
+        public struct EditProfile {
+            public static let title: String = {
+                let result = tr("Localizable", "Scene.EditProfile.Title")
+                return result
+            }()
         }
     }
 

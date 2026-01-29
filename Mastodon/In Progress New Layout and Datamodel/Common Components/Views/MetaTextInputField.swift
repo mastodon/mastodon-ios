@@ -9,12 +9,15 @@ import MetaTextKit
 import MastodonMeta
 import SDWebImageSwiftUI
 import MastodonAsset
+import Combine
 
 @MainActor
 @Observable public class MetaTextInputFieldViewModel: NSObject /* for conformance to UITextViewDelegate */ {
     
     var authenticationBox: MastodonAuthenticationBox? // required for custom emojis
-    public var autoCompleteInfo: AutoCompleteInfo?
+    public var isEditing: Bool = false
+    public var contentDidChange: (()->())?
+    private var autoCompleteSuggestionViewModel: AutoCompleteSuggestionViewModel?
     
     public var stringContent: String {
         didSet {
@@ -48,41 +51,84 @@ import MastodonAsset
     let characterLimit: CharacterLimit
     public private(set) var characterCount: Int = 0
     
+    func setMetaContent(_ content: MetaContent) {
+        contentMetaText?.configure(content: content)
+    }
+    
     // emoji
     var isEmojiActive = false
     let customEmojiPickerInputViewModel: CustomEmojiPickerInputViewModel
     let autoCompleteViewModel: AutoCompleteViewModel?
     var isLoadingCustomEmoji = false
     
-    public init(stringContent: String?, placeholder: String, characterLimit: CharacterLimit) {
+    public init(stringContent: String?, placeholder: String, characterLimit: CharacterLimit, autocompleteMastodonItems: Bool) {
         self.stringContent = stringContent ?? ""
         self.placeholder = placeholder
         self.characterLimit = characterLimit
         customEmojiPickerInputViewModel = CustomEmojiPickerInputViewModel()
         
-        if let authentication = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication {
-            let authBox = MastodonAuthenticationBox(authentication: authentication)
-            self.authenticationBox = authBox
-            autoCompleteViewModel = AutoCompleteViewModel(authenticationBox: authBox)
-        } else {
+        guard autocompleteMastodonItems, let authentication = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication else {
             autoCompleteViewModel = nil
+            autoCompleteSuggestionViewModel = nil
+            return
         }
+
+        let authBox = MastodonAuthenticationBox(authentication: authentication)
+        self.authenticationBox = authBox
+        autoCompleteViewModel = AutoCompleteViewModel(authenticationBox: authBox)
+        autoCompleteSuggestionViewModel = AutoCompleteSuggestionViewModel(autoCompleteViewModel)
     }
     
-    @ViewBuilder public func autoCompleteSuggestionView(pinToTopOfKeyboard: Bool) -> some View {
-        if let autoCompleteItems = autoCompleteViewModel?.autoCompleteItems.value, !autoCompleteItems.isEmpty {
+    @ViewBuilder func autoCompleteSuggestionView(pinToTopOfKeyboard: Bool) -> some View {
+        if let autoCompleteSuggestionViewModel {
+            AutoCompleteSuggestionView(pinToTopOfKeyboard: pinToTopOfKeyboard) { [weak self] item in
+                self?.didSelectAutocomplete(item: item)
+            }
+            .environment(autoCompleteSuggestionViewModel)
+        }
+    }
+}
+
+@MainActor
+@Observable class AutoCompleteSuggestionViewModel {
+    private var autoCompleteSuggestionsSubscription: AnyCancellable?
+    private var autoCompleteViewModel: AutoCompleteViewModel?
+    public var autoCompleteSuggestions: [AutoCompleteItem] = []
+    var autoCompleteInfo: MetaTextInputFieldViewModel.AutoCompleteInfo?
+    
+    init(_ viewModel: AutoCompleteViewModel?) {
+        autoCompleteViewModel = viewModel
+        subscribeToAutoComplete()
+    }
+    
+    func subscribeToAutoComplete() {
+        autoCompleteSuggestionsSubscription = autoCompleteViewModel?.autoCompleteItems
+            .sink(receiveValue: { [weak self] items in
+                self?.autoCompleteSuggestions = items
+            })
+    }
+}
+ 
+struct AutoCompleteSuggestionView: View {
+    let pinToTopOfKeyboard: Bool
+    @Environment(AutoCompleteSuggestionViewModel.self) var autoCompleteViewModel
+    let didSelectAutoCompleteItem: (AutoCompleteItem)->()
+    
+    var body: some View {
+        let autoCompleteItems = autoCompleteViewModel.autoCompleteSuggestions
+        if !autoCompleteItems.isEmpty {
             VStack(spacing: tinySpacing) {
                 if pinToTopOfKeyboard {
-                        Spacer()
-                            .frame(maxHeight: .infinity)
-                        Divider()
+                    Spacer()
+                        .frame(maxHeight: .infinity)
+                    Divider()
                 }
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(autoCompleteItems, id: \.self) { item in
                             AutoCompleteCard(item: item)
                                 .onTapGesture {
-                                    self.didSelectAutocomplete(item: item)
+                                    self.didSelectAutoCompleteItem(item)
                                 }
                         }
                     }
@@ -98,6 +144,9 @@ import MastodonAsset
 }
 
 extension MetaTextInputFieldViewModel: UITextViewDelegate {
+    public func textViewDidBeginEditing(_ textView: UITextView) {
+        isEditing = true
+    }
     
     public func textViewDidChange(_ textView: UITextView) {
         // update model
@@ -109,8 +158,13 @@ extension MetaTextInputFieldViewModel: UITextViewDelegate {
         setupAutoComplete(for: textView)
     }
     
+    public func textViewDidEndEditing(_ textView: UITextView) {
+       isEditing = false
+    }
+    
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == " ", let autoCompleteInfo = self.autoCompleteInfo {
+        defer { contentDidChange?() }
+        if text == " ", let autoCompleteInfo = self.autoCompleteSuggestionViewModel?.autoCompleteInfo {
             let isHandled = handleAutoComplete(autoCompleteInfo)
             return !isHandled
         }
@@ -142,15 +196,15 @@ extension MetaTextInputFieldViewModel: MetaTextDelegate {
 
 extension MetaTextInputFieldViewModel {
     private func setupAutoComplete(for textView: UITextView) {
-        guard var autoCompletion = MetaTextInputFieldViewModel.scanAutoCompleteInfo(textView: textView) else {
+        guard let autoCompletion = MetaTextInputFieldViewModel.scanAutoCompleteInfo(textView: textView) else {
             autoCompleteViewModel?.inputText.send("")
-            self.autoCompleteInfo = nil
+            self.autoCompleteSuggestionViewModel?.autoCompleteInfo = nil
             return
         }
         
         autoCompleteViewModel?.inputText.send(String(autoCompletion.inputText))
         
-        autoCompleteInfo = autoCompletion
+        autoCompleteSuggestionViewModel?.autoCompleteInfo = autoCompletion
     }
     
     private static func scanAutoCompleteInfo(textView: UITextView) -> AutoCompleteInfo? {
@@ -264,7 +318,7 @@ extension MetaTextInputFieldViewModel {
         
         let range = NSRange(info.toHighlightEndRange, in: currentText)
         metaText.textStorage.replaceCharacters(in: range, with: replacedText)
-        autoCompleteInfo = nil
+        autoCompleteSuggestionViewModel?.autoCompleteInfo = nil
         
         // set selected range
         let newRange = NSRange(location: range.location + (replacedText as NSString).length, length: 0)
@@ -280,17 +334,19 @@ extension MetaTextInputFieldViewModel {
     }
     
     func didSelectAutocomplete(item: AutoCompleteItem) {
-        guard let info = autoCompleteInfo else { return }
+        guard let info = autoCompleteSuggestionViewModel?.autoCompleteInfo else { return }
         let _ = applyAutoComplete(info, item: item, skipHashtags: false)
     }
 }
 
 public struct MetaTextInputField: View {
     @Environment(MetaTextInputFieldViewModel.self) var viewModel
+    let allowScroll: Bool
     let margin: CGFloat = 8
     let autoCompleteHeight: CGFloat = 60
     
-    public init() {
+    public init(allowScroll: Bool) {
+        self.allowScroll = allowScroll
     }
     
     public var body: some View {
@@ -302,6 +358,7 @@ public struct MetaTextInputField: View {
                         set: { newValue in viewModel.stringContent = newValue }
                     ),
                     width: geo.size.width - margin - margin,
+                    allowScroll: allowScroll,
                     configurationHandler: { metaText in
                         viewModel.contentMetaText = metaText
                         metaText.textView.attributedPlaceholder = {
@@ -317,8 +374,8 @@ public struct MetaTextInputField: View {
                         metaText.delegate = viewModel
                     }
                 )
-                .frame(width: geo.size.width - margin - margin)
                 .padding(.horizontal, margin)
+                .frame(width: geo.size.width, height: geo.size.height)
                 .background(
                     MastodonSecondaryBackground(fillInDarkModeOnly: true)
                 )
@@ -339,7 +396,7 @@ struct AutoCompleteCard: View {
         HStack {
             switch item {
             case .account(let account):
-                AvatarView(size: .small, authorAvatarUrl: account.avatarImageURL(), goToProfile: nil)
+                AvatarView(size: .small, avatarSource: .url(account.avatarImageURL()), goToProfile: nil)
                 Text("@\(account.acct)")
                     .foregroundColor(Asset.Colors.accent.swiftUIColor)
                     .font(.subheadline)

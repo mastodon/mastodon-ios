@@ -9,6 +9,7 @@ public struct MastodonAccount: Identifiable, Codable {
     let metadata: MetaData
     let displayInfo: DisplayInfo
     let metrics: Metrics
+    let bio: String
     let _legacyEntity: Mastodon.Entity.Account
 }
 
@@ -55,6 +56,7 @@ extension MastodonAccount {
         let manuallyApprovesNewFollows: Bool
         let verifiedLink: String?
         let customFields: [Mastodon.Entity.Field]?
+        let isBot: Bool
     }
 }
 
@@ -97,7 +99,7 @@ extension MastodonAccount: FromAccountEntityDerivable {
             metadata: MetaData.fromEntity(entity),
             displayInfo: DisplayInfo.fromEntity(
                 entity),
-            metrics: Metrics.fromEntity(entity),
+            metrics: Metrics.fromEntity(entity), bio: entity.note,
             _legacyEntity: entity
         )
     }
@@ -105,7 +107,7 @@ extension MastodonAccount: FromAccountEntityDerivable {
 
 extension MastodonAccount.MetaData: FromAccountEntityDerivable {
     static func fromEntity(_ entity: Mastodon.Entity.Account) -> MastodonAccount.MetaData {
-        return MastodonAccount.MetaData(profileUrl: URL(string: entity.url), createdAt: entity.createdAt, manuallyApprovesNewFollows: entity.locked, verifiedLink: entity.verifiedLink?.value, customFields: entity.fields)
+        return MastodonAccount.MetaData(profileUrl: URL(string: entity.url), createdAt: entity.createdAt, manuallyApprovesNewFollows: entity.locked, verifiedLink: entity.verifiedLink?.value, customFields: entity.fields, isBot: entity.bot ?? false)
     }
 }
 
@@ -198,5 +200,15 @@ extension MastodonAccount {
         var canUnfollow: Bool {
             return iFollowThem || iHaveRequestedToFollowThem
         }
+    }
+}
+
+extension MastodonAccount: UserIdentifier {
+    public var domain: String {
+        _legacyEntity.domain ?? ""
+    }
+    
+    public var userID: MastodonSDK.Mastodon.Entity.Account.ID {
+        id
     }
 }

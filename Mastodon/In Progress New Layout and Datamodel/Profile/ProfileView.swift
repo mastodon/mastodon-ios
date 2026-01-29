@@ -4,9 +4,14 @@ import MastodonAsset
 import MastodonLocalization
 import SDWebImageSwiftUI
 import SwiftUI
+import PhotosUI
 import MastodonCore
 import MastodonSDK
 import Combine
+
+enum MastodonNavigationDestination: Hashable {
+    case editProfile
+}
 
 class ProfileHostingViewController: UIHostingController<AnyView> {
     let viewModel = ProfileViewModel()
@@ -16,6 +21,17 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
         let root = ProfileView(wrapInNavigationController: wrapInNavigationController).environment(viewModel).environment(viewModel.relationshipViewModel).environment(nestedScrollViewModel)
         super.init(rootView: AnyView(root))
         title = nil
+        
+        viewModel.navigationControllerNavigateToEditProfile = { [weak self] in
+            if wrapInNavigationController {
+                return
+            } else {
+                guard let self else { return }
+                self.viewModel.editingStatus = .editing(hasChanges: false)
+                let editViewController = ProfileEditHostingViewController(viewModel: self.viewModel)
+                self.navigationController?.pushViewController(editViewController, animated: true)
+            }
+        }
     }
     @MainActor @preconcurrency required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -24,6 +40,7 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
     
     func set(account: MastodonAccount, relationship: MastodonAccount.Relationship) {
         viewModel.account = account
+        viewModel.editingViewModel.setAccount(account)
         viewModel.relationship = relationship
         viewModel.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts)), asyncRefreshViewModel: AsyncRefreshViewModel())
         viewModel.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.mediaOnly)), asyncRefreshViewModel: AsyncRefreshViewModel())
@@ -36,6 +53,13 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
         }
         
         viewModel.relationshipViewModel.actionHandler = viewModel.postsViewModel
+        
+        switch relationship {
+        case .isMe:
+            viewModel.editingStatus = .notEditing
+        case .isNotMe:
+            viewModel.editingStatus = .cannotEdit
+        }
         
         Task {
             let handle = account.handle
@@ -54,6 +78,7 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
 }
 
 struct ProfileView: View {
+    @State private var navigationPath = NavigationPath()
     @Environment(ProfileViewModel.self) var viewModel
     @Environment(NestedScrollInteractionViewModel.self) var nestedScrollViewModel
     let wrapInNavigationController: Bool
@@ -69,11 +94,34 @@ struct ProfileView: View {
         case pages
     }
     
+    init(wrapInNavigationController: Bool) {
+        self.wrapInNavigationController = wrapInNavigationController
+    }
+    
     var body: some View {
         if wrapInNavigationController {
-            NavigationStack() {
+            NavigationStack(path: $navigationPath){
                 content
+                    .navigationDestination(for: MastodonNavigationDestination.self) { destination in
+                        switch destination {
+                        case .editProfile:
+                            ProfileEditingView()
+                                .environment(viewModel)
+                                .environment(viewModel.editingViewModel)
+                        }
+                    }
+                    .onChange(of: viewModel.editingStatus) { oldValue, newValue in
+                        switch newValue {
+                        case .cannotEdit, .editing, .notEditing:
+                            break
+                        case .pushingChanges(let success):
+                            guard success == true else { break }
+                            viewModel.editingStatus = .notEditing
+                            navigationPath.removeLast()
+                        }
+                    }
             }
+            
         } else {
             content
         }
@@ -127,7 +175,10 @@ struct ProfileView: View {
                         Spacer()
                             .frame(height: doublePadding)
                         
-                        ProfileActionBar()
+                        ProfileActionBar(navigationStackNavigateToEditProfile: {
+                            viewModel.editingStatus = .editing(hasChanges: false)
+                            navigationPath.append(MastodonNavigationDestination.editProfile)
+                        })
                             .padding(.horizontal, doublePadding)
                             .frame(width: min(maxFeedContentWidth, geo.size.width))
                             .background() {
@@ -159,7 +210,9 @@ struct ProfileView: View {
                 
                 VStack {
                     Spacer()
-                    ProfileActionBar()
+                    ProfileActionBar(navigationStackNavigateToEditProfile: {
+                        navigationPath.append(MastodonNavigationDestination.editProfile)
+                    })
                         .padding(.horizontal, doublePadding)
                         .frame(width: min(maxFeedContentWidth, geo.size.width))
                         .background() {
@@ -170,7 +223,7 @@ struct ProfileView: View {
                         }
                         .opacity(embeddedActionBarHasCaughtUpToFloatingActionBar ? 0.0 : 1.0)
                 }
-                .frame(width: min(maxFeedContentWidth, geo.size.width), height: geo.size.height - geo.safeAreaInsets.bottom - 90)
+                .frame(width: min(maxFeedContentWidth, geo.size.width), height: max(0, geo.size.height - geo.safeAreaInsets.bottom - 90))
             }
         }
         .ignoresSafeArea()
@@ -188,6 +241,7 @@ struct ProfileView: View {
         switch subviewType {
         case .bannerAndAvatar:
             ProfileAvatarAndBannerView(width: width)
+                .environment(viewModel.editingViewModel)
         case .bio:
             ProfileInfoView()
         case .customFieldsFlow:
@@ -203,23 +257,46 @@ struct ProfileView: View {
 
 let bannerFullHeight: CGFloat = 194
 struct ProfileAvatarAndBannerView: View {
-    @Environment(ProfileViewModel.self) var viewModel
+    @Environment(ProfileViewModel.self) var profileViewModel
+    @Environment(ProfileEditingViewModel.self) var editingViewModel
     var width: CGFloat
     
     var body: some View {
         VStack {
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
                 VStack(spacing: 0) {
-                    bannerView(width: width)
-                        .frame(height: bannerFullHeight)
-                        .clipped()
+                    ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
+                        bannerView(width: width)
+                            .frame(height: bannerFullHeight)
+                            .clipped()
+                        
+                        switch profileViewModel.editingStatus {
+                        case .editing:
+                            bannerEditButton
+                                .padding(.horizontal, doublePadding)
+                                .padding(.vertical, standardPadding)
+                        case .cannotEdit, .notEditing, .pushingChanges:
+                            EmptyView()
+                        }
+                    }
                     Spacer()
                         .frame(height: 16)
                 }
+        
                 HStack() {
-                    AvatarView(size: .extraLarge, authorAvatarUrl: viewModel.account?.avatarURL, goToProfile: nil)
-                        .padding(.horizontal, doublePadding)
-                        .frame(alignment: .leading)
+                    ZStack {
+                        AvatarView(size: .extraLarge, avatarSource: editingViewModel.avatarConfirmedCroppedImage != nil ? .local(Image(uiImage: editingViewModel.avatarConfirmedCroppedImage!)) : .url(profileViewModel.account?.avatarURL), goToProfile: nil)
+                            .padding(.horizontal, doublePadding)
+                            .frame(alignment: .leading)
+                        switch profileViewModel.editingStatus {
+                        case .editing:
+                            // if the user has already chosen a new image, let them see it unobscured, but tapping the avatar will still bring up the photo picker
+                            avatarEditButton(showButton: editingViewModel.avatarConfirmedCroppedImage == nil)
+                                .frame(maxWidth: AvatarSize.extraLarge, maxHeight: AvatarSize.extraLarge)
+                        case .cannotEdit, .notEditing, .pushingChanges:
+                            EmptyView()
+                        }
+                    }
                     Spacer()
                         .frame(maxWidth: .infinity)
                 }
@@ -229,7 +306,12 @@ struct ProfileAvatarAndBannerView: View {
     }
     
     @ViewBuilder func bannerView(width: CGFloat) -> some View {
-        if let bannerUrl = viewModel.account?.displayInfo.bannerImageUrl {
+        if let replacementImage = editingViewModel.confirmedBannerImage {
+            Image(uiImage: replacementImage)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: width)
+        } else if let bannerUrl = profileViewModel.account?.displayInfo.bannerImageUrl {
             WebImage(url: bannerUrl) { phase in
                 switch phase {
                 case .empty:
@@ -244,6 +326,34 @@ struct ProfileAvatarAndBannerView: View {
                 @unknown default:
                     EmptyView()
                 }
+            }
+        }
+    }
+    
+    @ViewBuilder var bannerEditButton: some View {
+        PhotosPicker(selection: editingViewModel.selectedBannerImage, maxSelectionCount: 1, matching: .images) {
+            Text("Edit cover image")
+                .padding(.vertical, tinySpacing)
+                .padding(.horizontal)
+                .tintedBlurBackground()
+                .clipShape(.capsule)
+                .glassEffectIfAvailable(in: .capsule)
+                .foregroundStyle(.white)
+        }
+    }
+    
+    @ViewBuilder func avatarEditButton(showButton: Bool) -> some View {
+        PhotosPicker(selection: editingViewModel.selectedAvatar, maxSelectionCount: 1, matching: .images) {
+            if showButton {
+                Image(systemName: "camera")
+                    .font(.headline)
+                    .padding()
+                    .tintedBlurBackground()
+                    .clipShape(Circle())
+                    .glassEffectIfAvailable(in: .circle)
+                    .foregroundStyle(.white)
+            } else {
+                Color.clear
             }
         }
     }
@@ -298,29 +408,6 @@ struct ProfileInfoView: View {
             HStack {
                 Spacer()
                     .frame(maxWidth: .infinity)
-                if let relationship = viewModel.relationship {
-                    switch relationship {
-                    case .isMe:
-                        if #available(iOS 26.0, *) {
-                            Button {
-                                
-                            } label: {
-                                Text("Edit Info")
-                            }
-                            .tint(Asset.Colors.accent.swiftUIColor)
-                            .buttonStyle(.glassProminent)
-                        } else {
-                            Button {
-                                
-                            } label: {
-                                Text("Edit Info")
-                            }
-                            .tint(Asset.Colors.accent.swiftUIColor)
-                        }
-                    case .isNotMe:
-                        EmptyView()
-                    }
-                }
             }
         }
     }
@@ -541,13 +628,14 @@ struct ProfilePaginationControl: View {
                         .clipShape(RoundedRectangle(cornerRadius: CornerRadius.standard))
                     }
                 }
-                .glassEffectIfAvailable()
+                .glassEffectIfAvailable(in: RoundedRectangle(cornerRadius: CornerRadius.standard))
             }
         }
     }
 }
 
 struct ProfileActionBar: View {
+    let navigationStackNavigateToEditProfile: ()->()
     @Environment(ProfileViewModel.self) var viewModel
     @Environment(RelationshipViewModel.self) var relationshipViewModel
     
@@ -555,11 +643,10 @@ struct ProfileActionBar: View {
         HStack(spacing: standardPadding) {
             if let account = viewModel.account {
                 relationshipViewModel.button.largeButton {
-                    Task {
-                        try await relationshipViewModel.doRelationshipAction(relationshipViewModel.button.buttonAction, account: account)
-                    }
+                    navigationStackNavigateToEditProfile()
+                    viewModel.navigationControllerNavigateToEditProfile?()
                 }
-                .glassEffectIfAvailable()
+                .glassEffectIfAvailable(in: .capsule)
                 
                 Button() {
                     
@@ -571,7 +658,7 @@ struct ProfileActionBar: View {
                         Image(systemName: "at")
                     }
                 }
-                .glassEffectIfAvailable()
+                .glassEffectIfAvailable(in: .circle)
                 
                 Button() {
                     
@@ -583,7 +670,7 @@ struct ProfileActionBar: View {
                         Image(systemName: "ellipsis")
                     }
                 }
-                .glassEffectIfAvailable()
+                .glassEffectIfAvailable(in: .circle)
             }
         }
     }
@@ -687,9 +774,40 @@ enum ProfilePage: CaseIterable, Hashable {
     }
 }
 
+enum EditingStatus: Equatable {
+    case cannotEdit
+    case notEditing
+    case editing(hasChanges: Bool)
+    case pushingChanges(success: Bool?)
+    
+    var showSaveButton: Bool {
+        switch self {
+        case .cannotEdit, .notEditing, .pushingChanges:
+            return false
+        case .editing(let hasChanges):
+            return hasChanges
+        }
+    }
+    
+    var showActivityIndicator: Bool {
+        switch self {
+        case .pushingChanges(let success):
+            return success == nil
+        default:
+            return false
+        }
+    }
+}
+
 @MainActor
 @Observable class ProfileViewModel {
     let relationshipViewModel = RelationshipViewModel()
+    
+    let editingViewModel = {
+        ProfileEditingViewModel()
+    }()
+    
+    var editingStatus: EditingStatus = .cannotEdit
     
     struct HandleDetails {
         let username: String
@@ -697,6 +815,7 @@ enum ProfilePage: CaseIterable, Hashable {
         let isMyDomain: Bool
     }
     var account: MastodonAccount?
+    var navigationControllerNavigateToEditProfile: (()->())?
     var relationship: MastodonAccount.Relationship?
     var postsViewModel: TimelineListViewModel? {
         didSet {
@@ -740,6 +859,11 @@ enum ProfilePage: CaseIterable, Hashable {
                 guard let self, let update else { return }
                 self.incorporateUpdate(update)
             }
+        
+        editingViewModel.editingStatusBinding = Binding<EditingStatus>(
+            get: { self.editingStatus },
+            set: { newValue in self.editingStatus = newValue }
+        )
     }
     
     @ToolbarContentBuilder func toolbar(relationship: MastodonAccount.Relationship) -> some ToolbarContent {

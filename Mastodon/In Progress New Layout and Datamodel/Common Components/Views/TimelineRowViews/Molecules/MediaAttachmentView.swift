@@ -10,7 +10,7 @@ import Combine
 import MastodonAsset
 import SDWebImageSwiftUI
 
-let buttonBackgroundColor = Color.black.opacity(0.6)
+let buttonBackgroundColor = Color.dimmingBackground
 let maxHeightForHiddenMedia: CGFloat = 100
 
 class GenericMastodonAttachment: Identifiable {

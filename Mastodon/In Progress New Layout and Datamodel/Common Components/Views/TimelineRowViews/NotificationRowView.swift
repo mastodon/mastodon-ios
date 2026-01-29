@@ -558,7 +558,7 @@ struct NotificationRowView: View {
                     ForEach(
                         accountInfo.accounts.prefix(maxAvatarCount), id: \.self.id
                     ) { account in
-                        AvatarView(size: .small, authorAvatarUrl: account.avatarURL, goToProfile: { try await viewModel.navigateToProfile(account) })
+                        AvatarView(size: .small, avatarSource: .url(account.avatarURL), goToProfile: { try await viewModel.navigateToProfile(account) })
                             .onTapGesture {
                                 Task {
                                     try await viewModel.navigateToProfile(account)
@@ -885,7 +885,7 @@ struct RelationshipButtonStyle: ButtonStyle {
     
     private var backgroundColor: Color {
         switch action {
-        case .follow:
+        case .follow, .editProfile:
             return Asset.Colors.Button.userFollow.swiftUIColor
         case .unfollow, .unmute, .unblock:
             return Asset.Colors.Button.userFollowing.swiftUIColor
@@ -896,7 +896,7 @@ struct RelationshipButtonStyle: ButtonStyle {
     
     private var textColor: Color {
         switch action {
-        case .follow:
+        case .follow, .editProfile:
             return .white
         case .unfollow, .unmute, .unblock:
             return Asset.Colors.Button.userFollowingTitle.swiftUIColor
@@ -907,7 +907,7 @@ struct RelationshipButtonStyle: ButtonStyle {
 
     private var fontWeight: SwiftUICore.Font.Weight {
         switch action {
-        case .follow:
+        case .follow, .editProfile:
             return isLarge ? .bold : .regular
         case .unfollow, .unmute, .unblock:
             return isLarge ? .regular : .light

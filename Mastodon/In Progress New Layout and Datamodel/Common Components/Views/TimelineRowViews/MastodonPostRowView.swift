@@ -62,7 +62,7 @@ struct MastodonPostRowView: View {
             HStack(alignment: .top, spacing: spacingBetweenGutterAndContent) {
                 // MARK: Avatar
                 VStack(spacing: 0) {
-                    AvatarView(size: .large, authorAvatarUrl: author?.avatarURL ?? viewModel.initialDisplayInfo.actionableAuthorStaticAvatar, goToProfile: {
+                    AvatarView(size: .large, avatarSource: .url(author?.avatarURL ?? viewModel.initialDisplayInfo.actionableAuthorStaticAvatar), goToProfile: {
                         goToProfile(author)
                     })
                     if let threadedContext, threadedContext.drawsLineBelow {

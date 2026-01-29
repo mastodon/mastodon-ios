@@ -745,7 +745,7 @@ enum MastodonTimelineSheet {
         GeometryReader { geo in
             ZStack(alignment: .topLeading) {
                 ZStack {
-                    Color.black.opacity(0.6)
+                    Color.dimmingBackground
                         .ignoresSafeArea()
                         .onTapGesture { [weak self] in
                             self?.activeOverlay = nil

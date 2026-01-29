@@ -115,7 +115,7 @@ extension AutoCompleteViewModel.State {
             }
 
             enter(state: Idle.self)
-            viewModel.autoCompleteItems.value = items
+            viewModel.autoCompleteItems.send(items)
         }
         
         private func queryRemoteEnitity(searchText: String) async {
