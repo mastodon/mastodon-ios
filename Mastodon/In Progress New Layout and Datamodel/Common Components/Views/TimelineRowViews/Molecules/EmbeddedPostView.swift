@@ -203,7 +203,15 @@ struct EmbeddedPostContentDisplayedView: View {
                     } else {
                         switch attachmentInfo {
                         case .media(let array):
-                            MediaAttachment(array, altTextTranslations: viewModel.altTextTranslations).view(actionHandler: actionHandler)
+                            MediaAttachment(array,
+                                            altTextTranslations: viewModel.altTextTranslations)
+                            .view(
+                                showOverlay: { overlay in
+                                    actionHandler.showOverlay(overlay)
+                            },
+                                presentScene: { scene, postID, transition in
+                                    actionHandler.presentScene(scene, fromPost: postID, transition: transition)
+                                })
                                 .frame(width: contentWidth)
                         case .poll(let poll):
                             let emojis = viewModel.fullPost?.actionablePost?.content.htmlWithEntities?.emojis

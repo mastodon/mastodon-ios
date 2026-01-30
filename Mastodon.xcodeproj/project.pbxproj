@@ -388,6 +388,7 @@
 				"Common Components/Views/MastodonTimelineOverlayView/BoostOrQuoteDialog.swift",
 				"Common Components/Views/MastodonTimelineOverlayView/ZoomableBlurhashImageView.swift",
 				"Common Components/Views/MetaTextInputField.swift",
+				"Common Components/Views/PageableImageGallery.swift",
 				"Common Components/Views/PhotoCropperView.swift",
 				"Common Components/Views/StatefulActionButton.swift",
 				"Common Components/Views/TextViewWithCustomEmoji.swift",

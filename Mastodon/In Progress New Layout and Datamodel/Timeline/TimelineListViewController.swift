@@ -1758,7 +1758,10 @@ struct TimelineListView: View {
         .sheet(isPresented: viewModel.sheetIsPresented) {
             viewModel.activeSheetContents
         }
-        .overlay {
+        .fullScreenCover(isPresented: Binding<Bool>(
+            get: { viewModel.activeOverlay != nil },
+            set: { newValue in if newValue == false { viewModel.activeOverlay = nil }}
+        )) {
             if let activeOverlay = viewModel.activeOverlay {
                 viewModel.overlayContents(activeOverlay)
             }
@@ -2164,7 +2167,9 @@ extension MastodonTimelineOverlayView {
             AltTextView(altTextString: altTextString, frameSize: frameSize)
         case .images(let focusedImage, let viewModel):
             if let img = viewModel.imageAttachments.first(where: { $0.id == focusedImage }) {
-                ZoomableBlurhashImageView(image: img, frameSize: frameSize)
+                PageableImageGallery()
+                    .environment(viewModel)
+                    .environment(ContentConcealViewModel.alwaysShow)
             }
         }
     }
