@@ -1,27 +1,40 @@
 // Copyright © 2026 Mastodon gGmbH. All rights reserved.
 import SwiftUI
+import MastodonSDK
 
 struct PageableImageGallery: View {
     @Environment(ImageGalleryViewModel.self) var galleryViewModel
     
     var body: some View {
-        ZoomableImageView(index: 0)
+        GeometryReader { geo in
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach(galleryViewModel.imageAttachments, id: \.self.id) { imageInfo in
+                        ZoomableImageView(size: geo.size, index: galleryViewModel.idToIndex[imageInfo.id] ?? 0)
+                    }
+                }
+            }
+        }
+        .ignoresSafeArea()
     }
 }
 
 
 struct ZoomableImageView: View {
     @Environment(ImageGalleryViewModel.self) var galleryViewModel
+    let size: CGSize
     let index: Int
     
-    public init(index: Int) {
+    public init(size: CGSize, index: Int) {
+        self.size = size
         self.index = index
     }
     
     private let maxScale: CGFloat = 4
     private var minScale: CGFloat = 1
-    @State private var geoSize: CGSize = .zero
+    private let margin: CGFloat = standardPadding
     
+    @State private var geoSize: CGSize = .zero
     @State private var scale: CGFloat = 1
     @State private var offset: CGSize = .zero
     @State private var fittingSize: CGSize = .zero
@@ -69,16 +82,12 @@ struct ZoomableImageView: View {
                         .onAppear() {
                             updateGeometry(fromSize: geo.size)
                         }
-                    Rectangle()
-                        .fill(.clear)
-                        .frame(width: fittingSize.width, height: fittingSize.height)
-                    Rectangle()
-                        .fill(.clear)
-                        .frame(width: fittingSize.width * scale, height: fittingSize.height * scale)
                 }
             }
             .padding()
         }
+        .frame(width: size.width, height: size.height)
+        .clipped()
     }
     
     func updateGeometry(fromSize size: CGSize) {

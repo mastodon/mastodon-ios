@@ -364,10 +364,14 @@ class ImageGalleryViewModel {
     private var frames = [Mastodon.Entity.Attachment.ID : CGRect]()
     let altTextTranslations: [String : String]?
     var blurhashes = [ Mastodon.Entity.Attachment.ID : UIImage ]()
+    let idToIndex: [ Mastodon.Entity.Attachment.ID : Int ]
     
     init(imageAttachments: [MastodonImageAttachment], altTextTranslations: [String: String]?) {
         self.imageAttachments = imageAttachments
         self.altTextTranslations = altTextTranslations
+        idToIndex = imageAttachments.enumerated().reduce(into: [ Mastodon.Entity.Attachment.ID : Int ](), { partialResult, element in
+            partialResult[element.1.id] = element.0
+        })
         loadBlurhashes()
     }
     
