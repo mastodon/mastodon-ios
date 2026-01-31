@@ -191,15 +191,6 @@ extension ComposeViewController {
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = cancelBarButtonItem
-        viewModel.traitCollectionDidChangePublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                guard self.traitCollection.userInterfaceIdiom == .pad else { return }
-                self.navigationItem.rightBarButtonItem = self.rightBarButtonItemForCurrentContext
-            }
-            .store(in: &disposeBag)
-
         navigationItem.rightBarButtonItem = rightBarButtonItemForCurrentContext
 
         addChild(composeContentViewController)
