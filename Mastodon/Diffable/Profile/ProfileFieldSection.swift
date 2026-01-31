@@ -79,7 +79,7 @@ extension ProfileFieldSection {
             }
             
             // set background
-            var backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
+            var backgroundConfiguration = UIBackgroundConfiguration.listCell()
             backgroundConfiguration.backgroundColor = UIColor.secondarySystemBackground
             cell.backgroundConfiguration = backgroundConfiguration
             
@@ -126,7 +126,7 @@ extension ProfileFieldSection {
                 .store(in: &cell.disposeBag)
             
             // set background
-            var backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
+            var backgroundConfiguration = UIBackgroundConfiguration.listCell()
             backgroundConfiguration.backgroundColor = UIColor.secondarySystemBackground
             cell.backgroundConfiguration = backgroundConfiguration
 
@@ -136,7 +136,7 @@ extension ProfileFieldSection {
         let addEntryCellRegistration = UICollectionView.CellRegistration<ProfileFieldAddEntryCollectionViewCell, ProfileFieldItem> { cell, indexPath, item in
             guard case .addEntry = item else { return }
             
-            var backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
+            var backgroundConfiguration = UIBackgroundConfiguration.listCell()
             backgroundConfiguration.backgroundColorTransformer = .init { [weak cell] _ in
                 guard let cell = cell else {
                     return .secondarySystemBackground

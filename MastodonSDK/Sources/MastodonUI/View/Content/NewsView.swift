@@ -49,9 +49,6 @@ public final class NewsView: UIView {
     }()
     
     let imageView = MediaView()
-
-//    let imageView = UIImageView()
-//    var imageViewMediaConfiguration: MediaView.Configuration?
     
     public func prepareForReuse() {
         providerFaviconImageView.tag = (0..<Int.max).randomElement() ?? -1
