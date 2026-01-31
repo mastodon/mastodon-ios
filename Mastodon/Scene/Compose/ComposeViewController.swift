@@ -183,8 +183,6 @@ final class ComposeViewController: UIViewController {
         button.setBackgroundColor(Asset.Colors.Button.disabled.color, for: .disabled)
         button.setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
     }
-
-    
 }
 
 extension ComposeViewController {
@@ -247,20 +245,6 @@ extension ComposeViewController {
             .assign(to: \.isEnabled, on: publishButton)
             .store(in: &disposeBag)
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        switch viewModel.composeContext {
-        case .composeStatus:
-            configurePublishButtonApperance(button: publishButton)
-        case .editStatus:
-            configurePublishButtonApperance(button: saveButton)
-        }
-
-        viewModel.traitCollectionDidChangePublisher.send()
-    }
-    
 }
 
 extension ComposeViewController {
