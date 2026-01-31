@@ -55,7 +55,6 @@ extension StatusView {
         configureToolbar(status: status)
         configureContent(statusEdit: statusEdit, status: status)
         configureMedia(status: statusEdit, contentDisplayMode: contentDisplayMode)
-        actionToolbarAdaptiveMarginContainerView.isHidden = true
         authorView.menuButton.isHidden = true
         headerAdaptiveMarginContainerView.isHidden = true
         

@@ -107,7 +107,6 @@ extension StatusThreadRootTableViewCell {
                 statusView.pollTableView,
                 statusView.pollStatusStackView,
                 statusView.statusCardControl,
-                statusView.actionToolbarContainer,
                 statusView.statusMetricView,
             ]
             

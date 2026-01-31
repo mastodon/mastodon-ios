@@ -182,7 +182,6 @@ extension StatusView.ViewModel {
         bindMedia(statusView: statusView)
         bindPoll(statusView: statusView)
         bindCard(statusView: statusView)
-        bindToolbar(statusView: statusView)
         bindMetric(statusView: statusView)
         bindMenu(statusView: statusView)
         bindAccessibility(statusView: statusView)
@@ -487,42 +486,6 @@ extension StatusView.ViewModel {
         .store(in: &disposeBag)
     }
     
-    private func bindToolbar(statusView: StatusView) {
-        $replyCount
-            .sink { count in
-                statusView.actionToolbarContainer.configureReply(
-                    count: count,
-                    isEnabled: true
-                )
-            }
-            .store(in: &disposeBag)
-        Publishers.CombineLatest3(
-            $reblogCount,
-            $isReblog,
-            $isReblogEnabled
-        )
-        .sink { count, isHighlighted, isEnabled in
-            statusView.actionToolbarContainer.configureReblog(
-                count: count,
-                isEnabled: isEnabled,
-                isHighlighted: isHighlighted
-            )
-        }
-        .store(in: &disposeBag)
-        Publishers.CombineLatest(
-            $favoriteCount,
-            $isFavorite
-        )
-        .sink { count, isHighlighted in
-            statusView.actionToolbarContainer.configureFavorite(
-                count: count,
-                isEnabled: true,
-                isHighlighted: isHighlighted
-            )
-        }
-        .store(in: &disposeBag)
-    }
-    
     private func bindMetric(statusView: StatusView) {
         let reblogButtonTitle = $reblogCount.map { count in
             L10n.Plural.Count.reblog(count)
@@ -819,27 +782,6 @@ extension StatusView.ViewModel {
                 ]
             }
             .map { $0.joined(separator: ", ") }
-
-        Publishers.CombineLatest4(replyLabel, reblogLabel, $isReblogEnabled, favoriteLabel)
-            .map { replyLabel, reblogLabel, canReblog, favoriteLabel in
-                let toolbar = statusView.actionToolbarContainer
-                let replyAction = UIAccessibilityCustomAction(name: replyLabel) { _ in
-                    statusView.actionToolbarContainer(toolbar, buttonDidPressed: toolbar.replyButton, action: .reply)
-                    return true
-                }
-                let reblogAction = UIAccessibilityCustomAction(name: reblogLabel) { _ in
-                    statusView.actionToolbarContainer(toolbar, buttonDidPressed: toolbar.reblogButton, action: .reblog)
-                    return true
-                }
-                let favoriteAction = UIAccessibilityCustomAction(name: favoriteLabel) { _ in
-                    statusView.actionToolbarContainer(toolbar, buttonDidPressed: toolbar.favoriteButton, action: .like)
-                    return true
-                }
-                // (share, bookmark are excluded since they are already present in the “…” menu action set)
-                return canReblog ? [replyAction, reblogAction, favoriteAction] : [replyAction, favoriteAction]
-            }
-            .assign(to: \.toolbarActions, on: statusView)
-            .store(in: &disposeBag)
 
         let translatedFromLabel = $translation
             .map { translation -> String? in
