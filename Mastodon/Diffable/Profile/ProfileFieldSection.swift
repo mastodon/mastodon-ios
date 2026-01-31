@@ -5,9 +5,7 @@
 //  Created by MainasuK Cirno on 2021-5-25.
 //
 
-import os
 import UIKit
-import Combine
 import MastodonAsset
 import MastodonCore
 import MastodonMeta
