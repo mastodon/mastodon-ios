@@ -41,7 +41,7 @@ class PrimaryActionButton: UIButton {
 
 extension PrimaryActionButton {
 
-    @objc public enum Action: Int {
+    public enum Action {
         case back
         case next
     }
@@ -61,7 +61,7 @@ extension PrimaryActionButton {
         }
     }
 
-    @objc func setupAppearance(action: Action) {
+    func setupAppearance(action: Action) {
         switch action {
         case .back:
             setTitleColor(Asset.Colors.Label.primary.color, for: .normal)
