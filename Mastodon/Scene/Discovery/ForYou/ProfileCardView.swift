@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 import MetaTextKit
 import MastodonAsset
 import MastodonUI
@@ -25,11 +24,7 @@ public final class ProfileCardView: UIView, AXCustomContentProvider {
     static let contentMargin: CGFloat = 16
 
     weak var delegate: ProfileCardViewDelegate?
-    private var _disposeBag = Set<AnyCancellable>()
-    var disposeBag = Set<AnyCancellable>()
-
     public var accessibilityCustomContent: [AXCustomContent]! = []
-
     let container = UIStackView()
 
     let bannerImageView: UIImageView = {
@@ -119,7 +114,6 @@ public final class ProfileCardView: UIView, AXCustomContentProvider {
     }()
 
     public func prepareForReuse() {
-        disposeBag.removeAll()
         bannerImageView.af.cancelImageRequest()
         bannerImageView.image = nil
     }

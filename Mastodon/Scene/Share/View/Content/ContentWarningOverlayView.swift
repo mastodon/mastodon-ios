@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Combine
 import UIKit
 import MastodonAsset
 import MastodonCore
@@ -18,9 +17,6 @@ protocol ContentWarningOverlayViewDelegate: AnyObject {
 }
 
 class ContentWarningOverlayView: UIView {
-
-    var disposeBag = Set<AnyCancellable>()
-    private var _disposeBag = Set<AnyCancellable>()
     
     static let cornerRadius: CGFloat = 4
     static let blurVisualEffect = UIBlurEffect(style: .systemUltraThinMaterial)

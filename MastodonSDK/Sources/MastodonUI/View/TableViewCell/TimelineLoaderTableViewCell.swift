@@ -19,9 +19,6 @@ open class TimelineLoaderTableViewCell: UITableViewCell {
     public static let labelFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .medium))
     
     var disposeBag = Set<AnyCancellable>()
-
-    private var _disposeBag = Set<AnyCancellable>()
-        
     public let stackView = UIStackView()
 
     public let loadMoreButton: UIButton = {

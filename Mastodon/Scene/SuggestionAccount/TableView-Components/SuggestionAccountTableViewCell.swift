@@ -5,9 +5,6 @@
 //  Created by sxiaojian on 2021/4/21.
 //
 
-import Combine
-import CoreData
-import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
@@ -24,7 +21,6 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
 
     static let reuseIdentifier = "SuggestionAccountTableViewCell"
 
-    var disposeBag = Set<AnyCancellable>()
     weak var delegate: SuggestionAccountTableViewCellDelegate?
     
     let userView: UserView
@@ -77,12 +73,6 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
         ]
 
         NSLayoutConstraint.activate(constraints)
-    }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
-        disposeBag.removeAll()
     }
 
     func configure(account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?) {

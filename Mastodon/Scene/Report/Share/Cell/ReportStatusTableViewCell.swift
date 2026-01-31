@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 import MastodonUI
 import MastodonAsset
 
@@ -15,9 +14,7 @@ final class ReportStatusTableViewCell: UITableViewCell {
     static let checkboxLeadingMargin: CGFloat = 16
     static let checkboxSize = CGSize(width: 32, height: 32)
     static let statusViewLeadingSpacing: CGFloat = 22
-    
-    var disposeBag = Set<AnyCancellable>()
-    
+
     let checkbox: UIImageView = {
         let imageView = UIImageView()
         imageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(textStyle: .body)
@@ -33,8 +30,7 @@ final class ReportStatusTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
-        disposeBag.removeAll()
+
         statusView.prepareForReuse()
     }
     

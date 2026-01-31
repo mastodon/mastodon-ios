@@ -21,8 +21,6 @@ protocol ComposeStatusPollOptionCollectionViewCellDelegate: AnyObject {
 final class ComposeStatusPollOptionCollectionViewCell: UICollectionViewCell {
     
     static let reorderHandlerImageLeadingMargin: CGFloat = 11
-    
-    var disposeBag = Set<AnyCancellable>()
     weak var delegate: ComposeStatusPollOptionCollectionViewCellDelegate?
     
     let pollOptionView = PollOptionView()
@@ -47,7 +45,6 @@ final class ComposeStatusPollOptionCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         
         delegate = nil
-        disposeBag.removeAll()
     }
     
     override init(frame: CGRect) {

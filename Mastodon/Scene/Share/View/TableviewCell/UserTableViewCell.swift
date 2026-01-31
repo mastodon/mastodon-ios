@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 import CoreDataStack
 import MastodonAsset
 import MastodonLocalization
@@ -23,14 +22,11 @@ final class UserTableViewCell: UITableViewCell {
     let userView = UserView()
     
     let separatorLine = UIView.separatorLine
-    
-    var disposeBag = Set<AnyCancellable>()
 
     override func prepareForReuse() {
         super.prepareForReuse()
         
         delegate = nil
-        disposeBag = Set<AnyCancellable>()
         userView.prepareForReuse()
     }
     
