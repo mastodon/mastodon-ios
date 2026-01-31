@@ -5,7 +5,9 @@
 //  Created by MainasuK Cirno on 2021-5-25.
 //
 
+import os
 import UIKit
+import Combine
 import MastodonAsset
 import MastodonCore
 import MastodonMeta
@@ -77,7 +79,7 @@ extension ProfileFieldSection {
             }
             
             // set background
-            var backgroundConfiguration = UIBackgroundConfiguration.listCell()
+            var backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
             backgroundConfiguration.backgroundColor = UIColor.secondarySystemBackground
             cell.backgroundConfiguration = backgroundConfiguration
             
@@ -124,7 +126,7 @@ extension ProfileFieldSection {
                 .store(in: &cell.disposeBag)
             
             // set background
-            var backgroundConfiguration = UIBackgroundConfiguration.listCell()
+            var backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
             backgroundConfiguration.backgroundColor = UIColor.secondarySystemBackground
             cell.backgroundConfiguration = backgroundConfiguration
 
@@ -134,7 +136,7 @@ extension ProfileFieldSection {
         let addEntryCellRegistration = UICollectionView.CellRegistration<ProfileFieldAddEntryCollectionViewCell, ProfileFieldItem> { cell, indexPath, item in
             guard case .addEntry = item else { return }
             
-            var backgroundConfiguration = UIBackgroundConfiguration.listCell()
+            var backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
             backgroundConfiguration.backgroundColorTransformer = .init { [weak cell] _ in
                 guard let cell = cell else {
                     return .secondarySystemBackground

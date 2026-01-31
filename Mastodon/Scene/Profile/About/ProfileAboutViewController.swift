@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import MetaTextKit
 import MastodonLocalization
 import TabBarPager
@@ -19,6 +20,8 @@ protocol ProfileAboutViewControllerDelegate: AnyObject {
 final class ProfileAboutViewController: UIViewController {
     
     weak var delegate: ProfileAboutViewControllerDelegate?
+    
+    var disposeBag = Set<AnyCancellable>()
     var viewModel: ProfileAboutViewModel!
     
     let collectionView: UICollectionView = {

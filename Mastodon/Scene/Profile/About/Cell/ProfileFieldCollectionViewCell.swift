@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import MetaTextKit
 import MastodonAsset
 import MastodonLocalization
@@ -15,7 +16,9 @@ protocol ProfileFieldCollectionViewCellDelegate: AnyObject {
 }
 
 final class ProfileFieldCollectionViewCell: UICollectionViewCell {
-
+    
+    var disposeBag = Set<AnyCancellable>()
+    
     weak var delegate: ProfileFieldCollectionViewCellDelegate?
 
     // for custom emoji display
@@ -26,6 +29,12 @@ final class ProfileFieldCollectionViewCell: UICollectionViewCell {
     var checkmarkPopoverString: String? = nil;
     let tapGesture = UITapGestureRecognizer();
     var editMenuInteraction: UIEditMenuInteraction!
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        disposeBag.removeAll()
+    }
 
     override init(frame: CGRect) {
 
@@ -50,6 +59,7 @@ final class ProfileFieldCollectionViewCell: UICollectionViewCell {
         keyMetaLabel.accessibilityTraits = .none
         keyMetaLabel.linkDelegate = self
         valueMetaLabel.linkDelegate = self
+
 
         // containerStackView: V - [ metaContainer | plainContainer ]
         let containerStackView = UIStackView()
