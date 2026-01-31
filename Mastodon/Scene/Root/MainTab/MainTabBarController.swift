@@ -286,12 +286,12 @@ extension MainTabBarController {
             .store(in: &disposeBag)
 
         updateTabBarDisplay()
+        registerForTraitChanges([UITraitHorizontalSizeClass.self, UITraitUserInterfaceIdiom.self], action: #selector(updateTabBarDisplay))
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        updateTabBarDisplay()
         updateAvatarButtonAppearance()
     }
 
@@ -371,7 +371,7 @@ extension MainTabBarController {
 
 extension MainTabBarController {
     
-    private func updateTabBarDisplay() {
+    @objc private func updateTabBarDisplay() {
         switch traitCollection.horizontalSizeClass {
         case .compact:
             tabBar.isHidden = false
