@@ -4,18 +4,32 @@ import MastodonSDK
 
 struct PageableImageGallery: View {
     @Environment(ImageGalleryViewModel.self) var galleryViewModel
+    @State private var offset: CGSize = .zero
+    @State private var liveOffset: CGSize = .zero
     
     var body: some View {
         GeometryReader { geo in
-            ScrollView(.horizontal) {
-                HStack {
-                    ForEach(galleryViewModel.imageAttachments, id: \.self.id) { imageInfo in
-                        ZoomableImageView(size: geo.size, index: galleryViewModel.idToIndex[imageInfo.id] ?? 0)
+            HStack {
+                ForEach(galleryViewModel.imageAttachments, id: \.self.id) { imageInfo in
+                    ZoomableImageView(size: geo.size,
+                                      index: galleryViewModel.idToIndex[imageInfo.id] ?? 0,
+                                      updateExcessGestureOffset: { additionalOffset in
+                        liveOffset = additionalOffset + liveOffset
+                    },
+                                      dragGestureDidEnd: { finalAdditionalOffset in
+                        let finalOffset = offset + liveOffset + finalAdditionalOffset
+                        liveOffset = .zero
+                        // find the closest boundary. note that acceptable resting offsets are always <= 0.
+                        let widthsOffsetNoFurtherThanFinalImage = max(-(CGFloat(galleryViewModel.imageAttachments.count) - 1), (finalOffset.width / geo.size.width).rounded(.toNearestOrEven))
+                        let widthsOffset = min(widthsOffsetNoFurtherThanFinalImage, 0)
+                        offset = CGSize(width: geo.size.width * widthsOffset, height: 0)
                     }
+                    )
                 }
             }
         }
         .ignoresSafeArea()
+        .offset(offset + liveOffset)
     }
 }
 
@@ -24,10 +38,14 @@ struct ZoomableImageView: View {
     @Environment(ImageGalleryViewModel.self) var galleryViewModel
     let size: CGSize
     let index: Int
+    let updateExcessGestureOffset: (CGSize)->()
+    let dragGestureDidEnd: (CGSize)->()
     
-    public init(size: CGSize, index: Int) {
+    public init(size: CGSize, index: Int, updateExcessGestureOffset: @escaping (CGSize)->(), dragGestureDidEnd: @escaping (CGSize)->()) {
         self.size = size
         self.index = index
+        self.updateExcessGestureOffset = updateExcessGestureOffset
+        self.dragGestureDidEnd = dragGestureDidEnd
     }
     
     private let maxScale: CGFloat = 4
@@ -100,7 +118,6 @@ struct ZoomableImageView: View {
     func clampOffset(_ proposedOffset: CGSize) -> CGSize {
         let baseSize = fittingSize
         let scaledSize = CGSize(width: baseSize.width * scale, height: baseSize.height * scale)
-        let restingOffset = CGSize(width: max(scaledSize.width - geoSize.width, 0) / 2.0, height: max(scaledSize.height - geoSize.height, 0) / 2.0)
 
         let maxX: CGFloat
         let maxY: CGFloat
@@ -159,11 +176,25 @@ struct ZoomableImageView: View {
             DragGesture()
                 .updating($currentGestureOffset) { value, state, _ in
                     state = value.translation
+                    let clamped = clampOffset(value.translation)
+                    updateExcessGestureOffset(value.translation - clamped)
                 }
                 .onEnded { value in
-                    let proposedOffset = CGSize(width:  offset.width + value.translation.width, height: offset.height + value.translation.height)
+                    let proposedOffset = offset + value.translation
                     offset = clampOffset(proposedOffset)
+                    let clamped = clampOffset(value.translation)
+                    dragGestureDidEnd(value.translation - clamped)
                 }
         )
+    }
+}
+
+extension CGSize {
+    static func +(lhs: CGSize, rhs: CGSize) -> CGSize {
+        CGSize(width: lhs.width + rhs.width, height: lhs.height + rhs.height)
+    }
+    
+    static func -(lhs: CGSize, rhs: CGSize) -> CGSize {
+        CGSize(width: lhs.width - rhs.width, height: lhs.height - rhs.height)
     }
 }
