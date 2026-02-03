@@ -2169,6 +2169,7 @@ extension MastodonTimelineOverlayView {
             if let img = viewModel.imageAttachments.first(where: { $0.id == focusedImage }) {
                 PageableImageGallery()
                     .environment(viewModel)
+                    .environment(PageableZoomableViewModel(pageCount: viewModel.imageAttachments.count, dismiss: closeOverlay))
                     .environment(ContentConcealViewModel.alwaysShow)
             }
         }

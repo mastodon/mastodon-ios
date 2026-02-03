@@ -3,6 +3,7 @@ import SwiftUI
 import MastodonSDK
 
 @Observable class PageableZoomableViewModel {
+    let pageCount: Int
     let dismiss: ()->()
     
     private(set) var focusedPageIndex: Int = 0
@@ -10,17 +11,19 @@ import MastodonSDK
     let minZoom: CGFloat = 1
     
     private var focusedPageZoomScale: CGFloat = 1
-    private var focusedPageOffset: CGSize = .zero
+    private var focusedPageInternalOffset: CGSize = .zero
     
     private var focusedPageLiveZoomScale: CGFloat = 1
     private var focusedPageLiveOffset: CGSize = .zero
     
     private var excessScrollDirection: Axis?
 
-    private var focusedPageGeoSize: CGSize = .zero
+    private(set) var pagingPageSize: CGSize = .zero
+    private(set) var contentPageSize: CGSize = .zero
     private var focusedPageContentsFittingSize: CGSize = .zero
     
-    init(dismiss: @escaping ()->()) {
+    init(pageCount: Int, dismiss: @escaping ()->()) {
+        self.pageCount = pageCount
         self.dismiss = dismiss
     }
     
@@ -29,11 +32,23 @@ import MastodonSDK
         focusedPageIndex = page
     }
     
-    func updateFocusedPageGeometry(geoSize: CGSize, contentsFittingSize: CGSize) {
-        focusedPageGeoSize = geoSize
-        focusedPageContentsFittingSize = contentsFittingSize
+    func updateContentsFittingSize(_ newSize: CGSize) {
+        focusedPageContentsFittingSize = newSize
+    }
+    
+    func updateContentPageSize(_ newSize: CGSize) {
+        contentPageSize = newSize
+        reclampExistingOffsetAndScale()
+    }
+    
+    func updatePagingPageSize(_ newSize: CGSize) {
+        pagingPageSize = newSize
+        reclampExistingOffsetAndScale()
+    }
+    
+    func reclampExistingOffsetAndScale() {
         focusedPageZoomScale = clampZoom(focusedPageZoomScale)
-        focusedPageOffset = clampOffset(focusedPageOffset)
+        focusedPageInternalOffset = clampOffset(focusedPageInternalOffset)
     }
     
     private func resetPageTransforms(liveOnly: Bool) {
@@ -43,11 +58,11 @@ import MastodonSDK
         
         guard !liveOnly else { return }
         focusedPageZoomScale = 1
-        focusedPageOffset = .zero
+        focusedPageInternalOffset = .zero
     }
     
     var liveUpdatePageContentsOffset: CGSize {
-        focusedPageOffset + focusedPageLiveOffset
+        focusedPageInternalOffset + focusedPageLiveOffset
     }
     
     var liveUpdatePageContentsScale: CGFloat {
@@ -65,8 +80,8 @@ import MastodonSDK
         }
     }
     
-    func absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: CGSize, gestureIsEnded: Bool) -> CGSize {
-        let proposedOffset = liveOffset + focusedPageOffset
+    func absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: CGSize, currentOffset: CGSize, gestureIsEnded: Bool) -> CGSize {
+        let proposedOffset = liveOffset + focusedPageInternalOffset
         let clamped = clampOffset(proposedOffset)
        
         let excess = proposedOffset - clamped
@@ -88,13 +103,31 @@ import MastodonSDK
         }
 
         if gestureIsEnded {
-            focusedPageOffset = clamped
-            resetPageTransforms(liveOnly: true)
-            return .zero
+            focusedPageInternalOffset = clamped
+            switch excessScrollDirection {
+            case .horizontal:
+                let (newFocusedPage, newPagedOffset) = restingPagedOffset(unidirectionalExcessOffset + currentOffset)
+                resetPageTransforms(liveOnly: true)
+                focusedPageIndex = newFocusedPage
+                return newPagedOffset
+            case .vertical:
+                resetPageTransforms(liveOnly: true)
+                return unidirectionalExcessOffset
+            case nil:
+                assertionFailure("excessScrollDirection should be known as soon as gesture begins")
+                return .zero
+            }
         } else {
             focusedPageLiveOffset = clamped
             return unidirectionalExcessOffset
         }
+    }
+    
+    private func restingPagedOffset(_ rawOffset: CGSize) -> (Int, CGSize) {
+        // find the closest boundary. note that acceptable resting offsets are always <= 0.
+        let widthsOffsetNoFurtherThanFinalImage = max(-(CGFloat(pageCount - 1)), (rawOffset.width / pagingPageSize.width).rounded(.toNearestOrEven))
+        let widthsOffset = min(widthsOffsetNoFurtherThanFinalImage, 0)
+        return (Int(widthsOffset), CGSize(width: pagingPageSize.width * widthsOffset, height: 0))
     }
     
     func clampOffset(_ proposedOffset: CGSize) -> CGSize {
@@ -105,19 +138,19 @@ import MastodonSDK
         let maxY: CGFloat
         let minX: CGFloat
         let minY: CGFloat
-        if scaledSize.width < focusedPageGeoSize.width {
-            maxX = (focusedPageGeoSize.width - scaledSize.width) / 2.0
+        if scaledSize.width < contentPageSize.width {
+            maxX = (contentPageSize.width - scaledSize.width) / 2.0
             minX = maxX
         } else {
             maxX = 0
-            minX = focusedPageGeoSize.width - scaledSize.width
+            minX = contentPageSize.width - scaledSize.width
         }
-        if scaledSize.height < focusedPageGeoSize.height {
-            maxY = (focusedPageGeoSize.height - scaledSize.height) / 2.0
+        if scaledSize.height < contentPageSize.height {
+            maxY = (contentPageSize.height - scaledSize.height) / 2.0
             minY = maxY
         } else {
             maxY = 0
-            minY = focusedPageGeoSize.height - scaledSize.height
+            minY = contentPageSize.height - scaledSize.height
         }
         
         let maxOffset = CGSize(width: maxX, height: maxY)
@@ -143,7 +176,7 @@ struct PageableImageGallery: View {
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
-                HStack {
+                HStack(spacing: 0) {
                     ForEach(galleryViewModel.imageAttachments, id: \.self.id) { imageInfo in
                         ZoomableImageView(size: geo.size,
                                           index: galleryViewModel.idToIndex[imageInfo.id] ?? 0)
@@ -156,6 +189,12 @@ struct PageableImageGallery: View {
                     .frame(width: geo.size.width, height: geo.size.height)
                     .scaleEffect(pageableZoomableViewModel.liveUpdatePageContentsScale, anchor: .topLeading)
                     .gesture(zoomAndPan) // putting the gesture on a stationary view keeps the motion smooth
+            }
+            .onAppear() {
+                pageableZoomableViewModel.updatePagingPageSize(geo.size)
+            }
+            .onChange(of: geo.size) { _, newValue in
+                pageableZoomableViewModel.updatePagingPageSize(newValue)
             }
         }
         .ignoresSafeArea()
@@ -174,13 +213,17 @@ struct PageableImageGallery: View {
             
             DragGesture()
                 .updating($liveOffset) { value, state, _ in
-                    let excessOffset = pageableZoomableViewModel.absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: value.translation, gestureIsEnded: false)
+                    let excessOffset = pageableZoomableViewModel.absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: value.translation, currentOffset: offset, gestureIsEnded: false)
                     state = excessOffset
                     print("updating drag \(value.translation)")
                 }
                 .onEnded { value in
-                    let excessOffset = pageableZoomableViewModel.absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: value.translation, gestureIsEnded: true)
-                    offset = excessOffset
+                    let excessOffset = pageableZoomableViewModel.absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: value.translation, currentOffset: offset, gestureIsEnded: true)
+                    if abs(excessOffset.height) > (pageableZoomableViewModel.pagingPageSize.height / 2.0) {
+                        pageableZoomableViewModel.dismiss()
+                    } else {
+                        offset = CGSize(width: excessOffset.width, height: excessOffset.height)
+                    }
                 }
         )
     }
@@ -243,8 +286,9 @@ struct ZoomableImageView: View {
     }
     
     func updateGeometry(fromSize size: CGSize) {
+        pageableZoomableViewModel.updateContentPageSize(size)
         fittingSize = calculateFittingSize(fromContainerSize: size)
-        pageableZoomableViewModel.updateFocusedPageGeometry(geoSize: size, contentsFittingSize: fittingSize)
+        pageableZoomableViewModel.updateContentsFittingSize(fittingSize)
     }
     
     func calculateFittingSize(fromContainerSize containerSize: CGSize) -> CGSize {
