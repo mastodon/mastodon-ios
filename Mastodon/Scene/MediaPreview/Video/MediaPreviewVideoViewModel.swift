@@ -113,6 +113,7 @@ final class MediaPreviewVideoViewModel {
     }
     static func endAudioSession() {
         Task { @MainActor in
+            guard activeAudioSessionRequestCounter != 0 else { return }
             activeAudioSessionRequestCounter -= 1
             guard activeAudioSessionRequestCounter == 0 else { return }
             try? AVAudioSession.sharedInstance().setCategory(.ambient)  // set to ambient to allow mixed (needed for GIFV)
