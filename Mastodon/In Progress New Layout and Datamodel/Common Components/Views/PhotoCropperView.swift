@@ -77,7 +77,7 @@ struct PhotoCropperView: View {
                             .tintedBlurBackground()
                             .clipShape(.circle)
                     }
-                    .glassEffectIfAvailable(in: .circle)
+                    .glassEffectIfAvailable(.regular(interactive: true), in: .circle)
                 }
             }
             .gesture(zoomAndPan)

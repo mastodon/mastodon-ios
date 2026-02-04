@@ -337,7 +337,7 @@ struct ProfileAvatarAndBannerView: View {
                 .padding(.horizontal)
                 .tintedBlurBackground()
                 .clipShape(.capsule)
-                .glassEffectIfAvailable(in: .capsule)
+                .glassEffectIfAvailable(.regular(interactive: true), in: .capsule)
                 .foregroundStyle(.white)
         }
     }
@@ -350,7 +350,7 @@ struct ProfileAvatarAndBannerView: View {
                     .padding()
                     .tintedBlurBackground()
                     .clipShape(Circle())
-                    .glassEffectIfAvailable(in: .circle)
+                    .glassEffectIfAvailable(.regular(interactive: true), in: .circle)
                     .foregroundStyle(.white)
             } else {
                 Color.clear
@@ -628,7 +628,6 @@ struct ProfilePaginationControl: View {
                         .clipShape(RoundedRectangle(cornerRadius: CornerRadius.standard))
                     }
                 }
-                .glassEffectIfAvailable(in: RoundedRectangle(cornerRadius: CornerRadius.standard))
             }
         }
     }
@@ -646,7 +645,7 @@ struct ProfileActionBar: View {
                     navigationStackNavigateToEditProfile()
                     viewModel.navigationControllerNavigateToEditProfile?()
                 }
-                .glassEffectIfAvailable(in: .capsule)
+                .glassEffectIfAvailable(.regular(interactive: true), in: .capsule)
                 
                 Button() {
                     
@@ -658,7 +657,7 @@ struct ProfileActionBar: View {
                         Image(systemName: "at")
                     }
                 }
-                .glassEffectIfAvailable(in: .circle)
+                .glassEffectIfAvailable(.regular(interactive: true), in: .circle)
                 
                 Button() {
                     
@@ -670,7 +669,7 @@ struct ProfileActionBar: View {
                         Image(systemName: "ellipsis")
                     }
                 }
-                .glassEffectIfAvailable(in: .circle)
+                .glassEffectIfAvailable(.regular(interactive: true), in: .circle)
             }
         }
     }
