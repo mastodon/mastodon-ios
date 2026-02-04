@@ -117,8 +117,12 @@ struct ProfileView: View {
                             break
                         case .pushingChanges(let success):
                             guard success == true else { break }
-                            viewModel.editingStatus = .notEditing
                             navigationPath.removeLast()
+                        }
+                    }
+                    .onChange(of: navigationPath) { oldValue, newValue in
+                        if newValue.isEmpty {
+                            viewModel.editingStatus = .notEditing
                         }
                     }
             }
