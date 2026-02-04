@@ -74,7 +74,6 @@ struct PhotoCropperView: View {
                         Image(systemName: "checkmark")
                             .font(.title)
                             .padding()
-                            .tintedBlurBackground()
                             .clipShape(.circle)
                     }
                     .glassEffectIfAvailable(.regular(interactive: true), in: .circle)
