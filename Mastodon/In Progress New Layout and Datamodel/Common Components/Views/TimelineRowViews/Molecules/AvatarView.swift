@@ -4,6 +4,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct AvatarView: View {
+    var sizeExtraExtraLarge = AvatarSize.extraExtraLarge
     var sizeExtraLarge = AvatarSize.extraLarge
     var sizeLarge = AvatarSize.large
     var sizeSmall = AvatarSize.small
@@ -12,6 +13,7 @@ struct AvatarView: View {
     @State var isNavigating: Bool = false
     
     enum Size {
+        case extraExtraLarge
         case extraLarge
         case large
         case small
@@ -19,6 +21,8 @@ struct AvatarView: View {
         
         var shape: RoundedRectangle {
             switch self {
+            case .extraExtraLarge:
+                RoundedRectangle(cornerRadius: CornerRadius.extraExtraLarge)
             case .extraLarge:
                 RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
             case .large:
@@ -42,6 +46,7 @@ struct AvatarView: View {
     
     private var viewDimension: CGFloat {
         switch size {
+        case .extraExtraLarge: sizeExtraExtraLarge
         case .extraLarge: sizeExtraLarge
         case .large: sizeLarge
         case .small: sizeSmall
