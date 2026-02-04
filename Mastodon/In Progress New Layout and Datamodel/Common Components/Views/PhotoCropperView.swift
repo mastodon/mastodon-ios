@@ -57,11 +57,18 @@ struct PhotoCropperView: View {
                 }
                 
                 HStack {
-                    if let croppedImage {
-                        croppedImage
-                            .resizable()
-                            .frame(width: 100, height: 100)
+                    Button() {
+                        completion(nil)
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.title)
+                            .padding()
+                            .clipShape(.circle)
                     }
+                    .glassEffectIfAvailable(.regular, in: .circle)
+                    
+                    Spacer()
+                    
                     Button() {
 #if DEBUG && false
                         if let cropped = getCroppedImage() {
@@ -78,6 +85,7 @@ struct PhotoCropperView: View {
                     }
                     .glassEffectIfAvailable(.regular(interactive: true), in: .circle)
                 }
+                .padding()
             }
             .gesture(zoomAndPan)
             .preference(key: SizePreferenceKey.self,
