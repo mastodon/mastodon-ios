@@ -126,10 +126,10 @@ struct PhotoCropperView: View {
         let aspect = originalImage.size.aspectRatio
         if aspect < cropSize.aspectRatio {
             // image is taller.  make the width fit.
-            return CGSize(width: cropSize.width, height: cropSize.height * aspect)
+            return CGSize(width: cropSize.width, height: cropSize.width / aspect)
         } else {
             // image is squatter.  make the height fit.
-            return CGSize(width: cropSize.width * aspect, height: cropSize.height)
+            return CGSize(width: cropSize.height / aspect, height: cropSize.height)
         }
     }
     
