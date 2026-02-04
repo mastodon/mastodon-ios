@@ -177,8 +177,7 @@ struct ProfileView: View {
                             .frame(height: doublePadding)
                         
                         ProfileActionBar(navigationStackNavigateToEditProfile: {
-                            viewModel.editingStatus = .editing(hasChanges: false)
-                            navigationPath.append(MastodonNavigationDestination.editProfile)
+                            navigateToEditProfile()
                         })
                             .padding(.horizontal, doublePadding)
                             .frame(width: min(maxFeedContentWidth, geo.size.width))
@@ -212,7 +211,7 @@ struct ProfileView: View {
                 VStack {
                     Spacer()
                     ProfileActionBar(navigationStackNavigateToEditProfile: {
-                        navigationPath.append(MastodonNavigationDestination.editProfile)
+                        navigateToEditProfile()
                     })
                         .padding(.horizontal, doublePadding)
                         .frame(width: min(maxFeedContentWidth, geo.size.width))
@@ -253,6 +252,11 @@ struct ProfileView: View {
         case .pages:
             ProfilePaginatingView()
         }
+    }
+    
+    private func navigateToEditProfile() {
+        viewModel.editingStatus = .editing(hasChanges: false)
+        navigationPath.append(MastodonNavigationDestination.editProfile)
     }
 }
 
