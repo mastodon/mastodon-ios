@@ -184,7 +184,7 @@ struct ProfileView: View {
                             .background() {
                                 GeometryReader { embeddedGeo in
                                     Color.clear
-                                        .preference(key: VerticalPositionKey.self, value: ["embedded": embeddedGeo.frame(in: .global).minY])
+                                        .preference(key: VerticalPositionKey.self, value: ["embedded": embeddedGeo.frame(in: CoordinateSpace.named("scrollview")).minY])
                                 }
                             }
                             .opacity(embeddedActionBarHasCaughtUpToFloatingActionBar ? 1.0 : 0.0)
@@ -207,6 +207,7 @@ struct ProfileView: View {
                 }
                 .nestedScrollview(.outer)
                 .frame(width: geo.size.width, height: geo.size.height)
+                .coordinateSpace(name: "scrollview")
                 
                 VStack {
                     Spacer()
@@ -218,7 +219,7 @@ struct ProfileView: View {
                         .background() {
                             GeometryReader { floatingGeo in
                                 Color.clear
-                                    .preference(key: VerticalPositionKey.self, value: ["floating": floatingGeo.frame(in: .global).minY])
+                                    .preference(key: VerticalPositionKey.self, value: ["floating": floatingGeo.frame(in: CoordinateSpace.named("scrollview")).minY])
                             }
                         }
                         .opacity(embeddedActionBarHasCaughtUpToFloatingActionBar ? 0.0 : 1.0)
