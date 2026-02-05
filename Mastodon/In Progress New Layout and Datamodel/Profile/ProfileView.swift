@@ -347,10 +347,10 @@ struct ProfileAvatarAndBannerView: View {
             Text("Edit cover image")
                 .padding(.vertical, tinySpacing)
                 .padding(.horizontal)
+                .tintedBlurBackground()
                 .clipShape(.capsule)
-                .glassEffectIfAvailable(.regular(interactive: true), in: .capsule)
+                .glassEffectIfAvailable(.clear(interactive: true), in: .capsule)
                 .foregroundStyle(.white)
-                .environment(\.colorScheme, .dark)
         }
     }
     
@@ -360,10 +360,10 @@ struct ProfileAvatarAndBannerView: View {
                 Image(systemName: "camera")
                     .font(.headline)
                     .padding()
+                    .tintedBlurBackground()
                     .clipShape(Circle())
-                    .glassEffectIfAvailable(.regular(interactive: true), in: .circle)
+                    .glassEffectIfAvailable(.clear(interactive: true), in: .circle)
                     .foregroundStyle(.white)
-                    .environment(\.colorScheme, .dark)
             } else {
                 Color.clear
             }
