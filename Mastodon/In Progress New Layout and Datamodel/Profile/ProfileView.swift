@@ -7,6 +7,7 @@ import SwiftUI
 import PhotosUI
 import MastodonCore
 import MastodonSDK
+import MastodonUI
 import Combine
 
 enum MastodonNavigationDestination: Hashable {

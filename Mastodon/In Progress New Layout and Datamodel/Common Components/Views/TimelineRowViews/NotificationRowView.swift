@@ -5,6 +5,7 @@ import MastodonCore
 import MastodonLocalization
 import MastodonMeta
 import MastodonSDK
+import MastodonUI
 import MetaTextKit
 import SwiftUI
 

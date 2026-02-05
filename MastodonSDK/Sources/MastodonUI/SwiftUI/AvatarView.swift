@@ -3,7 +3,23 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct AvatarView: View {
+public struct AvatarSize {
+    public static var extraExtraLarge: CGFloat = 106
+    public static var extraLarge: CGFloat = 80
+    public static var large: CGFloat = 44
+    public static var small: CGFloat = 32
+    public static var tiny: CGFloat = 16
+}
+
+public struct CornerRadius {
+    public static var extraExtraLarge: CGFloat = 27
+    public static var extraLarge: CGFloat = 8 * 2
+    public static var standard: CGFloat = 8
+    public static var small: CGFloat = 8 / 2
+    public static var tiny: CGFloat = 3
+}
+
+public struct AvatarView: View {
     var sizeExtraExtraLarge = AvatarSize.extraExtraLarge
     var sizeExtraLarge = AvatarSize.extraLarge
     var sizeLarge = AvatarSize.large
@@ -12,7 +28,7 @@ struct AvatarView: View {
     
     @State var isNavigating: Bool = false
     
-    enum Size {
+    public enum Size {
         case extraExtraLarge
         case extraLarge
         case large
@@ -35,7 +51,7 @@ struct AvatarView: View {
         }
     }
     
-    enum AvatarSource {
+    public enum AvatarSource {
         case url(URL?)
         case local(Image)
     }
@@ -43,6 +59,12 @@ struct AvatarView: View {
     let size: Size
     let avatarSource: AvatarSource?
     let goToProfile: (() async throws -> ())?
+    
+    public init(size: Size, avatarSource: AvatarSource?, goToProfile: (() async throws -> ())?) {
+        self.size = size
+        self.avatarSource = avatarSource
+        self.goToProfile = goToProfile
+    }
     
     private var viewDimension: CGFloat {
         switch size {
@@ -58,7 +80,7 @@ struct AvatarView: View {
         size.shape
     }
     
-    var body: some View {
+    public var body: some View {
         ZStack {
             if let avatarSource {
                 switch avatarSource {
