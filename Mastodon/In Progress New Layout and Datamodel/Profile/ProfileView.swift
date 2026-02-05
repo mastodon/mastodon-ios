@@ -349,6 +349,7 @@ struct ProfileAvatarAndBannerView: View {
                 .clipShape(.capsule)
                 .glassEffectIfAvailable(.regular(interactive: true), in: .capsule)
                 .foregroundStyle(.white)
+                .environment(\.colorScheme, .dark)
         }
     }
     
@@ -361,6 +362,7 @@ struct ProfileAvatarAndBannerView: View {
                     .clipShape(Circle())
                     .glassEffectIfAvailable(.regular(interactive: true), in: .circle)
                     .foregroundStyle(.white)
+                    .environment(\.colorScheme, .dark)
             } else {
                 Color.clear
             }
