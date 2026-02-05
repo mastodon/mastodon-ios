@@ -279,6 +279,7 @@ struct ProfileAvatarAndBannerView: View {
                         bannerView(width: width)
                             .frame(height: bannerFullHeight)
                             .clipped()
+                            .background(.secondary) // in case there is no image
                         
                         switch profileViewModel.editingStatus {
                         case .editing:
