@@ -65,7 +65,7 @@ struct PhotoCropperView: View {
                             .padding()
                             .clipShape(.circle)
                     }
-                    .glassEffectIfAvailable(.regular, in: .circle)
+                    .glassEffectIfAvailable(.regular(interactive: true), in: .circle)
                     
                     Spacer()
                     
