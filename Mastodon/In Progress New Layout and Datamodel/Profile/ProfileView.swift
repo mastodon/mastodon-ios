@@ -123,6 +123,7 @@ struct ProfileView: View {
                     .onChange(of: navigationPath) { oldValue, newValue in
                         if newValue.isEmpty {
                             viewModel.editingStatus = .notEditing
+                            viewModel.resetEditingViewModel()
                         }
                     }
             }
@@ -929,6 +930,11 @@ enum EditingStatus: Equatable {
                 }
             }
         }
+    }
+    
+    public func resetEditingViewModel() {
+        guard let account else { return }
+        editingViewModel.setAccount(account)
     }
 }
 
