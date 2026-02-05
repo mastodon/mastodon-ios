@@ -10,8 +10,9 @@ import MastodonSDK
     let maxZoom: CGFloat = 4
     let minZoom: CGFloat = 1
     
-    private var focusedPageZoomScale: CGFloat = 1
-    private var focusedPageInternalOffset: CGSize = .zero
+    private var zoomScales: [CGFloat]
+    private var internalOffsets: [CGSize]
+    private var focusedPageContentsFittingSizes: [CGSize]
     
     private var focusedPageLiveZoomScale: CGFloat = 1
     private var focusedPageLiveOffset: CGSize = .zero
@@ -19,71 +20,83 @@ import MastodonSDK
     private var excessScrollDirection: Axis?
 
     private(set) var pagingPageSize: CGSize = .zero
-    private(set) var contentPageSize: CGSize = .zero
-    private var focusedPageContentsFittingSize: CGSize = .zero
+    private(set) var contentPageSizes: [CGSize]
+    private(set) var contentsFittingSizes: [CGSize]
     
     init(pageCount: Int, dismiss: @escaping ()->()) {
         self.pageCount = pageCount
         self.dismiss = dismiss
+        self.zoomScales = Array(repeating: 1, count: pageCount)
+        self.internalOffsets = Array(repeating: .zero, count: pageCount)
+        self.contentPageSizes = Array(repeating: .zero, count: pageCount)
+        self.contentsFittingSizes = Array(repeating: .zero, count: pageCount)
+        self.focusedPageContentsFittingSizes = Array(repeating: .zero, count: pageCount)
     }
     
     func focus(page: Int) {
-        resetPageTransforms(liveOnly: false)
+        resetLiveTransforms()
         focusedPageIndex = page
     }
     
-    func updateContentsFittingSize(_ newSize: CGSize) {
-        focusedPageContentsFittingSize = newSize
+    func updateContentsFittingSize(_ index: Int, newSize: CGSize) {
+        contentsFittingSizes[index] = newSize
     }
     
-    func updateContentPageSize(_ newSize: CGSize) {
-        contentPageSize = newSize
-        reclampExistingOffsetAndScale()
+    func updateContentPageSize(_ index: Int, newSize: CGSize) {
+        contentPageSizes[index] = newSize
+        reclampExistingOffsetsAndScales()
     }
     
     func updatePagingPageSize(_ newSize: CGSize) {
         pagingPageSize = newSize
-        reclampExistingOffsetAndScale()
+        reclampExistingOffsetsAndScales()
     }
     
-    func reclampExistingOffsetAndScale() {
-        focusedPageZoomScale = clampZoom(focusedPageZoomScale)
-        focusedPageInternalOffset = clampOffset(focusedPageInternalOffset)
+    func reclampExistingOffsetsAndScales() {
+        for (i, scale) in zoomScales.enumerated() {
+            zoomScales[i] = clampZoom(scale)
+        }
+        for (i, offset) in internalOffsets.enumerated() {
+            internalOffsets[i] = clampOffset(i, proposedOffset: offset)
+        }
     }
     
-    private func resetPageTransforms(liveOnly: Bool) {
+    private func resetLiveTransforms() {
         focusedPageLiveZoomScale = 1
         focusedPageLiveOffset = .zero
         excessScrollDirection = nil
-        
-        guard !liveOnly else { return }
-        focusedPageZoomScale = 1
-        focusedPageInternalOffset = .zero
     }
     
-    var liveUpdatePageContentsOffset: CGSize {
-        focusedPageInternalOffset + focusedPageLiveOffset
+    func liveUpdatePageContentsOffset(_ index: Int) -> CGSize {
+        if index == focusedPageIndex {
+            return internalOffsets[index] + focusedPageLiveOffset
+        } else {
+            return internalOffsets[index]
+        }
     }
     
-    var liveUpdatePageContentsScale: CGFloat {
-        focusedPageZoomScale * focusedPageLiveZoomScale
+    func liveUpdatePageContentsScale(_ index: Int) -> CGFloat {
+        if index == focusedPageIndex {
+            return zoomScales[index] * focusedPageLiveZoomScale
+        } else {
+            return zoomScales[index]
+        }
     }
     
     func absorbLiveUpdateZoomScaleIntoFocusedPage(liveScale: CGFloat, gestureIsEnded: Bool) {
-        let proposedScale = liveScale * focusedPageZoomScale
+        let proposedScale = liveScale * zoomScales[focusedPageIndex]
         let clamped = clampZoom(proposedScale)
-        focusedPageLiveZoomScale = clamped / focusedPageZoomScale
+        focusedPageLiveZoomScale = clamped / zoomScales[focusedPageIndex]
         
         if gestureIsEnded  {
-            focusedPageZoomScale = clamped
-            resetPageTransforms(liveOnly: true)
+            zoomScales[focusedPageIndex] = clamped
+            resetLiveTransforms()
         }
     }
     
     func absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: CGSize, currentOffset: CGSize, gestureIsEnded: Bool) -> CGSize {
-        let proposedOffset = liveOffset + focusedPageInternalOffset
-        let clamped = clampOffset(proposedOffset)
-       
+        let proposedOffset = liveOffset + internalOffsets[focusedPageIndex]
+        let clamped = clampOffset(focusedPageIndex, proposedOffset: proposedOffset)
         let excess = proposedOffset - clamped
         
         if excessScrollDirection == nil {
@@ -101,24 +114,24 @@ import MastodonSDK
             assertionFailure("should have been assigned by now")
             break
         }
-
+        
         if gestureIsEnded {
-            focusedPageInternalOffset = clamped
+            internalOffsets[focusedPageIndex] = clamped
             switch excessScrollDirection {
             case .horizontal:
                 let (newFocusedPage, newPagedOffset) = restingPagedOffset(unidirectionalExcessOffset + currentOffset)
-                resetPageTransforms(liveOnly: true)
-                focusedPageIndex = newFocusedPage
+                resetLiveTransforms()
+                focus(page: newFocusedPage)
                 return newPagedOffset
             case .vertical:
-                resetPageTransforms(liveOnly: true)
+                resetLiveTransforms()
                 return unidirectionalExcessOffset
             case nil:
                 assertionFailure("excessScrollDirection should be known as soon as gesture begins")
                 return .zero
             }
         } else {
-            focusedPageLiveOffset = clamped
+            focusedPageLiveOffset = clamped - internalOffsets[focusedPageIndex]
             return unidirectionalExcessOffset
         }
     }
@@ -127,12 +140,13 @@ import MastodonSDK
         // find the closest boundary. note that acceptable resting offsets are always <= 0.
         let widthsOffsetNoFurtherThanFinalImage = max(-(CGFloat(pageCount - 1)), (rawOffset.width / pagingPageSize.width).rounded(.toNearestOrEven))
         let widthsOffset = min(widthsOffsetNoFurtherThanFinalImage, 0)
-        return (Int(widthsOffset), CGSize(width: pagingPageSize.width * widthsOffset, height: 0))
+        return (Int(-widthsOffset), CGSize(width: pagingPageSize.width * widthsOffset, height: 0))
     }
     
-    func clampOffset(_ proposedOffset: CGSize) -> CGSize {
-        let baseSize = focusedPageContentsFittingSize
-        let scaledSize = CGSize(width: baseSize.width * focusedPageZoomScale, height: baseSize.height * focusedPageZoomScale)
+    func clampOffset(_ index: Int, proposedOffset: CGSize) -> CGSize {
+        let baseSize = contentsFittingSizes[index]
+        let scaledSize = CGSize(width: baseSize.width * zoomScales[index], height: baseSize.height * zoomScales[index])
+        let contentPageSize = contentPageSizes[index]
         
         let maxX: CGFloat
         let maxY: CGFloat
@@ -171,6 +185,7 @@ struct PageableImageGallery: View {
     @Environment(PageableZoomableViewModel.self) var pageableZoomableViewModel
     @GestureState private var liveScale: CGFloat = 1
     @GestureState private var liveOffset: CGSize = .zero
+    @State private var lastLiveOffset: CGSize = .zero  // this allows us to smoothly animate page changes when the drag gesture ends
     @State private var offset: CGSize = .zero
     
     var body: some View {
@@ -182,12 +197,12 @@ struct PageableImageGallery: View {
                                           index: galleryViewModel.idToIndex[imageInfo.id] ?? 0)
                     }
                 }
-                .offset(offset + liveOffset)
+                .offset(offset + (liveOffset == .zero ? lastLiveOffset : liveOffset))
                 
                 Color.clear
                     .contentShape(Rectangle())
                     .frame(width: geo.size.width, height: geo.size.height)
-                    .scaleEffect(pageableZoomableViewModel.liveUpdatePageContentsScale, anchor: .topLeading)
+                    .scaleEffect(pageableZoomableViewModel.liveUpdatePageContentsScale(pageableZoomableViewModel.focusedPageIndex), anchor: .topLeading)
                     .gesture(zoomAndPan) // putting the gesture on a stationary view keeps the motion smooth
             }
             .onAppear() {
@@ -215,14 +230,19 @@ struct PageableImageGallery: View {
                 .updating($liveOffset) { value, state, _ in
                     let excessOffset = pageableZoomableViewModel.absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: value.translation, currentOffset: offset, gestureIsEnded: false)
                     state = excessOffset
+                    lastLiveOffset = excessOffset
                     print("updating drag \(value.translation)")
                 }
                 .onEnded { value in
-                    let excessOffset = pageableZoomableViewModel.absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: value.translation, currentOffset: offset, gestureIsEnded: true)
-                    if abs(excessOffset.height) > (pageableZoomableViewModel.pagingPageSize.height / 2.0) {
-                        pageableZoomableViewModel.dismiss()
-                    } else {
-                        offset = CGSize(width: excessOffset.width, height: excessOffset.height)
+                    offset = offset + lastLiveOffset
+                    lastLiveOffset = .zero
+                    withAnimation {
+                        let excessOffset = pageableZoomableViewModel.absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: value.translation, currentOffset: offset, gestureIsEnded: true)
+                        if abs(excessOffset.height) > (pageableZoomableViewModel.pagingPageSize.height / 2.0) {
+                            pageableZoomableViewModel.dismiss()
+                        } else {
+                            offset = CGSize(width: excessOffset.width, height: excessOffset.height)
+                        }
                     }
                 }
         )
@@ -259,15 +279,10 @@ struct ZoomableImageView: View {
                         .frame(width: geo.size.width, height: geo.size.height)
                     BlurhashImageView(url: imageInfo.basicData.fullsizeUrl, imageDetails: imageInfo.imageDetails, blurhash: galleryViewModel.blurhashes[imageInfo.basicData.id])
                         .frame(width: fittingSize.width, height: fittingSize.height)
-                        .scaleEffect(index == pageableZoomableViewModel.focusedPageIndex
-                                     ? pageableZoomableViewModel.liveUpdatePageContentsScale
-                                     : 1,
+                        .scaleEffect(pageableZoomableViewModel.liveUpdatePageContentsScale(index),
                                      anchor: .topLeading
                         )
-                        .offset(index == pageableZoomableViewModel.focusedPageIndex
-                                ? pageableZoomableViewModel.liveUpdatePageContentsOffset
-                                : .zero
-                        )
+                        .offset(pageableZoomableViewModel.liveUpdatePageContentsOffset(index))
                         .preference(key: SizePreferenceKey.self,
                                     value: geo.size
                         )
@@ -286,9 +301,9 @@ struct ZoomableImageView: View {
     }
     
     func updateGeometry(fromSize size: CGSize) {
-        pageableZoomableViewModel.updateContentPageSize(size)
+        pageableZoomableViewModel.updateContentPageSize(index, newSize: size)
         fittingSize = calculateFittingSize(fromContainerSize: size)
-        pageableZoomableViewModel.updateContentsFittingSize(fittingSize)
+        pageableZoomableViewModel.updateContentsFittingSize(index, newSize: fittingSize)
     }
     
     func calculateFittingSize(fromContainerSize containerSize: CGSize) -> CGSize {
