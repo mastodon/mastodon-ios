@@ -191,7 +191,7 @@ extension MediaAttachment {
             AudioPlayerView(media: self)
         case .gifv, .video:
             ConcealableMediaAttachmentView() {
-                VideoPlayerView(media: self)
+                VideoPlayerView(media: self, showOverlay: showOverlay)
             }
         case .openInBrowser(let url):
             Button {
@@ -226,16 +226,16 @@ extension MediaAttachment {
 
 struct ConcealableMediaAttachmentView<Content: View>: View {
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
-    let contentViewBuilder: () -> Content
+    let contentView: Content
 
-    init(@ViewBuilder content: @escaping() -> Content) {
-        self.contentViewBuilder = content
+    init(@ViewBuilder content: () -> Content) {
+        self.contentView = content()
     }
     
     var body: some View {
         ZStack(alignment: .topTrailing) { // places the Hide/Show button, if there is one
             
-            contentViewBuilder()
+            contentView
             
             // Hide/Show button
             switch contentConcealViewModel.currentMode {
@@ -554,9 +554,9 @@ struct VideoPlayerView: View {
     let url: URL
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
     @StateObject var playerObserver = PlayerObserver()
-    @State var waitingToShowFullSize = false
+    let showOverlay: (MastodonTimelineOverlayView)->()
     
-    init?(media: MediaAttachment) {
+    init?(media: MediaAttachment, showOverlay: @escaping (MastodonTimelineOverlayView)->()) {
         switch media {
         case .video, .gifv:
             break
@@ -566,6 +566,7 @@ struct VideoPlayerView: View {
         guard let attachmentInfo = media.attachmentInfo, let url = attachmentInfo.url else { return nil }
         self.media = media
         self.url = url
+        self.showOverlay = showOverlay
     }
     
     var respectDeviceSilentSetting: Bool {
@@ -590,25 +591,12 @@ struct VideoPlayerView: View {
             if let player = playerObserver.getPlayer() {
                 VideoPlayer(player: player)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background {
-                        if waitingToShowFullSize {
-                            FrameReader() { frame in
-                                playerObserver.mostRecentFrameInScreenCoordinates = frame
-                                if waitingToShowFullSize {
-                                    waitingToShowFullSize = false
-                                    Task { @MainActor in
-                                        showFullSize()
-                                    }
-                                }
-                            }
-                        }
-                    }
             }
         }
         .overlay {
             ZStack {
                 Button {
-                    waitingToShowFullSize = true
+                    showOverlay(.video(media))
                 } label: {
                     Rectangle().fill(.clear)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)

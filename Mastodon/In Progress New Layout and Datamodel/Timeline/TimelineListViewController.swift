@@ -627,6 +627,7 @@ extension MastodonPostMenuAction {
 
 enum MastodonTimelineOverlayView {
     case images(focusedImage: Mastodon.Entity.Attachment.ID, ImageGalleryViewModel)
+    case video(MediaAttachment)
     case altText(String)
 }
 
@@ -2157,8 +2158,6 @@ struct TimelineListView: View {
     }
 }
 
-
-
 extension MastodonTimelineOverlayView {
     @MainActor
     @ViewBuilder func view(sizedForFrame frameSize: CGSize, closeOverlay: @escaping ()->()) -> some View {
@@ -2167,10 +2166,32 @@ extension MastodonTimelineOverlayView {
             AltTextView(altTextString: altTextString, frameSize: frameSize)
         case .images(let focusedImage, let viewModel):
             if let focusedIndex = viewModel.imageAttachments.firstIndex(where: { $0.id == focusedImage }) {
-                PageableImageGallery()
-                    .environment(viewModel)
-                    .environment(PageableZoomableViewModel(pageCount: viewModel.imageAttachments.count, focusedPage: focusedIndex, dismiss: closeOverlay))
-                    .environment(ContentConcealViewModel.alwaysShow)
+                PageableZoomableView() {
+                    PagingImageGalleryContent()
+                }
+                .environment(viewModel)
+                .environment(PageableZoomableViewModel(pageCount: viewModel.imageAttachments.count, focusedPage: focusedIndex, dismiss: closeOverlay))
+                .environment(ContentConcealViewModel.alwaysShow)
+            }
+        case .video(let attachment):
+            PageableZoomableView() {
+                VideoPlayerView(media: attachment, showOverlay: { _ in })
+            }
+            .environment(PageableZoomableViewModel(pageCount: 1, focusedPage: 0, dismiss: closeOverlay))
+            .environment(ContentConcealViewModel.alwaysShow)
+        }
+    }
+}
+
+struct PagingImageGalleryContent: View {
+    @Environment(\.pageSize) var pageSize
+    @Environment(ImageGalleryViewModel.self) var galleryViewModel
+
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(galleryViewModel.imageAttachments, id: \.self.id) { imageInfo in
+                ZoomableImageView(size: pageSize,
+                                  index: galleryViewModel.idToIndex[imageInfo.id] ?? 0)
             }
         }
     }

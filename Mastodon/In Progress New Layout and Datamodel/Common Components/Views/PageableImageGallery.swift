@@ -182,24 +182,29 @@ import MastodonSDK
     }
 }
 
-struct PageableImageGallery: View {
-    @Environment(ImageGalleryViewModel.self) var galleryViewModel
+extension EnvironmentValues {
+    @Entry var pageSize: CGSize = .zero
+}
+
+struct PageableZoomableView<Content: View>: View {
     @Environment(PageableZoomableViewModel.self) var pageableZoomableViewModel
     @GestureState private var liveScale: CGFloat = 1
     @GestureState private var liveOffset: CGSize = .zero
     @State private var lastLiveOffset: CGSize = .zero  // this allows us to smoothly animate page changes when the drag gesture ends
     @State private var offset: CGSize = .zero
     
+    let contentView: Content
+    
+    init(@ViewBuilder content: () -> Content) {
+        contentView = content()
+    }
+    
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
-                HStack(spacing: 0) {
-                    ForEach(galleryViewModel.imageAttachments, id: \.self.id) { imageInfo in
-                        ZoomableImageView(size: geo.size,
-                                          index: galleryViewModel.idToIndex[imageInfo.id] ?? 0)
-                    }
-                }
-                .offset(offset + (liveOffset == .zero ? lastLiveOffset : liveOffset))
+                contentView
+                    .environment(\.pageSize, geo.size)
+                    .offset(offset + (liveOffset == .zero ? lastLiveOffset : liveOffset))
                 
                 Color.clear
                     .contentShape(Rectangle())
