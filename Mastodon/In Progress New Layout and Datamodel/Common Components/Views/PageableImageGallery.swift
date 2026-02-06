@@ -23,7 +23,7 @@ import MastodonSDK
     private(set) var contentPageSizes: [CGSize]
     private(set) var contentsFittingSizes: [CGSize]
     
-    init(pageCount: Int, dismiss: @escaping ()->()) {
+    init(pageCount: Int, focusedPage: Int, dismiss: @escaping ()->()) {
         self.pageCount = pageCount
         self.dismiss = dismiss
         self.zoomScales = Array(repeating: 1, count: pageCount)
@@ -31,6 +31,7 @@ import MastodonSDK
         self.contentPageSizes = Array(repeating: .zero, count: pageCount)
         self.contentsFittingSizes = Array(repeating: .zero, count: pageCount)
         self.focusedPageContentsFittingSizes = Array(repeating: .zero, count: pageCount)
+        self.focusedPageIndex = focusedPage
     }
     
     func focus(page: Int) {
@@ -47,9 +48,10 @@ import MastodonSDK
         reclampExistingOffsetsAndScales()
     }
     
-    func updatePagingPageSize(_ newSize: CGSize) {
+    func updatePagingPageSizeAndReturnNewFocusedPageOffset(_ newSize: CGSize) -> CGSize {
         pagingPageSize = newSize
         reclampExistingOffsetsAndScales()
+        return CGSize(width: -pagingPageSize.width * CGFloat(focusedPageIndex), height: 0)
     }
     
     func reclampExistingOffsetsAndScales() {
@@ -206,10 +208,10 @@ struct PageableImageGallery: View {
                     .gesture(zoomAndPan) // putting the gesture on a stationary view keeps the motion smooth
             }
             .onAppear() {
-                pageableZoomableViewModel.updatePagingPageSize(geo.size)
+                offset = pageableZoomableViewModel.updatePagingPageSizeAndReturnNewFocusedPageOffset(geo.size)
             }
             .onChange(of: geo.size) { _, newValue in
-                pageableZoomableViewModel.updatePagingPageSize(newValue)
+                offset = pageableZoomableViewModel.updatePagingPageSizeAndReturnNewFocusedPageOffset(newValue)
             }
         }
         .ignoresSafeArea()

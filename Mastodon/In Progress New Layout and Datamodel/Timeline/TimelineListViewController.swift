@@ -2166,10 +2166,10 @@ extension MastodonTimelineOverlayView {
         case .altText(let altTextString):
             AltTextView(altTextString: altTextString, frameSize: frameSize)
         case .images(let focusedImage, let viewModel):
-            if let img = viewModel.imageAttachments.first(where: { $0.id == focusedImage }) {
+            if let focusedIndex = viewModel.imageAttachments.firstIndex(where: { $0.id == focusedImage }) {
                 PageableImageGallery()
                     .environment(viewModel)
-                    .environment(PageableZoomableViewModel(pageCount: viewModel.imageAttachments.count, dismiss: closeOverlay))
+                    .environment(PageableZoomableViewModel(pageCount: viewModel.imageAttachments.count, focusedPage: focusedIndex, dismiss: closeOverlay))
                     .environment(ContentConcealViewModel.alwaysShow)
             }
         }
