@@ -4,10 +4,10 @@
 import SwiftUI
 
 struct ZoomableScrollView<Content: View>: UIViewRepresentable {
-    var content: () -> Content
+    var contentView: Content
 
-    init(@ViewBuilder content: @escaping () -> Content) {
-        self.content = content
+    init(@ViewBuilder content: () -> Content) {
+        self.contentView = content()
     }
 
     func makeCoordinator() -> Coordinator {
@@ -37,7 +37,7 @@ struct ZoomableScrollView<Content: View>: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: UIScrollView, context: Context) {
-        context.coordinator.hostingController.rootView = content()
+        context.coordinator.hostingController.rootView = contentView
         context.coordinator.hostingController.view.setNeedsLayout()
         context.coordinator.hostingController.view.layoutIfNeeded()
 
@@ -53,7 +53,7 @@ struct ZoomableScrollView<Content: View>: UIViewRepresentable {
 
         init(_ parent: ZoomableScrollView) {
             self.parent = parent
-            self.hostingController = UIHostingController(rootView: parent.content())
+            self.hostingController = UIHostingController(rootView: parent.contentView)
         }
 
         func viewForZooming(in scrollView: UIScrollView) -> UIView? {
