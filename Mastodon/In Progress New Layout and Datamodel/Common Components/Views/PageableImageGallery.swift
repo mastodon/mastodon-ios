@@ -256,25 +256,24 @@ struct PageableZoomableView<Content: View>: View {
     }
 }
 
-
-struct ZoomableImageView: View {
-    @Environment(ImageGalleryViewModel.self) var galleryViewModel
+struct ZoomableContentView<Content: View>: View {
     @Environment(PageableZoomableViewModel.self) var pageableZoomableViewModel
-    let size: CGSize
+    let contentFullSize: CGSize
     let index: Int
+    let containerSize: CGSize
+    let contentView: Content
     
-    public init(size: CGSize, index: Int) {
-        self.size = size
+    public init(contentFullSize: CGSize, index: Int, containerSize: CGSize, @ViewBuilder content: () -> Content) {
+        self.contentFullSize = contentFullSize
         self.index = index
+        self.containerSize = containerSize
+        self.contentView = content()
     }
     
     private let margin: CGFloat = standardPadding
     
     @State private var fittingSize: CGSize = .zero
     
-    var imageInfo: MastodonImageAttachment {
-        galleryViewModel.imageAttachments[index]
-    }
     
     var body: some View {
         ZStack {
@@ -284,7 +283,7 @@ struct ZoomableImageView: View {
                 ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
                     Color.clear
                         .frame(width: geo.size.width, height: geo.size.height)
-                    BlurhashImageView(url: imageInfo.basicData.fullsizeUrl, imageDetails: imageInfo.imageDetails, blurhash: galleryViewModel.blurhashes[imageInfo.basicData.id])
+                    contentView
                         .frame(width: fittingSize.width, height: fittingSize.height)
                         .scaleEffect(pageableZoomableViewModel.liveUpdatePageContentsScale(index),
                                      anchor: .topLeading
@@ -303,7 +302,7 @@ struct ZoomableImageView: View {
             }
             .padding()
         }
-        .frame(width: size.width, height: size.height)
+        .frame(width: containerSize.width, height: containerSize.height)
         .clipped()
     }
     
@@ -314,14 +313,14 @@ struct ZoomableImageView: View {
     }
     
     func calculateFittingSize(fromContainerSize containerSize: CGSize) -> CGSize {
-        guard let imageAspect = imageInfo.imageDetails.originalSize?.aspectRatio, let imageSize = imageInfo.imageDetails.originalSize else { return .zero }
-        if imageAspect < containerSize.aspectRatio {
+        let contentAspect = contentFullSize.aspectRatio
+        if contentAspect < containerSize.aspectRatio {
             // image is taller.  make the height fit.
-            return CGSize(width: containerSize.width * imageAspect, height: containerSize.height)
+            return CGSize(width: containerSize.width * contentAspect, height: containerSize.height)
         } else {
             // image is squatter.  make the width fit.
-            let scale = containerSize.width / imageSize.width
-            return CGSize(width: containerSize.width, height: imageSize.height * scale)
+            let scale = containerSize.width / contentFullSize.width
+            return CGSize(width: containerSize.width, height: contentFullSize.height * scale)
         }
     }
     

@@ -2175,7 +2175,9 @@ extension MastodonTimelineOverlayView {
             }
         case .video(let attachment):
             PageableZoomableView() {
-                VideoPlayerView(media: attachment, showOverlay: { _ in })
+                ZoomableContentView(contentFullSize: attachment.attachmentInfo?.imageDetails?.originalSize ?? .zero, index: 0, containerSize: frameSize) {
+                    VideoPlayerView(media: attachment, showOverlay: { _ in })
+                }
             }
             .environment(PageableZoomableViewModel(pageCount: 1, focusedPage: 0, dismiss: closeOverlay))
             .environment(ContentConcealViewModel.alwaysShow)
@@ -2190,8 +2192,11 @@ struct PagingImageGalleryContent: View {
     var body: some View {
         HStack(spacing: 0) {
             ForEach(galleryViewModel.imageAttachments, id: \.self.id) { imageInfo in
-                ZoomableImageView(size: pageSize,
-                                  index: galleryViewModel.idToIndex[imageInfo.id] ?? 0)
+                let index = galleryViewModel.idToIndex[imageInfo.id] ?? 0
+                ZoomableContentView(contentFullSize: galleryViewModel.imageAttachments[index].imageDetails.originalSize ?? .zero,
+                                    index: index, containerSize: pageSize) {
+                    BlurhashImageView(url: imageInfo.basicData.fullsizeUrl, imageDetails: imageInfo.imageDetails, blurhash: galleryViewModel.blurhashes[imageInfo.basicData.id])
+                }
             }
         }
     }
