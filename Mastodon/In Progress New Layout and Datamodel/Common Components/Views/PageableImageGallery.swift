@@ -241,7 +241,7 @@ struct PageableImageGallery: View {
                         if abs(excessOffset.height) > (pageableZoomableViewModel.pagingPageSize.height / 2.0) {
                             pageableZoomableViewModel.dismiss()
                         } else {
-                            offset = CGSize(width: excessOffset.width, height: excessOffset.height)
+                            offset = CGSize(width: excessOffset.width, height: 0)
                         }
                     }
                 }
