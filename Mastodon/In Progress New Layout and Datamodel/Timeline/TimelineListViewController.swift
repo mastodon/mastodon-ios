@@ -2176,7 +2176,7 @@ extension MastodonTimelineOverlayView {
         case .video(let attachment):
             PageableZoomableView() {
                 ZoomableContentView(contentFullSize: attachment.attachmentInfo?.imageDetails?.originalSize ?? .zero, index: 0, containerSize: frameSize) {
-                    VideoPlayerView(media: attachment, showOverlay: { _ in })
+                    VideoPlayerView(media: attachment, originalSize: attachment.attachmentInfo?.imageDetails?.originalSize ?? .zero, showOverlay: { _ in })
                 }
             }
             .environment(PageableZoomableViewModel(pageCount: 1, focusedPage: 0, dismiss: closeOverlay))

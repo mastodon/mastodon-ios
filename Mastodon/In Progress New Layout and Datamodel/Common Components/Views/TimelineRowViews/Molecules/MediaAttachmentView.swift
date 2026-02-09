@@ -191,7 +191,7 @@ extension MediaAttachment {
             AudioPlayerView(media: self)
         case .gifv, .video:
             ConcealableMediaAttachmentView() {
-                VideoPlayerView(media: self, showOverlay: showOverlay)
+                VideoPlayerView(media: self, originalSize: self.attachmentInfo?.imageDetails?.originalSize ?? .zero, showOverlay: showOverlay)
             }
         case .openInBrowser(let url):
             Button {
@@ -552,11 +552,12 @@ struct AudioPlayerView: View {
 struct VideoPlayerView: View {
     let media: MediaAttachment
     let url: URL
+    let originalSize: CGSize
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
     @StateObject var playerObserver = PlayerObserver()
     let showOverlay: (MastodonTimelineOverlayView)->()
     
-    init?(media: MediaAttachment, showOverlay: @escaping (MastodonTimelineOverlayView)->()) {
+    init?(media: MediaAttachment, originalSize: CGSize, showOverlay: @escaping (MastodonTimelineOverlayView)->()) {
         switch media {
         case .video, .gifv:
             break
@@ -564,6 +565,7 @@ struct VideoPlayerView: View {
             return nil
         }
         guard let attachmentInfo = media.attachmentInfo, let url = attachmentInfo.url else { return nil }
+        self.originalSize = originalSize
         self.media = media
         self.url = url
         self.showOverlay = showOverlay
@@ -582,8 +584,6 @@ struct VideoPlayerView: View {
     
     var body: some View {
         ZStack {
-            Color.clear
-                .frame(width: width, height: aspectFittingHeightToFillWidth(containerWidth: width))
             
             if let blurImage = playerObserver.blurImage {
                 Image(uiImage: blurImage)
@@ -593,7 +593,7 @@ struct VideoPlayerView: View {
             
             if let player = playerObserver.getPlayer() {
                 VideoPlayer(player: player)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .aspectRatio(originalSize.aspectRatio, contentMode: .fit)
             }
         }
         .overlay {
