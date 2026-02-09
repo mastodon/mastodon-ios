@@ -11,7 +11,6 @@ import GameplayKit
 import MastodonSDK
 import CoreDataStack
 import OrderedCollections
-import Tabman
 import MastodonCore
 import MastodonUI
 import MastodonLocalization
@@ -303,14 +302,5 @@ extension MastodonPickServerViewModel {
                 return $0.approvalRequired == manualApprovalRequired
             }
         return filteredServers
-    }
-}
-
-// MARK: - TMBarDataSource
-extension MastodonPickServerViewModel: TMBarDataSource {
-    nonisolated func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
-        let item = categoryPickerItems[index]
-        let barItem = TMBarItem(title: item.title)
-        return barItem
     }
 }
