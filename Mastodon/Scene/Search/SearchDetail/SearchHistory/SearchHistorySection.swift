@@ -41,7 +41,7 @@ extension SearchHistorySection {
             contentConfiguration.text = "#" + hashtag.name
             cell.contentConfiguration = contentConfiguration
 
-            var backgroundConfiguration = UIBackgroundConfiguration.listGroupedCell()
+            var backgroundConfiguration = UIBackgroundConfiguration.listCell()
             backgroundConfiguration.backgroundColorTransformer = .init { [weak cell] _ in
                 guard let state = cell?.configurationState else {
                     return .secondarySystemGroupedBackground

@@ -29,7 +29,7 @@ class SearchHistoryUserCollectionViewCell: UICollectionViewCell {
     override func updateConfiguration(using state: UICellConfigurationState) {
         super.updateConfiguration(using: state)
 
-        var backgroundConfiguration = UIBackgroundConfiguration.listGroupedCell()
+        var backgroundConfiguration = UIBackgroundConfiguration.listCell()
         backgroundConfiguration.backgroundColorTransformer = .init { _ in
             if state.isHighlighted || state.isSelected {
                 return SystemTheme.tableViewCellSelectionBackgroundColor
