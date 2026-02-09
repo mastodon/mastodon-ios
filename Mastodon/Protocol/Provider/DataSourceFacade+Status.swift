@@ -86,56 +86,6 @@ extension DataSourceFacade {
     }
 }
 
-// ActionToolBar
-extension DataSourceFacade {
-    @MainActor
-    static func responseToActionToolbar(
-        provider: DataSourceProvider & AuthContextProvider,
-        status: MastodonStatus,
-        action: ActionToolbarContainer.Action,
-        sender: UIButton
-    ) async throws {
-        let _status = status.reblog ?? status
-        
-        guard let coordinator = provider.sceneCoordinator else { return }
-
-        switch action {
-        case .reply:
-            FeedbackGenerator.shared.generate(.selectionChanged)
-
-            let composeViewModel = ComposeViewModel(
-                authenticationBox: provider.authenticationBox,
-                composeContext: .composeStatus(quoting: nil),
-                destination: .reply(parent: _status)
-            )
-            _ = coordinator.present(
-                scene: .compose(viewModel: composeViewModel),
-                from: provider,
-                transition: .modal(animated: true, completion: nil)
-            )
-        case .reblog:
-            try await DataSourceFacade.responseToStatusReblogAction(
-                provider: provider,
-                wrappingStatus: status,
-                contentStatus: _status
-            )
-        case .like:
-            try await DataSourceFacade.responseToStatusFavoriteAction(
-                provider: provider,
-                wrappingStatus: status,
-                contentStatus: _status
-            )
-        case .share:
-            try await DataSourceFacade.responseToStatusShareAction(
-                provider: provider,
-                status: _status,
-                button: sender
-            )
-        }   // end switch
-    }   // end func
-
-}
-
 // menu
 extension DataSourceFacade {
     

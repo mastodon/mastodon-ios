@@ -333,37 +333,6 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
 
 }
 
-// MARK: - toolbar
-extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
-    func tableViewCell(
-        _ cell: UITableViewCell,
-        statusView: StatusView,
-        actionToolbarContainer: ActionToolbarContainer,
-        buttonDidPressed button: UIButton,
-        action: ActionToolbarContainer.Action
-    ) {
-        Task {
-            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
-            guard let item = await item(from: source) else {
-                assertionFailure()
-                return
-            }
-            guard case let .status(status) = item else {
-                assertionFailure("only works for status data provider")
-                return
-            }
-
-            try await DataSourceFacade.responseToActionToolbar(
-                provider: self,
-                status: status,
-                action: action,
-                sender: button
-            )
-        }   // end Task
-    }
-
-}
-
 // MARK: - menu button
 extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
     func tableViewCell(

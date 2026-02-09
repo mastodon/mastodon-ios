@@ -32,7 +32,6 @@ protocol StatusTableViewCellDelegate: AnyObject, AutoGenerateProtocolDelegate {
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, pollVoteButtonPressed button: UIButton)
-    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, menuButton button: UIButton, didSelectAction action: MastodonMenu.Action)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, contentConcealExplainViewDidPressed contentConcealExplainView: ContentConcealExplainView)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaSensitiveButtonDidPressed button: UIButton)
@@ -81,10 +80,6 @@ extension StatusViewDelegate where Self: StatusViewContainerTableViewCell {
 
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton) {
         delegate?.tableViewCell(self, statusView: statusView, pollVoteButtonPressed: button)
-    }
-
-    func statusView(_ statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action) {
-        delegate?.tableViewCell(self, statusView: statusView, actionToolbarContainer: actionToolbarContainer, buttonDidPressed: button, action: action)
     }
 
     func statusView(_ statusView: StatusView, menuButton button: UIButton, didSelectAction action: MastodonMenu.Action) {
