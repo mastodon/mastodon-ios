@@ -4,12 +4,31 @@ import SwiftUI
 
 struct GlassEffectIfAvailable: ViewModifier {
     
-    let shape: any Shape
+    enum BridgingGlass {
+        case regular(interactive: Bool)
+        case clear(interactive: Bool)
+        case identity(interactive: Bool)
+        
+        @available(iOS 26.0, *)
+        var glass: Glass {
+            switch self {
+            case .regular(let interactive):
+                    .regular.interactive(interactive)
+            case .clear(let interactive):
+                    .clear.interactive(interactive)
+            case .identity(let interactive):
+                    .identity.interactive(interactive)
+            }
+        }
+    }
     
+    let shape: any Shape
+    let glass: BridgingGlass
+   
     func body(content: Content) -> some View {
         if #available(iOS 26.0, *) {
             content
-                .glassEffect(.clear.interactive(), in: shape)
+                .glassEffect(glass.glass, in: shape)
         } else {
             content
         }
@@ -17,9 +36,9 @@ struct GlassEffectIfAvailable: ViewModifier {
 }
 
 extension View {
-    func glassEffectIfAvailable(in shape: any Shape) -> some View {
+    func glassEffectIfAvailable(_ glass: GlassEffectIfAvailable.BridgingGlass, in shape: any Shape) -> some View {
         modifier (
-            GlassEffectIfAvailable(shape: shape)
+            GlassEffectIfAvailable(shape: shape, glass: glass)
         )
     }
 }

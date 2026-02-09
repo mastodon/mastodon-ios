@@ -3,6 +3,7 @@
 import SwiftUI
 import MastodonAsset
 import MastodonSDK
+import MastodonUI
 import MastodonLocalization
 import MastodonCore
 

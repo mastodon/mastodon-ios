@@ -1,5 +1,6 @@
 // Copyright © 2025 Mastodon gGmbH. All rights reserved.
 
+import MastodonUI
 import SwiftUI
 
 struct AltTextView: View {
