@@ -2176,18 +2176,29 @@ extension MastodonTimelineOverlayView {
                 .environment(ContentConcealViewModel.alwaysShow)
             }
         case .video(let attachment):
-            let playerObserver = PlayerObserver()
-            PageableZoomableView() {
-                ZoomableContentView(contentFullSize: attachment.attachmentInfo?.imageDetails?.originalSize ?? .zero, index: 0, containerSize: frameSize) {
-                    VideoPlayerView(playerObserver: playerObserver, media: attachment, originalSize: attachment.attachmentInfo?.imageDetails?.originalSize ?? .zero,
-                                    showOverlay: { _ in })
-                }
-            } controls: {
-                playerObserver.playButton(playerObserver.playingState)
-            }
-            .environment(PageableZoomableViewModel(pageCount: 1, focusedPage: 0, dismiss: closeOverlay))
-            .environment(ContentConcealViewModel.alwaysShow)
+            FullSizeVideoOverlayView(attachment: attachment, frameSize: frameSize, dismiss: closeOverlay)
         }
+    }
+}
+
+struct FullSizeVideoOverlayView: View {
+    let attachment: MediaAttachment
+    let frameSize: CGSize
+    let dismiss: ()->()
+    
+    @StateObject private var playerObserver = PlayerObserver()
+    
+    var body: some View {
+        PageableZoomableView() {
+            ZoomableContentView(contentFullSize: attachment.attachmentInfo?.imageDetails?.originalSize ?? .zero, index: 0, containerSize: frameSize) {
+                VideoPlayerView(playerObserver: playerObserver, media: attachment, originalSize: attachment.attachmentInfo?.imageDetails?.originalSize ?? .zero,
+                                showOverlay: { _ in })
+            }
+        } controls: {
+            playerObserver.playButton(playerObserver.playingState)
+        }
+        .environment(PageableZoomableViewModel(pageCount: 1, focusedPage: 0, dismiss: dismiss))
+        .environment(ContentConcealViewModel.alwaysShow)
     }
 }
 
