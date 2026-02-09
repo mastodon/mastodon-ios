@@ -35,8 +35,6 @@ final class ComposeViewModel {
     let destination: ComposeContentViewModel.Destination
     let initialContent: String
 
-    let traitCollectionDidChangePublisher = CurrentValueSubject<Void, Never>(Void())      // use CurrentValueSubject to make initial event emit
-    
     // output
     let postPublishCompletion: ((Bool)->())?
     

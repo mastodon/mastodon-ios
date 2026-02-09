@@ -178,13 +178,11 @@ final class ComposeViewController: UIViewController {
 
     private func configurePublishButtonApperance(button: UIButton) {
         button.adjustsImageWhenHighlighted = false
-        button.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color), for: .normal)
-        button.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color.withAlphaComponent(0.5)), for: .highlighted)
-        button.setBackgroundImage(.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
+        button.setBackgroundColor(Asset.Colors.Label.primary.color, for: .normal)
+        button.setBackgroundColor(Asset.Colors.Label.primary.color.withAlphaComponent(0.5), for: .highlighted)
+        button.setBackgroundColor(Asset.Colors.Button.disabled.color, for: .disabled)
         button.setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
     }
-
-    
 }
 
 extension ComposeViewController {
@@ -193,15 +191,6 @@ extension ComposeViewController {
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = cancelBarButtonItem
-        viewModel.traitCollectionDidChangePublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                guard self.traitCollection.userInterfaceIdiom == .pad else { return }
-                self.navigationItem.rightBarButtonItem = self.rightBarButtonItemForCurrentContext
-            }
-            .store(in: &disposeBag)
-
         navigationItem.rightBarButtonItem = rightBarButtonItemForCurrentContext
 
         addChild(composeContentViewController)
@@ -247,20 +236,6 @@ extension ComposeViewController {
             .assign(to: \.isEnabled, on: publishButton)
             .store(in: &disposeBag)
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        switch viewModel.composeContext {
-        case .composeStatus:
-            configurePublishButtonApperance(button: publishButton)
-        case .editStatus:
-            configurePublishButtonApperance(button: saveButton)
-        }
-
-        viewModel.traitCollectionDidChangePublisher.send()
-    }
-    
 }
 
 extension ComposeViewController {

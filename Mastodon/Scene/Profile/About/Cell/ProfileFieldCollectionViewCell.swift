@@ -143,11 +143,6 @@ final class ProfileFieldCollectionViewCell: UICollectionViewCell {
         }
         set {}
     }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        checkmark.image = Asset.Scene.Profile.About.verifiedCheckmark.image.withRenderingMode(.alwaysTemplate)
-    }
 }
 
 // MARK: - MetaLabelDelegate

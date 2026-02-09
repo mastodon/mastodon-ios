@@ -69,7 +69,10 @@ extension MastodonPickServerViewController {
         super.viewDidLoad()
         
         setupOnboardingAppearance()
-        defer { setupNavigationBarBackgroundView() }
+        defer {
+            setupNavigationBarBackgroundView()
+            setupNavigationBarAppearance()
+        }
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
@@ -198,13 +201,6 @@ extension MastodonPickServerViewController {
         tableView.flashScrollIndicators()
         viewModel.viewDidAppear.send()
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        setupNavigationBarAppearance()
-    }
-    
 }
 
 extension MastodonPickServerViewController {

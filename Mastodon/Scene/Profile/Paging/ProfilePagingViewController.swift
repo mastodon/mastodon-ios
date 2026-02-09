@@ -108,6 +108,8 @@ extension ProfilePagingViewController {
                 }
                 .store(in: &disposeBag)
         }
+
+        registerForTraitChanges([UITraitHorizontalSizeClass.self], action: #selector(updateBarButtonInsets))
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -121,18 +123,11 @@ extension ProfilePagingViewController {
         
         setupBottomShadow()
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        updateBarButtonInsets()
-    }
-
 }
 
 extension ProfilePagingViewController {
     
-    private func updateBarButtonInsets() {
+    @objc private func updateBarButtonInsets() {
         let margin: CGFloat = {
             switch traitCollection.userInterfaceIdiom {
             case .phone:
