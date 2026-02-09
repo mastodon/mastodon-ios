@@ -186,7 +186,7 @@ extension EnvironmentValues {
     @Entry var pageSize: CGSize = .zero
 }
 
-struct PageableZoomableView<Content: View>: View {
+struct PageableZoomableView<Content: View, Controls: View>: View {
     @Environment(PageableZoomableViewModel.self) var pageableZoomableViewModel
     @GestureState private var liveScale: CGFloat = 1
     @GestureState private var liveOffset: CGSize = .zero
@@ -194,9 +194,11 @@ struct PageableZoomableView<Content: View>: View {
     @State private var offset: CGSize = .zero
     
     let contentView: Content
+    let controlsView: Controls
     
-    init(@ViewBuilder content: () -> Content) {
+    init(@ViewBuilder content: () -> Content, @ViewBuilder controls: () -> Controls) {
         contentView = content()
+        controlsView = controls()
     }
     
     var body: some View {
@@ -206,11 +208,15 @@ struct PageableZoomableView<Content: View>: View {
                     .environment(\.pageSize, geo.size)
                     .offset(offset + (liveOffset == .zero ? lastLiveOffset : liveOffset))
                 
-                Color.clear
-                    .contentShape(Rectangle())
-                    .frame(width: geo.size.width, height: geo.size.height)
-                    .scaleEffect(pageableZoomableViewModel.liveUpdatePageContentsScale(pageableZoomableViewModel.focusedPageIndex), anchor: .topLeading)
-                    .gesture(zoomAndPan) // putting the gesture on a stationary view keeps the motion smooth
+                ZStack {
+                    Color.clear
+                        .contentShape(Rectangle())
+                        .frame(width: geo.size.width, height: geo.size.height)
+                        .scaleEffect(pageableZoomableViewModel.liveUpdatePageContentsScale(pageableZoomableViewModel.focusedPageIndex), anchor: .topLeading)
+                        .gesture(zoomAndPan) // putting the gesture on a stationary view keeps the motion smooth
+                    
+                    controlsView // in order to receive touch events, the controls have to be above the clear overlay that holds the zoomAndPan gesture
+                }
             }
             .onAppear() {
                 offset = pageableZoomableViewModel.updatePagingPageSizeAndReturnNewFocusedPageOffset(geo.size)

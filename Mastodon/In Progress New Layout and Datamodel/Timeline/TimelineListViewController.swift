@@ -2168,16 +2168,22 @@ extension MastodonTimelineOverlayView {
             if let focusedIndex = viewModel.imageAttachments.firstIndex(where: { $0.id == focusedImage }) {
                 PageableZoomableView() {
                     PagingImageGalleryContent()
+                } controls: {
+                    EmptyView()
                 }
                 .environment(viewModel)
                 .environment(PageableZoomableViewModel(pageCount: viewModel.imageAttachments.count, focusedPage: focusedIndex, dismiss: closeOverlay))
                 .environment(ContentConcealViewModel.alwaysShow)
             }
         case .video(let attachment):
+            let playerObserver = PlayerObserver()
             PageableZoomableView() {
                 ZoomableContentView(contentFullSize: attachment.attachmentInfo?.imageDetails?.originalSize ?? .zero, index: 0, containerSize: frameSize) {
-                    VideoPlayerView(media: attachment, originalSize: attachment.attachmentInfo?.imageDetails?.originalSize ?? .zero, showOverlay: { _ in })
+                    VideoPlayerView(playerObserver: playerObserver, media: attachment, originalSize: attachment.attachmentInfo?.imageDetails?.originalSize ?? .zero,
+                                    showOverlay: { _ in })
                 }
+            } controls: {
+                playerObserver.playButton(playerObserver.playingState)
             }
             .environment(PageableZoomableViewModel(pageCount: 1, focusedPage: 0, dismiss: closeOverlay))
             .environment(ContentConcealViewModel.alwaysShow)

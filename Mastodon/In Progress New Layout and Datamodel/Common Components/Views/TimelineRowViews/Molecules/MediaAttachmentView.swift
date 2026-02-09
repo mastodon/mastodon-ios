@@ -175,11 +175,14 @@ enum MediaAttachment {
     }
 }
 
-extension MediaAttachment {
-    @MainActor
-    @ViewBuilder func view(showOverlay: @escaping (MastodonTimelineOverlayView) -> (),
-                           presentScene: @escaping (SceneCoordinator.Scene, Mastodon.Entity.Status.ID?, SceneCoordinator.Transition) -> ()) -> some View {
-        switch self {
+struct MediaAttachmentView: View {
+    let mediaAttachment: MediaAttachment
+    let showOverlay: (MastodonTimelineOverlayView) -> ()
+    let presentScene: (SceneCoordinator.Scene, Mastodon.Entity.Status.ID?, SceneCoordinator.Transition) -> ()
+    @StateObject var playerObserver = PlayerObserver()
+    
+    var body: some View {
+        switch mediaAttachment {
         case .emptyAttachment:
             Image(systemName: "questionmark.square.dashed")
         case .images(let attachments, let altTextTranslations):
@@ -188,10 +191,13 @@ extension MediaAttachment {
                     .environment(ImageGalleryViewModel(imageAttachments: attachments, altTextTranslations: altTextTranslations))
             }
         case .audio:
-            AudioPlayerView(media: self)
+            AudioPlayerView(media: mediaAttachment)
         case .gifv, .video:
             ConcealableMediaAttachmentView() {
-                VideoPlayerView(media: self, originalSize: self.attachmentInfo?.imageDetails?.originalSize ?? .zero, showOverlay: showOverlay)
+                ZStack {
+                    VideoPlayerView(playerObserver: playerObserver, media: self.mediaAttachment, originalSize: self.mediaAttachment.attachmentInfo?.imageDetails?.originalSize ?? .zero, showOverlay: showOverlay)
+                    playerObserver.playButton(playerObserver.playingState)
+                }
             }
         case .openInBrowser(let url):
             Button {
@@ -554,10 +560,10 @@ struct VideoPlayerView: View {
     let url: URL
     let originalSize: CGSize
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
-    @StateObject var playerObserver = PlayerObserver()
+    @ObservedObject var playerObserver: PlayerObserver
     let showOverlay: (MastodonTimelineOverlayView)->()
     
-    init?(media: MediaAttachment, originalSize: CGSize, showOverlay: @escaping (MastodonTimelineOverlayView)->()) {
+    init?(playerObserver: PlayerObserver, media: MediaAttachment, originalSize: CGSize, showOverlay: @escaping (MastodonTimelineOverlayView)->()) {
         switch media {
         case .video, .gifv:
             break
@@ -565,6 +571,7 @@ struct VideoPlayerView: View {
             return nil
         }
         guard let attachmentInfo = media.attachmentInfo, let url = attachmentInfo.url else { return nil }
+        self.playerObserver = playerObserver
         self.originalSize = originalSize
         self.media = media
         self.url = url
@@ -597,39 +604,13 @@ struct VideoPlayerView: View {
             }
         }
         .overlay {
-            ZStack {
-                Button {
-                    showOverlay(.video(media))
-                } label: {
-                    Rectangle().fill(.clear)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
-                .buttonStyle(.borderless)
-                
-                if shouldShowPlayButton {
-                    switch playerObserver.playingState {
-                    case .paused:
-                        Button {
-                            playerObserver.didPressPlay()
-                        } label: {
-                            Image(systemName: "play.fill")
-                                .font(.title2)
-                                .padding(EdgeInsets(top: standardPadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
-                                .background() {
-                                    Capsule()
-                                        .fill(.ultraThinMaterial)
-                                }
-                        }
-                        .buttonStyle(.borderless)
-                    case .waitingToPlayAtSpecifiedRate:
-                        ProgressView().progressViewStyle(.circular)
-                    case .playing:
-                        EmptyView()
-                    @unknown default:
-                        EmptyView()
-                    }
-                }
+            Button {
+                showOverlay(.video(media))
+            } label: {
+                Rectangle().fill(.clear)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+            .buttonStyle(.borderless)
         }
         .onAppear() {
             self.playerObserver.setPlayer(withAsset: AVURLAsset(url: url), respectDeviceSilentSetting: respectDeviceSilentSetting)
@@ -732,8 +713,9 @@ class PlayerObserver: ObservableObject {
         self.playerStatusSubscription?.cancel()
         self.playerStatusSubscription = player.publisher(for: \.timeControlStatus, options: [.initial, .new])
             .receive(on: DispatchQueue.main)
-            .map { $0 }
-            .assign(to: \.playingState, on: self)
+            .sink { [weak self] newValue in
+                self?.playingState = newValue
+            }
         
         if timeObserverToken == nil {
             let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
