@@ -582,6 +582,9 @@ struct VideoPlayerView: View {
     
     var body: some View {
         ZStack {
+            Color.clear
+                .frame(width: width, height: aspectFittingHeightToFillWidth(containerWidth: width))
+            
             if let blurImage = playerObserver.blurImage {
                 Image(uiImage: blurImage)
                     .resizable()
@@ -642,6 +645,13 @@ struct VideoPlayerView: View {
         }
     }
     
+    func aspectFittingHeightToFillWidth(containerWidth: CGFloat) -> CGFloat {
+        guard originalSize != .zero else { return 200 }
+        let aspect = originalSize.aspectRatio
+        let fittingHeight = containerWidth / aspect
+        print("fitting size is \(containerWidth) x \(fittingHeight)")
+        return fittingHeight
+    }
     var shouldLoop: Bool {
         switch media {
         case .gifv:
@@ -801,5 +811,29 @@ class PlayerObserver: ObservableObject {
     
     func getPlayer() -> AVPlayer? {
         return player
+    }
+    
+    @ViewBuilder func playButton(_ _playingState: AVPlayer.TimeControlStatus) -> some View {
+        switch _playingState {
+        case .paused:
+            Button {
+                self.didPressPlay()
+            } label: {
+                Image(systemName: "play.fill")
+                    .font(.title2)
+                    .padding(EdgeInsets(top: standardPadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
+                    .background() {
+                        Capsule()
+                            .fill(.ultraThinMaterial)
+                    }
+            }
+            .buttonStyle(.borderless)
+        case .waitingToPlayAtSpecifiedRate:
+            ProgressView().progressViewStyle(.circular)
+        case .playing:
+            EmptyView()
+        @unknown default:
+            EmptyView()
+        }
     }
 }
