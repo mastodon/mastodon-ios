@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import UIHostingConfigurationBackport
 
 final class ComposeContentTableViewCell: UITableViewCell {
     
