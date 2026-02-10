@@ -608,6 +608,7 @@ struct VideoPlayerView: View {
                     .scaledToFill()
             }
         }
+        .border(playerObserver.isReadyToPlay ? .clear : .secondary)
         .clipped() // prevents the blurhash image from overhanging the video if it somehow has a slightly different aspect ratio
         .overlay {
             Button {
