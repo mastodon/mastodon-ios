@@ -2179,14 +2179,15 @@ extension MastodonTimelineOverlayView {
                 .environment(ContentConcealViewModel.alwaysShow)
             }
         case .video(let attachment):
-            FullSizeVideoOverlayView(attachment: attachment, dismiss: closeOverlay)
+            FullSizeVideoOverlayView(attachment: attachment)
+                .environment(PageableZoomableViewModel(pageCount: 1, focusedPage: 0, dismiss: closeOverlay))
+                .environment(ContentConcealViewModel.alwaysShow)
         }
     }
 }
 
 struct FullSizeVideoOverlayView: View {
     let attachment: MediaAttachment
-    let dismiss: ()->()
     
     @StateObject private var playerObserver = PlayerObserver()
     
@@ -2201,8 +2202,6 @@ struct FullSizeVideoOverlayView: View {
         } controls: {
             playerObserver.playButton(playerObserver.playingState)
         }
-        .environment(PageableZoomableViewModel(pageCount: 1, focusedPage: 0, dismiss: dismiss))
-        .environment(ContentConcealViewModel.alwaysShow)
     }
 }
 

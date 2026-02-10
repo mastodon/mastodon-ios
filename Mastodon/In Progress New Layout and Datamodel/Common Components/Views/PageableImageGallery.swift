@@ -2,6 +2,7 @@
 import SwiftUI
 import MastodonSDK
 
+@MainActor
 @Observable class PageableZoomableViewModel {
     let pageCount: Int
     let dismiss: ()->()
@@ -321,6 +322,7 @@ struct ZoomableContentView<Content: View>: View {
         if contentAspect < containerSize.aspectRatio {
             // image is taller.  make the height fit.
             return CGSize(width: containerSize.width * contentAspect, height: containerSize.height)
+            return CGSize(width: containerSize.width / contentAspect, height: containerSize.height)
         } else {
             // image is squatter.  make the width fit.
             let scale = containerSize.width / contentFullSize.width
