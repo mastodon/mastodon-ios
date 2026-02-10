@@ -752,7 +752,7 @@ enum MastodonTimelineSheet {
                             self?.activeOverlay = nil
                         }
                     
-                    overlay.view(sizedForFrame: geo.size, closeOverlay: { self.showOverlay(nil) })
+                    overlay.view(closeOverlay: { self.showOverlay(nil) })
                 }
                 
                 Button {
@@ -2160,10 +2160,13 @@ struct TimelineListView: View {
 
 extension MastodonTimelineOverlayView {
     @MainActor
-    @ViewBuilder func view(sizedForFrame frameSize: CGSize, closeOverlay: @escaping ()->()) -> some View {
+    @ViewBuilder func view(closeOverlay: @escaping ()->()) -> some View {
         switch self {
         case .altText(let altTextString):
-            AltTextView(altTextString: altTextString, frameSize: frameSize)
+            GeometryReader { geo in
+                AltTextView(altTextString: altTextString)
+                    .environment(\.pageSize, geo.size)
+            }
         case .images(let focusedImage, let viewModel):
             if let focusedIndex = viewModel.imageAttachments.firstIndex(where: { $0.id == focusedImage }) {
                 PageableZoomableView() {
@@ -2176,23 +2179,24 @@ extension MastodonTimelineOverlayView {
                 .environment(ContentConcealViewModel.alwaysShow)
             }
         case .video(let attachment):
-            FullSizeVideoOverlayView(attachment: attachment, frameSize: frameSize, dismiss: closeOverlay)
+            FullSizeVideoOverlayView(attachment: attachment, dismiss: closeOverlay)
         }
     }
 }
 
 struct FullSizeVideoOverlayView: View {
     let attachment: MediaAttachment
-    let frameSize: CGSize
     let dismiss: ()->()
     
     @StateObject private var playerObserver = PlayerObserver()
     
     var body: some View {
         PageableZoomableView() {
-            ZoomableContentView(contentFullSize: attachment.attachmentInfo?.imageDetails?.originalSize ?? .zero, index: 0, containerSize: frameSize) {
-                VideoPlayerView(playerObserver: playerObserver, media: attachment, originalSize: attachment.attachmentInfo?.imageDetails?.originalSize ?? .zero,
-                                showOverlay: { _ in })
+            HStack {
+                ZoomableContentView(contentFullSize: attachment.attachmentInfo?.imageDetails?.originalSize ?? .zero, index: 0) {
+                    VideoPlayerView(playerObserver: playerObserver, media: attachment, originalSize: attachment.attachmentInfo?.imageDetails?.originalSize ?? .zero,
+                                    showOverlay: { _ in })
+                }
             }
         } controls: {
             playerObserver.playButton(playerObserver.playingState)
@@ -2211,7 +2215,7 @@ struct PagingImageGalleryContent: View {
             ForEach(galleryViewModel.imageAttachments, id: \.self.id) { imageInfo in
                 let index = galleryViewModel.idToIndex[imageInfo.id] ?? 0
                 ZoomableContentView(contentFullSize: galleryViewModel.imageAttachments[index].imageDetails.originalSize ?? .zero,
-                                    index: index, containerSize: pageSize) {
+                                    index: index) {
                     BlurhashImageView(url: imageInfo.basicData.fullsizeUrl, imageDetails: imageInfo.imageDetails, blurhash: galleryViewModel.blurhashes[imageInfo.basicData.id])
                 }
             }

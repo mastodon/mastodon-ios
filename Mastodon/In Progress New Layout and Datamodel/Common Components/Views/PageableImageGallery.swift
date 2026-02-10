@@ -264,19 +264,16 @@ struct PageableZoomableView<Content: View, Controls: View>: View {
 
 struct ZoomableContentView<Content: View>: View {
     @Environment(PageableZoomableViewModel.self) var pageableZoomableViewModel
+    @Environment(\.pageSize) private var pageSize
     let contentFullSize: CGSize
     let index: Int
-    let containerSize: CGSize
     let contentView: Content
     
-    public init(contentFullSize: CGSize, index: Int, containerSize: CGSize, @ViewBuilder content: () -> Content) {
+    public init(contentFullSize: CGSize, index: Int, @ViewBuilder content: () -> Content) {
         self.contentFullSize = contentFullSize
         self.index = index
-        self.containerSize = containerSize
         self.contentView = content()
     }
-    
-    private let margin: CGFloat = standardPadding
     
     @State private var fittingSize: CGSize = .zero
     
@@ -289,6 +286,7 @@ struct ZoomableContentView<Content: View>: View {
                 ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
                     Color.clear
                         .frame(width: geo.size.width, height: geo.size.height)
+                    
                     contentView
                         .frame(width: fittingSize.width, height: fittingSize.height)
                         .scaleEffect(pageableZoomableViewModel.liveUpdatePageContentsScale(index),
@@ -308,7 +306,7 @@ struct ZoomableContentView<Content: View>: View {
             }
             .padding()
         }
-        .frame(width: containerSize.width, height: containerSize.height)
+        .frame(width: pageSize.width, height: pageSize.height)
         .clipped()
     }
     
