@@ -208,19 +208,19 @@ extension Mastodon.API.OAuth {
         public let grantType: String
         
         var contentType: String? {
-            return Self.multipartContentType()
+            return Self.formEncodedContentType()
         }
         var body: Data? {
-            var data = Data()
-            
-            data.append(Data.multipart(key: "client_id", value: clientID))
-            data.append(Data.multipart(key: "client_secret", value: clientSecret))
-            data.append(Data.multipart(key: "redirect_uri", value: redirectURI))
-            scope.flatMap { data.append(Data.multipart(key: "scope", value: $0)) }
-            code.flatMap { data.append(Data.multipart(key: "code", value: $0)) }
-            data.append(Data.multipart(key: "grant_type", value: grantType))
-            data.append(Data.multipartEnd())
-            return data
+            var components = URLComponents()
+            var items: [URLQueryItem] = []
+            items.append(URLQueryItem(name: "client_id", value: clientID))
+            items.append(URLQueryItem(name: "client_secret", value: clientSecret))
+            items.append(URLQueryItem(name: "redirect_uri", value: redirectURI))
+            scope.flatMap { items.append(URLQueryItem(name: "scope", value: $0)) }
+            code.flatMap { items.append(URLQueryItem(name: "code", value: $0)) }
+            items.append(URLQueryItem(name: "grant_type", value: grantType))
+            components.queryItems = items
+            return components.url?.query(percentEncoded: true)?.data(using: .utf8)
         }
     }
 
