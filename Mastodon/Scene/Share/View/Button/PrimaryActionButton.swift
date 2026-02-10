@@ -20,7 +20,6 @@ class PrimaryActionButton: UIButton {
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
     }()
-    var adjustsBackgroundImageWhenUserInterfaceStyleChanges = true
     var action: Action = .next {
         didSet {
             setupAppearance(action: action)
@@ -56,6 +55,10 @@ extension PrimaryActionButton {
         setTitleColor(.white, for: .normal)
         setupAppearance(action: action)
         applyCornerRadius(radius: 10)
+
+        registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self.setupAppearance(action: self.action)
+        }
     }
 
     func setupAppearance(action: Action) {
@@ -73,14 +76,6 @@ extension PrimaryActionButton {
         }
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        if adjustsBackgroundImageWhenUserInterfaceStyleChanges {
-            setupAppearance(action: action)
-        }
-    }
-    
     func showLoading() {
         guard !isLoading else { return }
         isEnabled = false

@@ -193,13 +193,6 @@ extension PollOptionView {
         updateCornerRadius()
         viewModel.layoutDidUpdate.send()
     }
-    
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        viewModel.layoutDidUpdate.send()
-    }
-    
 }
 
 extension PollOptionView {

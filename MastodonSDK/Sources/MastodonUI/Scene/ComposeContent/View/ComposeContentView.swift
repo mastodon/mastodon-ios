@@ -236,10 +236,7 @@ public struct ComposeContentView: View {
 extension ComposeContentView {
     var authorView: some View {
         HStack(alignment: .top, spacing: 8) {
-            AnimatedImage(imageURL: viewModel.avatarURL)
-                .frame(width: 46, height: 46)
-                .background(Color(UIColor.systemFill))
-                .cornerRadius(12)
+            AvatarView(size: .large, avatarSource: .url(viewModel.avatarURL), goToProfile: nil)
             VStack(alignment: .leading, spacing: 0) {
                 MetaLabelRepresentable(
                     textStyle: .statusName,

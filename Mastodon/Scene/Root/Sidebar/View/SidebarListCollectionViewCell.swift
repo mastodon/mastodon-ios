@@ -52,7 +52,7 @@ extension SidebarListCollectionViewCell {
         contentConfiguration = newConfiguration
         
         // remove background
-        var newBackgroundConfiguration = UIBackgroundConfiguration.listSidebarCell().updated(for: state)
+        var newBackgroundConfiguration = UIBackgroundConfiguration.listAccompaniedSidebarCell().updated(for: state)
         newBackgroundConfiguration.backgroundColor = .clear        
         backgroundConfiguration = newBackgroundConfiguration
     }

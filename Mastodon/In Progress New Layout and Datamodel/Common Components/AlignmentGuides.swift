@@ -12,20 +12,6 @@ let tinySpacing: CGFloat = _eight / 2
 
 let maxFeedContentWidth: CGFloat = 700
 
-struct AvatarSize {
-    static var extraLarge: CGFloat = 80
-    static var large: CGFloat = 44
-    static var small: CGFloat = 32
-    static var tiny: CGFloat = 16
-}
-
-struct CornerRadius {
-    static var extraLarge: CGFloat = _eight * 2
-    static var standard: CGFloat = _eight
-    static var small: CGFloat = _eight / 2
-    static var tiny: CGFloat = 3
-}
-
 struct ButtonPadding {
     static var vertical: CGFloat = 3
     static var horizontal = _eight

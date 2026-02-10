@@ -22,10 +22,7 @@ struct ReportResultView: View {
         HStack {
             Spacer()
             ZStack {
-                AnimatedImage(imageURL: viewModel.avatarURL)
-                    .frame(width: 106, height: 106, alignment: .center)
-                    .background(Color(UIColor.systemFill))
-                    .cornerRadius(27)
+                AvatarView(size: .extraExtraLarge, avatarSource: .url(viewModel.avatarURL), goToProfile: nil)
                 Text(L10n.Scene.Report.reported)
                     .font(Font(FontFamily.Staatliches.regular.font(size: 49) as CTFont))
                     .foregroundColor(Color(Asset.Scene.Report.reportBanner.color))

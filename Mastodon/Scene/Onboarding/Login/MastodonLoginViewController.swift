@@ -98,8 +98,6 @@ class MastodonLoginViewController: UIViewController {
         setupOnboardingAppearance()
         
         title = L10n.Scene.Login.title
-        
-        guard let view = view as? MastodonLoginView else { return }
     }
     
     override func viewWillAppear(_ animated: Bool) {

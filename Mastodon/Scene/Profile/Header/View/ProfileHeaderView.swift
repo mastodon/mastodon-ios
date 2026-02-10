@@ -447,19 +447,6 @@ final class ProfileHeaderView: UIView {
         avatarButton.backgroundColor = .secondarySystemBackground
         avatarImageViewBackgroundView.layer.borderColor = UIColor.systemBackground.cgColor
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        // workaround enter background breaking the layout issue
-        switch UIApplication.shared.applicationState {
-        case .active:
-            updateLayoutMargins()
-        default:
-            break
-        }
-    }
-
 }
 
 extension ProfileHeaderView {

@@ -587,7 +587,7 @@ struct AudioPlayerView: View {
         }
         .environment(\.colorScheme, .dark)
         .onAppear() {
-            playerObserver.setPlayer(withAsset: AVURLAsset(url: url))
+            playerObserver.setPlayer(withAsset: AVURLAsset(url: url), respectDeviceSilentSetting: false)
             playerObserver.startObserving(shouldLoop: false)
         }
         .onDisappear() {
@@ -625,6 +625,17 @@ struct VideoPlayerView: View {
         self.media = media
         self.url = url
         self.actionHandler = actionHandler
+    }
+    
+    var respectDeviceSilentSetting: Bool {
+        switch media {
+        case .gifv:
+            true
+        case .video, .audio:
+            false
+        case .emptyAttachment, .images, .notYetImplemented, .openInBrowser:
+            true
+        }
     }
     
     var body: some View {
@@ -689,7 +700,7 @@ struct VideoPlayerView: View {
             }
         }
         .onAppear() {
-            self.playerObserver.setPlayer(withAsset: AVURLAsset(url: url))
+            self.playerObserver.setPlayer(withAsset: AVURLAsset(url: url), respectDeviceSilentSetting: respectDeviceSilentSetting)
             playerObserver.startObserving(shouldLoop: shouldLoop)
             if let attachmentInfo = media.attachmentInfo, let url = attachmentInfo.url, let blurhash = attachmentInfo.blurhash, let size = attachmentInfo.size {
                 Task {
@@ -777,9 +788,13 @@ class PlayerObserver: ObservableObject {
     private var timeObserverToken: Any?
     private var playerStatusSubscription: AnyCancellable?
     private var playShouldSeekToStart = false
+    private var respectDeviceSilentSetting = false
     
-    func setPlayer(withAsset asset: AVAsset) {
+    func setPlayer(withAsset asset: AVAsset, respectDeviceSilentSetting: Bool) {
+        self.respectDeviceSilentSetting = respectDeviceSilentSetting
+        
         guard self.player == nil else { return }
+        
         let _player = AVPlayer(playerItem: AVPlayerItem(asset: asset))
         self.player = _player
         
@@ -824,11 +839,15 @@ class PlayerObserver: ObservableObject {
             queue: .main
         ) { [weak self] _ in
             DispatchQueue.main.async {
+                guard let self else { MediaPreviewVideoViewModel.endAudioSession(); return }
                 if shouldLoop {
-                    self?.player?.seek(to: .zero)
-                    self?.player?.play()
+                    self.player?.seek(to: .zero)
+                    self.player?.play()
                 } else {
-                    self?.playShouldSeekToStart = true
+                    if !self.respectDeviceSilentSetting {
+                        MediaPreviewVideoViewModel.endAudioSession()
+                    }
+                    self.playShouldSeekToStart = true
                 }
             }
         }
@@ -837,6 +856,9 @@ class PlayerObserver: ObservableObject {
     deinit {
         NotificationCenter.default.removeObserver(self)
         self.playerStatusSubscription?.cancel()
+        if !respectDeviceSilentSetting {
+            MediaPreviewVideoViewModel.endAudioSession()
+        }
         player?.pause()
         if let timeObserverToken {
             player?.removeTimeObserver(timeObserverToken)
@@ -848,10 +870,16 @@ class PlayerObserver: ObservableObject {
             player?.seek(to: .zero)
             playShouldSeekToStart = false
         }
+        if !respectDeviceSilentSetting {
+            MediaPreviewVideoViewModel.startAudioSession()
+        }
         player?.play()
     }
     
     func didPressPause() {
+        if !respectDeviceSilentSetting {
+            MediaPreviewVideoViewModel.endAudioSession()
+        }
         player?.pause()
     }
     

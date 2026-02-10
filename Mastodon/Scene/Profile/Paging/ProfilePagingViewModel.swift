@@ -11,7 +11,7 @@ import MastodonLocalization
 import TabBarPager
 
 @MainActor
-final class ProfilePagingViewModel: NSObject {
+final class ProfilePagingViewModel {
     
     let postUserTimelineViewController: UIViewController & TabBarPage
     let repliesUserTimelineViewController: UIViewController & TabBarPage
@@ -33,7 +33,6 @@ final class ProfilePagingViewModel: NSObject {
         mediaUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.media, userID: user, queryFilter: TimelineQueryFilter(.mediaOnly)))
         
         profileAboutViewController.viewModel = profileAboutViewModel
-        super.init()
     }
     
     var viewControllers: [UIViewController & TabBarPage] {

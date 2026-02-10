@@ -12,7 +12,7 @@ import MastodonLocalization
 
 final class OnboardingNextView: UIView {
     
-    static let buttonHeight: CGFloat = 50
+    let buttonHeight: CGFloat = 50
         
     private let container: UIStackView = {
         let stackView = UIStackView()
@@ -77,7 +77,7 @@ final class OnboardingNextView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            nextButton.heightAnchor.constraint(greaterThanOrEqualToConstant: NavigationActionView.buttonHeight)
+            nextButton.heightAnchor.constraint(greaterThanOrEqualToConstant: buttonHeight)
         ])
     }
 

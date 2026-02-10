@@ -178,13 +178,11 @@ final class ComposeViewController: UIViewController {
 
     private func configurePublishButtonApperance(button: UIButton) {
         button.adjustsImageWhenHighlighted = false
-        button.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color), for: .normal)
-        button.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color.withAlphaComponent(0.5)), for: .highlighted)
-        button.setBackgroundImage(.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
+        button.setBackgroundColor(Asset.Colors.Label.primary.color, for: .normal)
+        button.setBackgroundColor(Asset.Colors.Label.primary.color.withAlphaComponent(0.5), for: .highlighted)
+        button.setBackgroundColor(Asset.Colors.Button.disabled.color, for: .disabled)
         button.setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
     }
-
-    
 }
 
 extension ComposeViewController {

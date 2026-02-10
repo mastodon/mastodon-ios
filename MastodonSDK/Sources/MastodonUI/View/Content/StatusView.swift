@@ -27,7 +27,6 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
     func statusView(_ statusView: StatusView, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
-    func statusView(_ statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action)
     func statusView(_ statusView: StatusView, menuButton button: UIButton, didSelectAction action: MastodonMenu.Action)
     func statusView(_ statusView: StatusView, contentConcealExplainViewDidPressed contentConcealView: ContentConcealExplainView)
     func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaSensitiveButtonDidPressed button: UIButton)
@@ -510,10 +509,6 @@ public final class StatusView: UIView {
         return containerView
     }()
 
-    // toolbar
-    let actionToolbarAdaptiveMarginContainerView = AdaptiveMarginContainerView()
-    public let actionToolbarContainer = ActionToolbarContainer()
-
     // metric
     public let statusMetricView = StatusMetricView()
     
@@ -597,10 +592,7 @@ extension StatusView {
         ])
         pollTableView.delegate = self
         pollVoteButton.addTarget(self, action: #selector(StatusView.pollVoteButtonDidPressed(_:)), for: .touchUpInside)
-        
-        // toolbar
-        actionToolbarContainer.delegate = self
-        
+
         // statusMetricView
         statusMetricView.delegate = self
     }
@@ -664,8 +656,8 @@ extension StatusView.Style {
     }
     
     private func base(statusView: StatusView) {
-        // container: V - [ header container | author container | content container | media container | pollTableView | actionToolbarContainer ]
-        
+        // container: V - [ header container | author container | content container | media container | pollTableView ]
+
         // header container: H - [ icon | label ]
         statusView.headerAdaptiveMarginContainerView.contentView = statusView.headerContainerView
         statusView.headerAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
@@ -757,11 +749,6 @@ extension StatusView.Style {
         statusView.pollStatusDotLabel.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
         statusView.pollCountdownLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         statusView.pollVoteButton.setContentHuggingPriority(.defaultHigh + 3, for: .horizontal)
-        
-        // action toolbar
-        statusView.actionToolbarAdaptiveMarginContainerView.contentView = statusView.actionToolbarContainer
-        statusView.actionToolbarAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
-        statusView.containerStackView.addArrangedSubview(statusView.actionToolbarAdaptiveMarginContainerView)
     }
     
     func inline(statusView: StatusView) {
@@ -779,8 +766,6 @@ extension StatusView.Style {
     
     func report(statusView: StatusView) {
         base(statusView: statusView)      // override the base style
-
-        statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
     }
     
     func notification(statusView: StatusView) {
@@ -796,14 +781,11 @@ extension StatusView.Style {
         
         statusView.contentAdaptiveMarginContainerView.bottomLayoutConstraint?.constant = 16     // fix bottom margin missing issue
         statusView.pollAdaptiveMarginContainerView.bottomLayoutConstraint?.constant = 16        // fix bottom margin missing issue
-        statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
         statusView.statusCardControl.removeFromSuperview()
     }
     
     func composeStatusReplica(statusView: StatusView) {
         base(statusView: statusView)
-        
-        statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
     }
     
     func composeStatusAuthor(statusView: StatusView) {
@@ -812,7 +794,6 @@ extension StatusView.Style {
         statusView.contentAdaptiveMarginContainerView.removeFromSuperview()
         statusView.mediaContainerView.removeFromSuperview()
         statusView.pollAdaptiveMarginContainerView.removeFromSuperview()
-        statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
     }
     
     func editHistory(statusView: StatusView) {
@@ -892,7 +873,6 @@ extension StatusView: AdaptiveContainerView {
         authorAdaptiveMarginContainerView.margin = margin
         contentAdaptiveMarginContainerView.margin = margin
         pollAdaptiveMarginContainerView.margin = margin
-        actionToolbarAdaptiveMarginContainerView.margin = margin
         statusMetricView.margin = margin
     }
 }
@@ -955,21 +935,6 @@ extension StatusView: UITableViewDelegate {
         default:
             assertionFailure()
         }
-    }
-}
-
-// MARK: ActionToolbarContainerDelegate
-extension StatusView: ActionToolbarContainerDelegate {
-    public func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action) {
-        delegate?.statusView(self, actionToolbarContainer: actionToolbarContainer, buttonDidPressed: button, action: action)
-    }
-
-    public func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, showReblogs action: UIAccessibilityCustomAction) {
-        delegate?.statusView(self, statusMetricView: statusMetricView, reblogButtonDidPressed: statusMetricView.reblogButton)
-    }
-
-    public func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, showFavorites action: UIAccessibilityCustomAction) {
-        delegate?.statusView(self, statusMetricView: statusMetricView, favoriteButtonDidPressed: statusMetricView.favoriteButton)
     }
 }
 
