@@ -600,9 +600,11 @@ struct VideoPlayerView: View {
             
             if let player = playerObserver.getPlayer() {
                 VideoPlayer(player: player)
+                    .opacity(playerObserver.isReadyToPlay ? 1 : 0)
                     .aspectRatio(originalSize.aspectRatio, contentMode: .fit)
             }
         }
+        .clipped() // prevents the blurhash image from overhanging the video if it somehow has a slightly different aspect ratio
         .overlay {
             Button {
                 showOverlay(.video(media))
@@ -672,6 +674,7 @@ extension MediaAttachment {
 @MainActor
 class PlayerObserver: ObservableObject {
     @Published var playingState: AVPlayer.TimeControlStatus = .paused
+    @Published var isReadyToPlay = false
     @Published var totalSeconds: Double?
     @Published var currentTimeInSeconds: Double = 0.0
     @Published var blurImage: UIImage? = nil
@@ -680,6 +683,7 @@ class PlayerObserver: ObservableObject {
     private var player: AVPlayer?
     private var timeObserverToken: Any?
     private var playerStatusSubscription: AnyCancellable?
+    private var playerReadinessSubscription: AnyCancellable?
     private var playShouldSeekToStart = false
     private var respectDeviceSilentSetting = false
     
@@ -715,6 +719,18 @@ class PlayerObserver: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] newValue in
                 self?.playingState = newValue
+            }
+        self.playerReadinessSubscription?.cancel()
+        self.playerReadinessSubscription = player.publisher(for: \.currentItem?.isPlaybackLikelyToKeepUp, options: [.initial, .new])
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] newValue in
+                guard let self else { return }
+                let newDerivedValue = newValue == true
+                if newDerivedValue != self.isReadyToPlay {
+                    withAnimation {
+                        self.isReadyToPlay = newDerivedValue
+                    }
+                }
             }
         
         if timeObserverToken == nil {
