@@ -591,17 +591,21 @@ struct VideoPlayerView: View {
     
     var body: some View {
         ZStack {
-            
-            if let blurImage = playerObserver.blurImage {
-                Image(uiImage: blurImage)
-                    .resizable()
-                    .scaledToFill()
-            }
-            
             if let player = playerObserver.getPlayer() {
                 VideoPlayer(player: player)
                     .opacity(playerObserver.isReadyToPlay ? 1 : 0)
                     .aspectRatio(originalSize.aspectRatio, contentMode: .fit)
+                    .background() {
+                        if let blurImage = playerObserver.blurImage {
+                            Image(uiImage: blurImage)
+                                .resizable()
+                                .scaledToFill()
+                        }
+                    }
+            } else if let blurImage = playerObserver.blurImage {
+                Image(uiImage: blurImage)
+                    .resizable()
+                    .scaledToFill()
             }
         }
         .clipped() // prevents the blurhash image from overhanging the video if it somehow has a slightly different aspect ratio
