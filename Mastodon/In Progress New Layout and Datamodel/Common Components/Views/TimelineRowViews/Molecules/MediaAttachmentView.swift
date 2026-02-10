@@ -611,6 +611,7 @@ struct VideoPlayerView: View {
         .clipped() // prevents the blurhash image from overhanging the video if it somehow has a slightly different aspect ratio
         .overlay {
             Button {
+                playerObserver.didPressPause()
                 showOverlay(.video(media))
             } label: {
                 Rectangle().fill(.clear)
