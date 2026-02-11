@@ -383,6 +383,7 @@
 				"Common Components/ProportionalImageGridLayout.swift",
 				"Common Components/TimestampUpdater.swift",
 				"Common Components/Views/AccountStatsView.swift",
+				"Common Components/Views/AltTextOverlay.swift",
 				"Common Components/Views/DonationPromptBanner.swift",
 				"Common Components/Views/MastodonTimelineOverlayView/AltTextView.swift",
 				"Common Components/Views/MastodonTimelineOverlayView/BoostOrQuoteDialog.swift",

@@ -177,7 +177,7 @@ enum MediaAttachment {
 
 struct MediaAttachmentView: View {
     let mediaAttachment: MediaAttachment
-    let showOverlay: (MastodonTimelineOverlayView) -> ()
+    let containerOverlayBinding: Binding<MastodonTimelineOverlayView?>?
     let presentScene: (SceneCoordinator.Scene, Mastodon.Entity.Status.ID?, SceneCoordinator.Transition) -> ()
     @StateObject var playerObserver = PlayerObserver()
     
@@ -187,7 +187,7 @@ struct MediaAttachmentView: View {
             Image(systemName: "questionmark.square.dashed")
         case .images(let attachments, let altTextTranslations):
             ConcealableMediaAttachmentView() {
-                ImageGridView(showOverlay: showOverlay)
+                ImageGridView(containerOverlayBinding: containerOverlayBinding)
                     .environment(ImageGalleryViewModel(imageAttachments: attachments, altTextTranslations: altTextTranslations))
             }
         case .audio:
@@ -195,7 +195,7 @@ struct MediaAttachmentView: View {
         case .gifv, .video:
             ConcealableMediaAttachmentView() {
                 ZStack {
-                    VideoPlayerView(playerObserver: playerObserver, media: self.mediaAttachment, originalSize: self.mediaAttachment.attachmentInfo?.imageDetails?.originalSize ?? .zero, showOverlay: showOverlay)
+                    VideoPlayerView(playerObserver: playerObserver, media: self.mediaAttachment, originalSize: self.mediaAttachment.attachmentInfo?.imageDetails?.originalSize ?? .zero, containerOverlayBinding: containerOverlayBinding)
                     playerObserver.playButton(playerObserver.playingState)
                 }
             }
@@ -275,7 +275,7 @@ struct ConcealableMediaAttachmentView<Content: View>: View {
 struct ImageGridView: View {
     @Environment(ImageGalleryViewModel.self) private var viewModel
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
-    let showOverlay: (MastodonTimelineOverlayView)->()
+    let containerOverlayBinding: Binding<MastodonTimelineOverlayView?>?
     
     var body: some View {
         // The images
@@ -287,29 +287,26 @@ struct ImageGridView: View {
                         .clipped()
                         .accessibilityLabel(viewModel.altTextTranslations?[img.id] ?? img.basicData.altText ?? "")
                         .onTapGesture {
-                            showOverlay(.images(focusedImage: img.id, viewModel))
+                            containerOverlayBinding?.wrappedValue = .images(focusedImage: img.id, viewModel)
                         }
-                    
-                    if let altText = img.basicData.altText, altText.isNotEmpty {
-                        Button {
-                            if let translation = viewModel.altTextTranslations?[img.id] {
-                                showOverlay(.altText(translation))
-                            } else {
-                                showOverlay(.altText(altText))
-                            }
-                        } label: {
-                            Text("ALT")
-                                .foregroundStyle(.white)
-                                .padding(EdgeInsets(top: ButtonPadding.vertical, leading: ButtonPadding.horizontal, bottom: ButtonPadding.vertical, trailing: ButtonPadding.horizontal))
-                                .background() {
-                                    RoundedRectangle(cornerRadius: CornerRadius.small)
-                                        .fill(buttonBackgroundColor)
+                    if let altText = viewModel.altTextTranslations?[img.id] ?? img.basicData.altText {
+                        AltTextButton(drawBorder: false, altText: altText, displayAltText: Binding<String?>(
+                            get: {
+                                switch containerOverlayBinding?.wrappedValue {
+                                case .altText(let text):
+                                    return text
+                                default:
+                                    return nil
                                 }
-                        }
-                        .fixedSize()
-                        .padding(standardPadding)
-                        .buttonStyle(.borderless)
-                        .accessibilityHidden(true)
+                            },
+                            set: { newValue in
+                                if let newValue {
+                                    containerOverlayBinding?.wrappedValue = .altText(newValue)
+                                } else {
+                                    containerOverlayBinding?.wrappedValue = nil
+                                }
+                            }
+                        ))
                     }
                 }
                 .frame(maxHeight: useRestrictedHeight ? maxHeightForHiddenMedia : nil)
@@ -561,9 +558,9 @@ struct VideoPlayerView: View {
     let originalSize: CGSize
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
     @ObservedObject var playerObserver: PlayerObserver
-    let showOverlay: (MastodonTimelineOverlayView)->()
+    let containerOverlay: Binding<MastodonTimelineOverlayView?>?
     
-    init?(playerObserver: PlayerObserver, media: MediaAttachment, originalSize: CGSize, showOverlay: @escaping (MastodonTimelineOverlayView)->()) {
+    init?(playerObserver: PlayerObserver, media: MediaAttachment, originalSize: CGSize, containerOverlayBinding: Binding<MastodonTimelineOverlayView?>?) {
         switch media {
         case .video, .gifv:
             break
@@ -575,7 +572,7 @@ struct VideoPlayerView: View {
         self.originalSize = originalSize
         self.media = media
         self.url = url
-        self.showOverlay = showOverlay
+        self.containerOverlay = containerOverlayBinding
     }
     
     var respectDeviceSilentSetting: Bool {
@@ -613,7 +610,7 @@ struct VideoPlayerView: View {
         .overlay {
             Button {
                 playerObserver.didPressPause()
-                showOverlay(.video(media))
+                containerOverlay?.wrappedValue = .video(media)
             } label: {
                 Rectangle().fill(.clear)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)

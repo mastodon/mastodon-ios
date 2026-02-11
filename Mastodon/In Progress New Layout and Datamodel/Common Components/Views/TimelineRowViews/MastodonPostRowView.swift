@@ -129,9 +129,9 @@ struct MastodonPostRowView: View {
                             case .media(let array):
                                 MediaAttachmentView(
                                     mediaAttachment: MediaAttachment(array, altTextTranslations: viewModel.altTextTranslations),
-                                                    showOverlay: { overlay in
-                                    actionHandler?.showOverlay(overlay)
-                                }, presentScene: { scene, postID, transition in
+                                                    containerOverlayBinding:
+                                    actionHandler?.containerOverlayBinding
+                                , presentScene: { scene, postID, transition in
                                     actionHandler?.presentScene(scene, fromPost: postID, transition: transition)
                                 })
                                 .frame(width: contentWidth)

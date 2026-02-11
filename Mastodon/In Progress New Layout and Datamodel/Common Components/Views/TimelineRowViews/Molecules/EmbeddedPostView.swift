@@ -206,9 +206,7 @@ struct EmbeddedPostContentDisplayedView: View {
                             MediaAttachmentView(
                                 mediaAttachment: MediaAttachment(array,
                                                                  altTextTranslations: viewModel.altTextTranslations),
-                                showOverlay: { overlay in
-                                    actionHandler.showOverlay(overlay)
-                                },
+                                containerOverlayBinding: actionHandler.containerOverlayBinding,
                                 presentScene: { scene, postID, transition in
                                     actionHandler.presentScene(scene, fromPost: postID, transition: transition)
                                 })
