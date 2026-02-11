@@ -21,7 +21,7 @@ extension Mastodon.Entity {
         public let accessToken: String
         public let tokenType: String
         public let scope: String
-        public let createdAt: Date
+        public let createdAt: Date?
 
         public init(accessToken: String, tokenType: String, scope: String, createdAt: Date) {
             self.accessToken = accessToken

@@ -182,7 +182,7 @@ extension Mastodon.API.OAuth {
         
     }
     
-    public struct AccessTokenQuery: Codable, PostQuery {
+    public struct AccessTokenQuery: PostQuery {
         public init(
             clientID: String,
             clientSecret: String,
@@ -206,15 +206,21 @@ extension Mastodon.API.OAuth {
         public let scope: String?
         public let code: String?
         public let grantType: String
-
-        enum CodingKeys: String, CodingKey {
-            case clientID = "client_id"
-            case clientSecret = "client_secret"
-            case redirectURI = "redirect_uri"
-            case scope
-            case code
-            case grantType = "grant_type"
-            
+        
+        var contentType: String? {
+            return Self.formEncodedContentType()
+        }
+        var body: Data? {
+            var components = URLComponents()
+            var items: [URLQueryItem] = []
+            items.append(URLQueryItem(name: "client_id", value: clientID))
+            items.append(URLQueryItem(name: "client_secret", value: clientSecret))
+            items.append(URLQueryItem(name: "redirect_uri", value: redirectURI))
+            scope.flatMap { items.append(URLQueryItem(name: "scope", value: $0)) }
+            code.flatMap { items.append(URLQueryItem(name: "code", value: $0)) }
+            items.append(URLQueryItem(name: "grant_type", value: grantType))
+            components.queryItems = items
+            return components.url?.query(percentEncoded: true)?.data(using: .utf8)
         }
     }
 

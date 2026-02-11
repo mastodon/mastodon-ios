@@ -22,6 +22,9 @@ extension RequestQuery {
     static func multipartContentType(boundary: String = Multipart.boundary) -> String {
         return "multipart/form-data; charset=utf-8; boundary=\"\(boundary)\""
     }
+    static func formEncodedContentType() -> String {
+        return "application/x-www-form-urlencoded"
+    }
 }
 
 // An `Encodable` query provides its body by encoding itself
