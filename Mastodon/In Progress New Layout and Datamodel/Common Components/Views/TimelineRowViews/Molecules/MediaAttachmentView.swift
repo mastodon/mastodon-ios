@@ -635,7 +635,6 @@ struct VideoPlayerView: View {
         guard originalSize != .zero else { return 200 }
         let aspect = originalSize.aspectRatio
         let fittingHeight = containerWidth / aspect
-        print("fitting size is \(containerWidth) x \(fittingHeight)")
         return fittingHeight
     }
     var shouldLoop: Bool {

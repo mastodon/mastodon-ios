@@ -245,7 +245,6 @@ struct PageableZoomableView<Content: View, Controls: View>: View {
                     let excessOffset = pageableZoomableViewModel.absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: value.translation, currentOffset: offset, gestureIsEnded: false)
                     state = excessOffset
                     lastLiveOffset = excessOffset
-                    print("updating drag \(value.translation)")
                 }
                 .onEnded { value in
                     offset = offset + lastLiveOffset
