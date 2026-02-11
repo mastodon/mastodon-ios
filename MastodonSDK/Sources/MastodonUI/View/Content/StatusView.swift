@@ -264,12 +264,8 @@ public final class StatusView: UIView {
     }
     
     public static let containerLayoutMargin: CGFloat = 16
-    
-    private var _disposeBag = Set<AnyCancellable>() // which lifetime same to view scope
     public var disposeBag = Set<AnyCancellable>()
-    
     public weak var delegate: StatusViewDelegate?
-    
     public private(set) var style: Style?
     
     public var domain: String? {

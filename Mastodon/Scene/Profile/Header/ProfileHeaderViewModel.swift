@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 import CoreDataStack
 import Kanna
 import MastodonSDK
@@ -19,8 +18,6 @@ final class ProfileHeaderViewModel {
     static let avatarImageMaxSizeInPixel = CGSize(width: 400, height: 400)
     static let bannerImageMaxSizeInPixel = CGSize(width: 1500, height: 500)
     static let maxProfileFieldCount = 4
-    
-    var disposeBag = Set<AnyCancellable>()
     
     // input
     let authenticationBox: MastodonAuthenticationBox
@@ -35,8 +32,6 @@ final class ProfileHeaderViewModel {
     
     @Published var accountForEdit: Mastodon.Entity.Account?
 
-//    let needsFiledCollectionViewHidden = CurrentValueSubject<Bool, Never>(false)
-    
     // output
     let profileInfo        = ProfileInfo()
     let profileInfoEditing = ProfileInfo()

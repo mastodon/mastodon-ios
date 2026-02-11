@@ -6,15 +6,11 @@
 //
 
 import UIKit
-import Combine
-import CoreDataStack
 import MastodonAsset
 import MastodonLocalization
 import MastodonCore
 
 final class AccountListViewController: UIViewController {
-
-    var disposeBag = Set<AnyCancellable>()
     var viewModel: AccountListViewModel!
 
     private(set) lazy var addBarButtonItem: UIBarButtonItem = {

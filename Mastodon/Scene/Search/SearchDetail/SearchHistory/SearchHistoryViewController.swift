@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 import CoreDataStack
 import MastodonCore
 import MastodonUI
@@ -15,7 +14,6 @@ import MastodonAsset
 
 final class SearchHistoryViewController: UIViewController {
 
-    var disposeBag = Set<AnyCancellable>()
     var viewModel: SearchHistoryViewModel!
     
     let collectionView: UICollectionView = {

@@ -7,7 +7,6 @@
 
 import Foundation
 import Intents
-import Combine
 import CoreData
 import CoreDataStack
 import MastodonSDK
@@ -15,8 +14,6 @@ import MastodonCore
 
 @MainActor
 final class SendPostIntentHandler: NSObject {
-
-    var disposeBag = Set<AnyCancellable>()
 
     let coreDataStack = CoreDataStack()
     lazy var managedObjectContext = coreDataStack.persistentContainer.viewContext

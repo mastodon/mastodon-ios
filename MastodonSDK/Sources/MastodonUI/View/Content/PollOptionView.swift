@@ -17,8 +17,6 @@ public final class PollOptionView: UIView {
     public static let verticalMargin: CGFloat = 5
     public static let checkmarkImageSize = CGSize(width: 26, height: 26)
     public static let checkmarkBackgroundLeadingMargin: CGFloat = 9
-    
-    private var viewStateDisposeBag = Set<AnyCancellable>()
 
     public var disposeBag = Set<AnyCancellable>()
     public private(set) lazy var viewModel: ViewModel = {

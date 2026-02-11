@@ -5,16 +5,10 @@
 //  Created by MainasuK Cirno on 2021-3-11.
 //
 
-import UIKit
-import Combine
-import CoreData
-import CoreDataStack
-import GameplayKit
 import MastodonSDK
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
-import MastodonMeta
 import MastodonUI
 import SwiftUI
 
@@ -24,8 +18,6 @@ final class ComposeViewModel {
         case composeStatus(quoting: (Mastodon.Entity.Status, ()->AnyView)?)
         case editStatus(status: MastodonStatus, statusSource: Mastodon.Entity.StatusSource, quoting: (()->AnyView)?)
     }
-    
-    var disposeBag = Set<AnyCancellable>()
 
     let id = UUID()
     

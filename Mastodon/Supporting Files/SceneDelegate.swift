@@ -28,7 +28,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return delegates[ObjectIdentifier(windowScene)]
     }
 
-    var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
     
     var window: UIWindow?

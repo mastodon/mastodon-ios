@@ -9,7 +9,6 @@ import UIKit
 import MastodonSDK
 import MastodonCore
 import MastodonAsset
-import Combine
 import AuthenticationServices
 import MastodonLocalization
 
@@ -29,8 +28,6 @@ class MastodonLoginViewController: UIViewController {
     let authenticationViewModel: AuthenticationViewModel
     var mastodonAuthenticationController: MastodonAuthenticationController?
     private let suggestedDomain: String?
-    
-    var disposeBag = Set<AnyCancellable>()
     
     var contentView: MastodonLoginView {
         view as! MastodonLoginView

@@ -5,14 +5,11 @@
 //  Created by sxiaojian on 2021/2/24.
 //
 
-import Combine
 import UIKit
 import WebKit
 import MastodonCore
 
 final class MastodonResendEmailViewController: UIViewController {
-    
-    var disposeBag = Set<AnyCancellable>()
     var viewModel: MastodonResendEmailViewModel!
     
     let webView: WKWebView = {

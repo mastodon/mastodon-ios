@@ -72,7 +72,7 @@ struct InlineMediaOverlayContainer: View {
                      }
             }
         }
-        .onChange(of: altDescription) { _ in
+        .onChange(of: altDescription) { _, _ in
             showingAlt = false
         }
     }

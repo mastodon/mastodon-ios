@@ -6,15 +6,11 @@
 //
 
 import UIKit
-import Combine
 import MastodonAsset
 
 public final class NewsView: UIView {
         
     static let imageViewWidth: CGFloat = 132
-    
-    var disposeBag = Set<AnyCancellable>()
-    
     let container = UIStackView()
     
     let providerFaviconImageView: UIImageView = {
@@ -53,7 +49,6 @@ public final class NewsView: UIView {
     public func prepareForReuse() {
         providerFaviconImageView.tag = (0..<Int.max).randomElement() ?? -1
         imageView.prepareForReuse()
-        disposeBag.removeAll()
     }
     
     override init(frame: CGRect) {

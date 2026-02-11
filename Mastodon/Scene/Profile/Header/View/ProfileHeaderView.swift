@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 import FLAnimatedImage
 import MetaTextKit
 import MastodonAsset
@@ -36,13 +35,6 @@ final class ProfileHeaderView: UIView {
     static let bannerImageViewOverlayViewBackgroundEditingColor = UIColor.black.withAlphaComponent(0.2)
     
     weak var delegate: ProfileHeaderViewDelegate?
-    var disposeBag = Set<AnyCancellable>()
-    private var _disposeBag = Set<AnyCancellable>()
-
-    func prepareForReuse() {
-        disposeBag.removeAll()
-    }
-    
     private(set) var viewModel: ViewModel
 
     let bannerImageViewSingleTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer

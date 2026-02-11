@@ -13,8 +13,6 @@ import MastodonCore
 public final class SawToothView: UIView {
     static let widthUint = 8
 
-    var disposeBag = Set<AnyCancellable>()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         _init()

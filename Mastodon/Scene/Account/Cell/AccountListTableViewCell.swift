@@ -1,17 +1,12 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import UIKit
-import Combine
 import FLAnimatedImage
 import MetaTextKit
 import MastodonCore
 import MastodonUI
 
 final class AccountListTableViewCell: UITableViewCell {
-    
-    private var _disposeBag = Set<AnyCancellable>()
-    var disposeBag = Set<AnyCancellable>()
-
     let avatarButton = CircleAvatarButton()
     let nameLabel = MetaLabel(style: .accountListName)
     let usernameLabel = MetaLabel(style: .accountListUsername)
@@ -24,8 +19,6 @@ final class AccountListTableViewCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        
-        disposeBag.removeAll()
         avatarButton.avatarImageView.image = nil
     }
 

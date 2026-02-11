@@ -224,7 +224,6 @@ extension MainTabBarController {
                 } else {
                     self.avatarButton.avatarImageView.setImage(
                         url: avatarURL,
-                        placeholder: .placeholder(color: .systemFill),
                         scaleToSize: MainTabBarController.avatarButtonSize
                     )
                 }

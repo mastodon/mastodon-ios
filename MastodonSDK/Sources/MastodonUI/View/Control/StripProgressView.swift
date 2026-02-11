@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 
 public final class StripProgressLayer: CALayer {
     
@@ -63,8 +62,6 @@ public final class StripProgressLayer: CALayer {
 }
 
 public final class StripProgressView: UIView {
-    
-    var disposeBag = Set<AnyCancellable>()
     
     private let stripProgressLayer: StripProgressLayer = {
         let layer = StripProgressLayer()

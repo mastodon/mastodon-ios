@@ -18,8 +18,6 @@ import MastodonSDK
 extension MediaView {
     public class Configuration: Hashable {
         
-        var disposeBag = Set<AnyCancellable>()
-        
         public let info: Info
         public let blurhash: String?
         public let index: Int

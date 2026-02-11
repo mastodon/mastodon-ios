@@ -17,9 +17,6 @@ import MastodonUI
 import MastodonLocalization
 
 class ReportResultViewModel: ObservableObject {
-    
-    var disposeBag = Set<AnyCancellable>()
-
     // input
     let authenticationBox: MastodonAuthenticationBox
     let account: Mastodon.Entity.Account

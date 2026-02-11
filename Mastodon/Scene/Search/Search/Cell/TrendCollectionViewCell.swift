@@ -6,16 +6,12 @@
 //
 
 import UIKit
-import Combine
 import MetaTextKit
 import MastodonAsset
 import MastodonCore
 import MastodonUI
 
 final class TrendCollectionViewCell: UICollectionViewCell {
-    
-    var _disposeBag = Set<AnyCancellable>()
-    
     let trendView = TrendView()
     
     override func prepareForReuse() {

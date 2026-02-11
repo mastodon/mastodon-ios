@@ -9,15 +9,12 @@ import Combine
 import CoreData
 import CoreDataStack
 import Foundation
-import GameplayKit
 import MastodonCore
 import MastodonSDK
 import OSLog
 import UIKit
 
 final class SearchViewModel: NSObject {
-    var disposeBag = Set<AnyCancellable>()
-    
     // input
     let authenticationBox: MastodonAuthenticationBox?
     
