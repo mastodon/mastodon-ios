@@ -8,7 +8,7 @@
 
 This is the repository for the official iOS App for Mastodon. You can install it from the App Store now. You can build the app from source and file bug report here.
 
-Please note that this app is intended to be used with Mastodon servers. Our team does not have bandwidth to ensure compatibility with other server software, which means that unsolicited pull requests focused on that goal will most likely be ignored.
+Please note that this app is intended to be used with Mastodon servers. Our team does not have bandwidth to ensure compatibility with other server software, which means that unsolicited pull requests focused on that goal will most likely be closed.
 
 Read this blog post for this app to learn more.
 
