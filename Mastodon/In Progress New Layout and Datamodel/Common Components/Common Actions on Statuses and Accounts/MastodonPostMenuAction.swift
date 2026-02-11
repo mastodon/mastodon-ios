@@ -27,7 +27,7 @@ protocol MastodonPostMenuActionHandler {
     func canTranslate(post: MastodonContentPost) -> Bool
     func translation(forContentPostId postId: Mastodon.Entity.Status.ID) -> Mastodon.Entity.Translation?
     func presentScene(_ scene: SceneCoordinator.Scene, fromPost postID: Mastodon.Entity.Status.ID?, transition: SceneCoordinator.Transition)
-    func showOverlay(_ modalView: MastodonTimelineOverlayView?)
+    var containerOverlayBinding: Binding<MastodonTimelineOverlayView?> { get }
     func showSheet(_ sheet: MastodonTimelineSheet?)
     func vote(poll: Mastodon.Entity.Poll, choices: [Int], containingPostID: Mastodon.Entity.Status.ID) async throws -> Mastodon.Entity.Poll
     var mediaPreviewableViewController: MediaPreviewableViewController? { get }

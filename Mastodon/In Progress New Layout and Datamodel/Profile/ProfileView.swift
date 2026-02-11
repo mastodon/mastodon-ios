@@ -117,8 +117,13 @@ struct ProfileView: View {
                             break
                         case .pushingChanges(let success):
                             guard success == true else { break }
-                            viewModel.editingStatus = .notEditing
                             navigationPath.removeLast()
+                        }
+                    }
+                    .onChange(of: navigationPath) { oldValue, newValue in
+                        if newValue.isEmpty {
+                            viewModel.editingStatus = .notEditing
+                            viewModel.resetEditingViewModel()
                         }
                     }
             }
@@ -177,15 +182,14 @@ struct ProfileView: View {
                             .frame(height: doublePadding)
                         
                         ProfileActionBar(navigationStackNavigateToEditProfile: {
-                            viewModel.editingStatus = .editing(hasChanges: false)
-                            navigationPath.append(MastodonNavigationDestination.editProfile)
+                            navigateToEditProfile()
                         })
                             .padding(.horizontal, doublePadding)
                             .frame(width: min(maxFeedContentWidth, geo.size.width))
                             .background() {
                                 GeometryReader { embeddedGeo in
                                     Color.clear
-                                        .preference(key: VerticalPositionKey.self, value: ["embedded": embeddedGeo.frame(in: .global).minY])
+                                        .preference(key: VerticalPositionKey.self, value: ["embedded": embeddedGeo.frame(in: CoordinateSpace.named("scrollview")).minY])
                                 }
                             }
                             .opacity(embeddedActionBarHasCaughtUpToFloatingActionBar ? 1.0 : 0.0)
@@ -208,18 +212,19 @@ struct ProfileView: View {
                 }
                 .nestedScrollview(.outer)
                 .frame(width: geo.size.width, height: geo.size.height)
+                .coordinateSpace(name: "scrollview")
                 
                 VStack {
                     Spacer()
                     ProfileActionBar(navigationStackNavigateToEditProfile: {
-                        navigationPath.append(MastodonNavigationDestination.editProfile)
+                        navigateToEditProfile()
                     })
                         .padding(.horizontal, doublePadding)
                         .frame(width: min(maxFeedContentWidth, geo.size.width))
                         .background() {
                             GeometryReader { floatingGeo in
                                 Color.clear
-                                    .preference(key: VerticalPositionKey.self, value: ["floating": floatingGeo.frame(in: .global).minY])
+                                    .preference(key: VerticalPositionKey.self, value: ["floating": floatingGeo.frame(in: CoordinateSpace.named("scrollview")).minY])
                             }
                         }
                         .opacity(embeddedActionBarHasCaughtUpToFloatingActionBar ? 0.0 : 1.0)
@@ -254,6 +259,11 @@ struct ProfileView: View {
             ProfilePaginatingView()
         }
     }
+    
+    private func navigateToEditProfile() {
+        viewModel.editingStatus = .editing(hasChanges: false)
+        navigationPath.append(MastodonNavigationDestination.editProfile)
+    }
 }
 
 let bannerFullHeight: CGFloat = 194
@@ -270,6 +280,7 @@ struct ProfileAvatarAndBannerView: View {
                         bannerView(width: width)
                             .frame(height: bannerFullHeight)
                             .clipped()
+                            .background(.secondary) // in case there is no image
                         
                         switch profileViewModel.editingStatus {
                         case .editing:
@@ -336,8 +347,9 @@ struct ProfileAvatarAndBannerView: View {
             Text("Edit cover image")
                 .padding(.vertical, tinySpacing)
                 .padding(.horizontal)
+                .tintedBlurBackground()
                 .clipShape(.capsule)
-                .glassEffectIfAvailable(.regular(interactive: true), in: .capsule)
+                .glassEffectIfAvailable(.clear(interactive: true), in: .capsule)
                 .foregroundStyle(.white)
         }
     }
@@ -348,8 +360,9 @@ struct ProfileAvatarAndBannerView: View {
                 Image(systemName: "camera")
                     .font(.headline)
                     .padding()
+                    .tintedBlurBackground()
                     .clipShape(Circle())
-                    .glassEffectIfAvailable(.regular(interactive: true), in: .circle)
+                    .glassEffectIfAvailable(.clear(interactive: true), in: .circle)
                     .foregroundStyle(.white)
             } else {
                 Color.clear
@@ -917,6 +930,11 @@ enum EditingStatus: Equatable {
                 }
             }
         }
+    }
+    
+    public func resetEditingViewModel() {
+        guard let account else { return }
+        editingViewModel.setAccount(account)
     }
 }
 

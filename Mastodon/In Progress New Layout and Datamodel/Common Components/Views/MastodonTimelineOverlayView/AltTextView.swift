@@ -5,8 +5,8 @@ import SwiftUI
 
 struct AltTextView: View {
     let altTextString: String
-    let frameSize: CGSize
-  
+    @Environment(\.pageSize) private var pageSize
+    
     var body: some View {
         VStack {
             Spacer()
@@ -16,9 +16,9 @@ struct AltTextView: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .padding()
                     .foregroundStyle(Color.white)
-                    .frame(maxWidth: min(300, frameSize.width * 0.85))
+                    .frame(maxWidth: min(300, pageSize.width * 0.85))
             }
-            .frame(maxHeight: frameSize.height * 0.8)
+            .frame(maxHeight: pageSize.height * 0.8)
             .environment(\.colorScheme, .dark)
             .background() {
                 RoundedRectangle(cornerRadius: CornerRadius.standard)

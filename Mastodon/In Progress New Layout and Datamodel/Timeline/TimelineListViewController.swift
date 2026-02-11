@@ -627,6 +627,7 @@ extension MastodonPostMenuAction {
 
 enum MastodonTimelineOverlayView {
     case images(focusedImage: Mastodon.Entity.Attachment.ID, ImageGalleryViewModel)
+    case video(MediaAttachment)
     case altText(String)
 }
 
@@ -741,17 +742,27 @@ enum MastodonTimelineSheet {
     
     // MARK - Overlays
     var activeOverlay: MastodonTimelineOverlayView? = nil
+    
+    private func overlayIncludesDimmingBackground(_ overlay: MastodonTimelineOverlayView) -> Bool {
+        switch overlay {
+        case .altText: true
+        default: false
+        }
+    }
+    
     @ViewBuilder func overlayContents(_ overlay: MastodonTimelineOverlayView) -> some View {
         GeometryReader { geo in
             ZStack(alignment: .topLeading) {
                 ZStack {
-                    Color.dimmingBackground
-                        .ignoresSafeArea()
-                        .onTapGesture { [weak self] in
-                            self?.activeOverlay = nil
-                        }
+                    if !self.overlayIncludesDimmingBackground(overlay) {
+                        Color.dimmingBackground
+                            .ignoresSafeArea()
+                            .onTapGesture { [weak self] in
+                                self?.activeOverlay = nil
+                            }
+                    }
                     
-                    overlay.view(sizedForFrame: geo.size, closeOverlay: { self.showOverlay(nil) })
+                    self.overlayView(overlay)
                 }
                 
                 Button {
@@ -763,6 +774,47 @@ enum MastodonTimelineSheet {
                 }
                 .padding(standardPadding)
             }
+        }
+    }
+    
+    @ViewBuilder private func overlayView(_ overlay: MastodonTimelineOverlayView) -> some View {
+        
+        switch overlay {
+        case .altText:
+            AltTextOverlay(altTextBinding: Binding<String?>(
+                get: {
+                    switch self.activeOverlay {
+                    case .altText(let string):
+                        return string
+                    default:
+                        return nil
+                    }
+                },
+                set: { newValue in
+                    if let newValue {
+                        self.activeOverlay = .altText(newValue)
+                    } else {
+                        switch self.activeOverlay {
+                        case .altText:
+                            self.activeOverlay = nil
+                        default:
+                            break
+                        }
+                    }
+                }
+            ))
+            
+        case .images(let focusedImage, let viewModel):
+            if let focusedIndex = viewModel.imageAttachments.firstIndex(where: { $0.id == focusedImage }) {
+                FullSizeImageGallery()
+                    .environment(viewModel)
+                    .environment(PageableZoomableViewModel(pageCount: viewModel.imageAttachments.count, focusedPage: focusedIndex, dismiss: { self.activeOverlay = nil }))
+                    .environment(ContentConcealViewModel.alwaysShow)
+            }
+        case .video(let attachment):
+            FullSizeVideoOverlayView(attachment: attachment)
+                .environment(PageableZoomableViewModel(pageCount: 1, focusedPage: 0, dismiss: { self.activeOverlay = nil }))
+                .environment(ContentConcealViewModel.alwaysShow)
         }
     }
     
@@ -1758,7 +1810,10 @@ struct TimelineListView: View {
         .sheet(isPresented: viewModel.sheetIsPresented) {
             viewModel.activeSheetContents
         }
-        .overlay {
+        .fullScreenCover(isPresented: Binding<Bool>(
+            get: { viewModel.activeOverlay != nil },
+            set: { newValue in if newValue == false { viewModel.activeOverlay = nil }}
+        )) {
             if let activeOverlay = viewModel.activeOverlay {
                 viewModel.overlayContents(activeOverlay)
             }
@@ -2154,17 +2209,67 @@ struct TimelineListView: View {
     }
 }
 
+struct FullSizeImageGallery: View {
+    @Environment(ImageGalleryViewModel.self) private var viewModel
+    @Environment(PageableZoomableViewModel.self) private var pageableZoomableModel
+    
+    @State private var displayAltText: String?
+    
+    var body: some View {
+        PageableZoomableView() {
+            PagingImageGalleryContent()
+        } controls: {
+            let currentAttachment = viewModel.imageAttachments[pageableZoomableModel.focusedPageIndex]
+            if let currentPageAltText = viewModel.altTextTranslations?[currentAttachment.id] ?? currentAttachment.basicData.altText {
+                AltTextButton(drawBorder: true, altText: currentPageAltText, displayAltText: Binding<String?>(
+                    get: { displayAltText },
+                    set: { newValue in displayAltText = newValue}
+                ))
+                .padding(.horizontal, doublePadding)
+                .padding(.vertical, 100)
+                .frame(width: pageableZoomableModel.pagingPageSize.width, height: pageableZoomableModel.pagingPageSize.height, alignment: .topTrailing)
+            }
+        }
+        .overlay {
+            AltTextOverlay(altTextBinding: Binding<String?>(
+                get: { displayAltText },
+                set: { newValue in displayAltText = newValue}
+            ))
+        }
+    }
+}
 
+struct FullSizeVideoOverlayView: View {
+    let attachment: MediaAttachment
+    
+    @StateObject private var playerObserver = PlayerObserver()
+    
+    var body: some View {
+        PageableZoomableView() {
+            HStack {
+                ZoomableContentView(contentFullSize: attachment.attachmentInfo?.imageDetails?.originalSize ?? .zero, index: 0) {
+                    VideoPlayerView(playerObserver: playerObserver, media: attachment, originalSize: attachment.attachmentInfo?.imageDetails?.originalSize ?? .zero,
+                                    containerOverlayBinding: nil)
+                }
+            }
+        } controls: {
+            playerObserver.playButton(playerObserver.playingState)
+        }
+    }
+}
 
-extension MastodonTimelineOverlayView {
-    @MainActor
-    @ViewBuilder func view(sizedForFrame frameSize: CGSize, closeOverlay: @escaping ()->()) -> some View {
-        switch self {
-        case .altText(let altTextString):
-            AltTextView(altTextString: altTextString, frameSize: frameSize)
-        case .images(let focusedImage, let viewModel):
-            if let img = viewModel.imageAttachments.first(where: { $0.id == focusedImage }) {
-                ZoomableBlurhashImageView(image: img, frameSize: frameSize)
+struct PagingImageGalleryContent: View {
+    @Environment(\.pageSize) var pageSize
+    @Environment(ImageGalleryViewModel.self) var galleryViewModel
+
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(galleryViewModel.imageAttachments, id: \.self.id) { imageInfo in
+                let index = galleryViewModel.idToIndex[imageInfo.id] ?? 0
+                ZoomableContentView(contentFullSize: galleryViewModel.imageAttachments[index].imageDetails.originalSize ?? .zero,
+                                    index: index) {
+                    BlurhashImageView(url: imageInfo.basicData.fullsizeUrl, imageDetails: imageInfo.imageDetails, blurhash: galleryViewModel.blurhashes[imageInfo.basicData.id])
+                }
             }
         }
     }
@@ -2188,8 +2293,11 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         return updatedPoll
     }
     
-    func showOverlay(_ overlay: MastodonTimelineOverlayView?) {
-        activeOverlay = overlay
+    var containerOverlayBinding: Binding<MastodonTimelineOverlayView?> {
+        Binding<MastodonTimelineOverlayView?>(
+            get: { self.activeOverlay },
+            set: { newValue in self.activeOverlay = newValue }
+        )
     }
     
     func showSheet(_ sheet: MastodonTimelineSheet?) {

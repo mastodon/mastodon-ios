@@ -175,26 +175,33 @@ enum MediaAttachment {
     }
 }
 
-extension MediaAttachment {
-    @MainActor
-    @ViewBuilder func view(actionHandler: MastodonPostMenuActionHandler?) -> some View {
-        switch self {
+struct MediaAttachmentView: View {
+    let mediaAttachment: MediaAttachment
+    let containerOverlayBinding: Binding<MastodonTimelineOverlayView?>?
+    let presentScene: (SceneCoordinator.Scene, Mastodon.Entity.Status.ID?, SceneCoordinator.Transition) -> ()
+    @StateObject var playerObserver = PlayerObserver()
+    
+    var body: some View {
+        switch mediaAttachment {
         case .emptyAttachment:
             Image(systemName: "questionmark.square.dashed")
         case .images(let attachments, let altTextTranslations):
             ConcealableMediaAttachmentView() {
-                ImageGridView(actionHandler: actionHandler)
-                    .environment(ImageGalleryViewModel(imageAttachments: attachments, altTextTranslations: altTextTranslations, actionHandler: actionHandler))
+                ImageGridView(containerOverlayBinding: containerOverlayBinding)
+                    .environment(ImageGalleryViewModel(imageAttachments: attachments, altTextTranslations: altTextTranslations))
             }
         case .audio:
-            AudioPlayerView(media: self)
+            AudioPlayerView(media: mediaAttachment)
         case .gifv, .video:
             ConcealableMediaAttachmentView() {
-                VideoPlayerView(media: self, actionHandler: actionHandler)
+                ZStack {
+                    VideoPlayerView(playerObserver: playerObserver, media: self.mediaAttachment, originalSize: self.mediaAttachment.attachmentInfo?.imageDetails?.originalSize ?? .zero, containerOverlayBinding: containerOverlayBinding)
+                    playerObserver.playButton(playerObserver.playingState)
+                }
             }
         case .openInBrowser(let url):
             Button {
-                actionHandler?.presentScene(.safari(url: url), fromPost: nil, transition: .show)
+                presentScene(.safari(url: url), nil, .show)
             } label: {
                 HStack {
                     VStack(alignment: .leading) {
@@ -225,16 +232,16 @@ extension MediaAttachment {
 
 struct ConcealableMediaAttachmentView<Content: View>: View {
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
-    let contentViewBuilder: () -> Content
+    let contentView: Content
 
-    init(@ViewBuilder content: @escaping() -> Content) {
-        self.contentViewBuilder = content
+    init(@ViewBuilder content: () -> Content) {
+        self.contentView = content()
     }
     
     var body: some View {
         ZStack(alignment: .topTrailing) { // places the Hide/Show button, if there is one
             
-            contentViewBuilder()
+            contentView
             
             // Hide/Show button
             switch contentConcealViewModel.currentMode {
@@ -268,8 +275,7 @@ struct ConcealableMediaAttachmentView<Content: View>: View {
 struct ImageGridView: View {
     @Environment(ImageGalleryViewModel.self) private var viewModel
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
-    let actionHandler: MastodonPostMenuActionHandler?
-    @State var waitingToShowFullSize: String? = nil
+    let containerOverlayBinding: Binding<MastodonTimelineOverlayView?>?
     
     var body: some View {
         // The images
@@ -281,42 +287,26 @@ struct ImageGridView: View {
                         .clipped()
                         .accessibilityLabel(viewModel.altTextTranslations?[img.id] ?? img.basicData.altText ?? "")
                         .onTapGesture {
-                            waitingToShowFullSize = img.id
+                            containerOverlayBinding?.wrappedValue = .images(focusedImage: img.id, viewModel)
                         }
-                        .background {
-                            if waitingToShowFullSize != nil {
-                                FrameReader() { updatedFrame in
-                                    viewModel.updateFrame(updatedFrame, forID: img.basicData.id)
-                                    if waitingToShowFullSize == img.id {
-                                        waitingToShowFullSize = nil
-                                        Task { @MainActor in
-                                            showImageGallery(focusing: img.id, withPlaceholderImages: viewModel.imageAttachments.map { viewModel.blurhashes[$0.id] })
-                                        }
-                                    }
+                    if let altText = viewModel.altTextTranslations?[img.id] ?? img.basicData.altText {
+                        AltTextButton(drawBorder: false, altText: altText, displayAltText: Binding<String?>(
+                            get: {
+                                switch containerOverlayBinding?.wrappedValue {
+                                case .altText(let text):
+                                    return text
+                                default:
+                                    return nil
+                                }
+                            },
+                            set: { newValue in
+                                if let newValue {
+                                    containerOverlayBinding?.wrappedValue = .altText(newValue)
+                                } else {
+                                    containerOverlayBinding?.wrappedValue = nil
                                 }
                             }
-                        }
-                    
-                    if let altText = img.basicData.altText, altText.isNotEmpty {
-                        Button {
-                            if let translation = viewModel.altTextTranslations?[img.id] {
-                                actionHandler?.showOverlay(.altText(translation))
-                            } else {
-                                actionHandler?.showOverlay(.altText(altText))
-                            }
-                        } label: {
-                            Text("ALT")
-                                .foregroundStyle(.white)
-                                .padding(EdgeInsets(top: ButtonPadding.vertical, leading: ButtonPadding.horizontal, bottom: ButtonPadding.vertical, trailing: ButtonPadding.horizontal))
-                                .background() {
-                                    RoundedRectangle(cornerRadius: CornerRadius.small)
-                                        .fill(buttonBackgroundColor)
-                                }
-                        }
-                        .fixedSize()
-                        .padding(standardPadding)
-                        .buttonStyle(.borderless)
-                        .accessibilityHidden(true)
+                        ))
                     }
                 }
                 .frame(maxHeight: useRestrictedHeight ? maxHeightForHiddenMedia : nil)
@@ -327,52 +317,6 @@ struct ImageGridView: View {
         .animation(.easeInOut, value: contentConcealViewModel.currentMode.isShowingMedia)
     }
     
-    func showImageGallery(focusing: Mastodon.Entity.Attachment.ID, withPlaceholderImages placeholderImages: [UIImage?]) {
-        guard let presentingViewController = viewModel.actionHandler?.mediaPreviewableViewController else { return }
-        
-        let focusedIndex = viewModel.imageAttachments.firstIndex { $0.id == focusing }
-        
-        let altTextTranslations = viewModel.altTextTranslations
-        let altTexts = viewModel.imageAttachments.map { altTextTranslations?[$0.id] ?? $0.basicData.altText }
-       
-        let previewItem: MediaPreviewViewModel.PreviewItem = .attachments(viewModel.imageAttachments.map{ $0._legacyEntity }, initialIndex: focusedIndex, placeholderImages: placeholderImages, altTexts: altTexts)
-        let mediaPreviewTransitionItem: MediaPreviewTransitionItem = {
-            @MainActor func clippingFrame(forID id: Mastodon.Entity.Attachment.ID) -> CGRect { viewModel.frame(forID: id) ?? CGRect(x: 50, y: 50, width: 50, height: 50)
-            }
-            let clippingFrames = viewModel.imageAttachments.map { clippingFrame(forID: $0.basicData.id) }
-            let item = MediaPreviewTransitionItem(source: .swiftUI(sourceFramesInScreenCoordinates: clippingFrames), previewableViewController: presentingViewController)
-            
-            item.initialClippingFrame = {
-                // this is the current frame of the image view
-                let initialFrame = clippingFrame(forID: focusing)
-                assert(initialFrame != .zero)
-                return initialFrame
-            }()
-            item.initialimageFrame = {
-                // this is the current frame of the image in the view, accounting for focus point if cropping
-                let initialFrame = viewModel.frame(forID: focusing) ?? CGRect(x: 50, y: 50, width: 50, height: 50)
-                assert(initialFrame != .zero)
-                return initialFrame
-            }()
-            
-            item.image = viewModel.blurhashes[focusing]
-            
-            item.aspectRatio = {
-                guard let focusedIndex else { return nil }
-                return viewModel.imageAttachments[focusedIndex].imageDetails.originalSize
-            }()
-            
-            return item
-        }()
-        
-        let mediaPreviewViewModel = MediaPreviewViewModel(
-            item: previewItem,
-            transitionItem: mediaPreviewTransitionItem)
-        actionHandler?.presentScene(.mediaPreview(viewModel: mediaPreviewViewModel),
-                                             fromPost: nil,
-                                             transition: .custom(transitioningDelegate: presentingViewController.mediaPreviewTransitionController)
-        )
-    }
 }
 
 struct BlurhashImageView: View {
@@ -423,12 +367,14 @@ class ImageGalleryViewModel {
     private var frames = [Mastodon.Entity.Attachment.ID : CGRect]()
     let altTextTranslations: [String : String]?
     var blurhashes = [ Mastodon.Entity.Attachment.ID : UIImage ]()
-    let actionHandler: MastodonPostMenuActionHandler?
+    let idToIndex: [ Mastodon.Entity.Attachment.ID : Int ]
     
-    init(imageAttachments: [MastodonImageAttachment], altTextTranslations: [String: String]?, actionHandler: MastodonPostMenuActionHandler?) {
+    init(imageAttachments: [MastodonImageAttachment], altTextTranslations: [String: String]?) {
         self.imageAttachments = imageAttachments
         self.altTextTranslations = altTextTranslations
-        self.actionHandler = actionHandler
+        idToIndex = imageAttachments.enumerated().reduce(into: [ Mastodon.Entity.Attachment.ID : Int ](), { partialResult, element in
+            partialResult[element.1.id] = element.0
+        })
         loadBlurhashes()
     }
     
@@ -609,12 +555,12 @@ struct AudioPlayerView: View {
 struct VideoPlayerView: View {
     let media: MediaAttachment
     let url: URL
+    let originalSize: CGSize
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
-    @StateObject var playerObserver = PlayerObserver()
-    let actionHandler: MastodonPostMenuActionHandler?
-    @State var waitingToShowFullSize = false
+    @ObservedObject var playerObserver: PlayerObserver
+    let containerOverlay: Binding<MastodonTimelineOverlayView?>?
     
-    init?(media: MediaAttachment, actionHandler: MastodonPostMenuActionHandler?) {
+    init?(playerObserver: PlayerObserver, media: MediaAttachment, originalSize: CGSize, containerOverlayBinding: Binding<MastodonTimelineOverlayView?>?) {
         switch media {
         case .video, .gifv:
             break
@@ -622,9 +568,11 @@ struct VideoPlayerView: View {
             return nil
         }
         guard let attachmentInfo = media.attachmentInfo, let url = attachmentInfo.url else { return nil }
+        self.playerObserver = playerObserver
+        self.originalSize = originalSize
         self.media = media
         self.url = url
-        self.actionHandler = actionHandler
+        self.containerOverlay = containerOverlayBinding
     }
     
     var respectDeviceSilentSetting: Bool {
@@ -640,64 +588,34 @@ struct VideoPlayerView: View {
     
     var body: some View {
         ZStack {
-            if let blurImage = playerObserver.blurImage {
+            if let player = playerObserver.getPlayer() {
+                VideoPlayer(player: player)
+                    .opacity(playerObserver.isReadyToPlay ? 1 : 0)
+                    .aspectRatio(originalSize.aspectRatio, contentMode: .fit)
+                    .background() {
+                        if let blurImage = playerObserver.blurImage {
+                            Image(uiImage: blurImage)
+                                .resizable()
+                                .scaledToFill()
+                        }
+                    }
+            } else if let blurImage = playerObserver.blurImage {
                 Image(uiImage: blurImage)
                     .resizable()
                     .scaledToFill()
             }
-            
-            if let player = playerObserver.getPlayer() {
-                VideoPlayer(player: player)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background {
-                        if waitingToShowFullSize {
-                            FrameReader() { frame in
-                                playerObserver.mostRecentFrameInScreenCoordinates = frame
-                                if waitingToShowFullSize {
-                                    waitingToShowFullSize = false
-                                    Task { @MainActor in
-                                        showFullSize()
-                                    }
-                                }
-                            }
-                        }
-                    }
-            }
         }
+        .border(playerObserver.isReadyToPlay ? .clear : .secondary)
+        .clipped() // prevents the blurhash image from overhanging the video if it somehow has a slightly different aspect ratio
         .overlay {
-            ZStack {
-                Button {
-                    waitingToShowFullSize = true
-                } label: {
-                    Rectangle().fill(.clear)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
-                .buttonStyle(.borderless)
-                
-                if shouldShowPlayButton {
-                    switch playerObserver.playingState {
-                    case .paused:
-                        Button {
-                            playerObserver.didPressPlay()
-                        } label: {
-                            Image(systemName: "play.fill")
-                                .font(.title2)
-                                .padding(EdgeInsets(top: standardPadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
-                                .background() {
-                                    Capsule()
-                                        .fill(.ultraThinMaterial)
-                                }
-                        }
-                        .buttonStyle(.borderless)
-                    case .waitingToPlayAtSpecifiedRate:
-                        ProgressView().progressViewStyle(.circular)
-                    case .playing:
-                        EmptyView()
-                    @unknown default:
-                        EmptyView()
-                    }
-                }
+            Button {
+                playerObserver.didPressPause()
+                containerOverlay?.wrappedValue = .video(media)
+            } label: {
+                Rectangle().fill(.clear)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+            .buttonStyle(.borderless)
         }
         .onAppear() {
             self.playerObserver.setPlayer(withAsset: AVURLAsset(url: url), respectDeviceSilentSetting: respectDeviceSilentSetting)
@@ -713,6 +631,12 @@ struct VideoPlayerView: View {
         }
     }
     
+    func aspectFittingHeightToFillWidth(containerWidth: CGFloat) -> CGFloat {
+        guard originalSize != .zero else { return 200 }
+        let aspect = originalSize.aspectRatio
+        let fittingHeight = containerWidth / aspect
+        return fittingHeight
+    }
     var shouldLoop: Bool {
         switch media {
         case .gifv:
@@ -733,33 +657,6 @@ struct VideoPlayerView: View {
     
     func showFullSize() {
         playerObserver.didPressPause()
-        guard let _legacyEntity = media.attachmentInfo?._legacyEntity, let previewableViewController = actionHandler?.mediaPreviewableViewController else { return }
-        let previewItem: MediaPreviewViewModel.PreviewItem = .attachments([_legacyEntity], initialIndex: 0, placeholderImages: [playerObserver.blurImage], altTexts: [media.attachmentInfo?.basicData.altText ?? ""])
-        let mediaPreviewTransitionItem: MediaPreviewTransitionItem = {
-            let item = MediaPreviewTransitionItem(source: .swiftUI(sourceFramesInScreenCoordinates: [playerObserver.mostRecentFrameInScreenCoordinates]), previewableViewController: previewableViewController)
-            
-            item.initialClippingFrame = {
-                // this is the current frame of the player
-                let initialFrame = playerObserver.mostRecentFrameInScreenCoordinates
-                assert(initialFrame != .zero)
-                return initialFrame
-            }()
-            item.initialimageFrame = CGRect(x: 0, y: 0, width: item.initialClippingFrame?.width ?? 1, height: item.initialimageFrame?.height ?? 1)
-            
-            item.image = playerObserver.blurImage
-            
-            item.aspectRatio = item.initialClippingFrame?.size
-            
-            return item
-        }()
-        
-        let mediaPreviewViewModel = MediaPreviewViewModel(
-            item: previewItem,
-            transitionItem: mediaPreviewTransitionItem)
-        actionHandler?.presentScene(.mediaPreview(viewModel: mediaPreviewViewModel),
-                                   fromPost: nil,
-                                   transition: .custom(transitioningDelegate: previewableViewController.mediaPreviewTransitionController)
-        )
     }
 }
 
@@ -779,6 +676,7 @@ extension MediaAttachment {
 @MainActor
 class PlayerObserver: ObservableObject {
     @Published var playingState: AVPlayer.TimeControlStatus = .paused
+    @Published var isReadyToPlay = false
     @Published var totalSeconds: Double?
     @Published var currentTimeInSeconds: Double = 0.0
     @Published var blurImage: UIImage? = nil
@@ -787,6 +685,7 @@ class PlayerObserver: ObservableObject {
     private var player: AVPlayer?
     private var timeObserverToken: Any?
     private var playerStatusSubscription: AnyCancellable?
+    private var playerReadinessSubscription: AnyCancellable?
     private var playShouldSeekToStart = false
     private var respectDeviceSilentSetting = false
     
@@ -820,8 +719,21 @@ class PlayerObserver: ObservableObject {
         self.playerStatusSubscription?.cancel()
         self.playerStatusSubscription = player.publisher(for: \.timeControlStatus, options: [.initial, .new])
             .receive(on: DispatchQueue.main)
-            .map { $0 }
-            .assign(to: \.playingState, on: self)
+            .sink { [weak self] newValue in
+                self?.playingState = newValue
+            }
+        self.playerReadinessSubscription?.cancel()
+        self.playerReadinessSubscription = player.publisher(for: \.currentItem?.isPlaybackLikelyToKeepUp, options: [.initial, .new])
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] newValue in
+                guard let self else { return }
+                let newDerivedValue = newValue == true
+                if newDerivedValue != self.isReadyToPlay {
+                    withAnimation {
+                        self.isReadyToPlay = newDerivedValue
+                    }
+                }
+            }
         
         if timeObserverToken == nil {
             let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
@@ -899,5 +811,29 @@ class PlayerObserver: ObservableObject {
     
     func getPlayer() -> AVPlayer? {
         return player
+    }
+    
+    @ViewBuilder func playButton(_ _playingState: AVPlayer.TimeControlStatus) -> some View {
+        switch _playingState {
+        case .paused:
+            Button {
+                self.didPressPlay()
+            } label: {
+                Image(systemName: "play.fill")
+                    .font(.title2)
+                    .padding(EdgeInsets(top: standardPadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
+                    .background() {
+                        Capsule()
+                            .fill(.ultraThinMaterial)
+                    }
+            }
+            .buttonStyle(.borderless)
+        case .waitingToPlayAtSpecifiedRate:
+            ProgressView().progressViewStyle(.circular)
+        case .playing:
+            EmptyView()
+        @unknown default:
+            EmptyView()
+        }
     }
 }
