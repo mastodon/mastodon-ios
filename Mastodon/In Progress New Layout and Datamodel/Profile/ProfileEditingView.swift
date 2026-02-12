@@ -874,7 +874,7 @@ extension ProfileViewModel {
         let query = Mastodon.API.Account.UpdateCredentialQuery(
             discoverable: nil,
             bot: editingViewModel.isAutomatedAccount,
-            displayName: editingViewModel.displayNameFieldEditingViewModel.stringContent,
+            displayName: String(editingViewModel.displayNameFieldEditingViewModel.stringContent.prefix(30)),
             note: editingViewModel.bioFieldEditingViewModel.stringContent,
             avatar: updatedAvatarImage.flatMap { Mastodon.Query.MediaAttachment.png($0.pngData()) },
             header: updatedBannerImage.flatMap { Mastodon.Query.MediaAttachment.png($0.pngData()) },

@@ -383,7 +383,8 @@ struct ProfileInfoView: View {
                 let handle = viewModel.account?.displayInfo.minimalHandle ?? "@unknown"
                 
                 HStack {
-                    MastodonContentView.header(html: viewModel.account?.displayInfo.displayName ?? "No Name", emojis: viewModel.account?.displayInfo.emojis ?? [], style: .profileDisplayName)
+                    let displayName = viewModel.account?.displayInfo.displayName ?? "No Name"
+                    MastodonContentView.header(html: displayName, emojis: viewModel.account?.displayInfo.emojis ?? [], style: .profileDisplayName)
                     #if false
                     if let roles = viewModel.account?._legacyEntity.publicRoles {
                         if roles.first(where: { $0.name.contains("admin") || $0.name.contains("Admin") }) != nil {

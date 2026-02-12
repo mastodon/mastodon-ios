@@ -196,11 +196,8 @@ enum TextElement {
 class CustomEmojiTextModel: ObservableObject {
     @Published public var textElements: [TextElement] = []
     private var emojis: MastodonContentView.Emojis = []
-    private var isPreparing = false
     
-    func prepareWith(elements: [MastoParseInlineElement], emojis: MastodonContentView.Emojis, font: SwiftUI.Font.TextStyle) {
-        guard !isPreparing else { return }
-        isPreparing = true
+    func prepareWith(elements: [MastoParseInlineElement], emojis: MastodonContentView.Emojis, font: SwiftUI.Font.TextStyle) async {
         self.emojis = emojis
         self.textElements = elements.reduce(into: [TextElement](), { partialResult, inline in
             switch inline.type {
@@ -236,24 +233,29 @@ class CustomEmojiTextModel: ObservableObject {
             }
         })
         
-        loadEmojis(font: font)
+        let emojiImages = await loadEmojis(font: font)
+        
+        guard !Task.isCancelled else { return }
+        updateWithEmojis(emojiImages)
     }
     
-    private func loadEmojis(font: SwiftUI.Font.TextStyle) {
+    private func loadEmojis(font: SwiftUI.Font.TextStyle) async -> [String : Image] {
         let urls = emojis.compactMap { emoji in
             URL(string: emoji.staticURL)
         }
         
-        CustomEmojiTextModel.loadEmojiImages(urls: urls, forFont: font) { [weak self] images in
-            let emojiImages = images.enumerated().reduce(into:  [String : Image]()) { partialResult, enumeration in
-                let (index, image) = enumeration
-                if let shortcode = self?.emojis[index].shortcode, let image {
-                    partialResult[shortcode] = Image(uiImage: image)
+        let result = await withCheckedContinuation { continuation in
+            CustomEmojiTextModel.loadEmojiImages(urls: urls, forFont: font) { [weak self] images in
+                let emojiImages: [String : Image] = images.enumerated().reduce(into:  [String : Image]()) { partialResult, enumeration in
+                    let (index, image) = enumeration
+                    if let shortcode = self?.emojis[index].shortcode, let image {
+                        partialResult[shortcode] = Image(uiImage: image)
+                    }
                 }
+                continuation.resume(returning: emojiImages)
             }
-            self?.updateWithEmojis(emojiImages)
         }
-      
+        return result
     }
     
     private func updateWithEmojis(_ emojis: [String : Image]) {
@@ -363,8 +365,8 @@ struct RowView: View {
                     .frame(maxWidth: .infinity)
             }
         }
-        .onAppear() {
-            textModel.prepareWith(elements: row.contents, emojis: emojis, font: font)
+        .task(id: row.contents) {
+            await textModel.prepareWith(elements: row.contents, emojis: emojis, font: font)
         }
     }
     
