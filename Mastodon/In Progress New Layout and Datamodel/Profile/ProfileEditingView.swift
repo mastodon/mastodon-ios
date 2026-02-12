@@ -887,7 +887,7 @@ extension ProfileViewModel {
             query: query,
             authorization: authorization
         )
-        let updatedAccount = MastodonAccount.fromEntity(response.value)
+        let updatedAccount = MastodonAccount.fromEntity(response.value, authenticatedDomain: domain)
         account = updatedAccount
         editingViewModel.setAccount(updatedAccount)
     }

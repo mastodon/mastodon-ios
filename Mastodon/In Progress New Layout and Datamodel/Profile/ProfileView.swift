@@ -380,7 +380,7 @@ struct ProfileInfoView: View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             
             VStack(alignment: .leading) {
-                let handle = viewModel.account?.displayInfo.minimalHandle ?? "@unknown"
+                let handle = viewModel.account?.displayInfo.fullHandle ?? "@unknown"
                 
                 HStack {
                     let displayName = viewModel.account?.displayInfo.displayName ?? "No Name"

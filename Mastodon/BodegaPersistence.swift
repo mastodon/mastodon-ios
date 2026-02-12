@@ -93,18 +93,7 @@ public actor BodegaPersistence {
 }
 
 extension BodegaPersistence {
-    static func cachedPost(_ id: Mastodon.Entity.Status.ID, forUser user: UserIdentifier) async -> GenericMastodonPost? {
-        guard let entity = await homeTimelineItemStore(forUser: user).object(forKey: CacheKey(verbatim: id)) else { return nil }
-        return GenericMastodonPost.fromStatus(entity)
-    }
-    
-    static func cachedPosts(_ ids: [Mastodon.Entity.Status.ID], forUser user: UserIdentifier) async -> [Mastodon.Entity.Status.ID : GenericMastodonPost] {
-        let keys = ids.map { CacheKey(verbatim: $0) }
-        let result = await homeTimelineItemStore(forUser: user).objectsAndKeys(keys: keys)
-        return result.reduce(into: [Mastodon.Entity.Status.ID : GenericMastodonPost]()) { partialResult, element in
-            partialResult[element.key.value] = GenericMastodonPost.fromStatus(element.object)
-        }
-    }
+  
     
     static func cacheTimeline(_ timeline: [TimelineItem], forUser user: UserIdentifier) {
         var updatedQueue = timelineCacheRequests.filter { item in

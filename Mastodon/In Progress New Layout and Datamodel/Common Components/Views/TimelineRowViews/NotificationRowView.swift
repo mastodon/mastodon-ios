@@ -809,7 +809,7 @@ extension Mastodon.Entity.Status {
         myAccountID: String, myDomain: String, navigateToStatus: @escaping () -> Void
     ) -> ViewModel {
         let content: GenericMastodonPost.PostContent?
-        if let post = GenericMastodonPost.fromStatus(self) as? MastodonContentPost {
+        if let post = GenericMastodonPost.fromStatus(self, authenticatedDomain: myDomain) as? MastodonContentPost {
             content = post.content
         } else {
             content = nil

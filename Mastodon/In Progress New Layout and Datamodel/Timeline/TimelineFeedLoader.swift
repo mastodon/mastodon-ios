@@ -434,7 +434,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         var newHashtagModels = [String : HashtagRowViewModel]()
         
         func timelineItem(fromStatus status: Mastodon.Entity.Status, isPinned: Bool) -> TimelineItem {
-            let post = GenericMastodonPost.fromStatus(status)
+            let post = GenericMastodonPost.fromStatus(status, authenticatedDomain: authenticatedUser.domain)
             return timelineItem(fromPost: post, isPinned: isPinned || (status.pinned == true))
         }
         func timelineItem(fromPost post: GenericMastodonPost, isPinned: Bool) -> TimelineItem {
@@ -462,7 +462,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             return TimelineItem.post(viewModel, isPinned: isPinned || (isPinnedByMe == true))
         }
         func timelineItem(fromAccount accountEntity: Mastodon.Entity.Account) -> TimelineItem {
-            let account = MastodonAccount.fromEntity(accountEntity)
+            let account = MastodonAccount.fromEntity(accountEntity, authenticatedDomain: authenticatedUser.domain)
             let viewModel = {
                 if let existing = accountViewModels[account.id] {
                     existing.updateAccount(account)
@@ -710,7 +710,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 guard notification.status != nil else { throw APIService.APIError.explicit(.badResponse) }
                 status = notification.status!
             }
-            let post = GenericMastodonPost.fromStatus(status)
+            let post = GenericMastodonPost.fromStatus(status, authenticatedDomain: authenticatedUser.domain)
             let response = try await APIService.shared.statusContext(
                 statusID: status.id,
                 authenticationBox: authenticatedUser
@@ -732,7 +732,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             if let basicPost = root as? MastodonBasicPost, let quote = basicPost.quotedPost, quote.fullPost == nil, quote.quotedPostID != nil {
                 // likely this is a nested quote that is now being opened and therefore we should refetch the status in hopes of getting the full quoted status to display instead of the placeholder
                 let refetchedStatus = try await APIService.shared.status(statusID: root.id, authenticationBox: authenticatedUser).value
-                threadModel = ThreadedConversationModel(threadContext: context, focusedPost: GenericMastodonPost.fromStatus(refetchedStatus))
+                threadModel = ThreadedConversationModel(threadContext: context, focusedPost: GenericMastodonPost.fromStatus(refetchedStatus, authenticatedDomain: authenticatedUser.domain))
             } else {
                 threadModel = ThreadedConversationModel(threadContext: context, focusedPost: root)
             }
@@ -879,12 +879,6 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         cached.filteredItems(inContext: timeline.filterContext)
     }
     
-}
-
-extension TimelineFeedLoader {
-    func fetchCachedPosts(_ postIds: [Mastodon.Entity.Status.ID]) async -> [Mastodon.Entity.Status.ID : GenericMastodonPost] {
-        return await BodegaPersistence.cachedPosts(postIds, forUser: authenticatedUser)
-    }
 }
 
 extension TimelineFeedLoader {
@@ -1213,7 +1207,7 @@ extension TimelineFeedLoader {
         
         accountsCache.removeAll(keepingCapacity: true)
         for account in accounts {
-            accountsCache[account.id] = MastodonAccount.fromEntity(account)
+            accountsCache[account.id] = MastodonAccount.fromEntity(account, authenticatedDomain: authenticatedUser.domain)
         }
     }
 }
@@ -1360,7 +1354,7 @@ struct NotificationsLoader {
             let sourceAccounts = NotificationSourceAccounts(myAccountID: authenticationBox.domain, accounts: [notification.account], totalActorCount: 1)
             let notificationType = GroupedNotificationType(notification, myAccountDomain: authenticationBox.domain, sourceAccounts: sourceAccounts, adminReportID: nil)
             let navigation = NotificationRowViewModel.defaultNavigation(notificationType, isGrouped: false, primaryAccount: notification.account)
-            let post = notification.status == nil ? nil : GenericMastodonPost.fromStatus(notification.status!)
+            let post = notification.status == nil ? nil : GenericMastodonPost.fromStatus(notification.status!, authenticatedDomain: authenticationBox.domain)
             let info = GroupedNotificationInfo(id: notification.id, timestamp: notification.createdAt, oldestNotificationID: notification.id, newestNotificationID: notification.id, groupedNotificationType: notificationType, sourceAccounts: sourceAccounts, post:  post, primaryNavigation: navigation)
             return info
         }
@@ -1398,7 +1392,7 @@ struct NotificationsLoader {
             let type = GroupedNotificationType(
                 group, myAccountDomain: authenticationBox.domain, sourceAccounts: sourceAccounts, status: status, adminReportID: group.adminReport?.id)
             
-            let post = status == nil ? nil : GenericMastodonPost.fromStatus(status!)
+            let post = status == nil ? nil : GenericMastodonPost.fromStatus(status!, authenticatedDomain: authenticationBox.domain)
             
             return GroupedNotificationInfo(
                 id: group.id,

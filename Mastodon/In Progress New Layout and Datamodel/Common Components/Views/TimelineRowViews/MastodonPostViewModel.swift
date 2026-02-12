@@ -200,7 +200,7 @@ struct PrecalculatedHeight {
                     mention.id,
                 authorization: currentUser.userAuthorization
             )
-            goToProfile(MastodonAccount.fromEntity(account), actionHandler: actionHandler)
+            goToProfile(MastodonAccount.fromEntity(account, authenticatedDomain: currentUser.domain), actionHandler: actionHandler)
         }
     }
 }

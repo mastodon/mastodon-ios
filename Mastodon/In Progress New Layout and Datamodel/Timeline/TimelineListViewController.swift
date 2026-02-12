@@ -2289,7 +2289,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
         let updatedPoll = try await APIService.shared.vote(poll: poll, choices: choices, authenticationBox: authenticatedUser).value
         let updatedContainingStatus = try await APIService.shared.status(statusID: containingPostID, authenticationBox: authenticatedUser).value
-        publishUpdate(.post(GenericMastodonPost.fromStatus(updatedContainingStatus)))
+        publishUpdate(.post(GenericMastodonPost.fromStatus(updatedContainingStatus, authenticatedDomain: authenticatedUser.domain)))
         return updatedPoll
     }
     
@@ -2383,7 +2383,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                         updated = nil
                     }
                     if let updated {
-                        publishUpdate(.post(GenericMastodonPost.fromStatus(updated)))
+                        publishUpdate(.post(GenericMastodonPost.fromStatus(updated, authenticatedDomain: authenticatedUser.domain)))
                     }
                     clearPendingActions()
                     
@@ -2560,7 +2560,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         Task {
             do {
                 let updated = try await APIService.shared.updateQuotePolicy(forStatus: post.id, to: editModel.interactionSettings.quotability, authenticationBox: authBox)
-                publishUpdate(.post(GenericMastodonPost.fromStatus(updated)))
+                publishUpdate(.post(GenericMastodonPost.fromStatus(updated, authenticatedDomain: authBox.domain)))
             } catch {
                 didReceiveError(error)
             }
@@ -2660,7 +2660,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         Task { [weak self] in
             guard let authBox = self?.authenticatedUser else { return }
             let status = try await APIService.shared.status(statusID: actionablePostID, authenticationBox: authBox).value
-            let updated = GenericMastodonPost.fromStatus(status)
+            let updated = GenericMastodonPost.fromStatus(status, authenticatedDomain: authBox.domain)
             FeedCoordinator.shared.publishUpdate(.post(updated))
         }
     }
@@ -2697,7 +2697,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             } else {
                 let updated = try await APIService.shared.boost(boostableStatusId: actionablePostId, authenticationBox: authenticatedUser) // this returns a new post, which is the boost action
                 let updatedActionable = updated.reblog ?? updated // when updating the existing records, we only care about the original post
-                FeedCoordinator.shared.publishUpdate(.post(GenericMastodonPost.fromStatus(updatedActionable)))
+                FeedCoordinator.shared.publishUpdate(.post(GenericMastodonPost.fromStatus(updatedActionable, authenticatedDomain: authenticatedUser.domain)))
                 clearPendingActions()
             }
         } catch {
@@ -2830,7 +2830,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         do {
             guard let actionablePost = quotingPost.actionablePost as? MastodonBasicPost, let quoted = actionablePost.quotedPost, let quotedId = quoted.fullPost?.id, let authenticatedUser else { throw PostActionFailure.noActionablePostId }
             let updated = try await APIService.shared.revokeQuoteAuthorization(forQuotedId: quotedId, fromQuotingId: actionablePost.id, authenticationBox: authenticatedUser)
-            FeedCoordinator.shared.publishUpdate(.post(GenericMastodonPost.fromStatus(updated)))
+            FeedCoordinator.shared.publishUpdate(.post(GenericMastodonPost.fromStatus(updated, authenticatedDomain: authenticatedUser.domain)))
             clearPendingActions()
         } catch {
             didReceiveError(error)

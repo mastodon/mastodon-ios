@@ -44,7 +44,7 @@ struct AuthorHeaderView: View {
     var authorHandle: String {
         if let actionablePost = postViewModel.fullPost?.actionablePost {
             let author = actionablePost.metaData.author
-            return author.displayInfo.minimalHandle
+            return author.displayInfo.fullHandle
         } else {
             return postViewModel.initialDisplayInfo.actionableAuthorHandle
         }
@@ -61,7 +61,7 @@ struct AuthorHeaderView: View {
 
 extension MastodonAccount: AccountInfo {
     public var handle: String {
-        return displayInfo.minimalHandle
+        return displayInfo.fullHandle
     }
     
     public var avatarURL: URL? {

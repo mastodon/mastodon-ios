@@ -40,7 +40,7 @@ nonisolated struct MastodonNotificationInfo {
     
     private let relationshipViewModel = RelationshipViewModel()
     private(set) var notification: MastodonNotificationInfo
-    let myAccountDomain: String?
+    let myAccountDomain: String
     let notificationID: Mastodon.Entity.Notification.ID
     
     var avatarRowSourceAccounts: NotificationSourceAccounts? {
@@ -94,7 +94,7 @@ nonisolated struct MastodonNotificationInfo {
     var contentConcealViewModel: ContentConcealViewModel? = nil
     var usePrivateBackground: Bool = false
 
-    init(_ notificationInfo: GroupedNotificationInfo, myAccountDomain: String?) {
+    init(_ notificationInfo: GroupedNotificationInfo, myAccountDomain: String) {
         self.primaryNavigation = notificationInfo.primaryNavigation
         self.notification = MastodonNotificationInfo(notificationInfo)
         self.myAccountDomain = myAccountDomain
@@ -116,7 +116,7 @@ nonisolated struct MastodonNotificationInfo {
         case .reblog(let status), .favourite(let status), .poll(let status), .update(let status), .quotedUpdate(let status):
             avatarRowAdditionalElement = .noneNeeded
             if let status {
-                let inlinePost = GenericMastodonPost.fromStatus(status)
+                let inlinePost = GenericMastodonPost.fromStatus(status, authenticatedDomain: myAccountDomain)
                 inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo())
                 inlinePostViewModel?.initialSetFullPost(inlinePost)
                 usePrivateBackground = status.visibility == .direct
@@ -133,7 +133,7 @@ nonisolated struct MastodonNotificationInfo {
         case .reblog(let status), .favourite(let status), .poll(let status), .update(let status), .quotedUpdate(let status):
             avatarRowAdditionalElement = .noneNeeded
             if let status {
-                let inlinePost = GenericMastodonPost.fromStatus(status)
+                let inlinePost = GenericMastodonPost.fromStatus(status, authenticatedDomain: myAccountDomain)
                 inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo())
                 inlinePostViewModel?.initialSetFullPost(inlinePost)
             }
@@ -318,7 +318,7 @@ extension NotificationRowViewModel {
             if let firstAccount = avatarRowSourceAccounts?.primaryAuthorAccount {
                 FeedbackGenerator.shared.generate(.selectionChanged)
                 Task {
-                    try await relationshipViewModel.doRelationshipAction(button.buttonAction, account: MastodonAccount.fromEntity(firstAccount))
+                    try await relationshipViewModel.doRelationshipAction(button.buttonAction, account: MastodonAccount.fromEntity(firstAccount, authenticatedDomain: myAccountDomain))
                     updateAvatarRowAdditionalElement()
                 }
             }

@@ -92,7 +92,7 @@ extension GenericMastodonPost {
 // MARK: -
 
 protocol FromStatusEntityDerivable {
-    static func fromStatus(_ status: Mastodon.Entity.Status) -> Self
+    static func fromStatus(_ status: Mastodon.Entity.Status, authenticatedDomain: String) -> Self
 }
 
 protocol FromStatusEntityDerivableOptional {
@@ -100,7 +100,7 @@ protocol FromStatusEntityDerivableOptional {
 }
 
 extension GenericMastodonPost.PostMetrics: FromStatusEntityDerivable {
-    static func fromStatus(_ status: Mastodon.Entity.Status) -> Self {
+    static func fromStatus(_ status: Mastodon.Entity.Status, authenticatedDomain: String) -> Self {
         return Self(
             boostCount: status.reblogsCount,
             favoriteCount: status.favouritesCount,
@@ -109,7 +109,7 @@ extension GenericMastodonPost.PostMetrics: FromStatusEntityDerivable {
 }
 
 extension GenericMastodonPost.PostActions: FromStatusEntityDerivable {
-    static func fromStatus(_ status: Mastodon.Entity.Status) -> Self {
+    static func fromStatus(_ status: Mastodon.Entity.Status, authenticatedDomain: String) -> Self {
         return Self(
             favorited: status.favourited ?? false,
             boosted: status.reblogged ?? false, muted: status.muted ?? false,
@@ -118,21 +118,21 @@ extension GenericMastodonPost.PostActions: FromStatusEntityDerivable {
 }
 
 extension GenericMastodonPost.PostContent: FromStatusEntityDerivable {
-    static func fromStatus(_ status: Mastodon.Entity.Status) -> Self {
+    static func fromStatus(_ status: Mastodon.Entity.Status, authenticatedDomain: String) -> Self {
         return Self(
             editedAt: status.editedAt, language: status.language,
             htmlWithEntities: GenericMastodonPost.PostContent.HtmlWithEntities
-                .fromStatus(status), plainText: status.text,
+                .fromStatus(status, authenticatedDomain: authenticatedDomain), plainText: status.text,
             attachment: GenericMastodonPost.PostAttachment.fromStatus(status),
             contentWarned: GenericMastodonPost.PostContent.ContentWarned.fromStatus(
-                status), filtered: status.filtered,
-            metrics: GenericMastodonPost.PostMetrics.fromStatus(status),
-            myActions: GenericMastodonPost.PostActions.fromStatus(status))
+                status, authenticatedDomain: authenticatedDomain), filtered: status.filtered,
+            metrics: GenericMastodonPost.PostMetrics.fromStatus(status, authenticatedDomain: authenticatedDomain),
+            myActions: GenericMastodonPost.PostActions.fromStatus(status, authenticatedDomain: authenticatedDomain))
     }
 }
 
 extension GenericMastodonPost.PostContent.HtmlWithEntities: FromStatusEntityDerivable {
-    static func fromStatus(_ status: Mastodon.Entity.Status) -> Self {
+    static func fromStatus(_ status: Mastodon.Entity.Status, authenticatedDomain: String) -> Self {
         return Self(
             html: status.content?.strippingQuoteInline, mentions: status.mentions, tags: status.tags,
             emojis: status.emojis)
@@ -155,7 +155,7 @@ extension GenericMastodonPost.PostAttachment: FromStatusEntityDerivableOptional
 }
 
 extension GenericMastodonPost.PostContent.ContentWarned: FromStatusEntityDerivable {
-    static func fromStatus(_ status: Mastodon.Entity.Status) -> Self {
+    static func fromStatus(_ status: Mastodon.Entity.Status, authenticatedDomain: String) -> Self {
         switch (status.sensitive, status.spoilerText) {
         case (false, nil):
             return .nothingToWarn
@@ -172,9 +172,9 @@ extension GenericMastodonPost.PostContent.ContentWarned: FromStatusEntityDerivab
 }
 
 extension GenericMastodonPost.PostMetadata: FromStatusEntityDerivable {
-    static func fromStatus(_ status: Mastodon.Entity.Status) -> Self {
+    static func fromStatus(_ status: Mastodon.Entity.Status, authenticatedDomain: String) -> Self {
         return Self(
-            author: MastodonAccount.fromEntity(status.account), uriForFediverse: status.uri,
+            author: MastodonAccount.fromEntity(status.account, authenticatedDomain: authenticatedDomain), uriForFediverse: status.uri,
             url: status.url,
             privacyLevel: GenericMastodonPost.PrivacyLevel.fromStatus(status),
             createdAt: status.createdAt, application: status.application)

@@ -434,7 +434,7 @@ private extension SceneCoordinator {
             if let viewModel = viewModel as? RemoteThreadViewModel {
                 viewController = TimelineListViewController(.remoteThread(root: viewModel.entityType))
             } else {
-                guard let rootStatus = viewModel.root?.record, let rootPost = GenericMastodonPost.fromStatus(rootStatus.entity) as? MastodonContentPost else { return nil }
+                guard let rootStatus = viewModel.root?.record, let rootPost = GenericMastodonPost.fromStatus(rootStatus.entity, authenticatedDomain: viewModel.authenticationBox.domain) as? MastodonContentPost else { return nil }
                 viewController = TimelineListViewController(.thread(root: rootPost))
             }
         case .editHistory(let viewModel):
@@ -451,7 +451,7 @@ private extension SceneCoordinator {
             let _viewController: UIViewController =  {
                 if UserDefaults.standard.useBetaProfileView {
                     let controller = ProfileHostingViewController(wrapInNavigationController: false)
-                    let account = MastodonAccount.fromEntity(profileType.accountToDisplay)
+                    let account = MastodonAccount.fromEntity(profileType.accountToDisplay, authenticatedDomain: AuthenticationServiceProvider.shared.currentActiveUser.value?.domain ?? "")
                     if account.globallyUniqueUserIdentifier == AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier {
                         controller.set(account: account, relationship: .isMe)
                     } else {

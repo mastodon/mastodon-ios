@@ -62,7 +62,7 @@ extension MastodonAccount {
 
 extension MastodonAccount {
     struct DisplayInfo: Codable {
-        let minimalHandle: String
+        let fullHandle: String
         let displayName: String
         let emojis: [Mastodon.Entity.Emoji]
         private let avatarImage: ImageUrl
@@ -86,54 +86,64 @@ extension MastodonAccount {
 
 protocol FromAccountEntityDerivable {
     static func fromEntity(
-        _ entity: Mastodon.Entity.Account
+        _ entity: Mastodon.Entity.Account,
+        authenticatedDomain: String
     ) -> Self
 }
 
 extension MastodonAccount: FromAccountEntityDerivable {
     static func fromEntity(
-        _ entity: Mastodon.Entity.Account
+        _ entity: Mastodon.Entity.Account,
+        authenticatedDomain: String
     ) -> Self {
         return MastodonAccount(
             id: entity.id,
-            metadata: MetaData.fromEntity(entity),
+            metadata: MetaData.fromEntity(entity, authenticatedDomain: authenticatedDomain),
             displayInfo: DisplayInfo.fromEntity(
-                entity),
-            metrics: Metrics.fromEntity(entity), bio: entity.note,
+                entity, authenticatedDomain: authenticatedDomain),
+            metrics: Metrics.fromEntity(entity, authenticatedDomain: authenticatedDomain), bio: entity.note,
             _legacyEntity: entity
         )
     }
 }
 
 extension MastodonAccount.MetaData: FromAccountEntityDerivable {
-    static func fromEntity(_ entity: Mastodon.Entity.Account) -> MastodonAccount.MetaData {
+    static func fromEntity(_ entity: Mastodon.Entity.Account, authenticatedDomain: String) -> MastodonAccount.MetaData {
         return MastodonAccount.MetaData(profileUrl: URL(string: entity.url), createdAt: entity.createdAt, manuallyApprovesNewFollows: entity.locked, verifiedLink: entity.verifiedLink?.value, customFields: entity.fields, isBot: entity.bot ?? false)
     }
 }
 
 extension MastodonAccount.DisplayInfo: FromAccountEntityDerivable {
     static func fromEntity(
-        _ entity: Mastodon.Entity.Account
+        _ entity: Mastodon.Entity.Account,
+        authenticatedDomain: String
     ) -> Self {
-        let currentUserDomain = "mastodon.social" // TODO: get the actual user domain, to use the proper fallback image
         let avatarImage = ImageUrl(
             potentiallyAnimated: entity.avatar,
             definitelyStatic: entity.avatarStatic,
             fallback: fallbackAvatarURL(
-                fromCurrentUserDomain: currentUserDomain))!
+                fromCurrentUserDomain: "mastodon.social"))!
         let headerImage = ImageUrl(
             potentiallyAnimated: entity.header,
             definitelyStatic: entity.headerStatic,
             fallback: nil)
+        let fullHandle: String = {
+            let acctSplitOnAt = entity.acct.split(separator: "@")
+            if acctSplitOnAt.count == 1 {
+                return entity.acct + "@" + authenticatedDomain
+            } else {
+                return entity.acct
+            }
+        }()
         return Self(
-            minimalHandle: entity.acct, displayName: entity.displayNameWithFallback,
+            fullHandle: fullHandle, displayName: entity.displayNameWithFallback,
             emojis: entity.emojis, avatarImage: avatarImage,
             headerImage: headerImage)
     }
 }
 
 extension MastodonAccount.Metrics: FromAccountEntityDerivable {
-    static func fromEntity(_ entity: Mastodon.Entity.Account) -> Self {
+    static func fromEntity(_ entity: Mastodon.Entity.Account, authenticatedDomain: String) -> Self {
         Self(postCount: entity.statusesCount, followersCount: entity.followersCount, followingCount: entity.followingCount)
     }
 }

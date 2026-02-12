@@ -4,18 +4,18 @@ import Foundation
 import MastodonSDK
 
 extension GenericMastodonPost {
-    static func fromStatus(_ status: Mastodon.Entity.Status) -> GenericMastodonPost {
+    static func fromStatus(_ status: Mastodon.Entity.Status, authenticatedDomain: String) -> GenericMastodonPost {
         if let reblog = status.reblog {
-            return MastodonBoostPost(id: status.id, metaData: PostMetadata.fromStatus(status), boostedPost: GenericMastodonPost.fromStatus(reblog) as! MastodonContentPost, _legacyEntity: status)
+            return MastodonBoostPost(id: status.id, metaData: PostMetadata.fromStatus(status, authenticatedDomain: authenticatedDomain), boostedPost: GenericMastodonPost.fromStatus(reblog, authenticatedDomain: authenticatedDomain) as! MastodonContentPost, _legacyEntity: status)
         }
         else {
             let quoted: MastodonQuotedPost?
             if let quote = status.quote {
-                quoted = MastodonQuotedPost(quoted: quote)
+                quoted = MastodonQuotedPost(quoted: quote, authenticatedDomain: authenticatedDomain)
             } else {
                 quoted = nil
             }
-            return MastodonBasicPost(id: status.id, metaData: PostMetadata.fromStatus(status), content: PostContent.fromStatus(status), inReplyTo: InReplyToDetails.fromStatus(status), attachment: PostAttachment.fromStatus(status), quoted: quoted, _legacyEntity: status)
+            return MastodonBasicPost(id: status.id, metaData: PostMetadata.fromStatus(status, authenticatedDomain: authenticatedDomain), content: PostContent.fromStatus(status, authenticatedDomain: authenticatedDomain), inReplyTo: InReplyToDetails.fromStatus(status), attachment: PostAttachment.fromStatus(status), quoted: quoted, _legacyEntity: status)
         }
     }
     
@@ -113,9 +113,9 @@ class MastodonQuotedPost: Codable {
     let fullPost: MastodonContentPost?
     let quotedPostID: Mastodon.Entity.Status.ID?
     
-    init(quoted: Mastodon.Entity.Quote) {
+    init(quoted: Mastodon.Entity.Quote, authenticatedDomain: String) {
         self.state = quoted.state
-        if let fullStatus = quoted.quotedStatus, let post = MastodonContentPost.fromStatus(fullStatus) as? MastodonContentPost {
+        if let fullStatus = quoted.quotedStatus, let post = MastodonContentPost.fromStatus(fullStatus, authenticatedDomain: authenticatedDomain) as? MastodonContentPost {
             self.fullPost = post
         } else {
             self.fullPost = nil
