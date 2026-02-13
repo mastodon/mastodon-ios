@@ -89,8 +89,7 @@ struct ProfileView: View {
     
     enum Subview: Hashable {
         case bannerAndAvatar
-        case bio
-        case customFieldsFlow
+        case mainInfo
         case paginationControl
         case pages
     }
@@ -143,24 +142,14 @@ struct ProfileView: View {
                             .frame(width: geo.size.width)
                         Spacer()
                             .frame(height: doublePadding)
-                        subview(.bio, width: geo.size.width)
-                            .id(Subview.bio)
+                        subview(.mainInfo, width: geo.size.width)
+                            .id(Subview.mainInfo)
                             .padding(.horizontal, doublePadding)
                             .frame(width: min(maxFeedContentWidth, geo.size.width))
                         
                         Spacer()
                             .frame(height: doublePadding)
-                        
-                        if let fields = viewModel.account?.metadata.customFields, !fields.isEmpty {
-                            subview(.customFieldsFlow, width: min(maxFeedContentWidth, geo.size.width) - doublePadding * 2)
-                                .padding(.horizontal, doublePadding)
-                                .frame(width: min(maxFeedContentWidth, geo.size.width))
-                            
-                            Spacer()
-                                .frame(height: doublePadding)
-                        }
-                        
-                        
+
                         HStack {
                             AccountStatsView(displayType: .smallInline(joinedOn: viewModel.account?.metadata.createdAt), accountMetrics: viewModel.account?.metrics) { stat in
                                 switch stat {
@@ -248,10 +237,8 @@ struct ProfileView: View {
         case .bannerAndAvatar:
             ProfileAvatarAndBannerView(width: width)
                 .environment(viewModel.editingViewModel)
-        case .bio:
+        case .mainInfo:
             ProfileInfoView()
-        case .customFieldsFlow:
-            CustomFieldsFlow(maxItemWidth: min(width, maxFeedContentWidth), fields: viewModel.account?.metadata.customFields ?? [], emojis: viewModel.account?._legacyEntity.emojis ?? [])
         case .paginationControl:
             ProfilePaginationControl()
             .frame(width: min(width, maxFeedContentWidth))
@@ -401,11 +388,9 @@ struct ProfileInfoView: View {
                     Text(handle)
                         .foregroundStyle(.secondary)
                         .font(.subheadline)
-                    if viewModel.handleDetails?.username != nil {
-                        Image(systemName: "info.circle")
-                            .foregroundColor(Asset.Colors.accent.swiftUIColor)
-                            .font(.caption)
-                    }
+                    Image(systemName: "info.circle")
+                        .foregroundColor(Asset.Colors.accent.swiftUIColor)
+                        .font(.caption)
                 }
                 .onTapGesture {
                     isShowingHandleInfo = !isShowingHandleInfo
@@ -415,7 +400,6 @@ struct ProfileInfoView: View {
                         HandleInfoPopover()
                     }
                 }
-                MastodonContentView.timelinePost(html: viewModel.account?._legacyEntity.note ?? "", emojis: viewModel.account?.displayInfo.emojis ?? [], isInlinePreview: false)
             }
             
             HStack {
@@ -582,8 +566,7 @@ struct CustomFieldsFlow: View {
                 MastodonContentView.customProfileField(html: field.value, emojis: emojis, bold: true)
             }
             if field.verifiedAt != nil {
-                Image(systemName: "checkmark.seal.fill")
-                    .foregroundColor(.green)
+                Asset.Scene.Profile.About.verifiedLinkBadge.swiftUIImage
             }
         }
         .font(.footnote)
@@ -592,6 +575,51 @@ struct CustomFieldsFlow: View {
             RoundedRectangle(cornerRadius: CornerRadius.standard)
                 .stroke(.secondary, lineWidth: 1 / displayScale)
         }
+    }
+}
+
+struct CustomFieldsStack: View {
+    var fields: [Mastodon.Entity.Field]
+    var emojis: [Mastodon.Entity.Emoji]
+    
+    private let labelWidth: CGFloat = 100
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 1) {
+            ForEach(fields, id: \.self) { field in
+                customFieldRow(field, emojis: emojis)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, doublePadding)
+                    .background {
+                        if field.verifiedAt != nil {
+                            Asset.Colors.Brand.backgroundSoftest.swiftUIColor
+                        }
+                    }
+            }
+        }
+    }
+    
+    @ViewBuilder func customFieldRow(_ field: Mastodon.Entity.Field, emojis: [Mastodon.Entity.Emoji]) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: 0) {
+            MastodonContentView.customProfileField(html: field.name, emojis: emojis, bold: false)
+                .foregroundColor(.secondary)
+                .frame(width: labelWidth, alignment: .leading)
+            
+            Spacer()
+                .frame(width: standardPadding)
+            
+            MastodonContentView.customProfileField(html: field.value, emojis: emojis, bold: true)
+                .foregroundColor(Asset.Colors.accent.swiftUIColor)
+            
+            if field.verifiedAt != nil {
+                Spacer()
+                    .frame(width: tinySpacing)
+                Asset.Scene.Profile.About.verifiedLinkBadge.swiftUIImage
+            }
+        }
+        .font(.footnote)
+        .lineLimit(1)
+        .padding(.vertical, standardPadding)
     }
 }
 
@@ -699,6 +727,11 @@ struct ProfilePaginatingView: View {
                 )) {
                     ForEach(ProfilePage.allCases, id: \.self) { page in
                         switch page {
+                        case .about:
+                            ProfileAboutPage()
+                                .nestedScrollview(.inner)
+                                .frame(width: geo.size.width, height: geo.size.height)
+                                .environment(viewModel.relationshipViewModel)
                         case .activity:
                             TimelineListView()
                                 .environment(viewModel.postsViewModel)
@@ -759,12 +792,15 @@ struct TestAllRelationshipButtons: View {
 }
 
 enum ProfilePage: CaseIterable, Hashable {
+    case about
     case activity
     case mediaOnly
     case featured
     
     var title: String {
         switch self {
+        case .about:
+            L10nLookup.Scene.Profile.SegmentedControl.about
         case .activity:
             L10nLookup.Scene.Profile.SegmentedControl.activity
         case .mediaOnly:
@@ -776,12 +812,14 @@ enum ProfilePage: CaseIterable, Hashable {
     
     var nextPage: ProfilePage {
         switch self {
+        case .about:
+                .activity
         case .activity:
                 .mediaOnly
         case .mediaOnly:
                 .featured
         case .featured:
-                .activity
+                .about
         }
     }
 }
@@ -843,7 +881,7 @@ enum EditingStatus: Equatable {
     }
     private var activityFilter: TimelineQueryFilter?
     var mediaViewModel: TimelineListViewModel?
-    var selectedPage: ProfilePage = .activity
+    var selectedPage: ProfilePage = .about
     var handleDetails: HandleDetails?
     
     var navigationButtons: [UIBarButtonItem] {
@@ -1002,5 +1040,23 @@ extension ProfileBadge: View {
             RoundedRectangle(cornerRadius: CornerRadius.standard)
                 .fill(.secondary.quinary)
         }
+    }
+}
+
+struct ProfileAboutPage: View {
+    @Environment(ProfileViewModel.self) var viewModel
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            // BIO
+            MastodonContentView.timelinePost(html: viewModel.account?._legacyEntity.note ?? "", emojis: viewModel.account?.displayInfo.emojis ?? [], isInlinePreview: false)
+                .padding(.horizontal, doublePadding)
+            
+            // CUSTOM FIELDS
+            if let fields = viewModel.account?.metadata.customFields, !fields.isEmpty {
+                CustomFieldsStack(fields: fields, emojis: viewModel.account?._legacyEntity.emojis ?? [])
+            }
+        }
+        .padding(.vertical)
     }
 }

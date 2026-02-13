@@ -148,6 +148,10 @@ public struct L10nLookup {
         
         public struct Profile {
             public struct SegmentedControl {
+                public static let about: String = {
+                    let result = tr("Localizable", "Scene.Profile.SegmentedControl.About")
+                    return result
+                }()
                 public static let activity: String = {
                     let result = tr("Localizable", "Scene.Profile.SegmentedControl.Activity")
                     return result
@@ -194,18 +198,6 @@ public struct L10nLookup {
                     let result = tr("Localizable", "Scene.Profile.HandleExplainerView.Title")
                     return result
                 }()
-                public static let exampleServerLabel: String = {
-                    let result = tr("Localizable", "Scene.Profile.HandleExplainerView.ExampleServerLabel")
-                    return result
-                }()
-                public static let exampleTitle: String = {
-                    let result = tr("Localizable", "Scene.Profile.HandleExplainerView.ExampleTitle")
-                    return result
-                }()
-                public static let exampleUsernameLabel: String = {
-                    let result = tr("Localizable", "Scene.Profile.HandleExplainerView.ExampleUsernameLabel")
-                    return result
-                }()
                 public static let federationExplainerText: AttributedString = {
                     // We have to use an AttributedString and insert the link ourselves because localization, modules, and markdown in SwiftUI do not work together at all
                     var localized = tr("Localizable", "Scene.Profile.HandleExplainerView.FederationExplainerText")
@@ -221,26 +213,14 @@ public struct L10nLookup {
                     }
                     return AttributedString(localized)
                 }()
-                public static func serverDetailIsMyServer(serverName: String) -> String {
-                    let result = tr("Localizable", "Scene.Profile.HandleExplainerView.ServerDetailIsMyServer", serverName)
-                    return result
-                }
                 public static func serverDetailWithExample(serverName: String) -> String {
                     let result = tr("Localizable", "Scene.Profile.HandleExplainerView.ServerDetailWithExample", serverName)
                     return result
                 }
-                public static let serverDetailWithoutExample: String = {
-                    let result = tr("Localizable", "Scene.Profile.HandleExplainerView.ServerDetailWithoutExample")
-                    return result
-                }()
                 public static func usernameDetailWithExample(username: String) -> String {
                     let result = tr("Localizable", "Scene.Profile.HandleExplainerView.UsernameDetailWithExample", username)
                     return result
                 }
-                public static let usernameDetailWithoutExample: String = {
-                    let result = tr("Localizable", "Scene.Profile.HandleExplainerView.UsernameDetailWithoutExample")
-                    return result
-                }()
             }
             
             public static func viewAllPinnedPosts(pinnedPostCount: Int) -> String {

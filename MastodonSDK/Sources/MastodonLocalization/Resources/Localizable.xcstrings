@@ -206961,62 +206961,13 @@
         }
       }
     },
-    "Scene.Profile.HandleExplainerView.ExampleServerLabel" : {
-      "comment" : "Used as a label on the server portion of an example handle and as the section title for the server detail explanation",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Server"
-          }
-        }
-      }
-    },
-    "Scene.Profile.HandleExplainerView.ExampleTitle" : {
-      "comment" : "title for example box breaking down a handle into username and server",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Their handle:"
-          }
-        }
-      }
-    },
-    "Scene.Profile.HandleExplainerView.ExampleUsernameLabel" : {
-      "comment" : "Used as a label on the username portion of an example handle and as the section title for the username detail explanation",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Username"
-          }
-        }
-      }
-    },
     "Scene.Profile.HandleExplainerView.FederationExplainerText" : {
-      "comment" : "Translate the contents of the [], but leave the brackets",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Since handles say who someone is and where they are, you can interact with people across the social web of [Activity-Pub-powered platforms]."
-          }
-        }
-      }
-    },
-    "Scene.Profile.HandleExplainerView.ServerDetailIsMyServer" : {
-      "comment" : "This follows the serverDetailWithExample if the account in question is on the current user’s server.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your account happens to be on %1$(servername)@, too."
+            "value" : "Just like you can send emails to people using different email clients, you can interact with people on other Mastodon servers – and with anyone on other social apps powered by the same set of rules as Mastodon uses (the ActivityPub protocol)."
           }
         }
       }
@@ -207027,18 +206978,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$(servername)@ is their digital home, where all of their posts live."
-          }
-        }
-      }
-    },
-    "Scene.Profile.HandleExplainerView.ServerDetailWithoutExample" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Their digital home, where all of their posts live."
+            "value" : "%1$(servername)@ is the server that hosts the user’s profile and posts."
           }
         }
       }
@@ -207049,7 +206989,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "What’s in a handle?"
+            "value" : "A handle is like an email address."
           }
         }
       }
@@ -207060,18 +207000,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$(username)@ is their unique identifier on their server. On another server, this username may belong to a different person."
-          }
-        }
-      }
-    },
-    "Scene.Profile.HandleExplainerView.UsernameDetailWithoutExample" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Their unique identifier on their server. On another server, this username may belong to a different person."
+            "value" : "%1$(username)@ is this account’s username on their server. Someone on another server might have the same username."
           }
         }
       }
@@ -212364,7 +212293,7 @@
       }
     },
     "Scene.Profile.SegmentedControl.About" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "an" : {
           "stringUnit" : {
@@ -212675,6 +212604,7 @@
       }
     },
     "Scene.Profile.SegmentedControl.Activity" : {
+      "comment" : "This is a tab title; keep translation as short as possible",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -212686,6 +212616,7 @@
       }
     },
     "Scene.Profile.SegmentedControl.Featured" : {
+      "comment" : "This is a tab title; keep translation as short as possible",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -212697,7 +212628,8 @@
       }
     },
     "Scene.Profile.SegmentedControl.Media" : {
-      "extractionState" : "migrated",
+      "comment" : "This is a tab title; keep translation as short as possible",
+      "extractionState" : "manual",
       "localizations" : {
         "an" : {
           "stringUnit" : {

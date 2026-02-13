@@ -46,6 +46,7 @@ public enum Asset {
       public static let status = ColorAsset(name: "Colors/Border/status")
     }
     public enum Brand {
+      public static let backgroundSoftest = ColorAsset(name: "Colors/Brand/BackgroundSoftest")
       public static let blurple = ColorAsset(name: "Colors/Brand/Blurple")
       public static let darkBlurple = ColorAsset(name: "Colors/Brand/Dark Blurple")
       public static let eggplant = ColorAsset(name: "Colors/Brand/Eggplant")
@@ -185,6 +186,8 @@ public enum Asset {
     public enum Profile {
       public enum About {
         public static let verifiedCheckmark = ImageAsset(name: "Scene/Profile/About/verified_checkmark")
+        public static let verifiedLinkBadge = ImageAsset(name: "Scene/Profile/About/verified_link_badge")
+        public static let roleBadge = ImageAsset(name: "Scene/Profile/About/role_badge")
       }
       public enum Banner {
         public static let bioEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/bio.edit.background.gray")
