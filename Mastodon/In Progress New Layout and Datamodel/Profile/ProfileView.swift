@@ -366,24 +366,13 @@ struct ProfileInfoView: View {
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             
-            VStack(alignment: .leading) {
-                let handle = viewModel.account?.displayInfo.fullHandle ?? "@unknown"
+            VStack(alignment: .leading, spacing: 0) {
+                // DISPLAY NAME
+                let displayName = viewModel.account?.displayInfo.displayName ?? "No Name"
+                MastodonContentView.header(html: displayName, emojis: viewModel.account?.displayInfo.emojis ?? [], style: .profileDisplayName)
                 
-                HStack {
-                    let displayName = viewModel.account?.displayInfo.displayName ?? "No Name"
-                    MastodonContentView.header(html: displayName, emojis: viewModel.account?.displayInfo.emojis ?? [], style: .profileDisplayName)
-                    #if false
-                    if let roles = viewModel.account?._legacyEntity.publicRoles {
-                        if roles.first(where: { $0.name.contains("admin") || $0.name.contains("Admin") }) != nil {
-                            ProfileBadge.admin
-                        }
-                        if roles.first(where: { $0.name.contains("mod") || $0.name.contains("Mod") }) != nil {
-                            ProfileBadge.moderator
-                        }
-                    }
-                    #endif
-                }
-
+                // HANDLE
+                let handle = viewModel.account?.displayInfo.fullHandle ?? "@unknown"
                 HStack(alignment: .top, spacing: tinySpacing) {
                     Text(handle)
                         .foregroundStyle(.secondary)
@@ -398,6 +387,17 @@ struct ProfileInfoView: View {
                 .popover(isPresented: $isShowingHandleInfo) {
                     ScrollView() {
                         HandleInfoPopover()
+                    }
+                }
+                
+                // SERVER ROLES
+                if let domain = viewModel.account?.domain, let roles = viewModel.account?._legacyEntity.publicRoles, !roles.isEmpty {
+                    Spacer()
+                        .frame(height: tinySpacing)
+                    FlowLayout(maxItemWidth: 300) {
+                        ForEach(roles, id: \.id) { role in
+                            ProfileBadge.role(role, domain: domain)
+                        }
                     }
                 }
             }
@@ -935,8 +935,7 @@ struct VerticalPositionKey: PreferenceKey {
 }
 
 enum ProfileBadge {
-    case admin
-    case moderator
+    case role(Mastodon.Entity.Account.AccountRole, domain: String)
     case pinned
 }
 
@@ -944,10 +943,8 @@ extension ProfileBadge: View {
     
     var icon: Image {
         switch self {
-        case .admin:
-            return Asset.Scene.Profile.profileBadgeAdmin.swiftUIImage
-        case .moderator:
-            return Asset.Scene.Profile.profileBadgeModerator.swiftUIImage
+        case .role:
+            return Asset.Scene.Profile.About.roleBadge.swiftUIImage
         case .pinned:
             return Image(systemName: "pin")
         }
@@ -955,10 +952,8 @@ extension ProfileBadge: View {
     
     var text: String {
         switch self {
-        case .admin:
-            L10nLookup.Scene.Profile.Badge.admin
-        case .moderator:
-            L10nLookup.Scene.Profile.Badge.moderator
+        case .role(let roleEntity, let domain):
+            "\(roleEntity.name) (\(domain))"
         case .pinned:
             L10nLookup.Scene.Profile.Badge.pinned
         }
