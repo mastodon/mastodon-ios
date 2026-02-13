@@ -415,63 +415,13 @@ struct HandleInfoPopover: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: doublePadding) {
+            Spacer()
+            
             HStack() {
-                Image(systemName: "person.crop.square.filled.and.at.rectangle")
-                    .foregroundColor(.white)
-                    .padding()
-                    .background() {
-                        Circle()
-                            .fill(Asset.Colors.accent.swiftUIColor)
-                    }
                 Text(L10nLookup.Scene.Profile.HandleExplainerView.title)
             }
-            .font(.title)
-            
-            if let handleDetails = viewModel.handleDetails {
-                VStack(alignment: .leading, spacing: 0) {
-                    Text(L10nLookup.Scene.Profile.HandleExplainerView.exampleTitle)
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                    Spacer()
-                        .frame(height: standardPadding)
-                    
-                    HStack {
-                        Spacer()
-                        VStack(alignment: .leading) {
-                            HStack(alignment: .bottom) {
-                                Image(systemName: "arrow.turn.left.down")
-                                    .font(.caption2)
-                                Text(L10nLookup.Scene.Profile.HandleExplainerView.exampleUsernameLabel)
-                                    .font(.callout)
-                            }
-                            HStack(alignment: .top) {
-                                Text("@\(handleDetails.username)")
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(.primary)
-                                VStack {
-                                    Text("@\(handleDetails.domain)")
-                                        .fontWeight(.semibold)
-                                        .foregroundColor(.primary)
-                                    HStack(alignment: .top) {
-                                        Text(L10nLookup.Scene.Profile.HandleExplainerView.exampleServerLabel)
-                                            .font(.callout)
-                                        Image(systemName: "arrow.turn.right.up")
-                                            .font(.caption2)
-                                    }
-                                }
-                            }
-                        }
-                        Spacer()
-                    }
-                }
-                .padding()
-                .background() {
-                    RoundedRectangle(cornerRadius: standardPadding)
-                        .fill(Asset.Colors.accent.swiftUIColor.opacity(0.2))
-                }
-                .foregroundColor(Asset.Colors.accent.swiftUIColor)
-                .padding()
-            }
+            .font(.title3)
+            .fontWeight(.semibold)
             
             VStack(alignment: .leading, spacing: standardPadding) {
                 explainerRow(.username(viewModel.handleDetails?.username))
@@ -493,47 +443,34 @@ struct HandleInfoPopover: View {
             case .username:
                 Image(systemName: "at")
             case .server:
-                Image(systemName: "globe.europe.africa.fill")
+                Image(systemName: "globe")
             }
         }
         
-        var titleText: String {
-            switch self {
-            case .username:
-                L10nLookup.Scene.Profile.HandleExplainerView.exampleUsernameLabel
-            case .server:
-                L10nLookup.Scene.Profile.HandleExplainerView.exampleServerLabel
-            }
-        }
-        
-        var text: String {
+        var htmlString: String {
             switch self {
             case .username(let username):
-                if let username {
-                    return L10nLookup.Scene.Profile.HandleExplainerView.usernameDetailWithExample(username: "@"+username)
-                } else {
-                    return L10nLookup.Scene.Profile.HandleExplainerView.usernameDetailWithoutExample
-                }
-            case .server(let serverName, let isMyServer):
-                if let serverName {
-                    return L10nLookup.Scene.Profile.HandleExplainerView.serverDetailWithExample(serverName: serverName) + (isMyServer ? " " + L10nLookup.Scene.Profile.HandleExplainerView.serverDetailIsMyServer(serverName: serverName) : "")
-                } else {
-                    return L10nLookup.Scene.Profile.HandleExplainerView.serverDetailWithoutExample
-                }
+                let plainString = L10nLookup.Scene.Profile.HandleExplainerView.usernameDetailWithExample(username: "\(username ?? "UNKNOWN")")
+                return plainString.htmlParagraph(boldingSubstring: username, workingAroundEmojiCodes: [])
+            case .server(let serverName, _):
+                    let plainString = L10nLookup.Scene.Profile.HandleExplainerView.serverDetailWithExample(serverName: serverName ?? "UNKNOWN")
+                return plainString.htmlParagraph(boldingSubstring: serverName, workingAroundEmojiCodes: [])
             }
         }
     }
     
     @ViewBuilder func explainerRow(_ type: ExplainerRowType) -> some View {
         HStack(alignment: .top) {
-            type.image
-                .font(.title)
-                .fontWeight(.semibold)
-                .foregroundColor(Asset.Colors.accent.swiftUIColor)
+            ZStack {
+                Circle()
+                    .fill(Asset.Colors.Brand.backgroundSoftest.swiftUIColor)
+                    .frame(width: 28, height: 28)
+                type.image
+                    .frame(width: 16, height: 16)
+                    .foregroundColor(.primary)
+            }
             VStack(alignment: .leading) {
-                Text(type.titleText)
-                    .font(.title2)
-                Text(type.text)
+                MastodonContentView.timelinePost(html: type.htmlString, emojis: [], isInlinePreview: false)
             }
         }
     }
