@@ -954,7 +954,21 @@ extension AttributedString {
 
 extension String {
     func htmlParagraph(boldingSubstring: String?, workingAroundEmojiCodes emojiCodes: [String]) -> String {
-        guard let boldingSubstring else { return "<p>\(self)<\\p>" }
+        guard let boldingSubstring else { return "\(self)" }
+        
+        let withBolding = addBolding(forSubstring: boldingSubstring, workingAroundEmojiCodes: emojiCodes)
+        return "\(withBolding)"
+    }
+    
+    func htmlParagraph(boldingSubstrings: [(String, emojiCodes: [String])]) -> String {
+        var withBolding = self
+        for substring in boldingSubstrings {
+            withBolding = withBolding.addBolding(forSubstring: substring.0, workingAroundEmojiCodes: substring.emojiCodes)
+        }
+        return "\(withBolding)"
+    }
+    
+    private func addBolding(forSubstring boldingSubstring: String, workingAroundEmojiCodes emojiCodes: [String]) -> String {
         if let range = range(of: boldingSubstring) {
             var piecesWithTextBolded = [String]()
             var lastIndex = boldingSubstring.startIndex
@@ -975,9 +989,9 @@ extension String {
             if lastIndex < boldingSubstring.endIndex {
                 piecesWithTextBolded.append("<strong>\(String(boldingSubstring[lastIndex..<boldingSubstring.endIndex]))</strong>")
             }
-            return "<p>\(replacingCharacters(in: range, with: piecesWithTextBolded.joined()))</p>"
+            return replacingCharacters(in: range, with: piecesWithTextBolded.joined())
         } else {
-            return "<p>\(self)</p>"
+            return self
         }
     }
 }
