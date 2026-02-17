@@ -154608,6 +154608,30 @@
         }
       }
     },
+    "Scene.FamiliarFollowers.FollowersYouKnow" : {
+      "comment" : "This is the subheading of a list of accounts you follow that also follow the account you are viewing",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%(followersCount)lld follower you know"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%(followersCount)lld followers you know"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "Scene.Familiarfollowers.Title" : {
       "extractionState" : "migrated",
       "localizations" : {

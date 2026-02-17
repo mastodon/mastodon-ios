@@ -1673,29 +1673,9 @@ struct TimelineListView: View {
                     .padding(EdgeInsets(top: doublePadding, leading: 0, bottom: doublePadding, trailing: 0))
                 } else {
                     VStack(alignment: .leading, spacing: 0) {
-                        
-                        // PROFILE TIMELINE - FILTER BOOSTS AND REPLIES
-                        if filterModel.showBoostsAndRepliesFilterButton {
-                            VStack(spacing: 0) {
-                                Spacer()
-                                    .frame(height: doublePadding)
-                                
-                                BoostsAndRepliesFilterButton()
-                                    .padding(.horizontal, doublePadding)
-                                    .frame(width: min(maxFeedContentWidth, geo.size.width))
-                                
-                                Spacer()
-                                    .frame(height: doublePadding)
-                            }
-                            .id("repliesAndBoostsFilterButton")
-                        }
-                        
-                        // PROFILE TIMELINE - FEATURED HASHTAGS
-                        FeaturedHashtagsFlow(maxItemWidth: min(maxFeedContentWidth, geo.size.width) - doublePadding * 2)
-                                .environment(filterModel)
-                                .padding(.horizontal, doublePadding)
-                                .frame(width: min(maxFeedContentWidth, geo.size.width))
-                    
+                        fixedHeader(geoWidth: geo.size.width)
+                            .padding(.horizontal, doublePadding)
+                            .frame(width: min(maxFeedContentWidth, geo.size.width))
                         
                         ScrollView(showsIndicators: false) {
                             LazyVStack(spacing: 0) {
@@ -2099,6 +2079,41 @@ struct TimelineListView: View {
                 }
             }
         }
+    }
+    
+    @ViewBuilder func fixedHeader(geoWidth: CGFloat) -> some View {
+        // PROFILE TIMELINE - FILTER BOOSTS AND REPLIES
+        if filterModel.showBoostsAndRepliesFilterButton {
+            VStack(spacing: 0) {
+                Spacer()
+                    .frame(height: doublePadding)
+                
+                BoostsAndRepliesFilterButton()
+                
+                Spacer()
+                    .frame(height: doublePadding)
+            }
+            .id("repliesAndBoostsFilterButton")
+        }
+        
+        // PROFILE TIMELINE - FEATURED HASHTAGS
+        FeaturedHashtagsFlow(maxItemWidth: min(maxFeedContentWidth, geoWidth) - doublePadding * 2)
+            .environment(filterModel)
+        
+        // FAMILIAR FOLLOWERS - subheadline
+        switch viewModel.timeline {
+        case .familiarFollowers:
+            if let totalFamiliars = viewModel.familiarFollowers?.totalCount {
+                Text(L10nLookup.Scene.FamiliarFollowers.followersYouKnow(totalFamiliars))
+                    .font(.footnote)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .center)
+            }
+        default:
+            EmptyView()
+        }
+        
     }
     
     func goToFilteredNotifications(_ viewModel: FilteredNotificationsRowView.ViewModel) {

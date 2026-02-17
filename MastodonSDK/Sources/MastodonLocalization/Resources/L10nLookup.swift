@@ -144,6 +144,11 @@ public struct L10nLookup {
                 let result = tr("Localizable", "Scene.FamiliarFollowers.FollowedByTwoNamesAndOthers", firstAccount, secondAccount, otherCount)
                 return result
             }
+            
+            public static func followersYouKnow(_ count: Int) -> String {
+                let result = tr("Localizable", "Scene.FamiliarFollowers.FollowersYouKnow", count)
+                return result
+            }
         }
         
         public struct Profile {
