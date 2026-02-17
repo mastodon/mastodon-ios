@@ -10,34 +10,35 @@ import MastodonSDK
 import MastodonUI
 import Combine
 
-enum MastodonNavigationDestination: Hashable {
-    case editProfile
-}
-
 class ProfileHostingViewController: UIHostingController<AnyView> {
+    let wrapInSwiftUINavigationStack: Bool
     let viewModel = ProfileViewModel()
     let nestedScrollViewModel = NestedScrollInteractionViewModel()
+    let navigationRouter: MastodonNavigationRouter
     
-    init(wrapInNavigationController: Bool) {
-        let root = ProfileView(wrapInNavigationController: wrapInNavigationController).environment(viewModel).environment(viewModel.relationshipViewModel).environment(nestedScrollViewModel)
+    init(wrapInSwiftUINavigationStack: Bool) {
+        self.wrapInSwiftUINavigationStack = wrapInSwiftUINavigationStack
+        let navigationRouter = MastodonNavigationRouter()
+        self.navigationRouter = navigationRouter
+        let root = ProfileView(wrapInSwiftUINavigationStack: wrapInSwiftUINavigationStack)
+            .environment(viewModel)
+            .environment(viewModel.relationshipViewModel)
+            .environment(nestedScrollViewModel)
+            .environment(navigationRouter)
         super.init(rootView: AnyView(root))
         title = nil
-        
-        viewModel.navigationControllerNavigateToEditProfile = { [weak self] in
-            if wrapInNavigationController {
-                return
-            } else {
-                guard let self else { return }
-                self.viewModel.editingStatus = .editing(hasChanges: false)
-                let editViewController = ProfileEditHostingViewController(viewModel: self.viewModel)
-                self.navigationController?.pushViewController(editViewController, animated: true)
-            }
-        }
     }
+    
     @MainActor @preconcurrency required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if !wrapInSwiftUINavigationStack {
+            navigationRouter.navigationController = navigationController
+        }
+        super.viewDidAppear(animated)
+    }
     
     func set(account: MastodonAccount, relationship: MastodonAccount.Relationship) {
         viewModel.account = account
@@ -82,7 +83,7 @@ struct ProfileView: View {
     @State private var navigationPath = NavigationPath()
     @Environment(ProfileViewModel.self) var viewModel
     @Environment(NestedScrollInteractionViewModel.self) var nestedScrollViewModel
-    let wrapInNavigationController: Bool
+    let wrapInSwiftNavigationStack: Bool
     
     @State var isPresentingActivityFilter: Bool = false
     @State var embeddedActionBarHasCaughtUpToFloatingActionBar: Bool = false
@@ -94,12 +95,12 @@ struct ProfileView: View {
         case pages
     }
     
-    init(wrapInNavigationController: Bool) {
-        self.wrapInNavigationController = wrapInNavigationController
+    init(wrapInSwiftUINavigationStack: Bool) {
+        self.wrapInSwiftNavigationStack = wrapInSwiftUINavigationStack
     }
     
     var body: some View {
-        if wrapInNavigationController {
+        if wrapInSwiftNavigationStack {
             NavigationStack(path: $navigationPath){
                 content
                     .navigationDestination(for: MastodonNavigationDestination.self) { destination in
@@ -108,6 +109,9 @@ struct ProfileView: View {
                             ProfileEditingView()
                                 .environment(viewModel)
                                 .environment(viewModel.editingViewModel)
+                        case .familiarFollowers(_, let listViewModel):
+                            TimelineListView()
+                                .environment(listViewModel)
                         }
                     }
                     .onChange(of: viewModel.editingStatus) { oldValue, newValue in
@@ -170,9 +174,7 @@ struct ProfileView: View {
                         Spacer()
                             .frame(height: doublePadding)
                         
-                        ProfileActionBar(navigationStackNavigateToEditProfile: {
-                            navigateToEditProfile()
-                        })
+                        ProfileActionBar()
                             .padding(.horizontal, doublePadding)
                             .frame(width: min(maxFeedContentWidth, geo.size.width))
                             .background() {
@@ -205,9 +207,7 @@ struct ProfileView: View {
                 
                 VStack {
                     Spacer()
-                    ProfileActionBar(navigationStackNavigateToEditProfile: {
-                        navigateToEditProfile()
-                    })
+                    ProfileActionBar()
                         .padding(.horizontal, doublePadding)
                         .frame(width: min(maxFeedContentWidth, geo.size.width))
                         .background() {
@@ -643,9 +643,9 @@ struct ProfilePaginationControl: View {
 }
 
 struct ProfileActionBar: View {
-    let navigationStackNavigateToEditProfile: ()->()
     @Environment(ProfileViewModel.self) var viewModel
     @Environment(RelationshipViewModel.self) var relationshipViewModel
+    @Environment(MastodonNavigationRouter.self) var navigationRouter
     
     var body: some View {
         HStack(spacing: standardPadding) {
@@ -653,8 +653,7 @@ struct ProfileActionBar: View {
                 relationshipViewModel.button.largeButton {
                     switch relationshipViewModel.button {
                     case .edit:
-                        navigationStackNavigateToEditProfile()
-                        viewModel.navigationControllerNavigateToEditProfile?()
+                        navigationRouter.navigate(to: .editProfile(profileViewModel: viewModel, editingViewModel: viewModel.editingViewModel))
                     default:
                         Task {
                                 try await relationshipViewModel.doRelationshipAction(relationshipViewModel.button.buttonAction, account: account)
@@ -840,7 +839,6 @@ enum EditingStatus: Equatable {
         let isMyDomain: Bool
     }
     var account: MastodonAccount?
-    var navigationControllerNavigateToEditProfile: (()->())?
     var relationship: MastodonAccount.Relationship?
     var familiarFollowersViewModel: TimelineListViewModel?
     var postsViewModel: TimelineListViewModel? {

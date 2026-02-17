@@ -450,7 +450,7 @@ private extension SceneCoordinator {
         case .profile(let profileType):
             let _viewController: UIViewController =  {
                 if UserDefaults.standard.useBetaProfileView {
-                    let controller = ProfileHostingViewController(wrapInNavigationController: false)
+                    let controller = ProfileHostingViewController(wrapInSwiftUINavigationStack: false)
                     let account = MastodonAccount.fromEntity(profileType.accountToDisplay, authenticatedDomain: AuthenticationServiceProvider.shared.currentActiveUser.value?.domain ?? "")
                     if account.globallyUniqueUserIdentifier == AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier {
                         controller.set(account: account, relationship: .isMe)

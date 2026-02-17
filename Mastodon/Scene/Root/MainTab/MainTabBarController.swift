@@ -193,7 +193,7 @@ extension MainTabBarController {
                     let oldMe = meProfileViewController
                     let updatedProfile: UIViewController =  {
                         if UserDefaults.standard.useBetaProfileView {
-                            let controller = ProfileHostingViewController(wrapInNavigationController: true)
+                            let controller = ProfileHostingViewController(wrapInSwiftUINavigationStack: true)
                             controller.set(account: MastodonAccount.fromEntity(myAccount, authenticatedDomain: authBox.domain), relationship: .isMe)
                             return controller
                         } else {
