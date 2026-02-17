@@ -230,6 +230,22 @@ struct ProfileView: View {
             
             embeddedActionBarHasCaughtUpToFloatingActionBar = floating >= embedded
         }
+        .task(id: viewModel.account?.id) {
+            try? await fetchFamiliarFollowers()
+        }
+        .onChange(of: viewModel.account?.id) {
+            Task {
+                try await fetchFamiliarFollowers()
+            }
+        }
+    }
+    
+    private func fetchFamiliarFollowers() async throws {
+        if let account = viewModel.account {
+            let familiarFollowersModel = TimelineListViewModel(timeline: .familiarFollowers(account.id), asyncRefreshViewModel: nil)
+            viewModel.familiarFollowersViewModel = familiarFollowersModel
+            try await familiarFollowersModel.doInitialLoad()
+        }
     }
     
     @ViewBuilder func subview(_ subviewType: Subview, width: CGFloat) -> some View {
@@ -238,7 +254,10 @@ struct ProfileView: View {
             ProfileAvatarAndBannerView(width: width)
                 .environment(viewModel.editingViewModel)
         case .mainInfo:
-            ProfileInfoView()
+            if let familiarFollowers = viewModel.familiarFollowersViewModel {
+                ProfileInfoView()
+                    .environment(viewModel.familiarFollowersViewModel)
+            }
         case .paginationControl:
             ProfilePaginationControl()
             .frame(width: min(width, maxFeedContentWidth))
@@ -247,9 +266,14 @@ struct ProfileView: View {
         }
     }
     
-    private func navigateToEditProfile() {
-        viewModel.editingStatus = .editing(hasChanges: false)
-        navigationPath.append(MastodonNavigationDestination.editProfile)
+    private func navigate(to destination: MastodonNavigationDestination) {
+        switch destination {
+        case .editProfile:
+            viewModel.editingStatus = .editing(hasChanges: false)
+        default:
+            break
+        }
+        navigationPath.append(destination)
     }
 }
 
@@ -361,6 +385,7 @@ struct ProfileAvatarAndBannerView: View {
 struct ProfileInfoView: View {
     @Environment(ProfileViewModel.self) var viewModel
     @Environment(RelationshipViewModel.self) var relationshipViewModel
+    @Environment(TimelineListViewModel.self) var familiarFollowersViewModel
     @State var isShowingHandleInfo = false
     
     var body: some View {
@@ -400,6 +425,12 @@ struct ProfileInfoView: View {
                         }
                     }
                 }
+                
+                // FAMILIAR FOLLOWERS
+                if let familiarFollowers = familiarFollowersViewModel.familiarFollowers {
+                    FamiliarFollowersElement(familiarFollowers: familiarFollowers)
+                }
+                
             }
             
             HStack {
@@ -620,8 +651,15 @@ struct ProfileActionBar: View {
         HStack(spacing: standardPadding) {
             if let account = viewModel.account {
                 relationshipViewModel.button.largeButton {
-                    navigationStackNavigateToEditProfile()
-                    viewModel.navigationControllerNavigateToEditProfile?()
+                    switch relationshipViewModel.button {
+                    case .edit:
+                        navigationStackNavigateToEditProfile()
+                        viewModel.navigationControllerNavigateToEditProfile?()
+                    default:
+                        Task {
+                                try await relationshipViewModel.doRelationshipAction(relationshipViewModel.button.buttonAction, account: account)
+                        }
+                    }
                 }
                 .glassEffectIfAvailable(.regular(interactive: true), in: .capsule)
                 
@@ -804,6 +842,7 @@ enum EditingStatus: Equatable {
     var account: MastodonAccount?
     var navigationControllerNavigateToEditProfile: (()->())?
     var relationship: MastodonAccount.Relationship?
+    var familiarFollowersViewModel: TimelineListViewModel?
     var postsViewModel: TimelineListViewModel? {
         didSet {
             Task {
@@ -990,5 +1029,51 @@ struct ProfileAboutPage: View {
             }
         }
         .padding(.vertical)
+    }
+}
+
+struct FamiliarFollowersElement: View {
+    let familiarFollowers: TimelineListViewModel.FamiliarAccountsSummary
+    let boldedNames: [(String, emojiCodes: [String])]
+    let maxAvatarCount: Int = 3
+    
+    init(familiarFollowers: TimelineListViewModel.FamiliarAccountsSummary) {
+        self.familiarFollowers = familiarFollowers
+        self.boldedNames = familiarFollowers.firstFew.prefix(2).map {
+            ($0.displayInfo.displayName, emojiCodes: $0.displayInfo.emojis.map { $0.shortcode })
+        }
+    }
+    
+    var body: some View {
+        HStack {
+        HStack(spacing: -8) {
+            ForEach(familiarFollowers.firstFew.prefix(maxAvatarCount), id: \.id) { follower in
+                AvatarView(size: .small, borderStyle: .both, avatarSource: .url(follower.avatarURL), goToProfile: nil)
+            }
+        }
+            MastodonContentView.timelinePost(html: htmlDisplayString, emojis: familiarFollowers.firstFew.prefix(2).flatMap{ $0.displayInfo.emojis }, isInlinePreview: true)
+        }
+    }
+    
+    var htmlDisplayString: String {
+        let plainString = {
+            switch (boldedNames.count, familiarFollowers.totalCount) {
+            case (1, 1):
+                L10nLookup.Scene.FamiliarFollowers.followedByOneName(boldedNames[0].0)
+            case (2, 2):
+                L10nLookup.Scene.FamiliarFollowers.followedByTwoNames(firstAccount: boldedNames[0].0, secondAccount: boldedNames[1].0)
+            default:
+                L10nLookup.Scene.FamiliarFollowers.followedByTwoNamesAndOthers(firstAccount: boldedNames[0].0, secondAccount: boldedNames[1].0, otherCount: familiarFollowers.totalCount - 2)
+            }
+        }()
+        
+        let withBoldedNames = plainString.htmlParagraph(boldingSubstrings: boldedNames)
+        return withBoldedNames
+    }
+}
+
+extension TimelineListViewModel: @MainActor Equatable {
+    static func == (lhs: TimelineListViewModel, rhs: TimelineListViewModel) -> Bool {
+        lhs.timeline == rhs.timeline
     }
 }

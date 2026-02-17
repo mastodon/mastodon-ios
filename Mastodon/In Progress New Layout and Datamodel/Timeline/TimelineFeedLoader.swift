@@ -77,6 +77,7 @@ public enum MastodonTimelineType: Equatable {
     case userPosts(userID: String, queryFilter: TimelineQueryFilter)
     case followers(ofUserId: String)
     case accountsFollowed(byUserId: String)
+    case familiarFollowers(Mastodon.Entity.Account.ID)
     case thread(root: MastodonContentPost)
     case remoteThread(remoteType: RemoteThreadType)
     case notifications(scope: NotificationsScope)
@@ -151,7 +152,7 @@ public enum MastodonTimelineType: Equatable {
             nil
         case .userPosts:
                 .account
-        case .accountsFollowed, .followers:
+        case .accountsFollowed, .followers, .familiarFollowers:
             nil
         case .thread, .remoteThread:
                 .account
@@ -698,6 +699,17 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             }()
             newBatch = response.value.map { timelineItem(fromAccount: $0) }
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
+            
+        case .familiarFollowers(let accountID):
+            let response = try await {
+                return try await APIService.shared.familiarFollowers(query: .init(ids: [accountID]), authenticationBox: authenticatedUser)
+            }()
+            newBatch = {
+                guard let familiarFollowersList = response.value.first?.accounts else { return [] }
+                return familiarFollowersList.map { timelineItem(fromAccount: $0) }
+            }()
+            newBatchBottomLoad = .nothingMoreToLoad
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
         case .remoteThread(let remoteThreadType):

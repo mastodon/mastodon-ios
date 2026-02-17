@@ -25,6 +25,7 @@ enum TimelineViewType {
     case myFollowedHashtags
     case followers(ofUserId: Mastodon.Entity.Account.ID)
     case accountsFollowed(byUserId: Mastodon.Entity.Account.ID)
+    case familiarFollowers(MastodonAccount, TimelineListViewModel)
     case search(String, scope: SearchScope)
     case profilePosts(tabTitle: String?, userID: String, queryFilter: TimelineQueryFilter)
     case thread(root: MastodonContentPost)
@@ -73,6 +74,8 @@ class TimelineListViewController: UIHostingController<AnyView>
             viewModel = TimelineListViewModel(timeline: .followers(ofUserId: followedAccount), asyncRefreshViewModel: asyncRefreshViewModel)
         case .accountsFollowed(let followingAccount):
             viewModel = TimelineListViewModel(timeline: .accountsFollowed(byUserId: followingAccount), asyncRefreshViewModel: asyncRefreshViewModel)
+        case .familiarFollowers(_, let premadeViewModel):
+            viewModel = premadeViewModel
         case .myFollowedHashtags:
             viewModel = TimelineListViewModel(timeline: .myFollowedHashtags, asyncRefreshViewModel: asyncRefreshViewModel)
         case .myBookmarks:
@@ -86,7 +89,11 @@ class TimelineListViewController: UIHostingController<AnyView>
         case .whoBoosted(let statusID):
             viewModel = TimelineListViewModel(timeline: .whoBoosted(actionableStatusID: statusID), asyncRefreshViewModel: asyncRefreshViewModel)
         }
-        let root = TimelineListView().environment(viewModel).environment(viewModel.timeline.filterModel).environment(asyncRefreshViewModel).environment(nestedScrollViewModel)
+        let root = TimelineListView()
+            .environment(viewModel)
+            .environment(viewModel.timeline.filterModel)
+            .environment(asyncRefreshViewModel)
+            .environment(nestedScrollViewModel)
         super.init(rootView: AnyView(root))
         viewModel.parentVcPresentScene = { (scene, transition) in
             self.sceneCoordinator?.present(scene: scene, from: self, transition: transition)
@@ -131,7 +138,8 @@ class TimelineListViewController: UIHostingController<AnyView>
             navigationItem.title = L10n.Scene.Follower.title
         case .accountsFollowed:
             navigationItem.title = L10n.Scene.Following.title
-            
+        case .familiarFollowers(let account, _):
+            navigationItem.title = account.displayInfo.fullHandle
         case .search(let string, _):
             navigationItem.title = string
         case .hashtag(let tag):
@@ -298,7 +306,7 @@ extension TimelineListViewController {
         case .hashtag:
             showLocalTimelineAction.state = .off
             showFollowingAction.state = .off
-        case .discover, .search, .userPosts, .thread, .remoteThread, .myFollowedHashtags, .myBookmarks, .myFavorites, .notifications, .followers, .accountsFollowed, .whoFavourited, .whoBoosted:
+        case .discover, .search, .userPosts, .thread, .remoteThread, .myFollowedHashtags, .myBookmarks, .myFavorites, .notifications, .followers, .accountsFollowed, .familiarFollowers, .whoFavourited, .whoBoosted:
             assertionFailure()
             break
         }
@@ -655,6 +663,7 @@ enum MastodonTimelineSheet {
     
     var feedIsEmpty: Bool = false
     
+    var familiarFollowers: TimelineListViewModel.FamiliarAccountsSummary?
     var currentDisplaySlice = ArraySlice<TimelineItem>()
     private(set) var currentUseableWidth: CGFloat?
     var scrollAnchorItem: TimelineItem = .noItem
@@ -870,6 +879,13 @@ enum MastodonTimelineSheet {
             default:
                 interactiveReloadTriggerModel.reset(triggered: false)
             }
+            
+            switch timeline {
+            case .familiarFollowers:
+                familiarFollowers = familiarAccounts(maxCount: 3)
+            default:
+                break
+            }
         }
         
         // space to add any necessary bookkeeping before setting the slice
@@ -917,7 +933,7 @@ enum MastodonTimelineSheet {
     }
     
     private var followersAndBlockedChangeSubscription: AnyCancellable?
-    private var feedLoader: TimelineFeedLoader?
+    fileprivate var feedLoader: TimelineFeedLoader?
     private var feedLoaderResultsSubscription: AnyCancellable?
     private var feedLoaderErrorSubscription: AnyCancellable?
     private var notificationCountUpdateSubscription: AnyCancellable?
@@ -3267,5 +3283,27 @@ struct BoostsAndRepliesFilterButton: View {
             Spacer()
                 .frame(maxWidth: .infinity)
         }
+    }
+}
+
+extension TimelineListViewModel {
+    struct FamiliarAccountsSummary {
+        let firstFew: [MastodonAccount]
+        let totalCount: Int
+    }
+    
+    func familiarAccounts(maxCount: Int) -> FamiliarAccountsSummary? {
+        let firstFew = feedLoader?.records.allRecords.compactMap { item in
+            switch item {
+            case .account(let accountRowViewModel):
+                accountRowViewModel.account
+            default:
+                nil
+            }
+        }.prefix(maxCount)
+        guard let firstFew, !firstFew.isEmpty else {
+            return nil
+        }
+        return FamiliarAccountsSummary(firstFew: Array(firstFew), totalCount: feedLoader?.records.allRecords.count ?? 0)
     }
 }
