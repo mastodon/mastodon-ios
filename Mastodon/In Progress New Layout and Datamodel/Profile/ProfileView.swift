@@ -80,7 +80,7 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
 }
 
 struct ProfileView: View {
-    @State private var navigationPath = NavigationPath()
+    @Environment(MastodonNavigationRouter.self) private var navigationRouter
     @Environment(ProfileViewModel.self) var viewModel
     @Environment(NestedScrollInteractionViewModel.self) var nestedScrollViewModel
     let wrapInSwiftNavigationStack: Bool
@@ -100,19 +100,13 @@ struct ProfileView: View {
     }
     
     var body: some View {
+        @Bindable var navigationRouter = navigationRouter
+        
         if wrapInSwiftNavigationStack {
-            NavigationStack(path: $navigationPath){
+            NavigationStack(path: $navigationRouter.navigationPath){
                 content
                     .navigationDestination(for: MastodonNavigationDestination.self) { destination in
-                        switch destination {
-                        case .editProfile:
-                            ProfileEditingView()
-                                .environment(viewModel)
-                                .environment(viewModel.editingViewModel)
-                        case .familiarFollowers(_, let listViewModel):
-                            TimelineListView()
-                                .environment(listViewModel)
-                        }
+                        navigationRouter.destinationView(destination)
                     }
                     .onChange(of: viewModel.editingStatus) { oldValue, newValue in
                         switch newValue {
@@ -120,10 +114,10 @@ struct ProfileView: View {
                             break
                         case .pushingChanges(let success):
                             guard success == true else { break }
-                            navigationPath.removeLast()
+                            navigationRouter.navigationPath.removeLast()
                         }
                     }
-                    .onChange(of: navigationPath) { oldValue, newValue in
+                    .onChange(of: navigationRouter.navigationPath) { oldValue, newValue in
                         if newValue.isEmpty {
                             viewModel.editingStatus = .notEditing
                             viewModel.resetEditingViewModel()
@@ -254,7 +248,7 @@ struct ProfileView: View {
             ProfileAvatarAndBannerView(width: width)
                 .environment(viewModel.editingViewModel)
         case .mainInfo:
-            if let familiarFollowers = viewModel.familiarFollowersViewModel {
+            if let familiarFollowersModel = viewModel.familiarFollowersViewModel {
                 ProfileInfoView()
                     .environment(viewModel.familiarFollowersViewModel)
             }
@@ -264,16 +258,6 @@ struct ProfileView: View {
         case .pages:
             ProfilePaginatingView()
         }
-    }
-    
-    private func navigate(to destination: MastodonNavigationDestination) {
-        switch destination {
-        case .editProfile:
-            viewModel.editingStatus = .editing(hasChanges: false)
-        default:
-            break
-        }
-        navigationPath.append(destination)
     }
 }
 
@@ -383,6 +367,7 @@ struct ProfileAvatarAndBannerView: View {
 }
 
 struct ProfileInfoView: View {
+    @Environment(MastodonNavigationRouter.self) var navigationRouter
     @Environment(ProfileViewModel.self) var viewModel
     @Environment(RelationshipViewModel.self) var relationshipViewModel
     @Environment(TimelineListViewModel.self) var familiarFollowersViewModel
@@ -429,6 +414,11 @@ struct ProfileInfoView: View {
                 // FAMILIAR FOLLOWERS
                 if let familiarFollowers = familiarFollowersViewModel.familiarFollowers {
                     FamiliarFollowersElement(familiarFollowers: familiarFollowers)
+                        .onTapGesture {
+                            if let account = viewModel.account {
+                                navigationRouter.navigate(to: .familiarFollowers(account: account, listViewModel: familiarFollowersViewModel))
+                            }
+                        }
                 }
                 
             }
