@@ -152922,7 +152922,7 @@
         }
       }
     },
-    "Scene.Familiarfollowers.FollowedByNames" : {
+    "Scene.FamiliarFollowers.FollowedByNames" : {
       "comment" : "Followed by a single named account",
       "extractionState" : "manual",
       "localizations" : {
