@@ -30,6 +30,8 @@ enum MastodonNavigationDestination {
         case .familiarFollowers(_, let listViewModel):
             TimelineListView()
                 .environment(listViewModel)
+                .environment(TimelineQueryFilter(.unfilterable))
+                .environment(AsyncRefreshViewModel())
         }
     }
     
