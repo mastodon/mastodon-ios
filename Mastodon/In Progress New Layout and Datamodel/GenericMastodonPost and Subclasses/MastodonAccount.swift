@@ -135,8 +135,10 @@ extension MastodonAccount.DisplayInfo: FromAccountEntityDerivable {
                 return entity.acct
             }
         }()
+        
+        let escapedDisplayName = escapeHtml(entity.displayNameWithFallback)
         return Self(
-            fullHandle: fullHandle, displayName: entity.displayNameWithFallback,
+            fullHandle: fullHandle, displayName: escapedDisplayName,
             emojis: entity.emojis, avatarImage: avatarImage,
             headerImage: headerImage)
     }
@@ -221,4 +223,15 @@ extension MastodonAccount: UserIdentifier {
     public var userID: MastodonSDK.Mastodon.Entity.Account.ID {
         id
     }
+}
+
+
+func escapeHtml(_ html: String) -> String {
+    var escaped = html
+    escaped = escaped.replacingOccurrences(of: "&", with: "&amp;")
+    escaped = escaped.replacingOccurrences(of: "<", with: "&lt;")
+    escaped = escaped.replacingOccurrences(of: ">", with: "&gt;")
+    escaped = escaped.replacingOccurrences(of: "\"", with: "&quot;")
+    escaped = escaped.replacingOccurrences(of: "'", with: "&#39;")
+    return escaped
 }
