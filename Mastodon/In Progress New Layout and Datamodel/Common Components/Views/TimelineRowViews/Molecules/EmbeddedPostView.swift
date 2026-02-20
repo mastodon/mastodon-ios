@@ -182,7 +182,6 @@ struct EmbeddedPostContentDisplayedView: View {
                 if viewModel.fullPost != nil {
                     viewModel.textContentView(isInlinePreview: true, actionHandler: actionHandler)
                         .font(.footnote)
-                        .lineLimit(4)
                         .fixedSize(horizontal: false, vertical: true)
                         .accessibilityElement(children: .combine)
                 }

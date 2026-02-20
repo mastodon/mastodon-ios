@@ -102,29 +102,29 @@ extension MastodonContentView: View {
             switch self {
             case .verifiedLink(let html):
                 if let blocks = try? getParseBlocks(from: html) {
-                    TimelinePostContentView(contentBlocks: blocks, emojis: [])
+                    TimelinePostContentView(lineLimit: 1, contentBlocks: blocks, emojis: [])
                         .font(.subheadline)
                 }
             case .customProfileField(let html, let emojis, let bold):
                 if let blocks = try? getParseBlocks(from: html) {
-                    TimelinePostContentView(contentBlocks: blocks, emojis: emojis)
+                    TimelinePostContentView(lineLimit: 1, contentBlocks: blocks, emojis: emojis)
                         .font(.footnote)
                         .fontWeight(bold ? .semibold : .regular)
                 }
             case .notificationActionLabel(let html, let emojis):
                 if let blocks = try? getParseBlocks(from: html) {
-                    TimelinePostContentView(contentBlocks: blocks, emojis: emojis)
+                    TimelinePostContentView(lineLimit: 1, contentBlocks: blocks, emojis: emojis)
                         .font(.subheadline)
                 }
             case .timelinePost(let html, let emojis, let isInlinePreview):
                 if let blocks = try? getParseBlocks(from: html) {
-                    TimelinePostContentView(contentBlocks: blocks, emojis: emojis)
+                    TimelinePostContentView(lineLimit: isInlinePreview ? 4 : nil, contentBlocks: blocks, emojis: emojis)
                         .font(isInlinePreview ? Font.subheadline : .body)
                 }
             case .header(let html, let emojis, let style):
                 let block = MastoParseInlineElement(type: .text, contents: html)
                 let row = MastoParseContentRow(contents: [block], style: .paragraph, listItemPrefix: nil, nestedFormatting: [])
-                RowView(row: row, emojis: emojis, font: style.font)
+                RowView(row: row, emojis: emojis, font: style.font, lineLimit: Int.max)
                     .font(Font.system(style.font))
                     .fontWeight(style.fontWeight)
                     .foregroundStyle(style.color)
@@ -139,16 +139,17 @@ func mapEmojiShortcodeToEmojis(_ emojis: MastodonContentView.Emojis) -> [Mastodo
 }
 
 struct TimelinePostContentView: View {
+    let lineLimit: Int?
     let contentBlocks: [MastoParseContentBlock]
     let emojis: MastodonContentView.Emojis
     
     var body: some View {
         VStack(alignment: .leading, spacing: doublePadding) { // the large spacing creates the expected separation between paragraphs
-            ForEach(contentBlocks) { block in
+            ForEach(contentBlocks.prefix(lineLimit == nil ? Int.max : 1)) { block in
                 if let blockquote = block as? MastoParseBlockquote {
-                    BlockquoteView(block: blockquote, emojis: emojis)
+                    BlockquoteView(block: blockquote, emojis: emojis, lineLimit: lineLimit)
                 } else if let row = block as? MastoParseContentRow {
-                    RowView(row: row, emojis: emojis)
+                    RowView(row: row, emojis: emojis, lineLimit: lineLimit)
                 } else {
                     Text("CASE NOT HANDLED")
                 }
@@ -165,6 +166,7 @@ let blockquoteColor = Color.purple.opacity(0.5)
 struct BlockquoteView: View {
     let block: MastoParseBlockquote
     let emojis: MastodonContentView.Emojis
+    let lineLimit: Int?
     
     var body: some View {
         HStack {
@@ -177,8 +179,8 @@ struct BlockquoteView: View {
                 Spacer()
             }
             VStack(alignment: .leading, spacing: 0) {
-                ForEach(Array(block.contents.enumerated()), id: \.offset) { idx, element in
-                    RowView(row: element, emojis: emojis)
+                ForEach(Array(block.contents.enumerated().prefix(lineLimit == nil ? Int.max : 1)), id: \.offset) { idx, element in
+                    RowView(row: element, emojis: emojis, lineLimit: lineLimit)
                 }
             }
         }
@@ -314,12 +316,15 @@ struct RowView: View {
     
     let row: MastoParseContentRow
     let emojis: MastodonContentView.Emojis
+    let lineLimit: Int?
+    
     @StateObject private var textModel = CustomEmojiTextModel()
     
-    init(row: MastoParseContentRow, emojis: MastodonContentView.Emojis, font: SwiftUI.Font.TextStyle = .body) {
+    init(row: MastoParseContentRow, emojis: MastodonContentView.Emojis, font: SwiftUI.Font.TextStyle = .body, lineLimit: Int?) {
         self.row = row
         self.emojis = emojis
         self.font = font
+        self.lineLimit = lineLimit
     }
     
     var body: some View {
@@ -335,10 +340,11 @@ struct RowView: View {
         }
         
         combineElements(textModel.textElements)
-        .tint(.blue) // this controls the color of links
-        .padding(EdgeInsets(top: 0, leading: totalFormattingSpaceRequired, bottom: 0, trailing: 0))
-        .background() {
-            // Putting the nested blockquote bar in a background correctly expands its height to match the contents of the row. Trying to include it in the same HStack as the content leaves the bar too short.
+            .lineLimit(lineLimit)
+            .tint(.blue) // this controls the color of links
+            .padding(EdgeInsets(top: 0, leading: totalFormattingSpaceRequired, bottom: 0, trailing: 0))
+            .background() {
+                // Putting the nested blockquote bar in a background correctly expands its height to match the contents of the row. Trying to include it in the same HStack as the content leaves the bar too short.
             HStack(spacing: 0) {
                 ForEach(Array(row.nestedFormatting.enumerated()), id: \.offset) { idx, indicator in
                     switch indicator {
