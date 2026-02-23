@@ -251,7 +251,7 @@ struct PageableZoomableView<Content: View, Controls: View>: View {
                     lastLiveOffset = .zero
                     withAnimation {
                         let excessOffset = pageableZoomableViewModel.absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: value.translation, currentOffset: offset, gestureIsEnded: true)
-                        if abs(excessOffset.height) > (pageableZoomableViewModel.pagingPageSize.height / 2.0) {
+                        if abs(excessOffset.height) > (pageableZoomableViewModel.pagingPageSize.height / 4.0) {
                             pageableZoomableViewModel.dismiss()
                         } else {
                             offset = CGSize(width: excessOffset.width, height: 0)
