@@ -177,7 +177,7 @@ enum MediaAttachment {
 
 struct MediaAttachmentView: View {
     let mediaAttachment: MediaAttachment
-    let containerOverlayBinding: Binding<MastodonTimelineOverlayView?>?
+    let containerOverlayBinding: Binding<MastodonTimelineFadeInOverlay?>?
     let presentScene: (SceneCoordinator.Scene, Mastodon.Entity.Status.ID?, SceneCoordinator.Transition) -> ()
     @StateObject var playerObserver = PlayerObserver()
     
@@ -275,7 +275,7 @@ struct ConcealableMediaAttachmentView<Content: View>: View {
 struct ImageGridView: View {
     @Environment(ImageGalleryViewModel.self) private var viewModel
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
-    let containerOverlayBinding: Binding<MastodonTimelineOverlayView?>?
+    let containerOverlayBinding: Binding<MastodonTimelineFadeInOverlay?>?
     
     var body: some View {
         // The images
@@ -558,9 +558,9 @@ struct VideoPlayerView: View {
     let originalSize: CGSize
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
     @ObservedObject var playerObserver: PlayerObserver
-    let containerOverlay: Binding<MastodonTimelineOverlayView?>?
+    let containerOverlay: Binding<MastodonTimelineFadeInOverlay?>?
     
-    init?(playerObserver: PlayerObserver, media: MediaAttachment, originalSize: CGSize, containerOverlayBinding: Binding<MastodonTimelineOverlayView?>?) {
+    init?(playerObserver: PlayerObserver, media: MediaAttachment, originalSize: CGSize, containerOverlayBinding: Binding<MastodonTimelineFadeInOverlay?>?) {
         switch media {
         case .video, .gifv:
             break

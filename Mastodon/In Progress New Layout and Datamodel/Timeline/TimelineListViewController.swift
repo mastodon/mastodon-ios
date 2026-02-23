@@ -633,7 +633,7 @@ extension MastodonPostMenuAction {
     }
 }
 
-enum MastodonTimelineOverlayView {
+enum MastodonTimelineFadeInOverlay {
     case images(focusedImage: Mastodon.Entity.Attachment.ID, ImageGalleryViewModel)
     case video(MediaAttachment)
     case altText(String)
@@ -750,16 +750,28 @@ enum MastodonTimelineSheet {
     }
     
     // MARK - Overlays
-    var activeOverlay: MastodonTimelineOverlayView? = nil
+    var hasActiveOverlay: Bool {
+        activeOverlay != nil
+    }
+    var activeOverlayID: UUID? = nil
+    var activeOverlay: MastodonTimelineFadeInOverlay? = nil
+    func setActiveOverlay(_ overlay: MastodonTimelineFadeInOverlay?, animated: Bool) {
+        activeOverlayID = overlay == nil ? nil : UUID()
+        if animated {
+            withAnimation { activeOverlay = overlay }
+        } else {
+            activeOverlay = overlay
+        }
+    }
     
-    private func overlayIncludesDimmingBackground(_ overlay: MastodonTimelineOverlayView) -> Bool {
+    private func overlayIncludesDimmingBackground(_ overlay: MastodonTimelineFadeInOverlay) -> Bool {
         switch overlay {
         case .altText: true
         default: false
         }
     }
     
-    @ViewBuilder func overlayContents(_ overlay: MastodonTimelineOverlayView) -> some View {
+    @ViewBuilder func overlayContents(_ overlay: MastodonTimelineFadeInOverlay) -> some View {
         GeometryReader { geo in
             ZStack(alignment: .topLeading) {
                 ZStack {
@@ -767,7 +779,7 @@ enum MastodonTimelineSheet {
                         Color.dimmingBackground
                             .ignoresSafeArea()
                             .onTapGesture { [weak self] in
-                                self?.activeOverlay = nil
+                                self?.setActiveOverlay(nil, animated: true)
                             }
                     }
                     
@@ -775,7 +787,7 @@ enum MastodonTimelineSheet {
                 }
                 
                 Button {
-                    self.activeOverlay = nil
+                    self.setActiveOverlay(nil, animated: true)
                 } label: {
                     Image(systemName: "xmark.circle")
                         .font(.title)
@@ -786,7 +798,7 @@ enum MastodonTimelineSheet {
         }
     }
     
-    @ViewBuilder private func overlayView(_ overlay: MastodonTimelineOverlayView) -> some View {
+    @ViewBuilder private func overlayView(_ overlay: MastodonTimelineFadeInOverlay) -> some View {
         
         switch overlay {
         case .altText:
@@ -801,11 +813,11 @@ enum MastodonTimelineSheet {
                 },
                 set: { newValue in
                     if let newValue {
-                        self.activeOverlay = .altText(newValue)
+                        self.setActiveOverlay(.altText(newValue), animated: true)
                     } else {
                         switch self.activeOverlay {
                         case .altText:
-                            self.activeOverlay = nil
+                            self.setActiveOverlay(nil, animated: true)
                         default:
                             break
                         }
@@ -817,12 +829,12 @@ enum MastodonTimelineSheet {
             if let focusedIndex = viewModel.imageAttachments.firstIndex(where: { $0.id == focusedImage }) {
                 FullSizeImageGallery()
                     .environment(viewModel)
-                    .environment(PageableZoomableViewModel(pageCount: viewModel.imageAttachments.count, focusedPage: focusedIndex, dismiss: { self.activeOverlay = nil }))
+                    .environment(PageableZoomableViewModel(pageCount: viewModel.imageAttachments.count, focusedPage: focusedIndex, dismiss: { self.setActiveOverlay(nil, animated: true) }))
                     .environment(ContentConcealViewModel.alwaysShow)
             }
         case .video(let attachment):
             FullSizeVideoOverlayView(attachment: attachment)
-                .environment(PageableZoomableViewModel(pageCount: 1, focusedPage: 0, dismiss: { self.activeOverlay = nil }))
+                .environment(PageableZoomableViewModel(pageCount: 1, focusedPage: 0, dismiss: { self.setActiveOverlay(nil, animated: true) }))
                 .environment(ContentConcealViewModel.alwaysShow)
         }
     }
@@ -1654,7 +1666,7 @@ struct TimelineListView: View {
     
     var body: some View {
         GeometryReader { geo in
-            ZStack(alignment: .bottom) { // to show ALT text when needed, and donation banner, and snackbar
+            ZStack(alignment: .bottom) { // to show donation banner, and snackbar, and fade-in overlays
                 if viewModel.feedIsEmpty {
                     Image(uiImage: Asset.Asset.friends.image)
                         .resizable()
@@ -1774,6 +1786,13 @@ struct TimelineListView: View {
                     }
                     .padding(tinySpacing)
                 }
+                
+                // FADE-IN OVERLAYS
+                if let activeOverlay = viewModel.activeOverlay {
+                    viewModel.overlayContents(activeOverlay)
+                        .id(viewModel.activeOverlayID)
+                }
+                   
             } // ZStack(alignment: .bottom)
         } // GeometryReader
         .onAppear() {
@@ -1793,6 +1812,8 @@ struct TimelineListView: View {
                 }
             }
         }
+        .toolbar(viewModel.hasActiveOverlay ? .hidden : .visible, for: .navigationBar)
+        .toolbar(viewModel.hasActiveOverlay ? .hidden : .visible, for: .tabBar)
         .onDisappear() {
             viewModel.loadingState = .untracked
         }
@@ -1805,14 +1826,6 @@ struct TimelineListView: View {
         }
         .sheet(isPresented: viewModel.sheetIsPresented) {
             viewModel.activeSheetContents
-        }
-        .fullScreenCover(isPresented: Binding<Bool>(
-            get: { viewModel.activeOverlay != nil },
-            set: { newValue in if newValue == false { viewModel.activeOverlay = nil }}
-        )) {
-            if let activeOverlay = viewModel.activeOverlay {
-                viewModel.overlayContents(activeOverlay)
-            }
         }
         .environment(TimestampUpdater.timestamper(withInterval: 30))
     }
@@ -2324,10 +2337,10 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         return updatedPoll
     }
     
-    var containerOverlayBinding: Binding<MastodonTimelineOverlayView?> {
-        Binding<MastodonTimelineOverlayView?>(
+    var containerOverlayBinding: Binding<MastodonTimelineFadeInOverlay?> {
+        Binding<MastodonTimelineFadeInOverlay?>(
             get: { self.activeOverlay },
-            set: { newValue in self.activeOverlay = newValue }
+            set: { newValue in self.setActiveOverlay(newValue, animated: true) }
         )
     }
     
