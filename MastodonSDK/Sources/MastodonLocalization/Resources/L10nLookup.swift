@@ -78,6 +78,19 @@ public struct L10nLookup {
     }
     
     public struct Scene {
+        public struct Settings {
+            public struct Overview {
+                public static func loggedInAs(_ username: String)-> String {
+                    let result = tr("Localizable", "Scene.Settings.Overview.LoggedInAs", username)
+                    return result
+                }
+                
+                public static var accountSwitcherTip: String {
+                    let result = tr("Localizable", "L10nLookup.Scene.Settings.Overview.AccountSwitcherTip")
+                    return result
+                }
+            }
+        }
         
         public struct Notification {
             public struct GroupedNotificationDescription {

@@ -141,9 +141,12 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
                 aboutViewController.delegate = self
 
                 navigationController.pushViewController(aboutViewController, animated: true)
-            case .logout(_):
-                guard let user = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication else { return }
-                delegate?.logout(user, presentingFrom: self.navigationController)
+            case .loggedInAs(_):
+                guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
+                let accountListViewController = AccountListViewController()
+                let accountListViewModel = AccountListViewModel(authenticationBox: authBox)
+                accountListViewController.viewModel = accountListViewModel
+                navigationController.pushViewController(accountListViewController, animated: true)
             case .manageBetaFeatures:
                 let betaTestSettingsViewController = BetaTestSettingsViewController()
             

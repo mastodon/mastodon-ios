@@ -92423,6 +92423,18 @@
         }
       }
     },
+    "L10nLookup.Scene.Settings.Overview.AccountSwitcherTip" : {
+      "comment" : "This needs to fit on a single line as a subtitle in the settings screen",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Longpress avatar in toolbar to switch accounts"
+          }
+        }
+      }
+    },
     "plural.count.accounts_that_you_follow" : {
       "extractionState" : "migrated",
       "localizations" : {
@@ -269884,6 +269896,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "一般"
+          }
+        }
+      }
+    },
+    "Scene.Settings.Overview.LoggedInAs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logged in as %1$(username)@"
           }
         }
       }
