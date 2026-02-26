@@ -19,7 +19,7 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Mastodon"
           }
         },
@@ -37,7 +37,7 @@
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Mastodon"
           }
         },
@@ -61,7 +61,7 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Mastodon"
           }
         },
@@ -109,19 +109,19 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Mastodon"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Mastodon"
           }
         },
         "gd" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Mastodon"
           }
         },
@@ -175,7 +175,7 @@
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Mastodon"
           }
         },
@@ -217,13 +217,13 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Mastodon"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Mastodon"
           }
         },
@@ -235,7 +235,7 @@
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Mastodon"
           }
         },
@@ -265,7 +265,7 @@
         },
         "sq" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Mastodon"
           }
         },
@@ -283,7 +283,7 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Mastodon"
           }
         },
@@ -301,7 +301,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Mastodon"
           }
         },
@@ -420,7 +420,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nouvelle Publication"
+            "value" : "Nouveau message"
           }
         },
         "ga" : {
