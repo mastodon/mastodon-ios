@@ -2164,14 +2164,6 @@ public enum L10n {
         public static func charactersLeft(_ p1: Int) -> String {
           return L10n.tr("Localizable", "a11y.plural.count.characters_left", p1, fallback: "Plural format key: \"%#@character_count@\"")
         }
-        /// Plural format key: "Input limit exceeds %#@character_count@"
-        public static func inputLimitExceeds(_ p1: Int) -> String {
-          return L10n.tr("Localizable", "a11y.plural.count.input_limit_exceeds", p1, fallback: "Plural format key: \"Input limit exceeds %#@character_count@\"")
-        }
-        /// Plural format key: "Input limit remains %#@character_count@"
-        public static func inputLimitRemains(_ p1: Int) -> String {
-          return L10n.tr("Localizable", "a11y.plural.count.input_limit_remains", p1, fallback: "Plural format key: \"Input limit remains %#@character_count@\"")
-        }
         public enum Unread {
           /// Plural format key: "%#@notification_count_unread_notification@"
           public static func notification(_ p1: Int) -> String {
