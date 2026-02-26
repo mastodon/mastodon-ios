@@ -2379,7 +2379,7 @@
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Teksti tejkalon kufirin prej %s shenjash"
+            "value" : "Teksti tejkalon kufirin prej %#@character_count@ shenjash"
           },
           "substitutions" : {
             "character_count" : {
@@ -155395,7 +155395,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Følges af %(firstAccount) og %(secondAccount)@"
+            "value" : "Følges af %(firstAccount)@ og %(secondAccount)@"
           }
         },
         "de" : {
@@ -155407,7 +155407,7 @@
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ακολουθείται από %(firstAccount) και %(secondAccount)@"
+            "value" : "Ακολουθείται από %(firstAccount)@ και %(secondAccount)@"
           }
         },
         "en" : {
@@ -155998,7 +155998,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Jälgijaks %(firstAccount), %(secondAccount) ja veel %(otherCount) kasutajat"
+                  "value" : "Jälgijaks %(firstAccount)@, %(secondAccount)@ ja veel %(otherCount)lld kasutajat"
                 }
               }
             }
@@ -178464,7 +178464,7 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Thuairiscigh duine éigin %(postCount)ll post ó %(accountName)@."
+                  "value" : "Thuairiscigh duine éigin %(postCount)lld post ó %(accountName)@."
                 }
               },
               "other" : {
@@ -180586,7 +180586,7 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Thuairisc duine éigin gurbh as turscar a tháinig %(postCount)ll post ó %(accountName)@."
+                  "value" : "Thuairisc duine éigin gurbh as turscar a tháinig %(postCount)lld post ó %(accountName)@."
                 }
               },
               "other" : {
