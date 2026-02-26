@@ -179441,13 +179441,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Keegi andis teada, et %(postCount)lld postitus kasutajalt %(accountName)@ rikub reegleid."
+                  "value" : "Keegi andis teada, et %(postCount) postitus kasutajalt %(accountName) rikub reegleid."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Keegi andis teada, et %(postCount)lld postitust kasutajalt %(accountName)@ rikuvad reegleid."
+                  "value" : "Keegi andis teada, et %(postCount) postitust kasutajalt %(accountName) rikuvad reegleid."
                 }
               }
             }
@@ -179495,13 +179495,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Quelqu'un a signalé %(postCount)lld message de %(accountName)@ pour violation des règles."
+                  "value" : "Quelqu'un a signalé %(postCount)lld message de %(accountName) pour violation des règles."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Quelqu'un a signalé %(postCount)lld messages de %(accountName)@ pour violation des règles."
+                  "value" : "Quelqu'un a signalé %(postCount)lld messages de %(accountName) pour violation des règles."
                 }
               }
             }
@@ -180502,13 +180502,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Keegi andis teada, et %(postCount)lld postitus kasutajalt %(accountName)@ on spämm."
+                  "value" : "Keegi andis teada, et %(postCount) postitus kasutajalt %(accountName) on spämm."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Keegi andis teada, et %(postCount)lld postitust kasutajalt %(accountName)@ on spämm."
+                  "value" : "Keegi andis teada, et %(postCount) postitust kasutajalt %(accountName) on spämm."
                 }
               }
             }
@@ -180556,7 +180556,7 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Quelqu'un a signalé %(postCount)lld message de %(accountName)@ pour spam."
+                  "value" : "Quelqu'un a signalé %(postCount)lld message de %(accountName) pour spam."
                 }
               },
               "other" : {
