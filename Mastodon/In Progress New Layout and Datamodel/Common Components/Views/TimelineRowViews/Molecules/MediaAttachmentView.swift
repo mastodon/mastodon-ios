@@ -287,7 +287,11 @@ struct ImageGridView: View {
                         .clipped()
                         .accessibilityLabel(viewModel.altTextTranslations?[img.id] ?? img.basicData.altText ?? "")
                         .onTapGesture {
-                            containerOverlayBinding?.wrappedValue = .images(focusedImage: img.id, viewModel)
+                            viewModel.pagingViewModel.focusedPageIndex = viewModel.imageAttachments.firstIndex(where: { $0.id == img.id }) ?? 0
+                            viewModel.pagingViewModel.dismiss = {
+                                containerOverlayBinding?.wrappedValue = nil
+                            }
+                            containerOverlayBinding?.wrappedValue = .images(focusedImage: img.id, viewModel, viewModel.pagingViewModel)
                         }
                     if let altText = viewModel.altTextTranslations?[img.id] ?? img.basicData.altText {
                         AltTextButton(drawBorder: false, altText: altText, displayAltText: Binding<String?>(
@@ -316,7 +320,6 @@ struct ImageGridView: View {
         .cornerRadius(CornerRadius.standard)
         .animation(.easeInOut, value: contentConcealViewModel.currentMode.isShowingMedia)
     }
-    
 }
 
 struct BlurhashImageView: View {
@@ -368,6 +371,11 @@ class ImageGalleryViewModel {
     let altTextTranslations: [String : String]?
     var blurhashes = [ Mastodon.Entity.Attachment.ID : UIImage ]()
     let idToIndex: [ Mastodon.Entity.Attachment.ID : Int ]
+    
+    @ObservationIgnored
+    lazy var pagingViewModel: PageableZoomableViewModel = {
+        return PageableZoomableViewModel(pageCount: imageAttachments.count, focusedPage: 0, dismiss: {  })
+    }()
     
     init(imageAttachments: [MastodonImageAttachment], altTextTranslations: [String: String]?) {
         self.imageAttachments = imageAttachments
@@ -610,7 +618,9 @@ struct VideoPlayerView: View {
         .overlay {
             Button {
                 playerObserver.didPressPause()
-                containerOverlay?.wrappedValue = .video(media)
+                containerOverlay?.wrappedValue = .video(media, PageableZoomableViewModel(pageCount: 1, focusedPage: 0, dismiss: {
+                    containerOverlay?.wrappedValue = nil
+                }))
             } label: {
                 Rectangle().fill(.clear)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)

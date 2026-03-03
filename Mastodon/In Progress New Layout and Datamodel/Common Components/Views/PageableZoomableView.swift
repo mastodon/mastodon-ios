@@ -5,9 +5,9 @@ import MastodonSDK
 @MainActor
 @Observable class PageableZoomableViewModel {
     let pageCount: Int
-    let dismiss: ()->()
+    var dismiss: ()->()
     
-    private(set) var focusedPageIndex: Int = 0
+    var focusedPageIndex: Int = 0
     let maxZoom: CGFloat = 4
     let minZoom: CGFloat = 1
     
@@ -17,6 +17,7 @@ import MastodonSDK
     
     private var focusedPageLiveZoomScale: CGFloat = 1
     private var focusedPageLiveOffset: CGSize = .zero
+    public var focusedPageLiveZoomAnchor: UnitPoint?
     
     private var excessScrollDirection: Axis?
 
@@ -60,13 +61,14 @@ import MastodonSDK
             zoomScales[i] = clampZoom(scale)
         }
         for (i, offset) in internalOffsets.enumerated() {
-            internalOffsets[i] = clampOffset(i, proposedOffset: offset)
+            internalOffsets[i] = clampOffset(i, proposedOffset: offset, scale: zoomScales[i])
         }
     }
     
     private func resetLiveTransforms() {
         focusedPageLiveZoomScale = 1
         focusedPageLiveOffset = .zero
+        focusedPageLiveZoomAnchor = nil
         excessScrollDirection = nil
     }
     
@@ -78,28 +80,99 @@ import MastodonSDK
         }
     }
     
-    func liveUpdatePageContentsScale(_ index: Int) -> CGFloat {
+    func liveUpdatePageContentsAdditionalScale(_ index: Int) -> CGFloat {
+        return index == focusedPageIndex ? focusedPageLiveZoomScale : 1
+    }
+    
+    func restingPageContentsScale(_ index: Int) -> CGFloat {
+        return zoomScales[index]
+    }
+    
+    func liveUpdateScaleAnchor(_ index: Int) -> UnitPoint {
         if index == focusedPageIndex {
-            return zoomScales[index] * focusedPageLiveZoomScale
+            return focusedPageLiveZoomAnchor ?? .center
         } else {
-            return zoomScales[index]
+            return .center
         }
     }
     
-    func absorbLiveUpdateZoomScaleIntoFocusedPage(liveScale: CGFloat, gestureIsEnded: Bool) {
+    func absorbLiveUpdateZoomScaleIntoFocusedPage(liveScale: CGFloat, gestureAnchor: UnitPoint, currentOffset: CGSize, gestureIsEnded: Bool) {
         let proposedScale = liveScale * zoomScales[focusedPageIndex]
-        let clamped = clampZoom(proposedScale)
-        focusedPageLiveZoomScale = clamped / zoomScales[focusedPageIndex]
+        let clampedScale = clampZoom(proposedScale)
+        focusedPageLiveZoomScale = clampedScale / zoomScales[focusedPageIndex]
         
         if gestureIsEnded  {
-            zoomScales[focusedPageIndex] = clamped
+            // adjust the offset to absorb the shift caused by the scale
+            let anchorRespectingOffset = focusedPageOffsetAbsorbing(additionalScale: focusedPageLiveZoomScale, atGestureViewAnchor: gestureAnchor)
+            
+            zoomScales[focusedPageIndex] = clampedScale
             resetLiveTransforms()
+            let clampedOffset = clampOffset(focusedPageIndex, proposedOffset: anchorRespectingOffset, scale: clampedScale)
+            internalOffsets[focusedPageIndex] = anchorRespectingOffset
+            withAnimation {
+                internalOffsets[focusedPageIndex] = clampedOffset
+            }
+        } else {
+            // set the anchor of the live scale effect
+            focusedPageLiveZoomAnchor = focusedPageContentAnchorPoint(forGestureViewAnchorPoint: gestureAnchor)
         }
     }
     
-    func absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: CGSize, currentOffset: CGSize, gestureIsEnded: Bool) -> CGSize {
-        let proposedOffset = liveOffset + internalOffsets[focusedPageIndex]
-        let clamped = clampOffset(focusedPageIndex, proposedOffset: proposedOffset)
+    func focusedPageOffsetAbsorbing(additionalScale: CGFloat, atGestureViewAnchor gestureAnchor: UnitPoint) -> CGSize {
+        // find the actual location of the anchor in the current scaled content view
+        let anchorLocationInScaledContentView = locationInScaledContentView(ofGestureAnchorPoint: gestureAnchor)
+        // find the distance from that location to the center of the current scaled content view
+        let currentScale = zoomScales[focusedPageIndex]
+        let scaledContentViewSize = focusedContentSize(scale: currentScale)
+        let scaledContentViewCenter = CGPoint(x: scaledContentViewSize.width / 2.0, y: scaledContentViewSize.height / 2.0)
+        let anchorDifferenceFromCenter = anchorLocationInScaledContentView - scaledContentViewCenter // this is the distance from the anchor to the center in the previous scale, before any new zoom happened
+        let additionallyScaledDifferenceFromCenter = anchorDifferenceFromCenter * additionalScale // zooming expanded (or contracted) this distance
+        let newCenter = anchorLocationInScaledContentView - additionallyScaledDifferenceFromCenter  // add that scaled distance to the anchor location
+        let offsetCausedByAdditionalScale = newCenter - scaledContentViewCenter // how much did the center shift from itself due to the scale?
+        let descaledOffsetCausedByAdditionalScale = CGPoint(x: offsetCausedByAdditionalScale.dx / (currentScale * additionalScale), y: offsetCausedByAdditionalScale.dy / (currentScale * additionalScale))
+        let currentOffset = internalOffsets[focusedPageIndex]
+        let combinedOffset = CGSize(width: currentOffset.width + descaledOffsetCausedByAdditionalScale.x, height: currentOffset.height + descaledOffsetCausedByAdditionalScale.y)
+        return combinedOffset
+    }
+    
+    func scaledGestureViewSize(_ scale: CGFloat) -> CGSize {
+        CGSize(width: pagingPageSize.width * scale, height: pagingPageSize.height * scale)
+    }
+    
+    /// The gesture view and content view are in a ZStack with center alignment.
+    /// At rest, the anchor of the content view's scale is also center-anchored, and the gesture view and content view have the same scale applied to them.
+    func locationInScaledContentView(ofGestureAnchorPoint gestureAnchor: UnitPoint) -> CGPoint {
+        let currentScale = zoomScales[focusedPageIndex]
+        let gestureViewSize = scaledGestureViewSize(currentScale)
+        let anchorLocationInGestureView = CGPoint(x: gestureViewSize.width * gestureAnchor.x, y: gestureViewSize.height * gestureAnchor.y)
+        let gestureViewCenter = CGPoint(x: gestureViewSize.width / 2.0, y: gestureViewSize.height / 2.0)
+        let gestureViewDiffAnchorToCenter = anchorLocationInGestureView - gestureViewCenter
+        let contentViewSize = focusedContentSize(scale: currentScale)
+        let contentViewCenter = CGPoint(x: contentViewSize.width / 2.0, y: contentViewSize.height / 2.0)
+        let currentOffset = internalOffsets[focusedPageIndex] // not scaled
+        let actualAnchorOffset = CGSize(width: gestureViewDiffAnchorToCenter.dx - currentOffset.width, height: gestureViewDiffAnchorToCenter.dy - currentOffset.height)
+        let anchorLocationInScaledContentView = CGPoint(x: contentViewCenter.x + actualAnchorOffset.width, y: contentViewCenter.y + actualAnchorOffset.height)
+        return anchorLocationInScaledContentView
+    }
+
+    func focusedPageContentAnchorPoint(forGestureViewAnchorPoint gestureAnchor: UnitPoint) -> UnitPoint {
+        let anchorLocationInScaledContentView = locationInScaledContentView(ofGestureAnchorPoint: gestureAnchor)
+        let scaledContentViewSize = focusedContentSize(scale: zoomScales[focusedPageIndex])
+        let anchor = UnitPoint(x: anchorLocationInScaledContentView.x / scaledContentViewSize.width, y: anchorLocationInScaledContentView.y / scaledContentViewSize.height)
+        return anchor
+    }
+    
+    func focusedContentSize(scale: CGFloat) -> CGSize {
+        let unzoomedSize = contentsFittingSizes[focusedPageIndex]
+        let contentsSize = CGSize(width: unzoomedSize.width * scale, height: unzoomedSize.height * scale)
+        return contentsSize
+    }
+
+    func absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: CGSize, currentPagingOffset: CGSize, gestureIsEnded: Bool) -> CGSize {
+        let currentScale = zoomScales[focusedPageIndex]
+        let scaledLiveOffset = CGSize(width: liveOffset.width / currentScale, height: liveOffset.height / currentScale)
+        let proposedOffset = scaledLiveOffset + internalOffsets[focusedPageIndex]
+        let clamped = clampOffset(focusedPageIndex, proposedOffset: proposedOffset, scale: currentScale)
         let excess = proposedOffset - clamped
         
         if excessScrollDirection == nil {
@@ -122,7 +195,7 @@ import MastodonSDK
             internalOffsets[focusedPageIndex] = clamped
             switch excessScrollDirection {
             case .horizontal:
-                let (newFocusedPage, newPagedOffset) = restingPagedOffset(unidirectionalExcessOffset + currentOffset)
+                let (newFocusedPage, newPagedOffset) = restingPagedOffset(unidirectionalExcessOffset + currentPagingOffset)
                 resetLiveTransforms()
                 focus(page: newFocusedPage)
                 return newPagedOffset
@@ -146,28 +219,32 @@ import MastodonSDK
         return (Int(-widthsOffset), CGSize(width: pagingPageSize.width * widthsOffset, height: 0))
     }
     
-    func clampOffset(_ index: Int, proposedOffset: CGSize) -> CGSize {
+    func clampOffset(_ index: Int, proposedOffset: CGSize, scale: CGFloat) -> CGSize {
         let baseSize = contentsFittingSizes[index]
-        let scaledSize = CGSize(width: baseSize.width * zoomScales[index], height: baseSize.height * zoomScales[index])
+        let scaledSize = CGSize(width: baseSize.width * scale, height: baseSize.height * scale)
         let contentPageSize = contentPageSizes[index]
         
         let maxX: CGFloat
         let maxY: CGFloat
         let minX: CGFloat
         let minY: CGFloat
-        if scaledSize.width < contentPageSize.width {
-            maxX = (contentPageSize.width - scaledSize.width) / 2.0
-            minX = maxX
-        } else {
+        if scaledSize.width <= contentPageSize.width {
+            // scaled width is smaller than or equal to page width; do not allow any offset
             maxX = 0
-            minX = contentPageSize.width - scaledSize.width
-        }
-        if scaledSize.height < contentPageSize.height {
-            maxY = (contentPageSize.height - scaledSize.height) / 2.0
-            minY = maxY
+            minX = 0
         } else {
+            // scaled width is larger than page width; allow scrolling side to side enough to show the hidden content
+            maxX = (scaledSize.width - contentPageSize.width) * 0.5 / scale
+            minX = (contentPageSize.width - scaledSize.width) * 0.5 / scale
+        }
+        if scaledSize.height <= contentPageSize.height {
+            // scaled height is smaller than or equal to page height; do not allow any offset
             maxY = 0
-            minY = contentPageSize.height - scaledSize.height
+            minY = 0
+        } else {
+            // scaled height is larger than page height; allow scrolling up and down enough to show the hidden content
+            maxY = (scaledSize.height - contentPageSize.height) * 0.5 / scale
+            minY = (contentPageSize.height - scaledSize.height) * 0.5 / scale
         }
         
         let maxOffset = CGSize(width: maxX, height: maxY)
@@ -213,7 +290,7 @@ struct PageableZoomableView<Content: View, Controls: View>: View {
                     Color.clear
                         .contentShape(Rectangle())
                         .frame(width: geo.size.width, height: geo.size.height)
-                        .scaleEffect(pageableZoomableViewModel.liveUpdatePageContentsScale(pageableZoomableViewModel.focusedPageIndex), anchor: .topLeading)
+                        .scaleEffect(pageableZoomableViewModel.restingPageContentsScale(pageableZoomableViewModel.focusedPageIndex), anchor: .center) // applying the same scale to this view as to the content view makes the zooming logic easier
                         .gesture(zoomAndPan) // putting the gesture on a stationary view keeps the motion smooth
                     
                     controlsView // in order to receive touch events, the controls have to be above the clear overlay that holds the zoomAndPan gesture
@@ -231,18 +308,18 @@ struct PageableZoomableView<Content: View, Controls: View>: View {
     
     var zoomAndPan: some Gesture {
         SimultaneousGesture(
-            MagnificationGesture()
+            MagnifyGesture()
                 .updating($liveScale) { value, state, _ in
-                    state = value
-                    pageableZoomableViewModel.absorbLiveUpdateZoomScaleIntoFocusedPage(liveScale: value, gestureIsEnded: false)
+                    state = value.magnification
+                    pageableZoomableViewModel.absorbLiveUpdateZoomScaleIntoFocusedPage(liveScale: value.magnification, gestureAnchor: value.startAnchor, currentOffset: offset, gestureIsEnded: false)
                 }
                 .onEnded { value in
-                    pageableZoomableViewModel.absorbLiveUpdateZoomScaleIntoFocusedPage(liveScale: value, gestureIsEnded: true)
+                    pageableZoomableViewModel.absorbLiveUpdateZoomScaleIntoFocusedPage(liveScale: value.magnification, gestureAnchor: value.startAnchor, currentOffset: offset, gestureIsEnded: true)
                 },
             
             DragGesture()
                 .updating($liveOffset) { value, state, _ in
-                    let excessOffset = pageableZoomableViewModel.absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: value.translation, currentOffset: offset, gestureIsEnded: false)
+                    let excessOffset = pageableZoomableViewModel.absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: value.translation, currentPagingOffset: offset, gestureIsEnded: false)
                     state = excessOffset
                     lastLiveOffset = excessOffset
                 }
@@ -250,7 +327,7 @@ struct PageableZoomableView<Content: View, Controls: View>: View {
                     offset = offset + lastLiveOffset
                     lastLiveOffset = .zero
                     withAnimation {
-                        let excessOffset = pageableZoomableViewModel.absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: value.translation, currentOffset: offset, gestureIsEnded: true)
+                        let excessOffset = pageableZoomableViewModel.absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: value.translation, currentPagingOffset: offset, gestureIsEnded: true)
                         if abs(excessOffset.height) > (pageableZoomableViewModel.pagingPageSize.height / 4.0) {
                             pageableZoomableViewModel.dismiss()
                         } else {
@@ -277,22 +354,22 @@ struct ZoomableContentView<Content: View>: View {
     
     @State private var fittingSize: CGSize = .zero
     
-    
     var body: some View {
         ZStack {
             Color.dimmingBackground
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             GeometryReader { geo in
-                ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
+                ZStack(alignment: .center) {
                     Color.clear
                         .frame(width: geo.size.width, height: geo.size.height)
                     
                     contentView
                         .frame(width: fittingSize.width, height: fittingSize.height)
-                        .scaleEffect(pageableZoomableViewModel.liveUpdatePageContentsScale(index),
-                                     anchor: .topLeading
-                        )
                         .offset(pageableZoomableViewModel.liveUpdatePageContentsOffset(index))
+                        .scaleEffect(pageableZoomableViewModel.restingPageContentsScale(index))
+                        .scaleEffect(pageableZoomableViewModel.liveUpdatePageContentsAdditionalScale(index),
+                                     anchor: pageableZoomableViewModel.liveUpdateScaleAnchor(index)
+                        )
                         .preference(key: SizePreferenceKey.self,
                                     value: geo.size
                         )
@@ -320,8 +397,8 @@ struct ZoomableContentView<Content: View>: View {
         let contentAspect = contentFullSize.aspectRatio
         if contentAspect < containerSize.aspectRatio {
             // image is taller.  make the height fit.
-            return CGSize(width: containerSize.width * contentAspect, height: containerSize.height)
-            return CGSize(width: containerSize.width / contentAspect, height: containerSize.height)
+            let scale = containerSize.height / contentFullSize.height
+            return CGSize(width: contentFullSize.width * scale, height: containerSize.height)
         } else {
             // image is squatter.  make the width fit.
             let scale = containerSize.width / contentFullSize.width
