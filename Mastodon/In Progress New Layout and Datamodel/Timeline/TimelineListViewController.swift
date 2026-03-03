@@ -643,8 +643,8 @@ extension MastodonPostMenuAction {
 }
 
 enum MastodonTimelineFadeInOverlay {
-    case images(focusedImage: Mastodon.Entity.Attachment.ID, ImageGalleryViewModel)
-    case video(MediaAttachment)
+    case images(focusedImage: Mastodon.Entity.Attachment.ID, ImageGalleryViewModel, PageableZoomableViewModel)
+    case video(MediaAttachment, PageableZoomableViewModel)
     case altText(String)
 }
 
@@ -817,16 +817,16 @@ enum MastodonTimelineSheet {
                 }
             ))
             
-        case .images(let focusedImage, let viewModel):
-            if let focusedIndex = viewModel.imageAttachments.firstIndex(where: { $0.id == focusedImage }) {
+        case .images(let focusedImage, let galleryViewModel, let pagingViewModel):
+            if let focusedIndex = galleryViewModel.imageAttachments.firstIndex(where: { $0.id == focusedImage }) {
                 FullSizeImageGallery()
-                    .environment(viewModel)
-                    .environment(PageableZoomableViewModel(pageCount: viewModel.imageAttachments.count, focusedPage: focusedIndex, dismiss: { self.setActiveOverlay(nil, animated: true) }))
+                    .environment(galleryViewModel)
+                    .environment(pagingViewModel)
                     .environment(ContentConcealViewModel.alwaysShow)
             }
-        case .video(let attachment):
+        case .video(let attachment, let pagingViewModel):
             FullSizeVideoOverlayView(attachment: attachment)
-                .environment(PageableZoomableViewModel(pageCount: 1, focusedPage: 0, dismiss: { self.setActiveOverlay(nil, animated: true) }))
+                .environment(pagingViewModel)
                 .environment(ContentConcealViewModel.alwaysShow)
         }
     }
