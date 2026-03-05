@@ -16,31 +16,37 @@ struct AccountStatsView: View {
     let onTapOfMetric: ((StatType)->())?
     
     var body: some View {
-        HStack(spacing: doublePadding) {
-            ForEach(stats(forDisplayType: displayType), id: \.self) { stat in
-                statsView(stat)
-                    .fixedSize()
-                    .onTapGesture {
-                        onTapOfMetric?(stat)
-                    }
+        switch displayType {
+        case .largeStacked:
+            HStack(spacing: doublePadding) {
+                contents
             }
-            switch displayType {
-            case .largeStacked:
-                EmptyView()
-            case .smallInline(let joinedDate):
-                joinedOn(joinedDate)
-                    .fixedSize()
+            .font(.caption)
+        case .smallInline:
+            FlowLayout(maxItemWidth: 300, interItemSpacing: 20) {
+                contents
             }
+            .font(.caption)
+            .fixedSize(horizontal: false, vertical: true)
         }
-        .font(.caption)
+    }
+    
+    @ViewBuilder var contents: some View {
+        ForEach(stats(forDisplayType: displayType), id: \.self) { stat in
+            statsView(stat)
+                .fixedSize()
+                .onTapGesture {
+                    onTapOfMetric?(stat)
+                }
+        }
     }
     
     func stats(forDisplayType displayType: DisplayType) -> [StatType] {
         switch displayType {
         case .largeStacked:
-            StatType.allCases
+            [.postCount, .followersCount, .followingCount]
         case .smallInline:
-            [.followersCount, .followingCount]
+            StatType.allCases
         }
     }
     
@@ -48,7 +54,7 @@ struct AccountStatsView: View {
         switch displayType {
         case .largeStacked:
             VStack(spacing: 0) {
-                Text(MastodonMetricFormatter().string(from: statCount(stat)) ?? "-")
+                Text(statValue(stat))
                     .font(.headline)
                     .fontWeight(.semibold)
                 Text(stat.label)
@@ -56,24 +62,13 @@ struct AccountStatsView: View {
                     .lineLimit(1)
             }
         case .smallInline:
-            HStack(spacing: tinySpacing) {
-                Text(MastodonMetricFormatter().string(from: statCount(stat)) ?? "-")
-                    .fontWeight(.semibold)
-                    .lineLimit(1)
+            VStack(alignment: .leading, spacing: 0) {
                 Text(stat.label)
                     .lineLimit(1)
-            }
-        }
-    }
-    
-    @ViewBuilder func joinedOn(_ joinedDate: Date?) -> some View {
-        if let joinedDate {
-            HStack(spacing: 0) {
-                Text(L10n.Scene.Profile.Fields.joined)
-                    .lineLimit(1)
-                Text(" \(formattedJoinedDate(joinedDate))")
-                    .lineLimit(1)
+                    .foregroundStyle(.secondary)
+                Text(statValue(stat))
                     .fontWeight(.semibold)
+                    .lineLimit(1)
             }
         }
     }
@@ -86,31 +81,50 @@ struct AccountStatsView: View {
         return formatter.string(from: joinedDate)
     }
     
-    func statCount(_ stat: StatType) -> Int {
-        guard let accountMetrics else { return 0 }
+    func statValue(_ stat: StatType) -> String {
+        let unknownValue = "-"
+        guard let accountMetrics else { return unknownValue }
+        
+        let count: Int
         switch stat {
         case .postCount:
-            return accountMetrics.postCount
+            count = accountMetrics.postCount
         case .followingCount:
-            return accountMetrics.followingCount
+            count = accountMetrics.followingCount
         case .followersCount:
-            return accountMetrics.followersCount
+            count = accountMetrics.followersCount
+        case .joinedOn:
+            switch displayType {
+            case .largeStacked:
+                return unknownValue
+            case .smallInline(let joinedOn):
+                if let joinedOn {
+                    return formattedJoinedDate(joinedOn)
+                } else {
+                    return unknownValue
+                }
+            }
         }
+        return MastodonMetricFormatter().string(from: count) ?? unknownValue
     }
     
     enum StatType: CaseIterable {
         case postCount
-        case followingCount
         case followersCount
+        case followingCount
+        case joinedOn
         
         var label: String {
+            // TODO: localization
             switch self {
             case .postCount:
-                L10n.Scene.Profile.Dashboard.otherPosts
+                "Posts"
             case .followingCount:
-                L10n.Scene.Profile.Dashboard.otherFollowing
+                "Following"
             case .followersCount:
-                L10n.Scene.Profile.Dashboard.otherFollowers
+                "Followers"
+            case .joinedOn:
+                "Joined"
             }
         }
     }

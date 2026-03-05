@@ -110,11 +110,10 @@ struct ProfileView: View {
                         Spacer()
                             .frame(height: doublePadding)
 
-                        HStack {
                             AccountStatsView(displayType: .smallInline(joinedOn: viewModel.account?.metadata.createdAt), accountMetrics: viewModel.account?.metrics) { stat in
                                 guard let accountID = viewModel.account?.id else { return }
                                 switch stat {
-                                case .postCount:
+                                case .postCount, .joinedOn:
                                     break
                                 case .followersCount:
                                     if let count = viewModel.account?.metrics.followersCount, count > 0 {
@@ -127,10 +126,8 @@ struct ProfileView: View {
                                 }
                             }
                             .padding(.leading, doublePadding)
-                            Spacer()
-                                .frame(maxWidth: .infinity)
-                        }
-                        .frame(width: min(maxFeedContentWidth, geo.size.width))
+                        .frame(width: min(maxFeedContentWidth, geo.size.width), alignment: .leading)
+                        .fixedSize(horizontal: false, vertical: true)
                         
                         Spacer()
                             .frame(height: doublePadding)
