@@ -265,11 +265,11 @@ extension Mastodon.API {
     
     static func decodeEmpty(from data: Data, response: URLResponse) throws {
         // decode error if possible
-        guard let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode != 200 else {
+        guard let httpURLResponse = response as? HTTPURLResponse else {
             throw Mastodon.API.Error(httpResponseStatus: HTTPResponseStatus(statusCode: 400), mastodonError: nil)
         }
         
-        guard httpURLResponse.statusCode != 204 else { /*intentionally empty response*/ return }
+        guard httpURLResponse.statusCode != 200 && httpURLResponse.statusCode != 204 else { /*intentionally empty response*/ return }
         
         let httpResponseStatus = HTTPResponseStatus(statusCode: httpURLResponse.statusCode)
         if let error = try? Mastodon.API.decoder.decode(Mastodon.Entity.Error.self, from: data) {

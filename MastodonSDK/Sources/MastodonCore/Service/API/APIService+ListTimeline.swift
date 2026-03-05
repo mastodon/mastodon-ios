@@ -24,3 +24,33 @@ extension APIService {
         return response
     }
 }
+
+extension APIService {
+    public func addAccountToList(
+        listID: Mastodon.Entity.List.ID,
+        accountID: Mastodon.Entity.Account.ID,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws {
+        try await Mastodon.API.Lists.addAccountToList(
+            listId: listID,
+            accountID: accountID,
+            session: session,
+            domain: authenticationBox.domain,
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+    }
+    
+    public func removeAccountFromList(
+        listID: Mastodon.Entity.List.ID,
+        accountID: Mastodon.Entity.Account.ID,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws {
+        try await Mastodon.API.Lists.deleteAccountFromList(
+            listId: listID,
+            accountID: accountID,
+            session: session,
+            domain: authenticationBox.domain,
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+    }
+}

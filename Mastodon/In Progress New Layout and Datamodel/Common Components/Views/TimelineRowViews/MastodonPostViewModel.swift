@@ -51,7 +51,7 @@ struct PrecalculatedHeight {
         }
     }
     
-    private let myRelationshipToAuthorViewModel = RelationshipViewModel()
+    let myRelationshipToAuthorViewModel = RelationshipViewModel()
     private(set) var myRelationshipToAuthor: MastodonAccount.Relationship?
     var isQuotingMe: Bool {
         guard let quoted = fullQuotedPostViewModel else { return false }

@@ -46,40 +46,40 @@ enum TimelineViewType {
 
 extension TimelineViewType {
     @MainActor
-    func timelineViewModel(asyncRefreshViewModel: AsyncRefreshViewModel) -> TimelineListViewModel {
+    func timelineViewModel(asyncRefreshViewModel: AsyncRefreshViewModel, navigator: MastodonNavigationRouter) -> TimelineListViewModel {
         switch self {
         case .home:
-            TimelineListViewModel(timeline: .homeTimeline, asyncRefreshViewModel: asyncRefreshViewModel)
+            TimelineListViewModel(timeline: .homeTimeline, navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .notifications(let scope):
-            TimelineListViewModel(timeline: .notifications(scope: scope), asyncRefreshViewModel: asyncRefreshViewModel)
+            TimelineListViewModel(timeline: .notifications(scope: scope), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .discover(let type):
-            TimelineListViewModel(timeline: .discover(type), asyncRefreshViewModel: asyncRefreshViewModel)
+            TimelineListViewModel(timeline: .discover(type), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .search(let searchText, let scope):
-            TimelineListViewModel(timeline: .search(searchText, scope), asyncRefreshViewModel: asyncRefreshViewModel)
+            TimelineListViewModel(timeline: .search(searchText, scope), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .profilePosts(_, let user, let queryFilter):
-            TimelineListViewModel(timeline: .userPosts(userID: user, queryFilter: queryFilter), asyncRefreshViewModel: asyncRefreshViewModel)
+            TimelineListViewModel(timeline: .userPosts(userID: user, queryFilter: queryFilter), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .thread(let root):
-            TimelineListViewModel(timeline: .thread(root: root), asyncRefreshViewModel: asyncRefreshViewModel)
+            TimelineListViewModel(timeline: .thread(root: root), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .remoteThread(let remoteThreadType):
-            TimelineListViewModel(timeline: .remoteThread(remoteType: remoteThreadType), asyncRefreshViewModel: asyncRefreshViewModel)
+            TimelineListViewModel(timeline: .remoteThread(remoteType: remoteThreadType), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .followers(let followedAccount):
-            TimelineListViewModel(timeline: .followers(ofUserId: followedAccount), asyncRefreshViewModel: asyncRefreshViewModel)
+            TimelineListViewModel(timeline: .followers(ofUserId: followedAccount), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .accountsFollowed(let followingAccount):
-            TimelineListViewModel(timeline: .accountsFollowed(byUserId: followingAccount), asyncRefreshViewModel: asyncRefreshViewModel)
+            TimelineListViewModel(timeline: .accountsFollowed(byUserId: followingAccount), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .familiarFollowers(_, let premadeViewModel):
             premadeViewModel
         case .myFollowedHashtags:
-            TimelineListViewModel(timeline: .myFollowedHashtags, asyncRefreshViewModel: asyncRefreshViewModel)
+            TimelineListViewModel(timeline: .myFollowedHashtags, navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .myBookmarks:
-            TimelineListViewModel(timeline: .myBookmarks, asyncRefreshViewModel: asyncRefreshViewModel)
+            TimelineListViewModel(timeline: .myBookmarks, navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .myFavorites:
-            TimelineListViewModel(timeline: .myFavorites, asyncRefreshViewModel: asyncRefreshViewModel)
+            TimelineListViewModel(timeline: .myFavorites, navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .hashtag(let tag):
-            TimelineListViewModel(timeline: .hashtag(tag, includeHeader: true), asyncRefreshViewModel: asyncRefreshViewModel)
+            TimelineListViewModel(timeline: .hashtag(tag, includeHeader: true), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .whoFavourited(let statusID):
-            TimelineListViewModel(timeline: .whoFavourited(actionableStatusID: statusID), asyncRefreshViewModel: asyncRefreshViewModel)
+            TimelineListViewModel(timeline: .whoFavourited(actionableStatusID: statusID), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .whoBoosted(let statusID):
-            TimelineListViewModel(timeline: .whoBoosted(actionableStatusID: statusID), asyncRefreshViewModel: asyncRefreshViewModel)
+            TimelineListViewModel(timeline: .whoBoosted(actionableStatusID: statusID), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         }
     }
 }
@@ -88,6 +88,7 @@ class TimelineListViewController: UIHostingController<AnyView>
 {
     public let type: TimelineViewType
     private let viewModel: TimelineListViewModel
+    private let navigator: MastodonNavigationRouter
     private let asyncRefreshViewModel = AsyncRefreshViewModel()
     private let nestedScrollViewModel = NestedScrollInteractionViewModel()
     private var navigationFlow: NavigationFlow?
@@ -95,7 +96,8 @@ class TimelineListViewController: UIHostingController<AnyView>
     
     init(_ type: TimelineViewType, navigator: MastodonNavigationRouter) {
         self.type = type
-        self.viewModel = type.timelineViewModel(asyncRefreshViewModel: self.asyncRefreshViewModel)
+        self.navigator = navigator
+        self.viewModel = type.timelineViewModel(asyncRefreshViewModel: self.asyncRefreshViewModel, navigator: navigator)
         let root = TimelineListView()
             .environment(navigator)
             .environment(viewModel)
@@ -207,7 +209,7 @@ class TimelineListViewController: UIHostingController<AnyView>
         }()
         
         button.showsMenuAsPrimaryAction = true
-        button.menu = generateTimelineSelectorMenu()
+        button.menu = generateTimelineSelectorMenu(navigator: navigator)
         return button
     }()
     
@@ -272,32 +274,32 @@ extension TimelineListViewController {
     }
     
     @MainActor
-    private func generateTimelineSelectorMenu() -> UIMenu {
+    private func generateTimelineSelectorMenu(navigator: MastodonNavigationRouter) -> UIMenu {
         let showFollowingAction = UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.following, image: .init(systemName: "house")) { [weak self] _ in
             guard let self else { return }
             
-            viewModel.timeline = .homeTimeline
+            viewModel.setTimeline(.homeTimeline, navigator: navigator)
             self.timelineSelectorButton.setAttributedTitle(
-                .init(string: L10n.Scene.HomeTimeline.TimelineMenu.following, attributes: [
+                NSAttributedString(string: L10n.Scene.HomeTimeline.TimelineMenu.following, attributes: [
                     .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
                 ]),
-                for: .normal)
+                for: UIControl.State.normal)
             
             self.timelineSelectorButton.sizeToFit()
-            self.timelineSelectorButton.menu = self.generateTimelineSelectorMenu()
+            self.timelineSelectorButton.menu = self.generateTimelineSelectorMenu(navigator: navigator)
         }
         
         let showLocalTimelineAction = UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.localCommunity, image: .init(systemName: "building.2")) { [weak self] action in
             guard let self else { return }
             
-            viewModel.timeline = .local
+            viewModel.setTimeline(.local, navigator: navigator)
             timelineSelectorButton.setAttributedTitle(
                 .init(string: L10n.Scene.HomeTimeline.TimelineMenu.localCommunity, attributes: [
                     .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
                 ]),
                 for: .normal)
             timelineSelectorButton.sizeToFit()
-            timelineSelectorButton.menu = generateTimelineSelectorMenu()
+            timelineSelectorButton.menu = generateTimelineSelectorMenu(navigator: navigator)
         }
         
         switch viewModel.timeline {
@@ -336,14 +338,14 @@ extension TimelineListViewController {
                 }).map { entry in
                     return LabeledAction(title: entry.title, image: nil, handler: { [weak self] in
                         guard let self else { return }
-                        viewModel.timeline = .list(entry.id)
+                        viewModel.setTimeline(.list(entry.id), navigator: navigator)
                         timelineSelectorButton.setAttributedTitle(
                             .init(string: entry.title, attributes: [
                                 .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
                             ]),
                             for: .normal)
                         timelineSelectorButton.sizeToFit()
-                        timelineSelectorButton.menu = generateTimelineSelectorMenu()
+                        timelineSelectorButton.menu = generateTimelineSelectorMenu(navigator: navigator)
                     }).menuElement
                 }
                 
@@ -380,14 +382,14 @@ extension TimelineListViewController {
                     let entryName = "#\(entry.name)"
                     return LabeledAction(title: entryName, image: nil, handler: { [weak self] in
                         guard let self else { return }
-                        viewModel.timeline = .hashtag(entry, includeHeader: false)
+                        viewModel.setTimeline(.hashtag(entry, includeHeader: false), navigator: navigator)
                         timelineSelectorButton.setAttributedTitle(
                             .init(string: entryName, attributes: [
                                 .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
                             ]),
                             for: .normal)
                         timelineSelectorButton.sizeToFit()
-                        timelineSelectorButton.menu = generateTimelineSelectorMenu()
+                        timelineSelectorButton.menu = generateTimelineSelectorMenu(navigator: navigator)
                     }).menuElement
                 }
                 
@@ -424,7 +426,7 @@ extension TimelineListViewController {
                 do {
                     try await self?.acceptNotificationRequest(request)
                 } catch {
-                    self?.viewModel.didReceiveError(error)
+                    self?.navigator.didReceiveError(error)
                 }
             }
         }
@@ -434,7 +436,7 @@ extension TimelineListViewController {
                 do {
                     try await self?.rejectNotificationRequest(request)
                 } catch {
-                    self?.viewModel.didReceiveError(error)
+                    self?.navigator.didReceiveError(error)
                 }
             }
         }
@@ -506,7 +508,7 @@ extension TimelineListViewController {
         case .notifications(let scope):
             if scope != newScope {
                 viewModel.resetToUntrackedAfterDelay(from: viewModel.loadingState)
-                viewModel.timeline = .notifications(scope: newScope)
+                viewModel.setTimeline(.notifications(scope: newScope), navigator: navigator)
             }
         default:
             break
@@ -641,14 +643,15 @@ extension MastodonPostMenuAction {
 }
 
 enum MastodonTimelineFadeInOverlay {
-    case images(focusedImage: Mastodon.Entity.Attachment.ID, ImageGalleryViewModel, PageableZoomableViewModel)
-    case video(MediaAttachment, PageableZoomableViewModel)
+    case images(focusedImage: Mastodon.Entity.Attachment.ID, ImageGalleryViewModel)
+    case video(MediaAttachment)
     case altText(String)
 }
 
 enum MastodonTimelineSheet {
     case postInteractionSettingsEdit(PostInteractionSettingsViewModel)
     case boostOrQuoteDialog(MastodonPostViewModel)
+    case manageListMembership(MastodonAccount)
 }
 
 @MainActor
@@ -738,23 +741,6 @@ enum MastodonTimelineSheet {
         FilteredNotificationsRowView.ViewModel(policy: nil)
     var needsReloadOnNextAppear = false
     
-    // MARK - Alerts
-    var errorsWaitingToDisplay = [Error]()
-    var activeAlert: MastodonPostMenuAction.AlertType = .noAlert {
-        didSet {
-            displayNextErrorIfPossible()
-        }
-    }
-    var alertIsPresented: Binding<Bool> {
-        Binding(get: { [weak self] in
-            return self?.activeAlert.shouldBePresented ?? false
-        }, set: { [weak self] isPresenting in
-            if !isPresenting {
-                self?.activeAlert = .noAlert
-            }
-        })
-    }
-    
     // MARK - Overlays
     var hasActiveOverlay: Bool {
         activeOverlay != nil
@@ -831,16 +817,16 @@ enum MastodonTimelineSheet {
                 }
             ))
             
-        case .images(let focusedImage, let galleryViewModel, let pagingViewModel):
-            if let focusedIndex = galleryViewModel.imageAttachments.firstIndex(where: { $0.id == focusedImage }) {
+        case .images(let focusedImage, let viewModel):
+            if let focusedIndex = viewModel.imageAttachments.firstIndex(where: { $0.id == focusedImage }) {
                 FullSizeImageGallery()
-                    .environment(galleryViewModel)
-                    .environment(pagingViewModel)
+                    .environment(viewModel)
+                    .environment(PageableZoomableViewModel(pageCount: viewModel.imageAttachments.count, focusedPage: focusedIndex, dismiss: { self.setActiveOverlay(nil, animated: true) }))
                     .environment(ContentConcealViewModel.alwaysShow)
             }
-        case .video(let attachment, let pagingViewModel):
+        case .video(let attachment):
             FullSizeVideoOverlayView(attachment: attachment)
-                .environment(pagingViewModel)
+                .environment(PageableZoomableViewModel(pageCount: 1, focusedPage: 0, dismiss: { self.setActiveOverlay(nil, animated: true) }))
                 .environment(ContentConcealViewModel.alwaysShow)
         }
     }
@@ -857,7 +843,7 @@ enum MastodonTimelineSheet {
                             self?.clearPendingActions(navigator)
                         } catch {
                             self?.clearPendingActions(navigator)
-                            self?.didReceiveError(error)
+                            navigator.didReceiveError(error)
                         }
                     }
                 } else {
@@ -872,6 +858,10 @@ enum MastodonTimelineSheet {
             BoostOrQuoteDialog(actionHandler: self)
                 .environment(postViewModel)
                 .presentationDetents([.fraction(0.3), .medium, .large])
+        case .manageListMembership(let account):
+            let viewModel = MyListsManagementViewModel(account)
+            ManageListMembershipView()
+                .environment(viewModel)
         }
     }
     
@@ -974,23 +964,26 @@ enum MastodonTimelineSheet {
         }
     }
     
+    private var _timeline: MastodonTimelineType
     public var timeline: MastodonTimelineType {
-        didSet {
-            guard feedLoader?.timeline != timeline else { return }
-            feedLoader = nil
-            loadingState = .untracked
-            currentDisplaySlice = ArraySlice([.loadingIndicator])
-            Task {
-                try await doInitialLoad()
-            }
+        _timeline
+    }
+    public func setTimeline(_ timeline: MastodonTimelineType, navigator: MastodonNavigationRouter) {
+        _timeline = timeline
+        guard feedLoader?.timeline != timeline else { return }
+        feedLoader = nil
+        loadingState = .untracked
+        currentDisplaySlice = ArraySlice([.loadingIndicator])
+        Task {
+            try await doInitialLoad(navigator: navigator)
         }
     }
     
     private let _asyncRefreshViewModel: AsyncRefreshViewModel?
     
-    init(timeline: MastodonTimelineType, asyncRefreshViewModel: AsyncRefreshViewModel?) {
-        self.timeline = timeline
+    init(timeline: MastodonTimelineType, navigator: MastodonNavigationRouter, asyncRefreshViewModel: AsyncRefreshViewModel?) {
         self._asyncRefreshViewModel = asyncRefreshViewModel
+        self._timeline = timeline
         
         self.instanceConfigurationUpdateSubscription = AuthenticationServiceProvider.shared.instanceConfigurationUpdates
             .receive(on: DispatchQueue.main)
@@ -1000,7 +993,7 @@ enum MastodonTimelineSheet {
             }
         
         Task {
-            try await doInitialLoad()
+            try await doInitialLoad(navigator: navigator)
         }
     }
     
@@ -1161,7 +1154,7 @@ enum MastodonTimelineSheet {
         }
     }
     
-    func doInitialLoad() async throws {
+    func doInitialLoad(navigator: MastodonNavigationRouter) async throws {
         guard feedLoader == nil else { return }
         guard let authenticatedUser else { return }
         
@@ -1188,7 +1181,7 @@ enum MastodonTimelineSheet {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
                 guard let self, let error else { return }
-                self.didReceiveError(error)
+                navigator.didReceiveError(error)
             }
         feedLoader?.doFirstLoad()
        
@@ -1209,24 +1202,6 @@ enum MastodonTimelineSheet {
             [weak self] userID in
             guard userID == self?.authenticatedUser?.globallyUniqueUserIdentifier else { return }
             self?.feedLoader?.requestLoad(.reload)
-        }
-    }
-    
-    func didReceiveError(_ error: Error) {
-        if errorsWaitingToDisplay.count < 3 {
-            errorsWaitingToDisplay.append(error)
-        }
-        displayNextErrorIfPossible()
-    }
-    
-    func displayNextErrorIfPossible() {
-        guard let error = errorsWaitingToDisplay.first else { return }
-        switch activeAlert {
-        case .noAlert:
-            activeAlert = .error(error)
-            _ = errorsWaitingToDisplay.removeFirst()
-        default:
-            return
         }
     }
     
@@ -1812,7 +1787,7 @@ struct TimelineListView: View {
         .onDisappear() {
             viewModel.loadingState = .untracked
         }
-        .alert(viewModel.activeAlert.title, isPresented: viewModel.alertIsPresented, presenting: viewModel.activeAlert) { alert in
+        .alert(navigator.activeAlert.title, isPresented: navigator.alertIsPresented, presenting: navigator.activeAlert) { alert in
             alertContents(alert)
         } message: { alert in
             if let messageText = alert.messageText {
@@ -2135,7 +2110,7 @@ struct TimelineListView: View {
 
             navigator.push(.legacy(scene: .notificationRequests(viewModel: requestsViewModel), transition: .show))
         } catch {
-            viewModel.didReceiveError(error)
+            navigator.didReceiveError(error)
         }
     }
     
@@ -2531,7 +2506,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             // MARK: RELATIONSHIP ACTIONS
                     
                 case .follow, .unfollow, .mute, .unmute, .blockUser, .unblockUser:
-                    try await doAction(action, forAccount: author)
+                    try await doAction(action, forAccount: author, relationshipViewModel: postViewModel.myRelationshipToAuthorViewModel, navigator: navigator)
                     isPerformingAccountAction = nil
                     
             // MARK: DEFENSIVE ACTIONS
@@ -2560,7 +2535,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     await deletePost(actionablePost.id, askFirst: UserDefaults.shared.askBeforeDeletingAPost, navigator: navigator)
                 }
             } catch {
-                didReceiveError(error)
+                navigator.didReceiveError(error)
                 assertionFailure()
                 clearPendingActions(navigator)
             }
@@ -2575,7 +2550,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                 let updated = try await APIService.shared.updateQuotePolicy(forStatus: post.id, to: editModel.interactionSettings.quotability, authenticationBox: authBox)
                 publishUpdate(.post(GenericMastodonPost.fromStatus(updated, authenticatedDomain: authBox.domain)))
             } catch {
-                didReceiveError(error)
+                navigator.didReceiveError(error)
             }
         }
     }
@@ -2621,7 +2596,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
     
     func doRemoveQuote(from quotingPost: MastodonContentPost, askFirst: Bool, navigator: MastodonNavigationRouter) async throws {
         if askFirst {
-            activeAlert = .confirmRemoveQuote(username: quotingPost.initialDisplayInfo().actionableAuthorDisplayName, didConfirm: { confirmed in
+            navigator.activeAlert = .confirmRemoveQuote(username: quotingPost.initialDisplayInfo().actionableAuthorDisplayName, didConfirm: { confirmed in
                 guard confirmed else { return }
                 Task {
                     await self.commitRemoveQuote(from: quotingPost, navigator: navigator)
@@ -2632,22 +2607,20 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         }
     }
     
-    func doAction(_ action: MastodonPostMenuAction, forAccount account: MastodonAccount) async throws {
-        let currentRelationship =  myRelationship(to: account).info
+    func doAction(_ action: MastodonPostMenuAction, forAccount account: MastodonAccount, relationshipViewModel: RelationshipViewModel, navigator: MastodonNavigationRouter) async throws {
         switch action {
         case .follow:
-            guard currentRelationship?.canFollow == true else { throw PostActionFailure.noRelationshipInfo }
-            await commitFollow(account.id)
+            try await relationshipViewModel.doMenuAction(.follow, forAccount: account, navigator: navigator)
         case .unfollow:
-            await doUnfollow(account, askFirst: UserDefaults.standard.askBeforeUnfollowingSomeone)
+            try await relationshipViewModel.doMenuAction(.unfollow, forAccount: account, navigator: navigator)
         case .mute:
-            await doMute(account, askFirst: true)
+            try await relationshipViewModel.doMenuAction(.mute, forAccount: account, navigator: navigator)
         case .unmute:
-            await doUnmute(account, askFirst: true)
+            try await relationshipViewModel.doMenuAction(.unmute, forAccount: account, navigator: navigator)
         case .blockUser:
-            await doBlock(account) // always asks first
+            try await relationshipViewModel.doMenuAction(.blockUser, forAccount: account, navigator: navigator)
         case .unblockUser:
-            await doUnblock(account) // always asks first
+            try await relationshipViewModel.doMenuAction(.unblockUser, forAccount: account, navigator: navigator)
         default:
             throw PostActionFailure.unsupportedAction
         }
@@ -2701,7 +2674,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             
             if askFirst {
-                activeAlert = .confirmBoostOfPost(didConfirm: { [weak self] confirmed in
+                navigator.activeAlert = .confirmBoostOfPost(didConfirm: { [weak self] confirmed in
                     guard confirmed else { return }
                     Task {
                         await self?.boost(actionablePostId, askFirst: false, navigator: navigator)
@@ -2714,126 +2687,8 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                 clearPendingActions(navigator)
             }
         } catch {
-            didReceiveError(error)
+            navigator.didReceiveError(error)
             clearPendingActions(navigator)
-        }
-    }
-    
-    // RELATIONSHIP ACTIONS
-    
-    private func doUnfollow(_ author: MastodonAccount, askFirst: Bool) async {
-        if askFirst {
-            await withCheckedContinuation { continuation in
-                activeAlert = .confirmUnfollow(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
-                    guard confirmed else { continuation.resume(); return }
-                    Task {
-                        await self?.doUnfollow(author, askFirst: false)
-                        continuation.resume()
-                    }
-                })
-            }
-        } else {
-            await commitUnfollow(author.id)
-        }
-    }
-    
-    private func doMute(_ author: MastodonAccount, askFirst: Bool) async {
-        if askFirst {
-            await withCheckedContinuation { continuation in
-                self.activeAlert = .confirmMute(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
-                    guard confirmed else { continuation.resume(); return }
-                    Task {
-                        await self?.commitMute(author.id)
-                        continuation.resume()
-                    }
-                })
-            }
-        } else {
-            await commitMute(author.id)
-        }
-    }
-    
-    private func doUnmute(_ author: MastodonAccount, askFirst: Bool) async {
-        if askFirst {
-            await withCheckedContinuation { continuation in
-                self.activeAlert = .confirmUnmute(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
-                    guard confirmed else { continuation.resume(); return }
-                    Task {
-                        await self?.commitUnmute(author.id)
-                        continuation.resume()
-                    }
-                })
-            }
-        } else {
-            await commitUnmute(author.id)
-        }
-    }
-    
-    private func doBlock(_ author: MastodonAccount) async {
-        await withCheckedContinuation { continuation in
-            activeAlert = .confirmBlock(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
-                guard confirmed else { continuation.resume(); return }
-                Task {
-                    await self?.commitBlock(author.id)
-                    continuation.resume()
-                }
-            })
-        }
-    }
-    
-    private func doUnblock(_ author: MastodonAccount) async {
-        await withCheckedContinuation { continuation in
-            activeAlert = .confirmUnblock(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
-                guard confirmed else { continuation.resume(); return }
-                Task {
-                    await self?.commitUnblock(author.id)
-                    continuation.resume()
-                }
-            })
-        }
-    }
-    
-    private func commitFollow(_ accountID: Mastodon.Entity.Account.ID) async {
-        do {
-            guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
-            let response = try await APIService.shared.follow(accountID, authenticationBox: authenticatedUser)
-            let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
-        } catch {
-            didReceiveError(error)
-        }
-    }
-    
-    private func commitUnfollow(_ accountID: Mastodon.Entity.Account.ID) async {
-        do {
-            guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
-            let response = try await APIService.shared.unfollow(accountID, authenticationBox: authenticatedUser)
-            let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
-        } catch {
-            didReceiveError(error)
-        }
-    }
-    
-    private func commitMute(_ accountID: Mastodon.Entity.Account.ID) async {
-        do {
-            guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
-            let response = try await APIService.shared.mute(accountID, authenticationBox: authenticatedUser)
-            let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
-        } catch {
-            didReceiveError(error)
-        }
-    }
-    
-    private func commitUnmute(_ accountID: Mastodon.Entity.Account.ID) async {
-        do {
-            guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
-            let response = try await APIService.shared.unmute(accountID, authenticationBox: authenticatedUser)
-            let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
-        } catch {
-            didReceiveError(error)
         }
     }
      
@@ -2846,37 +2701,15 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             FeedCoordinator.shared.publishUpdate(.post(GenericMastodonPost.fromStatus(updated, authenticatedDomain: authenticatedUser.domain)))
             clearPendingActions(navigator)
         } catch {
-            didReceiveError(error)
+            navigator.didReceiveError(error)
             clearPendingActions(navigator)
-        }
-    }
-    
-    private func commitBlock(_ accountID: Mastodon.Entity.Account.ID) async {
-        do {
-            guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
-            let response = try await APIService.shared.block(accountID, authenticationBox: authenticatedUser)
-            let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
-        } catch {
-            didReceiveError(error)
-        }
-    }
-    
-    private func commitUnblock(_ accountID: Mastodon.Entity.Account.ID) async {
-        do {
-            guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
-            let response = try await APIService.shared.unblock(accountID, authenticationBox: authenticatedUser)
-            let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
-            FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
-        } catch {
-            didReceiveError(error)
         }
     }
     
     func deletePost(_ postID: Mastodon.Entity.Status.ID, askFirst: Bool, navigator: MastodonNavigationRouter) async {
         do {
             if askFirst {
-                activeAlert = .confirmDeleteOfPost(didConfirm: { [weak self] confirmed in
+                navigator.activeAlert = .confirmDeleteOfPost(didConfirm: { [weak self] confirmed in
                     guard confirmed else { return }
                     Task {
                         await self?.deletePost(postID, askFirst: false, navigator: navigator)
@@ -2890,7 +2723,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             }
         } catch {
             self.clearPendingActions(navigator)
-            didReceiveError(error)
+            navigator.didReceiveError(error)
         }
     }
     

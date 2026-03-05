@@ -205,7 +205,10 @@ extension MastodonAccount {
         let theyFollowMe: Bool?
         let iHaveRequestedToFollowThem: Bool
         let iAmMutingThem: Bool
+        let iAmBlockingTheirDomain: Bool
         let iAmBlockingThem: Bool
+        let iFeatureThem: Bool
+        let myOwnComment: String?
         let _legacyEntity: Mastodon.Entity.Relationship
         
         init(_ entity: Mastodon.Entity.Relationship, fetchedAt: Date?) {
@@ -216,6 +219,9 @@ extension MastodonAccount {
             iHaveRequestedToFollowThem = entity.requested
             iAmMutingThem = entity.muting
             iAmBlockingThem = entity.blocking
+            iAmBlockingTheirDomain = entity.domainBlocking
+            iFeatureThem = entity.endorsed
+            myOwnComment = entity.note
             _legacyEntity = entity
         }
         

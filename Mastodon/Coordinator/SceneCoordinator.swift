@@ -433,16 +433,16 @@ private extension SceneCoordinator {
                 let controller = ProfileHostingViewController(navigationRouter: navigator)
                 let account = MastodonAccount.fromEntity(profileType.accountToDisplay, authenticatedDomain: AuthenticationServiceProvider.shared.currentActiveUser.value?.domain ?? "")
                 if account.globallyUniqueUserIdentifier == AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier {
-                    controller.viewModel.set(account: account, relationship: .isMe)
+                    controller.viewModel.set(account: account, relationship: .isMe, navigator: navigator)
                 } else {
-                    controller.viewModel.set(account: account, relationship: .isNotMe(nil))
+                    controller.viewModel.set(account: account, relationship: .isNotMe(nil), navigator: navigator)
                     
                     Task {
                         let relationshipFetchID = profileType.accountToDisplay.id
                         if let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
                             Task {
                                 guard let relationship = try await APIService.shared.relationship(forAccountIds: [relationshipFetchID], authenticationBox: authBox).value.first else { return }
-                                controller.viewModel.set(account: account, relationship: .isNotMe(MastodonAccount.RelationshipInfo(relationship, fetchedAt: .now)))
+                                controller.viewModel.set(account: account, relationship: .isNotMe(MastodonAccount.RelationshipInfo(relationship, fetchedAt: .now)), navigator: navigator)
                             }
                         }
                     }
@@ -464,7 +464,7 @@ private extension SceneCoordinator {
             viewController = followingListViewController
         case .familiarFollowers(let accountEntity, let authBox):
             let account = MastodonAccount.fromEntity(accountEntity, authenticatedDomain: authBox.domain)
-            let viewModel = TimelineListViewModel(timeline: .familiarFollowers(account.userID), asyncRefreshViewModel: AsyncRefreshViewModel())
+            let viewModel = TimelineListViewModel(timeline: .familiarFollowers(account.userID), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
             viewController = TimelineListViewController(.familiarFollowers(account, viewModel), navigator: navigator)
         case .whoBoosted(let statusID):
             let _viewController = TimelineListViewController(.whoBoosted(actionableStatusID: statusID), navigator: navigator)

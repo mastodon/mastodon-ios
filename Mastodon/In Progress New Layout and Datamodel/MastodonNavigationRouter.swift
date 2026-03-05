@@ -8,6 +8,7 @@ enum MastodonNavigationDestination {
     case timeline(TimelineViewType)
     case profile(account: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?)
     case editProfile(profileViewModel: ProfileViewModel, editingViewModel: ProfileEditingViewModel)
+    case share(activityItems: [Any])
     case legacy(scene: SceneCoordinator.Scene, transition: SceneCoordinator.Transition)
 }
 
@@ -28,7 +29,26 @@ enum MastodonNavigationDestination {
     var navigationType: NavigationType
     
     var navigationPath: [MastodonNavigationDestination] = []
+    
+    // Action Sheets
     var presentedActionSheet: MastodonTimelineSheet?
+    
+    // Alerts
+    var errorsWaitingToDisplay = [Error]()
+    var activeAlert: MastodonPostMenuAction.AlertType = .noAlert {
+        didSet {
+            displayNextErrorIfPossible()
+        }
+    }
+    var alertIsPresented: Binding<Bool> {
+        Binding(get: { [weak self] in
+            return self?.activeAlert.shouldBePresented ?? false
+        }, set: { [weak self] isPresenting in
+            if !isPresenting {
+                self?.activeAlert = .noAlert
+            }
+        })
+    }
     
     init(navigationType: NavigationType) {
         self.navigationType = navigationType
@@ -39,7 +59,7 @@ enum MastodonNavigationDestination {
         switch destination {
         case .timeline(let timelineType):
             let asyncRefreshModel = AsyncRefreshViewModel()
-            let timelineViewModel = timelineType.timelineViewModel(asyncRefreshViewModel: asyncRefreshModel)
+            let timelineViewModel = timelineType.timelineViewModel(asyncRefreshViewModel: asyncRefreshModel, navigator: self)
             let queryFilter = timelineViewModel.timelineQueryFilter
             TimelineListView()
                 .environment(timelineViewModel)
@@ -58,7 +78,7 @@ enum MastodonNavigationDestination {
                 .environment(profileViewModel.relationshipViewModel)
                 .environment(editingViewModel)
             
-        case .legacy:
+        case .legacy, .share:
             EmptyView()  // legacy scenes should be presented using the SceneCoordinator instead
         }
     }
@@ -78,7 +98,7 @@ enum MastodonNavigationDestination {
                 profileViewModel.editingStatus = .editing(hasChanges: false)
                 return ProfileEditHostingViewController(viewModel: profileViewModel)
                 
-            case .legacy:
+            case .legacy, .share:
                 return nil
             }
         }()
@@ -123,9 +143,22 @@ enum MastodonNavigationDestination {
                         presenter?.sceneCoordinator?.present(scene: scene, from: presenter, transition: transition)
                     }
                 } else {
-                    presenter?.sceneCoordinator?.present(scene: scene, transition: transition)
+                    presenter?.sceneCoordinator?.present(scene: scene, from: presenter, transition: transition)
                 }
             }
+        case .share(let activityItems):
+            let sceneCoordinator: SceneCoordinator? = {
+                switch navigationType {
+                case .uiKit(let presenter), .swiftUI(let presenter):
+                    presenter?.sceneCoordinator
+                }
+            }()
+            let activityViewController = UIActivityViewController(
+                activityItems: activityItems,
+                applicationActivities: [SafariActivity(sceneCoordinator: sceneCoordinator)]
+            )
+            self.presentModal(.legacy(scene: .activityViewController(activityViewController: activityViewController, sourceView: nil, barButtonItem: nil), transition: .activityViewControllerPresent(animated: true, completion: nil)))
+
         default:
             assertionFailure()
             break
@@ -150,9 +183,9 @@ enum MastodonNavigationDestination {
     private func setUpProfileViewModel(_ viewModel: ProfileViewModel, account: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?) {
         let account = MastodonAccount.fromEntity(account, authenticatedDomain: AuthenticationServiceProvider.shared.currentActiveUser.value?.domain ?? "")
         if account.globallyUniqueUserIdentifier == AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier {
-            viewModel.set(account: account, relationship: .isMe)
+            viewModel.set(account: account, relationship: .isMe, navigator: self)
         } else {
-            viewModel.set(account: account, relationship: .isNotMe(relationship?.info))
+            viewModel.set(account: account, relationship: .isNotMe(relationship?.info), navigator: self)
             
             if relationship?.info == nil {
                 Task {
@@ -160,11 +193,31 @@ enum MastodonNavigationDestination {
                     if let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
                         Task {
                             guard let relationship = try await APIService.shared.relationship(forAccountIds: [relationshipFetchID], authenticationBox: authBox).value.first else { return }
-                            viewModel.set(account: account, relationship: .isNotMe(MastodonAccount.RelationshipInfo(relationship, fetchedAt: .now)))
+                            viewModel.set(account: account, relationship: .isNotMe(MastodonAccount.RelationshipInfo(relationship, fetchedAt: .now)), navigator: self)
                         }
                     }
                 }
             }
+        }
+    }
+}
+
+extension MastodonNavigationRouter {
+    func didReceiveError(_ error: Error) {
+        if errorsWaitingToDisplay.count < 3 {
+            errorsWaitingToDisplay.append(error)
+        }
+        displayNextErrorIfPossible()
+    }
+    
+    func displayNextErrorIfPossible() {
+        guard let error = errorsWaitingToDisplay.first else { return }
+        switch activeAlert {
+        case .noAlert:
+            activeAlert = .error(error)
+            _ = errorsWaitingToDisplay.removeFirst()
+        default:
+            return
         }
     }
 }
@@ -190,6 +243,8 @@ extension MastodonNavigationDestination: Hashable {
             return "profile(\(account.acctWithDomain)-\(isMeString))"
         case .editProfile:
             return "editProfile"
+        case .share:
+            return "share"
         case .legacy(let scene, let transition):
             return "LEGACY-\(scene)-\(transition)"
         }

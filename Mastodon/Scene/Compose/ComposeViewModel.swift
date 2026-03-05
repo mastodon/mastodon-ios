@@ -17,6 +17,7 @@ final class ComposeViewModel {
     enum Context {
         case composeStatus(quoting: (Mastodon.Entity.Status, ()->AnyView)?)
         case editStatus(status: MastodonStatus, statusSource: Mastodon.Entity.StatusSource, quoting: (()->AnyView)?)
+        case mentioning(account: Mastodon.Entity.Account, privately: Bool)
     }
 
     let id = UUID()
@@ -58,6 +59,8 @@ final class ComposeViewModel {
             }
         case .editStatus:
             title = L10n.Scene.Compose.Title.editPost
+        case .mentioning:
+            title = L10n.Scene.Compose.Title.newPost
         }
         
         self.title = title

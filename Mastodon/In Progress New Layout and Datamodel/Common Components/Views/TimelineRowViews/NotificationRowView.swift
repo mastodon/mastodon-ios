@@ -598,7 +598,7 @@ struct NotificationRowView: View {
                 ProgressView().progressViewStyle(.circular)
             case .relationshipButton(let button):
                 button.button {
-                    viewModel.doAvatarRowButtonAction()
+                    viewModel.doAvatarRowButtonAction(navigator: navigator)
                 }
             case .followRequestControls(let controls):
                 switch controls {
@@ -616,7 +616,7 @@ struct NotificationRowView: View {
                         }
                         
                         Button(action: {
-                            viewModel.doAvatarRowButtonAction(false)
+                            viewModel.doAvatarRowButtonAction(false, navigator: navigator)
                         }) {
                             lightwieghtImageView("xmark.circle", size: AvatarSize.small)
                         }
@@ -625,7 +625,7 @@ struct NotificationRowView: View {
                                 foregroundColor: .secondary, backgroundColor: .clear))
                         
                         Button(action: {
-                            viewModel.doAvatarRowButtonAction(true)
+                            viewModel.doAvatarRowButtonAction(true, navigator: navigator)
                         }) {
                             lightwieghtImageView(
                                 "checkmark.circle", size: AvatarSize.small)

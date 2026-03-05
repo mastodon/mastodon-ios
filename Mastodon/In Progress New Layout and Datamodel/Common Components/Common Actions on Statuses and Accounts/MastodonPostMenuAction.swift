@@ -23,7 +23,7 @@ protocol MastodonPostMenuActionHandler {
     func account(_ id: Mastodon.Entity.Account.ID) -> MastodonAccount?
     func doAction(_ action: MastodonPostMenuAction, forPost postViewModel: MastodonPostViewModel, navigator: MastodonNavigationRouter)
     func commitCurrentQuotePolicyEdit(navigator: MastodonNavigationRouter) async throws
-    func doAction(_ action: MastodonPostMenuAction, forAccount account: MastodonAccount) async throws
+    func doAction(_ action: MastodonPostMenuAction, forAccount account: MastodonAccount, relationshipViewModel: RelationshipViewModel, navigator: MastodonNavigationRouter) async throws
     func canTranslate(post: MastodonContentPost) -> Bool
     func translation(forContentPostId postId: Mastodon.Entity.Status.ID) -> Mastodon.Entity.Translation?
     var containerOverlayBinding: Binding<MastodonTimelineFadeInOverlay?> { get }
@@ -407,48 +407,4 @@ enum MastodonPostMenuAction: String {
 
 extension MastodonPostMenuAction: Identifiable {
     var id: String { rawValue }
-}
-
-enum MastodonMenuAction {
-    case postAction(PostMenuAction)
-    case relationshipAction(RelationshipMenuAction)
-    case navigationalAction(NavigationalAction)
-    case miscellaneous(MiscellaneousAction)
-    
-    enum PostMenuAction {
-        // TODO: migrate from MastodonPostMenuAction to here
-    }
-    
-    enum RelationshipMenuAction {
-        case follow
-        case unfollow
-        case hideBoosts_new
-//        case unhideBoosts_new
-        case mute
-        case unmute
-        case removeFollower_new
-        case blockUser
-        case unblockUser
-        case reportUser
-        case blockDomain_new
-//        case unblockDomain_new
-        case personalNote_new
-    }
-    
-    enum NavigationalAction {
-        case share
-        case openInBrowser
-        case viewOnOriginatingInstance_new
-        case myFavorites
-        case myBookmarks
-        case myFollowedHashtags
-        case myAccountSettings
-        case compose(mention: MastodonAccount?, privately: Bool)
-    }
-    
-    enum MiscellaneousAction {
-        case copyLink
-        case addToList_new // account -> collection, but could add more cases
-        case featureOnMyProfile_new  // accounts and hashtags
-    }
 }

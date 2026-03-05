@@ -37,6 +37,21 @@ enum RelationshipButtonType {
                 return nil
             }
         }
+        
+        var mastodonRelationshipMenuAction: MastodonMenuAction.RelationshipMenuAction? {
+            switch self {
+            case .follow:
+                return .follow
+            case .unfollow:
+                return .unfollow
+            case .unmute:
+                return .unmute
+            case .unblock:
+                return .unblockUser
+            case .noAction, .editProfile:
+                return nil
+            }
+        }
     }
     
     init(relationship: Mastodon.Entity.Relationship, theirAccountIsLocked: Bool) {

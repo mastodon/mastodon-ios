@@ -24,7 +24,8 @@ import SwiftUI
     @MainActor
     func doRelationshipAction(
         _ action: RelationshipButtonType.RelationshipAction,
-        account: MastodonAccount
+        account: MastodonAccount,
+        navigator: MastodonNavigationRouter
     ) async throws {
         let currentState = button
         do {
@@ -35,13 +36,13 @@ import SwiftUI
                     "editProfile action cannot be handled by the RelationshipViewModel"
                 )
             case .follow:
-                try await actionHandler?.doAction(.follow, forAccount: account)
+                try await doMenuAction(.follow, forAccount: account, navigator: navigator)
             case .unfollow:
-                try await actionHandler?.doAction(.unfollow, forAccount: account)
+                try await doMenuAction(.unfollow, forAccount: account, navigator: navigator)
             case .unmute:
-                try await actionHandler?.doAction(.unmute, forAccount: account)
+                try await doMenuAction(.unmute, forAccount: account, navigator: navigator)
             case .unblock:
-                try await actionHandler?.doAction(.unblockUser, forAccount: account)
+                try await doMenuAction(.unblockUser, forAccount: account, navigator: navigator)
             case .noAction:
                 throw AppError.unexpected(
                     "action attempted for relationship element that has no action"

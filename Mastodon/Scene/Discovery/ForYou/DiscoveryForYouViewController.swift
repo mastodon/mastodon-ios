@@ -153,7 +153,7 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
 
                 self.sceneCoordinator?.hideLoading()
                 
-                let familiarFollowersViewModel = TimelineListViewModel(timeline: .familiarFollowers(userID), asyncRefreshViewModel: AsyncRefreshViewModel())
+                let familiarFollowersViewModel = TimelineListViewModel(timeline: .familiarFollowers(userID), navigator: .init(navigationType: .uiKit(self)), asyncRefreshViewModel: AsyncRefreshViewModel())
 
                 _ = self.sceneCoordinator?.present(
                     scene: .familiarFollowers(account, authenticationBox),

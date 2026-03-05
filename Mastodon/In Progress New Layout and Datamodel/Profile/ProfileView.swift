@@ -42,7 +42,7 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
 }
 
 struct ProfileView: View {
-    @Environment(MastodonNavigationRouter.self) private var navigationRouter
+    @Environment(MastodonNavigationRouter.self) private var navigator
     @Environment(ProfileViewModel.self) var viewModel
     @Environment(NestedScrollInteractionViewModel.self) var nestedScrollViewModel
     let wrapInSwiftNavigationStack: Bool
@@ -62,7 +62,7 @@ struct ProfileView: View {
     }
     
     var body: some View {
-        @Bindable var navigationRouter = navigationRouter
+        @Bindable var navigationRouter = navigator
         
         if wrapInSwiftNavigationStack {
             NavigationStack(path: $navigationRouter.navigationPath){
@@ -118,11 +118,11 @@ struct ProfileView: View {
                                     break
                                 case .followersCount:
                                     if let count = viewModel.account?.metrics.followersCount, count > 0 {
-                                        navigationRouter.push(.timeline(.followers(ofUserId: accountID)))
+                                        navigator.push(.timeline(.followers(ofUserId: accountID)))
                                     }
                                 case .followingCount:
                                     if let count = viewModel.account?.metrics.followingCount, count > 0 {
-                                        navigationRouter.push(.timeline(.accountsFollowed(byUserId: accountID)))
+                                        navigator.push(.timeline(.accountsFollowed(byUserId: accountID)))
                                     }
                                 }
                             }
@@ -206,9 +206,9 @@ struct ProfileView: View {
     
     private func fetchFamiliarFollowers() async throws {
         if let account = viewModel.account {
-            let familiarFollowersModel = TimelineListViewModel(timeline: .familiarFollowers(account.id), asyncRefreshViewModel: nil)
+            let familiarFollowersModel = TimelineListViewModel(timeline: .familiarFollowers(account.id), navigator: navigator, asyncRefreshViewModel: nil)
             viewModel.familiarFollowersViewModel = familiarFollowersModel
-            try await familiarFollowersModel.doInitialLoad()
+            try await familiarFollowersModel.doInitialLoad(navigator: navigator)
         }
     }
     
@@ -588,7 +588,7 @@ struct ProfilePaginationControl: View {
 struct ProfileActionBar: View {
     @Environment(ProfileViewModel.self) var viewModel
     @Environment(RelationshipViewModel.self) var relationshipViewModel
-    @Environment(MastodonNavigationRouter.self) var navigationRouter
+    @Environment(MastodonNavigationRouter.self) var navigator
     
     var body: some View {
         HStack(spacing: standardPadding) {
@@ -596,39 +596,62 @@ struct ProfileActionBar: View {
                 relationshipViewModel.button.largeButton {
                     switch relationshipViewModel.button {
                     case .edit:
-                        navigationRouter.push(.editProfile(profileViewModel: viewModel, editingViewModel: viewModel.editingViewModel))
+                        navigator.push(.editProfile(profileViewModel: viewModel, editingViewModel: viewModel.editingViewModel))
                     default:
                         Task {
-                                try await relationshipViewModel.doRelationshipAction(relationshipViewModel.button.buttonAction, account: account)
+                            try await relationshipViewModel.doRelationshipAction(relationshipViewModel.button.buttonAction, account: account, navigator: navigator)
                         }
                     }
                 }
                 .glassEffectIfAvailable(.regular(interactive: true), in: .capsule)
                 
-                Button() {
-                    
-                } label: {
-                    ZStack {
-                        Circle()
-                            .fill(.clear)
-                            .frame(width: 48, height: 48)
-                        Image(systemName: "at")
-                    }
-                }
-                .glassEffectIfAvailable(.regular(interactive: true), in: .circle)
-                
-                Button() {
-                    
-                } label: {
-                    ZStack {
-                        Circle()
-                            .fill(.clear)
-                            .frame(width: 48, height: 48)
-                        Image(systemName: "ellipsis")
-                    }
-                }
-                .glassEffectIfAvailable(.regular(interactive: true), in: .circle)
+                ActionBarMenuButton()
             }
+        }
+    }
+    
+    struct ActionBarMenuButton: View {
+        @Environment(MastodonNavigationRouter.self) private var navigator
+        @Environment(ProfileViewModel.self) private var viewModel
+        @Environment(RelationshipViewModel.self) private var relationshipViewModel
+        
+        var body: some View {
+            Menu {
+                if let account = viewModel.account {
+                    let submenus = relationshipViewModel.profileMenuActions(account: account, relationship: relationshipViewModel.relationship)
+                    ForEach(submenus, id: \.self.id) { submenu in
+                        ForEach(submenu.items, id: \.self) { menuAction in
+                            switch menuAction {
+                            case .miscellaneous(let miscAction):
+                                viewModel.menuItem(miscAction)
+                            case .navigationalAction(let navAction):
+                                let domainName: String? = {
+                                    switch relationshipViewModel.relationship {
+                                    case .isMe, .none:
+                                        return nil
+                                    case .isNotMe:
+                                        return viewModel.account?.domain == AuthenticationServiceProvider.shared.currentActiveUser.value?.domain ? nil : viewModel.account?.domain
+                                    }
+                                }()
+                                navigator.menuItem(navAction, notMyDomainName: domainName)
+                            case .postAction:
+                                EmptyView()
+                            case .relationshipAction(let relAction):
+                                relationshipViewModel.menuItem(relAction, forAccount: account, navigator: navigator)
+                            }
+                        }
+                        Divider()
+                    }
+                }
+            } label: {
+                ZStack {
+                    Circle()
+                        .fill(.clear)
+                        .frame(width: 48, height: 48)
+                    Image(systemName: "ellipsis")
+                }
+            }
+            .glassEffectIfAvailable(.regular(interactive: true), in: .circle)
         }
     }
 }
@@ -827,12 +850,12 @@ enum EditingStatus: Equatable {
         )
     }
     
-    public func set(account: MastodonAccount, relationship: MastodonAccount.Relationship) {
+    public func set(account: MastodonAccount, relationship: MastodonAccount.Relationship, navigator: MastodonNavigationRouter) {
         self.account = account
         self.editingViewModel.setAccount(account)
         self.relationship = relationship
-        self.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts)), asyncRefreshViewModel: AsyncRefreshViewModel())
-        self.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.mediaOnly)), asyncRefreshViewModel: AsyncRefreshViewModel())
+        self.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts)), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
+        self.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.mediaOnly)), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
         self.relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: account.locked)
         
         self.relationshipViewModel.actionHandler = self.postsViewModel
@@ -854,61 +877,6 @@ enum EditingStatus: Equatable {
                 // this account is on my server
                 if let myDomain = AuthenticationServiceProvider.shared.currentActiveUser.value?.domain {
                     self.handleDetails = .init(username: handleComponents.first ?? "", domain: myDomain, isMyDomain: true)
-                }
-            }
-        }
-    }
-    
-    @ToolbarContentBuilder func toolbar(relationship: MastodonAccount.Relationship) -> some ToolbarContent {
-        switch relationship {
-        case .isMe:
-            ToolbarItemGroup(placement: .topBarTrailing) {
-                Button {
-                } label: {
-                    Image(systemName: "number")
-                }
-                Button {
-                } label: {
-                    Image(systemName: "bookmark")
-                }
-                Button {
-                } label: {
-                    Image(systemName: "star")
-                }
-            }
-            
-            if #available(iOS 26.0, *) {
-                ToolbarSpacer(placement: .topBarTrailing)
-            }
-            
-            ToolbarItem(id: "share", placement: .topBarTrailing) {
-                Button {
-                } label: {
-                    Image(systemName: "square.and.arrow.up")
-                }
-            }
-            
-            if #available(iOS 26.0, *) {
-                ToolbarSpacer(placement: .topBarTrailing)
-            }
-            
-            ToolbarItem(id: "settings", placement: .topBarTrailing) {
-                Button {
-                } label: {
-                    Image(systemName: "gearshape")
-                }
-            }
-        case .isNotMe(let info):
-            ToolbarItem(id: "reply", placement: .topBarTrailing) {
-                Button {
-                } label: {
-                    Image(systemName: "arrow.turn.up.left")
-                }
-            }
-            ToolbarItem(id: "menu", placement: .topBarTrailing) {
-                Button {
-                } label: {
-                    Image(systemName: "ellipsis.circle")
                 }
             }
         }
@@ -1043,5 +1011,31 @@ struct FamiliarFollowersElement: View {
 extension TimelineListViewModel: @MainActor Equatable {
     static func == (lhs: TimelineListViewModel, rhs: TimelineListViewModel) -> Bool {
         lhs.timeline == rhs.timeline
+    }
+}
+
+extension ProfileViewModel: MastodonMenuAction.MiscellaneousMenuActionHandler {
+    func handleAction(_ action: MastodonMenuAction.MiscellaneousMenuAction) {
+        switch action {
+        case .copyLink:
+            // link to this profile
+            if let url = account?.metadata.profileUrl?.absoluteString {
+                UIPasteboard.general.string = url
+            }
+        case .featureOnMyProfile_new:
+            // feature this account on my own profile
+            assertionFailure("not implemented")
+        case .stopFeaturingOnMyProfile_new:
+        // stop featuring this account
+            assertionFailure("not implemented")
+        }
+    }
+}
+
+extension ProfileViewModel {
+    @ViewBuilder func menuItem(_ action: MastodonMenuAction.MiscellaneousMenuAction) -> some View {
+        MastodonMenuAction.menuButton(systemImageName: action.iconSystemName, text: action.labelText) {
+            self.handleAction(action)
+        }
     }
 }

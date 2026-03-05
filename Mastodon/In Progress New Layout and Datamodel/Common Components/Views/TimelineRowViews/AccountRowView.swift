@@ -44,7 +44,7 @@ struct AccountRowView: View {
                         Spacer()
                         viewModel.relationshipButton.button {
                             Task {
-                                try await viewModel.doRelationshipButtonAction()
+                                try await viewModel.doRelationshipButtonAction(navigator: navigator)
                             }
                         }
                     }

@@ -206,7 +206,7 @@ extension MainTabBarController {
                     let updatedProfile: UIViewController =  {
                         let controller = ProfileHostingViewController(navigationRouter: self.profileTabNavigator)
                         self.profileTabNavigator.navigationType = .swiftUI(legacyPresenter: controller)
-                        controller.viewModel.set(account: MastodonAccount.fromEntity(myAccount, authenticatedDomain: authBox.domain), relationship: .isMe)
+                        controller.viewModel.set(account: MastodonAccount.fromEntity(myAccount, authenticatedDomain: authBox.domain), relationship: .isMe, navigator: self.profileTabNavigator)
                         return controller
                     }()
                     meProfileViewController = updatedProfile

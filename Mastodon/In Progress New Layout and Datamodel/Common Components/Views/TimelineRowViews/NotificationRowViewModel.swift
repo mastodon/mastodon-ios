@@ -250,7 +250,7 @@ extension NotificationRowViewModel {
 //        }
 //    }
     
-    private func a11yActions(forRelationshipElement relationshipElement: RelationshipElement, isGrouped: Bool) -> [A11yActionInfo] {
+    private func a11yActions(forRelationshipElement relationshipElement: RelationshipElement, isGrouped: Bool, navigator: MastodonNavigationRouter) -> [A11yActionInfo] {
         
         guard !isGrouped else { return [] }
         
@@ -261,14 +261,14 @@ extension NotificationRowViewModel {
             switch controls {
             case .theyHaveRequestedToFollowMe:
                 return [true, false].map { option in
-                    A11yActionInfo(title: controls.a11yActionTitle(forAccept: option) ?? "", doAction: { [weak self] in self?.doAvatarRowButtonAction(option) })
+                    A11yActionInfo(title: controls.a11yActionTitle(forAccept: option) ?? "", doAction: { [weak self] in self?.doAvatarRowButtonAction(option, navigator: navigator) })
                 }
             case .iHaveAnsweredTheirRequestToFollowMe:
                 return []
             }
         case .relationshipButton(let button):
             if let actionTitle = button.a11yActionTitle {
-                return [ A11yActionInfo(title: actionTitle , doAction: { [weak self] in self?.doAvatarRowButtonAction() }) ]
+                return [ A11yActionInfo(title: actionTitle , doAction: { [weak self] in self?.doAvatarRowButtonAction(navigator: navigator) }) ]
             } else {
                 return []
             }
@@ -286,7 +286,7 @@ extension NotificationRowViewModel: Equatable {
 
 extension NotificationRowViewModel {
 
-    public func doAvatarRowButtonAction(_ accept: Bool = true) {
+    public func doAvatarRowButtonAction(_ accept: Bool = true, navigator: MastodonNavigationRouter) {
         switch avatarRowAdditionalElement {
         case .followRequestControls(let controls):
             switch controls {
@@ -304,7 +304,7 @@ extension NotificationRowViewModel {
             if let firstAccount = avatarRowSourceAccounts?.primaryAuthorAccount {
                 FeedbackGenerator.shared.generate(.selectionChanged)
                 Task {
-                    try await relationshipViewModel.doRelationshipAction(button.buttonAction, account: MastodonAccount.fromEntity(firstAccount, authenticatedDomain: myAccountDomain))
+                    try await relationshipViewModel.doRelationshipAction(button.buttonAction, account: MastodonAccount.fromEntity(firstAccount, authenticatedDomain: myAccountDomain), navigator: navigator)
                     updateAvatarRowAdditionalElement()
                 }
             }
