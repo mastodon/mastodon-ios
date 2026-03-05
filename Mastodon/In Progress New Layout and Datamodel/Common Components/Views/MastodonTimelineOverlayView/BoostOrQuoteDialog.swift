@@ -6,6 +6,7 @@ import MastodonLocalization
 import MastodonCore
 
 struct BoostOrQuoteDialog: View {
+    @Environment(MastodonNavigationRouter.self) private var navigator
     @Environment(MastodonPostViewModel.self) var viewModel
     let actionHandler: MastodonPostMenuActionHandler?
     
@@ -18,7 +19,7 @@ struct BoostOrQuoteDialog: View {
                 VStack(spacing: 0) {
                     if actionablePost.content.myActions.boosted {
                         Button {
-                            actionHandler?.doAction(.unboost, forPost: viewModel)
+                            actionHandler?.doAction(.unboost, forPost: viewModel, navigator: navigator)
                         } label: {
                             Text(L10n.Common.Alerts.BoostAPost.unboost)
                                 .padding()
@@ -26,7 +27,7 @@ struct BoostOrQuoteDialog: View {
                         .foregroundStyle(Asset.Colors.accent.swiftUIColor)
                     } else {
                         Button {
-                            actionHandler?.doAction(.boost, forPost: viewModel)
+                            actionHandler?.doAction(.boost, forPost: viewModel, navigator: navigator)
                         } label: {
                             Text(L10n.Common.Alerts.BoostAPost.boost)
                                 .padding()
@@ -41,7 +42,7 @@ struct BoostOrQuoteDialog: View {
                     if let buttonTitle = quoteButtonInfo.title {
                         Button {
                             guard let composeViewModel = viewModel.composeViewModelQuotingThisPost else { return }
-                            actionHandler?.presentScene(.compose(viewModel: composeViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
+                            navigator.presentModal(.legacy(scene: .compose(viewModel: composeViewModel), transition: .modal(animated: true, completion: nil)))
                         } label: {
                             VStack {
                                 Text(buttonTitle)

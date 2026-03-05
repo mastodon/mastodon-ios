@@ -7,6 +7,7 @@ import MastodonUI
 import SwiftUI
 
 struct AccountRowView: View {
+    @Environment(MastodonNavigationRouter.self) private var navigator
     @Environment(AccountRowViewModel.self) var viewModel
     let contentWidth: CGFloat
   

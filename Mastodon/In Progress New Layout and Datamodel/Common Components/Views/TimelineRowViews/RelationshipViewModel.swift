@@ -6,7 +6,7 @@ import SwiftUI
 @MainActor
 @Observable class RelationshipViewModel {
     var actionHandler: MastodonPostMenuActionHandler? = nil
-    public var button: RelationshipButtonType = .updating
+    public private(set) var button: RelationshipButtonType = .updating
     public private(set) var relationship: MastodonAccount.Relationship? = nil
     
     public func prepareForDisplay(relationship: MastodonAccount.Relationship, theirAccountIsLocked: Bool) {

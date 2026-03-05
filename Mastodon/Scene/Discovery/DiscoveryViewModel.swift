@@ -28,8 +28,12 @@ final class DiscoveryViewModel {
     init(authenticationBox: MastodonAuthenticationBox) {
         self.authenticationBox = authenticationBox
         
-        newDiscoveryPostsViewController = TimelineListViewController(.discover(.posts))
-        discoveryHashtagsViewController = TimelineListViewController(.discover(.hashtags))
+        let postsNavigator = MastodonNavigationRouter(navigationType: .uiKit(nil))
+        let hashtagsNavigator = MastodonNavigationRouter(navigationType: .uiKit(nil))
+        newDiscoveryPostsViewController = TimelineListViewController(.discover(.posts), navigator: postsNavigator)
+        postsNavigator.navigationType = .uiKit(newDiscoveryPostsViewController)
+        discoveryHashtagsViewController = TimelineListViewController(.discover(.hashtags), navigator: hashtagsNavigator)
+        hashtagsNavigator.navigationType = .uiKit(discoveryHashtagsViewController)
         discoveryNewsViewController = {
             let viewController = DiscoveryNewsViewController()
             viewController.viewModel = DiscoveryNewsViewModel(authenticationBox: authenticationBox)

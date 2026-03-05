@@ -196,26 +196,12 @@ struct A11yActionInfo: Identifiable {
 
 extension NotificationRowViewModel {
     
-    func navigateToProfile(_ info: AccountInfo) async throws {
-        guard
-            let me = AuthenticationServiceProvider.shared
-                .currentActiveUser.value?.cachedAccount
-        else { return }
-        if me.id == info.id {
-            actionHandler?.presentScene(.profile(.me(me)), fromPost: nil, transition: .show)
-        } else {
-            guard let account = info.fullAccount, let relationship = relationshipViewModel.relationship?.info?._legacyEntity else { return }
-            actionHandler?.presentScene(
-                .profile(
-                    .notMe(
-                        me: me, displayAccount: account,
-                        relationship: relationship)),
-                fromPost: nil,
-                transition: .show)
-        }
+    func navigateToProfile(_ info: AccountInfo, navigator: MastodonNavigationRouter) async throws {
+        guard let account = info.fullAccount else { return }
+        navigator.push(.profile(account: account, relationship: relationshipViewModel.relationship))
     }
     
-    func doPrimaryNavigation() {
+    func doPrimaryNavigation(_ navigator: MastodonNavigationRouter) {
         guard let primaryNavigation else { return }
         switch primaryNavigation {
         case .link(_, let url):
@@ -223,16 +209,16 @@ extension NotificationRowViewModel {
             UIApplication.shared.open(url)
         case .myFollowers, .profile:
             Task {
-                guard let scene = await primaryNavigation.destinationScene()
+                guard let destination = await primaryNavigation.destination()
                 else { return }
-                actionHandler?.presentScene(scene, fromPost: nil, transition: .show)
+                navigator.push(destination)
             }
         }
     }
     
-    public var a11yActions: [A11yActionInfo] {
+    public func a11yActions(navigator: MastodonNavigationRouter) -> [A11yActionInfo] {
         var actions = [A11yActionInfo]()
-        if let primaryNavigationTitle = primaryNavigation?.a11yTitle { actions.append(A11yActionInfo(title: primaryNavigationTitle, doAction: { [weak self] in self?.doPrimaryNavigation() }))
+        if let primaryNavigationTitle = primaryNavigation?.a11yTitle { actions.append(A11yActionInfo(title: primaryNavigationTitle, doAction: { [weak self] in self?.doPrimaryNavigation(navigator) }))
         }
         // TODO: replace the below
 //        for component in self.headerComponents + self.contentComponents {
@@ -361,7 +347,7 @@ extension NotificationRowViewModel {
         case profile(Mastodon.Entity.Account)
         case link(String, URL?)
 
-        func destinationScene() async -> SceneCoordinator.Scene? {
+        func destination() async -> MastodonNavigationDestination? {
             guard
                 let authBox = await AuthenticationServiceProvider.shared
                     .currentActiveUser.value,
@@ -370,18 +356,11 @@ extension NotificationRowViewModel {
             switch self {
             case .link(_, let link):
                 guard let link else { return nil }
-                return .mastodonWebView(viewModel: WebViewModel(url: link))
+                return .legacy(scene: .mastodonWebView(viewModel: WebViewModel(url: link)), transition: .safariPresent(animated: true, completion: nil))
             case .myFollowers:
-                return .followers(ofUserId: myAccount.id)
+                return .timeline(.followers(ofUserId: myAccount.id))
             case .profile(let account):
-                if myAccount.id == account.id {
-                    return .profile(.me(account))
-                } else {
-                    return .profile(
-                        .notMe(
-                            me: myAccount, displayAccount: account,
-                            relationship: nil))
-                }
+                return .profile(account: account, relationship: nil)
             }
         }
     }

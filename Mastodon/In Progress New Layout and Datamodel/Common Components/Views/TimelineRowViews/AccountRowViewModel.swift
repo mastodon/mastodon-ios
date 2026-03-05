@@ -40,17 +40,8 @@ import SwiftUI
         }
     }
     
-    func goToProfile() {
-        guard let relationship = relationshipViewModel.relationship else { return }
-        switch relationship {
-        case .isMe:
-            let profile: ProfileType = .me(account._legacyEntity)
-            actionHandler?.presentScene(.profile(profile), fromPost: nil, transition: .show)
-        case .isNotMe:
-            guard let me = AuthenticationServiceProvider.shared.currentActiveUser.value?.cachedAccount else { return }
-            let profile: ProfileType = .notMe(me: me, displayAccount: account._legacyEntity, relationship: relationship.info?._legacyEntity)
-            actionHandler?.presentScene(.profile(profile), fromPost: nil, transition: .show)
-        }
+    func goToProfile(navigator: MastodonNavigationRouter) {
+        navigator.push(.profile(account: account._legacyEntity, relationship: relationshipViewModel.relationship))
     }
 }
 

@@ -218573,7 +218573,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "View all %1$(pinnedPostCount)ld pinned posts”"
+            "value" : "View all %1$(pinnedPostCount)ld pinned posts"
           }
         },
         "en-US" : {

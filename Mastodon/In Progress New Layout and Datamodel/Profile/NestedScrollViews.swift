@@ -202,7 +202,9 @@ enum ScrollInteractionState: Equatable {
                     self = .coastingTowardsContentTop(currentSnapshot, hasReachedTop: currentSnapshot.yOffset <= 0)
                 case .coastingTowardsContentBottom, .draggingTowardsContentBottom, .bouncingOffBottom:
                     self = .bouncingOffBottom(currentSnapshot)
-                case .idle, .animating, .bouncingOffTop:
+                case .idle:
+                    self = .coastingTowardsContentTop(currentSnapshot, hasReachedTop: currentSnapshot.yOffset <= 0)
+                case .animating, .bouncingOffTop:
                     assertionFailure("unexpected transition to decelerating scroll phase")
                     self = .coastingTowardsContentTop(currentSnapshot, hasReachedTop: currentSnapshot.yOffset <= 0)
                 }
@@ -212,7 +214,9 @@ enum ScrollInteractionState: Equatable {
                     self = .coastingTowardsContentBottom(currentSnapshot, hasReachedBottom: currentSnapshot.yOffset >= maxOffset)
                 case .coastingTowardsContentTop, .draggingTowardsContentTop, .bouncingOffTop:
                     self = .bouncingOffTop(currentSnapshot)
-                case .idle, .animating:
+                case .idle:
+                    self = .coastingTowardsContentBottom(currentSnapshot, hasReachedBottom: currentSnapshot.yOffset >= maxOffset)
+                case .animating:
                     assertionFailure("unexpected transition to decelerating scroll phase")
                     self = .coastingTowardsContentBottom(currentSnapshot, hasReachedBottom: currentSnapshot.yOffset >= maxOffset)
                 case .bouncingOffBottom:

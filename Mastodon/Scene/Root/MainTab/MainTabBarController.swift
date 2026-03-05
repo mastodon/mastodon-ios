@@ -38,6 +38,10 @@ class MainTabBarController: UITabBarController {
     let composeViewController: UIViewController // placeholder
     let notificationViewController: UIViewController
     var meProfileViewController: UIViewController // placeholder
+    
+    let homeTabNavigator = MastodonNavigationRouter(navigationType: .uiKit(nil))
+    let notificationTabNavigator = MastodonNavigationRouter(navigationType: .uiKit(nil))
+    let profileTabNavigator = MastodonNavigationRouter(navigationType: .swiftUI(legacyPresenter: nil))
 
     private(set) var isReadyForWizardAvatarButton = false
     
@@ -52,7 +56,7 @@ class MainTabBarController: UITabBarController {
     ) {
         self.authenticationBox = authenticationBox
 
-        homeTimelineViewController = TimelineListViewController(.home)
+        homeTimelineViewController = TimelineListViewController(.home, navigator: homeTabNavigator)
         homeTimelineViewController.configureTabBarItem(with: .home)
 
         searchViewController = SearchViewController()
@@ -61,7 +65,7 @@ class MainTabBarController: UITabBarController {
         composeViewController = UIViewController()
         composeViewController.configureTabBarItem(with: .compose)
         
-        notificationViewController = TimelineListViewController(.notifications(.everything))
+        notificationViewController = TimelineListViewController(.notifications(.everything), navigator: notificationTabNavigator)
         notificationViewController.configureTabBarItem(with: .notifications)
 
 
@@ -76,9 +80,17 @@ class MainTabBarController: UITabBarController {
 
         viewControllers = [homeTimelineViewController, searchViewController, composeViewController, notificationViewController, meProfileViewController].map {
             if $0 == meProfileViewController {
+                profileTabNavigator.navigationType = .swiftUI(legacyPresenter: meProfileViewController)
                 return $0
             } else {
-                return AdaptiveStatusBarStyleNavigationController(rootViewController: $0)
+                let navController = AdaptiveStatusBarStyleNavigationController(rootViewController: $0)
+                if $0 == homeTimelineViewController {
+                    homeTabNavigator.navigationType = .uiKit(navController)
+                }
+                if $0 == notificationViewController {
+                    notificationTabNavigator.navigationType = .uiKit(navController)
+                }
+                return navController
             }
         }
         tabBar.addInteraction(largeContentViewerInteraction)
@@ -192,8 +204,9 @@ extension MainTabBarController {
                     guard !(meProfileViewController is ProfileHostingViewController) else { return }
                     let oldMe = meProfileViewController
                     let updatedProfile: UIViewController =  {
-                        let controller = ProfileHostingViewController(wrapInSwiftUINavigationStack: true)
-                        controller.set(account: MastodonAccount.fromEntity(myAccount, authenticatedDomain: authBox.domain), relationship: .isMe)
+                        let controller = ProfileHostingViewController(navigationRouter: self.profileTabNavigator)
+                        self.profileTabNavigator.navigationType = .swiftUI(legacyPresenter: controller)
+                        controller.viewModel.set(account: MastodonAccount.fromEntity(myAccount, authenticatedDomain: authBox.domain), relationship: .isMe)
                         return controller
                     }()
                     meProfileViewController = updatedProfile

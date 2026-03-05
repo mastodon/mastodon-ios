@@ -21,14 +21,12 @@ enum PostActionFailure: Error {
 @MainActor
 protocol MastodonPostMenuActionHandler {
     func account(_ id: Mastodon.Entity.Account.ID) -> MastodonAccount?
-    func doAction(_ action: MastodonPostMenuAction, forPost postViewModel: MastodonPostViewModel)
-    func commitCurrentQuotePolicyEdit() async throws
+    func doAction(_ action: MastodonPostMenuAction, forPost postViewModel: MastodonPostViewModel, navigator: MastodonNavigationRouter)
+    func commitCurrentQuotePolicyEdit(navigator: MastodonNavigationRouter) async throws
     func doAction(_ action: MastodonPostMenuAction, forAccount account: MastodonAccount) async throws
     func canTranslate(post: MastodonContentPost) -> Bool
     func translation(forContentPostId postId: Mastodon.Entity.Status.ID) -> Mastodon.Entity.Translation?
-    func presentScene(_ scene: SceneCoordinator.Scene, fromPost postID: Mastodon.Entity.Status.ID?, transition: SceneCoordinator.Transition)
     var containerOverlayBinding: Binding<MastodonTimelineFadeInOverlay?> { get }
-    func showSheet(_ sheet: MastodonTimelineSheet?)
     func vote(poll: Mastodon.Entity.Poll, choices: [Int], containingPostID: Mastodon.Entity.Status.ID) async throws -> Mastodon.Entity.Poll
     var mediaPreviewableViewController: MediaPreviewableViewController? { get }
     func currentRelationship(to account: Mastodon.Entity.Account.ID) -> MastodonAccount.Relationship?
@@ -409,4 +407,48 @@ enum MastodonPostMenuAction: String {
 
 extension MastodonPostMenuAction: Identifiable {
     var id: String { rawValue }
+}
+
+enum MastodonMenuAction {
+    case postAction(PostMenuAction)
+    case relationshipAction(RelationshipMenuAction)
+    case navigationalAction(NavigationalAction)
+    case miscellaneous(MiscellaneousAction)
+    
+    enum PostMenuAction {
+        // TODO: migrate from MastodonPostMenuAction to here
+    }
+    
+    enum RelationshipMenuAction {
+        case follow
+        case unfollow
+        case hideBoosts_new
+//        case unhideBoosts_new
+        case mute
+        case unmute
+        case removeFollower_new
+        case blockUser
+        case unblockUser
+        case reportUser
+        case blockDomain_new
+//        case unblockDomain_new
+        case personalNote_new
+    }
+    
+    enum NavigationalAction {
+        case share
+        case openInBrowser
+        case viewOnOriginatingInstance_new
+        case myFavorites
+        case myBookmarks
+        case myFollowedHashtags
+        case myAccountSettings
+        case compose(mention: MastodonAccount?, privately: Bool)
+    }
+    
+    enum MiscellaneousAction {
+        case copyLink
+        case addToList_new // account -> collection, but could add more cases
+        case featureOnMyProfile_new  // accounts and hashtags
+    }
 }

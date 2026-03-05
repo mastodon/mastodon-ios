@@ -182,6 +182,20 @@ extension MastodonAccount {
                 return false
             }
         }
+        
+        @MainActor
+        var debugString: String {
+            switch self {
+            case .isMe:
+                "isMe-\(AuthenticationServiceProvider.shared.currentActiveUser.value!.userID)"
+            case .isNotMe(let info):
+                if let info {
+                    "notMe(\(info._legacyEntity.id))"
+                } else {
+                    "notMe(NO INFO)"
+                }
+            }
+        }
     }
     
     struct RelationshipInfo: Codable {

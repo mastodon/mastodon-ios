@@ -8,7 +8,7 @@ import MastodonCore
 import MastodonLocalization
 
 struct MastodonPostRowView: View {
-
+    @Environment(MastodonNavigationRouter.self) private var navigator
     @Environment(MastodonPostViewModel.self) private var viewModel
     @Environment(ContentConcealViewModel.self) private var contentConcealModel
 
@@ -105,7 +105,7 @@ struct MastodonPostRowView: View {
                     if contentConcealModel.currentMode.isShowingContent {
                         if viewModel.isShowingTranslation == true, let translatablePost = viewModel.fullPost?.actionablePost, let translation = actionHandler?.translation(forContentPostId: translatablePost.id) {
                             // MARK: Translation info line
-                            TranslationInfoView(translationInfo: translation, showOriginal: { actionHandler?.doAction(.showOriginalLanguage, forPost: viewModel) }
+                            TranslationInfoView(translationInfo: translation, showOriginal: { actionHandler?.doAction(.showOriginalLanguage, forPost: viewModel, navigator: navigator) }
                             )
                             .frame(width: contentWidth, alignment: .leading)
                         }
@@ -114,8 +114,7 @@ struct MastodonPostRowView: View {
                         viewModel.textContentView(isInlinePreview: false, actionHandler: actionHandler)
                             .frame(width: contentWidth, alignment: .leading)
                             .environment(\.openURL, OpenURLAction { url in
-                                guard let actionHandler else { return .systemAction(url) }
-                                if viewModel.openURL(url, actionHandler: actionHandler) {
+                                if viewModel.openURL(url, navigator: navigator) {
                                     return .handled
                                 } else {
                                     return .systemAction(url)
@@ -130,19 +129,14 @@ struct MastodonPostRowView: View {
                                 MediaAttachmentView(
                                     mediaAttachment: MediaAttachment(array, altTextTranslations: viewModel.altTextTranslations),
                                                     containerOverlayBinding:
-                                    actionHandler?.containerOverlayBinding
-                                , presentScene: { scene, postID, transition in
-                                    actionHandler?.presentScene(scene, fromPost: postID, transition: transition)
-                                })
+                                    actionHandler?.containerOverlayBinding)
                                 .frame(width: contentWidth)
                             case .poll(let poll):
                                 let emojis = viewModel.fullPost?.actionablePost?.content.htmlWithEntities?.emojis
                                 PollView(viewModel: PollViewModel(pollEntity: poll, emojis: emojis, optionTranslations: viewModel.isShowingTranslation == true ? viewModel.pollOptionTranslations : nil, containingPostID: viewModel.initialDisplayInfo.actionablePostID, actionHandler: actionHandler), contentWidth: contentWidth)
                                     .frame(width: contentWidth)
                             case .linkPreviewCard(let card):
-                                LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth, navigateToScene: { (scene, transition) in
-                                    actionHandler?.presentScene(scene, fromPost: viewModel.initialDisplayInfo.id, transition: transition)
-                                })
+                                LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth)
                                 .frame(width: contentWidth)
                             }
                         }
@@ -156,8 +150,7 @@ struct MastodonPostRowView: View {
                                     .environment(quotedPostViewModel)
                                     .environment(contentConcealModel.nestedContentConcealModel ?? .alwaysShow)
                                     .onTapGesture {
-                                        guard let actionHandler else { return }
-                                        quotedPostViewModel.openThreadView(actionHandler: actionHandler)
+                                        quotedPostViewModel.openThreadView(navigator: navigator)
                                     }
                             }
                         } else if let quotePlaceholder = viewModel.placeholderQuotedPost {
@@ -216,11 +209,11 @@ struct MastodonPostRowView: View {
                     }
                 }
                 ForEach(MastodonPostMenuAction.authorA11yMenuItems(forPostBy: relationshipToAuthor, isQuotingMe: viewModel.isQuotingMe, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { action in
-                    viewModel.accessibilityActionButton(action, actionHandler: actionHandler)
+                    viewModel.accessibilityActionButton(action, actionHandler: actionHandler, navigator: navigator)
                 }
                 
                 // REPLY
-                viewModel.accessibilityActionButton(.reply, actionHandler: actionHandler)
+                viewModel.accessibilityActionButton(.reply, actionHandler: actionHandler, navigator: navigator)
                 
                 // QUOTE
                 if instanceCanQuotePosts {
@@ -229,14 +222,14 @@ struct MastodonPostRowView: View {
                     Button(fullTitle) {
                         if isEnabled {
                             guard let composeViewModel = viewModel.composeViewModelQuotingThisPost else { return }
-                            actionHandler?.presentScene(.compose(viewModel: composeViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
+                            navigator.presentModal(.legacy(scene: .compose(viewModel: composeViewModel), transition: .modal(animated: true, completion: nil)))
                         }
                     }
                 }
                 
                 // POST ACTIONS
                 ForEach(MastodonPostMenuAction.postA11yMenuItemsOtherThanReply(forPostBy: relationshipToAuthor, myActions: viewModel.fullPost?.actionablePost?.content.myActions, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { action in
-                    viewModel.accessibilityActionButton(action, actionHandler: actionHandler)
+                    viewModel.accessibilityActionButton(action, actionHandler: actionHandler, navigator: navigator)
                 }
             }
         }
@@ -244,7 +237,7 @@ struct MastodonPostRowView: View {
     
     func goToProfile(_ account: MastodonAccount?) {
         guard let account else { return }
-        viewModel.goToProfile(account, actionHandler: actionHandler)
+        viewModel.goToProfile(account, navigator: navigator)
     }
 }
 
@@ -333,7 +326,7 @@ extension MastodonPostRowView {
                                 do {
                                     let edits = try await APIService.shared.getHistory(forStatusID: fullPost.id, authenticationBox: authBox).value
                                     let editsViewModel = StatusEditHistoryViewModel(status: fullPost._legacyEntity, edits: edits, appContext: AppContext.shared, authenticationBox: authBox)
-                                    actionHandler?.presentScene(.editHistory(viewModel: editsViewModel), fromPost: nil, transition: .show)
+                                    navigator.push(.legacy(scene: .editHistory(viewModel: editsViewModel), transition: .show))
                                 } catch {
                                 }
                             }
@@ -355,7 +348,7 @@ extension MastodonPostRowView {
                     if boostCount > 0 {
                         Button {
                             guard let statusID = fullPost.actionablePost?.id else { return }
-                            actionHandler?.presentScene(.whoBoosted(actionableStatusID: statusID), fromPost: nil, transition: .show)
+                            navigator.push(.timeline(.whoBoosted(actionableStatusID: statusID)))
                         } label: {
                             HStack {
                                 Text(L10n.Plural.Count.reblog(boostCount))
@@ -369,7 +362,7 @@ extension MastodonPostRowView {
                     if favoriteCount > 0 {
                         Button {
                             guard let statusID = fullPost.actionablePost?.id else { return }
-                            actionHandler?.presentScene(.whoFavourited(actionableStatusID: statusID), fromPost: nil, transition: .show)
+                            navigator.push(.timeline(.whoFavourited(actionableStatusID: statusID)))
                         } label: {
                             HStack {
                                 Text(L10n.Plural.Count.favorite(favoriteCount))
@@ -402,7 +395,7 @@ extension MastodonPostRowView {
 }
 
 private struct ActionBar: View {
-    
+    @Environment(MastodonNavigationRouter.self) private var navigator
     @Environment(MastodonPostViewModel.self) private var viewModel
     let instanceCanQuotePosts: Bool
     let actionHandler: MastodonPostMenuActionHandler?
@@ -441,6 +434,7 @@ private struct ActionBar: View {
     }
     
     struct ActionBarMenuButton: View {
+        @Environment(MastodonNavigationRouter.self) private var navigator
         @Environment(MastodonPostViewModel.self) private var viewModel
         let instanceCanQuotePosts: Bool
         let actionHandler: MastodonPostMenuActionHandler?
@@ -452,7 +446,7 @@ private struct ActionBar: View {
                         ForEach(submenu.items, id: \.self) { menuAction in
                             if let actionablePost = viewModel.fullPost?.actionablePost {
                                 Button(role: menuAction.isDestructive ? .destructive : nil) {
-                                    actionHandler?.doAction(menuAction, forPost: viewModel)
+                                    actionHandler?.doAction(menuAction, forPost: viewModel, navigator: navigator)
                                 }
                                 label: {
                                     Label(menuAction.labelText(username: actionablePost.metaData.author.displayInfo.displayName, postLanguage: actionablePost.content.language), systemImage: menuAction.iconSystemName)
@@ -497,7 +491,7 @@ private struct ActionBar: View {
         switch action {
         case .reply:
             StatefulCountedActionButton(type: .reply, layoutSize: layout, showCountLabel: showCountLabel, actionState: .init(count: metrics.replyCount, isSelected: .isFalse), doAction: {
-                actionHandler?.doAction(.reply, forPost: viewModel)
+                actionHandler?.doAction(.reply, forPost: viewModel, navigator: navigator)
             })
         case .boost:
             let state = overrideState ?? AsyncBool.fromBool(myActions.boosted)
@@ -514,12 +508,12 @@ private struct ActionBar: View {
             StatefulCountedActionButton(type: .boost, layoutSize: layout, showCountLabel: showCountLabel, actionState: .init(count: metrics.boostCount, isSelected: state), doAction: {
                 guard actionablePost.isBoostable else { return }
                 if instanceCanQuotePosts {
-                    actionHandler?.showSheet(.boostOrQuoteDialog(viewModel))
+                    navigator.presentedActionSheet = .boostOrQuoteDialog(viewModel)
                 } else {
                     if iHaveBoosted {
-                        actionHandler?.doAction(.unboost, forPost: viewModel)
+                        actionHandler?.doAction(.unboost, forPost: viewModel, navigator: navigator)
                     } else {
-                        actionHandler?.doAction(.boost, forPost: viewModel)
+                        actionHandler?.doAction(.boost, forPost: viewModel, navigator: navigator)
                     }
                 }
             })
@@ -529,9 +523,9 @@ private struct ActionBar: View {
             StatefulCountedActionButton(type: .favourite, layoutSize: layout, showCountLabel: showCountLabel, actionState: .init(count: metrics.favoriteCount, isSelected: state), doAction: {
                 switch state {
                 case .isFalse:
-                    actionHandler?.doAction(.favourite, forPost: viewModel)
+                    actionHandler?.doAction(.favourite, forPost: viewModel, navigator: navigator)
                 case .isTrue:
-                    actionHandler?.doAction(.unfavourite, forPost: viewModel)
+                    actionHandler?.doAction(.unfavourite, forPost: viewModel, navigator: navigator)
                 default:
                     break
                 }
@@ -541,9 +535,9 @@ private struct ActionBar: View {
             StatefulCountedActionButton(type: .bookmark, layoutSize: layout, showCountLabel: showCountLabel, actionState: .init(count: nil, isSelected: state), doAction: {
                 switch state {
                 case .isFalse:
-                    actionHandler?.doAction(.bookmark, forPost: viewModel)
+                    actionHandler?.doAction(.bookmark, forPost: viewModel, navigator: navigator)
                 case .isTrue:
-                    actionHandler?.doAction(.unbookmark, forPost: viewModel)
+                    actionHandler?.doAction(.unbookmark, forPost: viewModel, navigator: navigator)
                 default:
                     break
                 }

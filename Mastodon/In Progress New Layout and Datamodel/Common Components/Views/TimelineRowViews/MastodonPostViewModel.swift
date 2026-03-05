@@ -134,56 +134,31 @@ struct PrecalculatedHeight {
         return pollTranslation.options.map { $0.title }
     }
     
-    func openThreadView(actionHandler: MastodonPostMenuActionHandler) {
-        guard let actionablePost = fullPost?.actionablePost, let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
-        actionHandler.presentScene(
-            .thread(actionablePost._legacyEntity, authenticatedUserDomain: currentUser.domain), fromPost: nil, transition: .show)
+    func openThreadView(navigator: MastodonNavigationRouter) {
+        guard let actionablePost = fullPost?.actionablePost as? MastodonContentPost else { return }
+        navigator.push(.timeline(.thread(root: actionablePost)))
     }
     
-    func openURL(_ url: URL, actionHandler: MastodonPostMenuActionHandler) -> Bool {
+    func openURL(_ url: URL, navigator: MastodonNavigationRouter) -> Bool {
         if let mention = fullPost?.actionablePost?.content.htmlWithEntities?.mentions.first(where: { $0.url == url.absoluteString }) {
-            goToProfile(mention, actionHandler: actionHandler)
+            goToProfile(mention, navigator: navigator)
             return true
         } else if let hashtag = fullPost?.actionablePost?.content.htmlWithEntities?.tags.first(where: { $0.name.lowercased() == url.lastPathComponent.lowercased() && url.pathComponents.contains("tags") }) {
             guard AuthenticationServiceProvider.shared.currentActiveUser.value != nil else { return false }
-            actionHandler.presentScene(.hashtagTimeline(hashtag), fromPost: initialDisplayInfo.id, transition: .show)
+            navigator.push(.timeline(.hashtag(hashtag)))
             return true
         } else {
             // fix non-ascii character URL link can not open issue
-            actionHandler.presentScene(.safari(url: url), fromPost: initialDisplayInfo.id, transition: .safariPresent(animated: true, completion: nil))
+            navigator.presentModal(.legacy(scene: .safari(url: url), transition: .safariPresent(animated: true, completion: nil)))
             return true
         }
     }
     
-    func goToProfile(_ account: MastodonAccount, actionHandler: MastodonPostMenuActionHandler?) {
-        guard let me = AuthenticationServiceProvider.shared.currentActiveUser.value?.cachedAccount else { return }
-        if let relationshipToAuthor = myRelationshipToAuthor {
-            switch relationshipToAuthor {
-            case .isNotMe(let info):
-                if let info, account.id == info.id {
-                    let profile: ProfileType = .notMe(me: me, displayAccount: account._legacyEntity, relationship: info._legacyEntity)
-                    actionHandler?.presentScene(.profile(profile), fromPost: initialDisplayInfo.id, transition: .show)
-                    return
-                }
-            case .isMe:
-                if account.id == me.id {
-                    let profile: ProfileType = .me(account._legacyEntity)
-                    actionHandler?.presentScene(.profile(profile), fromPost: initialDisplayInfo.id, transition: .show)
-                    return
-                }
-            }
-        }
-        // if we have reached here, then we are trying to view an account other than the author of this post (probably a mention)
-        if account.id == me.id {
-            let profile: ProfileType = .me(account._legacyEntity)
-            actionHandler?.presentScene(.profile(profile), fromPost: initialDisplayInfo.id, transition: .show)
-        } else {
-            let profile: ProfileType = .notMe(me: me, displayAccount: account._legacyEntity, relationship: nil) // we don't have the relationship info at this point
-            actionHandler?.presentScene(.profile(profile), fromPost: initialDisplayInfo.id, transition: .show)
-        }
+    func goToProfile(_ account: MastodonAccount, navigator: MastodonNavigationRouter) {
+        navigator.push(.profile(account: account._legacyEntity, relationship: myRelationshipToAuthor))
     }
     
-    func goToProfile(_ mention: Mastodon.Entity.Mention, actionHandler: MastodonPostMenuActionHandler) {
+    func goToProfile(_ mention: Mastodon.Entity.Mention, navigator: MastodonNavigationRouter) {
         Task {
             guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
             let account = try await APIService.shared.accountInfo(
@@ -192,7 +167,7 @@ struct PrecalculatedHeight {
                     mention.id,
                 authorization: currentUser.userAuthorization
             )
-            goToProfile(MastodonAccount.fromEntity(account, authenticatedDomain: currentUser.domain), actionHandler: actionHandler)
+            goToProfile(MastodonAccount.fromEntity(account, authenticatedDomain: currentUser.domain), navigator: navigator)
         }
     }
 }
@@ -212,10 +187,10 @@ extension MastodonPostViewModel {
 }
 
 extension MastodonPostViewModel {
-    @ViewBuilder func accessibilityActionButton(_ action: MastodonPostMenuAction, actionHandler: MastodonPostMenuActionHandler?) -> some View {
+    @ViewBuilder func accessibilityActionButton(_ action: MastodonPostMenuAction, actionHandler: MastodonPostMenuActionHandler?, navigator: MastodonNavigationRouter) -> some View {
         Button(action.labelText(username: fullPost?.initialDisplayInfo().actionableAuthorDisplayName, postLanguage: (fullPost?.actionablePost as? MastodonContentPost)?.content.language)) { [weak self] in
             guard let self else { return }
-            actionHandler?.doAction(action, forPost: self)
+            actionHandler?.doAction(action, forPost: self, navigator: navigator)
         }
     }
     

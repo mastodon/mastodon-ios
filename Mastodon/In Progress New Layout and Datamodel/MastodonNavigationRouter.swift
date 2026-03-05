@@ -1,10 +1,14 @@
 // Copyright © 2026 Mastodon gGmbH. All rights reserved.
 
 import SwiftUI
+import MastodonSDK
+import MastodonCore
 
 enum MastodonNavigationDestination {
+    case timeline(TimelineViewType)
+    case profile(account: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?)
     case editProfile(profileViewModel: ProfileViewModel, editingViewModel: ProfileEditingViewModel)
-    case familiarFollowers(account: MastodonAccount, listViewModel: TimelineListViewModel)
+    case legacy(scene: SceneCoordinator.Scene, transition: SceneCoordinator.Transition)
 }
 
 /// Views requiring navigation support should include this class as an @Environment var:
@@ -17,37 +21,150 @@ enum MastodonNavigationDestination {
 /// See https://azamsharp.com/2024/07/29/navigation-patterns-in-swiftui.html, the section titled "Global Routing in SwiftUI"
 @MainActor
 @Observable class MastodonNavigationRouter {
+    enum NavigationType {
+        case uiKit(UIViewController?)
+        case swiftUI(legacyPresenter: UIViewController?)
+    }
+    var navigationType: NavigationType
+    
     var navigationPath: [MastodonNavigationDestination] = []
-    var navigationController: UINavigationController?
+    var presentedActionSheet: MastodonTimelineSheet?
+    
+    init(navigationType: NavigationType) {
+        self.navigationType = navigationType
+    }
     
     @ViewBuilder
     func destinationView(_ destination: MastodonNavigationDestination) -> some View {
         switch destination {
+        case .timeline(let timelineType):
+            let asyncRefreshModel = AsyncRefreshViewModel()
+            let timelineViewModel = timelineType.timelineViewModel(asyncRefreshViewModel: asyncRefreshModel)
+            let queryFilter = timelineViewModel.timelineQueryFilter
+            TimelineListView()
+                .environment(timelineViewModel)
+                .environment(queryFilter)
+                .environment(asyncRefreshModel)
+            
+        case .profile(let account, let relationship):
+            let viewModel = profileViewModel(account, relationship: relationship)
+            ProfileView(wrapInSwiftUINavigationStack: false)
+                .environment(viewModel)
+                .environment(viewModel.relationshipViewModel)
+                .environment(NestedScrollInteractionViewModel())
         case .editProfile(let profileViewModel, let editingViewModel):
             ProfileEditingView()
                 .environment(profileViewModel)
+                .environment(profileViewModel.relationshipViewModel)
                 .environment(editingViewModel)
-        case .familiarFollowers(_, let listViewModel):
-            TimelineListView()
-                .environment(listViewModel)
-                .environment(TimelineQueryFilter(.unfilterable))
-                .environment(AsyncRefreshViewModel())
+            
+        case .legacy:
+            EmptyView()  // legacy scenes should be presented using the SceneCoordinator instead
         }
     }
     
-    func navigate(to destination: MastodonNavigationDestination) {
-        if let navigationController {
+    private func destinationViewController(_ destination: MastodonNavigationDestination) -> UIViewController? {
+        let newNavigator = MastodonNavigationRouter(navigationType: .uiKit(nil))
+        let newController: UIViewController? = {
             switch destination {
+            case .timeline(let timelineViewType):
+                return TimelineListViewController(timelineViewType, navigator: newNavigator)
+                
+            case .profile(let account, let relationship):
+                let profile = ProfileHostingViewController(navigationRouter: newNavigator)
+                setUpProfileViewModel(profile.viewModel, account: account, relationship: relationship)
+                return profile
             case .editProfile(let profileViewModel, _):
                 profileViewModel.editingStatus = .editing(hasChanges: false)
-                let editViewController = ProfileEditHostingViewController(viewModel: profileViewModel)
-                navigationController.pushViewController(editViewController, animated: true)
-            case .familiarFollowers(let account, let listViewModel):
-                let familiarFollowersController = TimelineListViewController(.familiarFollowers(account, listViewModel))
-                navigationController.pushViewController(familiarFollowersController, animated: true)
+                return ProfileEditHostingViewController(viewModel: profileViewModel)
+                
+            case .legacy:
+                return nil
             }
+        }()
+        newNavigator.navigationType = .uiKit(newController)
+        return newController
+    }
+    
+    func push(_ destination: MastodonNavigationDestination) {
+        switch navigationType {
+        case .uiKit(let uiViewController):
+            if let navigationController = (uiViewController as? UINavigationController) ?? uiViewController?.navigationController, let pushedController = destinationViewController(destination) {
+                navigationController.pushViewController(pushedController, animated: true)
+            } else {
+                switch destination {
+                case .legacy(let scene, let transition):
+                    uiViewController?.sceneCoordinator?.present(scene: scene, from: uiViewController, transition: transition)
+                default:
+                    assertionFailure("non-legacy destinations should have been handled above")
+                }
+            }
+        case .swiftUI(let legacyPresenter):
+            switch destination {
+            case .legacy(let scene, let transition):
+                legacyPresenter?.sceneCoordinator?.present(scene: scene, from: legacyPresenter, transition: transition)
+            case .editProfile(let profileViewModel, _):
+                profileViewModel.editingStatus = .editing(hasChanges: false)
+                fallthrough
+            default:
+                navigationPath.append(destination)
+            }
+        }
+    }
+    
+    func presentModal(_ destination: MastodonNavigationDestination) {
+        switch destination {
+        case .legacy(let scene, let transition):
+            switch navigationType {
+            case .uiKit(let presenter), .swiftUI(let presenter):
+                if presentedActionSheet != nil {
+                    presentedActionSheet = nil
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) { // without this delay, the modal presentation gets tangled up with the dismissing sheet
+                        presenter?.sceneCoordinator?.present(scene: scene, from: presenter, transition: transition)
+                    }
+                } else {
+                    presenter?.sceneCoordinator?.present(scene: scene, transition: transition)
+                }
+            }
+        default:
+            assertionFailure()
+            break
+        }
+    }
+    
+    private func profileScene(accountEntity: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?) -> ProfileType? {
+        if relationship?.refersToSameAccount(as: .isMe) == true {
+            return .me(accountEntity)
         } else {
-            navigationPath.append(destination)
+            guard let me = AuthenticationServiceProvider.shared.currentActiveUser.value?.cachedAccount else { return nil }
+            return .notMe(me: me, displayAccount: accountEntity, relationship: relationship?.info?._legacyEntity)
+        }
+    }
+    
+    private func profileViewModel(_ account: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?) -> ProfileViewModel {
+        let newModel = ProfileViewModel()
+        setUpProfileViewModel(newModel, account: account, relationship: relationship)
+        return newModel
+    }
+    
+    private func setUpProfileViewModel(_ viewModel: ProfileViewModel, account: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?) {
+        let account = MastodonAccount.fromEntity(account, authenticatedDomain: AuthenticationServiceProvider.shared.currentActiveUser.value?.domain ?? "")
+        if account.globallyUniqueUserIdentifier == AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier {
+            viewModel.set(account: account, relationship: .isMe)
+        } else {
+            viewModel.set(account: account, relationship: .isNotMe(relationship?.info))
+            
+            if relationship?.info == nil {
+                Task {
+                    let relationshipFetchID = account.id
+                    if let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
+                        Task {
+                            guard let relationship = try await APIService.shared.relationship(forAccountIds: [relationshipFetchID], authenticationBox: authBox).value.first else { return }
+                            viewModel.set(account: account, relationship: .isNotMe(MastodonAccount.RelationshipInfo(relationship, fetchedAt: .now)))
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -63,10 +180,18 @@ extension MastodonNavigationDestination: Hashable {
     
     var description: String {
         switch self {
+        case .timeline(let type):
+            return "timeline(\(type))"
+        case .profile(let account, let relationship):
+            let isMeString = {
+                guard let isMyAccount = relationship?.refersToSameAccount(as: .isMe) else { return "ME_UNKNOWN" }
+                return isMyAccount ? "isMe" : "notMe"
+            }()
+            return "profile(\(account.acctWithDomain)-\(isMeString))"
         case .editProfile:
             return "editProfile"
-        case .familiarFollowers(let account, _):
-            return "familiarFollowersOf\(account.globallyUniqueUserIdentifier)"
+        case .legacy(let scene, let transition):
+            return "LEGACY-\(scene)-\(transition)"
         }
     }
 }

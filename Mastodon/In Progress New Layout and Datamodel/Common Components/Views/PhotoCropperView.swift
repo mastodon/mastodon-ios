@@ -137,7 +137,7 @@ struct PhotoCropperView: View {
             return CGSize(width: cropSize.width, height: cropSize.width / aspect)
         } else {
             // image is squatter.  make the height fit.
-            return CGSize(width: cropSize.height / aspect, height: cropSize.height)
+            return CGSize(width: cropSize.height * aspect, height: cropSize.height)
         }
     }
     

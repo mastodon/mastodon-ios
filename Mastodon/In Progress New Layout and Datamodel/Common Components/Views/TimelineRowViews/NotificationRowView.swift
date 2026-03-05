@@ -436,7 +436,7 @@ struct FilteredNotificationsRowView: View {
 }
 
 struct NotificationRowView: View {
-    
+    @Environment(MastodonNavigationRouter.self) private var navigator
     @Environment(NotificationRowViewModel.self) var viewModel
     let contentWidth: CGFloat
     let actionHandler: MastodonPostMenuActionHandler?
@@ -457,7 +457,7 @@ struct NotificationRowView: View {
             }
         }
         .onTapGesture {
-            viewModel.doPrimaryNavigation()
+            viewModel.doPrimaryNavigation(navigator)
         }
     }
     
@@ -508,8 +508,7 @@ struct NotificationRowView: View {
                     .environment(postViewModel)
                     .environment(viewModel.contentConcealViewModel ?? .alwaysShow)
                     .onTapGesture {
-                        guard let actionHandler else { return }
-                        postViewModel.openThreadView(actionHandler: actionHandler)
+                        postViewModel.openThreadView(navigator: navigator)
                     }
             }
         }
@@ -559,10 +558,10 @@ struct NotificationRowView: View {
                     ForEach(
                         accountInfo.accounts.prefix(maxAvatarCount), id: \.self.id
                     ) { account in
-                        AvatarView(size: .small, avatarSource: .url(account.avatarURL), goToProfile: { try await viewModel.navigateToProfile(account) })
+                        AvatarView(size: .small, avatarSource: .url(account.avatarURL), goToProfile: { try await viewModel.navigateToProfile(account, navigator: navigator) })
                             .onTapGesture {
                                 Task {
-                                    try await viewModel.navigateToProfile(account)
+                                    try await viewModel.navigateToProfile(account, navigator: navigator)
                                 }
                             }
                     }

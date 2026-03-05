@@ -16,9 +16,15 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
     let nestedScrollViewModel = NestedScrollInteractionViewModel()
     let navigationRouter: MastodonNavigationRouter
     
-    init(wrapInSwiftUINavigationStack: Bool) {
-        self.wrapInSwiftUINavigationStack = wrapInSwiftUINavigationStack
-        let navigationRouter = MastodonNavigationRouter()
+    init(navigationRouter: MastodonNavigationRouter) {
+        self.wrapInSwiftUINavigationStack = {
+            switch navigationRouter.navigationType {
+            case .uiKit:
+                return false
+            case .swiftUI:
+                return true
+            }
+        }()
         self.navigationRouter = navigationRouter
         let root = ProfileView(wrapInSwiftUINavigationStack: wrapInSwiftUINavigationStack)
             .environment(viewModel)
@@ -27,55 +33,11 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
             .environment(navigationRouter)
         super.init(rootView: AnyView(root))
         title = nil
+        navigationRouter.navigationType = .uiKit(self)
     }
     
     @MainActor @preconcurrency required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        if !wrapInSwiftUINavigationStack {
-            navigationRouter.navigationController = navigationController
-        }
-        super.viewDidAppear(animated)
-    }
-    
-    func set(account: MastodonAccount, relationship: MastodonAccount.Relationship) {
-        viewModel.account = account
-        viewModel.editingViewModel.setAccount(account)
-        viewModel.relationship = relationship
-        viewModel.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts)), asyncRefreshViewModel: AsyncRefreshViewModel())
-        viewModel.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.mediaOnly)), asyncRefreshViewModel: AsyncRefreshViewModel())
-        viewModel.relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: account.locked)
-        
-        for timelineModel in [viewModel.postsViewModel, viewModel.mediaViewModel] {
-            timelineModel?.parentVcPresentScene = { (scene, transition) in
-                self.sceneCoordinator?.present(scene: scene, from: self, transition: transition)
-            }
-        }
-        
-        viewModel.relationshipViewModel.actionHandler = viewModel.postsViewModel
-        
-        switch relationship {
-        case .isMe:
-            viewModel.editingStatus = .notEditing
-        case .isNotMe:
-            viewModel.editingStatus = .cannotEdit
-        }
-        
-        Task {
-            let handle = account.handle
-            let handleComponents = handle.split(separator: "@").map { String($0) }
-            if handleComponents.count > 1 {
-                // server is included
-                viewModel.handleDetails = .init(username: handleComponents.first ?? "", domain: handleComponents.last ?? "", isMyDomain: false)
-            } else {
-                // this account is on my server
-                if let myDomain = AuthenticationServiceProvider.shared.currentActiveUser.value?.domain {
-                    viewModel.handleDetails = .init(username: handleComponents.first ?? "", domain: myDomain, isMyDomain: true)
-                }
-            }
-        }
     }
 }
 
@@ -150,13 +112,18 @@ struct ProfileView: View {
 
                         HStack {
                             AccountStatsView(displayType: .smallInline(joinedOn: viewModel.account?.metadata.createdAt), accountMetrics: viewModel.account?.metrics) { stat in
+                                guard let accountID = viewModel.account?.id else { return }
                                 switch stat {
                                 case .postCount:
                                     break
                                 case .followersCount:
-                                    break
+                                    if let count = viewModel.account?.metrics.followersCount, count > 0 {
+                                        navigationRouter.push(.timeline(.followers(ofUserId: accountID)))
+                                    }
                                 case .followingCount:
-                                    break
+                                    if let count = viewModel.account?.metrics.followingCount, count > 0 {
+                                        navigationRouter.push(.timeline(.accountsFollowed(byUserId: accountID)))
+                                    }
                                 }
                             }
                             .padding(.leading, doublePadding)
@@ -184,11 +151,13 @@ struct ProfileView: View {
                             Spacer()
                                 .frame(height: doublePadding)
                             
+                            // PAGE SELECTOR
                             subview(.paginationControl, width: geo.size.width)
                                 .id(Subview.paginationControl)
                                 .frame(width: min(maxFeedContentWidth, geo.size.width))
                             Divider()
                             
+                            // PAGES
                             subview(.pages, width: geo.size.width)
                                 .id(Subview.pages)
                         }
@@ -216,6 +185,7 @@ struct ProfileView: View {
             }
         }
         .ignoresSafeArea()
+        .toolbarBackgroundVisibility(.hidden, for: .navigationBar)
         .onPreferenceChange(VerticalPositionKey.self) { values in
             guard
                 let embedded = values["embedded"],
@@ -248,9 +218,9 @@ struct ProfileView: View {
             ProfileAvatarAndBannerView(width: width)
                 .environment(viewModel.editingViewModel)
         case .mainInfo:
-            if let familiarFollowersModel = viewModel.familiarFollowersViewModel {
-                ProfileInfoView()
-                    .environment(viewModel.familiarFollowersViewModel)
+            if let familiarFollowersViewModel = viewModel.familiarFollowersViewModel {
+                ProfileInfoView(width: width)
+                    .environment(familiarFollowersViewModel)
             }
         case .paginationControl:
             ProfilePaginationControl()
@@ -373,6 +343,8 @@ struct ProfileInfoView: View {
     @Environment(TimelineListViewModel.self) var familiarFollowersViewModel
     @State var isShowingHandleInfo = false
     
+    let width: CGFloat
+    
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             
@@ -387,9 +359,11 @@ struct ProfileInfoView: View {
                     Text(handle)
                         .foregroundStyle(.secondary)
                         .font(.subheadline)
-                    Image(systemName: "info.circle")
-                        .foregroundColor(Asset.Colors.accent.swiftUIColor)
-                        .font(.caption)
+                    if viewModel.handleDetails?.username != nil {
+                        Image(systemName: "info.circle")
+                            .foregroundColor(Asset.Colors.accent.swiftUIColor)
+                            .font(.caption)
+                    }
                 }
                 .onTapGesture {
                     isShowingHandleInfo = !isShowingHandleInfo
@@ -399,6 +373,9 @@ struct ProfileInfoView: View {
                         HandleInfoPopover()
                     }
                 }
+                
+                Spacer()
+                    .frame(height: tinySpacing)
                 
                 // SERVER ROLES
                 if let domain = viewModel.account?.domain, let roles = viewModel.account?._legacyEntity.publicRoles, !roles.isEmpty {
@@ -412,15 +389,36 @@ struct ProfileInfoView: View {
                 }
                 
                 // FAMILIAR FOLLOWERS
-                if let familiarFollowers = familiarFollowersViewModel.familiarFollowers {
-                    FamiliarFollowersElement(familiarFollowers: familiarFollowers)
-                        .onTapGesture {
-                            if let account = viewModel.account {
-                                navigationRouter.navigate(to: .familiarFollowers(account: account, listViewModel: familiarFollowersViewModel))
+                switch relationshipViewModel.relationship {
+                case .isMe, .none:
+                    EmptyView()
+                case .isNotMe:
+                    if let familiarFollowers = familiarFollowersViewModel.familiarFollowers {
+                        Spacer()
+                            .frame(height: tinySpacing)
+                        
+                        FamiliarFollowersElement(familiarFollowers: familiarFollowers)
+                            .onTapGesture {
+                                if let account = viewModel.account {
+                                    navigationRouter.push(.timeline(.familiarFollowers(account, familiarFollowersViewModel)))
+                                }
                             }
-                        }
+                    }
                 }
                 
+                Spacer()
+                    .frame(height: tinySpacing)
+                
+                // BIO
+                MastodonContentView.timelinePost(html: viewModel.account?._legacyEntity.note ?? "", emojis: viewModel.account?.displayInfo.emojis ?? [], isInlinePreview: false)
+                
+                Spacer()
+                    .frame(height: tinySpacing)
+                
+                // CUSTOM FIELDS
+                if let fields = viewModel.account?.metadata.customFields, !fields.isEmpty {
+                    CustomFieldsFlow(maxItemWidth: min(width * 0.4, maxFeedContentWidth), fields: viewModel.account?.metadata.customFields ?? [], emojis: viewModel.account?._legacyEntity.emojis ?? [])
+                }
             }
             
             HStack {
@@ -536,51 +534,6 @@ struct CustomFieldsFlow: View {
     }
 }
 
-struct CustomFieldsStack: View {
-    var fields: [Mastodon.Entity.Field]
-    var emojis: [Mastodon.Entity.Emoji]
-    
-    private let labelWidth: CGFloat = 100
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 1) {
-            ForEach(fields, id: \.self) { field in
-                customFieldRow(field, emojis: emojis)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, doublePadding)
-                    .background {
-                        if field.verifiedAt != nil {
-                            Asset.Colors.Brand.backgroundSoftest.swiftUIColor
-                        }
-                    }
-            }
-        }
-    }
-    
-    @ViewBuilder func customFieldRow(_ field: Mastodon.Entity.Field, emojis: [Mastodon.Entity.Emoji]) -> some View {
-        HStack(alignment: .firstTextBaseline, spacing: 0) {
-            MastodonContentView.customProfileField(html: field.name, emojis: emojis, bold: false)
-                .foregroundColor(.secondary)
-                .frame(width: labelWidth, alignment: .leading)
-            
-            Spacer()
-                .frame(width: standardPadding)
-            
-            MastodonContentView.customProfileField(html: field.value, emojis: emojis, bold: true)
-                .foregroundColor(Asset.Colors.accent.swiftUIColor)
-            
-            if field.verifiedAt != nil {
-                Spacer()
-                    .frame(width: tinySpacing)
-                Asset.Scene.Profile.About.verifiedLinkBadge.swiftUIImage
-            }
-        }
-        .font(.footnote)
-        .lineLimit(1)
-        .padding(.vertical, standardPadding)
-    }
-}
-
 struct ProfilePaginationControl: View {
     @Environment(ProfileViewModel.self) var viewModel
     @Namespace var animationNamespace
@@ -643,7 +596,7 @@ struct ProfileActionBar: View {
                 relationshipViewModel.button.largeButton {
                     switch relationshipViewModel.button {
                     case .edit:
-                        navigationRouter.navigate(to: .editProfile(profileViewModel: viewModel, editingViewModel: viewModel.editingViewModel))
+                        navigationRouter.push(.editProfile(profileViewModel: viewModel, editingViewModel: viewModel.editingViewModel))
                     default:
                         Task {
                                 try await relationshipViewModel.doRelationshipAction(relationshipViewModel.button.buttonAction, account: account)
@@ -691,25 +644,24 @@ struct ProfilePaginatingView: View {
                 )) {
                     ForEach(ProfilePage.allCases, id: \.self) { page in
                         switch page {
-                        case .about:
-                            ProfileAboutPage()
-                                .nestedScrollview(.inner)
-                                .frame(width: geo.size.width, height: geo.size.height)
-                                .environment(viewModel.relationshipViewModel)
                         case .activity:
-                            TimelineListView()
-                                .environment(viewModel.postsViewModel)
-                                .environment(viewModel.postsViewModel?.timeline.filterModel)
-                                .environment(AsyncRefreshViewModel())
-                                .tag(page)
-                                .frame(width: geo.size.width, height: geo.size.height)
+                            if let postsTimelineViewModel = viewModel.postsViewModel {
+                                TimelineListView()
+                                    .environment(postsTimelineViewModel)
+                                    .environment(postsTimelineViewModel.timeline.filterModel)
+                                    .environment(AsyncRefreshViewModel())
+                                    .tag(page)
+                                    .frame(width: geo.size.width, height: geo.size.height)
+                            }
                         case .mediaOnly:
-                            TimelineListView()
-                                .environment(viewModel.mediaViewModel)
-                                .environment(viewModel.mediaViewModel?.timeline.filterModel)
-                                .environment(AsyncRefreshViewModel())
-                                .tag(page)
-                                .frame(width: geo.size.width, height: geo.size.height)
+                            if let mediaTimelineViewModel = viewModel.mediaViewModel {
+                                TimelineListView()
+                                    .environment(mediaTimelineViewModel)
+                                    .environment(mediaTimelineViewModel.timeline.filterModel)
+                                    .environment(AsyncRefreshViewModel())
+                                    .tag(page)
+                                    .frame(width: geo.size.width, height: geo.size.height)
+                            }
                         case .featured:
                             Color.red
                                 .tag(page)
@@ -756,15 +708,12 @@ struct TestAllRelationshipButtons: View {
 }
 
 enum ProfilePage: CaseIterable, Hashable {
-    case about
     case activity
     case mediaOnly
     case featured
     
     var title: String {
         switch self {
-        case .about:
-            L10nLookup.Scene.Profile.SegmentedControl.about
         case .activity:
             L10nLookup.Scene.Profile.SegmentedControl.activity
         case .mediaOnly:
@@ -776,14 +725,12 @@ enum ProfilePage: CaseIterable, Hashable {
     
     var nextPage: ProfilePage {
         switch self {
-        case .about:
-                .activity
         case .activity:
                 .mediaOnly
         case .mediaOnly:
                 .featured
         case .featured:
-                .about
+                .activity
         }
     }
 }
@@ -845,7 +792,7 @@ enum EditingStatus: Equatable {
     }
     private var activityFilter: TimelineQueryFilter?
     var mediaViewModel: TimelineListViewModel?
-    var selectedPage: ProfilePage = .about
+    var selectedPage: ProfilePage = .activity
     var handleDetails: HandleDetails?
     
     var navigationButtons: [UIBarButtonItem] {
@@ -878,6 +825,38 @@ enum EditingStatus: Equatable {
             get: { self.editingStatus },
             set: { newValue in self.editingStatus = newValue }
         )
+    }
+    
+    public func set(account: MastodonAccount, relationship: MastodonAccount.Relationship) {
+        self.account = account
+        self.editingViewModel.setAccount(account)
+        self.relationship = relationship
+        self.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts)), asyncRefreshViewModel: AsyncRefreshViewModel())
+        self.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.mediaOnly)), asyncRefreshViewModel: AsyncRefreshViewModel())
+        self.relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: account.locked)
+        
+        self.relationshipViewModel.actionHandler = self.postsViewModel
+        
+        switch relationship {
+        case .isMe:
+            self.editingStatus = .notEditing
+        case .isNotMe:
+            self.editingStatus = .cannotEdit
+        }
+        
+        Task {
+            let handle = account.handle
+            let handleComponents = handle.split(separator: "@").map { String($0) }
+            if handleComponents.count > 1 {
+                // server is included
+                self.handleDetails = .init(username: handleComponents.first ?? "", domain: handleComponents.last ?? "", isMyDomain: false)
+            } else {
+                // this account is on my server
+                if let myDomain = AuthenticationServiceProvider.shared.currentActiveUser.value?.domain {
+                    self.handleDetails = .init(username: handleComponents.first ?? "", domain: myDomain, isMyDomain: true)
+                }
+            }
+        }
     }
     
     @ToolbarContentBuilder func toolbar(relationship: MastodonAccount.Relationship) -> some ToolbarContent {
@@ -1002,23 +981,24 @@ extension ProfileBadge: View {
     }
 }
 
-struct ProfileAboutPage: View {
-    @Environment(ProfileViewModel.self) var viewModel
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            // BIO
-            MastodonContentView.timelinePost(html: viewModel.account?._legacyEntity.note ?? "", emojis: viewModel.account?.displayInfo.emojis ?? [], isInlinePreview: false)
-                .padding(.horizontal, doublePadding)
-            
-            // CUSTOM FIELDS
-            if let fields = viewModel.account?.metadata.customFields, !fields.isEmpty {
-                CustomFieldsStack(fields: fields, emojis: viewModel.account?._legacyEntity.emojis ?? [])
-            }
-        }
-        .padding(.vertical)
-    }
-}
+
+//struct ProfileAboutPage: View {
+//    @Environment(ProfileViewModel.self) var viewModel
+//    
+//    var body: some View {
+//        VStack(alignment: .leading) {
+//            // BIO
+//            MastodonContentView.timelinePost(html: viewModel.account?._legacyEntity.note ?? "", emojis: viewModel.account?.displayInfo.emojis ?? [], isInlinePreview: false)
+//                .padding(.horizontal, doublePadding)
+//            
+//            // CUSTOM FIELDS
+//            if let fields = viewModel.account?.metadata.customFields, !fields.isEmpty {
+//                CustomFieldsStack(fields: fields, emojis: viewModel.account?._legacyEntity.emojis ?? [])
+//            }
+//        }
+//        .padding(.vertical)
+//    }
+//}
 
 struct FamiliarFollowersElement: View {
     let familiarFollowers: TimelineListViewModel.FamiliarAccountsSummary
