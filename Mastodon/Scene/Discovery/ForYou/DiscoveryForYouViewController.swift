@@ -10,6 +10,7 @@ import Combine
 import MastodonUI
 import MastodonCore
 import MastodonSDK
+import MastodonLocalization
 
 final class DiscoveryForYouViewController: UIViewController, MediaPreviewableViewController {
     
@@ -97,7 +98,15 @@ extension DiscoveryForYouViewController: UITableViewDelegate {
         guard case let .account(account, _) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
 
         Task {
-            await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
+            guard let myAccount = authenticationBox.cachedAccount else { return }
+            let profile: ProfileType = {
+                if account.acctWithDomain == myAccount.acctWithDomain {
+                    .me(account)
+                } else {
+                    .notMe(me: myAccount, displayAccount: account, relationship: nil)
+                }
+            }()
+            sceneCoordinator?.present(scene: .profile(profile), from: self, transition: .show)
         }
     }
 
@@ -116,7 +125,7 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
         cell.profileCardView.setButtonState(.loading)
 
         Task {
-            let newRelationship = try await DataSourceFacade.responseToUserFollowAction(dependency: self, account: account)
+            let newRelationship = try await LegacyDataSourceFacade.responseToUserFollowAction(dependency: self, account: account)
 
             let isMe = (account.id == authenticationBox.userID)
 
@@ -141,19 +150,13 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
             guard let self else { return }
             do {
                 let userID = account.id
-                let familiarFollowers = viewModel.familiarFollowers.first(where: { $0.id == userID })?.accounts ?? []
-                let relationships = try await APIService.shared.relationship(forAccounts: familiarFollowers, authenticationBox: authenticationBox).value
 
                 self.sceneCoordinator?.hideLoading()
-
-                let familiarFollowersViewModel = FamiliarFollowersViewModel(
-                    authenticationBox: authenticationBox,
-                    accounts: familiarFollowers,
-                    relationships: relationships
-                )
+                
+                let familiarFollowersViewModel = TimelineListViewModel(timeline: .familiarFollowers(userID), asyncRefreshViewModel: AsyncRefreshViewModel())
 
                 _ = self.sceneCoordinator?.present(
-                    scene: .familiarFollowers(viewModel: familiarFollowersViewModel),
+                    scene: .familiarFollowers(account, authenticationBox),
                     from: self,
                     transition: .show
                 )

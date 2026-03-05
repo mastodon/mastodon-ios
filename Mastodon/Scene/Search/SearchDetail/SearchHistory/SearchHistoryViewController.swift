@@ -86,28 +86,35 @@ extension SearchHistoryViewController: UICollectionViewDelegate {
         }
 
         Task {
-            let source = DataSourceItem.Source(indexPath: indexPath)
+            let source = LegacyDataSourceFacade.DataSourceItem.Source(indexPath: indexPath)
             guard let item = await item(from: source) else {
                 return
             }
 
-            await DataSourceFacade.responseToCreateSearchHistory(
+            await LegacyDataSourceFacade.responseToCreateSearchHistory(
                 provider: self,
                 item: item
             )
 
             switch item {
-                case .account(account: let account, relationship: _):
-                    await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
-
-                case .hashtag(let tag):
-                    await DataSourceFacade.coordinateToHashtagScene(
-                        provider: self,
-                        tag: tag
-                    )
-                default:
-                    assertionFailure()
-                    break
+            case .account(account: let account, relationship: _):
+                guard let myAccount = authenticationBox.cachedAccount else { return }
+                let profile: ProfileType = {
+                    if account.acctWithDomain == myAccount.acctWithDomain {
+                        .me(account)
+                    } else {
+                        .notMe(me: myAccount, displayAccount: account, relationship: nil)
+                    }
+                }()
+                
+            case .hashtag(let tag):
+                await LegacyDataSourceFacade.coordinateToHashtagScene(
+                    provider: self,
+                    tag: tag
+                )
+            default:
+                assertionFailure()
+                break
             }
         }
     }

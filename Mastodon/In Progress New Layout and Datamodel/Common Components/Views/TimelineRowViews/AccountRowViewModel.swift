@@ -44,11 +44,11 @@ import SwiftUI
         guard let relationship = relationshipViewModel.relationship else { return }
         switch relationship {
         case .isMe:
-            let profile: ProfileViewController.ProfileType = .me(account._legacyEntity)
+            let profile: ProfileType = .me(account._legacyEntity)
             actionHandler?.presentScene(.profile(profile), fromPost: nil, transition: .show)
         case .isNotMe:
             guard let me = AuthenticationServiceProvider.shared.currentActiveUser.value?.cachedAccount else { return }
-            let profile: ProfileViewController.ProfileType = .notMe(me: me, displayAccount: account._legacyEntity, relationship: relationship.info?._legacyEntity)
+            let profile: ProfileType = .notMe(me: me, displayAccount: account._legacyEntity, relationship: relationship.info?._legacyEntity)
             actionHandler?.presentScene(.profile(profile), fromPost: nil, transition: .show)
         }
     }

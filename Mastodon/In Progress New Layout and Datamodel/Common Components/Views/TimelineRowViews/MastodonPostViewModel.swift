@@ -137,15 +137,7 @@ struct PrecalculatedHeight {
     func openThreadView(actionHandler: MastodonPostMenuActionHandler) {
         guard let actionablePost = fullPost?.actionablePost, let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
         actionHandler.presentScene(
-            .thread(
-                viewModel: ThreadViewModel(
-                    authenticationBox: currentUser,
-                    optionalRoot: .root(
-                        context: .init(
-                            status: MastodonStatus(
-                                entity: actionablePost._legacyEntity,
-                                showDespiteContentWarning:
-                                    false))))), fromPost: initialDisplayInfo.id, transition: .show)
+            .thread(actionablePost._legacyEntity, authenticatedUserDomain: currentUser.domain), fromPost: nil, transition: .show)
     }
     
     func openURL(_ url: URL, actionHandler: MastodonPostMenuActionHandler) -> Bool {
@@ -169,13 +161,13 @@ struct PrecalculatedHeight {
             switch relationshipToAuthor {
             case .isNotMe(let info):
                 if let info, account.id == info.id {
-                    let profile: ProfileViewController.ProfileType = .notMe(me: me, displayAccount: account._legacyEntity, relationship: info._legacyEntity)
+                    let profile: ProfileType = .notMe(me: me, displayAccount: account._legacyEntity, relationship: info._legacyEntity)
                     actionHandler?.presentScene(.profile(profile), fromPost: initialDisplayInfo.id, transition: .show)
                     return
                 }
             case .isMe:
                 if account.id == me.id {
-                    let profile: ProfileViewController.ProfileType = .me(account._legacyEntity)
+                    let profile: ProfileType = .me(account._legacyEntity)
                     actionHandler?.presentScene(.profile(profile), fromPost: initialDisplayInfo.id, transition: .show)
                     return
                 }
@@ -183,10 +175,10 @@ struct PrecalculatedHeight {
         }
         // if we have reached here, then we are trying to view an account other than the author of this post (probably a mention)
         if account.id == me.id {
-            let profile: ProfileViewController.ProfileType = .me(account._legacyEntity)
+            let profile: ProfileType = .me(account._legacyEntity)
             actionHandler?.presentScene(.profile(profile), fromPost: initialDisplayInfo.id, transition: .show)
         } else {
-            let profile: ProfileViewController.ProfileType = .notMe(me: me, displayAccount: account._legacyEntity, relationship: nil) // we don't have the relationship info at this point
+            let profile: ProfileType = .notMe(me: me, displayAccount: account._legacyEntity, relationship: nil) // we don't have the relationship info at this point
             actionHandler?.presentScene(.profile(profile), fromPost: initialDisplayInfo.id, transition: .show)
         }
     }

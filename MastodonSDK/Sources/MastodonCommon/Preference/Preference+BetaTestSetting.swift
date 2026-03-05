@@ -45,17 +45,4 @@ extension UserDefaults {
         let testUnreadMarkersForNotifications = UserDefaults.standard.testUnreadMarkersForNotifications
         UserDefaults.standard.testUnreadMarkersForNotifications = !testUnreadMarkersForNotifications
     }
-    
-    @objc public dynamic var useBetaProfileView: Bool {
-        get {
-            register(defaults: [#function: false])
-            return bool(forKey: #function) && UserDefaults.isDebugOrTestflightOrSimulator
-        }
-        set { self[#function] = newValue }
-    }
-    
-    public func toggleUseBetaProfileView() {
-        let useBetaProfileView = UserDefaults.standard.useBetaProfileView
-        UserDefaults.standard.useBetaProfileView = !useBetaProfileView
-    }
 }

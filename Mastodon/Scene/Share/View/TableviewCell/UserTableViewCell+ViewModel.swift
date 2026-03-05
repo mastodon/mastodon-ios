@@ -52,7 +52,7 @@ extension UserTableViewCellDelegate where Self: UIViewController & AuthContextPr
         Task {
             await MainActor.run { view.setButtonState(.loading) }
 
-            guard let relationship = try await DataSourceFacade.responseToUserViewButtonAction(
+            guard let relationship = try await LegacyDataSourceFacade.responseToUserViewButtonAction(
                 dependency: self,
                 account: account,
                 buttonState: state

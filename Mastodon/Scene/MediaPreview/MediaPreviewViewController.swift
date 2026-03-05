@@ -94,7 +94,7 @@ extension MediaPreviewViewController {
                         mediaGridContainerView.setAlpha(1)
                         mediaGridContainerView.setAlpha(0, index: index)
                     }
-                case .profileAvatar, .profileBanner, .swiftUI:
+                case .swiftUI:
                     break
                 }
             }

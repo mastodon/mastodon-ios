@@ -39,10 +39,9 @@ extension SearchResultOverviewCoordinator: SearchResultsOverviewTableViewControl
 
     func showPosts(_ viewController: SearchResultsOverviewTableViewController, tag: Mastodon.Entity.Tag) {
         Task {
-            await DataSourceFacade.coordinateToHashtagScene(provider: viewController,
-                                                            tag: tag)
+            await viewController.sceneCoordinator?.present(scene: .hashtagTimeline(tag), transition: .show)
 
-            await DataSourceFacade.responseToCreateSearchHistory(provider: viewController,
+            await LegacyDataSourceFacade.responseToCreateSearchHistory(provider: viewController,
                                                                  item: .hashtag(tag: tag))
 
             delegate?.newSearchHistoryItemAdded(self)
@@ -75,12 +74,7 @@ extension SearchResultOverviewCoordinator: SearchResultsOverviewTableViewControl
             if let account = searchResult.accounts.first {
                 showProfile(viewController, for: account)
             } else if let status = searchResult.statuses.first {
-
-                await DataSourceFacade.coordinateToStatusThreadScene(
-                    provider: viewController,
-                    target: .status,    // remove reblog wrapper
-                    status: MastodonStatus.fromEntity(status)
-                )
+                await viewController.sceneCoordinator?.present(scene: .thread(status.reblog ?? status, authenticatedUserDomain: authenticationBox.domain), transition: .show)
             } else if let url = URL(string: urlString) {
                 let prefixedURL: URL?
                 if var components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
@@ -100,11 +94,18 @@ extension SearchResultOverviewCoordinator: SearchResultsOverviewTableViewControl
     }
 
     func showProfile(_ viewController: SearchResultsOverviewTableViewController, for account: Mastodon.Entity.Account) {
-        Task {
-            await DataSourceFacade.coordinateToProfileScene(provider: viewController,
-                                                            account: account)
+        Task { @MainActor in
+            guard let myAccount = authenticationBox.cachedAccount else { return }
+            let profile: ProfileType = {
+                if account.acctWithDomain == myAccount.acctWithDomain {
+                    .me(account)
+                } else {
+                    .notMe(me: myAccount, displayAccount: account, relationship: nil)
+                }
+            }()
+            viewController.sceneCoordinator?.present(scene: .profile(profile), from: viewController, transition: .show)
 
-            await DataSourceFacade.responseToCreateSearchHistory(provider: viewController,
+            await LegacyDataSourceFacade.responseToCreateSearchHistory(provider: viewController,
                                                                  item: .account(account: account, relationship: nil))
 
             delegate?.newSearchHistoryItemAdded(self)

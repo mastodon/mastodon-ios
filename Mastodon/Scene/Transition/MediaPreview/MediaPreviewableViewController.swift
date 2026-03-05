@@ -37,20 +37,6 @@ extension MediaPreviewableViewController {
                     contentSourceFrame: mediaView.contentView().frame
                 )
             }
-        case .profileAvatar(let profileHeaderView):
-            if let superview = profileHeaderView.avatarButton.superview {
-                let rect = superview.convert(profileHeaderView.avatarButton.frame, to: nil)
-                sourceFrameProvider = SourceFrameProvider(
-                    containerSourceFrame: rect, contentSourceFrame: nil
-                )
-            }
-        case .profileBanner(let profileHeaderView):
-            if let superview = profileHeaderView.bannerImageView.superview {
-                let rect = superview.convert(profileHeaderView.bannerImageView.frame, to: nil)
-                sourceFrameProvider = SourceFrameProvider(
-                    containerSourceFrame: rect, contentSourceFrame: nil
-                )
-            }
         case .swiftUI(let sourceFrames):
             sourceFrameProvider = SourceFrameProvider(containerSourceFrame: sourceFrames[index], contentSourceFrame: nil)
         }

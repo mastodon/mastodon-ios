@@ -1966,22 +1966,6 @@ struct TimelineListView: View {
             Color.clear
                 .frame(height: geo.size.height * 0.5)
         }
-        if !UserDefaults.standard.useBetaProfileView {
-            switch viewModel.timeline {
-            case .userPosts:
-                // include a spacer to allow content to scroll above the tab bar while we are still using the old ProfileViewController (which lays out these view controllers so that they hang mostly off the bottom of the screen, to allow the overall view to scroll up and show these views at full screen height)
-                let spacerHeightHackToMakeScrollingWorkUntilWeReplaceProfileViewController: CGFloat = {
-                    let frame = geo.frame(in: .global)
-                    let screenHeight = UIScreen.main.bounds.height
-                    let offscreenBottom = max(frame.maxY - screenHeight, 0)
-                    return offscreenBottom + geo.safeAreaInsets.bottom
-                }()
-                Spacer()
-                    .frame(width: 200, height: spacerHeightHackToMakeScrollingWorkUntilWeReplaceProfileViewController)  // TODO: remove when replacing ProfileViewController
-            default:
-                EmptyView()
-            }
-        }
     }
     
     @ViewBuilder func singlePostView(_ postViewModel: MastodonPostViewModel, contentWidth: CGFloat, useableWidth: CGFloat, isPinned: Bool, isScrollAnchor: Bool) -> some View {
@@ -3169,7 +3153,7 @@ extension MastodonTimelineType {
     var isInNestedScrollview: Bool {
         switch self {
         case .userPosts:
-            UserDefaults.standard.useBetaProfileView
+            true
         default:
             false
         }

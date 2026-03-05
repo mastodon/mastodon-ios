@@ -115,7 +115,7 @@ final class SuggestionAccountViewModel: NSObject {
             await withTaskGroup(of: Void.self, body: { taskGroup in
                 for account in tmpAccounts {
                     taskGroup.addTask {
-                        _ = try? await DataSourceFacade.responseToUserViewButtonAction(
+                        _ = try? await LegacyDataSourceFacade.responseToUserViewButtonAction(
                             dependency: dependency,
                             account: account,
                             buttonState: .follow

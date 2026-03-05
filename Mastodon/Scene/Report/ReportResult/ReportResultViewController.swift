@@ -85,7 +85,7 @@ extension ReportResultViewController {
                     guard !self.viewModel.isRequestFollow else { return }
                     self.viewModel.isRequestFollow = true
                     do {
-                        let newRelationship = try await DataSourceFacade.responseToUserFollowAction(
+                        let newRelationship = try await LegacyDataSourceFacade.responseToUserFollowAction(
                             dependency: self,
                             account: self.viewModel.account
                         )
@@ -106,7 +106,7 @@ extension ReportResultViewController {
                     guard !self.viewModel.isRequestMute else { return }
                     self.viewModel.isRequestMute = true
                     do {
-                        let newRelationship = try await DataSourceFacade.responseToUserMuteAction(
+                        let newRelationship = try await LegacyDataSourceFacade.responseToUserMuteAction(
                             dependency: self,
                             account: self.viewModel.account
                         )
@@ -127,7 +127,7 @@ extension ReportResultViewController {
                     guard !self.viewModel.isRequestBlock else { return }
                     self.viewModel.isRequestBlock = true
                     do {
-                        let newRelationship = try await DataSourceFacade.responseToUserBlockAction(
+                        let newRelationship = try await LegacyDataSourceFacade.responseToUserBlockAction(
                             dependency: self,
                             account: self.viewModel.account
                         )

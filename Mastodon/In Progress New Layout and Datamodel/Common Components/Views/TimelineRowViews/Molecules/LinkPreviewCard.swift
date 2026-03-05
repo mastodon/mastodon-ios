@@ -195,7 +195,7 @@ struct LinkPreviewCard: View {
                 
                 Button { // author account button
                     guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value?.cachedAccount else { return }
-                    let profileType: ProfileViewController.ProfileType
+                    let profileType: ProfileType
                     if currentUser.id == account.id {
                         profileType = .me(currentUser)
                     } else {

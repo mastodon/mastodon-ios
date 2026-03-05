@@ -96,13 +96,25 @@ extension DiscoveryNewsViewController: ScrollViewContainer {
     var scrollView: UIScrollView { tableView }
 }
 
-extension DiscoveryNewsViewController {
-    override var keyCommands: [UIKeyCommand]? {
-        return navigationKeyCommands
-    }
-}
+//extension DiscoveryNewsViewController {
+//    override var keyCommands: [UIKeyCommand]? {
+//        return navigationKeyCommands
+//    }
+//}
 
 extension DiscoveryNewsViewController: TableViewControllerNavigateable {
+    var navigationKeyCommands: [UIKeyCommand] {
+        []
+    }
+    
+    func navigateKeyCommandHandler(_ sender: UIKeyCommand) {
+        return
+    }
+    
+    func back() {
+        return
+    }
+    
     
     func navigate(direction: TableViewNavigationDirection) {
         if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
@@ -141,8 +153,8 @@ extension DiscoveryNewsViewController: TableViewControllerNavigateable {
         }()
         
         guard let item = _navigateToItem, let indexPath = diffableDataSource.indexPath(for: item) else { return }
-        let scrollPosition: UITableView.ScrollPosition = overrideNavigationScrollPosition ?? Self.navigateScrollPosition(tableView: tableView, indexPath: indexPath)
-        tableView.selectRow(at: indexPath, animated: true, scrollPosition: scrollPosition)
+//        let scrollPosition: UITableView.ScrollPosition = overrideNavigationScrollPosition ?? Self.navigateScrollPosition(tableView: tableView, indexPath: indexPath)
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
     }
     
     private func navigateToFirstVisibleLink() {
@@ -159,8 +171,8 @@ extension DiscoveryNewsViewController: TableViewControllerNavigateable {
             visibleItems.removeFirst()
         }
         guard let item = visibleItems.first, let indexPath = diffableDataSource.indexPath(for: item) else { return }
-        let scrollPosition: UITableView.ScrollPosition = overrideNavigationScrollPosition ?? Self.navigateScrollPosition(tableView: tableView, indexPath: indexPath)
-        tableView.selectRow(at: indexPath, animated: true, scrollPosition: scrollPosition)
+//        let scrollPosition: UITableView.ScrollPosition = overrideNavigationScrollPosition ?? Self.navigateScrollPosition(tableView: tableView, indexPath: indexPath)
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
     }
     
     static func validNavigateableItem(_ item: DiscoveryItem) -> Bool {

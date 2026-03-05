@@ -170,7 +170,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         authenticationBox: authenticationBox
                     ).value.first else { return }
 
-                    let profileType: ProfileViewController.ProfileType = me == account ? .me(me) : .notMe(me: me, displayAccount: account, relationship: relationship)
+                    let profileType: ProfileType = me == account ? .me(me) : .notMe(me: me, displayAccount: account, relationship: relationship)
                     _ = self.coordinator?.present(
                         scene: .profile(profileType),
                         from: nil,
@@ -182,11 +182,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 Task {
                     guard let statusOnMyInstance = try await APIService.shared.search(query: .init(q: incomingURL.absoluteString, resolve: true), authenticationBox: authenticationBox).value.statuses.first else { return }
 
-                    let threadViewModel = RemoteThreadViewModel(
-                        authenticationBox: authenticationBox,
-                        statusID: statusOnMyInstance.id
-                    )
-                    coordinator?.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
+                    coordinator?.present(scene: .threadRemote(.status(statusOnMyInstance.id)), from: nil, transition: .show)
                 }
 
             case (_, _):
@@ -305,7 +301,7 @@ extension SceneDelegate {
                         authenticationBox: authenticationBox
                     ).value.first else { return }
                     
-                    let profileType: ProfileViewController.ProfileType = me == account ? .me(me) : .notMe(me: me, displayAccount: account, relationship: relationship)
+                    let profileType: ProfileType = me == account ? .me(me) : .notMe(me: me, displayAccount: account, relationship: relationship)
                     self.coordinator?.present(
                         scene: .profile(profileType),
                         from: nil,
@@ -328,7 +324,7 @@ extension SceneDelegate {
                 authenticationBox: authenticationBox,
                 statusID: statusId
             )
-            coordinator?.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
+            coordinator?.present(scene: .threadRemote(.status(statusId)), from: nil, transition: .show)
         case "search":
             let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
             guard

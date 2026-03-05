@@ -258,7 +258,15 @@ extension SettingsCoordinator: AboutInstanceViewControllerDelegate {
     @MainActor
     func showAdminAccount(_ viewController: AboutInstanceViewController, account: Mastodon.Entity.Account) {
         Task {
-            await DataSourceFacade.coordinateToProfileScene(provider: viewController, account: account)
+            guard let myAccount = authenticationBox.cachedAccount else { return }
+            let profile: ProfileType = {
+                if account.acctWithDomain == myAccount.acctWithDomain {
+                    .me(account)
+                } else {
+                    .notMe(me: myAccount, displayAccount: account, relationship: nil)
+                }
+            }()
+            viewController.sceneCoordinator?.present(scene: .profile(profile), from: viewController, transition: .show)
         }
     }
     

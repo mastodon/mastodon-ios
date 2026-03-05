@@ -625,15 +625,7 @@ func statusViewModel(_ status: Mastodon.Entity.Status,  myAccountID: String,
                     .currentActiveUser.value
             else { return }
             await navigateToScene(
-                .thread(
-                    viewModel: ThreadViewModel(
-                        authenticationBox: authBox,
-                        optionalRoot: .root(
-                            context: .init(
-                                status: MastodonStatus(
-                                    entity: status,
-                                    showDespiteContentWarning:
-                                        false))))), .show)
+                .thread(status, authenticatedUserDomain: authBox.domain), .show)
         }
     })
 }
