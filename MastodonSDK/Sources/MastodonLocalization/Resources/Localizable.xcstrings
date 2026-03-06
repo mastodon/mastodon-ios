@@ -175322,13 +175322,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Alguien denunció %(postCount)lld mensaje de %(accountName)@."
+                  "value" : "Alguien denunció %1$lld mensaje de %2$@."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Alguien denunció %(postCount)lld mensajes de %(accountName)@."
+                  "value" : "Alguien denunció %1$lld mensajes de %2$@."
                 }
               }
             }
@@ -176060,7 +176060,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "有人檢舉來自 %(accountName)@ 之 %(postCount)lld 則嘟文。"
+                  "value" : "有人檢舉來自 %2$@ 之 %1$lld 則嘟文。"
                 }
               }
             }
@@ -176383,13 +176383,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Alguien denunció %(postCount)lld mensaje de %(accountName)@ por violación de reglas."
+                  "value" : "Alguien denunció %1$lld mensaje de %2$@ por violación de reglas."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Alguien denunció %(postCount)lld mensajes de %(accountName)@ por violación de reglas."
+                  "value" : "Alguien denunció %1$lld mensajes de %2$@ por violación de reglas."
                 }
               }
             }
@@ -177121,7 +177121,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "有人檢舉來自 %(accountName)@ 之 %(postCount)lld 則嘟文違反伺服器規則。"
+                  "value" : "有人檢舉來自 %2$@ 之 %1$lld 則嘟文違反伺服器規則。"
                 }
               }
             }
@@ -177444,13 +177444,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Alguien denunció %(postCount)lld mensaje de %(accountName)@ por spam."
+                  "value" : "Alguien denunció %1$lld mensaje de %2$@ por spam."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Alguien denunció %(postCount)lld mensajes de %(accountName)@ por spam."
+                  "value" : "Alguien denunció %1$lld mensajes de %2$@ por spam."
                 }
               }
             }
@@ -178182,7 +178182,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "有人檢舉來自 %(accountName)@ 之 %(postCount)lld 則垃圾訊息。"
+                  "value" : "有人檢舉來自 %2$@ 之 %1$lld 則垃圾訊息。"
                 }
               }
             }
