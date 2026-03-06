@@ -152397,7 +152397,7 @@
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Jälgijateks %(firstAccount) ja %(secondAccount)@"
+            "value" : "Jälgijateks %(firstAccount)@ ja %(secondAccount)@"
           }
         },
         "eu" : {
@@ -152952,7 +152952,7 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Jälgijaks %(firstAccount), %(secondAccount) ja veel %(otherCount) kasutaja"
+                  "value" : "Jälgijaks %(firstAccount)@, %(secondAccount)@ ja veel %(otherCount)lld kasutaja"
                 }
               },
               "other" : {
@@ -175076,25 +175076,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Нехта даслаў скаргу на %(postCount)lld допісы ад %(accountName)@."
+                  "value" : "Нехта даслаў скаргу на %1$lld допісы ад %2$@."
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Нехта даслаў скаргу на %(postCount)lld допісаў ад %(accountName)@."
+                  "value" : "Нехта даслаў скаргу на %1$lld допісаў ад %2$@."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Нехта даслаў скаргу на %(postCount)lld допіс ад %(accountName)@."
+                  "value" : "Нехта даслаў скаргу на %1$lld допіс ад %2$@."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Нехта даслаў скаргу на %(postCount)lld допісаў ад %(accountName)@."
+                  "value" : "Нехта даслаў скаргу на %1$lld допісаў ад %2$@."
                 }
               }
             }
@@ -175214,13 +175214,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Nogen indberettede %(postCount)lld indlæg fra %(accountName)@."
+                  "value" : "Nogen indberettede %1$lld indlæg fra %2$@."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Nogen indberettede %(postCount)lld indlæg fra %(accountName)@."
+                  "value" : "Nogen indberettede %1$lld indlæg fra %2$@."
                 }
               }
             }
@@ -175250,13 +175250,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Κάποιος ανέφερε %(postCount)lld ανάρτηση από τον/την %(accountName)@."
+                  "value" : "Κάποιος ανέφερε %1$lld ανάρτηση από τον/την %2$@."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Κάποιος ανέφερε %(postCount)lld αναρτήσεις από τον/την %(accountName)@."
+                  "value" : "Κάποιος ανέφερε %1$lld αναρτήσεις από τον/την %2$@."
                 }
               }
             }
@@ -175340,13 +175340,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Keegi teatas %(postCount)-st postitusest kasutajalt %(accountName)@."
+                  "value" : "Keegi teatas %1$lld-st postitusest kasutajalt %2$@."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Keegi teatas %(postCount)-st postitusest kasutajalt %(accountName)@."
+                  "value" : "Keegi teatas %1$lld-st postitusest kasutajalt %2$@."
                 }
               }
             }
@@ -175394,13 +175394,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Quelqu'un a signalé %(postCount)lld message de %(accountName)@."
+                  "value" : "Quelqu'un a signalé %1$lld message de %2$@."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Quelqu'un a signalé %(postCount)lld messages de %(accountName)@."
+                  "value" : "Quelqu'un a signalé %1$lld messages de %2$@."
                 }
               }
             }
@@ -175412,31 +175412,31 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Thuairiscigh duine éigin %(postCount)lld post ó %(accountName)@."
+                  "value" : "Thuairiscigh duine éigin %1$lld post ó %2$@."
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Thuairiscigh duine éigin %(postCount)lld post ó %(accountName)@."
+                  "value" : "Thuairiscigh duine éigin %1$lld post ó %2$@."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Thuairiscigh duine éigin %(postCount)lld post ó %(accountName)@."
+                  "value" : "Thuairiscigh duine éigin %1$lld post ó %2$@."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Thuairiscigh duine éigin %(postCount)lld post ó %(accountName)@."
+                  "value" : "Thuairiscigh duine éigin %1$lld post ó %2$@."
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Thuairiscigh duine éigin %(postCount)lld post ó %(accountName)@."
+                  "value" : "Thuairiscigh duine éigin %1$lld post ó %2$@."
                 }
               }
             }
@@ -175448,25 +175448,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Chaidh gearan a dhèanamh air %(postCount)lld postaichean aig %(accountName)@."
+                  "value" : "Chaidh gearan a dhèanamh air %1$lld postaichean aig %2$@."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Chaidh gearan a dhèanamh air %(postCount)lld phost aig %(accountName)@."
+                  "value" : "Chaidh gearan a dhèanamh air %1$lld phost aig %2$@."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Chaidh gearan a dhèanamh air %(postCount)lld post aig %(accountName)@."
+                  "value" : "Chaidh gearan a dhèanamh air %1$lld post aig %2$@."
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Chaidh gearan a dhèanamh air %(postCount)lld phost aig %(accountName)@."
+                  "value" : "Chaidh gearan a dhèanamh air %1$lld phost aig %2$@."
                 }
               }
             }
@@ -175592,13 +175592,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Einhver kærði %(postCount)lld færslu frá %(accountName)@."
+                  "value" : "Einhver kærði %1$lld færslu frá %2$@."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Einhver kærði %(postCount)lld færslur frá %(accountName)@."
+                  "value" : "Einhver kærði %1$lld færslur frá %2$@."
                 }
               }
             }
@@ -175610,13 +175610,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Qualcuno ha segnalato %(postCount)lld post da %(accountName)@."
+                  "value" : "Qualcuno ha segnalato %1$lld post da %2$@."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Qualcuno ha segnalato %(postCount)lld post da %(accountName)@."
+                  "value" : "Qualcuno ha segnalato %1$lld post da %2$@."
                 }
               }
             }
@@ -175627,8 +175627,8 @@
             "plural" : {
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "Someone reported %1$lld posts from %2$@."
+                  "state" : "translated",
+                  "value" : ""
                 }
               }
             }
@@ -175639,8 +175639,8 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "Someone reported %1$lld post from %2$@."
+                  "state" : "translated",
+                  "value" : ""
                 }
               },
               "other" : {
@@ -175940,13 +175940,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Dikush raportoi %(postCount)lld postim prej %(accountName)@."
+                  "value" : "Dikush raportoi %1$lld postim prej %2$@."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Dikush raportoi %(postCount)lld postime prej %(accountName)@."
+                  "value" : "Dikush raportoi %1$lld postime prej %2$@."
                 }
               }
             }
@@ -175988,13 +175988,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Birisi %(accountName)@ kullanıcısının %(postCount)lld gönderisini şikayet etti."
+                  "value" : "Birisi %2$@ kullanıcısının %1$lld gönderisini şikayet etti."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Birisi %(accountName)@ kullanıcısının %(postCount)lld gönderisini şikayet etti."
+                  "value" : "Birisi %2$@ kullanıcısının %1$lld gönderisini şikayet etti."
                 }
               }
             }
@@ -176036,7 +176036,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Ai đó báo cáo %(postCount)lld tút từ %(accountName)@."
+                  "value" : "Ai đó báo cáo %1$lld tút từ %2$@."
                 }
               }
             }
@@ -176048,7 +176048,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "有人举报了来自 %(accountName)@ 的 %(postCount)lld 条嘟文。"
+                  "value" : "有人举报了来自 %2$@ 的 %1$lld 条嘟文。"
                 }
               }
             }
@@ -176137,25 +176137,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Нехта даслаў скаргу на %(postCount)lld допісы ад %(accountName)@ за парушэнне правіл."
+                  "value" : "Нехта даслаў скаргу на %1$lld допісы ад %2$@ за парушэнне правіл."
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Нехта даслаў скаргу на %(postCount)lld допісаў ад %(accountName)@ за парушэнне правіл."
+                  "value" : "Нехта даслаў скаргу на %1$lld допісаў ад %2$@ за парушэнне правіл."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Нехта даслаў скаргу на %(postCount)lld допіс ад %(accountName)@ за парушэнне правіл."
+                  "value" : "Нехта даслаў скаргу на %1$lld допіс ад %2$@ за парушэнне правіл."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Нехта даслаў скаргу на %(postCount)lld допісаў ад %(accountName)@ за парушэнне правіл."
+                  "value" : "Нехта даслаў скаргу на %1$lld допісаў ад %2$@ за парушэнне правіл."
                 }
               }
             }
@@ -176275,13 +176275,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Nogen indberettede %(postCount)lld indlæg fra %(accountName)@ for en regelovertrædelse."
+                  "value" : "Nogen indberettede %1$lld indlæg fra %2$@ for en regelovertrædelse."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Nogen indberettede %(postCount)lld indlæg fra %(accountName)@ for en regelovertrædelse."
+                  "value" : "Nogen indberettede %1$lld indlæg fra %2$@ for en regelovertrædelse."
                 }
               }
             }
@@ -176311,7 +176311,7 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Κάποιος ανέφερε %(postCount)lld ανάρτηση από τον/την %(accountName)@ για παραβίαση κανόνα."
+                  "value" : "Κάποιος ανέφερε %1$lld ανάρτηση από τον/την %2$@ για παραβίαση κανόνα."
                 }
               },
               "other" : {
@@ -176401,13 +176401,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Keegi andis teada, et %(postCount) postitus kasutajalt %(accountName) rikub reegleid."
+                  "value" : "Keegi andis teada, et %1$lld postitus kasutajalt %2$@ rikub reegleid."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Keegi andis teada, et %(postCount) postitust kasutajalt %(accountName) rikuvad reegleid."
+                  "value" : "Keegi andis teada, et %1$lld postitust kasutajalt %2$@ rikuvad reegleid."
                 }
               }
             }
@@ -176455,13 +176455,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Quelqu'un a signalé %(postCount)lld message de %(accountName) pour violation des règles."
+                  "value" : "Quelqu'un a signalé %1$lld message de %2$@ pour violation des règles."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Quelqu'un a signalé %(postCount)lld messages de %(accountName) pour violation des règles."
+                  "value" : "Quelqu'un a signalé %1$lld messages de %2$@ pour violation des règles."
                 }
               }
             }
@@ -176473,31 +176473,31 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Thuairiscigh duine éigin %(postCount)lld post ó %(accountName)@ mar shárú rialacha."
+                  "value" : "Thuairiscigh duine éigin %1$lld post ó %2$@ mar shárú rialacha."
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Thuairiscigh duine éigin %(postCount)lld post ó %(accountName)@ mar shárú rialacha."
+                  "value" : "Thuairiscigh duine éigin %1$lld post ó %2$@ mar shárú rialacha."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Thuairiscigh duine éigin %(postCount)ll post ó %(accountName)@ mar shárú rialacha."
+                  "value" : "Thuairiscigh duine éigin %1$lld post ó %2$@ mar shárú rialacha."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Thuairiscigh duine éigin %(postCount)lld post ó %(accountName)@ mar shárú rialacha."
+                  "value" : "Thuairiscigh duine éigin %1$lld post ó %2$@ mar shárú rialacha."
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Thuairiscigh duine éigin %(postCount)lld post ó %(accountName)@ mar shárú rialacha."
+                  "value" : "Thuairiscigh duine éigin %1$lld post ó %2$@ mar shárú rialacha."
                 }
               }
             }
@@ -176509,25 +176509,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Chaidh gearan a dhèanamh air %(postCount)lld postaichean aig %(accountName)@ air adhbhar briseadh riaghailte."
+                  "value" : "Chaidh gearan a dhèanamh air %1$lld postaichean aig %2$@ air adhbhar briseadh riaghailte."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Chaidh gearan a dhèanamh air %(postCount)lld phost aig %(accountName)@ air adhbhar briseadh riaghailte."
+                  "value" : "Chaidh gearan a dhèanamh air %1$lld phost aig %2$@ air adhbhar briseadh riaghailte."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Chaidh gearan a dhèanamh air %(postCount)lld post aig %(accountName)@ air adhbhar briseadh riaghailte."
+                  "value" : "Chaidh gearan a dhèanamh air %1$lld post aig %2$@ air adhbhar briseadh riaghailte."
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Chaidh gearan a dhèanamh air %(postCount)lld phost aig %(accountName)@ air adhbhar briseadh riaghailte."
+                  "value" : "Chaidh gearan a dhèanamh air %1$lld phost aig %2$@ air adhbhar briseadh riaghailte."
                 }
               }
             }
@@ -176653,13 +176653,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Einhver kærði %(postCount)lld færslu frá %(accountName)@ fyrir brot á reglum."
+                  "value" : "Einhver kærði %1$lld færslu frá %2$@ fyrir brot á reglum."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Einhver kærði %(postCount)lld færslur frá %(accountName)@ fyrir brot á reglum."
+                  "value" : "Einhver kærði %1$lld færslur frá %2$@ fyrir brot á reglum."
                 }
               }
             }
@@ -176671,13 +176671,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Qualcuno ha segnalato %(postCount)lld post da %(accountName)@ per violazione delle regole."
+                  "value" : "Qualcuno ha segnalato %1$lld post da %2$@ per violazione delle regole."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Qualcuno ha segnalato %(postCount)lld post da %(accountName)@ per violazione delle regole."
+                  "value" : "Qualcuno ha segnalato %1$lld post da %2$@ per violazione delle regole."
                 }
               }
             }
@@ -177001,13 +177001,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Dikush raportoi %(postCount)lld postim prej %(accountName)@ për cenim rregullash."
+                  "value" : "Dikush raportoi %1$lld postim prej %2$@ për cenim rregullash."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Dikush raportoi %(postCount)lld postime prej %(accountName)@ për cenim rregullash."
+                  "value" : "Dikush raportoi %1$lld postime prej %2$@ për cenim rregullash."
                 }
               }
             }
@@ -177049,13 +177049,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Birisi %(accountName)@ kullanıcısının %(postCount)lld gönderisini kural ihlali sebebiyle şikayet etti."
+                  "value" : "Birisi %2$@ kullanıcısının %1$lld gönderisini kural ihlali sebebiyle şikayet etti."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Birisi %(accountName)@ kullanıcısının %(postCount)lld gönderisini kural ihlali sebebiyle şikayet etti."
+                  "value" : "Birisi %2$@ kullanıcısının %1$lld gönderisini kural ihlali sebebiyle şikayet etti."
                 }
               }
             }
@@ -177097,7 +177097,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Ai đó báo cáo %(postCount)lld tút từ %(accountName)@ vì vi phạm nội quy."
+                  "value" : "Ai đó báo cáo %1$lld tút từ %2$@ vì vi phạm nội quy."
                 }
               }
             }
@@ -177109,7 +177109,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "有人以违反规则的理由举报了来自 %(accountName)@ 的 %(postCount)lld 条嘟文。"
+                  "value" : "有人以违反规则的理由举报了来自 %2$@ 的 %1$lld 条嘟文。"
                 }
               }
             }
@@ -177198,25 +177198,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Нехта даслаў скаргу на %(postCount)lld допісы ад %(accountName)@ за спам."
+                  "value" : "Нехта даслаў скаргу на %1$lld допісы ад %2$@ за спам."
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Нехта даслаў скаргу на %(postCount)lld допісаў ад %(accountName)@ за спам."
+                  "value" : "Нехта даслаў скаргу на %1$lld допісаў ад %2$@ за спам."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Нехта даслаў скаргу на %(postCount)lld допіс ад %(accountName)@ за спам."
+                  "value" : "Нехта даслаў скаргу на %1$lld допіс ад %2$@ за спам."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Нехта даслаў скаргу на %(postCount)lld допісаў ад %(accountName)@ за спам."
+                  "value" : "Нехта даслаў скаргу на %1$lld допісаў ад %2$@ за спам."
                 }
               }
             }
@@ -177336,13 +177336,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Nogen indberettede %(postCount)lld indlæg fra %(accountName)@ for spam."
+                  "value" : "Nogen indberettede %1$lld indlæg fra %2$@ for spam."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Nogen indberettede %(postCount)lld indlæg fra %(accountName)@ for spam."
+                  "value" : "Nogen indberettede %1$lld indlæg fra %2$@ for spam."
                 }
               }
             }
@@ -177372,7 +177372,7 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Κάποιος ανέφερε %(postCount)lld ανάρτηση από τον/την %(accountName)@ για σπαμ."
+                  "value" : "Κάποιος ανέφερε %1$lld ανάρτηση από τον/την %2$@ για σπαμ."
                 }
               },
               "other" : {
@@ -177468,7 +177468,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Keegi andis teada, et %(postCount) postitust kasutajalt %(accountName) on spämm."
+                  "value" : "Keegi andis teada, et %1$lld postitust kasutajalt %2$@ on spämm."
                 }
               }
             }
@@ -177516,13 +177516,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Quelqu'un a signalé %(postCount)lld message de %(accountName) pour spam."
+                  "value" : "Quelqu'un a signalé %1$lld message de %2$@ pour spam."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Quelqu'un a signalé %(postCount)lld messages de %(accountName)@ pour spam."
+                  "value" : "Quelqu'un a signalé %1$lld messages de %2$@ pour spam."
                 }
               }
             }
@@ -177534,31 +177534,31 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Thuairiscigh duine éigin %(postCount)lld post ó %(accountName)@ mar thurscar."
+                  "value" : "Thuairiscigh duine éigin %1$lld post ó %2$@ mar thurscar."
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Thuairiscigh duine éigin %(postCount)lld post ó %(accountName)@ mar thurscar."
+                  "value" : "Thuairiscigh duine éigin %1$lld post ó %2$@ mar thurscar."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Thuairisc duine éigin gurbh as turscar a tháinig %(postCount)lld post ó %(accountName)@."
+                  "value" : "Thuairisc duine éigin gurbh as turscar a tháinig %1$lld post ó %2$@."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Thuairiscigh duine éigin %(postCount)lld post ó %(accountName)@ mar thurscar."
+                  "value" : "Thuairiscigh duine éigin %1$lld post ó %2$@ mar thurscar."
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Thuairiscigh duine éigin %(postCount)lld post ó %(accountName)@ mar thurscar."
+                  "value" : "Thuairiscigh duine éigin %1$lld post ó %2$@ mar thurscar."
                 }
               }
             }
@@ -177570,25 +177570,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Chaidh gearan a dhèanamh air %(postCount)lld postaichean aig %(accountName)@ air adhbhar spama."
+                  "value" : "Chaidh gearan a dhèanamh air %1$lld postaichean aig %2$@ air adhbhar spama."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Chaidh gearan a dhèanamh air %(postCount)lld phost aig %(accountName)@ air adhbhar spama."
+                  "value" : "Chaidh gearan a dhèanamh air %1$lld phost aig %2$@ air adhbhar spama."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Chaidh gearan a dhèanamh air %(postCount)lld post aig %(accountName)@ air adhbhar spama."
+                  "value" : "Chaidh gearan a dhèanamh air %1$lld post aig %2$@ air adhbhar spama."
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Chaidh gearan a dhèanamh air %(postCount)lld phost aig %(accountName)@ air adhbhar spama."
+                  "value" : "Chaidh gearan a dhèanamh air %1$lld phost aig %2$@ air adhbhar spama."
                 }
               }
             }
@@ -177714,13 +177714,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Einhver kærði %(postCount)lld færslu frá %(accountName)@ fyrir ruslsendingu."
+                  "value" : "Einhver kærði %1$lld færslu frá %2$@ fyrir ruslsendingu."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Einhver kærði %(postCount)lld færslur frá %(accountName)@ fyrir ruslsendingu."
+                  "value" : "Einhver kærði %1$lld færslur frá %2$@ fyrir ruslsendingu."
                 }
               }
             }
@@ -177732,13 +177732,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Qualcuno ha segnalato %(postCount)lld post da %(accountName)@ per spam."
+                  "value" : "Qualcuno ha segnalato %1$lld post da %2$@ per spam."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Qualcuno ha segnalato %(postCount)lld post da %(accountName)@ per spam."
+                  "value" : "Qualcuno ha segnalato %1$lld post da %2$@ per spam."
                 }
               }
             }
@@ -178062,13 +178062,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Dikush raportoi %(postCount)lld postim prej %(accountName)@ për mesazhe të padëshiruar."
+                  "value" : "Dikush raportoi %1$lld postim prej %2$@ për mesazhe të padëshiruar."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Dikush raportoi %(postCount)lld postime prej %(accountName)@ për mesazhe të padëshiruar."
+                  "value" : "Dikush raportoi %1$lld postime prej %2$@ për mesazhe të padëshiruar."
                 }
               }
             }
@@ -178110,13 +178110,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Birisi %(accountName)@ kullanıcısının %(postCount)lld gönderisini istenmeyen gönderi olması sebebiyle şikayet etti."
+                  "value" : "Birisi %2$@ kullanıcısının %1$lld gönderisini istenmeyen gönderi olması sebebiyle şikayet etti."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Birisi %(accountName)@ kullanıcısının %(postCount)lld gönderisini istenmeyen gönderi olması sebebiyle şikayet etti."
+                  "value" : "Birisi %2$@ kullanıcısının %1$lld gönderisini istenmeyen gönderi olması sebebiyle şikayet etti."
                 }
               }
             }
@@ -178158,7 +178158,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Ai đó báo cáo %(postCount)lld tút từ %(accountName)@ vì spam."
+                  "value" : "Ai đó báo cáo %1$lld tút từ %2$@ vì spam."
                 }
               }
             }
@@ -178170,7 +178170,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "有人以垃圾信息的理由举报了来自 %(accountName)@ 的 %(postCount)lld 条嘟文。"
+                  "value" : "有人以垃圾信息的理由举报了来自 %2$@ 的 %1$lld 条嘟文。"
                 }
               }
             }
