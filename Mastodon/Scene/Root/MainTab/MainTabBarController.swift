@@ -268,12 +268,6 @@ extension MainTabBarController {
         tabBarLongPressGestureRecognizer.delegate = self
         tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
         
-        let tabBarDoubleTapGestureRecognizer = UITapGestureRecognizer()
-        tabBarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
-        tabBarDoubleTapGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarDoubleTapGestureRecognizerHandler(_:)))
-        tabBarDoubleTapGestureRecognizer.delaysTouchesEnded = false
-        tabBar.addGestureRecognizer(tabBarDoubleTapGestureRecognizer)
-        
         self.isReadyForWizardAvatarButton = authenticationBox != nil
         
         $currentTab
@@ -335,22 +329,6 @@ extension MainTabBarController {
         }
 
         return _tab
-    }
-    
-    @objc private func tabBarDoubleTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
-        guard sender.state == .ended else { return }
-        guard let tab = touchedTab(by: sender) else { return }
-
-        switch tab {
-        case .search:
-            assert(Thread.isMainThread)
-            // double tapping search tab opens the search bar without additional taps
-            searchViewController.searchBar.becomeFirstResponder()
-        case .home:
-            (homeTimelineViewController as? TimelineListViewController)?.scrollToTop()
-        default:
-            break
-        }
     }
     
     @objc private func tabBarLongPressGestureRecognizerHandler(_ sender: UILongPressGestureRecognizer) {
@@ -485,8 +463,22 @@ extension MainTabBarController: UITabBarControllerDelegate {
     }
 
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let previousTab = currentTab
         if let tab = Tab(rawValue: viewController.tabBarItem.tag), tab != .compose {
             currentTab = tab
+
+            switch (currentTab, previousTab) {
+            case (.home, .home):
+                // When home is tapped again, scroll to top
+                (homeTimelineViewController as? TimelineListViewController)?.scrollToTop()
+                break
+            case (.search, .search):
+                // When search is tapped again, expand and focus the search bar
+                searchViewController.searchBar.becomeFirstResponder()
+                break
+            default:
+                break
+            }
         }
     }
 }
