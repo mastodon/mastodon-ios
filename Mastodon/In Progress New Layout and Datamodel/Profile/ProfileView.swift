@@ -1109,25 +1109,6 @@ extension ProfileBadge: View {
     }
 }
 
-
-//struct ProfileAboutPage: View {
-//    @Environment(ProfileViewModel.self) var viewModel
-//    
-//    var body: some View {
-//        VStack(alignment: .leading) {
-//            // BIO
-//            MastodonContentView.timelinePost(html: viewModel.account?._legacyEntity.note ?? "", emojis: viewModel.account?.displayInfo.emojis ?? [], isInlinePreview: false)
-//                .padding(.horizontal, doublePadding)
-//            
-//            // CUSTOM FIELDS
-//            if let fields = viewModel.account?.metadata.customFields, !fields.isEmpty {
-//                CustomFieldsStack(fields: fields, emojis: viewModel.account?._legacyEntity.emojis ?? [])
-//            }
-//        }
-//        .padding(.vertical)
-//    }
-//}
-
 struct FamiliarFollowersElement: View {
     let familiarFollowers: TimelineListViewModel.FamiliarAccountsSummary
     let boldedNames: [(String, emojiCodes: [String])]
