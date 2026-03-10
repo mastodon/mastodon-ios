@@ -37,7 +37,7 @@ public enum MastodonContentView {
     public typealias Emojis = [Mastodon.Entity.Emoji]
     
     case timelinePost(html: String, emojis: Emojis, isInlinePreview: Bool)
-    case customProfileField(html: String, emojis: Emojis, bold: Bool)
+    case customProfileField(html: String, emojis: Emojis, bold: Bool, lineLimit: Int?)
     case header(html: String, emojis: Emojis, style: PostViewHeaderStyle)
     case verifiedLink(html: String)
     case notificationActionLabel(html: String, emojis: Emojis)
@@ -105,10 +105,10 @@ extension MastodonContentView: View {
                     TimelinePostContentView(lineLimit: 1, contentBlocks: blocks, emojis: [])
                         .font(.subheadline)
                 }
-            case .customProfileField(let html, let emojis, let bold):
+            case .customProfileField(let html, let emojis, let bold, let lineLimit):
                 if let blocks = try? getParseBlocks(from: html) {
-                    TimelinePostContentView(lineLimit: 1, contentBlocks: blocks, emojis: emojis)
-                        .font(.footnote)
+                    TimelinePostContentView(lineLimit: lineLimit, contentBlocks: blocks, emojis: emojis)
+                        .font(lineLimit == nil ? .body : .footnote)
                         .fontWeight(bold ? .semibold : .regular)
                 }
             case .notificationActionLabel(let html, let emojis):

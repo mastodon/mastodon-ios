@@ -673,7 +673,7 @@ struct CustomProfileFieldsEditor: View {
             VStack(alignment: .leading) {
                 Text(field.name)
                     .fixedSize(horizontal: false, vertical: true)
-                MastodonContentView.customProfileField(html: field.value, emojis: editingViewModel.emojis, bold: true)
+                MastodonContentView.customProfileField(html: field.value, emojis: editingViewModel.emojis, bold: true, lineLimit: 1)
                     .fixedSize(horizontal: false, vertical: true)
             }
             .font(.footnote)

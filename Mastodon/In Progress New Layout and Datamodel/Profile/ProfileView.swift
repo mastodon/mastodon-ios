@@ -185,6 +185,8 @@ struct ProfileView: View {
         .overlay() {
             if let personalNoteEditingState = viewModel.relationshipViewModel.personalNoteEditingState, personalNoteEditingState.type != .pending {
                 personalNoteEditingView(personalNoteEditingState)
+            } else if let focusedField = viewModel.focusedCustomField {
+                focusedCustomFieldOverlay(focusedField)
             }
         }
         .toolbarBackgroundVisibility(.hidden, for: .navigationBar)
@@ -308,6 +310,21 @@ struct ProfileView: View {
                         .fill(.background)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
+            }
+        }
+    }
+    
+    @ViewBuilder func focusedCustomFieldOverlay(_ field: Mastodon.Entity.Field) -> some View {
+        GeometryReader { _ in
+            ZStack {
+                Color.dimmingBackground
+                    .onTapGesture {
+                        self.viewModel.focusedCustomField = nil
+                    }
+                
+                CustomFieldCard(field: field, emojis: viewModel.account?.displayInfo.emojis ?? [], showFullContents: true)
+                    .frame(maxWidth: maxFeedContentWidth)
+                    .padding(.horizontal, doublePadding)
             }
         }
     }
@@ -451,6 +468,8 @@ struct ProfileInfoView: View {
     let width: CGFloat
     
     var body: some View {
+        @Bindable var viewModel = viewModel
+        
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             
             VStack(alignment: .leading, spacing: 0) {
@@ -535,7 +554,7 @@ struct ProfileInfoView: View {
                 
                 // CUSTOM FIELDS
                 if let fields = viewModel.account?.metadata.customFieldsForDisplay, !fields.isEmpty {
-                    CustomFieldsFlow(maxItemWidth: min(width * 0.4, maxFeedContentWidth), fields: viewModel.account?.metadata.customFieldsForDisplay ?? [], emojis: viewModel.account?._legacyEntity.emojis ?? [])
+                    CustomFieldsFlow(focusedField: $viewModel.focusedCustomField, maxItemWidth: min(width * 0.4, maxFeedContentWidth), fields: viewModel.account?.metadata.customFieldsForDisplay ?? [], emojis: viewModel.account?._legacyEntity.emojis ?? [])
                 }
             }
             
@@ -657,7 +676,8 @@ struct PersonalNoteView: View {
 }
 
 struct CustomFieldsFlow: View {
-    @Environment(\.displayScale) var displayScale
+    @Binding var focusedField: Mastodon.Entity.Field?
+    
     var maxItemWidth: CGFloat
     var fields: [Mastodon.Entity.Field]
     var emojis: [Mastodon.Entity.Emoji]
@@ -665,30 +685,41 @@ struct CustomFieldsFlow: View {
     var body: some View {
         FlowLayout(maxItemWidth: maxItemWidth) {
             ForEach(fields, id: \.self) { field in
-                card(field, emojis: emojis)
+                CustomFieldCard(field: field, emojis: emojis, showFullContents: false)
+                    .onTapGesture {
+                        focusedField = field
+                    }
             }
         }
     }
+}
+
+struct CustomFieldCard: View {
+    @Environment(\.displayScale) var displayScale
+    let field: Mastodon.Entity.Field
+    let emojis: [Mastodon.Entity.Emoji]
+    let showFullContents: Bool
     
-    @ViewBuilder func card(_ field: Mastodon.Entity.Field, emojis: [Mastodon.Entity.Emoji]) -> some View {
+    var body: some View {
         HStack(alignment: .bottom, spacing: tinySpacing) {
             VStack(alignment: .leading, spacing: tinySpacing) {
-                MastodonContentView.customProfileField(html: field.name, emojis: emojis, bold: false)
-                MastodonContentView.customProfileField(html: field.value, emojis: emojis, bold: true)
+                MastodonContentView.customProfileField(html: field.name, emojis: emojis, bold: false, lineLimit: showFullContents ? nil : 1)
+                MastodonContentView.customProfileField(html: field.value, emojis: emojis, bold: true, lineLimit: showFullContents ? nil : 1)
             }
             if field.verifiedAt != nil {
                 Asset.Scene.Profile.About.verifiedLinkBadge.swiftUIImage
             }
         }
         .font(.footnote)
-        .padding(standardPadding)
+        .padding(showFullContents ? doublePadding : standardPadding)
         .background {
             RoundedRectangle(cornerRadius: CornerRadius.standard)
-                .fill(field.verifiedAt == nil ? .clear : Asset.Colors.Brand.backgroundSoftest.swiftUIColor)
+                .fill(field.verifiedAt != nil || showFullContents ? Asset.Colors.Brand.backgroundSoftest.swiftUIColor : .clear )
                 .stroke(.secondary, lineWidth: 1 / displayScale)
         }
     }
 }
+
 
 struct ProfilePaginationControl: View {
     @Environment(ProfileViewModel.self) var viewModel
@@ -972,6 +1003,7 @@ enum EditingStatus: Equatable {
     private var activityFilter: TimelineQueryFilter?
     var mediaViewModel: TimelineListViewModel?
     var selectedPage: ProfilePage = .activity
+    var focusedCustomField: Mastodon.Entity.Field?
     var handleDetails: HandleDetails?
     
     var navigationButtons: [UIBarButtonItem] {
@@ -984,7 +1016,7 @@ enum EditingStatus: Equatable {
             let favourites = UIBarButtonItem(image: .init(systemName: "star"), style: .plain, target: self, action: nil)
             let share = UIBarButtonItem(image: .init(systemName: "square.and.arrow.up"), style: .plain, target: self, action: nil)
             return [hashtags, bookmarks, favourites, share, settings]
-        case .isNotMe(let relationshipInfo):
+        case .isNotMe:
             let menu = UIBarButtonItem(image: .init(systemName: "ellipsis.circle"), style: .plain, target: self, action: nil)
             let reply = UIBarButtonItem(image: .init(systemName: "arrow.turn.up.left"), style: .plain, target: self, action: nil)
             return [menu, reply]
