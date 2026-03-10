@@ -42,6 +42,45 @@ enum TimelineViewType {
             return nil
         }
     }
+    
+    var navigationTitle: String? {
+        switch self {
+        case .home:
+            return nil
+        case .notifications:
+            return nil
+        case .thread(let focusedPost):
+            let authorHandle = focusedPost.initialDisplayInfo().actionableAuthorHandle
+            return L10n.Scene.Thread.title("@\(authorHandle)")
+        case .discover, .profilePosts, .remoteThread:
+            return nil
+        case .myBookmarks:
+            return L10n.Scene.Bookmark.title
+            
+        case .myFavorites:
+            return L10n.Scene.Favorite.title
+            
+        case .whoFavourited:
+            return L10n.Scene.FavoritedBy.title
+            
+        case .whoBoosted:
+            return L10n.Scene.RebloggedBy.title
+            
+        case .followers:
+            return L10n.Scene.Follower.title
+        case .accountsFollowed:
+            return L10n.Scene.Following.title
+        case .familiarFollowers(let account, _):
+            return account.displayInfo.fullHandle
+        case .search(let string, _):
+            return string
+        case .hashtag(let tag):
+            return "#\(tag.name)"
+
+        case .myFollowedHashtags:
+            return L10n.Scene.FollowedTags.title
+        }
+    }
 }
 
 extension TimelineViewType {
@@ -121,6 +160,7 @@ class TimelineListViewController: UIHostingController<AnyView>
     }
     
     func setUpNavigationBar() {
+        self.navigationItem.title = type.navigationTitle
         switch type {
         case .home:
             setUpTimelineSelectorButton()
@@ -130,32 +170,11 @@ class TimelineListViewController: UIHostingController<AnyView>
             if viewModel.timeline.canDisplayFilteredNotifications {
                 NotificationCenter.default.addObserver(self, selector: #selector(notificationFilteringPolicyDidChange), name: .notificationFilteringChanged, object: nil)
             }
-        case .thread(let focusedPost):
-            let authorHandle = focusedPost.initialDisplayInfo().actionableAuthorHandle
-            navigationItem.title = L10n.Scene.Thread.title("@\(authorHandle)")
-            
-        case .discover, .myBookmarks, .myFavorites, .profilePosts, .remoteThread:
-            break
-            
-        case .whoFavourited:
-            navigationItem.title = L10n.Scene.FavoritedBy.title
-            
-        case .whoBoosted:
-            navigationItem.title = L10n.Scene.RebloggedBy.title
-            
-        case .followers:
-            navigationItem.title = L10n.Scene.Follower.title
-        case .accountsFollowed:
-            navigationItem.title = L10n.Scene.Following.title
-        case .familiarFollowers(let account, _):
-            navigationItem.title = account.displayInfo.fullHandle
-        case .search(let string, _):
-            navigationItem.title = string
-        case .hashtag(let tag):
-            navigationItem.title = "#\(tag.name)"
+        case .hashtag:
             navigationItem.rightBarButtonItem = composeHashtagButtonItem
-        case .myFollowedHashtags:
-            navigationItem.title = L10n.Scene.FollowedTags.title
+           
+        case .thread, .discover, .profilePosts, .remoteThread, .myBookmarks, .myFavorites, .whoFavourited, .whoBoosted, .followers, .accountsFollowed, .familiarFollowers, .search, .myFollowedHashtags:
+            break
         }
     }
     
@@ -575,6 +594,10 @@ extension MastodonPostMenuAction {
         case confirmRemoveQuote(username: String, didConfirm: (Bool)->())
         case confirmBlock(username: String, didConfirm: (Bool)->())
         case confirmUnblock(username: String, didConfirm: (Bool)->())
+        case confirmDomainBlock(account: MastodonAccount, didConfirm: (Bool)->())
+        case confirmUnhideFeatureTabBeforeFeaturing(featureItemName: String, didConfirm: (Bool)->())
+        case confirmFollowBeforeAddingToList(username: String, didConfirm: (Bool)->())
+        case confirmRemoveFollower(username: String, didConfirm: (Bool)->())
         case error(Error)
         
         var title: String {
@@ -602,6 +625,14 @@ extension MastodonPostMenuAction {
                 L10n.Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.title
             case .confirmUnblock:
                 L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.title
+            case .confirmDomainBlock:
+                L10n.Common.Alerts.BlockDomain.blockEntireDomain
+            case .confirmUnhideFeatureTabBeforeFeaturing:
+                "Show featured tab?"  // TODO: L10n
+            case .confirmFollowBeforeAddingToList(let username, _):
+                "Follow \(username)?"  // TODO: L10n
+            case .confirmRemoveFollower:
+                "Remove follower?" // TODO: L10n
             case .error:
                 L10n.Common.Alerts.genericError
             }
@@ -621,11 +652,19 @@ extension MastodonPostMenuAction {
                 L10n.Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.message(username)
             case .confirmUnblock(let username, _):
                 L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.message(username)
+            case .confirmDomainBlock(let account, _):
+                L10n.Common.Alerts.BlockDomain.title(account.domain)
                 
             case .confirmRemoveQuote:
                 L10n.Common.Alerts.ConfirmRemoveQuote.message
             case .confirmDeleteOfPost:
                 L10n.Common.Alerts.DeletePost.message
+            case .confirmUnhideFeatureTabBeforeFeaturing(let item, _):
+                "You have hidden your featured tab from other users. Would you like to show it and feature \(item)?" // TODO: L10n
+            case .confirmFollowBeforeAddingToList(let username, _):
+                "You must follow \(username) before adding them to a list." // TODO: L10n
+            case .confirmRemoveFollower(let username, _):
+                "\(username) will stop following you. Are you sure you want to proceed?" // TODO: L10n
             case .error(let error):
                 error.localizedDescription
             }
@@ -1179,8 +1218,8 @@ enum MastodonTimelineSheet {
         
         feedLoaderErrorSubscription = feedLoader?.$currentError
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] error in
-                guard let self, let error else { return }
+            .sink { error in
+                guard let error else { return }
                 navigator.didReceiveError(error)
             }
         feedLoader?.doFirstLoad()
@@ -2194,8 +2233,37 @@ struct TimelineListView: View {
             } label: {
                 Text(L10n.Common.Controls.Friendship.unblockUser(username))
             }
+        case .confirmDomainBlock(let account, let didConfirm):
+            cancelButton(didConfirm)
+            Button {
+                didConfirm(true)
+            } label: {
+                Text(L10n.Common.Alerts.BlockDomain.blockEntireDomain)
+            }
+            
         case .error:
             Button(L10n.Common.Controls.Actions.ok) {
+            }
+        case .confirmUnhideFeatureTabBeforeFeaturing(_, let didConfirm):
+            cancelButton(didConfirm)
+            Button {
+                didConfirm(true)
+            } label: {
+                Text("Show Featured tab")  // TODO: L10n
+            }
+        case .confirmFollowBeforeAddingToList(_, let didConfirm):
+            cancelButton(didConfirm)
+            Button {
+                didConfirm(true)
+            } label: {
+                Text("Follow")  // TODO: L10n
+            }
+        case .confirmRemoveFollower(_, let didConfirm):
+            cancelButton(didConfirm)
+            Button {
+                didConfirm(true)
+            } label: {
+                Text("Remove follower") // TODO: L10n
             }
         }
     }

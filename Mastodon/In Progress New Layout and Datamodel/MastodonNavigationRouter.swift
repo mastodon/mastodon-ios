@@ -65,6 +65,7 @@ enum MastodonNavigationDestination {
                 .environment(timelineViewModel)
                 .environment(queryFilter)
                 .environment(asyncRefreshModel)
+                .navigationTitle(timelineType.navigationTitle ?? "")
             
         case .profile(let account, let relationship):
             let viewModel = profileViewModel(account, relationship: relationship)

@@ -19,17 +19,19 @@ enum MastodonMenuAction: Hashable {
     enum RelationshipMenuAction: String {
         case follow
         case unfollow
-        case hideBoosts_new
-//        case unhideBoosts_new
+        case featureOnMyProfile  // accounts and hashtags
+        case stopFeaturingOnMyProfile
+        case hideBoosts
+        case showBoosts
         case mute
         case unmute
-        case removeFollower_new
+        case removeFollower
         case blockUser
         case unblockUser
         case reportUser
         case blockDomain_new
         case unblockDomain_new
-        case personalNote_new
+        case personalNote
         
         var iconSystemName: String? {
             switch self {
@@ -39,6 +41,10 @@ enum MastodonMenuAction: Hashable {
                 "person.badge.plus"
             case .unfollow:
                 "person.badge.minus"
+            case .featureOnMyProfile:
+                nil
+            case .stopFeaturingOnMyProfile:
+                nil
             case .mute:
                 "speaker.slash"
             case .unmute:
@@ -47,15 +53,17 @@ enum MastodonMenuAction: Hashable {
                 "hand.raised.slash"
             case .unblockUser:
                 "hand.raised"
-            case .hideBoosts_new:
+            case .hideBoosts:
                 nil
-            case .removeFollower_new:
+            case .showBoosts:
+                nil
+            case .removeFollower:
                 nil
             case .blockDomain_new:
                 nil
             case .unblockDomain_new:
                 nil
-            case .personalNote_new:
+            case .personalNote:
                 nil
             }
         }
@@ -69,7 +77,7 @@ enum MastodonMenuAction: Hashable {
         case myFollowedHashtags
         case myAccountSettings
         case compose(ComposeViewModel.Context)
-        case addToList_new(MastodonAccount) // account -> list
+        case addToList(MastodonAccount, needsFollowFirst: RelationshipViewModel?) // account -> list
         
         var iconSystemName: String? {
             switch self {
@@ -87,7 +95,7 @@ enum MastodonMenuAction: Hashable {
                 "gear"
             case .compose:
                 nil
-            case .addToList_new:
+            case .addToList:
                 nil
             }
         }
@@ -95,17 +103,11 @@ enum MastodonMenuAction: Hashable {
     
     enum MiscellaneousMenuAction: String {
         case copyLink
-        case featureOnMyProfile_new  // accounts and hashtags
-        case stopFeaturingOnMyProfile_new
         
         var iconSystemName: String? {
             switch self {
             case .copyLink:
                 "link"
-            case .featureOnMyProfile_new:
-                nil
-            case .stopFeaturingOnMyProfile_new:
-                nil
             }
         }
         
@@ -113,10 +115,6 @@ enum MastodonMenuAction: Hashable {
             switch self {
             case .copyLink:
                 "Copy link"
-            case .featureOnMyProfile_new:
-                "FEATURE ON MY PROFILE"
-            case .stopFeaturingOnMyProfile_new:
-                "STOP FEATURING ON MY PROFILE"
             }
         }
     }
@@ -162,7 +160,7 @@ extension MastodonMenuAction.NavigationalMenuAction: Equatable, Hashable {
         case .myBookmarks: hasher.combine("myBookmarks")
         case .myFollowedHashtags: hasher.combine("myFollowedHashtags")
         case .myAccountSettings: hasher.combine("myAccountSettings")
-        case .addToList_new(let account): hasher.combine("addToList-\(account.id)")
+        case .addToList(let account, _): hasher.combine("addToList-\(account.id)")
         case .compose(let context):
             switch context {
             case .mentioning(let account, let privately):
@@ -239,7 +237,7 @@ extension MastodonNavigationRouter {
             case .mentioning(_, let privately):
                 return privately ? "Privately mention" : "Mention"
             }
-        case .addToList_new:
+        case .addToList:
             return "Add to list..."
         }
     }
@@ -264,8 +262,12 @@ extension MastodonNavigationRouter {
             presentModal(.legacy(scene: .safari(url: url), transition: .safariPresent(animated: true, completion: nil)))
         case .share(let items):
             presentModal(.share(activityItems: items))
-        case .addToList_new(let account):
-            presentedActionSheet = .manageListMembership(account)
+        case .addToList(let account, let relationshipViewModel):
+            if let relationshipViewModel {
+                await relationshipViewModel.doFollowAndManageListMembership(account, navigator: self)
+            } else {
+                presentedActionSheet = .manageListMembership(account)
+            }
         }
     }
     
@@ -317,18 +319,26 @@ extension RelationshipViewModel {
             var featureAndNotes = [MastodonMenuAction]()
             if let iFollowThem = relationship.info?.iFollowThem {
                 if iFollowThem {
-                    featureAndNotes.append(.navigationalAction(.addToList_new(account)))
-                    if relationship.info?.iFeatureThem == false {
-                        featureAndNotes.append(.miscellaneous(.featureOnMyProfile_new))
+                    
+                    featureAndNotes.append(.navigationalAction(.addToList(account, needsFollowFirst: nil)))
+                    
+                    if relationship.info?.iFeatureThem == true {
+                        featureAndNotes.append(.relationshipAction(.stopFeaturingOnMyProfile))
+                    } else {
+                        featureAndNotes.append(.relationshipAction(.featureOnMyProfile))
                     }
+                    
+                } else {
+                    featureAndNotes.append(.navigationalAction(.addToList(account, needsFollowFirst: self)))
                 }
-                featureAndNotes.append(.relationshipAction(.personalNote_new))
+                
+                featureAndNotes.append(.relationshipAction(.personalNote))
             }
             
             var mutingOptions = [MastodonMenuAction]()
             if let iAmMutingThem = relationship.info?.iAmMutingThem {
-                if !iAmMutingThem && relationship.info?.iFollowThem == true {
-                    mutingOptions.append(.relationshipAction(.hideBoosts_new))
+                if !iAmMutingThem, let relationshipInfo = relationship.info, relationshipInfo.iFollowThem {
+                    mutingOptions.append( relationshipInfo.iHideTheirBoosts ? .relationshipAction(.showBoosts) : .relationshipAction(.hideBoosts))
                 }
                 mutingOptions.append(iAmMutingThem ? .relationshipAction(.unmute) : .relationshipAction(.mute))
             }
@@ -337,7 +347,7 @@ extension RelationshipViewModel {
             
             // REMOVE FOLLOWER
             if relationship.info?.theyFollowMe == true {
-                blockingOptions.append(.relationshipAction(.removeFollower_new))
+                blockingOptions.append(.relationshipAction(.removeFollower))
             }
             
             // BLOCK/UNBLOCK
@@ -349,7 +359,7 @@ extension RelationshipViewModel {
             blockingOptions.append(.relationshipAction(.reportUser))
             
             // DOMAIN BLOCK/UNBLOCK
-            if !relationship.isMe, theyAreOnMyInstance, let iAmBlockingTheirDomain = relationship.info?.iAmBlockingTheirDomain {
+            if !relationship.isMe, !theyAreOnMyInstance, let iAmBlockingTheirDomain = relationship.info?.iAmBlockingTheirDomain {
                 blockingOptions.append(iAmBlockingTheirDomain ? .relationshipAction(.unblockDomain_new) : .relationshipAction(.blockDomain_new))
             }
             
@@ -392,29 +402,32 @@ extension RelationshipViewModel {
             return L10n.Common.Controls.Actions.follow(username)
         case .unfollow:
             return L10n.Common.Controls.Actions.unfollow(username)
-        case .hideBoosts_new:
-            return "HIDE BOOSTS"
-            //        case .unhideBoosts_new:
-            
+        case .featureOnMyProfile:
+            return "Feature on my profile" // TODO: L10n
+        case .stopFeaturingOnMyProfile:
+            return "Stop featuring on my profile" // TODO: L10n
+        case .hideBoosts:
+            return "Hide boosts"
+        case .showBoosts:
+            return "Show boosts"
         case .mute:
             return L10n.Common.Controls.Friendship.muteUser(username)
         case .unmute:
             return L10n.Common.Controls.Friendship.unmuteUser(username)
-        case .removeFollower_new:
-            return "REMOVE FOLLOWER"
+        case .removeFollower:
+            return "Remove follower"
         case .blockUser:
             return L10n.Common.Controls.Friendship.blockUser(username)
         case .unblockUser:
             return L10n.Common.Controls.Friendship.unblockUser(username)
         case .reportUser:
-            return "REPORT USER"
             return L10n.Common.Controls.Actions.reportUser(username)
         case .blockDomain_new:
-            return "BLOCK DOMAIN \(domain)"
+            return "Block domain \(domain)"
         case .unblockDomain_new:
-            return "UNBLOCK DOMAIN \(domain)"
-        case .personalNote_new:
-            return relationship?.info?.hasComment == true ? "EDIT PERSONAL NOTE" : "ADD PERSONAL NOTE"
+            return "Unblock domain \(domain)"
+        case .personalNote:
+            return relationship?.info?.hasComment == true ? "Edit personal note" : "Add personal note"
         }
     }
     
@@ -424,28 +437,34 @@ extension RelationshipViewModel {
             await commitFollow(account.id)
         case .unfollow:
             await doUnfollow(account, askFirst: UserDefaults.standard.askBeforeUnfollowingSomeone, navigator: navigator)
-        case .hideBoosts_new:
-            break
-//        case .unhideBoosts_new:
-//            break
+        case .featureOnMyProfile:
+            await doFeature(account, navigator: navigator)
+        case .stopFeaturingOnMyProfile:
+            await commitStopFeaturing(account)
+        case .hideBoosts:
+            await commitFollow(account.id, hideBoosts: true)
+        case .showBoosts:
+            await commitFollow(account.id, hideBoosts: false)
         case .mute:
             await doMute(account, askFirst: true, navigator: navigator)
         case .unmute:
             await doUnmute(account, askFirst: true, navigator: navigator)
-        case .removeFollower_new:
-            break
+        case .removeFollower:
+            await doRemoveFollower(account, navigator: navigator)
         case .blockUser:
             await doBlock(account, navigator: navigator)
         case .unblockUser:
             await doUnblock(account, navigator: navigator)
         case .reportUser:
-            break
+            guard let relationship else { return }
+            guard let reportViewModel = account.reportViewModel(withStatus: nil, relationship: relationship) else { return }
+            navigator.presentModal(.legacy(scene: .report(viewModel: reportViewModel), transition: .modal(animated: true, completion: nil)))
         case .blockDomain_new:
-            break
+            await doDomainBlock(account, navigator: navigator)
         case .unblockDomain_new:
-            break
-        case .personalNote_new:
-            break
+            await commitDomainBlock(account: account, isBlocked: false)
+        case .personalNote:
+            beginEditingPersonalNote(account: account.id)
         }
     }
     
@@ -454,6 +473,22 @@ extension RelationshipViewModel {
     }
     
     // MARK: Confirm Actions
+    
+    public func doFollowAndManageListMembership(_ account: MastodonAccount, navigator: MastodonNavigationRouter) async {
+        await withCheckedContinuation { continuation in
+            navigator.activeAlert = .confirmFollowBeforeAddingToList(username: account.handle, didConfirm: { confirmed in
+                if confirmed {
+                    Task {
+                        await self.commitFollow(account.id)
+                        continuation.resume()
+                        try await navigator.doMenuAction(.addToList(account, needsFollowFirst: nil))
+                    }
+                } else {
+                    continuation.resume()
+                }
+            })
+        }
+    }
     
     private func doUnfollow(_ author: MastodonAccount, askFirst: Bool, navigator: MastodonNavigationRouter) async {
         if askFirst {
@@ -469,6 +504,105 @@ extension RelationshipViewModel {
         } else {
             await commitUnfollow(author.id)
         }
+    }
+     
+    private func doFeature(_ account: MastodonAccount, navigator: MastodonNavigationRouter) async {
+        guard let _myAccount = AuthenticationServiceProvider.shared.currentActiveUser.value?.cachedAccount, let _myDomain = _myAccount.domain else { return }
+        let myAccount = MastodonAccount.fromEntity(_myAccount, authenticatedDomain: _myDomain)
+        if myAccount.metadata.showsFeaturedTab {
+            await commitFeature(account, from: myAccount)
+        } else {
+            await withCheckedContinuation { continuation in
+                // ask if you want to show the featured tab afterall
+                navigator.activeAlert = .confirmUnhideFeatureTabBeforeFeaturing(featureItemName: account.handle, didConfirm: { confirmed in
+                    guard confirmed else { continuation.resume(); return }
+                    Task {
+                        // TODO: show the feature tab
+                        await self.commitFeature(account, from: myAccount)
+                        continuation.resume()
+                    }
+                })
+            }
+        }
+    }
+    
+    private func doDomainBlock(_ account: MastodonAccount, navigator: MastodonNavigationRouter) async {
+        await withCheckedContinuation { continuation in
+            navigator.activeAlert = .confirmDomainBlock(account: account, didConfirm: { confirmed in
+                guard confirmed else { continuation.resume(); return }
+                Task {
+                    await self.doDomainBlock(account, navigator: navigator)
+                    continuation.resume()
+                }
+            })
+        }
+    }
+    
+    private func commitFeature(_ account: MastodonAccount, from myAccount: MastodonAccount) async {
+        do {
+            guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
+            let response = try await APIService.shared.featureAccount(account.id, authenticationBox: authenticatedUser)
+            let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
+            FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
+        } catch {
+            didReceiveError(error)
+        }
+    }
+    
+    private func commitStopFeaturing(_ account: MastodonAccount) async {
+        do {
+            guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
+            let response = try await APIService.shared.stopFeaturingAccount(account.id, authenticationBox: authenticatedUser)
+            let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
+            FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
+        } catch {
+            didReceiveError(error)
+        }
+    }
+    
+    private func commitRemoveFollower(_ account: Mastodon.Entity.Account.ID) async {
+        do {
+            guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
+            let response = try await APIService.shared.removeFollower(account, authenticationBox: authenticatedUser)
+            let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
+            FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
+        } catch {
+            didReceiveError(error)
+        }
+    }
+    
+    func beginEditingPersonalNote(account: Mastodon.Entity.Account.ID) {
+        if let existingNote = relationship?.info?.myOwnComment, !existingNote.isEmpty {
+            personalNoteEditingState = .init(type: .edit, accountID: account, valueEditingModel: .init(stringContent: existingNote, placeholder: "", characterLimit: .softLimit(300), autocompleteMastodonItems: false))
+        } else {
+            personalNoteEditingState = .init(type: .add, accountID: account, valueEditingModel: .init(stringContent: nil, placeholder: "", characterLimit: .softLimit(300), autocompleteMastodonItems: false))
+        }
+    }
+    
+    public func commitPersonalNoteEdit() {
+        guard let currentState = personalNoteEditingState else { return }
+        personalNoteEditingState = .init(type: .pending, accountID: currentState.accountID, valueEditingModel: currentState.valueEditingModel)
+        Task {
+            await self.commitPersonalNote(currentState.accountID, newNote: currentState.valueEditingModel.stringContent)
+            withAnimation {
+                personalNoteEditingState = nil
+            }
+        }
+    }
+    
+    private func commitPersonalNote(_ account: Mastodon.Entity.Account.ID, newNote: String) async {
+        do {
+            guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
+            let response = try await APIService.shared.setPersonalNote(account, note: newNote, authenticationBox: authenticatedUser)
+            let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
+            FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
+        } catch {
+            didReceiveError(error)
+        }
+    }
+    
+    func cancelPersonalNoteEdit() {
+        personalNoteEditingState = nil
     }
     
     private func doMute(_ author: MastodonAccount, askFirst: Bool, navigator: MastodonNavigationRouter) async {
@@ -503,6 +637,18 @@ extension RelationshipViewModel {
         }
     }
     
+    private func doRemoveFollower(_ account: MastodonAccount, navigator: MastodonNavigationRouter) async {
+        await withCheckedContinuation { continuation in
+            navigator.activeAlert = .confirmRemoveFollower(username: account.handle, didConfirm: { [weak self] confirmed in
+                guard confirmed else { continuation.resume(); return }
+                Task {
+                    await self?.commitRemoveFollower(account.id)
+                    continuation.resume()
+                }
+            })
+        }
+    }
+    
     private func doBlock(_ author: MastodonAccount, navigator: MastodonNavigationRouter) async {
         await withCheckedContinuation { continuation in
             navigator.activeAlert = .confirmBlock(username: author.displayInfo.displayName, didConfirm: { [weak self] confirmed in
@@ -529,10 +675,10 @@ extension RelationshipViewModel {
     
     // MARK: Commit Actions
     
-    private func commitFollow(_ accountID: Mastodon.Entity.Account.ID) async {
+    private func commitFollow(_ accountID: Mastodon.Entity.Account.ID, hideBoosts: Bool = false) async {
         do {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
-            let response = try await APIService.shared.follow(accountID, authenticationBox: authenticatedUser)
+            let response = try await APIService.shared.follow(accountID, hideBoosts: hideBoosts, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
             FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
         } catch {
@@ -568,6 +714,20 @@ extension RelationshipViewModel {
             let response = try await APIService.shared.unmute(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
             FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
+        } catch {
+            didReceiveError(error)
+        }
+    }
+    
+    private func commitDomainBlock(account: MastodonAccount, isBlocked: Bool) async {
+        do {
+            guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
+            if isBlocked {
+                let _ = try await APIService.shared.blockDomain(account: account._legacyEntity, authorizationBox: authenticatedUser)
+            } else {
+                let _ = try await APIService.shared.unblockDomain(account: account._legacyEntity, authorizationBox: authenticatedUser)
+            }
+            FeedCoordinator.shared.publishUpdate(.domainBlockChange(domain: account.domain, isBlocked: isBlocked))
         } catch {
             didReceiveError(error)
         }
@@ -676,5 +836,13 @@ extension ComposeViewModel.Context: Equatable {
         default:
             false
         }
+    }
+}
+
+extension MastodonAccount {
+    @MainActor
+    func reportViewModel(withStatus status: MastodonStatus?, relationship: MastodonAccount.Relationship) -> ReportViewModel? {
+        guard let legacyRelationship = relationship.info?._legacyEntity, let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return nil }
+        return ReportViewModel(context: AppContext.shared, authenticationBox: authBox, account: _legacyEntity, relationship: legacyRelationship, status: status, contentDisplayMode: .neverConceal)
     }
 }

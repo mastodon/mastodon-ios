@@ -182,6 +182,11 @@ struct ProfileView: View {
             }
         }
         .ignoresSafeArea()
+        .overlay() {
+            if let personalNoteEditingState = viewModel.relationshipViewModel.personalNoteEditingState, personalNoteEditingState.type != .pending {
+                personalNoteEditingView(personalNoteEditingState)
+            }
+        }
         .toolbarBackgroundVisibility(.hidden, for: .navigationBar)
         .onPreferenceChange(VerticalPositionKey.self) { values in
             guard
@@ -225,6 +230,109 @@ struct ProfileView: View {
         case .pages:
             ProfilePaginatingView()
         }
+    }
+    
+    @ViewBuilder func personalNoteEditingView(_ editState: ProfileView.PersonalNoteEditState) -> some View {
+        GeometryReader { _ in
+            ZStack {
+                Color.dimmingBackground
+                    .onTapGesture {
+                        self.viewModel.relationshipViewModel.cancelPersonalNoteEdit()
+                    }
+                
+                VStack(alignment: .leading, spacing: doublePadding) {
+                    Text(editState.type.title)
+                        .fontWeight(.semibold)
+                    
+                    Divider()
+                    
+                    HStack(alignment: .firstTextBaseline) {
+                        Image(systemName: "info.circle")
+                            .foregroundStyle(Asset.Colors.accent.swiftUIColor)
+                        Text("Personal notes are only visible to you.") // TODO: L10n
+                    }
+                    .font(.footnote)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(standardPadding)
+                    .background() {
+                        RoundedRectangle(cornerRadius: CornerRadius.standard)
+                            .fill(Asset.Colors.Brand.backgroundSoftest.swiftUIColor)
+                    }
+                    
+                    VStack(alignment: .leading, spacing: tinySpacing) {
+                        SubsectionHeading(title: "Personal note", subtitle: nil)  // TODO: L10n
+                        MetaTextInputField(allowScroll: true)
+                            .environment(editState.valueEditingModel)
+                            .frame(height: 72)
+                    }
+                    
+                    HStack {
+                        Spacer()
+                            .frame(maxWidth: .infinity)
+                        
+                        Button() {
+                            withAnimation {
+                                self.viewModel.relationshipViewModel.cancelPersonalNoteEdit()
+                            }
+                        } label: {
+                            Text("Cancel")
+                                .padding(.horizontal)
+                                .padding(.vertical, tinySpacing)
+                                .background() {
+                                    Capsule()
+                                        .stroke(.secondary)
+                                }
+                        }
+                        
+                        Button() {
+                            withAnimation {
+                                viewModel.relationshipViewModel.commitPersonalNoteEdit()
+                            }
+                        } label: {
+                            Text("Save")  // TODO: L10n
+                                .foregroundColor(.white)
+                                .padding(.horizontal)
+                                .padding(.vertical, tinySpacing)
+                                .background() {
+                                    Capsule()
+                                        .fill(Asset.Colors.accent.swiftUIColor)
+                                }
+                        }
+                    }
+                    .fontWeight(.semibold)
+                }
+                .frame(maxWidth: 300)
+                .padding(doublePadding)
+                .background() {
+                    RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
+                        .fill(.background)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+            }
+        }
+    }
+}
+
+extension ProfileView {
+    enum PersonalNoteEditType {
+        case add
+        case edit
+        case pending
+        
+        var title: String {
+            switch self {
+            case .add: "Add a personal note" // TODO: L10n
+            case .edit: "Edit personal note" // TODO: L10n
+            case .pending: "" // not actually used
+            }
+        }
+        
+    }
+    
+    struct PersonalNoteEditState {
+        let type: PersonalNoteEditType
+        let accountID: Mastodon.Entity.Account.ID
+        let valueEditingModel: MetaTextInputFieldViewModel
     }
 }
 
@@ -403,6 +511,19 @@ struct ProfileInfoView: View {
                     }
                 }
                 
+                if let personalNote = viewModel.relationshipViewModel.relationship?.info?.myOwnComment, !personalNote.isEmpty {
+                    
+                    Spacer()
+                        .frame(height: tinySpacing)
+                    
+                    PersonalNoteView(note: personalNote, isPending: viewModel.relationshipViewModel.personalNoteEditingState?.type == .pending)
+                        .onTapGesture() {
+                            if let accountID = viewModel.account?.id {
+                                viewModel.relationshipViewModel.beginEditingPersonalNote(account: accountID)
+                            }
+                        }
+                }
+                
                 Spacer()
                     .frame(height: tinySpacing)
                 
@@ -413,8 +534,8 @@ struct ProfileInfoView: View {
                     .frame(height: tinySpacing)
                 
                 // CUSTOM FIELDS
-                if let fields = viewModel.account?.metadata.customFields, !fields.isEmpty {
-                    CustomFieldsFlow(maxItemWidth: min(width * 0.4, maxFeedContentWidth), fields: viewModel.account?.metadata.customFields ?? [], emojis: viewModel.account?._legacyEntity.emojis ?? [])
+                if let fields = viewModel.account?.metadata.customFieldsForDisplay, !fields.isEmpty {
+                    CustomFieldsFlow(maxItemWidth: min(width * 0.4, maxFeedContentWidth), fields: viewModel.account?.metadata.customFieldsForDisplay ?? [], emojis: viewModel.account?._legacyEntity.emojis ?? [])
                 }
             }
             
@@ -498,6 +619,43 @@ extension Mastodon.Entity.Field {
     }
 }
 
+struct PersonalNoteView: View {
+    let note: String
+    let isPending: Bool
+    
+    var body: some View {
+        ZStack(alignment: .topTrailing) {
+            
+            VStack(alignment: .leading) {
+                Text( "Personal note (visible only to you)")  // TODO: L10n
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                ZStack {
+                    Text(note)
+                        .font(.footnote)
+                        .opacity(isPending ? 0.0 : 1.0)
+                    
+                    if isPending {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                    }
+                }
+            }
+            .padding(standardPadding)
+         
+            Image(systemName: "square.and.pencil")
+                .foregroundColor(Asset.Colors.accent.swiftUIColor)
+                .padding(standardPadding)
+        }
+        .background() {
+            RoundedRectangle(cornerRadius: CornerRadius.standard)
+                .fill(Asset.Colors.Brand.backgroundSoftest.swiftUIColor)
+        }
+    }
+}
+
 struct CustomFieldsFlow: View {
     @Environment(\.displayScale) var displayScale
     var maxItemWidth: CGFloat
@@ -526,6 +684,7 @@ struct CustomFieldsFlow: View {
         .padding(standardPadding)
         .background {
             RoundedRectangle(cornerRadius: CornerRadius.standard)
+                .fill(field.verifiedAt == nil ? .clear : Asset.Colors.Brand.backgroundSoftest.swiftUIColor)
                 .stroke(.secondary, lineWidth: 1 / displayScale)
         }
     }
@@ -890,8 +1049,12 @@ extension ProfileViewModel: FeedCoordinatorUpdatable {
         switch update {
         case .relationship(let updatedRelationship):
             relationshipViewModel.prepareForDisplay(relationship: updatedRelationship, theirAccountIsLocked: account?.locked ?? false)
-        default:
+        case .deletedPost, .hashtag, .post:
             break
+        case .domainBlockChange(let domain, let isBlocked):
+            if domain == account?.domain {
+                relationshipViewModel.updateForDomainBlockChange(isBlocked: isBlocked)
+            }
         }
     }
 }
@@ -1019,12 +1182,6 @@ extension ProfileViewModel: MastodonMenuAction.MiscellaneousMenuActionHandler {
             if let url = account?.metadata.profileUrl?.absoluteString {
                 UIPasteboard.general.string = url
             }
-        case .featureOnMyProfile_new:
-            // feature this account on my own profile
-            assertionFailure("not implemented")
-        case .stopFeaturingOnMyProfile_new:
-        // stop featuring this account
-            assertionFailure("not implemented")
         }
     }
 }

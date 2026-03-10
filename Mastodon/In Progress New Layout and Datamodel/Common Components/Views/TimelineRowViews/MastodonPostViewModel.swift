@@ -309,6 +309,10 @@ extension MastodonPostViewModel: FeedCoordinatorUpdatable {
             guard myRelationshipToAuthor?.refersToSameAccount(as: updated) == true else { return }
             myRelationshipToAuthorViewModel.prepareForDisplay(relationship: updated, theirAccountIsLocked: fullPost?.actionablePost?.metaData.author.locked ?? false)
             myRelationshipToAuthor = updated
+        case .domainBlockChange(let domain, let isBlocked):
+            fullQuotedPostViewModel?.incorporateUpdate(update)
+            guard domain == fullPost?.metaData.author.domain else { return }
+            myRelationshipToAuthorViewModel.updateForDomainBlockChange(isBlocked: isBlocked)
         }
     }
 }

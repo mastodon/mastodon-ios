@@ -87,7 +87,7 @@ extension APIService {
         return response
     }
 
-    func blockDomain(
+    public func blockDomain(
         account: Mastodon.Entity.Account,
         authorizationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Empty> {
@@ -107,7 +107,7 @@ extension APIService {
         return result
     }
     
-    func unblockDomain(
+    public func unblockDomain(
         account: Mastodon.Entity.Account,
         authorizationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Empty> {

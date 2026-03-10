@@ -33,9 +33,9 @@ struct ProfileEditingView: View {
         var title: String {
             switch self {
             case .create:
-                "Create custom field"
+                "Create custom field" // TODO: L10n
             case .edit:
-                "Edit custom field"
+                "Edit custom field" // TODO: L10n
             }
         }
     }
@@ -236,7 +236,7 @@ struct ProfileEditingView: View {
                                 editingViewModel.commitEditingField()
                             }
                         } label: {
-                            Text("Save")
+                            Text("Save") // TODO: L10n
                                 .foregroundColor(.white)
                                 .padding(.horizontal)
                                 .padding(.vertical, tinySpacing)
@@ -377,7 +377,7 @@ class ProfileEditingViewModel {
         let hasChanges = confirmedBannerImage != nil ||
         avatarConfirmedCroppedImage != nil ||
         (initialInfo != nil && isAutomatedAccount != initialInfo?.metadata.isBot) ||
-        customFields != initialInfo?.metadata.customFields
+        customFields != initialInfo?.metadata.customFieldsForEdit
         if hasChanges {
             withAnimation { editingStatusBinding?.wrappedValue = .editing(hasChanges: true) }
         }
@@ -403,19 +403,19 @@ class ProfileEditingViewModel {
         let displayNameContent = account.displayInfo.displayName
         displayNameFieldEditingViewModel.stringContent = displayNameContent
         
-        let bioContent = normalize(htmlString: account.bio)
+        let bioContent = normalize(htmlString: account.bioForEdit)
         bioFieldEditingViewModel.stringContent = bioContent ?? ""
     }
     
     func updateCustomFields(account: MastodonAccount) {
-        customFields = account.metadata.customFields
+        customFields = account.metadata.customFieldsForEdit
         emojis = account._legacyEntity.emojis
     }
     
     func updateMetaData(account: MastodonAccount) {
-        mediaTabVisibilitySetting = .showMediaTab
-        mediaTabRepliesSetting = .showDirectPostsOnly
-        featuredTabVisibilitySetting = .showFeaturedTab
+        mediaTabVisibilitySetting = account.metadata.showsMediaTab ? .showMediaTab : .hideMediaTab
+        mediaTabRepliesSetting = account.metadata.mediaTabIncludesReplies ? .includeMyRepliesToOthers : .showDirectPostsOnly
+        featuredTabVisibilitySetting = account.metadata.showsFeaturedTab ? .showFeaturedTab : .hideFeaturedTab
         isAutomatedAccount = account.metadata.isBot
     }
     

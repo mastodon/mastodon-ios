@@ -55,6 +55,9 @@ extension AccountRowViewModel: FeedCoordinatorUpdatable {
                 relationshipViewModel.prepareForDisplay(relationship: updated, theirAccountIsLocked: account.locked)
                 relationshipButton = relationshipViewModel.button
             }
+        case .domainBlockChange(let domain, let isBlocked):
+            guard account.domain == domain else { return }
+            relationshipViewModel.updateForDomainBlockChange(isBlocked: isBlocked)
         }
     }
 }

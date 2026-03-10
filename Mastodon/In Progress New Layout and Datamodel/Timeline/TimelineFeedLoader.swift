@@ -29,6 +29,7 @@ enum UpdatedElement {
     case post(GenericMastodonPost)
     case hashtag(Mastodon.Entity.Tag)
     case relationship(MastodonAccount.Relationship)
+    case domainBlockChange(domain: String, isBlocked: Bool)
 }
 
 public enum NotificationsScope: Hashable {

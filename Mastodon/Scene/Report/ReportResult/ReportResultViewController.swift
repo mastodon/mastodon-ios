@@ -89,7 +89,7 @@ extension ReportResultViewController {
                             dependency: self,
                             account: self.viewModel.account
                         )
-                        self.viewModel.relationship = newRelationship
+                        self.viewModel.updateRelationship(newRelationship)
                     } catch {
                         // handle error
                     }
@@ -110,7 +110,7 @@ extension ReportResultViewController {
                             dependency: self,
                             account: self.viewModel.account
                         )
-                        self.viewModel.relationship = newRelationship
+                        self.viewModel.updateRelationship(newRelationship)
                     } catch {
                         // handle error
                     }
@@ -131,7 +131,7 @@ extension ReportResultViewController {
                             dependency: self,
                             account: self.viewModel.account
                         )
-                        self.viewModel.relationship = newRelationship
+                        self.viewModel.updateRelationship(newRelationship)
                     } catch {
                         // handle error
                     }

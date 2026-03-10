@@ -8,8 +8,11 @@ import SwiftUI
     var actionHandler: MastodonPostMenuActionHandler? = nil
     public private(set) var button: RelationshipButtonType = .updating
     public private(set) var relationship: MastodonAccount.Relationship? = nil
+    public var personalNoteEditingState: ProfileView.PersonalNoteEditState?
+    private var theirAccountIsLocked: Bool?
     
     public func prepareForDisplay(relationship: MastodonAccount.Relationship, theirAccountIsLocked: Bool) {
+        self.theirAccountIsLocked = theirAccountIsLocked
         self.relationship = relationship
         switch relationship {
         case .isNotMe(let info):
@@ -19,6 +22,12 @@ import SwiftUI
         case .isMe:
             button = .edit
         }
+    }
+    
+    public func updateForDomainBlockChange(isBlocked: Bool) {
+        guard let relationship, let theirAccountIsLocked else { return }
+        let updatedRelationship = relationship.byUpdatingDomainBlock(isBlocked: isBlocked)
+        prepareForDisplay(relationship: updatedRelationship, theirAccountIsLocked: theirAccountIsLocked)
     }
     
     @MainActor

@@ -10,6 +10,7 @@ public enum ApiFeature {
     case quotePostSettings
     case quotePosts
     case localTimeline
+    case profileSettings
 }
 
 public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
@@ -69,6 +70,9 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
         @MainActor
         public func isAvailable(_ feature: ApiFeature) -> Bool {
             switch feature {
+            case .profileSettings:
+                guard let apiVersion else { return false }
+                return apiVersion >= 8
             case .followTags:
                 return serverVersion?.majorServerVersion(greaterThanOrEquals: 4) ?? false // following Tags is supported beginning with Mastodon v4.0.0
             case .groupNotifications:

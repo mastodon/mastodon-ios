@@ -635,6 +635,9 @@ extension NotificationRowViewModel: FeedCoordinatorUpdatable {
                 relationshipViewModel.prepareForDisplay(relationship: updated, theirAccountIsLocked: _primaryAuthorAccountIsLocked)
                 updateAvatarRowAdditionalElement()
             }
+        case .domainBlockChange(let domain, let isBlocked):
+            guard avatarRowSourceAccounts?.relationshipAccountDomain == domain else { return }
+            relationshipViewModel.updateForDomainBlockChange(isBlocked: isBlocked)
         }
     }
 }

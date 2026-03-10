@@ -325,6 +325,10 @@ struct NotificationSourceAccounts {
     let totalActorCount: Int
     let myAccountID: String
     
+    var relationshipAccountDomain: String? {
+        primaryAuthorAccount?.domain
+    }
+    
     var primaryAuthorAccount: Mastodon.Entity.Account? {
         return accounts.first?.fullAccount
     }

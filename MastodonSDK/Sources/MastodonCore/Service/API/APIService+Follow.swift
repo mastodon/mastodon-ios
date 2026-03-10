@@ -61,12 +61,12 @@ extension APIService {
         return response
     }
     
-    public func follow(_ accountID: String, authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Entity.Relationship {
+    public func follow(_ accountID: String, hideBoosts: Bool = false, authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Entity.Relationship {
         return try await Mastodon.API.Account.follow(
             session: session,
             domain: authenticationBox.domain,
             accountID: accountID,
-            followQueryType: .follow(query: .init()),
+            followQueryType: .follow(query: .init(reblogs: !hideBoosts)),
             authorization: authenticationBox.userAuthorization
         ).singleOutput().value
     }
