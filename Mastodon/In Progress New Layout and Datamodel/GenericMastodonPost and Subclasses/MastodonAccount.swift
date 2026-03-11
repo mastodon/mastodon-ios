@@ -198,7 +198,7 @@ extension MastodonAccount {
             case .isNotMe(let info):
                 guard info?.iAmBlockingTheirDomain != isBlocked else { return self }
                 guard let updatedRelationship = info?._legacyEntity.byUpdatingDomainBlock(isBlocked: isBlocked) else { return self }
-                return .isNotMe(RelationshipInfo.init(updatedRelationship, fetchedAt: info?.fetchedAt)) // we keep the old fetchedAt date because this is not a full refresh of the account and should not delay an updated being triggered in the future
+                return .isNotMe(RelationshipInfo.init(updatedRelationship, fetchedAt: info?.fetchedAt)) // we keep the old fetchedAt date because this is not a full refresh of the account and should not delay an update being triggered in the future
             }
         }
         
