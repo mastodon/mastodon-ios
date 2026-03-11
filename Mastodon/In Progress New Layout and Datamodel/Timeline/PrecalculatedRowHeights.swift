@@ -14,20 +14,6 @@ final class ViewMeasurer {
         let _ = immediatelyMeasureHeight(throwawayView, width: 300)
     }
     
-    func calculateHeightImmediately(for viewModel: MastodonPostViewModel, isPinned: Bool, contentConcealModel: ContentConcealViewModel, filterContext: Mastodon.Entity.FilterContext?, threadedContext: ThreadedConversationModel.ThreadContext?, contentWidth: CGFloat, totalWidth: CGFloat) -> PrecalculatedHeight {
-        
-        let contentSizeCategory = UIApplication.shared.preferredContentSizeCategory // so that this offscreen view still respects the user's current settings
-        
-        let view = MastodonPostRowView(contentWidth: contentWidth, precalculatedHeight: nil, isPinned: isPinned, actionHandler: nil, threadedContext: threadedContext, filterContext: filterContext)
-            .environment(viewModel)
-            .environment(contentConcealModel)
-            .environment(TimestampUpdater.timestamper(withInterval: 60))
-            .environment(\.sizeCategory, ContentSizeCategory(contentSizeCategory) ?? .medium)
-            .padding(EdgeInsets(top: 0, leading: standardPadding, bottom: 0, trailing: doublePadding))
-        let height = immediatelyMeasureHeight(view, width: totalWidth)
-        return PrecalculatedHeight(contentWidth: contentWidth, contentConcealed: contentConcealModel.currentMode, showingTranslation: viewModel.isShowingTranslation == true, calculatedHeight: height)
-    }
-    
     func calculateHeight(for viewModel: MastodonPostViewModel, isPinned: Bool, contentConcealModel: ContentConcealViewModel, filterContext: Mastodon.Entity.FilterContext?, threadedContext: ThreadedConversationModel.ThreadContext?, contentWidth: CGFloat, totalWidth: CGFloat) async -> PrecalculatedHeight {
         
         let contentSizeCategory = UIApplication.shared.preferredContentSizeCategory // so that this offscreen view still respects the user's current settings
@@ -41,12 +27,8 @@ final class ViewMeasurer {
         let height = await measureHeight(view, width: totalWidth)
         return PrecalculatedHeight(contentWidth: contentWidth, contentConcealed: contentConcealModel.currentMode, showingTranslation: viewModel.isShowingTranslation == true, calculatedHeight: height)
     }
-  
-#if DEBUG
-    let SECONDS_DELAY_BETWEEN_MEASUREMENTS: Int = 1
-#else
-    let SECONDS_DELAY_BETWEEN_MEASUREMENTS: Int = 0
-#endif
+    
+    let MILLISECONDS_DELAY_BETWEEN_MEASUREMENTS: Int = 50 // delay arrived at via experimentation. 10ms is too short, 50 seems to work.
     
     func measureHeight<V: View>(_ view: V, width: CGFloat) async -> CGFloat {
         host.rootView = AnyView(view)
@@ -54,14 +36,15 @@ final class ViewMeasurer {
         host.view.setNeedsLayout()
         host.view.layoutIfNeeded()
         let result = await withCheckedContinuation { continuation in
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(SECONDS_DELAY_BETWEEN_MEASUREMENTS)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(MILLISECONDS_DELAY_BETWEEN_MEASUREMENTS)) {
                 continuation.resume(returning: self.host.sizeThatFits(in: CGSize(width: width, height: .greatestFiniteMagnitude)).height)
             }
         }
         return ceil(result + 0.5) // the ceil and + 0.5 arrived at through observation, attempting to mimic the actual system layout behavior as closely as possible.
     }
     
-    func immediatelyMeasureHeight<V: View>(_ view: V, width: CGFloat) -> CGFloat {
+    /// This is only for setting up the measurer. It is unlikely to produce accurate results.
+    private func immediatelyMeasureHeight<V: View>(_ view: V, width: CGFloat) -> CGFloat {
         host.rootView = AnyView(view)
         host.view.bounds = CGRect(x: 0, y: 0, width: width, height: .greatestFiniteMagnitude)
         host.view.layoutIfNeeded()
