@@ -707,19 +707,19 @@ class PlayerObserver: ObservableObject {
         let _player = AVPlayer(playerItem: AVPlayerItem(asset: asset))
         self.player = _player
         
-        func secondsFromDuration(_ duration: CMTime?) -> Double? {
-            if let seconds = duration?.seconds, seconds > 0, seconds.isFinite, !seconds.isNaN {
-                return seconds
-            } else {
-                return nil
-            }
-        }
-        
         totalSeconds = secondsFromDuration(_player.currentItem?.duration)
         
         Task {
             let duration = try await asset.load(.duration)
             totalSeconds = secondsFromDuration(duration)
+        }
+    }
+    
+    private func secondsFromDuration(_ duration: CMTime?) -> Double? {
+        if let seconds = duration?.seconds, seconds > 0, seconds.isFinite, !seconds.isNaN {
+            return seconds
+        } else {
+            return nil
         }
     }
     
@@ -749,8 +749,9 @@ class PlayerObserver: ObservableObject {
             let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
             timeObserverToken = player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
                 DispatchQueue.main.async {
-                    self?.totalSeconds = player.currentItem?.duration.seconds
-                    self?.currentTimeInSeconds = time.seconds
+                    guard let self else { return }
+                    self.totalSeconds = self.secondsFromDuration(player.currentItem?.duration)
+                    self.currentTimeInSeconds = time.seconds
                 }
             }
         }
