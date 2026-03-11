@@ -242,15 +242,21 @@ class CustomEmojiTextModel: ObservableObject {
     }
     
     private func loadEmojis(font: SwiftUI.Font.TextStyle) async -> [String : Image] {
-        let urls = emojis.compactMap { emoji in
-            URL(string: emoji.staticURL)
-        }
+        var urls = [URL]()
+        var urlsToShortcodes = [URL : String]()
         
+        for emoji in emojis {
+            guard let url = URL(string: emoji.staticURL) else { continue }
+            urlsToShortcodes[url] = emoji.shortcode
+            urls.append(url)
+        }
+
         let result = await withCheckedContinuation { continuation in
-            CustomEmojiTextModel.loadEmojiImages(urls: urls, forFont: font) { [weak self] images in
+            CustomEmojiTextModel.loadEmojiImages(urls: urls, forFont: font) { images in
                 let emojiImages: [String : Image] = images.enumerated().reduce(into:  [String : Image]()) { partialResult, enumeration in
                     let (index, image) = enumeration
-                    if let shortcode = self?.emojis[index].shortcode, let image {
+                    let url = urls[index]
+                    if let shortcode = urlsToShortcodes[url], let image {
                         partialResult[shortcode] = Image(uiImage: image)
                     }
                 }
