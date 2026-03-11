@@ -76,6 +76,11 @@ struct MastodonPostRowView: View {
                         }()
                         threadingDecoration(withSpacerAtTop: !threadedContext.isContiguous, withSpacerAtBottom: false)
                             .frame(width: AvatarSize.large, height: lowerThreadDecorationHeight)
+                            .background() {
+                                if lowerThreadDecorationHeight != nil {
+                                    Color.yellow
+                                }
+                            }
                     }
                 }
                 .accessibilityHidden(true)

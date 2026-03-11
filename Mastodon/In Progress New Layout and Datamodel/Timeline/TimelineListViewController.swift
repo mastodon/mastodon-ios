@@ -2003,7 +2003,7 @@ struct TimelineListView: View {
             .environment(contentConcealModel)
             .padding(EdgeInsets(top: 0, leading: standardPadding, bottom: 0, trailing: doublePadding))
             .frame(width: useableWidth, height: expectedHeight, alignment: .top)
-#if DEBUG
+#if true
             .background {
                 ZStack(alignment: .topTrailing) {
                     HStack {
