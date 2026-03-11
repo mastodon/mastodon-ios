@@ -19,6 +19,7 @@ final class ViewMeasurer {
         let contentSizeCategory = UIApplication.shared.preferredContentSizeCategory // so that this offscreen view still respects the user's current settings
         
         let view = MastodonPostRowView(contentWidth: contentWidth, precalculatedHeight: nil, isPinned: isPinned, actionHandler: nil, threadedContext: threadedContext, filterContext: filterContext)
+            .environment(MastodonNavigationRouter(navigationType: .swiftUI(legacyPresenter: nil)))
             .environment(viewModel)
             .environment(contentConcealModel)
             .environment(TimestampUpdater.timestamper(withInterval: 60))
