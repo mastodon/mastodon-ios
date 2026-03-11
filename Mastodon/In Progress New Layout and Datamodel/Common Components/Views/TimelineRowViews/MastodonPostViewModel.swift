@@ -17,7 +17,7 @@ struct PrecalculatedHeight {
     
     var precalculatedHeights = [PrecalculatedHeight]()
     
-#if DEBUG
+#if true
     var actualLayoutHeight: CGFloat?
 #endif
     
