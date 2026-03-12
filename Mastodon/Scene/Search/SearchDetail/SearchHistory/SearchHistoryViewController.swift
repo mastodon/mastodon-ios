@@ -98,14 +98,19 @@ extension SearchHistoryViewController: UICollectionViewDelegate {
 
             switch item {
             case .account(account: let account, relationship: _):
-                guard let myAccount = authenticationBox.cachedAccount else { return }
-                let profile: ProfileType = {
+                guard let myAccount = authenticationBox.cachedAccount, let myDomain = myAccount.domain else { return }
+                let relationship: MastodonAccount.Relationship = {
                     if account.acctWithDomain == myAccount.acctWithDomain {
-                        .me(account)
+                        return .isMe
                     } else {
-                        .notMe(me: myAccount, displayAccount: account, relationship: nil)
+                        return .isNotMe(nil)
                     }
                 }()
+                let navigator = MastodonNavigationRouter(navigationType: .uiKit(self))
+                let profileViewController = ProfileHostingViewController(navigationRouter: navigator)
+                let viewModelAccount = MastodonAccount.fromEntity(account, authenticatedDomain: myDomain)
+                profileViewController.viewModel.set(account: viewModelAccount, relationship: relationship, navigator: navigator)
+                navigationController?.pushViewController(profileViewController, animated: true)
                 
             case .hashtag(let tag):
                 await LegacyDataSourceFacade.coordinateToHashtagScene(
