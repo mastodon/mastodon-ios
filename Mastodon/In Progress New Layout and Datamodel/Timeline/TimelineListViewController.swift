@@ -1677,21 +1677,31 @@ struct TimelineListView: View {
         GeometryReader { geo in
             ZStack(alignment: .bottom) { // to show donation banner, and snackbar, and fade-in overlays
                 if viewModel.feedIsEmpty {
-                    Image(uiImage: Asset.Asset.friends.image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    Button {
-                        viewModel.suggestAccountsToFollow(navigator: navigator)
-                    } label: {
-                        Text(L10n.Common.Controls.Actions.findPeople)
-                            .bold()
-                            .foregroundStyle(.white)
-                            .padding()
-                            .background(Asset.Colors.accent.swiftUIColor)
-                            .cornerRadius(CornerRadius.standard)
+                    switch viewModel.timeline {
+                    case .homeTimeline:
+                        Image(uiImage: Asset.Asset.friends.image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        Button {
+                            viewModel.suggestAccountsToFollow(navigator: navigator)
+                        } label: {
+                            Text(L10n.Common.Controls.Actions.findPeople)
+                                .bold()
+                                .foregroundStyle(.white)
+                                .padding()
+                                .background(Asset.Colors.accent.swiftUIColor)
+                                .cornerRadius(CornerRadius.standard)
+                        }
+                        .padding(EdgeInsets(top: doublePadding, leading: 0, bottom: doublePadding, trailing: 0))
+                    default:
+                        Text("No posts here!")
+                            .font(.title2)
+                            .foregroundStyle(.secondary)
+                            .padding(.horizontal, doublePadding)
+                            .padding(.bottom, doublePadding * 4)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     }
-                    .padding(EdgeInsets(top: doublePadding, leading: 0, bottom: doublePadding, trailing: 0))
                 } else {
                     VStack(alignment: .leading, spacing: 0) {
                         fixedHeader(geoWidth: geo.size.width)
