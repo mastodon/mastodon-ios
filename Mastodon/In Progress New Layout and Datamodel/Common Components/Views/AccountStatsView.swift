@@ -74,11 +74,14 @@ struct AccountStatsView: View {
     }
     
     func formattedJoinedDate(_ joinedDate: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
-        formatter.timeZone = TimeZone(identifier: "UTC")
-        return formatter.string(from: joinedDate)
+        let joinedYear = Calendar.current.component(.year, from: joinedDate)
+        let currentYear = Calendar.current.component(.year, from: .now)
+        
+        if joinedYear == currentYear {
+            return joinedDate.formatted(.dateTime.month(.abbreviated).day())
+        } else {
+            return joinedDate.formatted(.dateTime.year())
+        }
     }
     
     func statValue(_ stat: StatType) -> String {
