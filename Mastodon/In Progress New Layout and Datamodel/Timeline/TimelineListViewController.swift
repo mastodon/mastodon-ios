@@ -3087,7 +3087,7 @@ struct FeaturedHashtagsFlow: View {
     var body: some View {
         VStack {
             if filterModel.showFeaturedHashtags && !filterModel.featuredHashtags.isEmpty {
-                FlowLayout(maxItemWidth: maxItemWidth) {
+                FlowLayout(minItemCountPerRow: 2) {
                     ForEach(filterModel.featuredHashtags, id: \.self) { hashtag in
                         card(hashtag)
                             .onTapGesture {

@@ -505,7 +505,7 @@ struct ProfileInfoView: View {
                 if let domain = viewModel.account?.domain, let roles = viewModel.account?._legacyEntity.publicRoles, !roles.isEmpty {
                     Spacer()
                         .frame(height: tinySpacing)
-                    FlowLayout(maxItemWidth: 300) {
+                    FlowLayout(minItemCountPerRow: 1) {
                         ForEach(roles, id: \.id) { role in
                             ProfileBadge.role(role, domain: domain)
                         }
@@ -683,7 +683,7 @@ struct CustomFieldsFlow: View {
     var emojis: [Mastodon.Entity.Emoji]
     
     var body: some View {
-        FlowLayout(maxItemWidth: maxItemWidth) {
+        FlowLayout(minItemCountPerRow: 2) {
             ForEach(fields, id: \.self) { field in
                 CustomFieldCard(field: field, emojis: emojis, showFullContents: false)
                     .onTapGesture {

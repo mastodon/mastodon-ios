@@ -23,7 +23,7 @@ struct AccountStatsView: View {
             }
             .font(.caption)
         case .smallInline:
-            FlowLayout(maxItemWidth: 300, interItemSpacing: 20) {
+            FlowLayout(minItemCountPerRow: stats(forDisplayType: displayType).count, interItemSpacing: 20) {
                 contents
             }
             .font(.caption)
