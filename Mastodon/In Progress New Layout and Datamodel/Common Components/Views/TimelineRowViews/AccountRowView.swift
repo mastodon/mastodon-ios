@@ -14,7 +14,7 @@ struct AccountRowView: View {
     var body: some View {
         VStack(alignment: .gutterAlign, spacing: 0) {  // gutterAlign keeps the content properly aligned with the gap between avatar and content
             HStack(alignment: .top, spacing: spacingBetweenGutterAndContent) {
-                AvatarView(size: .large, avatarSource: .url(viewModel.account.avatarURL), goToProfile: nil)
+                AvatarView(size: .large, avatarSource: .url(viewModel.account.avatarURL), goToProfile: { viewModel.goToProfile(navigator: navigator) })
                     .accessibilityHidden(true)
                 
                 VStack(alignment: .leading, spacing: 0) {
