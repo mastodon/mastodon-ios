@@ -62,6 +62,7 @@ extension MastodonAccount {
         let showsFeaturedTab: Bool
         let showsMediaTab: Bool
         let mediaTabIncludesReplies: Bool
+        let hideCollections: Bool
     }
 }
 
@@ -116,8 +117,7 @@ extension MastodonAccount: FromAccountEntityDerivable {
 
 extension MastodonAccount.MetaData: FromAccountEntityDerivable {
     static func fromEntity(_ entity: Mastodon.Entity.Account, authenticatedDomain: String) -> MastodonAccount.MetaData {
-        return MastodonAccount.MetaData(profileUrl: URL(string: entity.url), createdAt: entity.createdAt, manuallyApprovesNewFollows: entity.locked, verifiedLink: entity.verifiedLink?.value, customFieldsForDisplay: entity.fields, customFieldsForEdit: entity.source?.fields, isBot: entity.bot ?? false, showsFeaturedTab: true, showsMediaTab: true, mediaTabIncludesReplies: true)
-        // TODO: get real values for media and featured tab settings (available if the api version >= 8)
+        return MastodonAccount.MetaData(profileUrl: URL(string: entity.url), createdAt: entity.createdAt, manuallyApprovesNewFollows: entity.locked, verifiedLink: entity.verifiedLink?.value, customFieldsForDisplay: entity.fields, customFieldsForEdit: entity.source?.fields, isBot: entity.bot ?? false, showsFeaturedTab: entity.showFeatured ?? true, showsMediaTab: entity.showMedia ?? true, mediaTabIncludesReplies: entity.showMediaReplies ?? true, hideCollections: entity.hideCollections ?? false)
     }
 }
 

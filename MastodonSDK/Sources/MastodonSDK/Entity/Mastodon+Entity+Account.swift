@@ -15,7 +15,7 @@ extension Mastodon.Entity {
     /// - Since: 0.1.0
     /// - Version: 3.3.0
     /// # Last Update
-    ///   2021/1/28
+    ///   2026/03/12
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/account/)
     public final class Account: Sendable {
@@ -37,6 +37,10 @@ extension Mastodon.Entity {
         public let locked: Bool
         public let emojis: [Emoji]
         public let discoverable: Bool?
+        public let showFeatured: Bool?
+        public let showMedia: Bool?
+        public let showMediaReplies: Bool?
+        public let hideCollections: Bool?
 
         // Statistical
         public let createdAt: Date
@@ -73,6 +77,11 @@ extension Mastodon.Entity.Account: Codable {
         case locked
         case emojis
         case discoverable
+        
+        case showFeatured = "show_featured"
+        case showMedia = "show_media"
+        case showMediaReplies = "show_media_replies"
+        case hideCollections = "hide_collections"
 
         case createdAt = "created_at"
         case lastStatusAt = "last_status_at"

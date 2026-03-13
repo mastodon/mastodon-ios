@@ -64,11 +64,13 @@ struct ProfileEditingView: View {
                     
                     Divider()
                     
-                    DisplayPreferencesEditor()
-                        .padding(.horizontal)
-                        .padding(.vertical, doublePadding)
-                    
-                    Divider()
+                    if editingViewModel.showTabDisplayPreferences {
+                        DisplayPreferencesEditor()
+                            .padding(.horizontal)
+                            .padding(.vertical, doublePadding)
+                        
+                        Divider()
+                    }
                     
                     // ADVANCED SETTINGS
                     
@@ -290,6 +292,7 @@ struct ProfileEditingView: View {
 class ProfileEditingViewModel {
     var editingStatusBinding: Binding<EditingStatus>?
     var showVerifiedLinkTip = true
+    var showTabDisplayPreferences = false
     
     let displayNameFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "", characterLimit: .softLimit(100), autocompleteMastodonItems: false)
     let bioFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "Describe yourself and/or this account.", characterLimit: .softLimit(220), autocompleteMastodonItems: true)
@@ -316,7 +319,6 @@ class ProfileEditingViewModel {
     var emojis: [Mastodon.Entity.Emoji] = []
     
     var isAutomatedAccount: Bool = false
-    var isAutomatedAccountBinding = Binding<Bool>( get: { false }, set: {_ in})
     
     private(set) var initialInfo: MastodonAccount? = nil
     
@@ -364,11 +366,6 @@ class ProfileEditingViewModel {
             }
         )
         
-        isAutomatedAccountBinding = Binding<Bool>(
-            get: { self.isAutomatedAccount },
-            set: { newValue in self.isAutomatedAccount = newValue }
-        )
-        
         displayNameFieldEditingViewModel.contentDidChange = { withAnimation { self.editingStatusBinding?.wrappedValue = .editing(hasChanges: true) } }
         bioFieldEditingViewModel.contentDidChange = { withAnimation { self.editingStatusBinding?.wrappedValue = .editing(hasChanges: true) } }
     }
@@ -397,6 +394,8 @@ class ProfileEditingViewModel {
         confirmedBannerImage = nil
         bannerImagePhotosPickerItem = nil
         presentingAlert = nil
+        
+        showTabDisplayPreferences = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.profileSettings) ?? false
     }
     
     func updateAccountTextFields(account: MastodonAccount) {
@@ -763,11 +762,13 @@ struct AdvancedSettingsEditor: View {
     @Environment(ProfileEditingViewModel.self) var viewModel
     
     var body: some View {
+        @Bindable var viewModel = viewModel
+
         VStack(alignment: .leading) {
             ProfileSectionHeader(section: .advancedSettings)
             Spacer()
             SubsectionHeading(title: "Automated account", subtitle: "Informs others that most posts from this account are automated and won’t be monitored")
-            Toggle(isOn: viewModel.isAutomatedAccountBinding) {
+            Toggle(isOn: $viewModel.isAutomatedAccount) {
                 Text("Mark as an automated account")
             }
             .tint(Asset.Colors.accent.swiftUIColor)
