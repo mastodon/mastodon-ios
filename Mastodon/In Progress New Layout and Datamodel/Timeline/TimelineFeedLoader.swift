@@ -218,9 +218,9 @@ public class TimelineQueryFilter {
     
     var showFeaturedHashtags: Bool {
         switch filterType {
-        case .userPosts, .mediaOnly:
+        case .userPosts:
             return true
-        case .unfilterable:
+        case .mediaOnly, .unfilterable:
             return false
         }
     }
