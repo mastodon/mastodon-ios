@@ -683,7 +683,7 @@ struct CustomFieldsFlow: View {
     var emojis: [Mastodon.Entity.Emoji]
     
     var body: some View {
-        FlowLayout(minItemCountPerRow: 2) {
+        FlowLayout(minItemCountPerRow: 1) {
             ForEach(fields, id: \.self) { field in
                 CustomFieldCard(field: field, emojis: emojis, showFullContents: false)
                     .onTapGesture {
