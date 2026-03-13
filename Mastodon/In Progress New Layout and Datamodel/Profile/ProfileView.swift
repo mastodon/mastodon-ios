@@ -846,13 +846,24 @@ struct ProfileActionBar: View {
 struct ProfilePaginatingView: View {
     @Environment(ProfileViewModel.self) var viewModel
     
+    var pages: [ProfilePage] {
+        var _pages = [ProfilePage.activity]
+        if viewModel.account?.metadata.showsMediaTab == true {
+            _pages.append(.mediaOnly)
+        }
+        if viewModel.account?.metadata.showsFeaturedTab == true {
+            _pages.append(.featured)
+        }
+        return _pages
+    }
+    
     var body: some View {
         GeometryReader() { geo in
                 TabView(selection: Binding<ProfilePage>(
                     get: { viewModel.selectedPage },
                     set: { newValue in viewModel.selectedPage = newValue }
                 )) {
-                    ForEach(ProfilePage.allCases, id: \.self) { page in
+                    ForEach(pages, id: \.self) { page in
                         switch page {
                         case .activity:
                             if let postsTimelineViewModel = viewModel.postsViewModel {
@@ -1043,7 +1054,15 @@ enum EditingStatus: Equatable {
         self.editingViewModel.setAccount(account)
         self.relationship = relationship
         self.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts)), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
-        self.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.mediaOnly)), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
+        
+        if account.metadata.showsMediaTab {
+            let mediaQueryFilter = TimelineQueryFilter(.mediaOnly)
+            mediaQueryFilter.excludeReplies = !account.metadata.mediaTabIncludesReplies
+            self.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: mediaQueryFilter), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
+        } else {
+            self.mediaViewModel = nil
+        }
+        
         self.relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: account.locked)
         
         self.relationshipViewModel.actionHandler = self.postsViewModel
