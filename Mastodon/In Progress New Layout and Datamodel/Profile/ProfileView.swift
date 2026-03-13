@@ -851,7 +851,8 @@ struct ProfilePaginatingView: View {
         if viewModel.account?.metadata.showsMediaTab == true {
             _pages.append(.mediaOnly)
         }
-        if viewModel.account?.metadata.showsFeaturedTab == true {
+        let canShowFeaturedTab = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.featuredAccounts) ?? false
+        if canShowFeaturedTab && viewModel.account?.metadata.showsFeaturedTab == true {
             _pages.append(.featured)
         }
         return _pages

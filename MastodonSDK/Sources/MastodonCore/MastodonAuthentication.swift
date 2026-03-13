@@ -11,6 +11,7 @@ public enum ApiFeature {
     case quotePosts
     case localTimeline
     case profileSettings
+    case featuredAccounts
 }
 
 public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
@@ -73,6 +74,9 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
             case .profileSettings:
                 guard let apiVersion else { return false }
                 return apiVersion >= 8
+            case .featuredAccounts:
+                guard let apiVersion else { return false }
+                return apiVersion >= 6
             case .followTags:
                 return serverVersion?.majorServerVersion(greaterThanOrEquals: 4) ?? false // following Tags is supported beginning with Mastodon v4.0.0
             case .groupNotifications:
