@@ -879,15 +879,19 @@ struct ProfilePaginatingView: View {
                                 TimelineListView()
                                     .environment(mediaTimelineViewModel)
                                     .environment(mediaTimelineViewModel.timeline.filterModel)
-                                    .environment(AsyncRefreshViewModel())
+                                    .environment(viewModel.mediaViewAsyncRefresh)
                                     .tag(page)
                                     .frame(width: geo.size.width, height: geo.size.height)
                             }
                         case .featured:
-                            Color.red
-                                .tag(page)
-                                .nestedScrollview(.inner)
-                                .frame(width: geo.size.width, height: geo.size.height)
+                            if let featuredTimelineViewModel = viewModel.featuredItemsViewModel {
+                                TimelineListView()
+                                    .environment(featuredTimelineViewModel)
+                                    .environment(featuredTimelineViewModel.timeline.filterModel)
+                                    .environment(viewModel.featuredItemsAsyncRefresh)
+                                    .tag(page)
+                                    .frame(width: geo.size.width, height: geo.size.height)
+                            }
                         }
                       
                     }
@@ -1013,6 +1017,9 @@ enum EditingStatus: Equatable {
     }
     private var activityFilter: TimelineQueryFilter?
     var mediaViewModel: TimelineListViewModel?
+    var mediaViewAsyncRefresh: AsyncRefreshViewModel?
+    var featuredItemsViewModel: TimelineListViewModel?
+    var featuredItemsAsyncRefresh: AsyncRefreshViewModel?
     var selectedPage: ProfilePage = .activity
     var focusedCustomField: Mastodon.Entity.Field?
     var handleDetails: HandleDetails?
@@ -1056,11 +1063,17 @@ enum EditingStatus: Equatable {
         self.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts)), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
         
         if account.metadata.showsMediaTab {
+            mediaViewAsyncRefresh = AsyncRefreshViewModel()
             let mediaQueryFilter = TimelineQueryFilter(.mediaOnly)
             mediaQueryFilter.excludeReplies = !account.metadata.mediaTabIncludesReplies
-            self.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: mediaQueryFilter), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
+            self.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: mediaQueryFilter), navigator: navigator, asyncRefreshViewModel: mediaViewAsyncRefresh!)
         } else {
             self.mediaViewModel = nil
+        }
+        
+        if account.metadata.showsFeaturedTab {
+            featuredItemsAsyncRefresh = AsyncRefreshViewModel()
+            self.featuredItemsViewModel = TimelineListViewModel(timeline: .featuredItems(userID: account.id), navigator: navigator, asyncRefreshViewModel: featuredItemsAsyncRefresh!)
         }
         
         self.relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: account.locked)

@@ -76,6 +76,7 @@ public enum MastodonTimelineType: Equatable {
     case discover(DiscoveryType)
     case search(String, SearchScope)
     case userPosts(userID: String, queryFilter: TimelineQueryFilter)
+    case featuredItems(userID: String)
     case followers(ofUserId: String)
     case accountsFollowed(byUserId: String)
     case familiarFollowers(Mastodon.Entity.Account.ID)
@@ -151,7 +152,7 @@ public enum MastodonTimelineType: Equatable {
                 .public
         case .search:
             nil
-        case .userPosts:
+        case .userPosts, .featuredItems:
                 .account
         case .accountsFollowed, .followers, .familiarFollowers:
             nil
@@ -677,6 +678,19 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             newBatch = (pinnedPosts.isEmpty ? [] : [TimelineItem.pinnedPosts(pinnedPosts)]) + fullTimelineResponse.value.map { timelineItem(fromStatus: $0, isPinned: false) }
             newBatchBottomLoad = bottomLoad(fromLink: fullTimelineResponse.link)
             newAsyncRefreshAvailable = fullTimelineResponse.asyncRefreshAvaliable
+            
+        case .featuredItems(let userID):
+            // this only includes accounts because the featured hashtags are shown as filters at the top of the main activity tab
+            let response = try await {
+                if let loadUrl {
+                    return try await APIService.shared.accounts(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                } else {
+                    return try await APIService.shared.featuredAccounts(userID: userID, maxID: nil, authenticationBox: authenticatedUser)
+                }
+            }()
+            newBatch = response.value.map { timelineItem(fromAccount: $0) }
+            newBatchBottomLoad = bottomLoad(fromLink: response.link)
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
         case .accountsFollowed(let userId):
             let response = try await {

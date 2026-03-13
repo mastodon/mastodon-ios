@@ -334,7 +334,7 @@ extension TimelineListViewController {
         case .hashtag:
             showLocalTimelineAction.state = .off
             showFollowingAction.state = .off
-        case .discover, .search, .userPosts, .thread, .remoteThread, .myFollowedHashtags, .myBookmarks, .myFavorites, .notifications, .followers, .accountsFollowed, .familiarFollowers, .whoFavourited, .whoBoosted:
+        case .discover, .search, .userPosts, .featuredItems, .thread, .remoteThread, .myFollowedHashtags, .myBookmarks, .myFavorites, .notifications, .followers, .accountsFollowed, .familiarFollowers, .whoFavourited, .whoBoosted:
             assertionFailure()
             break
         }
