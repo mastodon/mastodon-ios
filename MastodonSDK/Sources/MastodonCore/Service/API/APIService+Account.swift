@@ -233,3 +233,17 @@ extension APIService {
         return updatedRelationship
     }
 }
+
+extension APIService {
+    public func updateTabDisplaySettings(showFeaturedTab: Bool, showMediaTab: Bool, showMediaReplies: Bool, authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Entity.Profile {
+        let response = try await Mastodon.API.Account.updateTabDisplaySettings(
+            session: session,
+            domain: authenticationBox.domain,
+            query: Mastodon.API.Account.UpdateTabDisplaySettingsQuery(showFeaturedTab:  showFeaturedTab, showMediaTab: showMediaTab, showMediaReplies:  showMediaReplies),
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+        
+        let updated = response.value
+        return updated
+    }
+}

@@ -14,27 +14,70 @@ extension Mastodon.API.Account {
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("profile")
     }
     
-    /// Show or hide the featured tab.
+    /// Update tab display settings
     ///
-    /// - Since: 4.?
-    /// - Version: 4.?
+    /// Change a user's disply settings for the tabs of their profile when viewed by others.
+    ///
+    /// - Since: API version 8
+    /// - Version: API version 8
     /// # Last Update
-    ///   2026/03/05
+    ///   2026/03/13
     /// # Reference
-    ///   [Document](https://docs.joinmastodon.org/methods/???/)
+    ///   [Document](https://docs.joinmastodon.org/methods/profile/)
     /// - Parameters:
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
-    ///   - showFeaturedTab: `Bool`
+    ///   - query: `UpdateTabDisplaySettingsQuery`
     ///   - authorization: User token
-    /// - Returns: `AnyPublisher` empty response
-    public static func setShowFeaturedTab(
+    /// - Returns: `AnyPublisher` contains `Profile` nested in the response
+    public static func updateTabDisplaySettings(
         session: URLSession,
         domain: String,
-        showFeaturedTab: Bool,
-        authorization: Mastodon.API.OAuth.Authorization
-    ) /*-> AnyPublisher<Void, Error> */ {
-        // TODO: implement
+        query: UpdateTabDisplaySettingsQuery,
+        authorization: Mastodon.API.OAuth.Authorization?
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Profile>, Error>  {
+        let url = profileEndpointURL(domain: domain)
+        let request = Mastodon.API.putQueryRequest(
+            url: url,
+            query: query,
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Profile.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    public struct UpdateTabDisplaySettingsQuery: Codable, PutQuery {
+        public let showFeaturedTab: Bool
+        public let showMediaTab: Bool
+        public let showMediaReplies: Bool
+
+        public init(
+            showFeaturedTab: Bool,
+            showMediaTab: Bool,
+            showMediaReplies: Bool
+        ) {
+            self.showFeaturedTab = showFeaturedTab
+            self.showMediaTab = showMediaTab
+            self.showMediaReplies = showMediaReplies
+        }
+        
+        var body: Data? {
+            do {
+                let dict = [
+                    "show_featured" : showFeaturedTab,
+                    "show_media" : showMediaTab,
+                    "show_media_replies" : showMediaReplies
+                ]
+                return try JSONSerialization.data(withJSONObject: dict)
+            } catch {
+                assertionFailure("Error creating update tab display settings query body: \(error)")
+                return nil
+            }
+        }
     }
     
     /// Feature an account on your own profile.

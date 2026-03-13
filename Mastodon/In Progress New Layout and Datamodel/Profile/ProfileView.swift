@@ -740,7 +740,7 @@ struct ProfilePaginationControl: View {
     
     @ViewBuilder var customPicker: some View {
         HStack(spacing: 0) {
-            ForEach(ProfilePage.allCases, id: \.self) { page in
+            ForEach(viewModel.pagesToShow, id: \.self) { page in
                 Button() {
                     withAnimation {
                         viewModel.selectedPage = page
@@ -846,25 +846,13 @@ struct ProfileActionBar: View {
 struct ProfilePaginatingView: View {
     @Environment(ProfileViewModel.self) var viewModel
     
-    var pages: [ProfilePage] {
-        var _pages = [ProfilePage.activity]
-        if viewModel.account?.metadata.showsMediaTab == true {
-            _pages.append(.mediaOnly)
-        }
-        let canShowFeaturedTab = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.featuredAccounts) ?? false
-        if canShowFeaturedTab && viewModel.account?.metadata.showsFeaturedTab == true {
-            _pages.append(.featured)
-        }
-        return _pages
-    }
-    
     var body: some View {
         GeometryReader() { geo in
                 TabView(selection: Binding<ProfilePage>(
                     get: { viewModel.selectedPage },
                     set: { newValue in viewModel.selectedPage = newValue }
                 )) {
-                    ForEach(pages, id: \.self) { page in
+                    ForEach(viewModel.pagesToShow, id: \.self) { page in
                         switch page {
                         case .activity:
                             if let postsTimelineViewModel = viewModel.postsViewModel {
@@ -1001,6 +989,7 @@ enum EditingStatus: Equatable {
         let domain: String
         let isMyDomain: Bool
     }
+    var navigator: MastodonNavigationRouter?
     var account: MastodonAccount?
     var relationship: MastodonAccount.Relationship?
     var familiarFollowersViewModel: TimelineListViewModel?
@@ -1058,6 +1047,7 @@ enum EditingStatus: Equatable {
     }
     
     public func set(account: MastodonAccount, relationship: MastodonAccount.Relationship, navigator: MastodonNavigationRouter) {
+        self.navigator = navigator
         self.account = account
         self.editingViewModel.setAccount(account)
         self.relationship = relationship
@@ -1237,5 +1227,19 @@ extension ProfileViewModel {
         MastodonMenuAction.menuButton(systemImageName: action.iconSystemName, text: action.labelText) {
             self.handleAction(action)
         }
+    }
+}
+
+extension ProfileViewModel {
+    var pagesToShow: [ProfilePage] {
+        var pages = [ProfilePage.activity]
+        if account?.metadata.showsMediaTab == true {
+            pages.append(.mediaOnly)
+        }
+        let canShowFeaturedTab = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.featuredAccounts) ?? false
+        if canShowFeaturedTab && account?.metadata.showsFeaturedTab == true {
+            pages.append(.featured)
+        }
+        return pages
     }
 }

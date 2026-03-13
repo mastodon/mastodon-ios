@@ -121,6 +121,22 @@ extension MastodonAccount.MetaData: FromAccountEntityDerivable {
     }
 }
 
+extension MastodonAccount {
+    func byUpdatingTabSettings(showFeaturedTab: Bool?, showMediaTab: Bool?, showMediaReplies: Bool?) -> MastodonAccount? {
+        let featuredTabChange = showFeaturedTab != nil && showFeaturedTab != metadata.showsFeaturedTab
+        let mediaTabChange = showMediaTab != nil && showMediaTab != metadata.showsMediaTab
+        let mediaTabRepliesChange = showMediaReplies != nil && showMediaReplies != metadata.mediaTabIncludesReplies
+        guard featuredTabChange || mediaTabChange || mediaTabRepliesChange else { return nil }
+        return MastodonAccount(id: id, metadata: metadata.byUpdatingTabSettings(showFeaturedTab: showFeaturedTab, showMediaTab: showMediaTab, showMediaReplies: showMediaReplies), displayInfo: displayInfo, metrics: metrics, bioForDisplay: bioForDisplay, bioForEdit: bioForEdit, _legacyEntity: _legacyEntity)
+    }
+}
+
+extension MastodonAccount.MetaData {
+    fileprivate func byUpdatingTabSettings(showFeaturedTab: Bool?, showMediaTab: Bool?, showMediaReplies: Bool?) -> MastodonAccount.MetaData {
+        return MastodonAccount.MetaData(profileUrl: profileUrl, createdAt: createdAt, manuallyApprovesNewFollows: manuallyApprovesNewFollows, verifiedLink: verifiedLink, customFieldsForDisplay: customFieldsForDisplay, customFieldsForEdit: customFieldsForEdit, isBot: isBot, showsFeaturedTab: showFeaturedTab ?? self.showsFeaturedTab, showsMediaTab: showMediaTab ?? self.showsMediaTab, mediaTabIncludesReplies: showMediaReplies ?? self.mediaTabIncludesReplies, hideCollections: hideCollections)
+    }
+}
+
 extension MastodonAccount.DisplayInfo: FromAccountEntityDerivable {
     static func fromEntity(
         _ entity: Mastodon.Entity.Account,

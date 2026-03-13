@@ -311,9 +311,9 @@ class ProfileEditingViewModel {
     var showCroppingView: Binding<Bool>
     var presentingAlert: ProfileEditingAlert?
     
-    var mediaTabVisibilitySetting: MediaTabVisibilitySetting = .showMediaTab
-    var mediaTabRepliesSetting: MediaTabRepliesSetting = .showDirectPostsOnly
-    var featuredTabVisibilitySetting: FeaturedTabVisibilitySetting = .showFeaturedTab
+    private(set) var mediaTabVisibilitySetting: MediaTabVisibilitySetting = .showMediaTab
+    private(set) var mediaTabRepliesSetting: MediaTabRepliesSetting = .showDirectPostsOnly
+    private(set) var featuredTabVisibilitySetting: FeaturedTabVisibilitySetting = .showFeaturedTab
     
     var customFields: [Mastodon.Entity.Field]? = nil
     var emojis: [Mastodon.Entity.Emoji] = []
@@ -475,6 +475,23 @@ class ProfileEditingViewModel {
     
     func cancelDeleteCustomField() {
         presentingAlert = nil
+    }
+}
+
+extension ProfileEditingViewModel {
+    func setMediaTabVisibilitySetting(_ newSetting: MediaTabVisibilitySetting) {
+        guard newSetting != mediaTabVisibilitySetting else { return }
+        mediaTabVisibilitySetting = newSetting
+    }
+    
+    func setMediaTabRepliesSetting(_ newSetting: MediaTabRepliesSetting) {
+        guard newSetting != mediaTabRepliesSetting else { return }
+        mediaTabRepliesSetting = newSetting
+    }
+    
+    func setFeaturedTabVisibilitySetting(_ newSetting: FeaturedTabVisibilitySetting) {
+        guard newSetting != featuredTabVisibilitySetting else { return }
+        featuredTabVisibilitySetting = newSetting
     }
 }
 
@@ -700,23 +717,28 @@ struct CustomProfileFieldsEditor: View {
 }
 
 struct DisplayPreferencesEditor: View {
-    @Environment(ProfileEditingViewModel.self) var viewModel
+    @Environment(ProfileViewModel.self) var profileViewModel
+    @Environment(ProfileEditingViewModel.self) var editingViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: doublePadding) {
             VStack(alignment: .leading) {
                 ProfileSectionHeader(section: .displayPreferences)
                 infoButton(.displayPreferences)
-                Text("this section is waiting on backend implementation")
-                    .foregroundColor(.red)
             }
             
             // SHOW/HIDE MEDIA TAB
             VStack(alignment: .leading) {
                 SubsectionHeading(title: "’Media’ tab settings", subtitle: "‘Media’ is an optional tab that shows your posts containing images or videos.")
                 RadioButtonArray(items: [(ProfileEditingViewModel.MediaTabVisibilitySetting.showMediaTab.rawValue, "Show ‘Media’ tab"), (ProfileEditingViewModel.MediaTabVisibilitySetting.hideMediaTab.rawValue, "Hide ‘Media’ tab")], selectedItem: Binding<Int>(
-                    get: { viewModel.mediaTabVisibilitySetting.rawValue },
-                    set: { newValue in viewModel.mediaTabVisibilitySetting = .init(rawValue: newValue) ?? .showMediaTab }
+                    get: { editingViewModel.mediaTabVisibilitySetting.rawValue },
+                    set: { newValue in
+                        guard newValue != editingViewModel.mediaTabVisibilitySetting.rawValue else { return }
+                        editingViewModel.setMediaTabVisibilitySetting(.init(rawValue: newValue) ?? .showMediaTab)
+                        Task {
+                            try await profileViewModel.commitTabSettingsChanges()
+                        }
+                    }
                 ))
             }
             
@@ -724,8 +746,14 @@ struct DisplayPreferencesEditor: View {
             VStack(alignment: .leading) {
                 SubsectionHeading(title: "Include replies on ’Media’ tab?", subtitle: nil)
                 RadioButtonArray(items: [(ProfileEditingViewModel.MediaTabRepliesSetting.showDirectPostsOnly.rawValue, "Only show my posts"), (ProfileEditingViewModel.MediaTabRepliesSetting.includeMyRepliesToOthers.rawValue, "Show my posts and replies to other people's posts")], selectedItem: Binding<Int>(
-                    get: { viewModel.mediaTabRepliesSetting.rawValue },
-                    set: { newValue in viewModel.mediaTabRepliesSetting = .init(rawValue: newValue) ?? .showDirectPostsOnly }
+                    get: { editingViewModel.mediaTabRepliesSetting.rawValue },
+                    set: { newValue in
+                        guard newValue != editingViewModel.mediaTabRepliesSetting.rawValue else { return }
+                        editingViewModel.setMediaTabRepliesSetting(.init(rawValue: newValue) ?? .showDirectPostsOnly)
+                        Task {
+                            try await profileViewModel.commitTabSettingsChanges()
+                        }
+                    }
                 ))
             }
             
@@ -733,8 +761,14 @@ struct DisplayPreferencesEditor: View {
             VStack(alignment: .leading) {
                 SubsectionHeading(title: "’Featured’ tab settings", subtitle: "’Featured’ is an optional tab where you can showcase other accounts and collections.")
                 RadioButtonArray(items: [(ProfileEditingViewModel.FeaturedTabVisibilitySetting.showFeaturedTab.rawValue, "Show ’Featured’ tab"), (ProfileEditingViewModel.FeaturedTabVisibilitySetting.hideFeaturedTab.rawValue, "Hide ’Featured’ tab")], selectedItem: Binding<Int>(
-                    get: { viewModel.featuredTabVisibilitySetting.rawValue },
-                    set: { newValue in viewModel.featuredTabVisibilitySetting = .init(rawValue: newValue) ?? .showFeaturedTab }
+                    get: { editingViewModel.featuredTabVisibilitySetting.rawValue },
+                    set: { newValue in
+                        guard newValue != editingViewModel.featuredTabVisibilitySetting.rawValue else { return }
+                        editingViewModel.setFeaturedTabVisibilitySetting(.init(rawValue: newValue) ?? .showFeaturedTab)
+                        Task {
+                            try await profileViewModel.commitTabSettingsChanges()
+                        }
+                    }
                 ))
             }
             
@@ -815,7 +849,7 @@ struct SubsectionHeading: View {
 
 struct RadioButtonArray: View {
     let items: [(Int, String)]
-    var selectedItem: Binding<Int>
+    @Binding var selectedItem: Int
     
     let selectionIndicatorSize: CGFloat = 16
     
@@ -823,11 +857,11 @@ struct RadioButtonArray: View {
         VStack(alignment: .leading) {
             ForEach(items, id: \.self.1) { (index, item) in
                 HStack {
-                    selectionImage(selected: index == selectedItem.wrappedValue)
+                    selectionImage(selected: index == selectedItem)
                     Text(item)
                 }
                 .onTapGesture {
-                    selectedItem.wrappedValue = index % items.count
+                    selectedItem = index % items.count
                 }
             }
         }
@@ -890,6 +924,20 @@ extension ProfileViewModel {
         )
         let updatedAccount = MastodonAccount.fromEntity(response.value, authenticatedDomain: domain)
         account = updatedAccount
+        editingViewModel.setAccount(updatedAccount)
+    }
+    
+    func commitTabSettingsChanges() async throws {
+        guard let navigator, let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { throw APIService.APIError.explicit(.authenticationMissing) }
+        
+        let updatedProfile = try await APIService.shared.updateTabDisplaySettings(showFeaturedTab: editingViewModel.featuredTabVisibilitySetting == .showFeaturedTab, showMediaTab: editingViewModel.mediaTabVisibilitySetting == .showMediaTab, showMediaReplies: editingViewModel.mediaTabRepliesSetting == .includeMyRepliesToOthers, authenticationBox: authBox)
+        guard let updatedAccount = account?.byUpdatingTabSettings(
+            showFeaturedTab: updatedProfile.showFeatured,
+            showMediaTab: updatedProfile.showMedia,
+            showMediaReplies: updatedProfile.showMediaReplies
+        ) else { return }
+        
+        set(account: updatedAccount, relationship: .isMe, navigator: navigator)
         editingViewModel.setAccount(updatedAccount)
     }
 }

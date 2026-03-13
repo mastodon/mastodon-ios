@@ -239,3 +239,88 @@ extension Mastodon.Entity.Account {
         }
     }
 }
+
+extension Mastodon.Entity {
+    
+    /// Profile
+    ///
+    /// - Since:
+    /// - Version:
+    /// # Last Update
+    ///   2026/03/13
+    /// # Reference
+    ///  [Document](https://docs.joinmastodon.org/??)
+    public final class Profile: Sendable {
+        public typealias ID = String
+        
+        // Base
+        public let id: ID
+        
+        // Display
+        public let displayName: String
+        public let note: String
+        public let avatar: String?
+        public let avatarStatic: String?
+        public let avatarDescription: String?
+        
+        public let header: String?
+        public let headerStatic: String?
+        public let headerDescription: String?
+        
+        public let locked: Bool
+        public let discoverable: Bool?
+        public let showFeatured: Bool?
+        public let showMedia: Bool?
+        public let showMediaReplies: Bool?
+        public let hideCollections: Bool?
+        public let indexable: Bool?
+        public let attributionDomains: [String]?
+        
+        
+        public let fields: [Field]?
+        public let bot: Bool?
+    }
+}
+
+extension Mastodon.Entity.Profile: Codable {
+    enum CodingKeys: String, CodingKey {
+        case id
+        
+        case displayName = "display_name"
+        case note
+        case avatar
+        case avatarStatic = "avatar_static"
+        case avatarDescription = "avatar_description"
+        case header
+        case headerStatic = "header_static"
+        case headerDescription = "header_description"
+        
+        case locked
+        case discoverable
+        
+        case showFeatured = "show_featured"
+        case showMedia = "show_media"
+        case showMediaReplies = "show_media_replies"
+        case hideCollections = "hide_collections"
+        
+        case indexable
+        case fields
+        case bot
+        case attributionDomains = "attribution_domains"
+    }
+}
+
+//MARK: - Hashable
+extension Mastodon.Entity.Profile: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+}
+
+//MARK: - Equatable
+extension Mastodon.Entity.Profile: Equatable {
+    public static func == (lhs: Mastodon.Entity.Profile, rhs: Mastodon.Entity.Profile) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
