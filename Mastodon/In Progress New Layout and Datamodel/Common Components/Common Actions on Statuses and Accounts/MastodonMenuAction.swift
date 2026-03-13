@@ -517,7 +517,6 @@ extension RelationshipViewModel {
                 navigator.activeAlert = .confirmUnhideFeatureTabBeforeFeaturing(featureItemName: account.handle, didConfirm: { confirmed in
                     guard confirmed else { continuation.resume(); return }
                     Task {
-                        // TODO: show the feature tab
                         await self.commitFeature(account, from: myAccount)
                         continuation.resume()
                     }
@@ -541,6 +540,9 @@ extension RelationshipViewModel {
     private func commitFeature(_ account: MastodonAccount, from myAccount: MastodonAccount) async {
         do {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
+            if !myAccount.metadata.showsFeaturedTab {
+                let _ = try await APIService.shared.updateTabDisplaySettings(showFeaturedTab: true, showMediaTab: myAccount.metadata.showsMediaTab, showMediaReplies: myAccount.metadata.mediaTabIncludesReplies, authenticationBox: authenticatedUser)  // TODO: update profile tab's featured tab display setting
+            }
             let response = try await APIService.shared.featureAccount(account.id, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
             FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newRelationshipInfo)))
