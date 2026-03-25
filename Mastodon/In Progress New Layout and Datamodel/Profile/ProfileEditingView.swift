@@ -801,9 +801,9 @@ struct AdvancedSettingsEditor: View {
         VStack(alignment: .leading) {
             ProfileSectionHeader(section: .advancedSettings)
             Spacer()
-            SubsectionHeading(title: "Automated account", subtitle: "Informs others that most posts from this account are automated and won’t be monitored")
+            SubsectionHeading(title: "Automated account", subtitle: "Informs others that most posts from this account are automated and won’t be monitored") // TODO: L10n
             Toggle(isOn: $viewModel.isAutomatedAccount) {
-                Text("Mark as an automated account")
+                Text("Mark as an automated account") // TODO: L10n
             }
             .tint(Asset.Colors.accent.swiftUIColor)
         }
