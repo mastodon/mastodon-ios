@@ -258,7 +258,7 @@ struct ProfileView: View {
                     .padding(standardPadding)
                     .background() {
                         RoundedRectangle(cornerRadius: CornerRadius.standard)
-                            .fill(Asset.Colors.Brand.backgroundSoftest.swiftUIColor)
+                            .fill(Asset.Colors.FigmaToken.bgSoftest.swiftUIColor)
                     }
                     
                     VStack(alignment: .leading, spacing: tinySpacing) {
@@ -502,12 +502,12 @@ struct ProfileInfoView: View {
                     .frame(height: tinySpacing)
                 
                 // SERVER ROLES
-                if let domain = viewModel.account?.domain, let roles = viewModel.account?._legacyEntity.publicRoles, !roles.isEmpty {
+                if let badges {
                     Spacer()
                         .frame(height: tinySpacing)
                     FlowLayout(minItemCountPerRow: 1) {
-                        ForEach(roles, id: \.id) { role in
-                            ProfileBadge.role(role, domain: domain)
+                        ForEach(badges, id: \.id) { badge in
+                            badge
                         }
                     }
                 }
@@ -564,6 +564,28 @@ struct ProfileInfoView: View {
             }
         }
     }
+    
+    var badges: [ProfileBadge]? {
+        var _badges = [ProfileBadge]()
+        if viewModel.account?.metadata.isBot == true {
+            _badges.append(ProfileBadge.isBot)
+        }
+        if viewModel.relationship?.info?.iAmBlockingThem == true || viewModel.relationship?.info?.iAmBlockingTheirDomain == true {
+            _badges.append(ProfileBadge.isBlocked)
+        }
+        if viewModel.relationship?.info?.iAmMutingThem == true {
+            _badges.append(ProfileBadge.isMuted)
+        }
+        if let domain = viewModel.account?.domain {
+            for role in viewModel.account?._legacyEntity.publicRoles ?? [] {
+                _badges.append(ProfileBadge.role(role, domain: domain))
+            }
+        }
+        
+        guard !_badges.isEmpty else { return nil }
+        
+        return _badges
+    }
 }
 
 struct HandleInfoPopover: View {
@@ -619,7 +641,7 @@ struct HandleInfoPopover: View {
         HStack(alignment: .top) {
             ZStack {
                 Circle()
-                    .fill(Asset.Colors.Brand.backgroundSoftest.swiftUIColor)
+                    .fill(Asset.Colors.FigmaToken.bgSoftest.swiftUIColor)
                     .frame(width: 28, height: 28)
                 type.image
                     .frame(width: 16, height: 16)
@@ -670,7 +692,7 @@ struct PersonalNoteView: View {
         }
         .background() {
             RoundedRectangle(cornerRadius: CornerRadius.standard)
-                .fill(Asset.Colors.Brand.backgroundSoftest.swiftUIColor)
+                .fill(Asset.Colors.FigmaToken.bgSoftest.swiftUIColor)
         }
     }
 }
@@ -714,7 +736,7 @@ struct CustomFieldCard: View {
         .padding(showFullContents ? doublePadding : standardPadding)
         .background {
             RoundedRectangle(cornerRadius: CornerRadius.standard)
-                .fill(field.verifiedAt != nil || showFullContents ? Asset.Colors.Brand.backgroundSoftest.swiftUIColor : .clear )
+                .fill(field.verifiedAt != nil || showFullContents ? Asset.Colors.FigmaToken.bgSoftest.swiftUIColor : .clear )
                 .stroke(.secondary, lineWidth: 1 / displayScale)
         }
     }
@@ -1125,7 +1147,27 @@ struct VerticalPositionKey: PreferenceKey {
 
 enum ProfileBadge {
     case role(Mastodon.Entity.Account.AccountRole, domain: String)
+    case isBlocked
+    case isMuted
+    case isBot
     case pinned
+}
+
+extension ProfileBadge: Identifiable {
+    var id: String {
+        switch self {
+        case .role(let role, let domain):
+            return "role-\(role.id)-\(domain)"
+        case .isBlocked:
+            return "blocked"
+        case .isMuted:
+            return "muted"
+        case .isBot:
+            return "bot"
+        case .pinned:
+            return "pinned"
+        }
+    }
 }
 
 extension ProfileBadge: View {
@@ -1134,6 +1176,12 @@ extension ProfileBadge: View {
         switch self {
         case .role:
             return Asset.Scene.Profile.About.roleBadge.swiftUIImage
+        case .isBot:
+            return Asset.Scene.Profile.About.botBadge.swiftUIImage
+        case .isBlocked:
+            return Image(systemName: "circle.slash")
+        case .isMuted:
+            return Image(systemName: "speaker.slash")
         case .pinned:
             return Image(systemName: "pin")
         }
@@ -1143,8 +1191,36 @@ extension ProfileBadge: View {
         switch self {
         case .role(let roleEntity, let domain):
             "\(roleEntity.name) (\(domain))"
+        case .isBot:
+            "Automated account" // TODO: L10n
+        case .isMuted:
+            L10n.Common.Controls.Friendship.muted
+        case .isBlocked:
+            L10n.Common.Controls.Friendship.blocked
         case .pinned:
             L10nLookup.Scene.Profile.Badge.pinned
+        }
+    }
+    
+    var fillColor: Color {
+        switch self {
+        case .role, .pinned, .isBot:
+            return Asset.Colors.FigmaToken.bgSoftest.swiftUIColor
+        case .isMuted:
+            return Asset.Colors.FigmaToken.bgInverted.swiftUIColor
+        case .isBlocked:
+            return Asset.Colors.FigmaToken.bgDangerBase.swiftUIColor
+        }
+    }
+    
+    var foregroundColor: Color {
+        switch self {
+        case .role, .pinned, .isBot:
+            return Asset.Colors.FigmaToken.textSecondary.swiftUIColor
+        case .isMuted:
+            return Asset.Colors.FigmaToken.textInverted.swiftUIColor
+        case .isBlocked:
+            return Asset.Colors.FigmaToken.textInverted.swiftUIColor
         }
     }
     
@@ -1155,11 +1231,11 @@ extension ProfileBadge: View {
         }
         .font(.footnote)
         .fontWeight(.semibold)
-        .foregroundColor(.secondary)
+        .foregroundColor(foregroundColor)
         .padding(tinySpacing)
         .background() {
             RoundedRectangle(cornerRadius: CornerRadius.standard)
-                .fill(.secondary.quinary)
+                .fill(fillColor)
         }
     }
 }

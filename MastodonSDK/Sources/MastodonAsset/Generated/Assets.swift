@@ -46,11 +46,18 @@ public enum Asset {
       public static let status = ColorAsset(name: "Colors/Border/status")
     }
     public enum Brand {
-      public static let backgroundSoftest = ColorAsset(name: "Colors/Brand/BackgroundSoftest")
       public static let blurple = ColorAsset(name: "Colors/Brand/Blurple")
       public static let darkBlurple = ColorAsset(name: "Colors/Brand/Dark Blurple")
       public static let eggplant = ColorAsset(name: "Colors/Brand/Eggplant")
       public static let lightBlurple = ColorAsset(name: "Colors/Brand/Light Blurple")
+    }
+    public enum FigmaToken {
+        public static let bgInverted = ColorAsset(name: "Colors/FigmaToken/bgInverted")
+        public static let bgDangerBase = ColorAsset(name: "Colors/FigmaToken/bgDangerBase")
+        public static let bgSecondary = ColorAsset(name: "Colors/FigmaToken/bgSecondary")
+        public static let bgSoftest = ColorAsset(name: "Colors/FigmaToken/bgSoftest")
+        public static let textSecondary = ColorAsset(name: "Colors/FigmaToken/textSecondary")
+        public static let textInverted = ColorAsset(name: "Colors/FigmaToken/textInverted")
     }
     public enum Button {
       public static let disabled = ColorAsset(name: "Colors/Button/disabled")
@@ -188,6 +195,7 @@ public enum Asset {
         public static let verifiedCheckmark = ImageAsset(name: "Scene/Profile/About/verified_checkmark")
         public static let verifiedLinkBadge = ImageAsset(name: "Scene/Profile/About/verified_link_badge")
         public static let roleBadge = ImageAsset(name: "Scene/Profile/About/role_badge")
+        public static let botBadge = ImageAsset(name: "Scene/Profile/About/bot_badge")
       }
       public enum Banner {
         public static let bioEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/bio.edit.background.gray")
