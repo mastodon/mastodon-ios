@@ -2165,11 +2165,11 @@ struct TimelineListView: View {
     
     @ViewBuilder func backgroundView(isPrivate: Bool, isUnread: Bool) -> some View {
         HStack(spacing: 0) {
-            if isUnread && UserDefaults.standard.testUnreadMarkersForNotifications {
-                Rectangle()
-                    .fill(Asset.Colors.accent.swiftUIColor)
-                    .frame(width: 8)
-            }
+//            if isUnread && UserDefaults.standard.testUnreadMarkersForNotifications {
+//                Rectangle()
+//                    .fill(Asset.Colors.accent.swiftUIColor)
+//                    .frame(width: 8)
+//            }
             Rectangle()
                 .fill(isPrivate ?  Asset.Colors.accent.swiftUIColor : .clear)
                 .padding(EdgeInsets(top: 1, leading: 0, bottom: 1, trailing: 0))

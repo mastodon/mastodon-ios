@@ -145,6 +145,7 @@ public class MastodonFeedLoader<PublishedType: Identifiable, CachedType: Cacheab
 extension MastodonFeedLoader {
     public func doFirstLoad() {
         Task {
+            #if false
             do {
                 if let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
                     let markers = try await APIService.shared.lastReadMarkers(authenticationBox: authBox)
@@ -153,6 +154,7 @@ extension MastodonFeedLoader {
             } catch {
                 currentError = error
             }
+            #endif
             requestLoad(.reload)
         }
     }

@@ -16,8 +16,8 @@ struct BetaTestSettingsViewModel {
         switch setting {
         case .useStagingForDonations:
             UserDefaults.standard.toggleUseStagingForDonations()
-        case .testUnreadMarkersForNotifications:
-            UserDefaults.standard.toggleTestUnreadMarkersForNotifications()
+//        case .testUnreadMarkersForNotifications:
+//            UserDefaults.standard.toggleTestUnreadMarkersForNotifications()
         case .clearPreviousDonationCampaigns:
             assertionFailure("this is an action, not a setting")
             break
@@ -43,7 +43,7 @@ enum BetaTestSettingsSectionType: Hashable {
 enum BetaTestSetting: Hashable {
     case useStagingForDonations
     case clearPreviousDonationCampaigns
-    case testUnreadMarkersForNotifications
+    //case testUnreadMarkersForNotifications
   
     var labelText: String {
         switch self {
@@ -51,8 +51,8 @@ enum BetaTestSetting: Hashable {
             return "Donations use test endpoint"
         case .clearPreviousDonationCampaigns:
             return "Clear donation history"
-        case .testUnreadMarkersForNotifications:
-            return "Test unread markers for notifications"
+//        case .testUnreadMarkersForNotifications:
+//            return "Test unread markers for notifications"
         }
     }
 }
@@ -99,14 +99,14 @@ class BetaTestSettingsViewController: UIViewController {
                 cell.textLabel?.text = itemIdentifier.labelText
                 cell.textLabel?.textColor = .red
                 return cell
-            case .testUnreadMarkersForNotifications:
-                guard let selectionCell = tableView.dequeueReusableCell(withIdentifier: ToggleTableViewCell.reuseIdentifier, for: indexPath) as? ToggleTableViewCell else { assertionFailure("unexpected cell type"); return nil }
-                selectionCell.label.text = itemIdentifier.labelText
-                selectionCell.label.numberOfLines = 0
-                selectionCell.toggle.isOn = self.viewModel.testUnreadMarkersForNotifications
-                selectionCell.toggle.removeTarget(self, action: nil, for: .valueChanged)
-                selectionCell.toggle.addTarget(self, action: #selector(didToggleTestUnreadMarkers), for: .valueChanged)
-                return selectionCell
+//            case .testUnreadMarkersForNotifications:
+//                guard let selectionCell = tableView.dequeueReusableCell(withIdentifier: ToggleTableViewCell.reuseIdentifier, for: indexPath) as? ToggleTableViewCell else { assertionFailure("unexpected cell type"); return nil }
+//                selectionCell.label.text = itemIdentifier.labelText
+//                selectionCell.label.numberOfLines = 0
+//                selectionCell.toggle.isOn = self.viewModel.testUnreadMarkersForNotifications
+//                selectionCell.toggle.removeTarget(self, action: nil, for: .valueChanged)
+//                selectionCell.toggle.addTarget(self, action: #selector(didToggleTestUnreadMarkers), for: .valueChanged)
+//                return selectionCell
             }
         })
         
@@ -132,7 +132,7 @@ class BetaTestSettingsViewController: UIViewController {
     }
     
     @objc func didToggleTestUnreadMarkers(_ sender: UISwitch) {
-        viewModel = viewModel.byToggling(.testUnreadMarkersForNotifications)
+//        viewModel = viewModel.byToggling(.testUnreadMarkersForNotifications)
     }
     
     func loadFromViewModel(animated: Bool = true) {
@@ -158,8 +158,8 @@ extension BetaTestSettingsViewController: UITableViewDelegate {
             DispatchQueue.main.async {
                 self.tableView.deselectRow(at: indexPath, animated: true)
             }
-        case .testUnreadMarkersForNotifications:
-            break
+//        case .testUnreadMarkersForNotifications:
+//            break
         }
     }
 }
