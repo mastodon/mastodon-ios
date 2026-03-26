@@ -156,19 +156,26 @@ struct InteractiveLoadingIndicatorRow: View {
             HStack {
                 Spacer()
                 ZStack {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                        .scaleEffect(InteractiveLoadingTriggerModel.maxScale)
-                        .hidden()  // to keep the overall size stable
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                        .scaleEffect(triggerModel.triggerState.scale)
-                        .opacity(triggerModel.triggerState.opacity)
-                        .mask(
-                            PartialPie(startAngle: progressViewMaskStartAngle, percentCovered: triggerModel.triggerState.steppedProgress)
-                                .frame(width: 30, height: 30)
-                                .scaleEffect(triggerModel.triggerState.scale)
-                        )
+                    VStack {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                            .scaleEffect(InteractiveLoadingTriggerModel.maxScale)
+                        Text(triggerMessage)
+                    }
+                    .hidden()  // to keep the overall size stable
+                    VStack {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                            .border(triggerBorderColor)
+                            .scaleEffect(triggerModel.triggerState.scale)
+                            .mask(
+                                PartialPie(startAngle: progressViewMaskStartAngle, percentCovered: triggerModel.triggerState.steppedProgress)
+                                    .frame(width: 30, height: 30)
+                                    .scaleEffect(triggerModel.triggerState.scale)
+                            )
+                        Text(triggerMessage)
+                    }
+                    .opacity(triggerModel.triggerState.opacity)
                 }
                 Spacer()
             }
@@ -177,6 +184,24 @@ struct InteractiveLoadingIndicatorRow: View {
     }
     
     let delayPadding: CGFloat = 150
+    
+    var triggerBorderColor: Color {
+        switch triggerModel.triggerState {
+        case .progressing:
+            Color.gray
+        case .triggered:
+            Color.red
+        }
+    }
+    
+    var triggerMessage: String {
+        switch triggerModel.triggerState {
+        case .progressing:
+            "Keep pulling to trigger load..."
+        case .triggered:
+            "Load triggered! Fetching results..."
+        }
+    }
     
     var progressViewMaskStartAngle: Angle {
         Angle(degrees: -90 - (180 / triggerModel.totalSteps)) // start a little before "noon", so that the topmost element of the progress view displays in full)
