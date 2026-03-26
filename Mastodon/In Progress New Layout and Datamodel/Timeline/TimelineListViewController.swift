@@ -1616,6 +1616,7 @@ extension TimelineListViewModel {
 
 extension TimelineListViewModel {
     func askForDonationIfPossible() async {
+        guard timeline == .homeTimeline else { return }
         guard let authenticatedUser else { return }
         guard let accountCreatedAt = authenticatedUser.authentication.accountCreatedAt else {
             let updated = try? await APIService.shared.verifyAndActivateUser(domain: authenticatedUser.domain,
