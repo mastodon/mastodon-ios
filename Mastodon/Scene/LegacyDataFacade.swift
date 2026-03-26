@@ -13,9 +13,9 @@ struct LegacyDataSourceFacade {
         account: Mastodon.Entity.Account
     ) async throws -> Mastodon.Entity.Relationship {
         let authBox = dependency.authenticationBox
-        let relationship = try await APIService.shared.relationship(
+        guard let relationship = try await APIService.shared.relationship(
             forAccounts: [account], authenticationBox: authBox
-        ).value.first
+        ).value.first else { throw AppError.unexpected() }
         
         return try await withCheckedThrowingContinuation { continuation in
             Task { @MainActor in
@@ -23,10 +23,20 @@ struct LegacyDataSourceFacade {
                     FeedbackGenerator.shared.generate(.selectionChanged)
                     
                     do {
-                        let response = try await APIService.shared.toggleFollow(
-                            account: account,
-                            authenticationBox: dependency.authenticationBox
-                        ).value
+                        let response = try await {
+                            if relationship.following == true {
+                                return try await APIService.shared.unfollow(
+                                    account.id,
+                                    authenticationBox: dependency.authenticationBox
+                                )
+                            } else {
+                                return try await APIService.shared.follow(
+                                    account.id,
+                                    authenticationBox: dependency.authenticationBox
+                                )
+                            }
+                        }()
+                        
                         
                         AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authBox.globallyUniqueUserIdentifier)
                         
@@ -41,22 +51,18 @@ struct LegacyDataSourceFacade {
                     }
                 }
                 
-                if relationship?.following == true {
+                if relationship.following == true {
                     let alert = UIAlertController(
                         title: L10n.Common.Alerts.UnfollowUser.title("@\(account.username)"),
                         message: nil,
                         preferredStyle: .alert
                     )
                     let cancel = UIAlertAction(title: L10n.Common.Alerts.UnfollowUser.cancel, style: .default) { _ in
-                        if let relationship {
-                            NotificationCenter.default.post(name: .relationshipChanged, object: nil, userInfo: [
-                                UserInfoKey.relationship: relationship
-                            ])
-                            
-                            continuation.resume(returning: relationship)
-                        } else {
-                            continuation.resume(throwing: AppError.unexpected())
-                        }
+                        NotificationCenter.default.post(name: .relationshipChanged, object: nil, userInfo: [
+                            UserInfoKey.relationship: relationship
+                        ])
+                        
+                        continuation.resume(returning: relationship)
                     }
                     alert.addAction(cancel)
                     let unfollow = UIAlertAction(title: L10n.Common.Alerts.UnfollowUser.unfollow, style: .destructive) { _ in
@@ -74,26 +80,37 @@ struct LegacyDataSourceFacade {
     }
     
     static func responseToUserMuteAction(
+        shouldMute: Bool,
         dependency: AuthContextProvider,
         account: Mastodon.Entity.Account
     ) async throws -> Mastodon.Entity.Relationship {
         FeedbackGenerator.shared.generate(.selectionChanged)
         
-        let response = try await APIService.shared.toggleMute(
-            authenticationBox: dependency.authenticationBox,
-            account: account
-        )
+        let response = try await {
+            if shouldMute {
+                try await APIService.shared.mute(
+                    account.id,
+                    authenticationBox: dependency.authenticationBox
+                )
+            } else {
+                try await APIService.shared.unmute(
+                    account.id,
+                    authenticationBox: dependency.authenticationBox
+                )
+            }
+        }()
         
         let userInfo = [
-            UserInfoKey.relationship: response.value,
+            UserInfoKey.relationship: response,
         ]
         
         NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
         
-        return response.value
+        return response
     }
     
     static func responseToUserBlockAction(
+        shouldBlock: Bool,
         dependency: AuthContextProvider,
         account: Mastodon.Entity.Account
     ) async throws -> Mastodon.Entity.Relationship {
@@ -102,33 +119,23 @@ struct LegacyDataSourceFacade {
         let apiService = APIService.shared
         let authBox = dependency.authenticationBox
         
-        let response = try await apiService.toggleBlock(
-            account: account,
-            authenticationBox: authBox
-        )
+        let response = try await {
+            if shouldBlock {
+                return try await apiService.block(account.id, authenticationBox: authBox)
+            } else {
+                return try await apiService.unblock(account.id, authenticationBox: authBox)
+            }
+        }()
         
         let userInfo = [
-            UserInfoKey.relationship: response.value,
+            UserInfoKey.relationship: response,
         ]
         
         NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
         
-        return response.value
+        return response
     }
     
-    static func responseToDomainBlockAction(
-        dependency: AuthContextProvider,
-        account: Mastodon.Entity.Account
-    ) async throws -> Mastodon.Entity.Empty {
-        FeedbackGenerator.shared.generate(.selectionChanged)
-        
-        let apiService = APIService.shared
-        let authBox = dependency.authenticationBox
-        
-        let response = try await apiService.toggleDomainBlock(account: account, authenticationBox: authBox)
-        
-        return response.value
-    }
     
     static func responseToCreateSearchHistory(
         provider: UIViewController & AuthContextProvider,

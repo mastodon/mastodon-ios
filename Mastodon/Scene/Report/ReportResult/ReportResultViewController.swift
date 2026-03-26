@@ -106,7 +106,9 @@ extension ReportResultViewController {
                     guard !self.viewModel.isRequestMute else { return }
                     self.viewModel.isRequestMute = true
                     do {
+                        let isCurrentlyMuting = self.viewModel.relationship.muting
                         let newRelationship = try await LegacyDataSourceFacade.responseToUserMuteAction(
+                            shouldMute: !isCurrentlyMuting,
                             dependency: self,
                             account: self.viewModel.account
                         )
@@ -127,7 +129,9 @@ extension ReportResultViewController {
                     guard !self.viewModel.isRequestBlock else { return }
                     self.viewModel.isRequestBlock = true
                     do {
+                        let isCurrentlyBlocking = self.viewModel.relationship.blocking
                         let newRelationship = try await LegacyDataSourceFacade.responseToUserBlockAction(
+                            shouldBlock: !isCurrentlyBlocking,
                             dependency: self,
                             account: self.viewModel.account
                         )
