@@ -1240,7 +1240,13 @@ enum MastodonTimelineSheet {
         followersAndBlockedChangeSubscription = AuthenticationServiceProvider.shared.$didChangeFollowersAndFollowing.sink {
             [weak self] userID in
             guard userID == self?.authenticatedUser?.globallyUniqueUserIdentifier else { return }
-            self?.feedLoader?.requestLoad(.reload)
+            guard let timeline = self?.timeline else { return }
+            switch timeline {
+            case .homeTimeline, .list, .featuredItems, .followers, .accountsFollowed, .familiarFollowers:
+                self?.needsReloadOnNextAppear = true
+            case .myBookmarks, .myFavorites, .myFollowedHashtags, .local, .hashtag, .discover, .search, .userPosts, .thread, .remoteThread, .notifications, .whoFavourited, .whoBoosted:
+                return
+            }
         }
     }
     
