@@ -26,7 +26,6 @@ struct AccountStatsView: View {
             FlowLayout(minItemCountPerRow: stats(forDisplayType: displayType).count, interItemSpacing: 20) {
                 contents
             }
-            .font(.caption)
             .fixedSize(horizontal: false, vertical: true)
         }
     }
@@ -64,9 +63,11 @@ struct AccountStatsView: View {
         case .smallInline:
             VStack(alignment: .leading, spacing: 0) {
                 Text(stat.label)
+                    .font(.caption)
                     .lineLimit(1)
                     .foregroundStyle(.secondary)
                 Text(statValue(stat))
+                    .font(.subheadline)
                     .fontWeight(.semibold)
                     .lineLimit(1)
             }
