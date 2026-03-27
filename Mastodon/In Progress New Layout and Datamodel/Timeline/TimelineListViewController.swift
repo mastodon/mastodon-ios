@@ -768,6 +768,7 @@ enum MastodonTimelineSheet {
         case notificationCountUpdated
         case asyncRefreshResultsRequested
         case activityFilterUpdated
+        case mediaFilterUpdated
     }
     
     public var presentDonationDialog: ((Mastodon.Entity.DonationCampaign) -> ())?
@@ -1288,7 +1289,7 @@ enum MastodonTimelineSheet {
         case .notificationFilterPolicyUpdated:
             loadingState = .requestedReloadFromTop
             feedLoader.requestLoad(.reload)
-        case .activityFilterUpdated:
+        case .activityFilterUpdated, .mediaFilterUpdated:
             loadingState = .initializing
             interactiveReloadTriggerModel.reset(triggered: true)
             feedLoader.requestLoad(.reloadForFilterChange)

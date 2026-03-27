@@ -1015,6 +1015,7 @@ enum EditingStatus: Equatable {
     var account: MastodonAccount?
     var relationship: MastodonAccount.Relationship?
     var familiarFollowersViewModel: TimelineListViewModel?
+    var pagesToShow: [ProfilePage] = []
     var postsViewModel: TimelineListViewModel? {
         didSet {
             Task {
@@ -1028,8 +1029,23 @@ enum EditingStatus: Equatable {
         }
     }
     private var activityFilter: TimelineQueryFilter?
+    
     var mediaViewModel: TimelineListViewModel?
+    {
+        didSet {
+            Task {
+                switch await mediaViewModel?.timeline {
+                case .userPosts(_, let queryFilter):
+                    mediaFilter = queryFilter
+                default:
+                    mediaFilter = nil
+                }
+            }
+        }
+    }
+    private var mediaFilter: TimelineQueryFilter?
     var mediaViewAsyncRefresh: AsyncRefreshViewModel?
+    
     var featuredItemsViewModel: TimelineListViewModel?
     var featuredItemsAsyncRefresh: AsyncRefreshViewModel?
     var selectedPage: ProfilePage = .activity
@@ -1076,17 +1092,25 @@ enum EditingStatus: Equatable {
         self.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts)), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
         
         if account.metadata.showsMediaTab {
-            mediaViewAsyncRefresh = AsyncRefreshViewModel()
-            let mediaQueryFilter = TimelineQueryFilter(.mediaOnly)
-            mediaQueryFilter.excludeReplies = !account.metadata.mediaTabIncludesReplies
-            self.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: mediaQueryFilter), navigator: navigator, asyncRefreshViewModel: mediaViewAsyncRefresh!)
+            if mediaViewModel == nil {
+                mediaViewAsyncRefresh = AsyncRefreshViewModel()
+                let mediaQueryFilter = TimelineQueryFilter(.mediaOnly)
+                mediaQueryFilter.excludeReplies = !account.metadata.mediaTabIncludesReplies
+                self.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: mediaQueryFilter), navigator: navigator, asyncRefreshViewModel: mediaViewAsyncRefresh!)
+            } else {
+                self.updateMediaFilter()
+            }
         } else {
             self.mediaViewModel = nil
         }
         
         if account.metadata.showsFeaturedTab {
-            featuredItemsAsyncRefresh = AsyncRefreshViewModel()
-            self.featuredItemsViewModel = TimelineListViewModel(timeline: .featuredItems(userID: account.id), navigator: navigator, asyncRefreshViewModel: featuredItemsAsyncRefresh!)
+            if self.featuredItemsViewModel == nil {
+                featuredItemsAsyncRefresh = AsyncRefreshViewModel()
+                self.featuredItemsViewModel = TimelineListViewModel(timeline: .featuredItems(userID: account.id), navigator: navigator, asyncRefreshViewModel: featuredItemsAsyncRefresh!)
+            }
+        } else {
+            self.featuredItemsViewModel = nil
         }
         
         self.relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: account.locked)
@@ -1099,6 +1123,8 @@ enum EditingStatus: Equatable {
         case .isNotMe:
             self.editingStatus = .cannotEdit
         }
+        
+        pagesToShow = pagesToShow(forAccount: account)
         
         Task {
             let handle = account.handle
@@ -1118,6 +1144,16 @@ enum EditingStatus: Equatable {
     public func resetEditingViewModel() {
         guard let account else { return }
         editingViewModel.setAccount(account)
+    }
+    
+    public func updateMediaFilter() {
+        guard let mediaFilter, let account else { return }
+        let accountIsExcludingRepliesInMediaTab = !account.metadata.mediaTabIncludesReplies
+        guard mediaFilter.excludeReplies != accountIsExcludingRepliesInMediaTab else { return }
+        mediaFilter.excludeReplies = accountIsExcludingRepliesInMediaTab
+        Task {
+            await mediaViewModel?.forceReload(.mediaFilterUpdated)
+        }
     }
 }
 
@@ -1307,7 +1343,7 @@ extension ProfileViewModel {
 }
 
 extension ProfileViewModel {
-    var pagesToShow: [ProfilePage] {
+    private func pagesToShow(forAccount account: MastodonAccount?) -> [ProfilePage] {
         var pages = [ProfilePage.activity]
         if account?.metadata.showsMediaTab == true {
             pages.append(.mediaOnly)
