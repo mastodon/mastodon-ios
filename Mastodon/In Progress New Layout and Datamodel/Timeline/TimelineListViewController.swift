@@ -2110,6 +2110,11 @@ struct TimelineListView: View {
     }
     
     @ViewBuilder func fixedHeader(geoWidth: CGFloat) -> some View {
+        if UserDefaults.standard.showRateLimitTracker {
+            RateLimitTracker()
+                .environment(RateLimitViewModel.shared)
+        }
+        
         // PROFILE TIMELINE - FILTER BOOSTS AND REPLIES
         if filterModel.showBoostsAndRepliesFilterButton {
             VStack(spacing: 0) {

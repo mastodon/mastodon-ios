@@ -45,4 +45,17 @@ extension UserDefaults {
         let testUnreadMarkersForNotifications = UserDefaults.standard.testUnreadMarkersForNotifications
         UserDefaults.standard.testUnreadMarkersForNotifications = !testUnreadMarkersForNotifications
     }
+    
+    @objc public dynamic var showRateLimitTracker: Bool {
+        get {
+            register(defaults: [#function: false])
+            return bool(forKey: #function) && UserDefaults.isDebugOrTestflightOrSimulator
+        }
+        set { self[#function] = newValue }
+    }
+    
+    public func toggleShowRateLimitTracker() {
+        let showRateLimitTracker = UserDefaults.standard.showRateLimitTracker
+        UserDefaults.standard.showRateLimitTracker = !showRateLimitTracker
+    }
 }

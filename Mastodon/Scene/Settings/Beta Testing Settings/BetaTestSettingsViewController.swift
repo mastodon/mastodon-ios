@@ -6,10 +6,12 @@ import MastodonSDK
 struct BetaTestSettingsViewModel {
     let useStagingForDonations: Bool
     let testUnreadMarkersForNotifications: Bool
+    let showRateLimitTracker: Bool
     
     init() {
         useStagingForDonations = UserDefaults.standard.useStagingForDonations
         testUnreadMarkersForNotifications = UserDefaults.standard.testUnreadMarkersForNotifications
+        showRateLimitTracker = UserDefaults.standard.showRateLimitTracker
     }
     
     func byToggling(_ setting: BetaTestSetting) -> BetaTestSettingsViewModel {
@@ -18,6 +20,8 @@ struct BetaTestSettingsViewModel {
             UserDefaults.standard.toggleUseStagingForDonations()
 //        case .testUnreadMarkersForNotifications:
 //            UserDefaults.standard.toggleTestUnreadMarkersForNotifications()
+        case .showRateLimitTracker:
+            UserDefaults.standard.toggleShowRateLimitTracker()
         case .clearPreviousDonationCampaigns:
             assertionFailure("this is an action, not a setting")
             break
@@ -44,6 +48,7 @@ enum BetaTestSetting: Hashable {
     case useStagingForDonations
     case clearPreviousDonationCampaigns
     //case testUnreadMarkersForNotifications
+    case showRateLimitTracker
   
     var labelText: String {
         switch self {
@@ -53,6 +58,8 @@ enum BetaTestSetting: Hashable {
             return "Clear donation history"
 //        case .testUnreadMarkersForNotifications:
 //            return "Test unread markers for notifications"
+        case .showRateLimitTracker:
+            return "Show API rate limit tracker"
         }
     }
 }
@@ -107,6 +114,14 @@ class BetaTestSettingsViewController: UIViewController {
 //                selectionCell.toggle.removeTarget(self, action: nil, for: .valueChanged)
 //                selectionCell.toggle.addTarget(self, action: #selector(didToggleTestUnreadMarkers), for: .valueChanged)
 //                return selectionCell
+            case .showRateLimitTracker:
+                guard let selectionCell = tableView.dequeueReusableCell(withIdentifier: ToggleTableViewCell.reuseIdentifier, for: indexPath) as? ToggleTableViewCell else { assertionFailure("unexpected cell type"); return nil }
+                selectionCell.label.text = itemIdentifier.labelText
+                selectionCell.label.numberOfLines = 0
+                selectionCell.toggle.isOn = self.viewModel.showRateLimitTracker
+                selectionCell.toggle.removeTarget(self, action: nil, for: .valueChanged)
+                selectionCell.toggle.addTarget(self, action: #selector(didToggleShowRateLimitTracker), for: .valueChanged)
+                return selectionCell
             }
         })
         
@@ -135,9 +150,14 @@ class BetaTestSettingsViewController: UIViewController {
 //        viewModel = viewModel.byToggling(.testUnreadMarkersForNotifications)
     }
     
+    @objc func didToggleShowRateLimitTracker(_ sender: UISwitch) {
+        viewModel = viewModel.byToggling(.showRateLimitTracker)
+    }
+
     func loadFromViewModel(animated: Bool = true) {
         var snapshot = NSDiffableDataSourceSnapshot<BetaTestSettingsSectionType, BetaTestSetting>()
         snapshot.appendSections([.features])
+        snapshot.appendItems([.showRateLimitTracker], toSection: .features)
         snapshot.appendSections([.donations])
         snapshot.appendItems([.useStagingForDonations], toSection: .donations)
         if viewModel.useStagingForDonations {
@@ -151,7 +171,7 @@ extension BetaTestSettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let identifier = tableViewDataSource?.itemIdentifier(for: indexPath) else { return }
         switch identifier {
-        case .useStagingForDonations:
+        case .useStagingForDonations, .showRateLimitTracker:
             break
         case .clearPreviousDonationCampaigns:
             Mastodon.Entity.DonationCampaign.forgetPreviousCampaigns()
