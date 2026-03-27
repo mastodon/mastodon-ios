@@ -479,7 +479,7 @@ struct ProfileInfoView: View {
                 
                 // HANDLE
                 let handle = viewModel.account?.displayInfo.fullHandle ?? "@unknown"
-                HStack(alignment: .top, spacing: tinySpacing) {
+                HStack(alignment: .firstTextBaseline, spacing: tinySpacing) {
                     Text(handle)
                         .foregroundStyle(.secondary)
                         .font(.subheadline)
