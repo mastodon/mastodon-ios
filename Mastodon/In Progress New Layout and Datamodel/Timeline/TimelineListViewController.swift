@@ -2092,7 +2092,7 @@ struct TimelineListView: View {
                         }
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                        .padding(.vertical, tinySpacing)
+                        .padding(.vertical, standardPadding)
                         .padding(.horizontal)
                         .frame(width: useableWidth - standardPadding - standardPadding)
                         .background() {
