@@ -2100,7 +2100,7 @@ struct TimelineListView: View {
                             MastodonSecondaryBackground(fillInDarkModeOnly: true)
                         }
                     }
-                    .padding(.horizontal, standardPadding)
+                    .padding(EdgeInsets(top: 0, leading: standardPadding, bottom: doublePadding, trailing: standardPadding))
                 }
             } else {
                 ForEach(postViewModels, id: \.self.initialDisplayInfo.id) { postModel in
