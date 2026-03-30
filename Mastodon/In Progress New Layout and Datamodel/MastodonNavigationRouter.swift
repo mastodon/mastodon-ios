@@ -8,6 +8,7 @@ enum MastodonNavigationDestination {
     case timeline(TimelineViewType)
     case profile(account: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?)
     case editProfile(profileViewModel: ProfileViewModel, editingViewModel: ProfileEditingViewModel)
+    case editProfileInternalNavigation(ProfileEditScreenType)
     case share(activityItems: [Any])
     case legacy(scene: SceneCoordinator.Scene, transition: SceneCoordinator.Transition)
 }
@@ -79,6 +80,11 @@ enum MastodonNavigationDestination {
                 .environment(profileViewModel.relationshipViewModel)
                 .environment(editingViewModel)
             
+        case .editProfileInternalNavigation(let screen):
+            ProfileEditingScreen(screenType: screen)
+                .environment(screen.profileViewModel)
+                .environment(screen.editingViewModel)
+            
         case .legacy, .share:
             EmptyView()  // legacy scenes should be presented using the SceneCoordinator instead
         }
@@ -97,7 +103,10 @@ enum MastodonNavigationDestination {
                 return profile
             case .editProfile(let profileViewModel, _):
                 profileViewModel.editingStatus = .editing(hasChanges: false)
-                return ProfileEditHostingViewController(viewModel: profileViewModel)
+                return ProfileEditHostingViewController(viewModel: profileViewModel, navigator: newNavigator)
+                
+            case .editProfileInternalNavigation(let screen):
+                return nil
                 
             case .legacy, .share:
                 return nil
@@ -244,6 +253,8 @@ extension MastodonNavigationDestination: Hashable {
             return "profile(\(account.acctWithDomain)-\(isMeString))"
         case .editProfile:
             return "editProfile"
+        case .editProfileInternalNavigation(let screen):
+            return "editProfile-\(screen.id)"
         case .share:
             return "share"
         case .legacy(let scene, let transition):

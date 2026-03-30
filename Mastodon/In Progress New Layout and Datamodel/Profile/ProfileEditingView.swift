@@ -12,9 +12,10 @@ import Kanna // for stripping the html from the account bio
 class ProfileEditHostingViewController: UIHostingController<AnyView> {
     private let viewModel: ProfileViewModel
 
-    init(viewModel: ProfileViewModel) {
+    init(viewModel: ProfileViewModel, navigator: MastodonNavigationRouter) {
         self.viewModel = viewModel
-        super.init(rootView: AnyView(ProfileEditingView().environment(viewModel).environment(viewModel.editingViewModel)))
+        super.init(rootView: AnyView(ProfileEditingView().environment(viewModel).environment(viewModel.editingViewModel).environment(navigator)))
+            
     }
     
     @MainActor @preconcurrency required dynamic init?(coder aDecoder: NSCoder) {
@@ -22,12 +23,12 @@ class ProfileEditHostingViewController: UIHostingController<AnyView> {
     }
 }
 
-enum ProfileEditScreen: CaseIterable, Identifiable {
+enum ProfileEditScreenType: Identifiable {
     case displayName
     case bio
-    case customFields
-    case featuredHashtags
-    case profileTabSettings
+    case customFields(profileViewModel: ProfileViewModel, editingViewModel: ProfileEditingViewModel)
+    case featuredHashtags(profileViewModel: ProfileViewModel, editingViewModel: ProfileEditingViewModel)
+    case profileTabSettings(profileViewModel: ProfileViewModel, editingViewModel: ProfileEditingViewModel)
     
     var id: String {
         switch self {
@@ -43,29 +44,80 @@ enum ProfileEditScreen: CaseIterable, Identifiable {
             "profile tab settings"
         }
     }
+    
+    var editingViewModel: ProfileEditingViewModel? {
+        switch self {
+        case .displayName, .bio:
+            return nil
+        case .customFields(_, let editingViewModel), .featuredHashtags(_, let editingViewModel), .profileTabSettings(_, let editingViewModel):
+            return editingViewModel
+        }
+    }
+    
+    var profileViewModel: ProfileViewModel? {
+        switch self {
+        case .displayName, .bio:
+            return nil
+        case .customFields(let profileViewModel, _), .featuredHashtags(let profileViewModel, _), .profileTabSettings(let profileViewModel, _):
+            return profileViewModel
+        }
+    }
+}
+
+extension ProfileEditScreenType {
+    var expectsModalPresentation: Bool {
+        switch self {
+        case .displayName, .bio:
+            true
+        case .customFields, .featuredHashtags, .profileTabSettings:
+            false
+        }
+    }
 }
 
 struct ProfileEditingView: View {
+    @Environment(MastodonNavigationRouter.self) private var navigator
     @Environment(ProfileViewModel.self) var profileViewModel
     @Environment(ProfileEditingViewModel.self) var editingViewModel
     
     var body: some View {
+        @Bindable var navigationRouter = navigator
         GeometryReader { geo in
             ScrollView {
                 VStack(spacing: standardPadding) {
                     ProfileAvatarAndBannerView(width: geo.size.width)
-
-                    ForEach(ProfileEditScreen.allCases, id: \.id) { screen in
+                    ForEach(allEditRows, id: \.id) { screen in
                         profileEditRow(screen)
                             .padding(.horizontal, doublePadding)
                             .frame(width: geo.size.width)
+                            .onTapGesture {
+                                navigate(to: screen)
+                            }
                     }
                 }
             }
         }
     }
     
-    func profileEditRow(_ screen: ProfileEditScreen) -> some View {
+    var allEditRows: [ProfileEditScreenType] {
+        [
+            .displayName,
+            .bio,
+            .customFields(profileViewModel: profileViewModel, editingViewModel: editingViewModel),
+            .featuredHashtags(profileViewModel: profileViewModel, editingViewModel: editingViewModel),
+            .profileTabSettings(profileViewModel: profileViewModel, editingViewModel: editingViewModel)
+        ]
+    }
+    
+    func navigate(to screen: ProfileEditScreenType) {
+        if screen.expectsModalPresentation {
+            // TODO: implement
+        } else {
+            navigator.navigationPath.append(.editProfileInternalNavigation(screen))
+        }
+    }
+    
+    func profileEditRow(_ screen: ProfileEditScreenType) -> some View {
         HStack {
             VStack(alignment: .leading) {
                 Text(mainLabelForRow(screen))
@@ -89,26 +141,22 @@ struct ProfileEditingView: View {
         }
     }
     
-    var bioIsEmpty: Bool {
-        return profileViewModel.account?.bioForEdit == nil || profileViewModel.account?.bioForEdit?.isEmpty == true
-    }
-    
-    func mainLabelColorForRow(_ screen: ProfileEditScreen) -> Color {
+    func mainLabelColorForRow(_ screen: ProfileEditScreenType) -> Color {
         switch screen {
         case .bio:
-            bioIsEmpty ? Asset.Colors.accent.swiftUIColor : .primary
+            profileViewModel.bioIsEmpty ? Asset.Colors.accent.swiftUIColor : .primary
         default:
             .primary
         }
     }
     
-    func mainLabelForRow(_ screen: ProfileEditScreen) -> String {
+    func mainLabelForRow(_ screen: ProfileEditScreenType) -> String {
         // TODO: L10n
         switch screen {
         case .displayName:
             return "Display name"
         case .bio:
-            if bioIsEmpty {
+            if profileViewModel.bioIsEmpty {
                 return "Add a bio"
             } else {
                 return "Bio"
@@ -122,7 +170,7 @@ struct ProfileEditingView: View {
         }
     }
     
-    func subtitleForRow(_ screen: ProfileEditScreen) -> String? {
+    func subtitleForRow(_ screen: ProfileEditScreenType) -> String? {
         switch screen {
         case .displayName:
             return nil
@@ -137,10 +185,10 @@ struct ProfileEditingView: View {
         }
     }
     
-    @ViewBuilder func disclosureIndicator(_ screen: ProfileEditScreen) -> some View {
+    @ViewBuilder func disclosureIndicator(_ screen: ProfileEditScreenType) -> some View {
         switch screen {
         case .bio:
-            if bioIsEmpty {
+            if profileViewModel.bioIsEmpty {
                 EmptyView()
             } else {
                 Image(systemName: "chevron.forward")
@@ -152,7 +200,7 @@ struct ProfileEditingView: View {
         }
     }
     
-    @ViewBuilder func contentForRow(_ screen: ProfileEditScreen) -> some View {
+    @ViewBuilder func contentForRow(_ screen: ProfileEditScreenType) -> some View {
         switch screen {
         case .displayName:
             if let displayName = profileViewModel.account?.displayInfo.displayName {
@@ -161,7 +209,7 @@ struct ProfileEditingView: View {
                 Spacer()
             }
         case .bio:
-            if bioIsEmpty {
+            if profileViewModel.bioIsEmpty {
                 Spacer()
             } else if let bio = profileViewModel.account?.bioForDisplay {
                 MastodonContentView.profileEditingRowContent(html: bio, emojis: profileViewModel.account?.displayInfo.emojis ?? [])
@@ -1101,6 +1149,68 @@ extension ProfileViewModel {
         editingViewModel.setAccount(updatedAccount)
     }
 }
+
+struct ProfileEditingScreen: View {
+    @Environment(ProfileViewModel.self) var profileViewModel
+    @Environment(ProfileEditingViewModel.self) var editingViewModel
+    
+    @State var hasChanges = false
+    
+    let screenType: ProfileEditScreenType
+    
+    var body: some View {
+        rootContents
+            .navigationTitle(profileViewModel.navigationTitle(screenType))
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                    } label: {
+                        if hasChanges {
+                            Image(systemName: "checkmark.circle.fill")
+                        } else {
+                            Image(systemName: "checkmark.circle")
+                        }
+                    }
+                }
+            }
+    }
+    
+    @ViewBuilder var rootContents: some View {
+        Text(screenType.id)
+    }
+    
+   
+}
+
+extension ProfileViewModel {
+    var bioIsEmpty: Bool {
+        guard let bioForEdit = account?.bioForEdit else { return true }
+        return bioForEdit.isEmpty
+    }
+}
+
+extension ProfileViewModel {
+    func navigationTitle(_ editingScreen: ProfileEditScreenType) -> String {
+        // TODO: L10n
+        switch editingScreen {
+        case .displayName:
+            "Edit display name"
+        case .bio:
+            if bioIsEmpty {
+                "Add bio"
+            } else {
+                "Edit bio"
+            }
+        case .customFields:
+            "Custom fields"
+        case .featuredHashtags:
+            "Featured hashtags"
+        case .profileTabSettings:
+            "Profile tab settings"
+        }
+    }
+}
+
 
 let avatarImageMaxSizeInPixels = CGSize(width: 400, height: 400)
 let bannerImageMaxSizeInPixels = CGSize(width: 1500, height: 500)
