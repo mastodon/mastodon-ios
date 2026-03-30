@@ -1005,6 +1005,8 @@ enum EditingStatus: Equatable {
         ProfileEditingViewModel()
     }()
     
+    var featuredHashtagsModel = FeaturedHashtagsModel()
+    
     var editingStatus: EditingStatus = .cannotEdit
     
     struct HandleDetails {
@@ -1090,7 +1092,9 @@ enum EditingStatus: Equatable {
         self.account = account
         self.editingViewModel.setAccount(account)
         self.relationship = relationship
-        self.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts)), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
+        self.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts(featuredHashtagsModel))), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
+        
+        featuredHashtagsModel.fetchFeaturedTags(account: account)
         
         if account.metadata.showsMediaTab {
             if mediaViewModel == nil {
@@ -1354,5 +1358,36 @@ extension ProfileViewModel {
             pages.append(.featured)
         }
         return pages
+    }
+}
+
+@MainActor
+@Observable class FeaturedHashtagsModel {
+    private(set) var featuredHashtags: [Mastodon.Entity.FeaturedTag] = []
+    private(set) var isFetching: Bool = false
+    
+    private var fetchQueue: [Mastodon.Entity.Account.ID] = []
+    
+    func fetchFeaturedTags(account: MastodonAccount) {
+        if !fetchQueue.contains(account.id) {
+            fetchQueue.append(account.id)
+        }
+
+        guard !isFetching else { return }
+        let nextToFetch = fetchQueue.removeFirst()
+        isFetching = true
+        Task {
+            do {
+                featuredHashtags = try await _fetchFeaturedTags(account: nextToFetch)
+            } catch {
+                // TODO: handle error?
+            }
+            isFetching = false
+        }
+    }
+    
+    private func _fetchFeaturedTags(account: Mastodon.Entity.Account.ID) async throws -> [Mastodon.Entity.FeaturedTag] {
+        guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { throw APIService.APIError.explicit(.authenticationMissing) }
+        return try await APIService.shared.featuredTags(forAccount: account, authenticationBox: authBox).value
     }
 }

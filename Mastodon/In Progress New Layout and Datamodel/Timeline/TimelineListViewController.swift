@@ -1037,19 +1037,6 @@ enum MastodonTimelineSheet {
         }
     }
     
-    private var hasFetchedFeaturedHashtags: Bool = false
-    func fetchFeaturedHashtags() async -> [Mastodon.Entity.FeaturedTag]? {
-        guard !hasFetchedFeaturedHashtags else { return nil }
-        guard let authBox = self.authenticatedUser else { return nil }
-        hasFetchedFeaturedHashtags = true
-        do {
-            return try await APIService.shared.featuredTags(forAccount: self.timeline.accountID, authenticationBox: authBox).value
-        } catch {
-            hasFetchedFeaturedHashtags = false
-            return nil
-        }
-    }
-    
     func setUpFeedLoaderResultsSubscription() {
         feedLoaderResultsSubscription = feedLoader?.$records
             .sink{ [weak self] results in
@@ -2133,6 +2120,7 @@ struct TimelineListView: View {
         // PROFILE TIMELINE - FEATURED HASHTAGS
         FeaturedHashtagsFlow(maxItemWidth: min(maxFeedContentWidth, geoWidth) - doublePadding * 2)
             .environment(filterModel)
+            .environment(filterModel.featuredHashtagsModel ?? FeaturedHashtagsModel())
         
         // FAMILIAR FOLLOWERS - subheadline
         switch viewModel.timeline {
@@ -3094,14 +3082,15 @@ struct FeaturedHashtagsFlow: View {
     @Environment(\.displayScale) var displayScale
     @Environment(TimelineListViewModel.self) var viewModel
     @Environment(TimelineQueryFilter.self) var filterModel
+    @Environment(FeaturedHashtagsModel.self) var featuredHashtagsModel
     
     var maxItemWidth: CGFloat
     
     var body: some View {
         VStack {
-            if filterModel.showFeaturedHashtags && !filterModel.featuredHashtags.isEmpty {
+            if !featuredHashtagsModel.featuredHashtags.isEmpty {
                 FlowLayout(minItemCountPerRow: 1) {
-                    ForEach(filterModel.featuredHashtags, id: \.self) { hashtag in
+                    ForEach(featuredHashtagsModel.featuredHashtags, id: \.self) { hashtag in
                         card(hashtag)
                             .onTapGesture {
                                 if filterModel.selectedHashtag == hashtag {
@@ -3119,19 +3108,6 @@ struct FeaturedHashtagsFlow: View {
                     .frame(height: doublePadding)
             } else {
                 EmptyView()
-            }
-        }
-        .task(id: filterModel.featuredHashtags) {
-            Task {
-                if filterModel.showFeaturedHashtags {
-                    if let featuredHashtags = await viewModel.fetchFeaturedHashtags() {
-                        filterModel.featuredHashtags = featuredHashtags
-                        DispatchQueue.main.async {
-                            // This hacky double setting is to make sure the view actually updates. Not clear why setting it once isn't enough.
-                            filterModel.featuredHashtags = featuredHashtags
-                        }
-                    }
-                }
             }
         }
     }

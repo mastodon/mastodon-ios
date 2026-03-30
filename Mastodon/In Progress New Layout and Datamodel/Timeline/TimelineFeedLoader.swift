@@ -178,7 +178,7 @@ public class TimelineQueryFilter {
     
     enum TimelineFilterType {
         case mediaOnly
-        case userPosts
+        case userPosts(FeaturedHashtagsModel)
         case unfilterable
     }
     
@@ -186,7 +186,6 @@ public class TimelineQueryFilter {
     var excludeReplies: Bool?
     var excludeReblogs: Bool?
     let onlyMedia: Bool?
-    var featuredHashtags: [Mastodon.Entity.FeaturedTag] = []
     var selectedHashtag: Mastodon.Entity.FeaturedTag?
     
     init(_ type: TimelineFilterType) {
@@ -216,12 +215,12 @@ public class TimelineQueryFilter {
         }
     }
     
-    var showFeaturedHashtags: Bool {
+    var featuredHashtagsModel: FeaturedHashtagsModel? {
         switch filterType {
-        case .userPosts:
-            return true
+        case .userPosts(let model):
+            return model
         case .mediaOnly, .unfilterable:
-            return false
+            return nil
         }
     }
 }

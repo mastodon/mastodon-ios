@@ -170,9 +170,12 @@ struct ProfileEditingView: View {
             Text("\(profileViewModel.account?.metadata.customFieldsForEdit?.count ?? 0)")
                 .foregroundStyle(.secondary)
         case .featuredHashtags:
-            ProgressView().progressViewStyle(.circular)
-//            Text("\(profileViewModel.account?.metadata..count ?? 0)")
-//                .foregroundStyle(.secondary)
+            if profileViewModel.featuredHashtagsModel.isFetching {
+                ProgressView().progressViewStyle(.circular)
+            } else {
+                Text("\(profileViewModel.featuredHashtagsModel.featuredHashtags.count)")
+                    .foregroundStyle(.secondary)
+            }
         case .profileTabSettings:
             Spacer()
         }
