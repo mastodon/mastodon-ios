@@ -22,7 +22,164 @@ class ProfileEditHostingViewController: UIHostingController<AnyView> {
     }
 }
 
+enum ProfileEditScreen: CaseIterable, Identifiable {
+    case displayName
+    case bio
+    case customFields
+    case featuredHashtags
+    case profileTabSettings
+    
+    var id: String {
+        switch self {
+        case .displayName:
+            "display_name"
+        case .bio:
+            "bio"
+        case .customFields:
+            "custom_fields"
+        case .featuredHashtags:
+            "featured_hashtags"
+        case .profileTabSettings:
+            "profile tab settings"
+        }
+    }
+}
+
 struct ProfileEditingView: View {
+    @Environment(ProfileViewModel.self) var profileViewModel
+    @Environment(ProfileEditingViewModel.self) var editingViewModel
+    
+    var body: some View {
+        GeometryReader { geo in
+            ScrollView {
+                VStack(spacing: standardPadding) {
+                    ProfileAvatarAndBannerView(width: geo.size.width)
+
+                    ForEach(ProfileEditScreen.allCases, id: \.id) { screen in
+                        profileEditRow(screen)
+                            .padding(.horizontal, doublePadding)
+                            .frame(width: geo.size.width)
+                    }
+                }
+            }
+        }
+    }
+    
+    func profileEditRow(_ screen: ProfileEditScreen) -> some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(mainLabelForRow(screen))
+                    .lineLimit(1)
+                    .foregroundColor(mainLabelColorForRow(screen))
+                if let subtitle = subtitleForRow(screen) {
+                    Text(subtitle)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1)
+                }
+            }
+            Spacer()
+            contentForRow(screen)
+            disclosureIndicator(screen)
+        }
+        .padding()
+        .background {
+            Capsule()
+                .fill(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor)
+        }
+    }
+    
+    var bioIsEmpty: Bool {
+        return profileViewModel.account?.bioForEdit == nil || profileViewModel.account?.bioForEdit?.isEmpty == true
+    }
+    
+    func mainLabelColorForRow(_ screen: ProfileEditScreen) -> Color {
+        switch screen {
+        case .bio:
+            bioIsEmpty ? Asset.Colors.accent.swiftUIColor : .primary
+        default:
+            .primary
+        }
+    }
+    
+    func mainLabelForRow(_ screen: ProfileEditScreen) -> String {
+        // TODO: L10n
+        switch screen {
+        case .displayName:
+            return "Display name"
+        case .bio:
+            if bioIsEmpty {
+                return "Add a bio"
+            } else {
+                return "Bio"
+            }
+        case .customFields:
+            return "Custom fields"
+        case .featuredHashtags:
+            return "Featured hashtags"
+        case .profileTabSettings:
+            return "Profile tab settings"
+        }
+    }
+    
+    func subtitleForRow(_ screen: ProfileEditScreen) -> String? {
+        switch screen {
+        case .displayName:
+            return nil
+        case .bio:
+            return nil
+        case .customFields:
+            return "E.g. pronouns, external links, etc."
+        case .featuredHashtags:
+            return "Allow users to filter your timeline by topic"
+        case .profileTabSettings:
+            return nil
+        }
+    }
+    
+    @ViewBuilder func disclosureIndicator(_ screen: ProfileEditScreen) -> some View {
+        switch screen {
+        case .bio:
+            if bioIsEmpty {
+                EmptyView()
+            } else {
+                Image(systemName: "chevron.forward")
+                    .foregroundStyle(.secondary)
+            }
+        default:
+            Image(systemName: "chevron.forward")
+                .foregroundStyle(.secondary)
+        }
+    }
+    
+    @ViewBuilder func contentForRow(_ screen: ProfileEditScreen) -> some View {
+        switch screen {
+        case .displayName:
+            if let displayName = profileViewModel.account?.displayInfo.displayName {
+                MastodonContentView.profileEditingRowContent(html: displayName, emojis: profileViewModel.account?.displayInfo.emojis ?? [])
+            } else {
+                Spacer()
+            }
+        case .bio:
+            if bioIsEmpty {
+                Spacer()
+            } else if let bio = profileViewModel.account?.bioForDisplay {
+                MastodonContentView.profileEditingRowContent(html: bio, emojis: profileViewModel.account?.displayInfo.emojis ?? [])
+            }
+        case .customFields:
+            Text("\(profileViewModel.account?.metadata.customFieldsForEdit?.count ?? 0)")
+                .foregroundStyle(.secondary)
+        case .featuredHashtags:
+            ProgressView().progressViewStyle(.circular)
+//            Text("\(profileViewModel.account?.metadata..count ?? 0)")
+//                .foregroundStyle(.secondary)
+        case .profileTabSettings:
+            Spacer()
+        }
+    }
+}
+
+struct ORIGINALProfileEditingView: View {
     @Environment(ProfileViewModel.self) var profileViewModel
     @Environment(ProfileEditingViewModel.self) var editingViewModel
     
@@ -187,7 +344,7 @@ struct ProfileEditingView: View {
         }
     }
     
-    @ViewBuilder func editFieldView(_ editState: ProfileEditingView.FieldEditingState) -> some View {
+    @ViewBuilder func editFieldView(_ editState: ORIGINALProfileEditingView.FieldEditingState) -> some View {
         GeometryReader { _ in
             ZStack {
                 Color.dimmingBackground
@@ -297,7 +454,7 @@ class ProfileEditingViewModel {
     let displayNameFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "", characterLimit: .softLimit(100), autocompleteMastodonItems: false)
     let bioFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "Describe yourself and/or this account.", characterLimit: .softLimit(220), autocompleteMastodonItems: true)
     
-    var fieldEditingState: ProfileEditingView.FieldEditingState?
+    var fieldEditingState: ORIGINALProfileEditingView.FieldEditingState?
     
     var selectedBannerImage: Binding<[PhotosPickerItem]>
     var bannerImagePhotosPickerItem: PhotosPickerItem?
@@ -418,7 +575,7 @@ class ProfileEditingViewModel {
         isAutomatedAccount = account.metadata.isBot
     }
     
-    func beginEditingField(_ fieldType: ProfileEditingView.FieldEditType) {
+    func beginEditingField(_ fieldType: ORIGINALProfileEditingView.FieldEditType) {
         switch fieldType {
         case .create:
             fieldEditingState = .init(editingField: fieldType,
