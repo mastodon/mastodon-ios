@@ -24,11 +24,11 @@ class ProfileEditHostingViewController: UIHostingController<AnyView> {
 }
 
 enum ProfileEditDestinationType: Identifiable {
-    case displayName
-    case bio
-    case customFields(profileViewModel: ProfileViewModel, editingViewModel: ProfileEditingViewModel)
-    case featuredHashtags(profileViewModel: ProfileViewModel, editingViewModel: ProfileEditingViewModel)
-    case profileTabSettings(profileViewModel: ProfileViewModel, editingViewModel: ProfileEditingViewModel)
+    case displayName(profileViewModel: ProfileViewModel)
+    case bio(profileViewModel: ProfileViewModel)
+    case customFields(profileViewModel: ProfileViewModel)
+    case featuredHashtags(profileViewModel: ProfileViewModel)
+    case profileTabSettings(profileViewModel: ProfileViewModel)
     
     var id: String {
         switch self {
@@ -45,20 +45,20 @@ enum ProfileEditDestinationType: Identifiable {
         }
     }
     
-    var editingViewModel: ProfileEditingViewModel? {
+    var editingViewModel: ProfileEditingViewModel {
         switch self {
-        case .displayName, .bio:
-            return nil
-        case .customFields(_, let editingViewModel), .featuredHashtags(_, let editingViewModel), .profileTabSettings(_, let editingViewModel):
-            return editingViewModel
+        case .displayName(let profileViewModel), .bio(let profileViewModel):
+            return profileViewModel.editingViewModel
+        case .customFields(let profileViewModel), .featuredHashtags(let profileViewModel), .profileTabSettings(let profileViewModel):
+            return profileViewModel.editingViewModel
         }
     }
     
-    var profileViewModel: ProfileViewModel? {
+    var profileViewModel: ProfileViewModel {
         switch self {
-        case .displayName, .bio:
-            return nil
-        case .customFields(let profileViewModel, _), .featuredHashtags(let profileViewModel, _), .profileTabSettings(let profileViewModel, _):
+        case .displayName(let profileViewModel), .bio(let profileViewModel):
+            return profileViewModel
+        case .customFields(let profileViewModel), .featuredHashtags(let profileViewModel), .profileTabSettings(let profileViewModel):
             return profileViewModel
         }
     }
@@ -101,11 +101,11 @@ struct ProfileEditingView: View {
     
     var allEditRows: [ProfileEditDestinationType] {
         [
-            .displayName,
-            .bio,
-            .customFields(profileViewModel: profileViewModel, editingViewModel: editingViewModel),
-            .featuredHashtags(profileViewModel: profileViewModel, editingViewModel: editingViewModel),
-            .profileTabSettings(profileViewModel: profileViewModel, editingViewModel: editingViewModel)
+            .displayName(profileViewModel: profileViewModel),
+            .bio(profileViewModel: profileViewModel),
+            .customFields(profileViewModel: profileViewModel),
+            .featuredHashtags(profileViewModel: profileViewModel),
+            .profileTabSettings(profileViewModel: profileViewModel)
         ]
     }
     
@@ -113,7 +113,7 @@ struct ProfileEditingView: View {
         if editDestination.expectsModalPresentation {
             // TODO: implement
         } else {
-            navigator.push(.editProfileNavigation(editDestination))
+            navigator.push(.editProfileNavigation(destination: editDestination))
         }
     }
     

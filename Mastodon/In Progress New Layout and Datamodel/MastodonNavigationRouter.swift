@@ -8,7 +8,7 @@ enum MastodonNavigationDestination {
     case timeline(TimelineViewType)
     case profile(account: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?)
     case editProfile(profileViewModel: ProfileViewModel, editingViewModel: ProfileEditingViewModel)
-    case editProfileNavigation(ProfileEditDestinationType)
+    case editProfileNavigation(destination: ProfileEditDestinationType)
     case share(activityItems: [Any])
     case legacy(scene: SceneCoordinator.Scene, transition: SceneCoordinator.Transition)
 }
@@ -106,7 +106,7 @@ enum MastodonNavigationDestination {
                 return ProfileEditHostingViewController(viewModel: profileViewModel, navigator: newNavigator)
                 
             case .editProfileNavigation(let destination):
-                return nil
+                return ProfileEditingDestinationHostingViewController(destination, navigator: newNavigator)
                 
             case .legacy, .share:
                 return nil

@@ -6,7 +6,8 @@ import MastodonAsset
 class ProfileEditingDestinationHostingViewController: UIHostingController<AnyView> {
     private let viewModel: ProfileViewModel
     
-    init(_ type: ProfileEditDestinationType, viewModel: ProfileViewModel, navigator: MastodonNavigationRouter) {
+    init(_ type: ProfileEditDestinationType, navigator: MastodonNavigationRouter) {
+        let viewModel = type.profileViewModel
         self.viewModel = viewModel
         super.init(rootView: AnyView(ProfileEditingDestinationView(destinationType: type).environment(viewModel).environment(viewModel.editingViewModel).environment(navigator)))
         
