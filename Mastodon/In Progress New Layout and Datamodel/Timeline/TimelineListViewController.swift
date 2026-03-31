@@ -993,8 +993,8 @@ enum MastodonTimelineSheet {
         if isPerformingAccountAction != nil {
             isPerformingAccountAction = nil
         }
-        if navigator?.presentedActionSheet != nil {
-            navigator?.presentedActionSheet = nil
+        if navigator?.presentedSheet != nil {
+            navigator?.presentedSheet = nil
         }
     }
     
@@ -1669,6 +1669,7 @@ struct TimelineListView: View {
     @State var _pendingGeometryUpdates = false
     
     var body: some View {
+        @Bindable var navigator = navigator
         GeometryReader { geo in
             ZStack(alignment: .bottom) { // to show donation banner, and snackbar, and fade-in overlays
                 if viewModel.feedIsEmpty {
@@ -1838,12 +1839,14 @@ struct TimelineListView: View {
                 Text(messageText)
             }
         }
-        .sheet(isPresented: Binding<Bool>(
-            get: { navigator.presentedActionSheet != nil },
-            set: { newValue in if newValue == false { navigator.presentedActionSheet = nil } }
-        )) {
-            if let sheet = navigator.presentedActionSheet {
-                viewModel.activeSheetContents(sheet, navigator: navigator)
+        .sheet(isPresented: $navigator.isPresentingSheet) {
+            if let presentedSheet = navigator.presentedSheet {
+                switch presentedSheet {
+                case .timelineSheet(let sheet):
+                    viewModel.activeSheetContents(sheet, navigator: navigator)
+                case .profileEditingSheet:
+                    EmptyView()
+                }
             }
         }
         .environment(TimestampUpdater.timestamper(withInterval: 30))
@@ -2541,7 +2544,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                             contentIncludesQuote: postViewModel.fullQuotedPostViewModel != nil || postViewModel.placeholderQuotedPost != nil
                         )
                     )
-                    navigator.presentedActionSheet = activeSheet
+                    navigator.presentedSheet = .timelineSheet(activeSheet)
                     
             // MARK: POST ACTIONS
                 case .copyLinkToPost:
@@ -2623,7 +2626,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
     
     func commitCurrentQuotePolicyEdit(navigator: MastodonNavigationRouter) async throws {
         guard let (action, post) = isPerformingPostAction, action == .changeQuotePolicy, let authBox = AuthenticationServiceProvider.shared.currentActiveUser
-            .value, case let .postInteractionSettingsEdit(editModel) = navigator.presentedActionSheet else { throw PostActionFailure.unsupportedAction }
+            .value, case let .timelineSheet(.postInteractionSettingsEdit(editModel)) = navigator.presentedSheet else { throw PostActionFailure.unsupportedAction }
         Task {
             do {
                 let updated = try await APIService.shared.updateQuotePolicy(forStatus: post.id, to: editModel.interactionSettings.quotability, authenticationBox: authBox)

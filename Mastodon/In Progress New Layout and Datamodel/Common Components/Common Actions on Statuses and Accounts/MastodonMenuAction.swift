@@ -266,7 +266,7 @@ extension MastodonNavigationRouter {
             if let relationshipViewModel {
                 await relationshipViewModel.doFollowAndManageListMembership(account, navigator: self)
             } else {
-                presentedActionSheet = .manageListMembership(account)
+                presentedSheet = .timelineSheet(.manageListMembership(account))
             }
         }
     }

@@ -22,39 +22,60 @@ struct ProfileEditingDestinationView: View {
     @Environment(ProfileViewModel.self) var profileViewModel
     @Environment(ProfileEditingViewModel.self) var editingViewModel
     
+    @Environment(\.dismiss) var dismiss
+    
     @State var hasChanges = false
     
     let destinationType: ProfileEditDestinationType
     
     var body: some View {
-        rootContents
-            .navigationTitle(profileViewModel.navigationTitle(destinationType))
-            .toolbar {
-                if destinationType.expectsModalPresentation {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button {
-                        } label: {
-                            Image(systemName: "xmark")
-                                .tint(hasChanges ? Asset.Colors.accent.swiftUIColor : nil)
+        if destinationType.expectsModalPresentation {
+            NavigationStack() {
+                rootContents
+                    .navigationTitle(profileViewModel.navigationTitle(destinationType))
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        if destinationType.expectsModalPresentation {
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button {
+                                    dismiss()
+                                } label: {
+                                    Image(systemName: "xmark")
+                                }
+                            }
+                            
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button {
+                                } label: {
+                                    Image(systemName: "checkmark")
+                                        .tint(hasChanges ? Asset.Colors.accent.swiftUIColor : nil)
+                                }
+                            }
                         }
                     }
-                    
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                        } label: {
-                            Image(systemName: "checkmark")
-                                .tint(hasChanges ? Asset.Colors.accent.swiftUIColor : nil)
-                        }
-                    }
-                }
             }
+        } else {
+                rootContents
+                    .navigationTitle(profileViewModel.navigationTitle(destinationType))
+                    .navigationBarTitleDisplayMode(.inline)
+        }
+      
     }
     
     @ViewBuilder var rootContents: some View {
-        Text(destinationType.id)
+        switch destinationType {
+        case .displayName:
+            Text(destinationType.id)
+        case .bio:
+            Text(destinationType.id)
+        case .customFields:
+            Text(destinationType.id)
+        case .featuredHashtags:
+            Text(destinationType.id)
+        case .profileTabSettings:
+            Text(destinationType.id)
+        }
     }
-    
-    
 }
 
 extension ProfileViewModel {

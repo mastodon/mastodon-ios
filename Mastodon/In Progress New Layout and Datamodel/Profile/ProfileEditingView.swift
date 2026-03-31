@@ -97,6 +97,17 @@ struct ProfileEditingView: View {
                 }
             }
         }
+        .sheet(isPresented: $navigationRouter.isPresentingSheet) {
+            switch navigationRouter.presentedSheet {
+            case .profileEditingSheet(let type):
+                ProfileEditingDestinationView(destinationType: type)
+                    .environment(type.profileViewModel)
+                    .environment(type.profileViewModel.editingViewModel)
+                    .environment(navigationRouter)
+            case .timelineSheet, .none:
+                EmptyView()
+            }
+        }
     }
     
     var allEditRows: [ProfileEditDestinationType] {
@@ -111,7 +122,7 @@ struct ProfileEditingView: View {
     
     func navigate(to editDestination: ProfileEditDestinationType) {
         if editDestination.expectsModalPresentation {
-            // TODO: implement
+            navigator.presentModal(.editProfileNavigation(destination: editDestination))
         } else {
             navigator.push(.editProfileNavigation(destination: editDestination))
         }

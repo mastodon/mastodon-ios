@@ -32,7 +32,11 @@ enum MastodonNavigationDestination {
     var navigationPath: [MastodonNavigationDestination] = []
     
     // Action Sheets
-    var presentedActionSheet: MastodonTimelineSheet?
+    var presentedSheet: MastodonSheet?
+    var isPresentingSheet: Bool {
+        get { presentedSheet != nil }
+        set { if newValue == false { presentedSheet = nil } }
+    }
     
     // Alerts
     var errorsWaitingToDisplay = [Error]()
@@ -147,8 +151,8 @@ enum MastodonNavigationDestination {
         case .legacy(let scene, let transition):
             switch navigationType {
             case .uiKit(let presenter), .swiftUI(let presenter):
-                if presentedActionSheet != nil {
-                    presentedActionSheet = nil
+                if presentedSheet != nil {
+                    presentedSheet = nil
                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) { // without this delay, the modal presentation gets tangled up with the dismissing sheet
                         presenter?.sceneCoordinator?.present(scene: scene, from: presenter, transition: transition)
                     }
@@ -169,6 +173,10 @@ enum MastodonNavigationDestination {
             )
             self.presentModal(.legacy(scene: .activityViewController(activityViewController: activityViewController, sourceView: nil, barButtonItem: nil), transition: .activityViewControllerPresent(animated: true, completion: nil)))
 
+        case .editProfileNavigation(let destination):
+            assert(destination.expectsModalPresentation)
+            presentedSheet = .profileEditingSheet(destination)
+            
         default:
             assertionFailure()
             break
@@ -261,4 +269,9 @@ extension MastodonNavigationDestination: Hashable {
             return "LEGACY-\(scene)-\(transition)"
         }
     }
+}
+
+enum MastodonSheet {
+    case timelineSheet(MastodonTimelineSheet)
+    case profileEditingSheet(ProfileEditDestinationType)
 }
