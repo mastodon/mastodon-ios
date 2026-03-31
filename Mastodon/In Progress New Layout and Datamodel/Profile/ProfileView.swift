@@ -1012,6 +1012,7 @@ enum EditingStatus: Equatable {
 @MainActor
 @Observable class ProfileViewModel {
     let relationshipViewModel = RelationshipViewModel()
+    let uuid = UUID() // helpful for debugging
     
     let editingViewModel = {
         ProfileEditingViewModel()
@@ -1101,7 +1102,14 @@ enum EditingStatus: Equatable {
         self.relationship = relationship
         self.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts(featuredHashtagsModel))), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
         
-        featuredHashtagsModel.fetchFeaturedTags(account: account)
+        Task {
+            do {
+                try await featuredHashtagsModel.fetchFeaturedTags(account: account)
+                editingViewModel.updateFeaturedHashtags(featuredHashtagsModel.featuredHashtags)
+            } catch {
+                navigator.didReceiveError(error)
+            }
+        }
         
         if account.metadata.showsMediaTab {
             if mediaViewModel == nil {
@@ -1375,7 +1383,7 @@ extension ProfileViewModel {
     
     private var fetchQueue: [Mastodon.Entity.Account.ID] = []
     
-    func fetchFeaturedTags(account: MastodonAccount) {
+    func fetchFeaturedTags(account: MastodonAccount) async throws {
         if !fetchQueue.contains(account.id) {
             fetchQueue.append(account.id)
         }
@@ -1383,14 +1391,8 @@ extension ProfileViewModel {
         guard !isFetching else { return }
         let nextToFetch = fetchQueue.removeFirst()
         isFetching = true
-        Task {
-            do {
-                featuredHashtags = try await _fetchFeaturedTags(account: nextToFetch)
-            } catch {
-                // TODO: handle error?
-            }
-            isFetching = false
-        }
+        featuredHashtags = try await _fetchFeaturedTags(account: nextToFetch)
+        isFetching = false
     }
     
     private func _fetchFeaturedTags(account: Mastodon.Entity.Account.ID) async throws -> [Mastodon.Entity.FeaturedTag] {

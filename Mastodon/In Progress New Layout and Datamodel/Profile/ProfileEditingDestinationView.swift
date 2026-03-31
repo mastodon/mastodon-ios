@@ -36,6 +36,7 @@ struct ProfileEditingDestinationView: View {
                         if destinationType.expectsModalPresentation {
                             ToolbarItem(placement: .navigationBarLeading) {
                                 Button {
+                                    profileViewModel.discardEdits(destinationType)
                                     dismiss()
                                 } label: {
                                     Image(systemName: "xmark")
@@ -193,6 +194,42 @@ struct CharacterLimitTip: View {
                 .red
         case .softLimit:
                 .yellow
+        }
+    }
+}
+
+extension ProfileViewModel {
+    func discardEdits(_ editType: ProfileEditDestinationType) {
+        switch editType {
+        case .displayName(profileViewModel: let profileViewModel):
+            assert(profileViewModel.uuid == uuid)
+            editingViewModel.displayNameFieldEditingViewModel.discardChanges()
+        case .bio(profileViewModel: let profileViewModel):
+            assert(profileViewModel.uuid == uuid)
+            editingViewModel.bioFieldEditingViewModel.discardChanges()
+        case .customFields(profileViewModel: let profileViewModel):
+            assert(profileViewModel.uuid == uuid)
+            editingViewModel.discardCustomFieldEdits()
+        case .featuredHashtags(profileViewModel: let profileViewModel):
+            assert(profileViewModel.uuid == uuid)
+            editingViewModel.discardFeaturedHashtagEdits()
+        case .profileTabSettings(profileViewModel: let profileViewModel):
+            assert(profileViewModel.uuid == uuid)
+            assertionFailure("profile tab setting changes are saved immediately and cannot be discarded")
+        }
+    }
+}
+
+extension ProfileEditingViewModel {
+    func discardCustomFieldEdits() {
+        if customFields != initialInfo?.metadata.customFieldsForEdit {
+            customFields = initialInfo?.metadata.customFieldsForEdit
+        }
+    }
+    
+    func discardFeaturedHashtagEdits() {
+        if originalFeaturedTags != editedFeaturedTags {
+            editedFeaturedTags = originalFeaturedTags
         }
     }
 }

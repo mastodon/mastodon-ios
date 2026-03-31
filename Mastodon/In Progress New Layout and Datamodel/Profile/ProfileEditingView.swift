@@ -534,6 +534,9 @@ class ProfileEditingViewModel {
     var customFields: [Mastodon.Entity.Field]? = nil
     var emojis: [Mastodon.Entity.Emoji] = []
     
+    var originalFeaturedTags: [Mastodon.Entity.FeaturedTag] = []
+    var editedFeaturedTags: [Mastodon.Entity.FeaturedTag] = []
+    
     var isAutomatedAccount: Bool = false
     
     private(set) var initialInfo: MastodonAccount? = nil
@@ -612,6 +615,11 @@ class ProfileEditingViewModel {
         presentingAlert = nil
         
         showTabDisplayPreferences = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.profileSettings) ?? false
+    }
+    
+    func updateFeaturedHashtags(_ featuredTags: [Mastodon.Entity.FeaturedTag]) {
+        originalFeaturedTags = featuredTags
+        editedFeaturedTags = featuredTags
     }
     
     func updateAccountTextFields(account: MastodonAccount) {

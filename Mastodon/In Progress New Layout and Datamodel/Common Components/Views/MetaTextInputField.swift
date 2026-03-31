@@ -57,6 +57,10 @@ import Combine
         contentMetaText?.configure(content: content)
     }
     
+    public func discardChanges() {
+        stringContent = originalStringContent
+    }
+    
     // emoji
     var isEmojiActive = false
     let customEmojiPickerInputViewModel: CustomEmojiPickerInputViewModel
