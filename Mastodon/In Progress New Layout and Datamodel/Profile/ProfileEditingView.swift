@@ -1150,67 +1150,12 @@ extension ProfileViewModel {
     }
 }
 
-struct ProfileEditingDestinationView: View {
-    @Environment(ProfileViewModel.self) var profileViewModel
-    @Environment(ProfileEditingViewModel.self) var editingViewModel
-    
-    @State var hasChanges = false
-    
-    let destinationType: ProfileEditDestinationType
-    
-    var body: some View {
-        rootContents
-            .navigationTitle(profileViewModel.navigationTitle(destinationType))
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                    } label: {
-                        if hasChanges {
-                            Image(systemName: "checkmark.circle.fill")
-                        } else {
-                            Image(systemName: "checkmark.circle")
-                        }
-                    }
-                }
-            }
-    }
-    
-    @ViewBuilder var rootContents: some View {
-        Text(destinationType.id)
-    }
-    
-   
-}
-
 extension ProfileViewModel {
     var bioIsEmpty: Bool {
         guard let bioForEdit = account?.bioForEdit else { return true }
         return bioForEdit.isEmpty
     }
 }
-
-extension ProfileViewModel {
-    func navigationTitle(_ destination: ProfileEditDestinationType) -> String {
-        // TODO: L10n
-        switch destination {
-        case .displayName:
-            "Edit display name"
-        case .bio:
-            if bioIsEmpty {
-                "Add bio"
-            } else {
-                "Edit bio"
-            }
-        case .customFields:
-            "Custom fields"
-        case .featuredHashtags:
-            "Featured hashtags"
-        case .profileTabSettings:
-            "Profile tab settings"
-        }
-    }
-}
-
 
 let avatarImageMaxSizeInPixels = CGSize(width: 400, height: 400)
 let bannerImageMaxSizeInPixels = CGSize(width: 1500, height: 500)
