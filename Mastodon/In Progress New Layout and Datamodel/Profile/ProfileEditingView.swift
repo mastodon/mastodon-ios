@@ -23,7 +23,7 @@ class ProfileEditHostingViewController: UIHostingController<AnyView> {
     }
 }
 
-enum ProfileEditScreenType: Identifiable {
+enum ProfileEditDestinationType: Identifiable {
     case displayName
     case bio
     case customFields(profileViewModel: ProfileViewModel, editingViewModel: ProfileEditingViewModel)
@@ -64,7 +64,7 @@ enum ProfileEditScreenType: Identifiable {
     }
 }
 
-extension ProfileEditScreenType {
+extension ProfileEditDestinationType {
     var expectsModalPresentation: Bool {
         switch self {
         case .displayName, .bio:
@@ -86,12 +86,12 @@ struct ProfileEditingView: View {
             ScrollView {
                 VStack(spacing: standardPadding) {
                     ProfileAvatarAndBannerView(width: geo.size.width)
-                    ForEach(allEditRows, id: \.id) { screen in
-                        profileEditRow(screen)
+                    ForEach(allEditRows, id: \.id) { destination in
+                        profileEditRow(destination)
                             .padding(.horizontal, doublePadding)
                             .frame(width: geo.size.width)
                             .onTapGesture {
-                                navigate(to: screen)
+                                navigate(to: destination)
                             }
                     }
                 }
@@ -99,7 +99,7 @@ struct ProfileEditingView: View {
         }
     }
     
-    var allEditRows: [ProfileEditScreenType] {
+    var allEditRows: [ProfileEditDestinationType] {
         [
             .displayName,
             .bio,
@@ -109,21 +109,21 @@ struct ProfileEditingView: View {
         ]
     }
     
-    func navigate(to screen: ProfileEditScreenType) {
-        if screen.expectsModalPresentation {
+    func navigate(to editDestination: ProfileEditDestinationType) {
+        if editDestination.expectsModalPresentation {
             // TODO: implement
         } else {
-            navigator.navigationPath.append(.editProfileInternalNavigation(screen))
+            navigator.push(.editProfileNavigation(editDestination))
         }
     }
     
-    func profileEditRow(_ screen: ProfileEditScreenType) -> some View {
+    func profileEditRow(_ destination: ProfileEditDestinationType) -> some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(mainLabelForRow(screen))
+                Text(mainLabelForRow(destination))
                     .lineLimit(1)
-                    .foregroundColor(mainLabelColorForRow(screen))
-                if let subtitle = subtitleForRow(screen) {
+                    .foregroundColor(mainLabelColorForRow(destination))
+                if let subtitle = subtitleForRow(destination) {
                     Text(subtitle)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
@@ -131,8 +131,8 @@ struct ProfileEditingView: View {
                 }
             }
             Spacer()
-            contentForRow(screen)
-            disclosureIndicator(screen)
+            contentForRow(destination)
+            disclosureIndicator(destination)
         }
         .padding()
         .background {
@@ -141,8 +141,8 @@ struct ProfileEditingView: View {
         }
     }
     
-    func mainLabelColorForRow(_ screen: ProfileEditScreenType) -> Color {
-        switch screen {
+    func mainLabelColorForRow(_ destination: ProfileEditDestinationType) -> Color {
+        switch destination {
         case .bio:
             profileViewModel.bioIsEmpty ? Asset.Colors.accent.swiftUIColor : .primary
         default:
@@ -150,9 +150,9 @@ struct ProfileEditingView: View {
         }
     }
     
-    func mainLabelForRow(_ screen: ProfileEditScreenType) -> String {
+    func mainLabelForRow(_ destination: ProfileEditDestinationType) -> String {
         // TODO: L10n
-        switch screen {
+        switch destination {
         case .displayName:
             return "Display name"
         case .bio:
@@ -170,8 +170,8 @@ struct ProfileEditingView: View {
         }
     }
     
-    func subtitleForRow(_ screen: ProfileEditScreenType) -> String? {
-        switch screen {
+    func subtitleForRow(_ destination: ProfileEditDestinationType) -> String? {
+        switch destination {
         case .displayName:
             return nil
         case .bio:
@@ -185,8 +185,8 @@ struct ProfileEditingView: View {
         }
     }
     
-    @ViewBuilder func disclosureIndicator(_ screen: ProfileEditScreenType) -> some View {
-        switch screen {
+    @ViewBuilder func disclosureIndicator(_ destination: ProfileEditDestinationType) -> some View {
+        switch destination {
         case .bio:
             if profileViewModel.bioIsEmpty {
                 EmptyView()
@@ -200,8 +200,8 @@ struct ProfileEditingView: View {
         }
     }
     
-    @ViewBuilder func contentForRow(_ screen: ProfileEditScreenType) -> some View {
-        switch screen {
+    @ViewBuilder func contentForRow(_ destination: ProfileEditDestinationType) -> some View {
+        switch destination {
         case .displayName:
             if let displayName = profileViewModel.account?.displayInfo.displayName {
                 MastodonContentView.profileEditingRowContent(html: displayName, emojis: profileViewModel.account?.displayInfo.emojis ?? [])
@@ -1150,17 +1150,17 @@ extension ProfileViewModel {
     }
 }
 
-struct ProfileEditingScreen: View {
+struct ProfileEditingDestinationView: View {
     @Environment(ProfileViewModel.self) var profileViewModel
     @Environment(ProfileEditingViewModel.self) var editingViewModel
     
     @State var hasChanges = false
     
-    let screenType: ProfileEditScreenType
+    let destinationType: ProfileEditDestinationType
     
     var body: some View {
         rootContents
-            .navigationTitle(profileViewModel.navigationTitle(screenType))
+            .navigationTitle(profileViewModel.navigationTitle(destinationType))
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -1176,7 +1176,7 @@ struct ProfileEditingScreen: View {
     }
     
     @ViewBuilder var rootContents: some View {
-        Text(screenType.id)
+        Text(destinationType.id)
     }
     
    
@@ -1190,9 +1190,9 @@ extension ProfileViewModel {
 }
 
 extension ProfileViewModel {
-    func navigationTitle(_ editingScreen: ProfileEditScreenType) -> String {
+    func navigationTitle(_ destination: ProfileEditDestinationType) -> String {
         // TODO: L10n
-        switch editingScreen {
+        switch destination {
         case .displayName:
             "Edit display name"
         case .bio:
