@@ -180,7 +180,7 @@ struct CreateNewListView: View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading, spacing: tinySpacing) {
                 SubsectionHeading(title: "List name", subtitle: nil) // TODO: needs L10n
-                MetaTextInputField(allowScroll: false)
+                MetaTextInputField(allowScroll: false, drawBackground: true, returnKeyType: .done)
                     .environment(viewModel.listNameFieldEditingViewModel)
                     .frame(height: 36)
             }

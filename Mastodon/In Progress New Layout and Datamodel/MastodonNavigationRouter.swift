@@ -31,11 +31,40 @@ enum MastodonNavigationDestination {
     
     var navigationPath: [MastodonNavigationDestination] = []
     
+    let uuid = UUID()
+    
     // Action Sheets
     var presentedSheet: MastodonSheet?
-    var isPresentingSheet: Bool {
-        get { presentedSheet != nil }
-        set { if newValue == false { presentedSheet = nil } }
+    var isPresentingTimelineSheet: Bool {
+        get {
+            switch presentedSheet {
+            case .timelineSheet:
+                true
+            case .profileEditingSheet, .none:
+                false
+            }
+        }
+        set {
+            if newValue == false {
+                presentedSheet = nil
+            }
+        }
+    }
+    
+    var isPresentingProfileEditSheet: Bool {
+        get {
+            switch presentedSheet {
+            case .profileEditingSheet:
+                true
+            case .timelineSheet, .none:
+                false
+            }
+        }
+        set {
+            if newValue == false {
+                presentedSheet = nil
+            }
+        }
     }
     
     // Alerts

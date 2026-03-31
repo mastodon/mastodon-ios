@@ -97,7 +97,7 @@ struct ProfileEditingView: View {
                 }
             }
         }
-        .sheet(isPresented: $navigationRouter.isPresentingSheet) {
+        .sheet(isPresented: $navigationRouter.isPresentingProfileEditSheet) {
             switch navigationRouter.presentedSheet {
             case .profileEditingSheet(let type):
                 ProfileEditingDestinationView(destinationType: type)
@@ -392,14 +392,14 @@ struct ORIGINALProfileEditingView: View {
         VStack(spacing: doublePadding) {
             VStack(alignment: .leading, spacing: tinySpacing) {
                 SubsectionHeading(title: "Display name", subtitle: nil) // TODO: needs L10n
-                MetaTextInputField(allowScroll: false)
+                MetaTextInputField(allowScroll: false, drawBackground: true, returnKeyType: .done)
                     .environment(editingViewModel.displayNameFieldEditingViewModel)
                     .frame(height: 36)
             }
             
             VStack(alignment: .leading, spacing: tinySpacing) {
                 SubsectionHeading(title: "Bio", subtitle: "Introduce yourself. Recommended 220 character maximum.") // TODO: needs L10n
-                MetaTextInputField(allowScroll: true)
+                MetaTextInputField(allowScroll: true, drawBackground: true, returnKeyType: .done)
                     .environment(editingViewModel.bioFieldEditingViewModel)
                     .frame(height: 56)
             }
@@ -422,14 +422,14 @@ struct ORIGINALProfileEditingView: View {
                     
                     VStack(alignment: .leading, spacing: tinySpacing) {
                         SubsectionHeading(title: "Label", subtitle: nil)
-                        MetaTextInputField(allowScroll: false)
+                        MetaTextInputField(allowScroll: false, drawBackground: true, returnKeyType: .done)
                             .environment(editState.labelEditingModel)
                             .frame(height: 36)
                     }
                     
                     VStack(alignment: .leading, spacing: tinySpacing) {
                         SubsectionHeading(title: "Value", subtitle: nil)
-                        MetaTextInputField(allowScroll: true)
+                        MetaTextInputField(allowScroll: true, drawBackground: true, returnKeyType: .done)
                             .environment(editState.valueEditingModel)
                             .frame(height: 36)
                     }
@@ -486,22 +486,19 @@ struct ORIGINALProfileEditingView: View {
     }
     
     @ToolbarContentBuilder var saveButtonForToolbar: some ToolbarContent {
-        if profileViewModel.editingStatus.showSaveButton {
+        switch profileViewModel.editingStatus.saveButton {
+        case .canSave:
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(L10n.Common.Controls.Actions.save) {
-                    profileViewModel.editingStatus = .pushingChanges(success: nil)
                     Task {
-                        do {
-                            try await profileViewModel.commitEdits()
-                            profileViewModel.editingStatus = .pushingChanges(success: true)
-                        } catch {
-                            profileViewModel.editingStatus = .pushingChanges(success: false)
-                        }
+                        try await profileViewModel.commitEdits()
                     }
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(Asset.Colors.accent.swiftUIColor)
             }
+        default:
+            ToolbarItem(placement: .navigationBarTrailing){}
         }
     }
 }
@@ -509,12 +506,12 @@ struct ORIGINALProfileEditingView: View {
 @MainActor
 @Observable
 class ProfileEditingViewModel {
-    var editingStatusBinding: Binding<EditingStatus>?
+    var editingStatus: EditingStatus?
     var showVerifiedLinkTip = true
     var showTabDisplayPreferences = false
     
-    let displayNameFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "", characterLimit: .softLimit(100), autocompleteMastodonItems: false)
-    let bioFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "Describe yourself and/or this account.", characterLimit: .softLimit(220), autocompleteMastodonItems: true)
+    let displayNameFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "", characterLimit: .hardLimit(30), autocompleteMastodonItems: false)
+    let bioFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "Describe yourself and/or this account.", characterLimit: .softLimit(220), autocompleteMastodonItems: true) // TODO: L10n
     
     var fieldEditingState: ORIGINALProfileEditingView.FieldEditingState?
     
@@ -585,17 +582,17 @@ class ProfileEditingViewModel {
             }
         )
         
-        displayNameFieldEditingViewModel.contentDidChange = { withAnimation { self.editingStatusBinding?.wrappedValue = .editing(hasChanges: true) } }
-        bioFieldEditingViewModel.contentDidChange = { withAnimation { self.editingStatusBinding?.wrappedValue = .editing(hasChanges: true) } }
+        displayNameFieldEditingViewModel.contentDidChange = { withAnimation { self.checkForChanges() } }
+        bioFieldEditingViewModel.contentDidChange = { withAnimation { self.checkForChanges() } }
     }
     
     func checkForChanges() {
         let hasChanges = confirmedBannerImage != nil ||
         avatarConfirmedCroppedImage != nil ||
         (initialInfo != nil && isAutomatedAccount != initialInfo?.metadata.isBot) ||
-        customFields != initialInfo?.metadata.customFieldsForEdit
+        customFields != initialInfo?.metadata.customFieldsForEdit || displayNameFieldEditingViewModel.stringContent != displayNameFieldEditingViewModel.originalStringContent || bioFieldEditingViewModel.stringContent != bioFieldEditingViewModel.originalStringContent
         if hasChanges {
-            withAnimation { editingStatusBinding?.wrappedValue = .editing(hasChanges: true) }
+            withAnimation { editingStatus = .editing(hasChanges: true) }
         }
     }
     
@@ -1136,14 +1133,23 @@ extension ProfileViewModel {
             source: nil,
             fieldsAttributes: customFieldsData
         )
-        let response = try await APIService.shared.accountUpdateCredentials(
-            domain: domain,
-            query: query,
-            authorization: authorization
-        )
-        let updatedAccount = MastodonAccount.fromEntity(response.value, authenticatedDomain: domain)
-        account = updatedAccount
-        editingViewModel.setAccount(updatedAccount)
+        
+        editingStatus = .pushingChanges(success: nil)
+        
+        do {
+            let response = try await APIService.shared.accountUpdateCredentials(
+                domain: domain,
+                query: query,
+                authorization: authorization
+            )
+            let updatedAccount = MastodonAccount.fromEntity(response.value, authenticatedDomain: domain)
+            account = updatedAccount
+            editingViewModel.setAccount(updatedAccount)
+            editingStatus = .pushingChanges(success: true)
+        } catch {
+            editingStatus = .pushingChanges(success: false)
+            throw error
+        }
     }
     
     func commitTabSettingsChanges() async throws {

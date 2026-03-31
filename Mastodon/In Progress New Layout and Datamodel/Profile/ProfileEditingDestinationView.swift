@@ -24,8 +24,6 @@ struct ProfileEditingDestinationView: View {
     
     @Environment(\.dismiss) var dismiss
     
-    @State var hasChanges = false
-    
     let destinationType: ProfileEditDestinationType
     
     var body: some View {
@@ -45,10 +43,25 @@ struct ProfileEditingDestinationView: View {
                             }
                             
                             ToolbarItem(placement: .navigationBarTrailing) {
-                                Button {
-                                } label: {
-                                    Image(systemName: "checkmark")
-                                        .tint(hasChanges ? Asset.Colors.accent.swiftUIColor : nil)
+                                switch editingViewModel.editingStatus?.saveButton {
+                                case .noButton, .none:
+                                    EmptyView()
+                                case .canSave:
+                                    Button {
+                                        Task {
+                                            do {
+                                                try await profileViewModel.commitEdits()
+                                                dismiss()
+                                            } catch {
+                                            }
+                                        }
+                                    } label: {
+                                        Image(systemName: "checkmark")
+                                    }
+                                    .buttonStyle(.borderedProminent)
+                                    .tint(Asset.Colors.accent.swiftUIColor)
+                                case .saveInProgress:
+                                    ProgressView().progressViewStyle(.circular)
                                 }
                             }
                         }
@@ -65,9 +78,12 @@ struct ProfileEditingDestinationView: View {
     @ViewBuilder var rootContents: some View {
         switch destinationType {
         case .displayName:
-            Text(destinationType.id)
+            EditDisplayNameView()
+                .environment(editingViewModel)
+                .environment(editingViewModel.displayNameFieldEditingViewModel)
         case .bio:
-            Text(destinationType.id)
+            EditBioView()
+                .environment(editingViewModel)
         case .customFields:
             Text(destinationType.id)
         case .featuredHashtags:
@@ -96,6 +112,87 @@ extension ProfileViewModel {
             "Featured hashtags"
         case .profileTabSettings:
             "Profile tab settings"
+        }
+    }
+}
+
+struct EditDisplayNameView: View {
+    @Environment(ProfileEditingViewModel.self) var editingViewModel
+    @Environment(MetaTextInputFieldViewModel.self) var textInputModel
+    
+    @FocusState var isFocused: Bool
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: tinySpacing) {
+            MetaTextInputField(allowScroll: false, drawBackground: false, returnKeyType: .done)
+                .frame(height: 36)
+                .focused($isFocused)
+            CharacterLimitTip()
+                .padding(.leading)
+            Spacer()
+        }
+        .padding(doublePadding)
+        .onAppear() {
+            isFocused = true
+        }
+        .onChange(of: textInputModel.stringContent) { oldValue, newValue in
+            if newValue.last == "\n" {
+                isFocused = false
+                editingViewModel.checkForChanges()
+            }
+        }
+    }
+}
+
+struct EditBioView: View {
+    @Environment(ProfileEditingViewModel.self) var editingViewModel
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: tinySpacing) {
+            SubsectionHeading(title: "Bio", subtitle: "Introduce yourself. Recommended 220 character maximum.") // TODO: needs L10n
+            MetaTextInputField(allowScroll: true, drawBackground: false, returnKeyType: .default)
+                .environment(editingViewModel.bioFieldEditingViewModel)
+                .frame(height: 56)
+        }
+    }
+}
+
+struct CharacterLimitTip: View {
+    @Environment(MetaTextInputFieldViewModel.self) var inputModel
+    
+    var body: some View {
+        Text(message(forCharacterCount: inputModel.characterCount))
+            .font(.footnote)
+            .foregroundStyle(characterLimit - inputModel.characterCount < 0 ? overLimitColor : .secondary)
+    }
+    
+    func message(forCharacterCount usedCharacterCount: Int) -> String {
+        // TODO: L10n
+        switch inputModel.characterLimit {
+        case .hardLimit(let limit):
+            if inputModel.characterCount == 0 {
+                "\(limit) character maximum"
+            } else {
+                "\(usedCharacterCount)/\(characterLimit) characters"
+            }
+        case .softLimit(let limit):
+            "Tip: try to keep this short, under \(limit) characters is best"
+        }
+    }
+    
+    var characterLimit: Int {
+        switch inputModel.characterLimit {
+        case .hardLimit(let limit), .softLimit(let limit):
+            return limit
+        }
+    }
+    
+    var overLimitColor: Color {
+        switch inputModel.characterLimit {
+        case .hardLimit:
+                .red
+        case .softLimit:
+                .yellow
         }
     }
 }

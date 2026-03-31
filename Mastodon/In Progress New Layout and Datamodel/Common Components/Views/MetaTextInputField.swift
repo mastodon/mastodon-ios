@@ -19,6 +19,8 @@ import Combine
     public var contentDidChange: (()->())?
     private var autoCompleteSuggestionViewModel: AutoCompleteSuggestionViewModel?
     
+    public let originalStringContent: String
+    
     public var stringContent: String {
         didSet {
             guard let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue) else {
@@ -63,6 +65,7 @@ import Combine
     
     public init(stringContent: String?, placeholder: String, characterLimit: CharacterLimit, autocompleteMastodonItems: Bool) {
         self.stringContent = stringContent ?? ""
+        self.originalStringContent = stringContent ?? ""
         self.placeholder = placeholder
         self.characterLimit = characterLimit
         customEmojiPickerInputViewModel = CustomEmojiPickerInputViewModel()
@@ -341,12 +344,16 @@ extension MetaTextInputFieldViewModel {
 
 public struct MetaTextInputField: View {
     @Environment(MetaTextInputFieldViewModel.self) var viewModel
+    let drawBackground: Bool
     let allowScroll: Bool
     let margin: CGFloat = 8
     let autoCompleteHeight: CGFloat = 60
+    let returnKeyType: UIReturnKeyType
     
-    public init(allowScroll: Bool) {
+    public init(allowScroll: Bool, drawBackground: Bool, returnKeyType: UIReturnKeyType) {
         self.allowScroll = allowScroll
+        self.drawBackground = drawBackground
+        self.returnKeyType = returnKeyType
     }
     
     public var body: some View {
@@ -369,16 +376,20 @@ public struct MetaTextInputField: View {
                                 attributes: attributes
                             )
                         }()
-                        metaText.textView.returnKeyType = .next
+                        metaText.textView.returnKeyType = returnKeyType
                         metaText.textView.delegate = viewModel
                         metaText.delegate = viewModel
                     }
                 )
                 .padding(.horizontal, margin)
                 .frame(width: geo.size.width, height: geo.size.height)
-                .background(
-                    MastodonSecondaryBackground(fillInDarkModeOnly: true)
-                )
+                .background() {
+                    if drawBackground {
+                        MastodonSecondaryBackground(fillInDarkModeOnly: true)
+                    } else {
+                        EmptyView()
+                    }
+                }
             }
         }
     }

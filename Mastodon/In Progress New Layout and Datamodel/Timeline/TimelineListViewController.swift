@@ -1839,7 +1839,7 @@ struct TimelineListView: View {
                 Text(messageText)
             }
         }
-        .sheet(isPresented: $navigator.isPresentingSheet) {
+        .sheet(isPresented: $navigator.isPresentingTimelineSheet) {
             if let presentedSheet = navigator.presentedSheet {
                 switch presentedSheet {
                 case .timelineSheet(let sheet):

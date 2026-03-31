@@ -263,7 +263,7 @@ struct ProfileView: View {
                     
                     VStack(alignment: .leading, spacing: tinySpacing) {
                         SubsectionHeading(title: "Personal note", subtitle: nil)  // TODO: L10n
-                        MetaTextInputField(allowScroll: true)
+                        MetaTextInputField(allowScroll: true, drawBackground: true, returnKeyType: .done)
                             .environment(editState.valueEditingModel)
                             .frame(height: 72)
                     }
@@ -978,12 +978,24 @@ enum EditingStatus: Equatable {
     case editing(hasChanges: Bool)
     case pushingChanges(success: Bool?)
     
-    var showSaveButton: Bool {
+    enum SaveButton {
+        case noButton
+        case saveInProgress
+        case canSave
+    }
+    
+    var saveButton: SaveButton {
         switch self {
-        case .cannotEdit, .notEditing, .pushingChanges:
-            return false
+        case .cannotEdit, .notEditing:
+            return .noButton
+        case .pushingChanges:
+            return .saveInProgress
         case .editing(let hasChanges):
-            return hasChanges
+            if hasChanges {
+                return .canSave
+            } else {
+                return .noButton
+            }
         }
     }
     
@@ -1080,11 +1092,6 @@ enum EditingStatus: Equatable {
                 guard let self, let update else { return }
                 self.incorporateUpdate(update)
             }
-        
-        editingViewModel.editingStatusBinding = Binding<EditingStatus>(
-            get: { self.editingStatus },
-            set: { newValue in self.editingStatus = newValue }
-        )
     }
     
     public func set(account: MastodonAccount, relationship: MastodonAccount.Relationship, navigator: MastodonNavigationRouter) {
