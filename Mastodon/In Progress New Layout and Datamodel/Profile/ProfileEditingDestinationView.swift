@@ -32,6 +32,7 @@ struct ProfileEditingDestinationView: View {
         if destinationType.expectsModalPresentation {
             NavigationStack() {
                 rootContents
+                    .padding(doublePadding)
                     .navigationTitle(profileViewModel.navigationTitle(destinationType))
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
@@ -71,9 +72,10 @@ struct ProfileEditingDestinationView: View {
                     }
             }
         } else {
-                rootContents
-                    .navigationTitle(profileViewModel.navigationTitle(destinationType))
-                    .navigationBarTitleDisplayMode(.inline)
+            rootContents
+                .padding(doublePadding)
+                .navigationTitle(profileViewModel.navigationTitle(destinationType))
+                .navigationBarTitleDisplayMode(.inline)
         }
       
     }
@@ -142,7 +144,6 @@ struct EditSingleTextView: View {
                 .padding(.leading)
             Spacer()
         }
-        .padding(doublePadding)
         .onAppear() {
             isFocused = true
         }
