@@ -58,6 +58,7 @@ struct ProfileEditingDestinationView: View {
                                                 try await profileViewModel.commitEdits()
                                                 dismiss()
                                             } catch {
+                                                navigator.didReceiveError(error)
                                             }
                                         }
                                     } label: {
