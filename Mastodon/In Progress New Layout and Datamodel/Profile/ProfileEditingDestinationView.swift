@@ -2,6 +2,8 @@
 
 import SwiftUI
 import MastodonAsset
+import MastodonSDK
+import MastodonUI
 
 class ProfileEditingDestinationHostingViewController: UIHostingController<AnyView> {
     private let viewModel: ProfileViewModel
@@ -79,18 +81,22 @@ struct ProfileEditingDestinationView: View {
     @ViewBuilder var rootContents: some View {
         switch destinationType {
         case .displayName:
-            EditDisplayNameView()
+            EditSingleTextView(allowTextScroll: false, textViewHeight: 36, returnKeyType: .done)
                 .environment(editingViewModel)
                 .environment(editingViewModel.displayNameFieldEditingViewModel)
         case .bio:
-            EditBioView()
+            EditSingleTextView(allowTextScroll: true, textViewHeight: 150, returnKeyType: .done)
                 .environment(editingViewModel)
+                .environment(editingViewModel.bioFieldEditingViewModel)
         case .customFields:
-            Text(destinationType.id)
+            CustomProfileFieldsEditor()
+                .environment(editingViewModel)
         case .featuredHashtags:
-            Text(destinationType.id)
+            FeaturedHashtagsEditor()
+                .environment(editingViewModel)
         case .profileTabSettings:
-            Text(destinationType.id)
+            ProfileTabSettingsEditor()
+                .environment(editingViewModel)
         }
     }
 }
@@ -117,16 +123,20 @@ extension ProfileViewModel {
     }
 }
 
-struct EditDisplayNameView: View {
+struct EditSingleTextView: View {
     @Environment(ProfileEditingViewModel.self) var editingViewModel
     @Environment(MetaTextInputFieldViewModel.self) var textInputModel
     
     @FocusState var isFocused: Bool
     
+    let allowTextScroll: Bool
+    let textViewHeight: CGFloat
+    let returnKeyType: UIReturnKeyType
+    
     var body: some View {
         VStack(alignment: .leading, spacing: tinySpacing) {
-            MetaTextInputField(allowScroll: false, drawBackground: false, returnKeyType: .done)
-                .frame(height: 36)
+            MetaTextInputField(allowScroll: allowTextScroll, drawBackground: false, returnKeyType: returnKeyType)
+                .frame(height: textViewHeight)
                 .focused($isFocused)
             CharacterLimitTip()
                 .padding(.leading)
@@ -141,19 +151,6 @@ struct EditDisplayNameView: View {
                 isFocused = false
                 editingViewModel.checkForChanges()
             }
-        }
-    }
-}
-
-struct EditBioView: View {
-    @Environment(ProfileEditingViewModel.self) var editingViewModel
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: tinySpacing) {
-            SubsectionHeading(title: "Bio", subtitle: "Introduce yourself. Recommended 220 character maximum.") // TODO: needs L10n
-            MetaTextInputField(allowScroll: true, drawBackground: false, returnKeyType: .default)
-                .environment(editingViewModel.bioFieldEditingViewModel)
-                .frame(height: 56)
         }
     }
 }
@@ -231,5 +228,215 @@ extension ProfileEditingViewModel {
         if originalFeaturedTags != editedFeaturedTags {
             editedFeaturedTags = originalFeaturedTags
         }
+    }
+}
+
+struct ProfileTabSettingsEditor: View {
+    @Environment(ProfileViewModel.self) var profileViewModel
+    @Environment(ProfileEditingViewModel.self) var editingViewModel
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: doublePadding) {
+            VStack(alignment: .leading) {
+                ProfileSectionHeader(section: .displayPreferences)
+                infoButton(.displayPreferences)
+            }
+            
+            // SHOW/HIDE MEDIA TAB
+            VStack(alignment: .leading) {
+                SubsectionHeading(title: "’Media’ tab settings", subtitle: "‘Media’ is an optional tab that shows your posts containing images or videos.")
+                RadioButtonArray(items: [(ProfileEditingViewModel.MediaTabVisibilitySetting.showMediaTab.rawValue, "Show ‘Media’ tab"), (ProfileEditingViewModel.MediaTabVisibilitySetting.hideMediaTab.rawValue, "Hide ‘Media’ tab")], selectedItem: Binding<Int>(
+                    get: { editingViewModel.mediaTabVisibilitySetting.rawValue },
+                    set: { newValue in
+                        guard newValue != editingViewModel.mediaTabVisibilitySetting.rawValue else { return }
+                        editingViewModel.setMediaTabVisibilitySetting(.init(rawValue: newValue) ?? .showMediaTab)
+                        Task {
+                            try await profileViewModel.commitTabSettingsChanges()
+                        }
+                    }
+                ))
+            }
+            
+            // INCLUDE REPLIES ON MEDIA TAB
+            VStack(alignment: .leading) {
+                SubsectionHeading(title: "Include replies on ’Media’ tab?", subtitle: nil)
+                RadioButtonArray(items: [(ProfileEditingViewModel.MediaTabRepliesSetting.showDirectPostsOnly.rawValue, "Only show my posts"), (ProfileEditingViewModel.MediaTabRepliesSetting.includeMyRepliesToOthers.rawValue, "Show my posts and replies to other people's posts")], selectedItem: Binding<Int>(
+                    get: { editingViewModel.mediaTabRepliesSetting.rawValue },
+                    set: { newValue in
+                        guard newValue != editingViewModel.mediaTabRepliesSetting.rawValue else { return }
+                        editingViewModel.setMediaTabRepliesSetting(.init(rawValue: newValue) ?? .showDirectPostsOnly)
+                        Task {
+                            try await profileViewModel.commitTabSettingsChanges()
+                        }
+                    }
+                ))
+            }
+            
+            // FEATURED TAB SETTINGS
+            VStack(alignment: .leading) {
+                SubsectionHeading(title: "’Featured’ tab settings", subtitle: "’Featured’ is an optional tab where you can showcase other accounts and collections.")
+                RadioButtonArray(items: [(ProfileEditingViewModel.FeaturedTabVisibilitySetting.showFeaturedTab.rawValue, "Show ’Featured’ tab"), (ProfileEditingViewModel.FeaturedTabVisibilitySetting.hideFeaturedTab.rawValue, "Hide ’Featured’ tab")], selectedItem: Binding<Int>(
+                    get: { editingViewModel.featuredTabVisibilitySetting.rawValue },
+                    set: { newValue in
+                        guard newValue != editingViewModel.featuredTabVisibilitySetting.rawValue else { return }
+                        editingViewModel.setFeaturedTabVisibilitySetting(.init(rawValue: newValue) ?? .showFeaturedTab)
+                        Task {
+                            try await profileViewModel.commitTabSettingsChanges()
+                        }
+                    }
+                ))
+            }
+        }
+    }
+}
+
+struct FeaturedHashtagsEditor: View {
+    
+    var body: some View {
+        // FEATURED HASHTAGS
+        
+        HStack {
+            SubsectionHeading(title: "Featured hashtags", subtitle: "Help others identify, and have quick access to, your favorite topics")
+            HStack {
+                Text("Manage")
+                Image(systemName: "chevron.forward")
+            }
+            .font(.subheadline)
+            .fontWeight(.semibold)
+        }
+        .onTapGesture {
+        }
+    }
+}
+
+struct CustomProfileFieldsEditor: View {
+    @Environment(ProfileEditingViewModel.self) var editingViewModel
+    @State private var draggingField: Mastodon.Entity.Field?
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            ProfileSectionHeader(section: .customFields)
+            infoButton(.customFields)
+            SubsectionHeading(title: nil, subtitle: "Add your pronouns, external links, or anything else you’d like to share.") // TODO: needs L10n
+            if let customFields = editingViewModel.customFields, !customFields.isEmpty {
+                customFieldsList(customFields)
+                Divider()
+            }
+            addFieldButton
+            if editingViewModel.showVerifiedLinkTip {
+                verifiedLinksTipBox
+            }
+        }
+    }
+    
+    @ViewBuilder var addFieldButton: some View {
+        Button() {
+            withAnimation {
+                editingViewModel.beginEditingField(.create)
+            }
+        } label: {
+            HStack(spacing: tinySpacing) {
+                Image(systemName: "plus")
+                Text("Add a field") // TODO: needs L10n
+            }
+            .font(.subheadline)
+            .padding(.vertical, tinySpacing)
+            .padding(.horizontal, standardPadding)
+            .background() {
+                Capsule()
+                    .fill(.quinary)
+            }
+        }
+    }
+    
+    @ViewBuilder var verifiedLinksTipBox: some View {
+        HStack(alignment: .top) {
+            Image(systemName: "checkmark.seal")
+                .font(.subheadline)
+                .padding(tinySpacing)
+                .background() {
+                    Circle()
+                        .fill(brandBackgroundColor)
+                }
+            
+            VStack(alignment: .leading) {
+                Spacer()
+                    .frame(height: tinySpacing)
+                Text("Tip: Adding verified links")
+                    .fontWeight(.semibold)
+                Text("You can easily add credibility to your Mastodon account by verifying links to any websites you own.")
+            }
+            .font(.subheadline)
+            
+            Button() {
+                withAnimation {
+                    editingViewModel.showVerifiedLinkTip = false
+                }
+            } label: {
+                Image(systemName: "xmark")
+            }
+        }
+        .padding()
+        .background() {
+            RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
+                .fill(brandBackgroundColor)
+        }
+    }
+    
+    @ViewBuilder func customFieldsList(_ customFields: [Mastodon.Entity.Field]) -> some View {
+        VStack {
+            ForEach(customFields, id: \.self) { field in
+                customFieldRow(field, isDraggable: false)
+                    .onTapGesture {
+                        withAnimation {
+                            editingViewModel.beginEditingField(.edit(field))
+                        }
+                    }
+            }
+        }
+    }
+    
+    @ViewBuilder func customFieldRow(_ field: Mastodon.Entity.Field, isDraggable: Bool, isDragging: Bool) -> some View {
+        if isDragging {
+            customFieldRow(field, isDraggable: isDraggable)
+                .hidden()
+        } else {
+            customFieldRow(field, isDraggable: isDraggable)
+        }
+    }
+    
+    @ViewBuilder func customFieldRow(_ field: Mastodon.Entity.Field, isDraggable: Bool) -> some View {
+        HStack {
+            if isDraggable {
+                Image(systemName: "line.3.horizontal")
+            }
+            
+            VStack(alignment: .leading) {
+                Text(field.name)
+                    .fixedSize(horizontal: false, vertical: true)
+                MastodonContentView.customProfileField(html: field.value, emojis: editingViewModel.emojis, bold: true, lineLimit: 1)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .font(.footnote)
+            
+            Spacer()
+            
+            Button() {
+                withAnimation {
+                    editingViewModel.requestDeleteCustomField(field)
+                }
+            } label: {
+                Image(systemName: "trash")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.red)
+                    .padding(standardPadding)
+                    .background() {
+                        Circle()
+                            .stroke(.quaternary)
+                    }
+            }
+        }
+        .padding()
     }
 }
