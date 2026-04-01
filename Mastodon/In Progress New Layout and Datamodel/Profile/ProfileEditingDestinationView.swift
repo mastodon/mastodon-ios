@@ -105,6 +105,9 @@ struct ProfileEditingDestinationView: View {
         case .verifiedLinkInstructions(let profileViewModel):
             let accountUrl = profileViewModel.account?.metadata.profileUrl?.absoluteString
             VerifiedLinkInstructions(accountUrl: accountUrl)
+        case .editCustomField(let profileViewModel):
+            EditFieldView()
+                .environment(profileViewModel.editingViewModel)
         }
     }
 }
@@ -114,21 +117,29 @@ extension ProfileViewModel {
         // TODO: L10n
         switch destination {
         case .displayName:
-            "Edit display name"
+            return "Edit display name"
         case .bio:
             if bioIsEmpty {
-                "Add bio"
+                return "Add bio"
             } else {
-                "Edit bio"
+                return "Edit bio"
             }
         case .customFields:
-            "Custom fields"
+            return "Custom fields"
         case .featuredHashtags:
-            "Featured hashtags"
+            return "Featured hashtags"
         case .profileTabSettings:
-            "Profile tab settings"
+            return "Profile tab settings"
         case .verifiedLinkInstructions:
-            "How to add a verified link"
+            return "How to add a verified link"
+        case .editCustomField(let profileViewModel):
+            guard let fieldEditingState = profileViewModel.editingViewModel.fieldEditingState else { return "" }
+            switch fieldEditingState.editingField {  // TODO: L10n
+            case .create:
+                return "Add field"
+            case .edit:
+                return "Edit field"
+            }
         }
     }
 }
@@ -226,11 +237,20 @@ extension ProfileViewModel {
         case .verifiedLinkInstructions(let profileViewModel):
             assert(profileViewModel.uuid == uuid)
             break
+        case .editCustomField(let profileViewModel):
+            assert(profileViewModel.uuid == uuid)
+            editingViewModel.discardCurrentCustomFieldEdit()
         }
     }
 }
 
 extension ProfileEditingViewModel {
+    func discardCurrentCustomFieldEdit() {
+        if fieldEditingState != nil {
+            fieldEditingState = nil
+        }
+    }
+    
     func discardCustomFieldEdits() {
         if customFields != initialInfo?.metadata.customFieldsForEdit {
             customFields = initialInfo?.metadata.customFieldsForEdit
@@ -335,9 +355,12 @@ struct CustomProfileFieldsEditor: View {
                 if let customFields = editingViewModel.customFields, !customFields.isEmpty {
                     customFieldsList(customFields)
                 }
-                actionButton(text: "Add field") {
+                actionButton(text: "Add field", isDestructive: false) {
+                    editingViewModel.beginEditingField(.create, profileViewModel: profileViewModel, navigator: navigator)
                 }
-                actionButton(text: "Reorder fields") {
+                if let customFields = editingViewModel.customFields, !customFields.isEmpty {
+                    actionButton(text: "Reorder fields", isDestructive: false) {
+                    }
                 }
                 if editingViewModel.showVerifiedLinkTip {
                     (Text("Tip: Add credibility to your Mastodon account by verifying links to websites you own.  ")
@@ -353,21 +376,6 @@ struct CustomProfileFieldsEditor: View {
                 }
                 Spacer()
             }
-        }
-    }
-    
-    @ViewBuilder func actionButton(text: String, action: @escaping ()->()) -> some View {
-        Button() {
-            action()
-        } label: {
-            Text(text)
-                .foregroundStyle(Asset.Colors.accent.swiftUIColor)
-                .padding(doublePadding)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background() {
-                    Capsule()
-                        .fill(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor)
-                }
         }
     }
     
@@ -412,7 +420,7 @@ struct CustomProfileFieldsEditor: View {
                     .padding(.vertical, doublePadding)
                     .onTapGesture {
                         withAnimation {
-                            editingViewModel.beginEditingField(.edit(field))
+                            editingViewModel.beginEditingField(.edit(field), profileViewModel: profileViewModel, navigator: navigator)
                         }
                     }
                 if customFields.firstIndex(where: { $0.hashValue == field.hashValue }) != customFields.endIndex - 1 {
@@ -509,4 +517,120 @@ struct VerifiedLinkInstructions: View {
             }
         }
     }
+}
+
+struct EditFieldView: View {
+    @Environment(ProfileViewModel.self) var profileViewModel
+    @Environment(ProfileEditingViewModel.self) var editingViewModel
+    @Environment(MastodonNavigationRouter.self) var navigator
+    
+    @Environment(\.dismiss) var dismiss
+    
+    @FocusState var focusedField: FocusableField?
+    
+    let labelWidth: CGFloat = 100
+    
+    enum FocusableField {
+        case label
+        case value
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: doublePadding) {
+            if let editState = editingViewModel.fieldEditingState {
+                HStack(spacing: tinySpacing) {
+                    Text("Label") // TODO: L10n
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(width: labelWidth, alignment: .leading)
+                        .frame(maxHeight: .infinity)
+                    MetaTextInputField(allowScroll: false, drawBackground: false, returnKeyType: .next)
+                        .fixedSize(horizontal: false, vertical: false)
+                        .environment(editState.labelEditingModel)
+                        .focused($focusedField, equals: .label)
+                }
+                .fixedSize(horizontal: false, vertical: true)
+                .onAppear() {
+                    switch editState.editingField {
+                    case .create:
+                        focusedField = .label
+                    case .edit:
+                        break
+                    }
+                }
+                .onChange(of: editState.labelEditingModel.stringContent) { oldValue, newValue in
+                    editingViewModel.checkForChanges()
+                    if newValue.last == "\n" {
+                        focusedField = .value
+                        editingViewModel.checkForChanges()
+                    }
+                }
+                
+                Divider()
+                
+                HStack(spacing: tinySpacing) {
+                    Text("Value") // TODO: L10n
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(width: labelWidth, alignment: .leading)
+                    MetaTextInputField(allowScroll: true, drawBackground: false, returnKeyType: .done)
+                        .frame(maxHeight: 50)
+                        .environment(editState.valueEditingModel)
+                        .focused($focusedField, equals: .value)
+                }
+                .onChange(of: editState.valueEditingModel.stringContent) { oldValue, newValue in
+                    editingViewModel.checkForChanges()
+                    if newValue.last == "\n" {
+                        focusedField = nil
+                        editingViewModel.checkForChanges()
+                    }
+                }
+                
+                tipText("Tip: Try to keep the label and value short (under 25 characters for each is best).")  // TODO: L10n
+                
+                switch editState.editingField {
+                case .create:
+                    EmptyView()
+                case .edit:
+                    actionButton(text: "Delete field", isDestructive: true) {  // TODO: L10n
+                        Task {
+                            editingViewModel.deleteCurrentEditingField()
+                            do {
+                                try await profileViewModel.commitEdits()
+                                dismiss()
+                            } catch {
+                                navigator.didReceiveError(error)
+                            }
+                        }
+                    }
+                }
+                
+                Spacer()
+            }
+            else {
+                Spacer()
+                ProgressView().progressViewStyle(.circular)
+                Spacer()
+            }
+        }
+    }
+}
+
+@ViewBuilder func actionButton(text: String, isDestructive: Bool, action: @escaping ()->()) -> some View {
+    Button() {
+        action()
+    } label: {
+        Text(text)
+            .foregroundStyle(isDestructive ? .red : Asset.Colors.accent.swiftUIColor)
+            .padding(doublePadding)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background() {
+                Capsule()
+                    .fill(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor)
+            }
+    }
+}
+
+@ViewBuilder func tipText(_ text: String) -> some View {
+    Text(text)
+        .font(.footnote)
+        .foregroundStyle(.secondary)
 }

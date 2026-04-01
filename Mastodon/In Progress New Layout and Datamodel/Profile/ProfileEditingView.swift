@@ -30,6 +30,7 @@ enum ProfileEditDestinationType: Identifiable {
     case featuredHashtags(profileViewModel: ProfileViewModel)
     case profileTabSettings(profileViewModel: ProfileViewModel)
     case verifiedLinkInstructions(profileViewModel: ProfileViewModel)
+    case editCustomField(profileViewModel: ProfileViewModel)
     
     var id: String {
         switch self {
@@ -45,6 +46,8 @@ enum ProfileEditDestinationType: Identifiable {
             "profile_tab_settings"
         case .verifiedLinkInstructions:
             "verified_link_instructions"
+        case .editCustomField:
+            "edit_custom_field"
         }
     }
     
@@ -55,6 +58,8 @@ enum ProfileEditDestinationType: Identifiable {
         case .customFields(let profileViewModel), .featuredHashtags(let profileViewModel), .profileTabSettings(let profileViewModel):
             return profileViewModel.editingViewModel
         case .verifiedLinkInstructions(let profileViewModel):
+            return profileViewModel.editingViewModel
+        case .editCustomField(let profileViewModel):
             return profileViewModel.editingViewModel
         }
     }
@@ -67,6 +72,8 @@ enum ProfileEditDestinationType: Identifiable {
             return profileViewModel
         case .verifiedLinkInstructions(let profileViewModel):
             return profileViewModel
+        case .editCustomField(let profileViewModel):
+            return profileViewModel
         }
     }
 }
@@ -74,7 +81,7 @@ enum ProfileEditDestinationType: Identifiable {
 extension ProfileEditDestinationType {
     var expectsModalPresentation: Bool {
         switch self {
-        case .displayName, .bio, .verifiedLinkInstructions:
+        case .displayName, .bio, .verifiedLinkInstructions, .editCustomField:
             true
         case .customFields, .featuredHashtags, .profileTabSettings:
             false
@@ -187,17 +194,19 @@ struct ProfileEditingView: View {
             return "Profile tab settings"
         case .verifiedLinkInstructions:
             return nil
+        case .editCustomField:
+            return nil
         }
     }
     
     func subtitleForRow(_ destination: ProfileEditDestinationType) -> String? {
         switch destination {
-        case .displayName, .bio, .profileTabSettings, .verifiedLinkInstructions:
+        case .displayName, .bio, .profileTabSettings, .verifiedLinkInstructions, .editCustomField:
             return nil
         case .customFields:
-            return "E.g. pronouns, external links, etc."
+            return "E.g. pronouns, external links, etc."  // TODO: L10n
         case .featuredHashtags:
-            return "Allow users to filter your timeline by topic"
+            return "Allow users to filter your timeline by topic"  // TODO: L10n
         }
     }
     
@@ -240,7 +249,7 @@ struct ProfileEditingView: View {
                 Text("\(profileViewModel.featuredHashtagsModel.featuredHashtags.count)")
                     .foregroundStyle(.secondary)
             }
-        case .profileTabSettings, .verifiedLinkInstructions:
+        case .profileTabSettings, .verifiedLinkInstructions, .editCustomField:
             Spacer()
         }
     }
@@ -647,16 +656,30 @@ class ProfileEditingViewModel {
         isAutomatedAccount = account.metadata.isBot
     }
     
-    func beginEditingField(_ fieldType: ORIGINALProfileEditingView.FieldEditType) {
+    func beginEditingField(_ fieldType: ORIGINALProfileEditingView.FieldEditType, profileViewModel: ProfileViewModel, navigator: MastodonNavigationRouter) {
         switch fieldType {
+            // TODO: L10n for all placeholders
         case .create:
             fieldEditingState = .init(editingField: fieldType,
-                                      labelEditingModel: MetaTextInputFieldViewModel(stringContent: "", placeholder: "", characterLimit: .softLimit(100), autocompleteMastodonItems: false),
-                                      valueEditingModel: MetaTextInputFieldViewModel(stringContent: "", placeholder: "", characterLimit: .softLimit(220), autocompleteMastodonItems: true))
+                                      labelEditingModel: MetaTextInputFieldViewModel(stringContent: "", placeholder: "E.g. \"Personal website\"", characterLimit: .softLimit(100), autocompleteMastodonItems: false),
+                                      valueEditingModel: MetaTextInputFieldViewModel(stringContent: "", placeholder: "E.g. \"example.me\"", characterLimit: .softLimit(220), autocompleteMastodonItems: true))
         case .edit(let field):
             fieldEditingState = .init(editingField: fieldType,
-                                      labelEditingModel: MetaTextInputFieldViewModel(stringContent: field.name, placeholder: "", characterLimit: .softLimit(100), autocompleteMastodonItems: false),
-                                      valueEditingModel: MetaTextInputFieldViewModel(stringContent: field.value, placeholder: "", characterLimit: .softLimit(220), autocompleteMastodonItems: true))
+                                      labelEditingModel: MetaTextInputFieldViewModel(stringContent: field.name, placeholder: "E.g. \"Personal website\"", characterLimit: .softLimit(100), autocompleteMastodonItems: false),
+                                      valueEditingModel: MetaTextInputFieldViewModel(stringContent: field.value, placeholder: "E.g. \"example.me\"", characterLimit: .softLimit(220), autocompleteMastodonItems: true))
+        }
+        navigator.presentModal(.editProfileNavigation(destination: .editCustomField(profileViewModel: profileViewModel)))
+    }
+    
+    func deleteCurrentEditingField() {
+        guard let fieldEditingState else { return }
+        switch fieldEditingState.editingField {
+        case .create:
+            return
+        case .edit(let field):
+            self.fieldEditingState = nil
+            guard let index = customFields?.firstIndex(of: field) else { return }
+            customFields?.remove(at: index)
         }
     }
     
@@ -925,6 +948,7 @@ extension ProfileViewModel {
         let updatedAvatarImage = sizeLimitedImage(editingViewModel.avatarConfirmedCroppedImage, noLargerThan: avatarImageMaxSizeInPixels)
         let updatedBannerImage = sizeLimitedImage(editingViewModel.confirmedBannerImage, noLargerThan: bannerImageMaxSizeInPixels)
         
+        editingViewModel.commitEditingField()
         let customFieldsData = editingViewModel.customFields?.map { Mastodon.Entity.Field(name: $0.name, value: $0.value) }
         
         let query = Mastodon.API.Account.UpdateCredentialQuery(
