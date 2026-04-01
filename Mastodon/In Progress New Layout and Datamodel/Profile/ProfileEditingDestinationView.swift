@@ -20,6 +20,17 @@ class ProfileEditingDestinationHostingViewController: UIHostingController<AnyVie
     }
 }
 
+extension ProfileEditDestinationType {
+    var doNotPad: Bool {
+        switch self {
+        case .reorderCustomFields:
+            true
+        default:
+            false
+        }
+    }
+}
+
 struct ProfileEditingDestinationView: View {
     @Environment(MastodonNavigationRouter.self) var navigator
     @Environment(ProfileViewModel.self) var profileViewModel
@@ -32,8 +43,8 @@ struct ProfileEditingDestinationView: View {
     var body: some View {
         if destinationType.expectsModalPresentation {
             NavigationStack() {
-                rootContents
-                    .padding(doublePadding)
+                contents
+                    .padding(destinationType.doNotPad ? 0 : doublePadding)
                     .navigationTitle(profileViewModel.navigationTitle(destinationType))
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
@@ -74,7 +85,7 @@ struct ProfileEditingDestinationView: View {
                     }
             }
         } else {
-            rootContents
+            contents
                 .padding(doublePadding)
                 .navigationTitle(profileViewModel.navigationTitle(destinationType))
                 .navigationBarTitleDisplayMode(.inline)
@@ -82,7 +93,7 @@ struct ProfileEditingDestinationView: View {
       
     }
     
-    @ViewBuilder var rootContents: some View {
+    @ViewBuilder var contents: some View {
         switch destinationType {
         case .displayName:
             EditSingleTextView(allowTextScroll: false, textViewHeight: 36, returnKeyType: .done)
@@ -438,7 +449,7 @@ struct CustomProfileFieldsEditor: View {
                 }
             }
         }
-        .padding(.horizontal, doublePadding)
+        .padding(doublePadding)
         .background {
             RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
                 .fill(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor)
@@ -642,7 +653,8 @@ struct ReorderCustomFieldsView: View {
             .onChange(of: editingViewModel.reorderingCustomFields) { oldValue, newValue in
                 editingViewModel.checkForChanges()
             }
-        }.listStyle(.plain)
+            .ignoresSafeArea()
+        }.listStyle(.insetGrouped)
     }
 }
 
