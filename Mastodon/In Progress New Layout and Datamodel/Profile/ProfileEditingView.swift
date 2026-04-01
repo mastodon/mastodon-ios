@@ -29,6 +29,7 @@ enum ProfileEditDestinationType: Identifiable {
     case customFields(profileViewModel: ProfileViewModel)
     case featuredHashtags(profileViewModel: ProfileViewModel)
     case profileTabSettings(profileViewModel: ProfileViewModel)
+    case verifiedLinkInstructions(profileViewModel: ProfileViewModel)
     
     var id: String {
         switch self {
@@ -41,7 +42,9 @@ enum ProfileEditDestinationType: Identifiable {
         case .featuredHashtags:
             "featured_hashtags"
         case .profileTabSettings:
-            "profile tab settings"
+            "profile_tab_settings"
+        case .verifiedLinkInstructions:
+            "verified_link_instructions"
         }
     }
     
@@ -50,6 +53,8 @@ enum ProfileEditDestinationType: Identifiable {
         case .displayName(let profileViewModel), .bio(let profileViewModel):
             return profileViewModel.editingViewModel
         case .customFields(let profileViewModel), .featuredHashtags(let profileViewModel), .profileTabSettings(let profileViewModel):
+            return profileViewModel.editingViewModel
+        case .verifiedLinkInstructions(let profileViewModel):
             return profileViewModel.editingViewModel
         }
     }
@@ -60,6 +65,8 @@ enum ProfileEditDestinationType: Identifiable {
             return profileViewModel
         case .customFields(let profileViewModel), .featuredHashtags(let profileViewModel), .profileTabSettings(let profileViewModel):
             return profileViewModel
+        case .verifiedLinkInstructions(let profileViewModel):
+            return profileViewModel
         }
     }
 }
@@ -67,7 +74,7 @@ enum ProfileEditDestinationType: Identifiable {
 extension ProfileEditDestinationType {
     var expectsModalPresentation: Bool {
         switch self {
-        case .displayName, .bio:
+        case .displayName, .bio, .verifiedLinkInstructions:
             true
         case .customFields, .featuredHashtags, .profileTabSettings:
             false
@@ -131,7 +138,7 @@ struct ProfileEditingView: View {
     func profileEditRow(_ destination: ProfileEditDestinationType) -> some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(mainLabelForRow(destination))
+                Text(mainLabelForRow(destination) ?? "")
                     .lineLimit(1)
                     .foregroundColor(mainLabelColorForRow(destination))
                 if let subtitle = subtitleForRow(destination) {
@@ -161,7 +168,7 @@ struct ProfileEditingView: View {
         }
     }
     
-    func mainLabelForRow(_ destination: ProfileEditDestinationType) -> String {
+    func mainLabelForRow(_ destination: ProfileEditDestinationType) -> String? {
         // TODO: L10n
         switch destination {
         case .displayName:
@@ -178,21 +185,19 @@ struct ProfileEditingView: View {
             return "Featured hashtags"
         case .profileTabSettings:
             return "Profile tab settings"
+        case .verifiedLinkInstructions:
+            return nil
         }
     }
     
     func subtitleForRow(_ destination: ProfileEditDestinationType) -> String? {
         switch destination {
-        case .displayName:
-            return nil
-        case .bio:
+        case .displayName, .bio, .profileTabSettings, .verifiedLinkInstructions:
             return nil
         case .customFields:
             return "E.g. pronouns, external links, etc."
         case .featuredHashtags:
             return "Allow users to filter your timeline by topic"
-        case .profileTabSettings:
-            return nil
         }
     }
     
@@ -235,7 +240,7 @@ struct ProfileEditingView: View {
                 Text("\(profileViewModel.featuredHashtagsModel.featuredHashtags.count)")
                     .foregroundStyle(.secondary)
             }
-        case .profileTabSettings:
+        case .profileTabSettings, .verifiedLinkInstructions:
             Spacer()
         }
     }

@@ -21,6 +21,7 @@ class ProfileEditingDestinationHostingViewController: UIHostingController<AnyVie
 }
 
 struct ProfileEditingDestinationView: View {
+    @Environment(MastodonNavigationRouter.self) var navigator
     @Environment(ProfileViewModel.self) var profileViewModel
     @Environment(ProfileEditingViewModel.self) var editingViewModel
     
@@ -92,6 +93,8 @@ struct ProfileEditingDestinationView: View {
                 .environment(editingViewModel.bioFieldEditingViewModel)
         case .customFields:
             CustomProfileFieldsEditor()
+                .environment(navigator)
+                .environment(profileViewModel)
                 .environment(editingViewModel)
         case .featuredHashtags:
             FeaturedHashtagsEditor()
@@ -99,6 +102,9 @@ struct ProfileEditingDestinationView: View {
         case .profileTabSettings:
             ProfileTabSettingsEditor()
                 .environment(editingViewModel)
+        case .verifiedLinkInstructions(let profileViewModel):
+            let accountUrl = profileViewModel.account?.metadata.profileUrl?.absoluteString
+            VerifiedLinkInstructions(accountUrl: accountUrl)
         }
     }
 }
@@ -121,6 +127,8 @@ extension ProfileViewModel {
             "Featured hashtags"
         case .profileTabSettings:
             "Profile tab settings"
+        case .verifiedLinkInstructions:
+            "How to add a verified link"
         }
     }
 }
@@ -199,21 +207,25 @@ struct CharacterLimitTip: View {
 extension ProfileViewModel {
     func discardEdits(_ editType: ProfileEditDestinationType) {
         switch editType {
-        case .displayName(profileViewModel: let profileViewModel):
+        case .displayName(let profileViewModel):
             assert(profileViewModel.uuid == uuid)
             editingViewModel.displayNameFieldEditingViewModel.discardChanges()
-        case .bio(profileViewModel: let profileViewModel):
+        case .bio(let profileViewModel):
             assert(profileViewModel.uuid == uuid)
             editingViewModel.bioFieldEditingViewModel.discardChanges()
-        case .customFields(profileViewModel: let profileViewModel):
+        case .customFields(let profileViewModel):
             assert(profileViewModel.uuid == uuid)
             editingViewModel.discardCustomFieldEdits()
-        case .featuredHashtags(profileViewModel: let profileViewModel):
+        case .featuredHashtags(let profileViewModel):
             assert(profileViewModel.uuid == uuid)
             editingViewModel.discardFeaturedHashtagEdits()
-        case .profileTabSettings(profileViewModel: let profileViewModel):
+        case .profileTabSettings(let profileViewModel):
             assert(profileViewModel.uuid == uuid)
             assertionFailure("profile tab setting changes are saved immediately and cannot be discarded")
+            break
+        case .verifiedLinkInstructions(let profileViewModel):
+            assert(profileViewModel.uuid == uuid)
+            break
         }
     }
 }
@@ -311,21 +323,30 @@ struct FeaturedHashtagsEditor: View {
 }
 
 struct CustomProfileFieldsEditor: View {
+    @Environment(MastodonNavigationRouter.self) var navigator
+    @Environment(ProfileViewModel.self) var profileViewModel
     @Environment(ProfileEditingViewModel.self) var editingViewModel
-    @State private var draggingField: Mastodon.Entity.Field?
     
     var body: some View {
+        // TODO: L10n
         VStack(alignment: .leading) {
-            ProfileSectionHeader(section: .customFields)
-            infoButton(.customFields)
-            SubsectionHeading(title: nil, subtitle: "Add your pronouns, external links, or anything else you’d like to share.") // TODO: needs L10n
+            SubsectionHeading(title: nil, subtitle: "Add your pronouns, external links, or anything else you’d like to share.")
             if let customFields = editingViewModel.customFields, !customFields.isEmpty {
                 customFieldsList(customFields)
                 Divider()
             }
             addFieldButton
             if editingViewModel.showVerifiedLinkTip {
-                verifiedLinksTipBox
+                (Text("Tip: Add credibility to your Mastodon account by verifying links to websites you own.  ")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                + Text("Learn more")
+                    .font(.footnote)
+                    .fontWeight(.bold)
+                    .foregroundStyle(Asset.Colors.accent.swiftUIColor))
+                .onTapGesture {
+                    navigator.presentModal(.editProfileNavigation(destination: .verifiedLinkInstructions(profileViewModel: profileViewModel)))
+                }
             }
         }
     }
@@ -439,5 +460,70 @@ struct CustomProfileFieldsEditor: View {
             }
         }
         .padding()
+    }
+}
+
+struct VerifiedLinkInstructions: View {
+    let accountUrl: String?
+    
+    var body: some View {
+        // TODO: L10n
+        ScrollView() {
+            VStack(alignment: .leading, spacing: standardPadding) {
+                Text("Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:")
+                
+                // STEP 1:
+                HStack(alignment: .top) {
+                    Image(systemName: "1.circle")
+                        .font(.title2)
+                        .foregroundStyle(.primary, .tertiary)
+                    VStack(alignment: .leading) {
+                        Text("Copy the HTML code below")
+                            .fontWeight(.bold)
+                        VStack(alignment: .leading) {
+                            let codeSnippet = "<a rel=\"me\" href=\"\(accountUrl ?? "<YOUR_ACCOUNT_URL_GOES_HERE>")\">Mastodon</a>"
+                            Text(codeSnippet)
+                            Divider()
+                            Button() {
+                                UIPasteboard.general.string = codeSnippet
+                            } label: {
+                                Text("Copy code")
+                                    .foregroundStyle(Asset.Colors.accent.swiftUIColor)
+                            }
+                        }
+                        .padding()
+                        .background() {
+                            RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
+                                .fill(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor)
+                        }
+                    }
+                }
+                
+                // STEP 2:
+                HStack(alignment: .top) {
+                    Image(systemName: "2.circle")
+                        .font(.title2)
+                        .foregroundStyle(.primary, .tertiary)
+                    VStack(alignment: .leading) {
+                        Text("Paste the code into the header HTML of your website")
+                            .fontWeight(.bold)
+                        Text("Adding the code to your header allows the <a> element to remain invisible. The rel=\"me\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it.")
+                    }
+                }
+                
+                // STEP 3:
+                HStack(alignment: .top) {
+                    Image(systemName: "3.circle")
+                        .font(.title2)
+                        .foregroundStyle(.primary, .tertiary)
+                    VStack(alignment: .leading) {
+                        Text("Add your website as a custom field")
+                            .fontWeight(.bold)
+                        Text("If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification.")
+                    }
+                }
+                Spacer()
+            }
+        }
     }
 }
