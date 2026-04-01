@@ -70,15 +70,6 @@ struct ProfileView: View {
                     .navigationDestination(for: MastodonNavigationDestination.self) { destination in
                         navigationRouter.destinationView(destination)
                     }
-                    .onChange(of: viewModel.editingStatus) { oldValue, newValue in
-                        switch newValue {
-                        case .cannotEdit, .editing, .notEditing:
-                            break
-                        case .pushingChanges(let success):
-                            guard success == true else { break }
-                            navigationRouter.navigationPath.removeLast()
-                        }
-                    }
                     .onChange(of: navigationRouter.navigationPath) { oldValue, newValue in
                         if newValue.isEmpty {
                             viewModel.editingStatus = .notEditing
