@@ -329,45 +329,45 @@ struct CustomProfileFieldsEditor: View {
     
     var body: some View {
         // TODO: L10n
-        VStack(alignment: .leading) {
-            SubsectionHeading(title: nil, subtitle: "Add your pronouns, external links, or anything else you’d like to share.")
-            if let customFields = editingViewModel.customFields, !customFields.isEmpty {
-                customFieldsList(customFields)
-                Divider()
-            }
-            addFieldButton
-            if editingViewModel.showVerifiedLinkTip {
-                (Text("Tip: Add credibility to your Mastodon account by verifying links to websites you own.  ")
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
-                + Text("Learn more")
-                    .font(.footnote)
-                    .fontWeight(.bold)
-                    .foregroundStyle(Asset.Colors.accent.swiftUIColor))
-                .onTapGesture {
-                    navigator.presentModal(.editProfileNavigation(destination: .verifiedLinkInstructions(profileViewModel: profileViewModel)))
+        ScrollView() {
+            VStack(alignment: .leading, spacing: doublePadding) {
+                SubsectionHeading(title: nil, subtitle: "Add your pronouns, external links, or anything else you’d like to share.")
+                if let customFields = editingViewModel.customFields, !customFields.isEmpty {
+                    customFieldsList(customFields)
                 }
+                actionButton(text: "Add field") {
+                }
+                actionButton(text: "Reorder fields") {
+                }
+                if editingViewModel.showVerifiedLinkTip {
+                    (Text("Tip: Add credibility to your Mastodon account by verifying links to websites you own.  ")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                     + Text("Learn more")
+                        .font(.footnote)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Asset.Colors.accent.swiftUIColor))
+                    .onTapGesture {
+                        navigator.presentModal(.editProfileNavigation(destination: .verifiedLinkInstructions(profileViewModel: profileViewModel)))
+                    }
+                }
+                Spacer()
             }
         }
     }
     
-    @ViewBuilder var addFieldButton: some View {
+    @ViewBuilder func actionButton(text: String, action: @escaping ()->()) -> some View {
         Button() {
-            withAnimation {
-                editingViewModel.beginEditingField(.create)
-            }
+            action()
         } label: {
-            HStack(spacing: tinySpacing) {
-                Image(systemName: "plus")
-                Text("Add a field") // TODO: needs L10n
-            }
-            .font(.subheadline)
-            .padding(.vertical, tinySpacing)
-            .padding(.horizontal, standardPadding)
-            .background() {
-                Capsule()
-                    .fill(.quinary)
-            }
+            Text(text)
+                .foregroundStyle(Asset.Colors.accent.swiftUIColor)
+                .padding(doublePadding)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background() {
+                    Capsule()
+                        .fill(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor)
+                }
         }
     }
     
@@ -408,58 +408,41 @@ struct CustomProfileFieldsEditor: View {
     @ViewBuilder func customFieldsList(_ customFields: [Mastodon.Entity.Field]) -> some View {
         VStack {
             ForEach(customFields, id: \.self) { field in
-                customFieldRow(field, isDraggable: false)
+                customFieldRow(field)
+                    .padding(.vertical, doublePadding)
                     .onTapGesture {
                         withAnimation {
                             editingViewModel.beginEditingField(.edit(field))
                         }
                     }
-            }
-        }
-    }
-    
-    @ViewBuilder func customFieldRow(_ field: Mastodon.Entity.Field, isDraggable: Bool, isDragging: Bool) -> some View {
-        if isDragging {
-            customFieldRow(field, isDraggable: isDraggable)
-                .hidden()
-        } else {
-            customFieldRow(field, isDraggable: isDraggable)
-        }
-    }
-    
-    @ViewBuilder func customFieldRow(_ field: Mastodon.Entity.Field, isDraggable: Bool) -> some View {
-        HStack {
-            if isDraggable {
-                Image(systemName: "line.3.horizontal")
-            }
-            
-            VStack(alignment: .leading) {
-                Text(field.name)
-                    .fixedSize(horizontal: false, vertical: true)
-                MastodonContentView.customProfileField(html: field.value, emojis: editingViewModel.emojis, bold: true, lineLimit: 1)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-            .font(.footnote)
-            
-            Spacer()
-            
-            Button() {
-                withAnimation {
-                    editingViewModel.requestDeleteCustomField(field)
+                if customFields.firstIndex(where: { $0.hashValue == field.hashValue }) != customFields.endIndex - 1 {
+                    Divider()
                 }
-            } label: {
-                Image(systemName: "trash")
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.red)
-                    .padding(standardPadding)
-                    .background() {
-                        Circle()
-                            .stroke(.quaternary)
-                    }
             }
         }
-        .padding()
+        .padding(.horizontal, doublePadding)
+        .background {
+            RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
+                .fill(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor)
+        }
+    }
+    
+    @ViewBuilder func customFieldRow(_ field: Mastodon.Entity.Field) -> some View {
+        HStack {
+            HStack(alignment: .firstTextBaseline) {
+                MastodonContentView.profileEditingRow(html: field.name, emojis: editingViewModel.emojis, isLabel: true)
+                    .fixedSize(horizontal: true, vertical: false)
+                Spacer()
+                MastodonContentView.profileEditingRow(html: field.value, emojis: editingViewModel.emojis, isLabel: false)
+                    .fixedSize(horizontal: false, vertical: true)
+                if field.verifiedAt != nil {
+                    Asset.Scene.Profile.About.verifiedLinkBadge.swiftUIImage
+                }
+                Image(systemName: "chevron.forward")
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .frame(maxWidth: .infinity)
     }
 }
 

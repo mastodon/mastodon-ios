@@ -220,7 +220,7 @@ struct ProfileEditingView: View {
         switch destination {
         case .displayName:
             if let displayName = profileViewModel.account?.displayInfo.displayName {
-                MastodonContentView.profileEditingRowContent(html: displayName, emojis: profileViewModel.account?.displayInfo.emojis ?? [])
+                MastodonContentView.profileEditingRow(html: displayName, emojis: profileViewModel.account?.displayInfo.emojis ?? [], isLabel: false)
             } else {
                 Spacer()
             }
@@ -228,7 +228,7 @@ struct ProfileEditingView: View {
             if profileViewModel.bioIsEmpty {
                 Spacer()
             } else if let bio = profileViewModel.account?.bioForDisplay {
-                MastodonContentView.profileEditingRowContent(html: bio, emojis: profileViewModel.account?.displayInfo.emojis ?? [])
+                MastodonContentView.profileEditingRow(html: bio, emojis: profileViewModel.account?.displayInfo.emojis ?? [], isLabel: false)
             }
         case .customFields:
             Text("\(profileViewModel.account?.metadata.customFieldsForEdit?.count ?? 0)")
