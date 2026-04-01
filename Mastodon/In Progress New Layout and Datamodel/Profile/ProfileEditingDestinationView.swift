@@ -109,6 +109,9 @@ struct ProfileEditingDestinationView: View {
         case .editCustomField(let profileViewModel):
             EditFieldView()
                 .environment(profileViewModel.editingViewModel)
+        case .reorderCustomFields(let profileViewModel):
+            ReorderCustomFieldsView()
+                .environment(profileViewModel.editingViewModel)
         }
     }
 }
@@ -141,6 +144,8 @@ extension ProfileViewModel {
             case .edit:
                 return "Edit field"
             }
+        case .reorderCustomFields:
+            return "Reorder fields"
         }
     }
 }
@@ -241,6 +246,9 @@ extension ProfileViewModel {
         case .editCustomField(let profileViewModel):
             assert(profileViewModel.uuid == uuid)
             editingViewModel.discardCurrentCustomFieldEdit()
+        case .reorderCustomFields(let profileViewModel):
+            assert(profileViewModel.uuid == uuid)
+            editingViewModel.discardCustomFieldEdits()
         }
     }
 }
@@ -361,6 +369,7 @@ struct CustomProfileFieldsEditor: View {
                 }
                 if let customFields = editingViewModel.customFields, !customFields.isEmpty {
                     actionButton(text: "Reorder fields", isDestructive: false) {
+                        editingViewModel.beginReorderingFields(profileViewModel: profileViewModel, navigator: navigator)
                     }
                 }
                 if editingViewModel.showVerifiedLinkTip {
@@ -417,7 +426,7 @@ struct CustomProfileFieldsEditor: View {
     @ViewBuilder func customFieldsList(_ customFields: [Mastodon.Entity.Field]) -> some View {
         VStack {
             ForEach(customFields, id: \.self) { field in
-                customFieldRow(field)
+                customFieldRow(field, emojis: editingViewModel.emojis, isReordering: false)
                     .padding(.vertical, doublePadding)
                     .onTapGesture {
                         withAnimation {
@@ -435,24 +444,29 @@ struct CustomProfileFieldsEditor: View {
                 .fill(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor)
         }
     }
-    
-    @ViewBuilder func customFieldRow(_ field: Mastodon.Entity.Field) -> some View {
-        HStack {
-            HStack(alignment: .firstTextBaseline) {
-                MastodonContentView.profileEditingRow(html: field.name, emojis: editingViewModel.emojis, isLabel: true)
-                    .fixedSize(horizontal: true, vertical: false)
-                Spacer()
-                MastodonContentView.profileEditingRow(html: field.value, emojis: editingViewModel.emojis, isLabel: false)
-                    .fixedSize(horizontal: false, vertical: true)
-                if field.verifiedAt != nil {
-                    Asset.Scene.Profile.About.verifiedLinkBadge.swiftUIImage
-                }
+}
+
+@ViewBuilder func customFieldRow(_ field: Mastodon.Entity.Field, emojis: [Mastodon.Entity.Emoji], isReordering: Bool) -> some View {
+    HStack {
+        HStack(alignment: .firstTextBaseline) {
+            MastodonContentView.profileEditingRow(html: field.name, emojis: emojis, isLabel: true)
+                .fixedSize(horizontal: true, vertical: false)
+            Spacer()
+            MastodonContentView.profileEditingRow(html: field.value, emojis: emojis, isLabel: false)
+                .fixedSize(horizontal: false, vertical: true)
+            if field.verifiedAt != nil {
+                Asset.Scene.Profile.About.verifiedLinkBadge.swiftUIImage
+            }
+            if isReordering {
+                Image(systemName: "line.3.horizontal")
+                    .foregroundStyle(.secondary)
+            } else {
                 Image(systemName: "chevron.forward")
                     .foregroundStyle(.secondary)
             }
         }
-        .frame(maxWidth: .infinity)
     }
+    .frame(maxWidth: .infinity)
 }
 
 struct VerifiedLinkInstructions: View {
@@ -612,6 +626,23 @@ struct EditFieldView: View {
                 Spacer()
             }
         }
+    }
+}
+
+struct ReorderCustomFieldsView: View {
+    @Environment(ProfileEditingViewModel.self) var editingViewModel
+    
+    var body: some View {
+        @Bindable var editingViewModel = editingViewModel
+        List {
+            ForEach($editingViewModel.reorderingCustomFields, id: \.self, editActions: .all) { $field in
+                customFieldRow(field, emojis: editingViewModel.emojis, isReordering: true)
+                    .padding(.vertical, doublePadding)
+            }
+            .onChange(of: editingViewModel.reorderingCustomFields) { oldValue, newValue in
+                editingViewModel.checkForChanges()
+            }
+        }.listStyle(.plain)
     }
 }
 

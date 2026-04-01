@@ -31,6 +31,7 @@ enum ProfileEditDestinationType: Identifiable {
     case profileTabSettings(profileViewModel: ProfileViewModel)
     case verifiedLinkInstructions(profileViewModel: ProfileViewModel)
     case editCustomField(profileViewModel: ProfileViewModel)
+    case reorderCustomFields(profileViewModel: ProfileViewModel)
     
     var id: String {
         switch self {
@@ -48,6 +49,8 @@ enum ProfileEditDestinationType: Identifiable {
             "verified_link_instructions"
         case .editCustomField:
             "edit_custom_field"
+        case .reorderCustomFields:
+            "reorder_custom_fields"
         }
     }
     
@@ -60,6 +63,8 @@ enum ProfileEditDestinationType: Identifiable {
         case .verifiedLinkInstructions(let profileViewModel):
             return profileViewModel.editingViewModel
         case .editCustomField(let profileViewModel):
+            return profileViewModel.editingViewModel
+        case .reorderCustomFields(let profileViewModel):
             return profileViewModel.editingViewModel
         }
     }
@@ -74,6 +79,8 @@ enum ProfileEditDestinationType: Identifiable {
             return profileViewModel
         case .editCustomField(let profileViewModel):
             return profileViewModel
+        case .reorderCustomFields(let profileViewModel):
+            return profileViewModel
         }
     }
 }
@@ -81,7 +88,7 @@ enum ProfileEditDestinationType: Identifiable {
 extension ProfileEditDestinationType {
     var expectsModalPresentation: Bool {
         switch self {
-        case .displayName, .bio, .verifiedLinkInstructions, .editCustomField:
+        case .displayName, .bio, .verifiedLinkInstructions, .editCustomField, .reorderCustomFields:
             true
         case .customFields, .featuredHashtags, .profileTabSettings:
             false
@@ -194,14 +201,14 @@ struct ProfileEditingView: View {
             return "Profile tab settings"
         case .verifiedLinkInstructions:
             return nil
-        case .editCustomField:
+        case .editCustomField, .reorderCustomFields:
             return nil
         }
     }
     
     func subtitleForRow(_ destination: ProfileEditDestinationType) -> String? {
         switch destination {
-        case .displayName, .bio, .profileTabSettings, .verifiedLinkInstructions, .editCustomField:
+        case .displayName, .bio, .profileTabSettings, .verifiedLinkInstructions, .editCustomField, .reorderCustomFields:
             return nil
         case .customFields:
             return "E.g. pronouns, external links, etc."  // TODO: L10n
@@ -249,7 +256,7 @@ struct ProfileEditingView: View {
                 Text("\(profileViewModel.featuredHashtagsModel.featuredHashtags.count)")
                     .foregroundStyle(.secondary)
             }
-        case .profileTabSettings, .verifiedLinkInstructions, .editCustomField:
+        case .profileTabSettings, .verifiedLinkInstructions, .editCustomField, .reorderCustomFields:
             Spacer()
         }
     }
@@ -528,6 +535,7 @@ class ProfileEditingViewModel {
     let bioFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "Describe yourself and/or this account.", characterLimit: .softLimit(220), autocompleteMastodonItems: true) // TODO: L10n
     
     var fieldEditingState: ORIGINALProfileEditingView.FieldEditingState?
+    var isReorderingCustomFields: Bool = false
     
     var selectedBannerImage: Binding<[PhotosPickerItem]>
     var bannerImagePhotosPickerItem: PhotosPickerItem?
@@ -546,6 +554,7 @@ class ProfileEditingViewModel {
     private(set) var featuredTabVisibilitySetting: FeaturedTabVisibilitySetting = .showFeaturedTab
     
     var customFields: [Mastodon.Entity.Field]? = nil
+    var reorderingCustomFields: [Mastodon.Entity.Field] = []
     var emojis: [Mastodon.Entity.Emoji] = []
     
     var originalFeaturedTags: [Mastodon.Entity.FeaturedTag] = []
@@ -671,6 +680,12 @@ class ProfileEditingViewModel {
         navigator.presentModal(.editProfileNavigation(destination: .editCustomField(profileViewModel: profileViewModel)))
     }
     
+    func beginReorderingFields(profileViewModel: ProfileViewModel, navigator: MastodonNavigationRouter) {
+        isReorderingCustomFields = true
+        reorderingCustomFields = customFields ?? []
+        navigator.presentModal(.editProfileNavigation(destination: .reorderCustomFields(profileViewModel: profileViewModel)))
+    }
+    
     func deleteCurrentEditingField() {
         guard let fieldEditingState else { return }
         switch fieldEditingState.editingField {
@@ -703,6 +718,13 @@ class ProfileEditingViewModel {
         }
         self.fieldEditingState = nil
         
+        checkForChanges()
+    }
+    
+    func commitCustomFieldsReordering() {
+        guard isReorderingCustomFields else { return }
+        customFields = reorderingCustomFields
+        isReorderingCustomFields = false
         checkForChanges()
     }
     
@@ -949,6 +971,7 @@ extension ProfileViewModel {
         let updatedBannerImage = sizeLimitedImage(editingViewModel.confirmedBannerImage, noLargerThan: bannerImageMaxSizeInPixels)
         
         editingViewModel.commitEditingField()
+        editingViewModel.commitCustomFieldsReordering()
         let customFieldsData = editingViewModel.customFields?.map { Mastodon.Entity.Field(name: $0.name, value: $0.value) }
         
         let query = Mastodon.API.Account.UpdateCredentialQuery(
