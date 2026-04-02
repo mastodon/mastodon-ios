@@ -298,61 +298,132 @@ extension ProfileEditingViewModel {
 }
 
 struct ProfileTabSettingsEditor: View {
+    @Environment(MastodonNavigationRouter.self) var navigator
     @Environment(ProfileViewModel.self) var profileViewModel
     @Environment(ProfileEditingViewModel.self) var editingViewModel
     
+    @State var showMediaTabToggleState = false
+    @State var showFeaturedTabToggleState = false
+    @State var showMediaRepliesToggleState = false
+
+    @State var isSavingMediaTabSetting = false
+    @State var isSavingMediaRepliesSetting = false
+    @State var isSavingFeaturedTabSetting = false
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: doublePadding) {
-            VStack(alignment: .leading) {
-                ProfileSectionHeader(section: .displayPreferences)
-                infoButton(.displayPreferences)
-            }
-            
+        VStack {
+            // TODO: L10n
             // SHOW/HIDE MEDIA TAB
-            VStack(alignment: .leading) {
-                SubsectionHeading(title: "’Media’ tab settings", subtitle: "‘Media’ is an optional tab that shows your posts containing images or videos.")
-                RadioButtonArray(items: [(ProfileEditingViewModel.MediaTabVisibilitySetting.showMediaTab.rawValue, "Show ‘Media’ tab"), (ProfileEditingViewModel.MediaTabVisibilitySetting.hideMediaTab.rawValue, "Hide ‘Media’ tab")], selectedItem: Binding<Int>(
-                    get: { editingViewModel.mediaTabVisibilitySetting.rawValue },
-                    set: { newValue in
-                        guard newValue != editingViewModel.mediaTabVisibilitySetting.rawValue else { return }
-                        editingViewModel.setMediaTabVisibilitySetting(.init(rawValue: newValue) ?? .showMediaTab)
-                        Task {
-                            try await profileViewModel.commitTabSettingsChanges()
-                        }
-                    }
-                ))
+            VStack {
+                toggleRow(label: "'Media' tab", subtitle: "Shows your posts containing media", toggleState: $showMediaTabToggleState, isSaving: $isSavingMediaTabSetting)
+                
+                if showMediaTabToggleState {
+                    Spacer()
+                        .frame(height: tinySpacing)
+                    Divider()
+                    Spacer()
+                        .frame(height: standardPadding)
+                    toggleRow(label: "Include replies", subtitle: nil, toggleState: $showMediaRepliesToggleState, isSaving: $isSavingMediaRepliesSetting)
+                }
+            }
+            .padding(doublePadding)
+            .background {
+                RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
+                    .fill(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor)
             }
             
-            // INCLUDE REPLIES ON MEDIA TAB
-            VStack(alignment: .leading) {
-                SubsectionHeading(title: "Include replies on ’Media’ tab?", subtitle: nil)
-                RadioButtonArray(items: [(ProfileEditingViewModel.MediaTabRepliesSetting.showDirectPostsOnly.rawValue, "Only show my posts"), (ProfileEditingViewModel.MediaTabRepliesSetting.includeMyRepliesToOthers.rawValue, "Show my posts and replies to other people's posts")], selectedItem: Binding<Int>(
-                    get: { editingViewModel.mediaTabRepliesSetting.rawValue },
-                    set: { newValue in
-                        guard newValue != editingViewModel.mediaTabRepliesSetting.rawValue else { return }
-                        editingViewModel.setMediaTabRepliesSetting(.init(rawValue: newValue) ?? .showDirectPostsOnly)
-                        Task {
-                            try await profileViewModel.commitTabSettingsChanges()
-                        }
-                    }
-                ))
+            // SHOW/HIDE FEATURED TAB
+            VStack() {
+                toggleRow(label: "'Featured' tab", subtitle: "A space to showcase other accounts", toggleState: $showFeaturedTabToggleState, isSaving: $isSavingFeaturedTabSetting)
+            }
+            .padding(doublePadding)
+            .background {
+                RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
+                    .fill(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor)
             }
             
-            // FEATURED TAB SETTINGS
-            VStack(alignment: .leading) {
-                SubsectionHeading(title: "’Featured’ tab settings", subtitle: "’Featured’ is an optional tab where you can showcase other accounts and collections.")
-                RadioButtonArray(items: [(ProfileEditingViewModel.FeaturedTabVisibilitySetting.showFeaturedTab.rawValue, "Show ’Featured’ tab"), (ProfileEditingViewModel.FeaturedTabVisibilitySetting.hideFeaturedTab.rawValue, "Hide ’Featured’ tab")], selectedItem: Binding<Int>(
-                    get: { editingViewModel.featuredTabVisibilitySetting.rawValue },
-                    set: { newValue in
-                        guard newValue != editingViewModel.featuredTabVisibilitySetting.rawValue else { return }
-                        editingViewModel.setFeaturedTabVisibilitySetting(.init(rawValue: newValue) ?? .showFeaturedTab)
-                        Task {
-                            try await profileViewModel.commitTabSettingsChanges()
-                        }
-                    }
-                ))
+            tipText("These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps.")
+            
+            Spacer()
+        }
+        .task {
+            showMediaTabToggleState = editingViewModel.mediaTabVisibilitySetting == .showMediaTab
+            showMediaRepliesToggleState = editingViewModel.mediaTabRepliesSetting == .includeMyRepliesToOthers
+            showFeaturedTabToggleState = editingViewModel.featuredTabVisibilitySetting == .showFeaturedTab
+        }
+        .onChange(of: showMediaTabToggleState) { oldValue, newValue in
+            let newSetting: ProfileEditingViewModel.MediaTabVisibilitySetting = newValue ? .showMediaTab : .hideMediaTab
+            editingViewModel.setMediaTabVisibilitySetting(newSetting)
+            isSavingMediaTabSetting = true
+            Task {
+                do {
+                    try await profileViewModel.commitTabSettingsChanges()
+                } catch {
+                    navigator.didReceiveError(error)
+                }
+                isSavingMediaTabSetting = false
             }
         }
+        .onChange(of: showMediaRepliesToggleState) { oldValue, newValue in
+            let newSetting: ProfileEditingViewModel.MediaTabRepliesSetting = newValue ? .includeMyRepliesToOthers : .showDirectPostsOnly
+            editingViewModel.setMediaTabRepliesSetting(newSetting)
+            isSavingMediaRepliesSetting = true
+            Task {
+                do {
+                    try await profileViewModel.commitTabSettingsChanges()
+                } catch {
+                    navigator.didReceiveError(error)
+                }
+                isSavingMediaRepliesSetting = false
+            }
+        }
+        .onChange(of: showFeaturedTabToggleState) { oldValue, newValue in
+            let newSetting: ProfileEditingViewModel.FeaturedTabVisibilitySetting = newValue ? .showFeaturedTab : .hideFeaturedTab
+            editingViewModel.setFeaturedTabVisibilitySetting(newSetting)
+            isSavingFeaturedTabSetting = true
+            Task {
+                do {
+                    try await profileViewModel.commitTabSettingsChanges()
+                } catch {
+                    navigator.didReceiveError(error)
+                }
+                isSavingFeaturedTabSetting = false
+            }
+        }
+            
+    }
+    
+    @ViewBuilder func toggleRow(label: String, subtitle: String?, toggleState: Binding<Bool>, isSaving: Binding<Bool>) -> some View {
+        HStack(alignment: .top) {
+            VStack(alignment: .leading) {
+                Text(label)
+                    .lineLimit(1)
+                    .fixedSize(horizontal: true, vertical: false)
+                if let subtitle {
+                    Text(subtitle)
+                        .lineLimit(1)
+                        .fixedSize(horizontal: true, vertical: false)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            Spacer()
+            
+            ZStack(alignment: .trailing) {
+                if isSaving.wrappedValue {
+                    Toggle("", isOn: toggleState)
+                        .tint(Asset.Colors.accent.swiftUIColor)
+                        .hidden()
+                    ProgressView().progressViewStyle(.circular)
+                } else {
+                    Toggle("", isOn: toggleState) // TODO: A11y
+                        .tint(Asset.Colors.accent.swiftUIColor)
+                    ProgressView().progressViewStyle(.circular)
+                        .hidden()
+                }
+            }
+        }
+        .frame(maxWidth: .infinity)
     }
 }
 
