@@ -1414,6 +1414,7 @@ extension ProfileViewModel {
             featuredHashtags.insert(newFeaturedTag, at: 0)
         case .unfeaturing(let featuredTag):
             try await APIService.shared.unfeature(tag: featuredTag, authenticationBox: authBox)
+            featuredHashtags.removeAll(where: { $0.id == featuredTag.id })
         }
         currentFetchState = nil
         

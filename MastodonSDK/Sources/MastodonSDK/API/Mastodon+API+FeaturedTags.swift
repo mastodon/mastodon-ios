@@ -124,37 +124,19 @@ extension Mastodon.API.FeaturedTags {
     ///   - authorization: User token
     /// - Returns: `AnyPublisher` with empty response
     public static func unfeature(
-        tag: String,
+        tag: Mastodon.Entity.FeaturedTag,
         domain: String,
         session: URLSession,
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Void, Error> {
-        let url: URL = featuredTagsEndpointURL(accountID: nil, domain: domain)
-        var request = Mastodon.API.delete(url: url, query: FeaturedTagsDeleteQuery(tagName: tag), authorization: authorization)
-        request.httpMethod = "POST"
+        let url: URL = featuredTagsEndpointURL(accountID: nil, domain: domain).appendingPathComponent(tag.id)
+        var request = Mastodon.API.delete(url: url, query: nil, authorization: authorization)
+        request.httpMethod = "DELETE"
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 try Mastodon.API.decodeEmpty(from: data, response: response)
                 return
             }
             .eraseToAnyPublisher()
-    }
-    
-    public struct FeaturedTagsDeleteQuery: DeleteQuery {
-        let tagName: String
-        
-        var contentType: String? {
-            "application/json"
-        }
-        
-        var body: Data? {
-            do {
-                let dict = [ "name" : tagName ]
-                return try JSONSerialization.data(withJSONObject: dict)
-            } catch {
-                assertionFailure("Error creating feature tag post query body: \(error)")
-                return nil
-            }
-        }
     }
 }

@@ -32,14 +32,15 @@ extension APIService {
         return response
     }
 
+    /// The tagName should NOT include the '#'
     public func feature(
-        tag: Mastodon.Entity.Tag,
+        tagName: String,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.FeaturedTag> {
         let result: Result<Mastodon.Response.Content<Mastodon.Entity.FeaturedTag>, Error>
         do {
             let response = try await Mastodon.API.FeaturedTags.feature(
-                tag: tag.name,
+                tag: tagName,
                 domain: authenticationBox.domain,
                 session: session,
                 authorization: authenticationBox.userAuthorization
@@ -55,11 +56,11 @@ extension APIService {
     }
     
     public func unfeature(
-        tag: Mastodon.Entity.Tag,
+        tag: Mastodon.Entity.FeaturedTag,
         authenticationBox: MastodonAuthenticationBox
     ) async throws {
         try await Mastodon.API.FeaturedTags.unfeature(
-            tag: tag.name,
+            tag: tag,
             domain: authenticationBox.domain,
             session: session,
             authorization: authenticationBox.userAuthorization

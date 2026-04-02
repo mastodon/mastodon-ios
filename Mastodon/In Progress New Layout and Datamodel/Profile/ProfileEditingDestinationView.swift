@@ -23,7 +23,7 @@ class ProfileEditingDestinationHostingViewController: UIHostingController<AnyVie
 extension ProfileEditDestinationType {
     var doNotPad: Bool {
         switch self {
-        case .reorderCustomFields:
+        case .reorderCustomFields, .featuredHashtags:
             true
         default:
             false
@@ -86,7 +86,7 @@ struct ProfileEditingDestinationView: View {
             }
         } else {
             contents
-                .padding(doublePadding)
+                .padding(destinationType.doNotPad ? 0 : doublePadding)
                 .navigationTitle(profileViewModel.navigationTitle(destinationType))
                 .navigationBarTitleDisplayMode(.inline)
         }
@@ -353,30 +353,15 @@ struct FeaturedHashtagsEditor: View {
     @State var needsDeleteConfirmation: IndexSet?
 
     var body: some View {
-        VStack {
-            ZStack {
-                if !hashtagsModel.featuredHashtags.isEmpty {
-                    hashtagsList(hashtagsModel.featuredHashtags)
-                }
-                switch hashtagsModel.currentFetchState {
-                case .fetchingAll:
-                    ProgressView().progressViewStyle(.circular)
-                default:
-                    EmptyView()
-                }
-            }
-            actionButton(text: "Add hashtag", isDestructive: false) {  // TODO: L10n
-            }
-            Spacer()
-        }
-        .alert("Remove hashtag?",
-               isPresented: Binding<Bool>(
+        hashtagsList(hashtagsModel.featuredHashtags)
+            .alert(alertTitle,
+                   isPresented: Binding<Bool>(
                 get: { needsDeleteConfirmation != nil },
                 set: { newValue in if newValue == false { needsDeleteConfirmation = nil } }
                )) {
-                   Button("Remove", role: .destructive) {
+                   Button("Remove", role: .destructive) { // TODO: L10n
+                       guard let offsets = needsDeleteConfirmation else { return }
                        Task {
-                           guard let offsets = needsDeleteConfirmation else { return }
                            do {
                                try await hashtagsModel.removeFeaturedHashtags(atOffsets: offsets)
                            } catch {
@@ -385,32 +370,46 @@ struct FeaturedHashtagsEditor: View {
                        }
                    }
                    
-                   Button("Keep", role: .cancel) {
-                       
+                   Button("Keep", role: .cancel) { // TODO: L10n
+                       return
                    }
                }
     }
     
+    var alertTitle: String {
+        guard let indexToDelete = needsDeleteConfirmation?.first else { return "" }
+        let tag = hashtagsModel.featuredHashtags[indexToDelete]
+        return "Remove #\(tag.name)?" // TODO: L10n
+    }
+    
+    @ViewBuilder var addHashtagButton: some View {
+        actionButton(text: "Add hashtag", isDestructive: false, includeBackground: false) {  // TODO: L10n
+        }
+    }
+    
     @ViewBuilder func hashtagsList(_ hashtags: [Mastodon.Entity.FeaturedTag]) -> some View {
         List() {
-            ForEach(hashtags, id: \.self) { hashtag in
-                HashtagRow(hashtag: hashtag)
-                    .padding(.vertical, doublePadding)
-                    .onTapGesture {
+            if !hashtagsModel.featuredHashtags.isEmpty {
+                Section() {
+                    ForEach(hashtags, id: \.self) { hashtag in
+                        HashtagRow(hashtag: hashtag)
+                            .padding(.vertical, doublePadding)
+                            .onTapGesture {
+                            }
                     }
-                if hashtags.firstIndex(where: { $0.name == hashtag.name }) != hashtags.endIndex - 1 {
-                    Divider()
+                    .onDelete { offsets in
+                        needsDeleteConfirmation = offsets
+                    }
+                    .ignoresSafeArea()
                 }
             }
-            .onDelete { offsets in
-                needsDeleteConfirmation = offsets
+            
+            Section() {
+                addHashtagButton
+                    .ignoresSafeArea()
             }
         }
-        .padding(doublePadding)
-        .background {
-            RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
-                .fill(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor)
-        }
+        .listStyle(.insetGrouped)
     }
 }
 
@@ -520,7 +519,7 @@ struct HashtagRow: View {
                 .fixedSize(horizontal: true, vertical: false)
             Spacer()
             switch featuredTagsModel.currentFetchState {
-            case .unfeaturing(hashtag):
+            case .fetchingAll, .unfeaturing(hashtag):
                 ProgressView().progressViewStyle(.circular)
             default:
                 if let statusesCount = hashtag.statusesCount, let postCount = intFormatter.number(from: statusesCount)?.intValue, postCount > 0 {
@@ -736,17 +735,19 @@ struct ReorderCustomFieldsView: View {
     }
 }
 
-@ViewBuilder func actionButton(text: String, isDestructive: Bool, action: @escaping ()->()) -> some View {
+@ViewBuilder func actionButton(text: String, isDestructive: Bool, includeBackground: Bool = true, action: @escaping ()->()) -> some View {
     Button() {
         action()
     } label: {
         Text(text)
             .foregroundStyle(isDestructive ? .red : Asset.Colors.accent.swiftUIColor)
-            .padding(doublePadding)
+            .padding(includeBackground ? doublePadding : 0)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background() {
-                Capsule()
-                    .fill(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor)
+                if includeBackground {
+                    Capsule()
+                        .fill(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor)
+                }
             }
     }
 }
