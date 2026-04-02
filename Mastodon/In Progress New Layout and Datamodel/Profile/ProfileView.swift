@@ -1370,24 +1370,55 @@ extension ProfileViewModel {
 @MainActor
 @Observable class FeaturedHashtagsModel {
     private(set) var featuredHashtags: [Mastodon.Entity.FeaturedTag] = []
-    private(set) var isFetching: Bool = false
+    private(set) var currentFetchState: FetchState?
     
-    private var fetchQueue: [Mastodon.Entity.Account.ID] = []
-    
-    func fetchFeaturedTags(account: MastodonAccount) async throws {
-        if !fetchQueue.contains(account.id) {
-            fetchQueue.append(account.id)
-        }
-
-        guard !isFetching else { return }
-        let nextToFetch = fetchQueue.removeFirst()
-        isFetching = true
-        featuredHashtags = try await _fetchFeaturedTags(account: nextToFetch)
-        isFetching = false
+    enum FetchState: Equatable {
+        case fetchingAll(forAccount: Mastodon.Entity.Account.ID)
+        case unfeaturing(Mastodon.Entity.FeaturedTag)
+        case featuring(tagName: String)
     }
     
-    private func _fetchFeaturedTags(account: Mastodon.Entity.Account.ID) async throws -> [Mastodon.Entity.FeaturedTag] {
+    private var fetchQueue: [FetchState] = []
+    
+    func fetchFeaturedTags(account: MastodonAccount) async throws {
+        let requestedFetch = FetchState.fetchingAll(forAccount: account.id )
+        if !fetchQueue.contains(where: { $0 == requestedFetch }) {
+            fetchQueue.append(requestedFetch)
+        }
+        try await doNextFetch()
+    }
+    
+    func removeFeaturedHashtags(atOffsets offsets: IndexSet) async throws {
+        assert(offsets.count == 1)
+        guard let index = offsets.first else { return }
+        let toUnfeature = featuredHashtags[index]
+        let requestedDeletion = FetchState.unfeaturing(toUnfeature)
+        if !fetchQueue.contains(where: { $0 == requestedDeletion }) {
+            fetchQueue.append(requestedDeletion)
+        }
+        try await doNextFetch()
+    }
+    
+    private func doNextFetch() async throws {
+        guard !fetchQueue.isEmpty else { return }
+        guard currentFetchState == nil else { return }
         guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { throw APIService.APIError.explicit(.authenticationMissing) }
-        return try await APIService.shared.featuredTags(forAccount: account, authenticationBox: authBox).value
+        
+        let nextToFetch = fetchQueue.removeFirst()
+        currentFetchState = nextToFetch
+        switch nextToFetch {
+        case .fetchingAll(let account):
+            featuredHashtags = try await APIService.shared.featuredTags(forAccount: account, authenticationBox: authBox).value
+        case .featuring(let tagName):
+            let newFeaturedTag = try await APIService.shared.feature(tagName: tagName, authenticationBox: authBox).value
+            featuredHashtags.insert(newFeaturedTag, at: 0)
+        case .unfeaturing(let featuredTag):
+            try await APIService.shared.unfeature(tag: featuredTag, authenticationBox: authBox)
+        }
+        currentFetchState = nil
+        
+        Task {
+            try await doNextFetch()
+        }
     }
 }

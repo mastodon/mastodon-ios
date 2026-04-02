@@ -110,7 +110,9 @@ struct ProfileEditingDestinationView: View {
                 .environment(editingViewModel)
         case .featuredHashtags:
             FeaturedHashtagsEditor()
+                .environment(navigator)
                 .environment(editingViewModel)
+                .environment(profileViewModel.featuredHashtagsModel)
         case .profileTabSettings:
             ProfileTabSettingsEditor()
                 .environment(editingViewModel)
@@ -344,20 +346,70 @@ struct ProfileTabSettingsEditor: View {
 }
 
 struct FeaturedHashtagsEditor: View {
+    @Environment(ProfileViewModel.self) var profileViewModel
+    @Environment(FeaturedHashtagsModel.self) var hashtagsModel
+    @Environment(MastodonNavigationRouter.self) var navigator
     
+    @State var needsDeleteConfirmation: IndexSet?
+
     var body: some View {
-        // FEATURED HASHTAGS
-        
-        HStack {
-            SubsectionHeading(title: "Featured hashtags", subtitle: "Help others identify, and have quick access to, your favorite topics")
-            HStack {
-                Text("Manage")
-                Image(systemName: "chevron.forward")
+        VStack {
+            ZStack {
+                if !hashtagsModel.featuredHashtags.isEmpty {
+                    hashtagsList(hashtagsModel.featuredHashtags)
+                }
+                switch hashtagsModel.currentFetchState {
+                case .fetchingAll:
+                    ProgressView().progressViewStyle(.circular)
+                default:
+                    EmptyView()
+                }
             }
-            .font(.subheadline)
-            .fontWeight(.semibold)
+            actionButton(text: "Add hashtag", isDestructive: false) {  // TODO: L10n
+            }
+            Spacer()
         }
-        .onTapGesture {
+        .alert("Remove hashtag?",
+               isPresented: Binding<Bool>(
+                get: { needsDeleteConfirmation != nil },
+                set: { newValue in if newValue == false { needsDeleteConfirmation = nil } }
+               )) {
+                   Button("Remove", role: .destructive) {
+                       Task {
+                           guard let offsets = needsDeleteConfirmation else { return }
+                           do {
+                               try await hashtagsModel.removeFeaturedHashtags(atOffsets: offsets)
+                           } catch {
+                               navigator.didReceiveError(error)
+                           }
+                       }
+                   }
+                   
+                   Button("Keep", role: .cancel) {
+                       
+                   }
+               }
+    }
+    
+    @ViewBuilder func hashtagsList(_ hashtags: [Mastodon.Entity.FeaturedTag]) -> some View {
+        List() {
+            ForEach(hashtags, id: \.self) { hashtag in
+                HashtagRow(hashtag: hashtag)
+                    .padding(.vertical, doublePadding)
+                    .onTapGesture {
+                    }
+                if hashtags.firstIndex(where: { $0.name == hashtag.name }) != hashtags.endIndex - 1 {
+                    Divider()
+                }
+            }
+            .onDelete { offsets in
+                needsDeleteConfirmation = offsets
+            }
+        }
+        .padding(doublePadding)
+        .background {
+            RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
+                .fill(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor)
         }
     }
 }
@@ -456,6 +508,32 @@ struct CustomProfileFieldsEditor: View {
         }
     }
 }
+
+struct HashtagRow: View {
+    @Environment(FeaturedHashtagsModel.self) var featuredTagsModel
+    
+    let hashtag: Mastodon.Entity.FeaturedTag
+    
+    var body: some View {
+        HStack {
+            Text("#\(hashtag.name)")
+                .fixedSize(horizontal: true, vertical: false)
+            Spacer()
+            switch featuredTagsModel.currentFetchState {
+            case .unfeaturing(hashtag):
+                ProgressView().progressViewStyle(.circular)
+            default:
+                if let statusesCount = hashtag.statusesCount, let postCount = intFormatter.number(from: statusesCount)?.intValue, postCount > 0 {
+                    Text("Used in \(postCount) posts")  // TODO: L10n
+                        .foregroundStyle(.secondary)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity)
+    }
+}
+
+let intFormatter = NumberFormatter()
 
 @ViewBuilder func customFieldRow(_ field: Mastodon.Entity.Field, emojis: [Mastodon.Entity.Emoji], isReordering: Bool) -> some View {
     HStack {

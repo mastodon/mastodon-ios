@@ -250,9 +250,10 @@ struct ProfileEditingView: View {
             Text("\(profileViewModel.account?.metadata.customFieldsForEdit?.count ?? 0)")
                 .foregroundStyle(.secondary)
         case .featuredHashtags:
-            if profileViewModel.featuredHashtagsModel.isFetching {
+            switch profileViewModel.featuredHashtagsModel.currentFetchState {
+            case .fetchingAll:
                 ProgressView().progressViewStyle(.circular)
-            } else {
+            default:
                 Text("\(profileViewModel.featuredHashtagsModel.featuredHashtags.count)")
                     .foregroundStyle(.secondary)
             }
