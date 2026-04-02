@@ -1372,6 +1372,7 @@ extension ProfileViewModel {
     private(set) var featuredHashtags: [Mastodon.Entity.FeaturedTag] = []
     private(set) var currentFetchState: FetchState?
     private(set) var suggestedTags: [Mastodon.Entity.Tag]?
+    private(set) var autoCompleteSuggestionsViewModel = AutoCompleteSuggestionViewModel(nil)
     
     enum FetchState: Equatable {
         case fetchingAll(forAccount: Mastodon.Entity.Account.ID)
@@ -1384,6 +1385,10 @@ extension ProfileViewModel {
     
     private func alreadyFetching(_ fetch: FetchState) -> Bool {
        return currentFetchState == fetch || fetchQueue.contains(where: { $0 == fetch })
+    }
+    
+    func prepareForAutocomplete(withAuthBox authBox: MastodonAuthenticationBox) {
+        autoCompleteSuggestionsViewModel.setAuthenticationBox(authBox)
     }
     
     func fetchFeaturedTags(account: MastodonAccount) async throws {

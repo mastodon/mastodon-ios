@@ -3,6 +3,7 @@
 import SwiftUI
 import MastodonAsset
 import MastodonSDK
+import MastodonCore
 import MastodonUI
 
 class ProfileEditingDestinationHostingViewController: UIHostingController<AnyView> {
@@ -129,6 +130,7 @@ struct ProfileEditingDestinationView: View {
             AddFeaturedHashtagView()
                 .environment(navigator)
                 .environment(profileViewModel.featuredHashtagsModel)
+                .environment(profileViewModel.featuredHashtagsModel.autoCompleteSuggestionsViewModel)
         }
     }
 }
@@ -399,13 +401,15 @@ struct FeaturedHashtagsEditor: View {
     
     @ViewBuilder func hashtagsList(_ hashtags: [Mastodon.Entity.FeaturedTag]) -> some View {
         List() {
-            if !hashtagsModel.featuredHashtags.isEmpty {
+            if !hashtags.isEmpty {
                 Section() {
                     ForEach(hashtags, id: \.self) { hashtag in
-                        HashtagRow(hashtag: hashtag)
-                            .padding(.vertical, doublePadding)
-                            .onTapGesture {
-                            }
+                        if let deletingIndex = needsDeleteConfirmation?.first, hashtags[deletingIndex] == hashtag {
+                            EmptyView()
+                        } else {
+                            HashtagRow(hashtag: hashtag)
+                                .padding(.vertical, doublePadding)
+                        }
                     }
                     .onDelete { offsets in
                         needsDeleteConfirmation = offsets
@@ -427,28 +431,31 @@ struct AddFeaturedHashtagView: View {
     @Environment(MastodonNavigationRouter.self) var navigator
     @Environment(ProfileViewModel.self) var profileViewModel
     @Environment(FeaturedHashtagsModel.self) var featuredHashtagsModel
+    @Environment(AutoCompleteSuggestionViewModel.self) var autoCompleteSuggestionsModel
+    
+    @Environment(\.dismiss) var dismiss
     
     @State var searchText: String = ""
+    @State var didFeature: String?
+    
+    @FocusState var focusSearchField: Bool
     
     var body: some View {
         List() {
-            if let suggestedTags = featuredHashtagsModel.suggestedTags {
+            if !autoCompleteSuggestionsModel.autoCompleteSuggestions.isEmpty {
+                ForEach(autoCompleteSuggestionsModel.autoCompleteSuggestions, id: \.self) { autoCompleteItem in
+                    switch autoCompleteItem {
+                    case .hashtagV1(let tagName):
+                        suggestedHashtagRow(tagName)
+                    case .hashtag(let tag):
+                        suggestedHashtagRow(tag.name)
+                    default:
+                        EmptyView()
+                    }
+                }
+            } else if let suggestedTags = featuredHashtagsModel.suggestedTags {
                 ForEach(suggestedTags, id: \.self) { tag in
-                    HStack {
-                        switch featuredHashtagsModel.currentFetchState {
-                        case .featuring(tagName: tag.name):
-                            ProgressView().progressViewStyle(.circular)
-                        default:
-                            Image(systemName: "plus.circle.fill")
-                                .foregroundStyle(Asset.Colors.accent.swiftUIColor)
-                        }
-                        Text("#\(tag.name)")
-                    }
-                    .onTapGesture {
-                        Task {
-                            try await featuredHashtagsModel.addFeaturedHashtag(tagName: tag.name)
-                        }
-                    }
+                    suggestedHashtagRow(tag.name)
                 }
             } else {
                 switch featuredHashtagsModel.currentFetchState {
@@ -461,12 +468,71 @@ struct AddFeaturedHashtagView: View {
         }
         .listStyle(.insetGrouped)
         .searchable(text: $searchText, placement: .navigationBarDrawer)
+        .searchFocused($focusSearchField)
+        .onChange(of: focusSearchField, { oldValue, newValue in
+            if newValue == false && oldValue == true {
+                if (featuredHashtagsModel.suggestedTags == nil || featuredHashtagsModel.suggestedTags!.isEmpty) && autoCompleteSuggestionsModel.autoCompleteSuggestions.isEmpty {
+                    dismiss()
+                }
+            }
+        })
+        .onChange(of: searchText) {
+            guard !searchText.isEmpty else {
+                autoCompleteSuggestionsModel.foundPossibleHashtag("")
+                return
+            }
+            let withTagSymbol = searchText.first == "#" ? searchText : "#\(searchText)"
+            autoCompleteSuggestionsModel.foundPossibleHashtag(withTagSymbol)
+        }
+        .alert(
+            "#\(didFeature ?? "") featured!",  // TODO: L10n
+            isPresented: Binding<Bool>(
+                get: { didFeature != nil },
+                set: { newValue in if newValue == false { didFeature = nil } }
+            ),
+            actions: {
+                Button("Add another") {  // TODO: L10n
+                    return
+                }
+                Button("Done") {   // TODO: L10n
+                    dismiss()
+                }
+            },
+            message: {
+                Text("#\(didFeature ?? "") is now featured on your profile page. Do you want to add another?")   // TODO: L10n
+            })
         .task(id: profileViewModel.account?.id ?? "unknown_account") {
             guard let account = profileViewModel.account else { return }
+            if let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value
+                {
+                autoCompleteSuggestionsModel.setAuthenticationBox(currentUser)
+            }
             do {
                 try await featuredHashtagsModel.fetchSuggestedTags(forAccount: account)
+                if featuredHashtagsModel.suggestedTags?.isEmpty != true {
+                    focusSearchField = true
+                }
             } catch {
                 navigator.didReceiveError(error)
+            }
+        }
+    }
+    
+    @ViewBuilder func suggestedHashtagRow(_ hashtag: String) -> some View {
+        HStack {
+            switch featuredHashtagsModel.currentFetchState {
+            case .featuring(tagName: hashtag):
+                ProgressView().progressViewStyle(.circular)
+            default:
+                Image(systemName: "plus.circle.fill")
+                    .foregroundStyle(Asset.Colors.accent.swiftUIColor)
+            }
+            Text("#\(hashtag)")
+        }
+        .onTapGesture {
+            Task {
+                try await featuredHashtagsModel.addFeaturedHashtag(tagName: hashtag)
+                searchText = ""
             }
         }
     }

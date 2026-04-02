@@ -119,7 +119,7 @@ extension AutoCompleteViewModel.State {
         }
         
         private func queryRemoteEnitity(searchText: String) async {
-            guard let viewModel = viewModel else {
+            guard let viewModel = viewModel, let authBox = viewModel.authenticationBox else {
                 enter(state: Fail.self)
                 return
             }
@@ -139,7 +139,7 @@ extension AutoCompleteViewModel.State {
             do {
                 let response = try await APIService.shared.search(
                     query: query,
-                    authenticationBox: viewModel.authenticationBox
+                    authenticationBox: authBox
                 )
                 
                 enter(state: Idle.self)

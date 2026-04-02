@@ -17,10 +17,10 @@ public final class AutoCompleteViewModel {
     var disposeBag = Set<AnyCancellable>()
     
     // input
-    let authenticationBox: MastodonAuthenticationBox
+    private(set) var authenticationBox: MastodonAuthenticationBox?
     public let inputText = CurrentValueSubject<String, Never>("")  // contains "@" or "#" prefix
     public let symbolBoundingRect = CurrentValueSubject<CGRect, Never>(.zero)
-    public let customEmojiViewModel: EmojiService.CustomEmojiViewModel?
+    public private(set) var customEmojiViewModel: EmojiService.CustomEmojiViewModel?
     
     // output
     public var autoCompleteItems = CurrentValueSubject<[AutoCompleteItem], Never>([])
@@ -37,11 +37,20 @@ public final class AutoCompleteViewModel {
         return stateMachine
     }()
     
-    public init(authenticationBox: MastodonAuthenticationBox) {
+    /// No suggestions will be provided until an authentication box has been provided by calling setAuthenticationBox()
+    public init() {
+        authenticationBox = nil
+        customEmojiViewModel = nil
+    }
+    
+    public func setAuthenticationBox(_ authenticationBox: MastodonAuthenticationBox) {
         self.authenticationBox = authenticationBox
         self.customEmojiViewModel = EmojiService.shared.dequeueCustomEmojiViewModel(for: authenticationBox.domain)
-        // end init
         
+        prepareWithAuthenticationBox(authenticationBox)
+    }
+    
+    private func prepareWithAuthenticationBox(_ authenticationBox: MastodonAuthenticationBox) {
         autoCompleteItems
             .receive(on: DispatchQueue.main)
             .sink { [weak self] items in
@@ -78,6 +87,14 @@ public final class AutoCompleteViewModel {
                 self.stateMachine.enter(State.Loading.self)
             }
             .store(in: &disposeBag)
+    }
+    
+    public init(authenticationBox: MastodonAuthenticationBox) {
+        self.authenticationBox = authenticationBox
+        self.customEmojiViewModel = EmojiService.shared.dequeueCustomEmojiViewModel(for: authenticationBox.domain)
+        // end init
+
+        prepareWithAuthenticationBox(authenticationBox)
     }
     
 }

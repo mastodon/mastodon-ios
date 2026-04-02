@@ -108,7 +108,35 @@ import Combine
         subscribeToAutoComplete()
     }
     
-    func subscribeToAutoComplete() {
+    func setAuthenticationBox(_ authenticationBox: MastodonAuthenticationBox) {
+        autoCompleteViewModel = AutoCompleteViewModel(authenticationBox: authenticationBox)
+        autoCompleteViewModel?.setAuthenticationBox(authenticationBox)
+        subscribeToAutoComplete()
+    }
+    
+    func foundPossibleHashtag(_ input: String) {
+        guard let possibleTag = input.split(separator: .whitespace).first else {
+            autoCompleteViewModel?.inputText.send("")
+            self.autoCompleteInfo = nil
+            return
+        }
+        let _autoCompleteInfo = MetaTextInputFieldViewModel.AutoCompleteInfo(
+            inputText: possibleTag,
+            symbolRange: possibleTag.startIndex..<possibleTag.index(after: possibleTag.startIndex),
+            symbolString: "#",
+            toCursorRange: possibleTag.startIndex..<possibleTag.endIndex,
+            toCursorString: possibleTag,
+            toHighlightEndRange: possibleTag.startIndex..<possibleTag.endIndex,
+            toHighlightEndString: possibleTag
+        )
+        
+        let inputText = String(_autoCompleteInfo.inputText)
+        autoCompleteViewModel?.inputText.send(String(_autoCompleteInfo.inputText))
+        
+        self.autoCompleteInfo = _autoCompleteInfo
+    }
+    
+    private func subscribeToAutoComplete() {
         autoCompleteSuggestionsSubscription = autoCompleteViewModel?.autoCompleteItems
             .sink(receiveValue: { [weak self] items in
                 self?.autoCompleteSuggestions = items
