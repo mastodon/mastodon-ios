@@ -23,9 +23,9 @@ class ProfileEditingDestinationHostingViewController: UIHostingController<AnyVie
 extension ProfileEditDestinationType {
     var doNotPad: Bool {
         switch self {
-        case .reorderCustomFields, .featuredHashtags:
+        case .reorderCustomFields, .featuredHashtags, .addHashtag:
             true
-        default:
+        case .displayName, .bio, .customFields, .editCustomField, .verifiedLinkInstructions, .profileTabSettings:
             false
         }
     }
@@ -125,6 +125,10 @@ struct ProfileEditingDestinationView: View {
         case .reorderCustomFields(let profileViewModel):
             ReorderCustomFieldsView()
                 .environment(profileViewModel.editingViewModel)
+        case .addHashtag(let profileViewModel):
+            AddFeaturedHashtagView()
+                .environment(navigator)
+                .environment(profileViewModel.featuredHashtagsModel)
         }
     }
 }
@@ -159,6 +163,8 @@ extension ProfileViewModel {
             }
         case .reorderCustomFields:
             return "Reorder fields"
+        case .addHashtag:
+            return "Add hashtag"
         }
     }
 }
@@ -262,6 +268,9 @@ extension ProfileViewModel {
         case .reorderCustomFields(let profileViewModel):
             assert(profileViewModel.uuid == uuid)
             editingViewModel.discardCustomFieldEdits()
+        case .addHashtag(let profileViewModel):
+            assert(profileViewModel.uuid == uuid)
+            break
         }
     }
 }
@@ -384,6 +393,7 @@ struct FeaturedHashtagsEditor: View {
     
     @ViewBuilder var addHashtagButton: some View {
         actionButton(text: "Add hashtag", isDestructive: false, includeBackground: false) {  // TODO: L10n
+            navigator.presentModal(.editProfileNavigation(destination: .addHashtag(profileViewModel: profileViewModel)))
         }
     }
     
@@ -412,6 +422,56 @@ struct FeaturedHashtagsEditor: View {
         .listStyle(.insetGrouped)
     }
 }
+
+struct AddFeaturedHashtagView: View {
+    @Environment(MastodonNavigationRouter.self) var navigator
+    @Environment(ProfileViewModel.self) var profileViewModel
+    @Environment(FeaturedHashtagsModel.self) var featuredHashtagsModel
+    
+    @State var searchText: String = ""
+    
+    var body: some View {
+        List() {
+            if let suggestedTags = featuredHashtagsModel.suggestedTags {
+                ForEach(suggestedTags, id: \.self) { tag in
+                    HStack {
+                        switch featuredHashtagsModel.currentFetchState {
+                        case .featuring(tagName: tag.name):
+                            ProgressView().progressViewStyle(.circular)
+                        default:
+                            Image(systemName: "plus.circle.fill")
+                                .foregroundStyle(Asset.Colors.accent.swiftUIColor)
+                        }
+                        Text("#\(tag.name)")
+                    }
+                    .onTapGesture {
+                        Task {
+                            try await featuredHashtagsModel.addFeaturedHashtag(tagName: tag.name)
+                        }
+                    }
+                }
+            } else {
+                switch featuredHashtagsModel.currentFetchState {
+                case .fetchingSuggestedTags:
+                    ProgressView().progressViewStyle(.circular)
+                default:
+                    EmptyView()
+                }
+            }
+        }
+        .listStyle(.insetGrouped)
+        .searchable(text: $searchText, placement: .navigationBarDrawer)
+        .task(id: profileViewModel.account?.id ?? "unknown_account") {
+            guard let account = profileViewModel.account else { return }
+            do {
+                try await featuredHashtagsModel.fetchSuggestedTags(forAccount: account)
+            } catch {
+                navigator.didReceiveError(error)
+            }
+        }
+    }
+}
+
 
 struct CustomProfileFieldsEditor: View {
     @Environment(MastodonNavigationRouter.self) var navigator

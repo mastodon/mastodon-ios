@@ -139,4 +139,22 @@ extension Mastodon.API.FeaturedTags {
             }
             .eraseToAnyPublisher()
     }
+    
+    public static func getSuggestedTags(
+        session: URLSession,
+        domain: String,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Tag]>, Error> {
+        let request = Mastodon.API.get(
+            url: featuredTagsEndpointURL(accountID: nil, domain: domain).appendingPathComponent("suggestions"),
+            query: nil,
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Array<Mastodon.Entity.Tag>.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
 }

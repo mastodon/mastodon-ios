@@ -63,4 +63,17 @@ extension APIService {
 
         return response
     }
+    
+    public func getSuggestedTags(authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Tag]> {
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
+        
+        let response = try await Mastodon.API.FeaturedTags.getSuggestedTags(
+            session: session,
+            domain: domain,
+            authorization: authorization
+        ).singleOutput()
+        
+        return response
+    }
 }

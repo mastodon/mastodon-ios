@@ -1371,19 +1371,42 @@ extension ProfileViewModel {
 @Observable class FeaturedHashtagsModel {
     private(set) var featuredHashtags: [Mastodon.Entity.FeaturedTag] = []
     private(set) var currentFetchState: FetchState?
+    private(set) var suggestedTags: [Mastodon.Entity.Tag]?
     
     enum FetchState: Equatable {
         case fetchingAll(forAccount: Mastodon.Entity.Account.ID)
         case unfeaturing(Mastodon.Entity.FeaturedTag)
         case featuring(tagName: String)
+        case fetchingSuggestedTags(forAccount: Mastodon.Entity.Account.ID)
     }
     
     private var fetchQueue: [FetchState] = []
     
+    private func alreadyFetching(_ fetch: FetchState) -> Bool {
+       return currentFetchState == fetch || fetchQueue.contains(where: { $0 == fetch })
+    }
+    
     func fetchFeaturedTags(account: MastodonAccount) async throws {
-        let requestedFetch = FetchState.fetchingAll(forAccount: account.id )
-        if !fetchQueue.contains(where: { $0 == requestedFetch }) {
+        let requestedFetch = FetchState.fetchingAll(forAccount: account.id)
+        if !alreadyFetching(requestedFetch) {
             fetchQueue.append(requestedFetch)
+        }
+        try await doNextFetch()
+    }
+    
+    func fetchSuggestedTags(forAccount account: MastodonAccount) async throws {
+        let request = FetchState.fetchingSuggestedTags(forAccount: account.id)
+        if !alreadyFetching(request) {
+            fetchQueue.append(request)
+        }
+        try await doNextFetch()
+    }
+    
+    func addFeaturedHashtag(tagName: String) async throws {
+        guard !featuredHashtags.contains(where: { $0.name == tagName }) else { return }
+        let request = FetchState.featuring(tagName: tagName)
+        if !alreadyFetching(request) {
+            fetchQueue.append(request)
         }
         try await doNextFetch()
     }
@@ -1393,7 +1416,7 @@ extension ProfileViewModel {
         guard let index = offsets.first else { return }
         let toUnfeature = featuredHashtags[index]
         let requestedDeletion = FetchState.unfeaturing(toUnfeature)
-        if !fetchQueue.contains(where: { $0 == requestedDeletion }) {
+        if !alreadyFetching(requestedDeletion) {
             fetchQueue.append(requestedDeletion)
         }
         try await doNextFetch()
@@ -1412,9 +1435,14 @@ extension ProfileViewModel {
         case .featuring(let tagName):
             let newFeaturedTag = try await APIService.shared.feature(tagName: tagName, authenticationBox: authBox).value
             featuredHashtags.insert(newFeaturedTag, at: 0)
+            if let index = suggestedTags?.firstIndex(where: { $0.name == newFeaturedTag.name }) {
+                suggestedTags?.remove(at: index)
+            }
         case .unfeaturing(let featuredTag):
             try await APIService.shared.unfeature(tag: featuredTag, authenticationBox: authBox)
             featuredHashtags.removeAll(where: { $0.id == featuredTag.id })
+        case .fetchingSuggestedTags:
+            suggestedTags = try await APIService.shared.getSuggestedTags(authenticationBox: authBox).value
         }
         currentFetchState = nil
         

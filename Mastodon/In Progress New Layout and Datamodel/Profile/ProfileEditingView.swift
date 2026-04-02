@@ -26,12 +26,17 @@ class ProfileEditHostingViewController: UIHostingController<AnyView> {
 enum ProfileEditDestinationType: Identifiable {
     case displayName(profileViewModel: ProfileViewModel)
     case bio(profileViewModel: ProfileViewModel)
+    
     case customFields(profileViewModel: ProfileViewModel)
-    case featuredHashtags(profileViewModel: ProfileViewModel)
-    case profileTabSettings(profileViewModel: ProfileViewModel)
-    case verifiedLinkInstructions(profileViewModel: ProfileViewModel)
     case editCustomField(profileViewModel: ProfileViewModel)
+    case verifiedLinkInstructions(profileViewModel: ProfileViewModel)
     case reorderCustomFields(profileViewModel: ProfileViewModel)
+    
+    case featuredHashtags(profileViewModel: ProfileViewModel)
+    case addHashtag(profileViewModel: ProfileViewModel)
+    
+    case profileTabSettings(profileViewModel: ProfileViewModel)
+    
     
     var id: String {
         switch self {
@@ -51,6 +56,8 @@ enum ProfileEditDestinationType: Identifiable {
             "edit_custom_field"
         case .reorderCustomFields:
             "reorder_custom_fields"
+        case .addHashtag:
+            "add_hashtag"
         }
     }
     
@@ -65,6 +72,8 @@ enum ProfileEditDestinationType: Identifiable {
         case .editCustomField(let profileViewModel):
             return profileViewModel.editingViewModel
         case .reorderCustomFields(let profileViewModel):
+            return profileViewModel.editingViewModel
+        case .addHashtag(let profileViewModel):
             return profileViewModel.editingViewModel
         }
     }
@@ -81,6 +90,8 @@ enum ProfileEditDestinationType: Identifiable {
             return profileViewModel
         case .reorderCustomFields(let profileViewModel):
             return profileViewModel
+        case .addHashtag(let profileViewModel):
+            return profileViewModel
         }
     }
 }
@@ -88,7 +99,7 @@ enum ProfileEditDestinationType: Identifiable {
 extension ProfileEditDestinationType {
     var expectsModalPresentation: Bool {
         switch self {
-        case .displayName, .bio, .verifiedLinkInstructions, .editCustomField, .reorderCustomFields:
+        case .displayName, .bio, .verifiedLinkInstructions, .editCustomField, .reorderCustomFields, .addHashtag:
             true
         case .customFields, .featuredHashtags, .profileTabSettings:
             false
@@ -201,14 +212,14 @@ struct ProfileEditingView: View {
             return "Profile tab settings"
         case .verifiedLinkInstructions:
             return nil
-        case .editCustomField, .reorderCustomFields:
+        case .editCustomField, .reorderCustomFields, .addHashtag:
             return nil
         }
     }
     
     func subtitleForRow(_ destination: ProfileEditDestinationType) -> String? {
         switch destination {
-        case .displayName, .bio, .profileTabSettings, .verifiedLinkInstructions, .editCustomField, .reorderCustomFields:
+        case .displayName, .bio, .profileTabSettings, .verifiedLinkInstructions, .editCustomField, .reorderCustomFields, .addHashtag:
             return nil
         case .customFields:
             return "E.g. pronouns, external links, etc."  // TODO: L10n
@@ -257,7 +268,7 @@ struct ProfileEditingView: View {
                 Text("\(profileViewModel.featuredHashtagsModel.featuredHashtags.count)")
                     .foregroundStyle(.secondary)
             }
-        case .profileTabSettings, .verifiedLinkInstructions, .editCustomField, .reorderCustomFields:
+        case .profileTabSettings, .verifiedLinkInstructions, .editCustomField, .reorderCustomFields, .addHashtag:
             Spacer()
         }
     }
