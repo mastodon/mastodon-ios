@@ -363,8 +363,7 @@ struct ProfileAvatarAndBannerView: View {
                         switch profileViewModel.editingStatus {
                         case .editing:
                             bannerEditButton
-                                .padding(.horizontal, doublePadding)
-                                .padding(.vertical, standardPadding)
+                                .padding(standardPadding)
                         case .cannotEdit, .notEditing, .pushingChanges:
                             EmptyView()
                         }
@@ -381,8 +380,9 @@ struct ProfileAvatarAndBannerView: View {
                         switch profileViewModel.editingStatus {
                         case .editing:
                             // if the user has already chosen a new image, let them see it unobscured, but tapping the avatar will still bring up the photo picker
+                            let buttonSize = AvatarSize.extraLarge + (avatarEditButtonSize / 2.0)
                             avatarEditButton(showButton: editingViewModel.avatarConfirmedCroppedImage == nil)
-                                .frame(maxWidth: AvatarSize.extraLarge, maxHeight: AvatarSize.extraLarge)
+                                .frame(maxWidth: buttonSize, maxHeight: buttonSize)
                         case .cannotEdit, .notEditing, .pushingChanges:
                             EmptyView()
                         }
@@ -422,30 +422,33 @@ struct ProfileAvatarAndBannerView: View {
     
     @ViewBuilder var bannerEditButton: some View {
         PhotosPicker(selection: editingViewModel.selectedBannerImage, maxSelectionCount: 1, matching: .images) {
-            Text("Edit cover image")
-                .padding(.vertical, tinySpacing)
-                .padding(.horizontal)
-                .tintedBlurBackground()
-                .clipShape(.capsule)
-                .glassEffectIfAvailable(.clear(interactive: true), in: .capsule)
-                .foregroundStyle(.white)
-        }
-    }
-    
-    @ViewBuilder func avatarEditButton(showButton: Bool) -> some View {
-        PhotosPicker(selection: editingViewModel.selectedAvatar, maxSelectionCount: 1, matching: .images) {
-            if showButton {
-                Image(systemName: "camera")
-                    .font(.headline)
-                    .padding()
-                    .tintedBlurBackground()
-                    .clipShape(Circle())
-                    .glassEffectIfAvailable(.clear(interactive: true), in: .circle)
-                    .foregroundStyle(.white)
-            } else {
+            ZStack(alignment: .bottomTrailing) {
+                photoPickerButtonImage()
                 Color.clear
             }
         }
+    }
+    
+    let avatarEditButtonSize: CGFloat = 28
+    @ViewBuilder func avatarEditButton(showButton: Bool) -> some View {
+        PhotosPicker(selection: editingViewModel.selectedAvatar, maxSelectionCount: 1, matching: .images) {
+            ZStack (alignment: .bottomTrailing) {
+                if showButton {
+                    photoPickerButtonImage()
+                }
+                Color.clear
+            }
+        }
+    }
+    
+    @ViewBuilder func photoPickerButtonImage() -> some View {
+        Image(systemName: "camera")
+            .font(.subheadline)
+            .padding(standardPadding)
+            .tintedBlurBackground()
+            .clipShape(Circle())
+            .glassEffectIfAvailable(.clear(interactive: true), in: .circle)
+            .foregroundStyle(.white)
     }
 }
 
