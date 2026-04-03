@@ -8,6 +8,7 @@ import SwiftUI
 
 @MainActor
 @Observable class ProfileViewModel {
+    let uuid = UUID() // helpful for debugging
     let relationshipViewModel = RelationshipViewModel()
     
     let editingViewModel = {
