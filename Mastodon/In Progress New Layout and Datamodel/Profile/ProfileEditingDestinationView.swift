@@ -730,6 +730,7 @@ struct CustomProfileFieldsEditor: View {
             ForEach(customFields, id: \.self) { field in
                 customFieldRow(field, emojis: editingViewModel.emojis, isReordering: false)
                     .padding(.vertical, doublePadding)
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         withAnimation {
                             editingViewModel.beginEditingField(.edit(field), profileViewModel: profileViewModel, navigator: navigator)
