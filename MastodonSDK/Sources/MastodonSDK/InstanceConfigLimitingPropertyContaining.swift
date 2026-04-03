@@ -4,4 +4,5 @@ public protocol InstanceConfigLimitingPropertyContaining {
     var statuses: Mastodon.Entity.Instance.Configuration.Statuses? { get }
     var mediaAttachments: Mastodon.Entity.Instance.Configuration.MediaAttachments? { get }
     var polls: Mastodon.Entity.Instance.Configuration.Polls? { get }
+    var accounts: Mastodon.Entity.V2.Instance.Configuration.AccountsLimits? { get }
 }

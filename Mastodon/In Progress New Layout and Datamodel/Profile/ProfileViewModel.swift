@@ -187,12 +187,24 @@ import SwiftUI
     }
 }
 
+extension Mastodon.Entity.V2.Instance.Configuration.AccountsLimits {
+    static var defaultMaxDisplayNameLength: Int = 30
+    static var defaultMaxBioLength: Int = 500
+    static var defaultMaxFeaturedTagCount: Int = 10
+    static var defaultMaxPinnedStatusCount: Int = 5
+    static var defaultMaxProfileCustomFieldsCount: Int = 4
+    static var defaultMaxProfileFieldNameLength: Int = 255
+    static var defaultMaxProfileFieldValueLength: Int = 255
+}
+
 @MainActor
 @Observable
 class ProfileEditingViewModel {
+    typealias AccountsLimits = Mastodon.Entity.V2.Instance.Configuration.AccountsLimits
     var editingStatus: EditingStatus?
     var showVerifiedLinkTip = true
     var showTabDisplayPreferences = false
+    var instanceLimits: AccountsLimits?
     
     let displayNameFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "", characterLimit: .hardLimit(30), autocompleteMastodonItems: false)
     let bioFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "Describe yourself and/or this account.", characterLimit: .softLimit(220), autocompleteMastodonItems: true) // TODO: L10n
@@ -331,7 +343,9 @@ class ProfileEditingViewModel {
         bannerImagePhotosPickerItem = nil
         presentingAlert = nil
         
-        showTabDisplayPreferences = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.profileSettings) ?? false
+        let instanceConfig = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration
+        showTabDisplayPreferences = instanceConfig?.isAvailable(.profileSettings) ?? false
+        instanceLimits = instanceConfig?.instanceConfigLimitingProperties?.accounts
         
         displayNameFieldEditingViewModel.contentDidChange = { withAnimation { textContentDidChange() } }
         bioFieldEditingViewModel.contentDidChange = { withAnimation { textContentDidChange() } }
@@ -546,5 +560,26 @@ extension ProfileEditingViewModel {
     func setFeaturedTabVisibilitySetting(_ newSetting: FeaturedTabVisibilitySetting) {
         guard newSetting != featuredTabVisibilitySetting else { return }
         featuredTabVisibilitySetting = newSetting
+    }
+}
+
+extension ProfileEditingViewModel {
+    var canAddAnotherProfileField: Bool {
+        if let limit = instanceLimits?.maxProfileCustomFieldsCount {
+            return customFields?.count ?? 0 < limit
+        } else {
+            return customFields?.count ?? 0 < AccountsLimits.defaultMaxProfileCustomFieldsCount
+        }
+    }
+    
+    var customFieldLimitReachedMessage: String? {
+        guard let limit = instanceLimits?.maxProfileCustomFieldsCount else { return nil }
+        guard let fieldsCount = customFields?.count else { return nil }
+        guard fieldsCount >= limit else { return nil }
+        if let domainName = initialInfo?.domain {
+            return "Max \(limit) fields reached (\(domainName))" // TODO: L10n
+        } else {
+            return "Max \(limit) fields reached" // TODO: L10n
+        }
     }
 }

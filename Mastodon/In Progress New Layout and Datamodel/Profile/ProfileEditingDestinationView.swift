@@ -656,12 +656,22 @@ struct CustomProfileFieldsEditor: View {
                 if let customFields = editingViewModel.customFields, !customFields.isEmpty {
                     customFieldsList(customFields)
                 }
-                actionButton(text: "Add field", isDestructive: false) {
-                    editingViewModel.beginEditingField(.create, profileViewModel: profileViewModel, navigator: navigator)
+                if let limitReachedMessage = editingViewModel.customFieldLimitReachedMessage {
+                    tipText(limitReachedMessage)
+                } else if editingViewModel.canAddAnotherProfileField {
+                    actionButton(text: "Add field", isDestructive: false) {
+                        editingViewModel.beginEditingField(.create, profileViewModel: profileViewModel, navigator: navigator)
+                    }
                 }
                 if let customFields = editingViewModel.customFields, !customFields.isEmpty {
-                    actionButton(text: "Reorder fields", isDestructive: false) {
-                        editingViewModel.beginReorderingFields(profileViewModel: profileViewModel, navigator: navigator)
+                    if editingViewModel.canAddAnotherProfileField {
+                        actionButton(text: "Reorder fields", isDestructive: false) {
+                            editingViewModel.beginReorderingFields(profileViewModel: profileViewModel, navigator: navigator)
+                        }
+                    } else {
+                        actionButton(text: "Reorder/delete fields", isDestructive: false) {
+                            editingViewModel.beginReorderingFields(profileViewModel: profileViewModel, navigator: navigator)
+                        }
                     }
                 }
                 if editingViewModel.showVerifiedLinkTip {
