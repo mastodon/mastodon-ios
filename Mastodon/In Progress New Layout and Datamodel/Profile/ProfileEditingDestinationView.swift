@@ -432,7 +432,7 @@ struct FeaturedHashtagsEditor: View {
     @Environment(FeaturedHashtagsModel.self) var hashtagsModel
     @Environment(MastodonNavigationRouter.self) var navigator
     
-    @State var needsDeleteConfirmation: IndexSet?
+    @State var needsDeleteConfirmation: Mastodon.Entity.FeaturedTag?
 
     var body: some View {
         hashtagsList(hashtagsModel.featuredHashtags)
@@ -442,10 +442,10 @@ struct FeaturedHashtagsEditor: View {
                 set: { newValue in if newValue == false { needsDeleteConfirmation = nil } }
                )) {
                    Button("Remove", role: .destructive) { // TODO: L10n
-                       guard let offsets = needsDeleteConfirmation else { return }
+                       guard let confirmedForDeletion = needsDeleteConfirmation else { return }
                        Task {
                            do {
-                               try await hashtagsModel.removeFeaturedHashtags(atOffsets: offsets)
+                               try await hashtagsModel.removeFeaturedHashtag(confirmedForDeletion)
                            } catch {
                                navigator.didReceiveError(error)
                            }
@@ -459,9 +459,8 @@ struct FeaturedHashtagsEditor: View {
     }
     
     var alertTitle: String {
-        guard let indexToDelete = needsDeleteConfirmation?.first else { return "" }
-        let tag = hashtagsModel.featuredHashtags[indexToDelete]
-        return "Remove #\(tag.name)?" // TODO: L10n
+        guard let needsDeleteConfirmation else { return "" }
+        return "Remove #\(needsDeleteConfirmation.name)?" // TODO: L10n
     }
     
     @ViewBuilder var addHashtagButton: some View {
@@ -475,7 +474,7 @@ struct FeaturedHashtagsEditor: View {
             if !hashtags.isEmpty {
                 Section() {
                     ForEach(hashtags, id: \.self) { hashtag in
-                        if let deletingIndex = needsDeleteConfirmation?.first, hashtags[deletingIndex] == hashtag {
+                        if hideRowBecauseItIsBeingDeleted(hashtag) {
                             EmptyView()
                         } else {
                             HashtagRow(hashtag: hashtag)
@@ -483,7 +482,7 @@ struct FeaturedHashtagsEditor: View {
                         }
                     }
                     .onDelete { offsets in
-                        needsDeleteConfirmation = offsets
+                        needsDeleteConfirmation = hashtagsModel.tagToRemove(basedOnDeletionOffsets: offsets)
                     }
                     .ignoresSafeArea()
                 }
@@ -495,6 +494,19 @@ struct FeaturedHashtagsEditor: View {
             }
         }
         .listStyle(.insetGrouped)
+    }
+    
+    func hideRowBecauseItIsBeingDeleted(_ featuredTag: Mastodon.Entity.FeaturedTag) -> Bool {
+        if needsDeleteConfirmation == featuredTag {
+            return true
+        } else {
+            switch hashtagsModel.currentFetchState {
+            case .unfeaturing(let unfeaturing):
+                return unfeaturing == featuredTag
+            default:
+                return false
+            }
+        }
     }
 }
 
@@ -604,6 +616,7 @@ struct AddFeaturedHashtagView: View {
             Task {
                 try await featuredHashtagsModel.addFeaturedHashtag(tagName: hashtag)
                 searchText = ""
+                didFeature = hashtag
             }
         }
     }

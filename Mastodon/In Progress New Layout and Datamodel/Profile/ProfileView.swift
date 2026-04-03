@@ -1416,11 +1416,14 @@ extension ProfileViewModel {
         try await doNextFetch()
     }
     
-    func removeFeaturedHashtags(atOffsets offsets: IndexSet) async throws {
+    func tagToRemove(basedOnDeletionOffsets offsets: IndexSet) -> Mastodon.Entity.FeaturedTag? {
         assert(offsets.count == 1)
-        guard let index = offsets.first else { return }
-        let toUnfeature = featuredHashtags[index]
-        let requestedDeletion = FetchState.unfeaturing(toUnfeature)
+        guard let index = offsets.first else { return nil }
+        return featuredHashtags[index]
+    }
+    
+    func removeFeaturedHashtag(_ featuredTag: Mastodon.Entity.FeaturedTag) async throws {
+        let requestedDeletion = FetchState.unfeaturing(featuredTag)
         if !alreadyFetching(requestedDeletion) {
             fetchQueue.append(requestedDeletion)
         }
