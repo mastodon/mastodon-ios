@@ -125,6 +125,7 @@ struct ProfileEditingDestinationView: View {
                 .environment(profileViewModel.editingViewModel)
         case .reorderCustomFields(let profileViewModel):
             ReorderCustomFieldsView()
+                .environment(profileViewModel)
                 .environment(profileViewModel.editingViewModel)
         case .addHashtag(let profileViewModel):
             AddFeaturedHashtagView()
@@ -172,6 +173,7 @@ extension ProfileViewModel {
 }
 
 struct EditSingleTextView: View {
+    @Environment(ProfileViewModel.self) var profileViewModel
     @Environment(ProfileEditingViewModel.self) var editingViewModel
     @Environment(MetaTextInputFieldViewModel.self) var textInputModel
     
@@ -196,7 +198,7 @@ struct EditSingleTextView: View {
         .onChange(of: textInputModel.stringContent) { oldValue, newValue in
             if newValue.last == "\n" {
                 isFocused = false
-                editingViewModel.checkForChanges()
+                profileViewModel.checkForEditingChanges()
             }
         }
     }
@@ -889,10 +891,10 @@ struct EditFieldView: View {
                     }
                 }
                 .onChange(of: editState.labelEditingModel.stringContent) { oldValue, newValue in
-                    editingViewModel.checkForChanges()
+                    profileViewModel.checkForEditingChanges()
                     if newValue.last == "\n" {
                         focusedField = .value
-                        editingViewModel.checkForChanges()
+                        profileViewModel.checkForEditingChanges()
                     }
                 }
                 
@@ -908,10 +910,10 @@ struct EditFieldView: View {
                         .focused($focusedField, equals: .value)
                 }
                 .onChange(of: editState.valueEditingModel.stringContent) { oldValue, newValue in
-                    editingViewModel.checkForChanges()
+                    profileViewModel.checkForEditingChanges()
                     if newValue.last == "\n" {
                         focusedField = nil
-                        editingViewModel.checkForChanges()
+                        profileViewModel.checkForEditingChanges()
                     }
                 }
                 
@@ -946,6 +948,7 @@ struct EditFieldView: View {
 }
 
 struct ReorderCustomFieldsView: View {
+    @Environment(ProfileViewModel.self) var profileViewModel
     @Environment(ProfileEditingViewModel.self) var editingViewModel
     
     var body: some View {
@@ -956,7 +959,7 @@ struct ReorderCustomFieldsView: View {
                     .padding(.vertical, doublePadding)
             }
             .onChange(of: editingViewModel.reorderingCustomFields) { oldValue, newValue in
-                editingViewModel.checkForChanges()
+                profileViewModel.checkForEditingChanges()
             }
             .ignoresSafeArea()
         }.listStyle(.insetGrouped)

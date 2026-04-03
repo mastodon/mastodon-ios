@@ -19,9 +19,9 @@ import Combine
     public var contentDidChange: (()->())?
     private var autoCompleteSuggestionViewModel: AutoCompleteSuggestionViewModel?
     
-    public let originalStringContent: String
+    public private(set) var originalStringContent: String
     
-    public var stringContent: String {
+    public private(set) var stringContent: String {
         didSet {
             guard let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue) else {
                 characterCount = stringContent.count
@@ -41,6 +41,13 @@ import Combine
                 .charactersReservedPerURL ?? MastodonAuthentication.fallbackCharactersReservedPerURL
             characterCount = lengthWithoutLinks + (matches.count * charactersReservedPerURL)
         }
+    }
+    
+    public func updateStringContent(_ newContent: String, resetHasChanges: Bool) {
+        if resetHasChanges {
+            originalStringContent = newContent
+        }
+        stringContent = newContent
     }
     
     var placeholder: String
@@ -198,7 +205,11 @@ extension MetaTextInputFieldViewModel: UITextViewDelegate {
     }
     
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        defer { contentDidChange?() }
+        defer {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
+                self.contentDidChange?()
+            }
+        }
         if text == " ", let autoCompleteInfo = self.autoCompleteSuggestionViewModel?.autoCompleteInfo {
             let isHandled = handleAutoComplete(autoCompleteInfo)
             return !isHandled
@@ -394,7 +405,7 @@ public struct MetaTextInputField: View {
                 MetaTextViewRepresentable(
                     string: Binding<String>(
                         get: { viewModel.stringContent },
-                        set: { newValue in viewModel.stringContent = newValue }
+                        set: { newValue in viewModel.updateStringContent(newValue, resetHasChanges: false) }
                     ),
                     width: geo.size.width - margin - margin,
                     allowScroll: allowScroll,

@@ -429,6 +429,7 @@
 				Profile/ProfileEditingDestinationView.swift,
 				Profile/ProfileEditingView.swift,
 				Profile/ProfileView.swift,
+				Profile/ProfileViewModel.swift,
 				Timeline/CentralPostViewModelCache.swift,
 				Timeline/PrecalculatedRowHeights.swift,
 				Timeline/ThreadedConversationModel.swift,
