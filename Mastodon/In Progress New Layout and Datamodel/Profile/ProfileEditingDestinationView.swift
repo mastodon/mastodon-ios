@@ -525,8 +525,9 @@ struct AddFeaturedHashtagView: View {
     
     var body: some View {
         List() {
-            if !autoCompleteSuggestionsModel.autoCompleteSuggestions.isEmpty {
-                ForEach(autoCompleteSuggestionsModel.autoCompleteSuggestions, id: \.self) { autoCompleteItem in
+            let filteredAutoCompleteSuggestions = filterAutocompleteSuggestions(autoCompleteSuggestionsModel.autoCompleteSuggestions)
+            if !filteredAutoCompleteSuggestions.isEmpty {
+                ForEach(filteredAutoCompleteSuggestions, id: \.self) { autoCompleteItem in
                     switch autoCompleteItem {
                     case .hashtagV1(let tagName):
                         suggestedHashtagRow(tagName)
@@ -536,7 +537,7 @@ struct AddFeaturedHashtagView: View {
                         EmptyView()
                     }
                 }
-            } else if let suggestedTags = featuredHashtagsModel.suggestedTags {
+            } else if let suggestedTags = featuredHashtagsModel.suggestedTags, !suggestedTags.isEmpty {
                 ForEach(suggestedTags, id: \.self) { tag in
                     suggestedHashtagRow(tag.name)
                 }
@@ -597,6 +598,23 @@ struct AddFeaturedHashtagView: View {
                 }
             } catch {
                 navigator.didReceiveError(error)
+            }
+        }
+    }
+    
+    private func filterAutocompleteSuggestions(_ autoCompleteSuggestions:  [AutoCompleteItem]) ->  [AutoCompleteItem] {
+        return autoCompleteSuggestions.filter { item in
+            switch item {
+            case .hashtag(let tag):
+                return !featuredHashtagsModel.featuredHashtags.contains { featuredTag in
+                    featuredTag.name == tag.name
+                }
+            case .hashtagV1(let tagName):
+                return !featuredHashtagsModel.featuredHashtags.contains { featuredTag in
+                    featuredTag.name == tagName
+                }
+            default:
+                return false
             }
         }
     }
