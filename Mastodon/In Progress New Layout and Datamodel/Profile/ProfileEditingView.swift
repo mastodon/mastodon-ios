@@ -143,13 +143,16 @@ struct ProfileEditingView: View {
     }
     
     var allEditRows: [ProfileEditDestinationType] {
-        [
+        var rows: [ProfileEditDestinationType] = [
             .displayName(profileViewModel: profileViewModel),
             .bio(profileViewModel: profileViewModel),
             .customFields(profileViewModel: profileViewModel),
-            .featuredHashtags(profileViewModel: profileViewModel),
-            .profileTabSettings(profileViewModel: profileViewModel)
+            .featuredHashtags(profileViewModel: profileViewModel)
         ]
+        if editingViewModel.showTabDisplayPreferences {
+            rows.append(.profileTabSettings(profileViewModel: profileViewModel))
+        }
+        return rows
     }
     
     func navigate(to editDestination: ProfileEditDestinationType) {

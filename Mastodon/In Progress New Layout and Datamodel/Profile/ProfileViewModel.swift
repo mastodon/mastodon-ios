@@ -517,7 +517,9 @@ extension ProfileViewModel {
     }
     
     func commitTabSettingsChanges() async throws {
+        guard editingViewModel.showTabDisplayPreferences else { return }  // older servers don't know about these settings
         guard let navigator, let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { throw APIService.APIError.explicit(.authenticationMissing) }
+
         let updatedProfile = try await APIService.shared.updateTabDisplaySettings(showFeaturedTab: editingViewModel.featuredTabVisibilitySetting == .showFeaturedTab, showMediaTab: editingViewModel.mediaTabVisibilitySetting == .showMediaTab, showMediaReplies: editingViewModel.mediaTabRepliesSetting == .includeMyRepliesToOthers, authenticationBox: authBox)
         guard let updatedAccount = account?.byUpdatingTabSettings(
             showFeaturedTab: updatedProfile.showFeatured,
