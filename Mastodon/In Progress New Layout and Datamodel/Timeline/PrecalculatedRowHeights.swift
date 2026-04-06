@@ -29,7 +29,7 @@ final class ViewMeasurer {
         return PrecalculatedHeight(contentWidth: contentWidth, contentConcealed: contentConcealModel.currentMode, showingTranslation: viewModel.isShowingTranslation == true, calculatedHeight: height)
     }
     
-    let MILLISECONDS_DELAY_BETWEEN_MEASUREMENTS: Int = 50 // delay arrived at via experimentation. 10ms is too short, 50 seems to work.
+    let MILLISECONDS_DELAY_BETWEEN_MEASUREMENTS: Int = 200 // delay arrived at via experimentation. 10ms was always too short, 50 seemed to work in testing but failed in public Testflight. Now trying 200 to see if that's enough of a buffer.
     
     func measureHeight<V: View>(_ view: V, width: CGFloat) async -> CGFloat {
         host.rootView = AnyView(view)
