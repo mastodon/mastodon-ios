@@ -28,6 +28,15 @@ import SwiftUI
                 return specs.scale
             }
         }
+        
+        var isTriggered: Bool {
+            switch self {
+            case .progressing:
+                false
+            case .triggered:
+                true
+            }
+        }
     }
     
     struct DisplaySpecs {
@@ -130,7 +139,7 @@ import SwiftUI
     }
 
     func scale(_ progress: Double) -> Double {
-        return DisplaySpecs.baseScale
+        return 1 + DisplaySpecs.baseScale * progress
     }
     
     static let maxScale: CGFloat = DisplaySpecs.baseScale + 1
@@ -156,26 +165,23 @@ struct InteractiveLoadingIndicatorRow: View {
             HStack {
                 Spacer()
                 ZStack {
-                    VStack {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                            .scaleEffect(InteractiveLoadingTriggerModel.maxScale)
-                        Text(triggerMessage)
-                    }
-                    .hidden()  // to keep the overall size stable
-                    VStack {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                            .border(triggerBorderColor)
-                            .scaleEffect(triggerModel.triggerState.scale)
-                            .mask(
-                                PartialPie(startAngle: progressViewMaskStartAngle, percentCovered: triggerModel.triggerState.steppedProgress)
-                                    .frame(width: 30, height: 30)
-                                    .scaleEffect(triggerModel.triggerState.scale)
-                            )
-                        Text(triggerMessage)
-                    }
-                    .opacity(triggerModel.triggerState.opacity)
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .scaleEffect(triggerModel.triggerState.scale)
+                        .mask(
+                            PartialPie(startAngle: progressViewMaskStartAngle, percentCovered: triggerModel.triggerState.isTriggered ? 1.0 : 0.0)
+                                .frame(width: 30, height: 30)
+                                .scaleEffect(triggerModel.triggerState.scale)
+                        )
+                    Circle()
+                        .stroke(.secondary, lineWidth: 2)
+                        .frame(width: 30, height: 30)
+                        .scaleEffect(triggerModel.triggerState.scale)
+                        .mask(
+                            PartialPie(startAngle: progressViewMaskStartAngle, percentCovered: triggerModel.triggerState.isTriggered ? 0.0 : triggerModel.triggerState.steppedProgress)
+                                .frame(width: 30, height: 30)
+                                .scaleEffect(triggerModel.triggerState.scale)
+                        )
                 }
                 Spacer()
             }
@@ -184,24 +190,6 @@ struct InteractiveLoadingIndicatorRow: View {
     }
     
     let delayPadding: CGFloat = 150
-    
-    var triggerBorderColor: Color {
-        switch triggerModel.triggerState {
-        case .progressing:
-            Color.gray
-        case .triggered:
-            Color.red
-        }
-    }
-    
-    var triggerMessage: String {
-        switch triggerModel.triggerState {
-        case .progressing:
-            "Keep pulling to trigger load..."
-        case .triggered:
-            "Load triggered! Fetching results..."
-        }
-    }
     
     var progressViewMaskStartAngle: Angle {
         Angle(degrees: -90 - (180 / triggerModel.totalSteps)) // start a little before "noon", so that the topmost element of the progress view displays in full)
