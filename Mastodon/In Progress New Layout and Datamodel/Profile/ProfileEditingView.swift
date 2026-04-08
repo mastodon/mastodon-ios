@@ -114,30 +114,32 @@ struct ProfileEditingView: View {
     
     var body: some View {
         @Bindable var navigationRouter = navigator
+
         GeometryReader { geo in
-            ScrollView {
-                VStack(spacing: standardPadding) {
-                    ProfileAvatarAndBannerView(width: geo.size.width)
+            VStack(spacing: 0) {
+                ProfileAvatarAndBannerView(maxWidth: geo.size.width)
+                    .zIndex(2)
+                List {
                     ForEach(allEditRows, id: \.id) { destination in
                         profileEditRow(destination)
-                            .padding(.horizontal, doublePadding)
-                            .frame(width: geo.size.width)
                             .onTapGesture {
                                 navigate(to: destination)
                             }
                     }
                 }
+                .listStyle(.insetGrouped)
             }
-        }
-        .sheet(isPresented: $navigationRouter.isPresentingProfileEditSheet) {
-            switch navigationRouter.presentedSheet {
-            case .profileEditingSheet(let type):
-                ProfileEditingDestinationView(destinationType: type)
-                    .environment(type.profileViewModel)
-                    .environment(type.profileViewModel.editingViewModel)
-                    .environment(navigationRouter)
-            case .timelineSheet, .none:
-                EmptyView()
+            .frame(maxWidth: .infinity)
+            .sheet(isPresented: $navigationRouter.isPresentingProfileEditSheet) {
+                switch navigationRouter.presentedSheet {
+                case .profileEditingSheet(let type):
+                    ProfileEditingDestinationView(destinationType: type)
+                        .environment(type.profileViewModel)
+                        .environment(type.profileViewModel.editingViewModel)
+                        .environment(navigationRouter)
+                case .timelineSheet, .none:
+                    EmptyView()
+                }
             }
         }
     }
@@ -165,26 +167,28 @@ struct ProfileEditingView: View {
     
     func profileEditRow(_ destination: ProfileEditDestinationType) -> some View {
         HStack {
-            VStack(alignment: .leading) {
-                Text(mainLabelForRow(destination) ?? "")
-                    .lineLimit(1)
-                    .foregroundColor(mainLabelColorForRow(destination))
-                if let subtitle = subtitleForRow(destination) {
-                    Text(subtitle)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(mainLabelForRow(destination) ?? "")
                         .lineLimit(1)
+                        .layoutPriority(3)
+                        .foregroundColor(mainLabelColorForRow(destination))
+                    if let subtitle = subtitleForRow(destination) {
+                        Text(subtitle)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .lineLimit(1)
+                            .layoutPriority(2)
+                    }
                 }
+                .layoutPriority(1)
+                contentForRow(destination)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            Spacer()
-            contentForRow(destination)
+            .frame(maxWidth: .infinity)
             disclosureIndicator(destination)
         }
-        .padding()
-        .background {
-            Capsule()
-                .fill(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor)
-        }
+        .contentShape(Rectangle())
     }
     
     func mainLabelColorForRow(_ destination: ProfileEditDestinationType) -> Color {

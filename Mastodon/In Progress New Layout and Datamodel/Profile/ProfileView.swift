@@ -210,7 +210,7 @@ struct ProfileView: View {
     @ViewBuilder func subview(_ subviewType: Subview, width: CGFloat) -> some View {
         switch subviewType {
         case .bannerAndAvatar:
-            ProfileAvatarAndBannerView(width: width)
+            ProfileAvatarAndBannerView(maxWidth: width)
                 .environment(viewModel.editingViewModel)
         case .mainInfo:
             if let familiarFollowersViewModel = viewModel.familiarFollowersViewModel {
@@ -260,9 +260,6 @@ struct ProfileView: View {
                     }
                     
                     HStack {
-                        Spacer()
-                            .frame(maxWidth: .infinity)
-                        
                         Button() {
                             withAnimation {
                                 self.viewModel.relationshipViewModel.cancelPersonalNoteEdit()
@@ -293,6 +290,7 @@ struct ProfileView: View {
                         }
                     }
                     .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
                 }
                 .frame(maxWidth: 300)
                 .padding(doublePadding)
@@ -348,14 +346,16 @@ let bannerFullHeight: CGFloat = 194
 struct ProfileAvatarAndBannerView: View {
     @Environment(ProfileViewModel.self) var profileViewModel
     @Environment(ProfileEditingViewModel.self) var editingViewModel
-    var width: CGFloat
+    
+    let maxWidth: CGFloat
     
     var body: some View {
         VStack {
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
                 VStack(spacing: 0) {
                     ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
-                        bannerView(width: width)
+                        bannerView(maxWidth: maxWidth)
+                            .frame(maxWidth: .infinity)
                             .frame(height: bannerFullHeight)
                             .clipped()
                             .background(.secondary) // in case there is no image
@@ -368,15 +368,11 @@ struct ProfileAvatarAndBannerView: View {
                             EmptyView()
                         }
                     }
-                    Spacer()
-                        .frame(height: 16)
                 }
         
-                HStack() {
                     ZStack {
                         AvatarView(size: .extraLarge, avatarSource: editingViewModel.avatarConfirmedCroppedImage != nil ? .local(Image(uiImage: editingViewModel.avatarConfirmedCroppedImage!)) : .url(profileViewModel.account?.avatarURL), goToProfile: nil)
                             .padding(.horizontal, doublePadding)
-                            .frame(alignment: .leading)
                         switch profileViewModel.editingStatus {
                         case .editing:
                             // if the user has already chosen a new image, let them see it unobscured, but tapping the avatar will still bring up the photo picker
@@ -387,20 +383,16 @@ struct ProfileAvatarAndBannerView: View {
                             EmptyView()
                         }
                     }
-                    Spacer()
-                        .frame(maxWidth: .infinity)
-                }
-                .frame(width: min(width, maxFeedContentWidth))
+                    .offset(.init(width: 0, height: 16))
             }
         }
     }
     
-    @ViewBuilder func bannerView(width: CGFloat) -> some View {
+    @ViewBuilder func bannerView(maxWidth: CGFloat) -> some View {
         if let replacementImage = editingViewModel.confirmedBannerImage {
             Image(uiImage: replacementImage)
                 .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: width)
+                .scaledToFill()
         } else if let bannerUrl = profileViewModel.account?.displayInfo.bannerImageUrl {
             WebImage(url: bannerUrl) { phase in
                 switch phase {
@@ -409,8 +401,8 @@ struct ProfileAvatarAndBannerView: View {
                 case .success(let image):
                     image
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: width)
+                        .scaledToFill()
+                        .frame(maxWidth: maxWidth)  // For some reason, trying to constrain this width further up the heirarchy does not work.
                 case .failure:
                     Color.secondary
                 @unknown default:
@@ -422,10 +414,7 @@ struct ProfileAvatarAndBannerView: View {
     
     @ViewBuilder var bannerEditButton: some View {
         PhotosPicker(selection: editingViewModel.selectedBannerImage, maxSelectionCount: 1, matching: .images) {
-            ZStack(alignment: .bottomTrailing) {
-                photoPickerButtonImage()
-                Color.clear
-            }
+            photoPickerButtonImage()
         }
     }
     
@@ -463,8 +452,6 @@ struct ProfileInfoView: View {
     
     var body: some View {
         @Bindable var viewModel = viewModel
-        
-        ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             
             VStack(alignment: .leading, spacing: 0) {
                 // DISPLAY NAME
@@ -552,12 +539,7 @@ struct ProfileInfoView: View {
                     CustomFieldsFlow(focusedField: $viewModel.focusedCustomField, maxItemWidth: min(width * 0.4, maxFeedContentWidth), fields: viewModel.account?.metadata.customFieldsForDisplay ?? [], emojis: viewModel.account?._legacyEntity.emojis ?? [])
                 }
             }
-            
-            HStack {
-                Spacer()
-                    .frame(maxWidth: .infinity)
-            }
-        }
+            .frame(maxWidth: .infinity, alignment: .topLeading)
     }
     
     var badges: [ProfileBadge]? {
