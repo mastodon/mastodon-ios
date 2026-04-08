@@ -92,7 +92,7 @@ struct ProfileView: View {
                             .id(Subview.bannerAndAvatar)
                             .frame(width: geo.size.width)
                         Spacer()
-                            .frame(height: doublePadding)
+                            .frame(height: doublePadding * 2)
                         subview(.mainInfo, width: geo.size.width)
                             .id(Subview.mainInfo)
                             .padding(.horizontal, doublePadding)
