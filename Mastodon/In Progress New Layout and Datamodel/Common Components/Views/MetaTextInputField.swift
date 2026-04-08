@@ -21,7 +21,8 @@ import Combine
     
     public private(set) var originalStringContent: String
     
-    public private(set) var stringContent: String {
+    /// Prefer to set this using updateStringContent(resetHasChanges:) if this is not being changed via a binding, so that the caller can be sure to request reset of has changes if appropriate.
+    public var stringContent: String {
         didSet {
             guard let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue) else {
                 characterCount = stringContent.count

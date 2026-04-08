@@ -24,9 +24,9 @@ class ProfileEditingDestinationHostingViewController: UIHostingController<AnyVie
 extension ProfileEditDestinationType {
     var doNotPad: Bool {
         switch self {
-        case .reorderCustomFields, .featuredHashtags, .addHashtag:
+        case .reorderCustomFields, .featuredHashtags, .addHashtag, .displayName, .bio, .customFields, .editCustomField:
             true
-        case .displayName, .bio, .customFields, .editCustomField, .verifiedLinkInstructions, .profileTabSettings:
+        case .verifiedLinkInstructions, .profileTabSettings:
             false
         }
     }
@@ -183,7 +183,7 @@ struct EditSingleTextView: View {
     let textViewHeight: CGFloat
     let returnKeyType: UIReturnKeyType
     
-    var body: some View { 
+    var body: some View {
         List {
             Section {
                 MetaTextInputField(allowScroll: allowTextScroll, drawBackground: false, returnKeyType: returnKeyType)
@@ -651,101 +651,72 @@ struct CustomProfileFieldsEditor: View {
     
     var body: some View {
         // TODO: L10n
-        ScrollView() {
-            VStack(alignment: .leading, spacing: doublePadding) {
-                SubsectionHeading(title: nil, subtitle: "Add your pronouns, external links, or anything else you’d like to share.")
-                if let customFields = editingViewModel.customFields, !customFields.isEmpty {
+        List {
+            let customFields = editingViewModel.customFields ?? []
+            if !customFields.isEmpty {
+                Section {
                     customFieldsList(customFields)
+                } header: {
+                    SubsectionHeading(title: nil, subtitle: "Add your pronouns, external links, or anything else you’d like to share.")
+                } footer: {
+                    verifiedLinksTip
                 }
-                if let limitReachedMessage = editingViewModel.customFieldLimitReachedMessage {
-                    tipText(limitReachedMessage)
-                } else if editingViewModel.canAddAnotherProfileField {
-                    actionButton(text: "Add field", isDestructive: false) {
+            }
+            if editingViewModel.canAddAnotherProfileField {
+                Section {
+                    actionButton(text: "Add field", isDestructive: false, includeBackground: false) {
                         editingViewModel.beginEditingField(.create, profileViewModel: profileViewModel, navigator: navigator)
                     }
+                } header: {
+                    if customFields.isEmpty {
+                        verifiedLinksTip
+                    }
                 }
-                if let customFields = editingViewModel.customFields, !customFields.isEmpty {
+            }
+            if !customFields.isEmpty {
+                Section {
                     if editingViewModel.canAddAnotherProfileField {
-                        actionButton(text: "Reorder fields", isDestructive: false) {
+                        actionButton(text: "Reorder fields", isDestructive: false, includeBackground: false) {
                             editingViewModel.beginReorderingFields(profileViewModel: profileViewModel, navigator: navigator)
                         }
                     } else {
-                        actionButton(text: "Reorder/delete fields", isDestructive: false) {
+                        actionButton(text: "Reorder/delete fields", isDestructive: false, includeBackground: false) {
                             editingViewModel.beginReorderingFields(profileViewModel: profileViewModel, navigator: navigator)
                         }
                     }
-                }
-                if editingViewModel.showVerifiedLinkTip {
-                    (Text("Tip: Add credibility to your Mastodon account by verifying links to websites you own.  ")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                     + Text("Learn more")
-                        .font(.footnote)
-                        .fontWeight(.bold)
-                        .foregroundStyle(Asset.Colors.accent.swiftUIColor))
-                    .onTapGesture {
-                        navigator.presentModal(.editProfileNavigation(destination: .verifiedLinkInstructions(profileViewModel: profileViewModel)))
+                } header: {
+                    if let limitReachedMessage = editingViewModel.customFieldLimitReachedMessage {
+                        tipText(limitReachedMessage)
                     }
                 }
-                Spacer()
             }
         }
     }
     
-    @ViewBuilder var verifiedLinksTipBox: some View {
-        HStack(alignment: .top) {
-            Image(systemName: "checkmark.seal")
-                .font(.subheadline)
-                .padding(tinySpacing)
-                .background() {
-                    Circle()
-                        .fill(brandBackgroundColor)
-                }
-            
-            VStack(alignment: .leading) {
-                Spacer()
-                    .frame(height: tinySpacing)
-                Text("Tip: Adding verified links")
-                    .fontWeight(.semibold)
-                Text("You can easily add credibility to your Mastodon account by verifying links to any websites you own.")
+    @ViewBuilder var verifiedLinksTip: some View {
+        if editingViewModel.showVerifiedLinkTip {
+            (Text("Tip: Add credibility to your Mastodon account by verifying links to websites you own.  ")
+                .font(.footnote)
+             + Text("Learn more")
+                .font(.footnote)
+                .fontWeight(.bold)
+                .foregroundStyle(Asset.Colors.accent.swiftUIColor))
+            .onTapGesture {
+                navigator.presentModal(.editProfileNavigation(destination: .verifiedLinkInstructions(profileViewModel: profileViewModel)))
             }
-            .font(.subheadline)
-            
-            Button() {
-                withAnimation {
-                    editingViewModel.showVerifiedLinkTip = false
-                }
-            } label: {
-                Image(systemName: "xmark")
-            }
-        }
-        .padding()
-        .background() {
-            RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
-                .fill(brandBackgroundColor)
         }
     }
     
     @ViewBuilder func customFieldsList(_ customFields: [Mastodon.Entity.Field]) -> some View {
-        VStack {
-            ForEach(customFields, id: \.self) { field in
-                customFieldRow(field, emojis: editingViewModel.emojis, isReordering: false)
-                    .padding(.vertical, doublePadding)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        withAnimation {
-                            editingViewModel.beginEditingField(.edit(field), profileViewModel: profileViewModel, navigator: navigator)
-                        }
+        ForEach(customFields, id: \.self) { field in
+            customFieldRow(field, emojis: editingViewModel.emojis, isReordering: false)
+                .padding(.vertical, doublePadding)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    withAnimation {
+                        editingViewModel.beginEditingField(.edit(field), profileViewModel: profileViewModel, navigator: navigator)
                     }
-                if customFields.firstIndex(where: { $0.hashValue == field.hashValue }) != customFields.endIndex - 1 {
-                    Divider()
                 }
-            }
-        }
-        .padding(doublePadding)
-        .background {
-            RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
-                .fill(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor)
         }
     }
 }
@@ -881,79 +852,76 @@ struct EditFieldView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: doublePadding) {
+        List {
             if let editState = editingViewModel.fieldEditingState {
-                HStack(spacing: tinySpacing) {
-                    Text("Label") // TODO: L10n
-                        .fixedSize(horizontal: false, vertical: true)
-                        .frame(width: labelWidth, alignment: .leading)
-                        .frame(maxHeight: .infinity)
-                    MetaTextInputField(allowScroll: false, drawBackground: false, returnKeyType: .next)
-                        .fixedSize(horizontal: false, vertical: false)
-                        .environment(editState.labelEditingModel)
-                        .focused($focusedField, equals: .label)
-                }
-                .fixedSize(horizontal: false, vertical: true)
-                .onAppear() {
-                    switch editState.editingField {
-                    case .create:
-                        focusedField = .label
-                    case .edit:
-                        break
+                @Bindable var labelEditingModel = editState.labelEditingModel
+                @Bindable var valueEditingModel = editState.valueEditingModel
+                Section {
+                    HStack(spacing: tinySpacing) {
+                        Text("Label") // TODO: L10n
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(width: labelWidth, alignment: .leading)
+                            .frame(maxHeight: .infinity)
+                        TextField("", text: $labelEditingModel.stringContent)
+                            .focused($focusedField, equals: .label)
                     }
-                }
-                .onChange(of: editState.labelEditingModel.stringContent) { oldValue, newValue in
-                    profileViewModel.checkForEditingChanges()
-                    if newValue.last == "\n" {
-                        focusedField = .value
+                    .fixedSize(horizontal: false, vertical: true)
+                    .onAppear() {
+                        switch editState.editingField {
+                        case .create:
+                            focusedField = .label
+                        case .edit:
+                            break
+                        }
+                    }
+                    .onChange(of: editState.labelEditingModel.stringContent) { oldValue, newValue in
                         profileViewModel.checkForEditingChanges()
+                        if newValue.last == "\n" {
+                            focusedField = .value
+                            profileViewModel.checkForEditingChanges()
+                        }
                     }
-                }
-                
-                Divider()
-                
-                HStack(spacing: tinySpacing) {
-                    Text("Value") // TODO: L10n
-                        .fixedSize(horizontal: false, vertical: true)
-                        .frame(width: labelWidth, alignment: .leading)
-                    MetaTextInputField(allowScroll: true, drawBackground: false, returnKeyType: .done)
-                        .frame(maxHeight: 50)
-                        .environment(editState.valueEditingModel)
-                        .focused($focusedField, equals: .value)
-                }
-                .onChange(of: editState.valueEditingModel.stringContent) { oldValue, newValue in
-                    profileViewModel.checkForEditingChanges()
-                    if newValue.last == "\n" {
-                        focusedField = nil
+                    
+                    HStack(alignment: .top, spacing: tinySpacing) {
+                        Text("Value") // TODO: L10n
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(width: labelWidth, alignment: .leading)
+                        TextField("", text: $valueEditingModel.stringContent)
+                            .focused($focusedField, equals: .value)
+                    }
+                    .onChange(of: editState.valueEditingModel.stringContent) { oldValue, newValue in
                         profileViewModel.checkForEditingChanges()
+                        if newValue.last == "\n" {
+                            focusedField = nil
+                            profileViewModel.checkForEditingChanges()
+                        }
                     }
+                } footer: {
+                    tipText("Tip: Try to keep the label and value short (under 25 characters for each is best).")  // TODO: L10n
                 }
-                
-                tipText("Tip: Try to keep the label and value short (under 25 characters for each is best).")  // TODO: L10n
                 
                 switch editState.editingField {
                 case .create:
                     EmptyView()
                 case .edit:
-                    actionButton(text: "Delete field", isDestructive: true) {  // TODO: L10n
-                        Task {
-                            editingViewModel.deleteCurrentEditingField()
-                            do {
-                                try await profileViewModel.commitEdits()
-                                dismiss()
-                            } catch {
-                                navigator.didReceiveError(error)
+                    Section {
+                        actionButton(text: "Delete field", isDestructive: true, includeBackground: false) {  // TODO: L10n
+                            Task {
+                                editingViewModel.deleteCurrentEditingField()
+                                do {
+                                    try await profileViewModel.commitEdits()
+                                    dismiss()
+                                } catch {
+                                    navigator.didReceiveError(error)
+                                }
                             }
                         }
                     }
                 }
-                
-                Spacer()
-            }
-            else {
-                Spacer()
-                ProgressView().progressViewStyle(.circular)
-                Spacer()
+            } else {
+                Section {
+                    ProgressView().progressViewStyle(.circular)
+                }
             }
         }
     }
