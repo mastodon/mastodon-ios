@@ -139,11 +139,13 @@ struct ProfileView: View {
                             Spacer()
                                 .frame(height: doublePadding)
                             
-                            // PAGE SELECTOR
-                            subview(.paginationControl, width: geo.size.width)
-                                .id(Subview.paginationControl)
-                                .frame(width: min(maxFeedContentWidth, geo.size.width))
-                            Divider()
+                            if viewModel.pagesToShow.count > 1 {
+                                // PAGE SELECTOR
+                                subview(.paginationControl, width: geo.size.width)
+                                    .id(Subview.paginationControl)
+                                    .frame(width: min(maxFeedContentWidth, geo.size.width))
+                                Divider()
+                            }
                             
                             // PAGES
                             subview(.pages, width: geo.size.width)
