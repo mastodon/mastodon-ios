@@ -24,9 +24,9 @@ class ProfileEditingDestinationHostingViewController: UIHostingController<AnyVie
 extension ProfileEditDestinationType {
     var doNotPad: Bool {
         switch self {
-        case .reorderCustomFields, .featuredHashtags, .addHashtag, .displayName, .bio, .customFields, .editCustomField:
+        case .reorderCustomFields, .featuredHashtags, .addHashtag, .displayName, .bio, .customFields, .editCustomField, .profileTabSettings:
             true
-        case .verifiedLinkInstructions, .profileTabSettings:
+        case .verifiedLinkInstructions:
             false
         }
     }
@@ -314,40 +314,22 @@ struct ProfileTabSettingsEditor: View {
     @State var isSavingFeaturedTabSetting = false
     
     var body: some View {
-        VStack {
+        List {
             // TODO: L10n
             // SHOW/HIDE MEDIA TAB
-            VStack {
+            Section {
                 toggleRow(label: "'Media' tab", subtitle: "Shows your posts containing media", toggleState: $showMediaTabToggleState, isSaving: $isSavingMediaTabSetting)
-                
                 if showMediaTabToggleState {
-                    Spacer()
-                        .frame(height: tinySpacing)
-                    Divider()
-                    Spacer()
-                        .frame(height: standardPadding)
                     toggleRow(label: "Include replies", subtitle: nil, toggleState: $showMediaRepliesToggleState, isSaving: $isSavingMediaRepliesSetting)
                 }
             }
-            .padding(doublePadding)
-            .background {
-                RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
-                    .fill(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor)
-            }
             
             // SHOW/HIDE FEATURED TAB
-            VStack() {
+            Section {
                 toggleRow(label: "'Featured' tab", subtitle: "A space to showcase other accounts", toggleState: $showFeaturedTabToggleState, isSaving: $isSavingFeaturedTabSetting)
+            } footer: {
+                tipText("These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps.")
             }
-            .padding(doublePadding)
-            .background {
-                RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
-                    .fill(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor)
-            }
-            
-            tipText("These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps.")
-            
-            Spacer()
         }
         .task {
             showMediaTabToggleState = editingViewModel.mediaTabVisibilitySetting == .showMediaTab
@@ -966,5 +948,4 @@ struct ReorderCustomFieldsView: View {
 @ViewBuilder func tipText(_ text: String) -> some View {
     Text(text)
         .font(.footnote)
-        .foregroundStyle(.secondary)
 }
