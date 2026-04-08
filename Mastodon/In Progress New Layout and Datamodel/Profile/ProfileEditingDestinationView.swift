@@ -183,14 +183,15 @@ struct EditSingleTextView: View {
     let textViewHeight: CGFloat
     let returnKeyType: UIReturnKeyType
     
-    var body: some View {
-        VStack(alignment: .leading, spacing: tinySpacing) {
-            MetaTextInputField(allowScroll: allowTextScroll, drawBackground: false, returnKeyType: returnKeyType)
-                .frame(height: textViewHeight)
-                .focused($isFocused)
-            CharacterLimitTip()
-                .padding(.leading)
-            Spacer()
+    var body: some View { 
+        List {
+            Section {
+                MetaTextInputField(allowScroll: allowTextScroll, drawBackground: false, returnKeyType: returnKeyType)
+                    .frame(height: textViewHeight)
+                    .focused($isFocused)
+            } footer : {
+                CharacterLimitTip()
+            }
         }
         .onAppear() {
             isFocused = true
