@@ -43,9 +43,9 @@ struct AccountStatsView: View {
     func stats(forDisplayType displayType: DisplayType) -> [StatType] {
         switch displayType {
         case .largeStacked:
-            [.postCount, .followersCount, .followingCount]
+            [.followersCount, .followingCount, .postCount]
         case .smallInline:
-            StatType.allCases
+            [.followersCount, .followingCount, .postCount, .joinedOn]
         }
     }
     
