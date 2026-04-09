@@ -306,17 +306,17 @@ struct ProfileView: View {
     }
     
     @ViewBuilder func focusedCustomFieldOverlay(_ field: Mastodon.Entity.Field) -> some View {
-        GeometryReader { _ in
-            ZStack {
-                Color.dimmingBackground
-                    .onTapGesture {
-                        self.viewModel.focusedCustomField = nil
-                    }
-                
-                CustomFieldCard(field: field, emojis: viewModel.account?.displayInfo.emojis ?? [], showFullContents: true)
-                    .frame(maxWidth: maxFeedContentWidth)
-                    .padding(.horizontal, doublePadding)
-            }
+        ZStack {
+            Color.dimmingBackground
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .onTapGesture {
+                    self.viewModel.focusedCustomField = nil
+                }
+            
+            CustomFieldCard(field: field, emojis: viewModel.account?.displayInfo.emojis ?? [], showFullContents: true)
+                .fixedSize(horizontal: true, vertical: true)
+                .frame(maxWidth: maxFeedContentWidth)
+                .padding(.horizontal, doublePadding)
         }
     }
 }
@@ -686,6 +686,7 @@ struct CustomFieldsFlow: View {
         JustifiedBalancedFlowLayout(minItemCountPerRow: 1, maxItemCountPerRow: 2) {
             ForEach(fields, id: \.self) { field in
                 CustomFieldCard(field: field, emojis: emojis, showFullContents: false)
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         focusedField = field
                     }
@@ -706,17 +707,29 @@ struct CustomFieldCard: View {
                 MastodonContentView.customProfileField(html: field.name, emojis: emojis, bold: false, lineLimit: showFullContents ? nil : 1)
                 MastodonContentView.customProfileField(html: field.value, emojis: emojis, bold: true, lineLimit: showFullContents ? nil : 1)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             if field.verifiedAt != nil {
                 Asset.Scene.Profile.About.verifiedLinkBadge.swiftUIImage
             }
         }
         .font(.footnote)
         .padding(showFullContents ? doublePadding : standardPadding)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background {
             RoundedRectangle(cornerRadius: CornerRadius.standard)
-                .fill(field.verifiedAt != nil || showFullContents ? Asset.Colors.FigmaToken.bgSoftest.swiftUIColor : .clear )
+                .fill(fillColor)
                 .stroke(.secondary, lineWidth: 1 / displayScale)
+        }
+    }
+    
+    var fillColor: Color {
+        if field.verifiedAt != nil {
+            return Asset.Colors.FigmaToken.bgSuccessSoftest.swiftUIColor
+        } else {
+            if showFullContents {
+                return Asset.Colors.FigmaToken.bgSoftest.swiftUIColor
+            } else {
+                return .clear
+            }
         }
     }
 }

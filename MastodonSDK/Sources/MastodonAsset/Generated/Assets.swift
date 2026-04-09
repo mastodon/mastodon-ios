@@ -56,6 +56,7 @@ public enum Asset {
         public static let bgDangerBase = ColorAsset(name: "Colors/FigmaToken/bgDangerBase")
         public static let bgSecondary = ColorAsset(name: "Colors/FigmaToken/bgSecondary")
         public static let bgSoftest = ColorAsset(name: "Colors/FigmaToken/bgSoftest")
+        public static let bgSuccessSoftest = ColorAsset(name: "Colors/FigmaToken/bgSuccessSoftest")
         public static let textSecondary = ColorAsset(name: "Colors/FigmaToken/textSecondary")
         public static let textInverted = ColorAsset(name: "Colors/FigmaToken/textInverted")
     }
