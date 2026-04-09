@@ -85,47 +85,28 @@ struct ProfileView: View {
     
     @ViewBuilder var content: some View {
         GeometryReader { geo in
+            let fullWidth = min(maxFeedContentWidth, geo.size.width)
+            let headerContentWidth = min(maxFeedContentWidth, geo.size.width - doublePadding * 2)
+            let timelineContentWidth = min(maxFeedContentWidth, geo.size.width - doublePadding)
             ZStack(alignment: .top) {
                 ScrollView() {
                     VStack(alignment: .center, spacing: 0) {
-                        subview(.bannerAndAvatar, width: geo.size.width)
+                        subview(.bannerAndAvatar, width: headerContentWidth)
                             .id(Subview.bannerAndAvatar)
-                            .frame(width: geo.size.width)
-                        Spacer()
-                            .frame(height: doublePadding * 2)
-                        subview(.mainInfo, width: geo.size.width)
-                            .id(Subview.mainInfo)
-                            .padding(.horizontal, doublePadding)
                             .frame(width: min(maxFeedContentWidth, geo.size.width))
                         
                         Spacer()
-                            .frame(height: doublePadding)
-
-                            AccountStatsView(displayType: .smallInline(joinedOn: viewModel.account?.metadata.createdAt), accountMetrics: viewModel.account?.metrics) { stat in
-                                guard let accountID = viewModel.account?.id else { return }
-                                switch stat {
-                                case .postCount, .joinedOn:
-                                    break
-                                case .followersCount:
-                                    if let count = viewModel.account?.metrics.followersCount, count > 0 {
-                                        navigator.push(.timeline(.followers(ofUserId: accountID)))
-                                    }
-                                case .followingCount:
-                                    if let count = viewModel.account?.metrics.followingCount, count > 0 {
-                                        navigator.push(.timeline(.accountsFollowed(byUserId: accountID)))
-                                    }
-                                }
-                            }
-                            .padding(.leading, doublePadding)
-                        .frame(width: min(maxFeedContentWidth, geo.size.width), alignment: .leading)
-                        .fixedSize(horizontal: false, vertical: true)
+                            .frame(height: doublePadding * 2)
+                        
+                        subview(.mainInfo, width: headerContentWidth)
+                            .id(Subview.mainInfo)
+                            .frame(width: headerContentWidth)
                         
                         Spacer()
                             .frame(height: doublePadding)
                         
                         ProfileActionBar()
-                            .padding(.horizontal, doublePadding)
-                            .frame(width: min(maxFeedContentWidth, geo.size.width))
+                            .frame(width: headerContentWidth)
                             .background() {
                                 GeometryReader { embeddedGeo in
                                     Color.clear
@@ -141,18 +122,20 @@ struct ProfileView: View {
                             
                             if viewModel.pagesToShow.count > 1 {
                                 // PAGE SELECTOR
-                                subview(.paginationControl, width: geo.size.width)
+                                subview(.paginationControl, width: fullWidth)
                                     .id(Subview.paginationControl)
-                                    .frame(width: min(maxFeedContentWidth, geo.size.width))
+                                    .frame(width: fullWidth)
                                 Divider()
+                                    .frame(width: fullWidth)
                             }
                             
                             // PAGES
-                            subview(.pages, width: geo.size.width)
+                            subview(.pages, width: timelineContentWidth)
                                 .id(Subview.pages)
                         }
                         .frame(height: max(0, geo.size.height - geo.safeAreaInsets.top /*this is always 0*/ - 45 /*because the safeAreaInsets lie*/))
                     }
+                    .frame(width: geo.size.width, alignment: .center)
                 }
                 .nestedScrollview(.outer)
                 .frame(width: geo.size.width, height: geo.size.height)
@@ -161,8 +144,7 @@ struct ProfileView: View {
                 VStack {
                     Spacer()
                     ProfileActionBar()
-                        .padding(.horizontal, doublePadding)
-                        .frame(width: min(maxFeedContentWidth, geo.size.width))
+                        .frame(width: headerContentWidth)
                         .background() {
                             GeometryReader { floatingGeo in
                                 Color.clear
@@ -171,7 +153,7 @@ struct ProfileView: View {
                         }
                         .opacity(embeddedActionBarHasCaughtUpToFloatingActionBar ? 0.0 : 1.0)
                 }
-                .frame(width: min(maxFeedContentWidth, geo.size.width), height: max(0, geo.size.height - geo.safeAreaInsets.bottom - 90))
+                .frame(height: max(0, geo.size.height - geo.safeAreaInsets.bottom - 90))
             }
         }
         .ignoresSafeArea()
@@ -496,6 +478,28 @@ struct ProfileInfoView: View {
                     }
                 }
                 
+                Spacer()
+                    .frame(height: doublePadding)
+                
+                // ACCOUNT STATS
+                AccountStatsView(displayType: .smallInline(joinedOn: viewModel.account?.metadata.createdAt), accountMetrics: viewModel.account?.metrics) { stat in
+                    guard let accountID = viewModel.account?.id else { return }
+                    switch stat {
+                    case .postCount, .joinedOn:
+                        break
+                    case .followersCount:
+                        if let count = viewModel.account?.metrics.followersCount, count > 0 {
+                            navigationRouter.push(.timeline(.followers(ofUserId: accountID)))
+                        }
+                    case .followingCount:
+                        if let count = viewModel.account?.metrics.followingCount, count > 0 {
+                            navigationRouter.push(.timeline(.accountsFollowed(byUserId: accountID)))
+                        }
+                    }
+                }
+                .frame(width: min(maxFeedContentWidth, width), alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
+                
                 // FAMILIAR FOLLOWERS
                 switch relationshipViewModel.relationship {
                 case .isMe, .none:
@@ -503,7 +507,7 @@ struct ProfileInfoView: View {
                 case .isNotMe:
                     if let familiarFollowers = familiarFollowersViewModel.familiarFollowers {
                         Spacer()
-                            .frame(height: tinySpacing)
+                            .frame(height: doublePadding)
                         
                         FamiliarFollowersElement(familiarFollowers: familiarFollowers)
                             .onTapGesture {
@@ -517,7 +521,7 @@ struct ProfileInfoView: View {
                 if let personalNote = viewModel.relationshipViewModel.relationship?.info?.myOwnComment, !personalNote.isEmpty {
                     
                     Spacer()
-                        .frame(height: tinySpacing)
+                        .frame(height: doublePadding)
                     
                     PersonalNoteView(note: personalNote, isPending: viewModel.relationshipViewModel.personalNoteEditingState?.type == .pending)
                         .onTapGesture() {
@@ -528,16 +532,15 @@ struct ProfileInfoView: View {
                 }
                 
                 Spacer()
-                    .frame(height: tinySpacing)
+                    .frame(height: doublePadding)
                 
                 // BIO
                 MastodonContentView.timelinePost(html: viewModel.account?._legacyEntity.note ?? "", emojis: viewModel.account?.displayInfo.emojis ?? [], isInlinePreview: false)
                 
-                Spacer()
-                    .frame(height: tinySpacing)
-                
                 // CUSTOM FIELDS
                 if let fields = viewModel.account?.metadata.customFieldsForDisplay, !fields.isEmpty {
+                    Spacer()
+                        .frame(height: doublePadding)
                     CustomFieldsFlow(focusedField: $viewModel.focusedCustomField, fields: viewModel.account?.metadata.customFieldsForDisplay ?? [], emojis: viewModel.account?._legacyEntity.emojis ?? [])
                 }
             }

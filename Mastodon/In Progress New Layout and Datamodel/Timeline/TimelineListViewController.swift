@@ -1700,9 +1700,10 @@ struct TimelineListView: View {
                     }
                 } else {
                     VStack(alignment: .leading, spacing: 0) {
-                        fixedHeader(geoWidth: geo.size.width)
+                        fixedHeader(geoWidth: min(maxFeedContentWidth, geo.size.width))
                             .padding(.horizontal, doublePadding)
-                            .frame(width: min(maxFeedContentWidth, geo.size.width))
+                            .frame(maxWidth: maxFeedContentWidth)
+                            .frame(maxWidth: .infinity)
                         
                         ScrollView(showsIndicators: false) {
                             LazyVStack(spacing: 0) {
