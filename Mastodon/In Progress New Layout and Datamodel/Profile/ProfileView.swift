@@ -538,7 +538,7 @@ struct ProfileInfoView: View {
                 
                 // CUSTOM FIELDS
                 if let fields = viewModel.account?.metadata.customFieldsForDisplay, !fields.isEmpty {
-                    CustomFieldsFlow(focusedField: $viewModel.focusedCustomField, maxItemWidth: min(width * 0.4, maxFeedContentWidth), fields: viewModel.account?.metadata.customFieldsForDisplay ?? [], emojis: viewModel.account?._legacyEntity.emojis ?? [])
+                    CustomFieldsFlow(focusedField: $viewModel.focusedCustomField, fields: viewModel.account?.metadata.customFieldsForDisplay ?? [], emojis: viewModel.account?._legacyEntity.emojis ?? [])
                 }
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -679,12 +679,11 @@ struct PersonalNoteView: View {
 struct CustomFieldsFlow: View {
     @Binding var focusedField: Mastodon.Entity.Field?
     
-    var maxItemWidth: CGFloat
     var fields: [Mastodon.Entity.Field]
     var emojis: [Mastodon.Entity.Emoji]
     
     var body: some View {
-        FlowLayout(minItemCountPerRow: 1) {
+        JustifiedBalancedFlowLayout(minItemCountPerRow: 1, maxItemCountPerRow: 2) {
             ForEach(fields, id: \.self) { field in
                 CustomFieldCard(field: field, emojis: emojis, showFullContents: false)
                     .onTapGesture {
@@ -702,7 +701,7 @@ struct CustomFieldCard: View {
     let showFullContents: Bool
     
     var body: some View {
-        HStack(alignment: .bottom, spacing: tinySpacing) {
+        HStack(alignment: .top, spacing: tinySpacing) {
             VStack(alignment: .leading, spacing: tinySpacing) {
                 MastodonContentView.customProfileField(html: field.name, emojis: emojis, bold: false, lineLimit: showFullContents ? nil : 1)
                 MastodonContentView.customProfileField(html: field.value, emojis: emojis, bold: true, lineLimit: showFullContents ? nil : 1)
@@ -713,6 +712,7 @@ struct CustomFieldCard: View {
         }
         .font(.footnote)
         .padding(showFullContents ? doublePadding : standardPadding)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background {
             RoundedRectangle(cornerRadius: CornerRadius.standard)
                 .fill(field.verifiedAt != nil || showFullContents ? Asset.Colors.FigmaToken.bgSoftest.swiftUIColor : .clear )
