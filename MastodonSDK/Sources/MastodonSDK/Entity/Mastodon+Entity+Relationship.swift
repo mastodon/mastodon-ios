@@ -64,5 +64,9 @@ extension Mastodon.Entity {
         public func isRelationshipToAccount(_ account: Mastodon.Entity.Account) -> Bool {
             return self.id == account.id
         }
+        
+        public func byUpdatingDomainBlock(isBlocked: Bool) -> Self {
+            return Self(id: self.id, following: self.following, requested: self.requested, endorsed: self.endorsed, followedBy: self.followedBy, muting: self.muting, mutingNotifications: self.mutingNotifications, showingReblogs: self.showingReblogs, notifying: self.notifying, blocking: self.blocking, domainBlocking: isBlocked, blockedBy: self.blockedBy, note: self.note)
+        }
     }
 }

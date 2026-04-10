@@ -142,11 +142,11 @@ extension ReportViewModel {
 
         do {
             isReporting = true
-            let _ = try await APIService.shared.report(
+            let result = try await APIService.shared.report(
                 query: query,
                 authenticationBox: authenticationBox
             )
-            isReportSuccess = true
+            isReportSuccess = result.value
         } catch {
             isReporting = false
             throw error

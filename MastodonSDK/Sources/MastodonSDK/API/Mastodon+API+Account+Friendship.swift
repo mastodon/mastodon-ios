@@ -189,6 +189,79 @@ extension Mastodon.API.Account {
             .eraseToAnyPublisher()
     }
     
+    /// Force an account to unfollow you.
+    ///
+    /// - Since: 3.5.0
+    /// - Version: 3.5.0
+    /// # Last Update
+    ///   2026/03/09
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/accounts/#remove_from_followers)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - accountToRemove: The account id to remove from followers
+    ///   - authorization: User token
+    /// - Returns: `AnyPublisher` contains `Mastodon.Entity.Relationship` nested in the response
+    public static func removeFromFollowers(
+        session: URLSession,
+        domain: String,
+        accountToRemove: Mastodon.Entity.Account.ID,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
+        let url = Mastodon.API.Account.accountsEndpointURL(domain: domain).appending(components: accountToRemove, "remove_from_followers")
+        let request = Mastodon.API.post(
+            url: url,
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Relationship.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    /// Set a personal note on an account.
+    ///
+    /// - Since: 3.5.0
+    /// - Version: 3.5.0
+    /// # Last Update
+    ///   2026/03/09
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/accounts/#note)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - account: The account id to set a note about
+    ///   - note: The note to set
+    ///   - authorization: User token
+    /// - Returns: `AnyPublisher` contains `Mastodon.Entity.Relationship` nested in the response
+    public static func setPersonalNote(
+        session: URLSession,
+        domain: String,
+        account: Mastodon.Entity.Account.ID,
+        note: String,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
+        let url = Mastodon.API.Account.accountsEndpointURL(domain: domain).appending(components: account, "note")
+        let query = NoteQuery(comment: note)
+        let request = Mastodon.API.post(
+            url: url,
+            query: query,
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Relationship.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    public struct NoteQuery: Codable, PostQuery {
+        public let comment: String
+    }
 }
 
 extension Mastodon.API.Account {

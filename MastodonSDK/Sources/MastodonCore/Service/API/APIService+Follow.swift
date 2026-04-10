@@ -20,53 +20,12 @@ extension APIService {
         let isPending: Bool
         let needsUnfollow: Bool
     }
-    
-    /// Toggle friendship between target MastodonUser and current MastodonUser
-    ///
-    /// Following / Following pending <-> Unfollow
-    ///
-    /// - Parameters:
-    ///   - mastodonUser: target MastodonUser
-    ///   - activeMastodonAuthenticationBox: `AuthenticationService.MastodonAuthenticationBox`
-    /// - Returns: publisher for `Relationship`
-    public func toggleFollow(
-        account: Mastodon.Entity.Account,
-        authenticationBox: MastodonAuthenticationBox
-    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
-
-        guard let relationship = try await relationship(forAccounts: [account], authenticationBox: authenticationBox).value.first else {
-            throw APIError.implicit(.badRequest)
-        }
-
-        let response: Mastodon.Response.Content<Mastodon.Entity.Relationship>
-
-        if relationship.following || relationship.requested {
-            // unfollow
-            response = try await Mastodon.API.Account.unfollow(
-                session: session,
-                domain: authenticationBox.domain,
-                accountID: account.id,
-                authorization: authenticationBox.userAuthorization
-            ).singleOutput()
-        } else {
-            response = try await Mastodon.API.Account.follow(
-                session: session,
-                domain: authenticationBox.domain,
-                accountID: account.id,
-                followQueryType: .follow(query: .init()),
-                authorization: authenticationBox.userAuthorization
-            ).singleOutput()
-        }
-
-        return response
-    }
-    
-    public func follow(_ accountID: String, authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Entity.Relationship {
+    public func follow(_ accountID: String, hideBoosts: Bool = false, authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Entity.Relationship {
         return try await Mastodon.API.Account.follow(
             session: session,
             domain: authenticationBox.domain,
             accountID: accountID,
-            followQueryType: .follow(query: .init()),
+            followQueryType: .follow(query: .init(reblogs: !hideBoosts)),
             authorization: authenticationBox.userAuthorization
         ).singleOutput().value
     }
@@ -80,28 +39,4 @@ extension APIService {
         ).singleOutput().value
     }
 
-    public func toggleShowReblogs(
-      for user: Mastodon.Entity.Account,
-      authenticationBox: MastodonAuthenticationBox
-    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
-        let relationship = try await Mastodon.API.Account.relationships(
-            session: session,
-            domain: authenticationBox.domain,
-            query: .init(ids: [user.id]),
-            authorization: authenticationBox.userAuthorization
-        ).singleOutput().value.first
-
-        let oldShowReblogs = relationship?.showingReblogs ?? true
-        let newShowReblogs = (oldShowReblogs == false)
-
-        let response = try await Mastodon.API.Account.follow(
-            session: session,
-            domain: authenticationBox.domain,
-            accountID: user.id,
-            followQueryType: .follow(query: .init(reblogs: newShowReblogs)),
-            authorization: authenticationBox.userAuthorization
-        ).singleOutput()
-
-        return response
-    }
 }

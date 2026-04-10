@@ -17,6 +17,13 @@ extension Mastodon.API.Account {
             .appendingPathComponent("following")
     }
     
+    static func featuredAccountsEndpointURL(domain: String, userID: Mastodon.Entity.Account.ID) -> URL {
+        return Mastodon.API.endpointURL(domain: domain)
+            .appendingPathComponent("accounts")
+            .appendingPathComponent(userID)
+            .appendingPathComponent("endorsements")
+    }
+    
     /// Following
     ///
     /// Accounts which the given account is following, if network is not hidden by the account owner.
@@ -40,6 +47,40 @@ extension Mastodon.API.Account {
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error> {
         let request = Mastodon.API.get(
             url: followingEndpointURL(domain: domain, userID: userID),
+            query: query,
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Account].self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    /// Featured accounts
+    ///
+    /// Accounts which the given account is featuring on their profile page.
+    ///
+    /// - Since: 4.4.0
+    /// - Version: 4.4.0
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/accounts/#endorsements)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - userID: ID of the account in the database
+    ///   - authorization: User token
+    /// - Returns: `AnyPublisher` contains `[Account]` nested in the response
+    public static func featuredAccounts(
+        session: URLSession,
+        domain: String,
+        userID: Mastodon.Entity.Account.ID,
+        query: FollowingQuery,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error> {
+        let request = Mastodon.API.get(
+            url: featuredAccountsEndpointURL(domain: domain, userID: userID),
             query: query,
             authorization: authorization
         )

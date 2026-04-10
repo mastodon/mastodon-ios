@@ -245,9 +245,6 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             animator.addAnimations {
                 if let containerTargetFrame {
                     switch self.transitionItem.source {
-                    case .profileBanner:
-                        fromView.alpha = 0
-                        self.transitionItem.snapshotTransitioning?.alpha = 0
                     default:
                         self.transitionItem.containerSnapshotTransitioning?.frame = containerTargetFrame
                         if let targetFrame {
@@ -470,9 +467,6 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             }
             if toPosition == .end {
                 switch self.transitionItem.source {
-                case .profileBanner where toPosition == .end:
-                    // fade transition for banner
-                    self.transitionItem.containerSnapshotTransitioning?.alpha = 0
                 default:
                     if let containerTargetFrame = self.transitionItem.containerTargetFrame {
                         self.transitionItem.containerSnapshotTransitioning?.frame = containerTargetFrame

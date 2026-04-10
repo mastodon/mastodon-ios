@@ -46,7 +46,7 @@ extension UserDefaults {
         UserDefaults.standard.testUnreadMarkersForNotifications = !testUnreadMarkersForNotifications
     }
     
-    @objc public dynamic var useBetaProfileView: Bool {
+    @objc public dynamic var showRateLimitTracker: Bool {
         get {
             register(defaults: [#function: false])
             return bool(forKey: #function) && UserDefaults.isDebugOrTestflightOrSimulator
@@ -54,8 +54,8 @@ extension UserDefaults {
         set { self[#function] = newValue }
     }
     
-    public func toggleUseBetaProfileView() {
-        let useBetaProfileView = UserDefaults.standard.useBetaProfileView
-        UserDefaults.standard.useBetaProfileView = !useBetaProfileView
+    public func toggleShowRateLimitTracker() {
+        let showRateLimitTracker = UserDefaults.standard.showRateLimitTracker
+        UserDefaults.standard.showRateLimitTracker = !showRateLimitTracker
     }
 }

@@ -20,7 +20,7 @@ class ReportResultViewModel: ObservableObject {
     // input
     let authenticationBox: MastodonAuthenticationBox
     let account: Mastodon.Entity.Account
-    var relationship: Mastodon.Entity.Relationship
+    private(set) var relationship: Mastodon.Entity.Relationship
     let isReported: Bool
     
     var headline: String {
@@ -61,6 +61,10 @@ class ReportResultViewModel: ObservableObject {
         }   // end Task
     }
 
+    func updateRelationship(_ newRelationship: Mastodon.Entity.Relationship) {
+        relationship = newRelationship
+        FeedCoordinator.shared.publishUpdate(.relationship(MastodonAccount.Relationship.isNotMe(.init(newRelationship, fetchedAt: .now))))
+    }
 }
 
 

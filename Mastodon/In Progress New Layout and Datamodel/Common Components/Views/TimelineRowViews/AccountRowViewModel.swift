@@ -34,23 +34,14 @@ import SwiftUI
         account = updated
     }
     
-    func doRelationshipButtonAction() async throws {
-        if let action = relationshipViewModel.button.buttonAction.mastodonPostMenuAction {
-            try await actionHandler?.doAction(action, forAccount: account)
+    func doRelationshipButtonAction(navigator: MastodonNavigationRouter) async throws {
+        if let action = relationshipViewModel.button.buttonAction.mastodonRelationshipMenuAction {
+            try await relationshipViewModel.doMenuAction(action, forAccount: account, navigator: navigator)
         }
     }
     
-    func goToProfile() {
-        guard let relationship = relationshipViewModel.relationship else { return }
-        switch relationship {
-        case .isMe:
-            let profile: ProfileViewController.ProfileType = .me(account._legacyEntity)
-            actionHandler?.presentScene(.profile(profile), fromPost: nil, transition: .show)
-        case .isNotMe:
-            guard let me = AuthenticationServiceProvider.shared.currentActiveUser.value?.cachedAccount else { return }
-            let profile: ProfileViewController.ProfileType = .notMe(me: me, displayAccount: account._legacyEntity, relationship: relationship.info?._legacyEntity)
-            actionHandler?.presentScene(.profile(profile), fromPost: nil, transition: .show)
-        }
+    func goToProfile(navigator: MastodonNavigationRouter) {
+        navigator.push(.profile(account: account._legacyEntity, relationship: relationshipViewModel.relationship))
     }
 }
 
@@ -64,6 +55,9 @@ extension AccountRowViewModel: FeedCoordinatorUpdatable {
                 relationshipViewModel.prepareForDisplay(relationship: updated, theirAccountIsLocked: account.locked)
                 relationshipButton = relationshipViewModel.button
             }
+        case .domainBlockChange(let domain, let isBlocked):
+            guard account.domain == domain else { return }
+            relationshipViewModel.updateForDomainBlockChange(isBlocked: isBlocked)
         }
     }
 }

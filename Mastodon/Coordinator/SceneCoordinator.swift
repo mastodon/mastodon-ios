@@ -103,7 +103,7 @@ final public class SceneCoordinator {
 
                                 let relationship = try await APIService.shared.relationship(forAccounts: [account], authenticationBox: authenticationBox).value.first
 
-                                let profileType: ProfileViewController.ProfileType = me == account ? .me(me) : .notMe(me: me, displayAccount: account, relationship: relationship)
+                                let profileType: ProfileType = me == account ? .me(me) : .notMe(me: me, displayAccount: account, relationship: relationship)
                                 _ = self.present(
                                     scene: .profile(profileType),
                                     from: from,
@@ -113,12 +113,8 @@ final public class SceneCoordinator {
                                 // do nothing
                                 break
                             case .mention, .reblog, .favourite, .poll, .status:
-                                let threadViewModel = RemoteThreadViewModel(
-                                    authenticationBox: authenticationBox,
-                                    notificationID: notificationID
-                                )
                                 _ = self.present(
-                                    scene: .thread(viewModel: threadViewModel),
+                                    scene: .threadRemote(.notification(notificationID)),
                                     from: from,
                                     transition: .show
                                 )
@@ -176,7 +172,8 @@ extension SceneCoordinator {
         case editStatus(viewModel: ComposeViewModel)
         
         // thread
-        case thread(viewModel: ThreadViewModel)
+        case thread(Mastodon.Entity.Status, authenticatedUserDomain: String)
+        case threadRemote(RemoteThreadType)
         case editHistory(viewModel: StatusEditHistoryViewModel)
         
         // Hashtag Timeline
@@ -184,11 +181,11 @@ extension SceneCoordinator {
 
         // profile
         case accountList(viewModel: AccountListViewModel)
-        case profile(ProfileViewController.ProfileType)
+        case profile(ProfileType)
         case myFavorites
         case followers(ofUserId: Mastodon.Entity.Account.ID)
         case followedBy(userId: Mastodon.Entity.Account.ID)
-        case familiarFollowers(viewModel: FamiliarFollowersViewModel)
+        case familiarFollowers(Mastodon.Entity.Account, MastodonAuthenticationBox)
         case whoBoosted(actionableStatusID: Mastodon.Entity.Status.ID)
         case whoFavourited(actionableStatusID: Mastodon.Entity.Status.ID)
         case myBookmarks
@@ -282,22 +279,7 @@ extension SceneCoordinator {
         }
         // adapt for child controller
         if let navigationControllerVisibleViewController = presentingViewController.navigationController?.visibleViewController {
-            switch viewController {
-                case is ProfileViewController:
-                    let title: String = {
-                        let title = navigationControllerVisibleViewController.navigationItem.title ?? ""
-                        return title.count > 10 ? "" : title
-                    }()
-                    let barButtonItem = UIBarButtonItem(title: title, style: .plain, target: nil, action: nil)
-                    if #available(iOS 26, *) {
-                    
-                    } else {
-                        barButtonItem.tintColor = .white
-                    }
-                    navigationControllerVisibleViewController.navigationItem.backBarButtonItem = barButtonItem
-                default:
-                    navigationControllerVisibleViewController.navigationItem.backBarButtonItem = nil
-            }
+            navigationControllerVisibleViewController.navigationItem.backBarButtonItem = nil
         }
         
         if let mainTabBarController = presentingViewController as? MainTabBarController,
@@ -387,7 +369,7 @@ private extension SceneCoordinator {
     
     func get(scene: Scene, from sender: UIViewController? = nil) -> UIViewController? {
         let viewController: UIViewController?
-        
+        let navigator = MastodonNavigationRouter(navigationType: .uiKit(nil))
         switch scene {
         case .welcome:
             let _viewController = WelcomeViewController()
@@ -426,22 +408,20 @@ private extension SceneCoordinator {
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .searchResult(let viewModel):
-            viewController = TimelineListViewController(.search(viewModel.searchText, scope: viewModel.searchScope))
+            viewController = TimelineListViewController(.search(viewModel.searchText, scope: viewModel.searchScope), navigator: navigator)
         case .compose(let viewModel):
             let _viewController = ComposeViewController(viewModel: viewModel)
             viewController = _viewController
-        case .thread(let viewModel):
-            if let viewModel = viewModel as? RemoteThreadViewModel {
-                viewController = TimelineListViewController(.remoteThread(root: viewModel.entityType))
-            } else {
-                guard let rootStatus = viewModel.root?.record, let rootPost = GenericMastodonPost.fromStatus(rootStatus.entity, authenticatedDomain: viewModel.authenticationBox.domain) as? MastodonContentPost else { return nil }
-                viewController = TimelineListViewController(.thread(root: rootPost))
-            }
+        case .thread(let rootRecord, let domain):
+            guard let rootPost = GenericMastodonPost.fromStatus(rootRecord, authenticatedDomain: domain) as? MastodonContentPost else { return nil }
+            viewController = TimelineListViewController(.thread(root: rootPost), navigator: navigator)
+        case .threadRemote(let entityType):
+            viewController = TimelineListViewController(.remoteThread(root: entityType), navigator: navigator)
         case .editHistory(let viewModel):
             let editHistoryViewController = StatusEditHistoryViewController(viewModel: viewModel)
             viewController = editHistoryViewController
         case .hashtagTimeline(let tag):
-            let _viewController = TimelineListViewController(.hashtag(tag))
+            let _viewController = TimelineListViewController(.hashtag(tag), navigator: navigator)
             viewController = _viewController
         case .accountList(let viewModel):
             let accountListViewController = AccountListViewController()
@@ -449,50 +429,48 @@ private extension SceneCoordinator {
             viewController = accountListViewController
         case .profile(let profileType):
             let _viewController: UIViewController =  {
-                if UserDefaults.standard.useBetaProfileView {
-                    let needsNavigationStack = !(sender is UINavigationController) &&  sender?.navigationController == nil
-                    let controller = ProfileHostingViewController(wrapInSwiftUINavigationStack: needsNavigationStack)
-                    let account = MastodonAccount.fromEntity(profileType.accountToDisplay, authenticatedDomain: AuthenticationServiceProvider.shared.currentActiveUser.value?.domain ?? "")
-                    if account.globallyUniqueUserIdentifier == AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier {
-                        controller.set(account: account, relationship: .isMe)
-                    } else {
-                        controller.set(account: account, relationship: .isNotMe(nil))
-                        
-                        Task {
-                            let relationshipFetchID = profileType.accountToDisplay.id
-                            if let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
-                                Task {
-                                    guard let relationship = try await APIService.shared.relationship(forAccountIds: [relationshipFetchID], authenticationBox: authBox).value.first else { return }
-                                    controller.set(account: account, relationship: .isNotMe(MastodonAccount.RelationshipInfo(relationship, fetchedAt: .now)))
-                                }
+                let needsNavigationStack = !(sender is UINavigationController) &&  sender?.navigationController == nil
+                let controller = ProfileHostingViewController(navigationRouter: navigator)
+                let account = MastodonAccount.fromEntity(profileType.accountToDisplay, authenticatedDomain: AuthenticationServiceProvider.shared.currentActiveUser.value?.domain ?? "")
+                if account.globallyUniqueUserIdentifier == AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier {
+                    controller.viewModel.set(account: account, relationship: .isMe, navigator: navigator)
+                } else {
+                    controller.viewModel.set(account: account, relationship: .isNotMe(nil), navigator: navigator)
+                    
+                    Task {
+                        let relationshipFetchID = profileType.accountToDisplay.id
+                        if let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
+                            Task {
+                                guard let relationship = try await APIService.shared.relationship(forAccountIds: [relationshipFetchID], authenticationBox: authBox).value.first else { return }
+                                controller.viewModel.set(account: account, relationship: .isNotMe(MastodonAccount.RelationshipInfo(relationship, fetchedAt: .now)), navigator: navigator)
                             }
                         }
                     }
-                    return controller
-                } else {
-                    return ProfileViewController(profileType, authenticationBox: AuthenticationServiceProvider.shared.currentActiveUser.value!)
                 }
+                return controller
             }()
             viewController = _viewController
         case .myBookmarks:
-            viewController = TimelineListViewController(.myBookmarks)
+            viewController = TimelineListViewController(.myBookmarks, navigator: navigator)
         case .myFollowedTags:
-            viewController = TimelineListViewController(.myFollowedHashtags)
+            viewController = TimelineListViewController(.myFollowedHashtags, navigator: navigator)
         case .myFavorites:
-            viewController = TimelineListViewController(.myFavorites)
+            viewController = TimelineListViewController(.myFavorites, navigator: navigator)
         case .followers(let followedId):
-            let followerListViewController = TimelineListViewController(.followers(ofUserId: followedId))
+            let followerListViewController = TimelineListViewController(.followers(ofUserId: followedId), navigator: navigator)
             viewController = followerListViewController
         case .followedBy(let userId):
-            let followingListViewController = TimelineListViewController(.accountsFollowed(byUserId: userId))
+            let followingListViewController = TimelineListViewController(.accountsFollowed(byUserId: userId), navigator: navigator)
             viewController = followingListViewController
-        case .familiarFollowers(let viewModel):
-            viewController = FamiliarFollowersViewController(viewModel: viewModel)
+        case .familiarFollowers(let accountEntity, let authBox):
+            let account = MastodonAccount.fromEntity(accountEntity, authenticatedDomain: authBox.domain)
+            let viewModel = TimelineListViewModel(timeline: .familiarFollowers(account.userID), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
+            viewController = TimelineListViewController(.familiarFollowers(account, viewModel), navigator: navigator)
         case .whoBoosted(let statusID):
-            let _viewController = TimelineListViewController(.whoBoosted(actionableStatusID: statusID))
+            let _viewController = TimelineListViewController(.whoBoosted(actionableStatusID: statusID), navigator: navigator)
             viewController = _viewController
         case .whoFavourited(let statusID):
-            let _viewController = TimelineListViewController(.whoFavourited(actionableStatusID: statusID))
+            let _viewController = TimelineListViewController(.whoFavourited(actionableStatusID: statusID), navigator: navigator)
             viewController = _viewController
         case .report(let viewModel):
             viewController = ReportViewController(viewModel: viewModel)
@@ -570,7 +548,7 @@ private extension SceneCoordinator {
         case .notificationPolicy(let viewModel):
             viewController = NotificationPolicyViewController(viewModel)
         case .accountNotificationTimeline(let request):
-            viewController = TimelineListViewController(.notifications(.fromRequest(request)))
+            viewController = TimelineListViewController(.notifications(.fromRequest(request)), navigator: navigator)
         }
 
         return viewController

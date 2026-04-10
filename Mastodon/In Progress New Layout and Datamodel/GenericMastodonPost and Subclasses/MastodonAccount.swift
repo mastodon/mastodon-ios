@@ -9,7 +9,8 @@ public struct MastodonAccount: Identifiable, Codable {
     let metadata: MetaData
     let displayInfo: DisplayInfo
     let metrics: Metrics
-    let bio: String
+    let bioForDisplay: String
+    let bioForEdit: String?
     let _legacyEntity: Mastodon.Entity.Account
 }
 
@@ -55,8 +56,13 @@ extension MastodonAccount {
         let createdAt: Date
         let manuallyApprovesNewFollows: Bool
         let verifiedLink: String?
-        let customFields: [Mastodon.Entity.Field]?
+        let customFieldsForDisplay: [Mastodon.Entity.Field]?
+        let customFieldsForEdit: [Mastodon.Entity.Field]?
         let isBot: Bool
+        let showsFeaturedTab: Bool
+        let showsMediaTab: Bool
+        let mediaTabIncludesReplies: Bool
+        let hideCollections: Bool
     }
 }
 
@@ -101,7 +107,9 @@ extension MastodonAccount: FromAccountEntityDerivable {
             metadata: MetaData.fromEntity(entity, authenticatedDomain: authenticatedDomain),
             displayInfo: DisplayInfo.fromEntity(
                 entity, authenticatedDomain: authenticatedDomain),
-            metrics: Metrics.fromEntity(entity, authenticatedDomain: authenticatedDomain), bio: entity.note,
+            metrics: Metrics.fromEntity(entity, authenticatedDomain: authenticatedDomain),
+            bioForDisplay: entity.note,
+            bioForEdit: entity.source?.note,
             _legacyEntity: entity
         )
     }
@@ -109,7 +117,23 @@ extension MastodonAccount: FromAccountEntityDerivable {
 
 extension MastodonAccount.MetaData: FromAccountEntityDerivable {
     static func fromEntity(_ entity: Mastodon.Entity.Account, authenticatedDomain: String) -> MastodonAccount.MetaData {
-        return MastodonAccount.MetaData(profileUrl: URL(string: entity.url), createdAt: entity.createdAt, manuallyApprovesNewFollows: entity.locked, verifiedLink: entity.verifiedLink?.value, customFields: entity.fields, isBot: entity.bot ?? false)
+        return MastodonAccount.MetaData(profileUrl: URL(string: entity.url), createdAt: entity.createdAt, manuallyApprovesNewFollows: entity.locked, verifiedLink: entity.verifiedLink?.value, customFieldsForDisplay: entity.fields, customFieldsForEdit: entity.source?.fields, isBot: entity.bot ?? false, showsFeaturedTab: entity.showFeatured ?? true, showsMediaTab: entity.showMedia ?? true, mediaTabIncludesReplies: entity.showMediaReplies ?? false, hideCollections: entity.hideCollections ?? false)
+    }
+}
+
+extension MastodonAccount {
+    func byUpdatingTabSettings(showFeaturedTab: Bool?, showMediaTab: Bool?, showMediaReplies: Bool?) -> MastodonAccount? {
+        let featuredTabChange = showFeaturedTab != nil && showFeaturedTab != metadata.showsFeaturedTab
+        let mediaTabChange = showMediaTab != nil && showMediaTab != metadata.showsMediaTab
+        let mediaTabRepliesChange = showMediaReplies != nil && showMediaReplies != metadata.mediaTabIncludesReplies
+        guard featuredTabChange || mediaTabChange || mediaTabRepliesChange else { return nil }
+        return MastodonAccount(id: id, metadata: metadata.byUpdatingTabSettings(showFeaturedTab: showFeaturedTab, showMediaTab: showMediaTab, showMediaReplies: showMediaReplies), displayInfo: displayInfo, metrics: metrics, bioForDisplay: bioForDisplay, bioForEdit: bioForEdit, _legacyEntity: _legacyEntity)
+    }
+}
+
+extension MastodonAccount.MetaData {
+    fileprivate func byUpdatingTabSettings(showFeaturedTab: Bool?, showMediaTab: Bool?, showMediaReplies: Bool?) -> MastodonAccount.MetaData {
+        return MastodonAccount.MetaData(profileUrl: profileUrl, createdAt: createdAt, manuallyApprovesNewFollows: manuallyApprovesNewFollows, verifiedLink: verifiedLink, customFieldsForDisplay: customFieldsForDisplay, customFieldsForEdit: customFieldsForEdit, isBot: isBot, showsFeaturedTab: showFeaturedTab ?? self.showsFeaturedTab, showsMediaTab: showMediaTab ?? self.showsMediaTab, mediaTabIncludesReplies: showMediaReplies ?? self.mediaTabIncludesReplies, hideCollections: hideCollections)
     }
 }
 
@@ -182,26 +206,59 @@ extension MastodonAccount {
                 return false
             }
         }
+        
+        func byUpdatingDomainBlock(isBlocked: Bool) -> Self {
+            switch self {
+            case .isMe:
+                return self
+            case .isNotMe(let info):
+                guard info?.iAmBlockingTheirDomain != isBlocked else { return self }
+                guard let updatedRelationship = info?._legacyEntity.byUpdatingDomainBlock(isBlocked: isBlocked) else { return self }
+                return .isNotMe(RelationshipInfo.init(updatedRelationship, fetchedAt: info?.fetchedAt)) // we keep the old fetchedAt date because this is not a full refresh of the account and should not delay an update being triggered in the future
+            }
+        }
+        
+        @MainActor
+        var debugString: String {
+            switch self {
+            case .isMe:
+                "isMe-\(AuthenticationServiceProvider.shared.currentActiveUser.value!.userID)"
+            case .isNotMe(let info):
+                if let info {
+                    "notMe(\(info._legacyEntity.id))"
+                } else {
+                    "notMe(NO INFO)"
+                }
+            }
+        }
     }
     
     struct RelationshipInfo: Codable {
         let id: Mastodon.Entity.Account.ID  // id of the account
         let fetchedAt: Date?
         let iFollowThem: Bool
+        let iHideTheirBoosts: Bool
         let theyFollowMe: Bool?
         let iHaveRequestedToFollowThem: Bool
         let iAmMutingThem: Bool
+        let iAmBlockingTheirDomain: Bool
         let iAmBlockingThem: Bool
+        let iFeatureThem: Bool
+        let myOwnComment: String?
         let _legacyEntity: Mastodon.Entity.Relationship
         
         init(_ entity: Mastodon.Entity.Relationship, fetchedAt: Date?) {
             id = entity.id
             self.fetchedAt = fetchedAt
             iFollowThem = entity.following
+            iHideTheirBoosts = !entity.showingReblogs
             theyFollowMe = entity.followedBy
             iHaveRequestedToFollowThem = entity.requested
             iAmMutingThem = entity.muting
             iAmBlockingThem = entity.blocking
+            iAmBlockingTheirDomain = entity.domainBlocking
+            iFeatureThem = entity.endorsed
+            myOwnComment = entity.note
             _legacyEntity = entity
         }
         

@@ -90,15 +90,29 @@ final class ComposeViewController: UIViewController {
         case .editStatus(let status, let statusSource, let quoting):
             composeContext = .editStatus(status: status, statusSource: statusSource, quoting: quoting)
             initialContent = statusSource.text
+        case .mentioning(let account, let privately):
+            composeContext = .composeStatus(quoting: nil)
+            initialContent = "@\(account.handle)"
         }
 
-        return ComposeContentViewModel(
+        let composeContentViewModel = ComposeContentViewModel(
             authenticationBox: viewModel.authenticationBox,
             composeContext: composeContext,
             destination: viewModel.destination,
             initialContent: initialContent,
             completion: viewModel.postPublishCompletion
         )
+        
+        switch viewModel.composeContext {
+        case .mentioning(_, let privately):
+            if privately {
+                composeContentViewModel.interactionSettingsModel.setInteractionSettings(visibility: .direct, quotability: nil)
+            }
+        case .editStatus, .composeStatus:
+            break
+        }
+        
+        return composeContentViewModel
     }()
     private(set) lazy var composeContentViewController: ComposeContentViewController = {
         let composeContentViewController = ComposeContentViewController()
@@ -200,7 +214,7 @@ extension ComposeViewController {
         composeContentViewController.didMove(toParent: self)
         if #available(iOS 26.0, *) {
             switch viewModel.composeContext {
-            case .composeStatus:
+            case .composeStatus, .mentioning:
                 view.addSubview(publishProgressView)
                 publishProgressView.translatesAutoresizingMaskIntoConstraints = false
                 NSLayoutConstraint.activate([
@@ -255,7 +269,7 @@ extension ComposeViewController {
 
     private var rightBarButtonItemForCurrentContext: UIBarButtonItem {
         switch viewModel.composeContext {
-        case .composeStatus:
+        case .composeStatus, .mentioning:
             return publishBarButtonItem
         case .editStatus:
             return saveBarButtonItem

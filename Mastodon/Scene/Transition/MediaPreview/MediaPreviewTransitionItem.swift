@@ -53,8 +53,6 @@ extension MediaPreviewTransitionItem {
     enum Source {
         case attachment(MediaView)
         case attachments(MediaGridContainerView)
-        case profileAvatar(ProfileHeaderView)
-        case profileBanner(ProfileHeaderView)
         case swiftUI(sourceFramesInScreenCoordinates: [CGRect])
         
         func updateAppearance(position: UIViewAnimatingPosition, index: Int?) {
@@ -68,10 +66,6 @@ extension MediaPreviewTransitionItem {
                 } else {
                     mediaGridContainerView.setAlpha(alpha)
                 }
-            case .profileAvatar(let profileHeaderView):
-                profileHeaderView.avatarButton.alpha = alpha
-            case .profileBanner:
-                break    // keep source
             case .swiftUI:
                 break
             }

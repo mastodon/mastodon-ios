@@ -9,7 +9,7 @@ import UIKit
 import MastodonSDK
 
 // MARK: - DataSourceProvider
-extension SearchHistoryViewController: DataSourceProvider {
+extension SearchHistoryViewController {
     var filterContext: MastodonSDK.Mastodon.Entity.FilterContext? {
         return .none
     }
@@ -18,7 +18,7 @@ extension SearchHistoryViewController: DataSourceProvider {
         collectionView.reloadData()
     }
     
-    func item(from source: DataSourceItem.Source) async -> DataSourceItem? {
+    func item(from source: LegacyDataSourceFacade.DataSourceItem.Source) async -> LegacyDataSourceFacade.DataSourceItem? {
         var _indexPath = source.indexPath
         if _indexPath == nil, let cell = source.collectionViewCell {
             _indexPath = await self.indexPath(for: cell)

@@ -19,6 +19,9 @@ import Combine
     public var contentDidChange: (()->())?
     private var autoCompleteSuggestionViewModel: AutoCompleteSuggestionViewModel?
     
+    public private(set) var originalStringContent: String
+    
+    /// Prefer to set this using updateStringContent(resetHasChanges:) if this is not being changed via a binding, so that the caller can be sure to request reset of has changes if appropriate.
     public var stringContent: String {
         didSet {
             guard let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue) else {
@@ -41,6 +44,13 @@ import Combine
         }
     }
     
+    public func updateStringContent(_ newContent: String, resetHasChanges: Bool) {
+        if resetHasChanges {
+            originalStringContent = newContent
+        }
+        stringContent = newContent
+    }
+    
     var placeholder: String
     weak var contentMetaText: MetaText? {
         didSet {
@@ -55,6 +65,10 @@ import Combine
         contentMetaText?.configure(content: content)
     }
     
+    public func discardChanges() {
+        stringContent = originalStringContent
+    }
+    
     // emoji
     var isEmojiActive = false
     let customEmojiPickerInputViewModel: CustomEmojiPickerInputViewModel
@@ -63,6 +77,7 @@ import Combine
     
     public init(stringContent: String?, placeholder: String, characterLimit: CharacterLimit, autocompleteMastodonItems: Bool) {
         self.stringContent = stringContent ?? ""
+        self.originalStringContent = stringContent ?? ""
         self.placeholder = placeholder
         self.characterLimit = characterLimit
         customEmojiPickerInputViewModel = CustomEmojiPickerInputViewModel()
@@ -101,7 +116,35 @@ import Combine
         subscribeToAutoComplete()
     }
     
-    func subscribeToAutoComplete() {
+    func setAuthenticationBox(_ authenticationBox: MastodonAuthenticationBox) {
+        autoCompleteViewModel = AutoCompleteViewModel(authenticationBox: authenticationBox)
+        autoCompleteViewModel?.setAuthenticationBox(authenticationBox)
+        subscribeToAutoComplete()
+    }
+    
+    func foundPossibleHashtag(_ input: String) {
+        guard let possibleTag = input.split(separator: .whitespace).first else {
+            autoCompleteViewModel?.inputText.send("")
+            self.autoCompleteInfo = nil
+            return
+        }
+        let _autoCompleteInfo = MetaTextInputFieldViewModel.AutoCompleteInfo(
+            inputText: possibleTag,
+            symbolRange: possibleTag.startIndex..<possibleTag.index(after: possibleTag.startIndex),
+            symbolString: "#",
+            toCursorRange: possibleTag.startIndex..<possibleTag.endIndex,
+            toCursorString: possibleTag,
+            toHighlightEndRange: possibleTag.startIndex..<possibleTag.endIndex,
+            toHighlightEndString: possibleTag
+        )
+        
+        let inputText = String(_autoCompleteInfo.inputText)
+        autoCompleteViewModel?.inputText.send(String(_autoCompleteInfo.inputText))
+        
+        self.autoCompleteInfo = _autoCompleteInfo
+    }
+    
+    private func subscribeToAutoComplete() {
         autoCompleteSuggestionsSubscription = autoCompleteViewModel?.autoCompleteItems
             .sink(receiveValue: { [weak self] items in
                 self?.autoCompleteSuggestions = items
@@ -163,7 +206,11 @@ extension MetaTextInputFieldViewModel: UITextViewDelegate {
     }
     
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        defer { contentDidChange?() }
+        defer {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
+                self.contentDidChange?()
+            }
+        }
         if text == " ", let autoCompleteInfo = self.autoCompleteSuggestionViewModel?.autoCompleteInfo {
             let isHandled = handleAutoComplete(autoCompleteInfo)
             return !isHandled
@@ -341,12 +388,16 @@ extension MetaTextInputFieldViewModel {
 
 public struct MetaTextInputField: View {
     @Environment(MetaTextInputFieldViewModel.self) var viewModel
+    let drawBackground: Bool
     let allowScroll: Bool
     let margin: CGFloat = 8
     let autoCompleteHeight: CGFloat = 60
+    let returnKeyType: UIReturnKeyType
     
-    public init(allowScroll: Bool) {
+    public init(allowScroll: Bool, drawBackground: Bool, returnKeyType: UIReturnKeyType) {
         self.allowScroll = allowScroll
+        self.drawBackground = drawBackground
+        self.returnKeyType = returnKeyType
     }
     
     public var body: some View {
@@ -355,7 +406,7 @@ public struct MetaTextInputField: View {
                 MetaTextViewRepresentable(
                     string: Binding<String>(
                         get: { viewModel.stringContent },
-                        set: { newValue in viewModel.stringContent = newValue }
+                        set: { newValue in viewModel.updateStringContent(newValue, resetHasChanges: false) }
                     ),
                     width: geo.size.width - margin - margin,
                     allowScroll: allowScroll,
@@ -369,16 +420,20 @@ public struct MetaTextInputField: View {
                                 attributes: attributes
                             )
                         }()
-                        metaText.textView.returnKeyType = .next
+                        metaText.textView.returnKeyType = returnKeyType
                         metaText.textView.delegate = viewModel
                         metaText.delegate = viewModel
                     }
                 )
                 .padding(.horizontal, margin)
                 .frame(width: geo.size.width, height: geo.size.height)
-                .background(
-                    MastodonSecondaryBackground(fillInDarkModeOnly: true)
-                )
+                .background() {
+                    if drawBackground {
+                        MastodonSecondaryBackground(fillInDarkModeOnly: true)
+                    } else {
+                        EmptyView()
+                    }
+                }
             }
         }
     }

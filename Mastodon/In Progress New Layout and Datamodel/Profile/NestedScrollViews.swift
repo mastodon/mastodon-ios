@@ -8,8 +8,18 @@ struct NestedScrollView: ViewModifier {
     
     func body(content: Content) -> some View {
         GeometryReader { geo in
+            let scrollDisabled = {
+                switch nestedRole {
+                case .outer:
+                    return !viewModel.innerScrollDisabled
+                case .inner:
+                    return viewModel.innerScrollDisabled
+                case .notNested:
+                    return false
+                }
+            }()
             content
-                .scrollDisabled(nestedRole == .inner ? viewModel.innerScrollDisabled : false)
+                .scrollDisabled(scrollDisabled)
                 .onScrollGeometryChange(for: ScrollInteractionState.self) { scrollGeometry in
                     let contentHeight = scrollGeometry.contentSize.height
                     let snapshot = ScrollSnapshot(yOffset: scrollGeometry.contentOffset.y, contentHeight: contentHeight)
@@ -202,7 +212,9 @@ enum ScrollInteractionState: Equatable {
                     self = .coastingTowardsContentTop(currentSnapshot, hasReachedTop: currentSnapshot.yOffset <= 0)
                 case .coastingTowardsContentBottom, .draggingTowardsContentBottom, .bouncingOffBottom:
                     self = .bouncingOffBottom(currentSnapshot)
-                case .idle, .animating, .bouncingOffTop:
+                case .idle:
+                    self = .coastingTowardsContentTop(currentSnapshot, hasReachedTop: currentSnapshot.yOffset <= 0)
+                case .animating, .bouncingOffTop:
                     assertionFailure("unexpected transition to decelerating scroll phase")
                     self = .coastingTowardsContentTop(currentSnapshot, hasReachedTop: currentSnapshot.yOffset <= 0)
                 }
@@ -212,7 +224,9 @@ enum ScrollInteractionState: Equatable {
                     self = .coastingTowardsContentBottom(currentSnapshot, hasReachedBottom: currentSnapshot.yOffset >= maxOffset)
                 case .coastingTowardsContentTop, .draggingTowardsContentTop, .bouncingOffTop:
                     self = .bouncingOffTop(currentSnapshot)
-                case .idle, .animating:
+                case .idle:
+                    self = .coastingTowardsContentBottom(currentSnapshot, hasReachedBottom: currentSnapshot.yOffset >= maxOffset)
+                case .animating:
                     assertionFailure("unexpected transition to decelerating scroll phase")
                     self = .coastingTowardsContentBottom(currentSnapshot, hasReachedBottom: currentSnapshot.yOffset >= maxOffset)
                 case .bouncingOffBottom:
@@ -262,6 +276,9 @@ enum ScrollInteractionState: Equatable {
     var innerScrollDisabled: Bool = true
     
     func updateOuterScroll(newSnapshot: ScrollSnapshot, maxOffset: CGFloat) -> ScrollInteractionState {
+        guard innerScrollDisabled || outerScrollPhase == .idle else {
+            return ScrollInteractionState(previousState: nil, currentSnapshot: newSnapshot, scrollPhase: .idle, maxOffset: maxOffset)
+        }
         let newScrollInteractionState = ScrollInteractionState(previousState: outerScrollState, currentSnapshot: newSnapshot, scrollPhase: outerScrollPhase, maxOffset: maxOffset)
         outerScrollState = newScrollInteractionState
         return newScrollInteractionState
@@ -272,6 +289,9 @@ enum ScrollInteractionState: Equatable {
     }
     
     func updateInnerScroll(newSnapshot: ScrollSnapshot, maxOffset: CGFloat) -> ScrollInteractionState {
+        guard !innerScrollDisabled || innerScrollPhase == .idle else {
+            return ScrollInteractionState(previousState: nil, currentSnapshot: newSnapshot, scrollPhase: .idle, maxOffset: maxOffset)
+        }
         let newScrollInteractionState = ScrollInteractionState(previousState: innerScrollState, currentSnapshot: newSnapshot, scrollPhase: innerScrollPhase, maxOffset: maxOffset)
         innerScrollState = newScrollInteractionState
         return newScrollInteractionState

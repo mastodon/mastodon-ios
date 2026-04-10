@@ -176,9 +176,9 @@ enum MediaAttachment {
 }
 
 struct MediaAttachmentView: View {
+    @Environment(MastodonNavigationRouter.self) var navigator
     let mediaAttachment: MediaAttachment
     let containerOverlayBinding: Binding<MastodonTimelineFadeInOverlay?>?
-    let presentScene: (SceneCoordinator.Scene, Mastodon.Entity.Status.ID?, SceneCoordinator.Transition) -> ()
     @StateObject var playerObserver = PlayerObserver()
     
     var body: some View {
@@ -201,7 +201,7 @@ struct MediaAttachmentView: View {
             }
         case .openInBrowser(let url):
             Button {
-                presentScene(.safari(url: url), nil, .show)
+                navigator.presentModal(.legacy(scene: .safari(url: url), transition: .safariPresent(animated: true, completion: nil)))
             } label: {
                 HStack {
                     VStack(alignment: .leading) {

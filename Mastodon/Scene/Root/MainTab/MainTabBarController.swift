@@ -38,6 +38,10 @@ class MainTabBarController: UITabBarController {
     let composeViewController: UIViewController // placeholder
     let notificationViewController: UIViewController
     var meProfileViewController: UIViewController // placeholder
+    
+    let homeTabNavigator = MastodonNavigationRouter(navigationType: .uiKit(nil))
+    let notificationTabNavigator = MastodonNavigationRouter(navigationType: .uiKit(nil))
+    let profileTabNavigator = MastodonNavigationRouter(navigationType: .swiftUI(legacyPresenter: nil))
 
     private(set) var isReadyForWizardAvatarButton = false
     
@@ -52,7 +56,7 @@ class MainTabBarController: UITabBarController {
     ) {
         self.authenticationBox = authenticationBox
 
-        homeTimelineViewController = TimelineListViewController(.home)
+        homeTimelineViewController = TimelineListViewController(.home, navigator: homeTabNavigator)
         homeTimelineViewController.configureTabBarItem(with: .home)
 
         searchViewController = SearchViewController()
@@ -61,7 +65,7 @@ class MainTabBarController: UITabBarController {
         composeViewController = UIViewController()
         composeViewController.configureTabBarItem(with: .compose)
         
-        notificationViewController = TimelineListViewController(.notifications(.everything))
+        notificationViewController = TimelineListViewController(.notifications(.everything), navigator: notificationTabNavigator)
         notificationViewController.configureTabBarItem(with: .notifications)
 
 
@@ -75,10 +79,18 @@ class MainTabBarController: UITabBarController {
         super.init(nibName: nil, bundle: nil)
 
         viewControllers = [homeTimelineViewController, searchViewController, composeViewController, notificationViewController, meProfileViewController].map {
-            if UserDefaults.standard.useBetaProfileView && $0 == meProfileViewController {
+            if $0 == meProfileViewController {
+                profileTabNavigator.navigationType = .swiftUI(legacyPresenter: meProfileViewController)
                 return $0
             } else {
-                return AdaptiveStatusBarStyleNavigationController(rootViewController: $0)
+                let navController = AdaptiveStatusBarStyleNavigationController(rootViewController: $0)
+                if $0 == homeTimelineViewController {
+                    homeTabNavigator.navigationType = .uiKit(navController)
+                }
+                if $0 == notificationViewController {
+                    notificationTabNavigator.navigationType = .uiKit(navController)
+                }
+                return navController
             }
         }
         tabBar.addInteraction(largeContentViewerInteraction)
@@ -189,16 +201,13 @@ extension MainTabBarController {
                 
                 if currentTab == .me {
                     guard let authBox = authenticationBox, let myAccount = authBox.cachedAccount else { return }
-                    guard !(meProfileViewController is ProfileViewController) && !(meProfileViewController is ProfileHostingViewController) else { return }
+                    guard !(meProfileViewController is ProfileHostingViewController) else { return }
                     let oldMe = meProfileViewController
                     let updatedProfile: UIViewController =  {
-                        if UserDefaults.standard.useBetaProfileView {
-                            let controller = ProfileHostingViewController(wrapInSwiftUINavigationStack: true)
-                            controller.set(account: MastodonAccount.fromEntity(myAccount, authenticatedDomain: authBox.domain), relationship: .isMe)
-                            return controller
-                        } else {
-                            return ProfileViewController(.me(myAccount), authenticationBox: authBox)
-                        }
+                        let controller = ProfileHostingViewController(navigationRouter: self.profileTabNavigator)
+                        self.profileTabNavigator.navigationType = .swiftUI(legacyPresenter: controller)
+                        controller.viewModel.set(account: MastodonAccount.fromEntity(myAccount, authenticatedDomain: authBox.domain), relationship: .isMe, navigator: self.profileTabNavigator)
+                        return controller
                     }()
                     meProfileViewController = updatedProfile
                     updatedProfile.configureTabBarItem(with: .me)
@@ -676,32 +685,17 @@ extension MainTabBarController: UIGestureRecognizerDelegate {
 
 extension MainTabBarController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        
-        // disable animations when transitioning to/from the profile view controller, since it has a transparent background on the nav bar which makes the transition to standard nav bars look broken
-        if viewController is ProfileViewController || navigationController.topViewController is ProfileViewController {
-            if let coordinator = navigationController.topViewController?.transitionCoordinator {
-                let transparentAppearance = UINavigationBarAppearance()
-                transparentAppearance.configureWithTransparentBackground()
-                navigationController.navigationBar.standardAppearance = transparentAppearance
-                navigationController.navigationBar.compactAppearance = transparentAppearance
-                navigationController.navigationBar.scrollEdgeAppearance = transparentAppearance
-                coordinator.animate(alongsideTransition: nil) { _ in
-                    navigationController.setNeedsStatusBarAppearanceUpdate()
-                }
-            }
-        } else {
-            let nonTransparentAppearance = UINavigationBarAppearance()
-            nonTransparentAppearance.configureWithDefaultBackground()
-            navigationController.navigationBar.standardAppearance = nonTransparentAppearance
-            navigationController.navigationBar.compactAppearance = nonTransparentAppearance
-            navigationController.navigationBar.scrollEdgeAppearance = nonTransparentAppearance
-            if let coordinator = navigationController.topViewController?.transitionCoordinator {
-                coordinator.animate(alongsideTransition: nil) { _ in
-                    navigationController.setNeedsStatusBarAppearanceUpdate()
-                }
-            } else {
+        let nonTransparentAppearance = UINavigationBarAppearance()
+        nonTransparentAppearance.configureWithDefaultBackground()
+        navigationController.navigationBar.standardAppearance = nonTransparentAppearance
+        navigationController.navigationBar.compactAppearance = nonTransparentAppearance
+        navigationController.navigationBar.scrollEdgeAppearance = nonTransparentAppearance
+        if let coordinator = navigationController.topViewController?.transitionCoordinator {
+            coordinator.animate(alongsideTransition: nil) { _ in
                 navigationController.setNeedsStatusBarAppearanceUpdate()
             }
+        } else {
+            navigationController.setNeedsStatusBarAppearanceUpdate()
         }
     }
 }

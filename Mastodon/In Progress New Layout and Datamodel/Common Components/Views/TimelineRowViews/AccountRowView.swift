@@ -7,13 +7,14 @@ import MastodonUI
 import SwiftUI
 
 struct AccountRowView: View {
+    @Environment(MastodonNavigationRouter.self) private var navigator
     @Environment(AccountRowViewModel.self) var viewModel
     let contentWidth: CGFloat
   
     var body: some View {
         VStack(alignment: .gutterAlign, spacing: 0) {  // gutterAlign keeps the content properly aligned with the gap between avatar and content
             HStack(alignment: .top, spacing: spacingBetweenGutterAndContent) {
-                AvatarView(size: .large, avatarSource: .url(viewModel.account.avatarURL), goToProfile: nil)
+                AvatarView(size: .large, avatarSource: .url(viewModel.account.avatarURL), goToProfile: { viewModel.goToProfile(navigator: navigator) })
                     .accessibilityHidden(true)
                 
                 VStack(alignment: .leading, spacing: 0) {
@@ -43,7 +44,7 @@ struct AccountRowView: View {
                         Spacer()
                         viewModel.relationshipButton.button {
                             Task {
-                                try await viewModel.doRelationshipButtonAction()
+                                try await viewModel.doRelationshipButtonAction(navigator: navigator)
                             }
                         }
                     }

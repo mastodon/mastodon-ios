@@ -60,32 +60,4 @@ extension APIService {
         return response.value
     }
     
-    public func toggleBlock(
-        account: Mastodon.Entity.Account,
-        authenticationBox: MastodonAuthenticationBox
-    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
-        guard let relationship = try await relationship(forAccounts: [account], authenticationBox: authenticationBox).value.first else {
-            throw APIError.implicit(.badRequest)
-        }
-
-        let response: Mastodon.Response.Content<Mastodon.Entity.Relationship>
-
-        if relationship.blocking {
-            response = try await Mastodon.API.Account.unblock(
-                session: session,
-                domain: authenticationBox.domain,
-                accountID: account.id,
-                authorization: authenticationBox.userAuthorization
-            ).singleOutput()
-        } else {
-            response = try await Mastodon.API.Account.block(
-                session: session,
-                domain: authenticationBox.domain,
-                accountID: account.id,
-                authorization: authenticationBox.userAuthorization
-            ).singleOutput()
-        }
-
-        return response
-    }
 }

@@ -75,6 +75,7 @@ extension Mastodon.Entity.V2.Instance {
         public let polls: Mastodon.Entity.Instance.Configuration.Polls?
         public let translation: Mastodon.Entity.V2.Instance.Configuration.Translation?
         public let timelinesAccess: Mastodon.Entity.V2.Instance.Configuration.TimelinesAccess?
+        public let accounts: Mastodon.Entity.V2.Instance.Configuration.AccountsLimits?
     
         enum CodingKeys: String, CodingKey {
             case urls
@@ -83,6 +84,29 @@ extension Mastodon.Entity.V2.Instance {
             case polls
             case translation
             case timelinesAccess = "timelines_access"
+            case accounts
+        }
+    }
+}
+
+extension Mastodon.Entity.V2.Instance.Configuration {
+    public struct AccountsLimits: Codable {
+        public let maxDisplayNameLength: Int?           // 4.6  default to 30
+        public let maxBioLength: Int?                   // 4.6  default to 500 (prefer 220)
+        public let maxFeaturedTagCount: Int?            // 4.0 default to 10
+        public let maxPinnedStatusCount: Int?           // 4.3  default to 5
+        public let maxProfileCustomFieldsCount: Int?    // 4.6  default to 4
+        public let maxProfileFieldNameLength: Int?      // 4.6 default to 255
+        public let maxProfileFieldValueLength: Int?     // 4.6 default to 255
+        
+        enum CodingKeys: String, CodingKey {
+            case maxDisplayNameLength = "max_display_name_length"
+            case maxBioLength = "max_note_length"
+            case maxFeaturedTagCount = "max_featured_tags"
+            case maxPinnedStatusCount = "max_pinned_statuses"
+            case maxProfileCustomFieldsCount = "max_profile_fields"
+            case maxProfileFieldNameLength = "profile_field_name_limit"
+            case maxProfileFieldValueLength = "profile_field_value_limit"
         }
     }
 }

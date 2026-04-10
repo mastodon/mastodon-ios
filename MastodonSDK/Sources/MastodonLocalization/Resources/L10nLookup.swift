@@ -166,10 +166,6 @@ public struct L10nLookup {
         
         public struct Profile {
             public struct SegmentedControl {
-                public static let about: String = {
-                    let result = tr("Localizable", "Scene.Profile.SegmentedControl.About")
-                    return result
-                }()
                 public static let activity: String = {
                     let result = tr("Localizable", "Scene.Profile.SegmentedControl.Activity")
                     return result
@@ -242,7 +238,7 @@ public struct L10nLookup {
             }
             
             public static func viewAllPinnedPosts(pinnedPostCount: Int) -> String {
-                let result = tr("Localizable", "Scene.Profile.HandleExplainerView.ViewAllPinnedPosts", pinnedPostCount)
+                let result = tr("Localizable", "Scene.Profile.ViewAllPinnedPosts", pinnedPostCount)
                 return result
             }
             

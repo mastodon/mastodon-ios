@@ -325,6 +325,10 @@ struct NotificationSourceAccounts {
     let totalActorCount: Int
     let myAccountID: String
     
+    var relationshipAccountDomain: String? {
+        primaryAuthorAccount?.domain
+    }
+    
     var primaryAuthorAccount: Mastodon.Entity.Account? {
         return accounts.first?.fullAccount
     }
@@ -436,7 +440,7 @@ struct FilteredNotificationsRowView: View {
 }
 
 struct NotificationRowView: View {
-    
+    @Environment(MastodonNavigationRouter.self) private var navigator
     @Environment(NotificationRowViewModel.self) var viewModel
     let contentWidth: CGFloat
     let actionHandler: MastodonPostMenuActionHandler?
@@ -457,7 +461,7 @@ struct NotificationRowView: View {
             }
         }
         .onTapGesture {
-            viewModel.doPrimaryNavigation()
+            viewModel.doPrimaryNavigation(navigator)
         }
     }
     
@@ -508,8 +512,7 @@ struct NotificationRowView: View {
                     .environment(postViewModel)
                     .environment(viewModel.contentConcealViewModel ?? .alwaysShow)
                     .onTapGesture {
-                        guard let actionHandler else { return }
-                        postViewModel.openThreadView(actionHandler: actionHandler)
+                        postViewModel.openThreadView(navigator: navigator)
                     }
             }
         }
@@ -559,10 +562,10 @@ struct NotificationRowView: View {
                     ForEach(
                         accountInfo.accounts.prefix(maxAvatarCount), id: \.self.id
                     ) { account in
-                        AvatarView(size: .small, avatarSource: .url(account.avatarURL), goToProfile: { try await viewModel.navigateToProfile(account) })
+                        AvatarView(size: .small, avatarSource: .url(account.avatarURL), goToProfile: { try await viewModel.navigateToProfile(account, navigator: navigator) })
                             .onTapGesture {
                                 Task {
-                                    try await viewModel.navigateToProfile(account)
+                                    try await viewModel.navigateToProfile(account, navigator: navigator)
                                 }
                             }
                     }
@@ -599,7 +602,7 @@ struct NotificationRowView: View {
                 ProgressView().progressViewStyle(.circular)
             case .relationshipButton(let button):
                 button.button {
-                    viewModel.doAvatarRowButtonAction()
+                    viewModel.doAvatarRowButtonAction(navigator: navigator)
                 }
             case .followRequestControls(let controls):
                 switch controls {
@@ -617,7 +620,7 @@ struct NotificationRowView: View {
                         }
                         
                         Button(action: {
-                            viewModel.doAvatarRowButtonAction(false)
+                            viewModel.doAvatarRowButtonAction(false, navigator: navigator)
                         }) {
                             lightwieghtImageView("xmark.circle", size: AvatarSize.small)
                         }
@@ -626,7 +629,7 @@ struct NotificationRowView: View {
                                 foregroundColor: .secondary, backgroundColor: .clear))
                         
                         Button(action: {
-                            viewModel.doAvatarRowButtonAction(true)
+                            viewModel.doAvatarRowButtonAction(true, navigator: navigator)
                         }) {
                             lightwieghtImageView(
                                 "checkmark.circle", size: AvatarSize.small)

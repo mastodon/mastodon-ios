@@ -154,6 +154,7 @@ extension Mastodon.Entity.Instance {
         public let statuses: Statuses?
         public let mediaAttachments: MediaAttachments?
         public let polls: Polls?
+        public let accounts: Mastodon.Entity.V2.Instance.Configuration.AccountsLimits? = nil
         
         enum CodingKeys: String, CodingKey {
             case statuses

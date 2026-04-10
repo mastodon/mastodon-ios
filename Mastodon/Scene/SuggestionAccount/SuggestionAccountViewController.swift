@@ -87,7 +87,14 @@ extension SuggestionAccountViewController: UITableViewDelegate {
         switch item {
         case .account(let account, _):
             Task {
-                await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
+                guard let myAccount = authenticationBox.cachedAccount else { return }
+                let profile: ProfileType = {
+                    if account.acctWithDomain == myAccount.acctWithDomain {
+                        .me(account)
+                    } else {
+                        .notMe(me: myAccount, displayAccount: account, relationship: nil)
+                    }
+                }()
             }
         }
 

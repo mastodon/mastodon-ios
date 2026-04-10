@@ -21,6 +21,9 @@ import MastodonSDK
             self.entity = updated
         case .post, .deletedPost, .relationship:
             break
+        case .domainBlockChange:
+            // hashtags are unaffected by domain blocks
+            break
         }
     }
 }

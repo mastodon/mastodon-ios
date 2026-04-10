@@ -296,7 +296,7 @@ extension Mastodon.API.Statuses {
         for component in ["interaction_policy"] {
             url.append(path: component)
         }
-        let request = Mastodon.API.updateQuotePolicy(
+        let request = Mastodon.API.putQueryRequest(
             url: url,
             query: query,
             authorization: authorization

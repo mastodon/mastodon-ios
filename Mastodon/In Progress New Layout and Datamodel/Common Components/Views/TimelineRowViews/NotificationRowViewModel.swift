@@ -196,26 +196,12 @@ struct A11yActionInfo: Identifiable {
 
 extension NotificationRowViewModel {
     
-    func navigateToProfile(_ info: AccountInfo) async throws {
-        guard
-            let me = AuthenticationServiceProvider.shared
-                .currentActiveUser.value?.cachedAccount
-        else { return }
-        if me.id == info.id {
-            actionHandler?.presentScene(.profile(.me(me)), fromPost: nil, transition: .show)
-        } else {
-            guard let account = info.fullAccount, let relationship = relationshipViewModel.relationship?.info?._legacyEntity else { return }
-            actionHandler?.presentScene(
-                .profile(
-                    .notMe(
-                        me: me, displayAccount: account,
-                        relationship: relationship)),
-                fromPost: nil,
-                transition: .show)
-        }
+    func navigateToProfile(_ info: AccountInfo, navigator: MastodonNavigationRouter) async throws {
+        guard let account = info.fullAccount else { return }
+        navigator.push(.profile(account: account, relationship: relationshipViewModel.relationship))
     }
     
-    func doPrimaryNavigation() {
+    func doPrimaryNavigation(_ navigator: MastodonNavigationRouter) {
         guard let primaryNavigation else { return }
         switch primaryNavigation {
         case .link(_, let url):
@@ -223,16 +209,16 @@ extension NotificationRowViewModel {
             UIApplication.shared.open(url)
         case .myFollowers, .profile:
             Task {
-                guard let scene = await primaryNavigation.destinationScene()
+                guard let destination = await primaryNavigation.destination()
                 else { return }
-                actionHandler?.presentScene(scene, fromPost: nil, transition: .show)
+                navigator.push(destination)
             }
         }
     }
     
-    public var a11yActions: [A11yActionInfo] {
+    public func a11yActions(navigator: MastodonNavigationRouter) -> [A11yActionInfo] {
         var actions = [A11yActionInfo]()
-        if let primaryNavigationTitle = primaryNavigation?.a11yTitle { actions.append(A11yActionInfo(title: primaryNavigationTitle, doAction: { [weak self] in self?.doPrimaryNavigation() }))
+        if let primaryNavigationTitle = primaryNavigation?.a11yTitle { actions.append(A11yActionInfo(title: primaryNavigationTitle, doAction: { [weak self] in self?.doPrimaryNavigation(navigator) }))
         }
         // TODO: replace the below
 //        for component in self.headerComponents + self.contentComponents {
@@ -264,7 +250,7 @@ extension NotificationRowViewModel {
 //        }
 //    }
     
-    private func a11yActions(forRelationshipElement relationshipElement: RelationshipElement, isGrouped: Bool) -> [A11yActionInfo] {
+    private func a11yActions(forRelationshipElement relationshipElement: RelationshipElement, isGrouped: Bool, navigator: MastodonNavigationRouter) -> [A11yActionInfo] {
         
         guard !isGrouped else { return [] }
         
@@ -275,14 +261,14 @@ extension NotificationRowViewModel {
             switch controls {
             case .theyHaveRequestedToFollowMe:
                 return [true, false].map { option in
-                    A11yActionInfo(title: controls.a11yActionTitle(forAccept: option) ?? "", doAction: { [weak self] in self?.doAvatarRowButtonAction(option) })
+                    A11yActionInfo(title: controls.a11yActionTitle(forAccept: option) ?? "", doAction: { [weak self] in self?.doAvatarRowButtonAction(option, navigator: navigator) })
                 }
             case .iHaveAnsweredTheirRequestToFollowMe:
                 return []
             }
         case .relationshipButton(let button):
             if let actionTitle = button.a11yActionTitle {
-                return [ A11yActionInfo(title: actionTitle , doAction: { [weak self] in self?.doAvatarRowButtonAction() }) ]
+                return [ A11yActionInfo(title: actionTitle , doAction: { [weak self] in self?.doAvatarRowButtonAction(navigator: navigator) }) ]
             } else {
                 return []
             }
@@ -300,7 +286,7 @@ extension NotificationRowViewModel: Equatable {
 
 extension NotificationRowViewModel {
 
-    public func doAvatarRowButtonAction(_ accept: Bool = true) {
+    public func doAvatarRowButtonAction(_ accept: Bool = true, navigator: MastodonNavigationRouter) {
         switch avatarRowAdditionalElement {
         case .followRequestControls(let controls):
             switch controls {
@@ -318,7 +304,7 @@ extension NotificationRowViewModel {
             if let firstAccount = avatarRowSourceAccounts?.primaryAuthorAccount {
                 FeedbackGenerator.shared.generate(.selectionChanged)
                 Task {
-                    try await relationshipViewModel.doRelationshipAction(button.buttonAction, account: MastodonAccount.fromEntity(firstAccount, authenticatedDomain: myAccountDomain))
+                    try await relationshipViewModel.doRelationshipAction(button.buttonAction, account: MastodonAccount.fromEntity(firstAccount, authenticatedDomain: myAccountDomain), navigator: navigator)
                     updateAvatarRowAdditionalElement()
                 }
             }
@@ -361,7 +347,7 @@ extension NotificationRowViewModel {
         case profile(Mastodon.Entity.Account)
         case link(String, URL?)
 
-        func destinationScene() async -> SceneCoordinator.Scene? {
+        func destination() async -> MastodonNavigationDestination? {
             guard
                 let authBox = await AuthenticationServiceProvider.shared
                     .currentActiveUser.value,
@@ -370,18 +356,11 @@ extension NotificationRowViewModel {
             switch self {
             case .link(_, let link):
                 guard let link else { return nil }
-                return .mastodonWebView(viewModel: WebViewModel(url: link))
+                return .legacy(scene: .mastodonWebView(viewModel: WebViewModel(url: link)), transition: .safariPresent(animated: true, completion: nil))
             case .myFollowers:
-                return .followers(ofUserId: myAccount.id)
+                return .timeline(.followers(ofUserId: myAccount.id))
             case .profile(let account):
-                if myAccount.id == account.id {
-                    return .profile(.me(account))
-                } else {
-                    return .profile(
-                        .notMe(
-                            me: myAccount, displayAccount: account,
-                            relationship: nil))
-                }
+                return .profile(account: account, relationship: nil)
             }
         }
     }
@@ -625,15 +604,7 @@ func statusViewModel(_ status: Mastodon.Entity.Status,  myAccountID: String,
                     .currentActiveUser.value
             else { return }
             await navigateToScene(
-                .thread(
-                    viewModel: ThreadViewModel(
-                        authenticationBox: authBox,
-                        optionalRoot: .root(
-                            context: .init(
-                                status: MastodonStatus(
-                                    entity: status,
-                                    showDespiteContentWarning:
-                                        false))))), .show)
+                .thread(status, authenticatedUserDomain: authBox.domain), .show)
         }
     })
 }
@@ -664,6 +635,9 @@ extension NotificationRowViewModel: FeedCoordinatorUpdatable {
                 relationshipViewModel.prepareForDisplay(relationship: updated, theirAccountIsLocked: _primaryAuthorAccountIsLocked)
                 updateAvatarRowAdditionalElement()
             }
+        case .domainBlockChange(let domain, let isBlocked):
+            guard avatarRowSourceAccounts?.relationshipAccountDomain == domain else { return }
+            relationshipViewModel.updateForDomainBlockChange(isBlocked: isBlocked)
         }
     }
 }

@@ -275,3 +275,28 @@ extension Mastodon.API.Account {
     }
 
 }
+
+extension Mastodon.API.Account {
+    public static func getLists(
+        includingAccount: Mastodon.Entity.Account.ID,
+        session: URLSession,
+        domain: String,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.List]>, Error> {
+        var url = accountsEndpointURL(domain: domain)
+        url = url.appendingPathComponent(includingAccount)
+        url = url.appendingPathComponent("lists")
+        
+        let request = Mastodon.API.get(
+            url: url,
+            authorization: authorization
+        )
+        
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.List].self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+}

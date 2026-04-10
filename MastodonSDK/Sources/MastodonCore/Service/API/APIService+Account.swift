@@ -182,3 +182,68 @@ extension APIService {
         return fetchedAccount
     }
 }
+
+extension APIService {
+    public func featureAccount(_ accountID: Mastodon.Entity.Account.ID, authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Entity.Relationship {
+        let response = try await Mastodon.API.Account.featureAccount(
+            session: session,
+            domain: authenticationBox.domain,
+            accountToFeature: accountID,
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+        
+        let updatedRelationship = response.value
+        return updatedRelationship
+    }
+    
+    public func stopFeaturingAccount(_ accountID: Mastodon.Entity.Account.ID, authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Entity.Relationship {
+        let response = try await Mastodon.API.Account.stopFeaturingAccount(
+            session: session,
+            domain: authenticationBox.domain,
+            accountToStopFeaturing: accountID,
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+        
+        let updatedRelationship = response.value
+        return updatedRelationship
+    }
+    
+    public func removeFollower(_ accountID: Mastodon.Entity.Account.ID, authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Entity.Relationship {
+        let response = try await Mastodon.API.Account.removeFromFollowers(
+            session: session,
+            domain: authenticationBox.domain,
+            accountToRemove: accountID,
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+        
+        let updatedRelationship = response.value
+        return updatedRelationship
+    }
+    
+    public func setPersonalNote(_ accountID: Mastodon.Entity.Account.ID, note: String, authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Entity.Relationship {
+        let response = try await Mastodon.API.Account.setPersonalNote(
+            session: session,
+            domain: authenticationBox.domain,
+            account: accountID,
+            note: note,
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+        
+        let updatedRelationship = response.value
+        return updatedRelationship
+    }
+}
+
+extension APIService {
+    public func updateTabDisplaySettings(showFeaturedTab: Bool, showMediaTab: Bool, showMediaReplies: Bool, authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Entity.Profile {
+        let response = try await Mastodon.API.Account.updateTabDisplaySettings(
+            session: session,
+            domain: authenticationBox.domain,
+            query: Mastodon.API.Account.UpdateTabDisplaySettingsQuery(showFeaturedTab:  showFeaturedTab, showMediaTab: showMediaTab, showMediaReplies:  showMediaReplies),
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+        
+        let updated = response.value
+        return updated
+    }
+}

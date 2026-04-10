@@ -86,28 +86,40 @@ extension SearchHistoryViewController: UICollectionViewDelegate {
         }
 
         Task {
-            let source = DataSourceItem.Source(indexPath: indexPath)
+            let source = LegacyDataSourceFacade.DataSourceItem.Source(indexPath: indexPath)
             guard let item = await item(from: source) else {
                 return
             }
 
-            await DataSourceFacade.responseToCreateSearchHistory(
+            await LegacyDataSourceFacade.responseToCreateSearchHistory(
                 provider: self,
                 item: item
             )
 
             switch item {
-                case .account(account: let account, relationship: _):
-                    await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
-
-                case .hashtag(let tag):
-                    await DataSourceFacade.coordinateToHashtagScene(
-                        provider: self,
-                        tag: tag
-                    )
-                default:
-                    assertionFailure()
-                    break
+            case .account(account: let account, relationship: _):
+                guard let myAccount = authenticationBox.cachedAccount, let myDomain = myAccount.domain else { return }
+                let relationship: MastodonAccount.Relationship = {
+                    if account.acctWithDomain == myAccount.acctWithDomain {
+                        return .isMe
+                    } else {
+                        return .isNotMe(nil)
+                    }
+                }()
+                let navigator = MastodonNavigationRouter(navigationType: .uiKit(self))
+                let profileViewController = ProfileHostingViewController(navigationRouter: navigator)
+                let viewModelAccount = MastodonAccount.fromEntity(account, authenticatedDomain: myDomain)
+                profileViewController.viewModel.set(account: viewModelAccount, relationship: relationship, navigator: navigator)
+                navigationController?.pushViewController(profileViewController, animated: true)
+                
+            case .hashtag(let tag):
+                await LegacyDataSourceFacade.coordinateToHashtagScene(
+                    provider: self,
+                    tag: tag
+                )
+            default:
+                assertionFailure()
+                break
             }
         }
     }

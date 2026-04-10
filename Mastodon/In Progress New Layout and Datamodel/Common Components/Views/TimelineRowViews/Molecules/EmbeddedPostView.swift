@@ -205,19 +205,14 @@ struct EmbeddedPostContentDisplayedView: View {
                             MediaAttachmentView(
                                 mediaAttachment: MediaAttachment(array,
                                                                  altTextTranslations: viewModel.altTextTranslations),
-                                containerOverlayBinding: actionHandler.containerOverlayBinding,
-                                presentScene: { scene, postID, transition in
-                                    actionHandler.presentScene(scene, fromPost: postID, transition: transition)
-                                })
+                                containerOverlayBinding: actionHandler.containerOverlayBinding)
                             .frame(width: contentWidth)
                         case .poll(let poll):
                             let emojis = viewModel.fullPost?.actionablePost?.content.htmlWithEntities?.emojis
                             PollView(viewModel: PollViewModel(pollEntity: poll, emojis: emojis, optionTranslations: viewModel.isShowingTranslation == true ? viewModel.pollOptionTranslations : nil, containingPostID: viewModel.initialDisplayInfo.actionablePostID, actionHandler: actionHandler), contentWidth: contentWidth)
                                 .frame(width: contentWidth)
                         case .linkPreviewCard(let card):
-                            LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth, navigateToScene: { (scene, transition) in
-                                actionHandler.presentScene(scene, fromPost: viewModel.initialDisplayInfo.id, transition: transition)
-                            })
+                            LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth)
                             .frame(width: contentWidth)
                         }
                     }

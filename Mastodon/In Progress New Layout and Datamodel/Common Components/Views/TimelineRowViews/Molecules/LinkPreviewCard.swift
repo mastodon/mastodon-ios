@@ -9,6 +9,7 @@ import MastodonCore
 import SDWebImageSwiftUI
 
 struct LinkPreviewCard: View {
+    @Environment(MastodonNavigationRouter.self) private var navigator
     
     private let compactPreviewHeight: CGFloat = 96
     
@@ -20,7 +21,6 @@ struct LinkPreviewCard: View {
     
     let cardEntity: Mastodon.Entity.Card
     let fittingWidth: CGFloat
-    let navigateToScene: (SceneCoordinator.Scene, SceneCoordinator.Transition)->()
     
     @State var blurhash: UIImage?
     @State var couldShowImage = true
@@ -65,7 +65,7 @@ struct LinkPreviewCard: View {
         .accessibilityLabel(L10n.Common.Controls.Status.linkA11YLabel)
         .onTapGesture {
             guard let url = URL(string: cardEntity.url) else { return }
-            navigateToScene(.safari(url: url), .safariPresent(animated: true, completion: nil))
+            navigator.presentModal(.legacy(scene: .safari(url: url), transition: .safariPresent(animated: true, completion: nil)))
         }
     }
     
@@ -194,14 +194,7 @@ struct LinkPreviewCard: View {
                     .foregroundStyle(.secondary)
                 
                 Button { // author account button
-                    guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value?.cachedAccount else { return }
-                    let profileType: ProfileViewController.ProfileType
-                    if currentUser.id == account.id {
-                        profileType = .me(currentUser)
-                    } else {
-                        profileType = .notMe(me: currentUser, displayAccount: account, relationship: nil)
-                    }
-                    navigateToScene(.profile(profileType), .show)
+                    navigator.push(.profile(account: account, relationship: nil))
                 } label: {
                     HStack(spacing: tinySpacing) {
                         AvatarView(size: .tiny, avatarSource: .url(account.avatarURL), goToProfile: nil)
