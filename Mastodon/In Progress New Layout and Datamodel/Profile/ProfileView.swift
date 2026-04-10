@@ -113,7 +113,7 @@ struct ProfileView: View {
                                         .preference(key: VerticalPositionKey.self, value: ["embedded": embeddedGeo.frame(in: CoordinateSpace.named("scrollview")).minY])
                                 }
                             }
-                            .opacity(embeddedActionBarHasCaughtUpToFloatingActionBar ? 1.0 : 0.0)
+                            .opacity((embeddedActionBarHasCaughtUpToFloatingActionBar && nestedScrollViewModel.innerScrollDisabled) ? 1.0 : 0.0)
                         
                         VStack(spacing: 0) {
                             
@@ -1152,7 +1152,6 @@ extension ProfileBadge: View {
                 .foregroundColor(foregroundIconColor)
             Text(text)
                 .foregroundColor(foregroundTextColor)
-
         }
         .font(.footnote)
         .fontWeight(fontWeight)
