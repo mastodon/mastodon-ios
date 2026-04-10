@@ -443,9 +443,9 @@ struct ProfileInfoView: View {
                 MastodonContentView.header(html: displayName, emojis: viewModel.account?.displayInfo.emojis ?? [], style: .profileDisplayName)
                 
                 // HANDLE
-                let handle = viewModel.account?.displayInfo.fullHandle ?? "@unknown"
+                let handle = viewModel.account?.displayInfo.fullHandle ?? "unknown"
                 HStack(alignment: .firstTextBaseline, spacing: tinySpacing) {
-                    Text(handle)
+                    Text("@\(handle)")
                         .foregroundStyle(.secondary)
                         .font(.subheadline)
                     if viewModel.handleDetails?.username != nil {
