@@ -440,7 +440,12 @@ struct ProfileInfoView: View {
             VStack(alignment: .leading, spacing: 0) {
                 // DISPLAY NAME
                 let displayName = viewModel.account?.displayInfo.displayName ?? "No Name"
-                MastodonContentView.header(html: displayName, emojis: viewModel.account?.displayInfo.emojis ?? [], style: .profileDisplayName)
+                FlowLayout(minItemCountPerRow: 1, interItemSpacing: tinySpacing, rowSpacing: tinySpacing) {
+                    MastodonContentView.header(html: displayName, emojis: viewModel.account?.displayInfo.emojis ?? [], style: .profileDisplayName)
+                    if relationshipViewModel.relationship?.info?.theyFollowMe == true {
+                        ProfileBadge.followsYou
+                    }
+                }
                 
                 // HANDLE
                 handleDisplay
@@ -1034,6 +1039,7 @@ struct VerticalPositionKey: PreferenceKey {
 }
 
 enum ProfileBadge {
+    case followsYou
     case role(Mastodon.Entity.Account.AccountRole, domain: String)
     case isBlocked
     case isMuted
@@ -1044,6 +1050,8 @@ enum ProfileBadge {
 extension ProfileBadge: Identifiable {
     var id: String {
         switch self {
+        case .followsYou:
+            return "follows_you"
         case .role(let role, let domain):
             return "role-\(role.id)-\(domain)"
         case .isBlocked:
@@ -1062,6 +1070,8 @@ extension ProfileBadge: View {
     
     var icon: Image {
         switch self {
+        case .followsYou:
+            return Image(systemName: "hand.wave")
         case .role:
             return Asset.Scene.Profile.About.roleBadge.swiftUIImage
         case .isBot:
@@ -1077,6 +1087,8 @@ extension ProfileBadge: View {
     
     var text: String {
         switch self {
+        case .followsYou:
+            "Follows you" // TODO: L10n
         case .role(let roleEntity, let domain):
             "\(roleEntity.name) (\(domain))"
         case .isBot:
@@ -1092,7 +1104,7 @@ extension ProfileBadge: View {
     
     var fillColor: Color {
         switch self {
-        case .role, .pinned, .isBot:
+        case .followsYou, .role, .pinned, .isBot:
             return Asset.Colors.FigmaToken.bgSoftest.swiftUIColor
         case .isMuted:
             return Asset.Colors.FigmaToken.bgInverted.swiftUIColor
@@ -1101,9 +1113,11 @@ extension ProfileBadge: View {
         }
     }
     
-    var foregroundColor: Color {
+    var foregroundTextColor: Color {
         switch self {
-        case .role, .pinned, .isBot:
+        case .followsYou, .role:
+            return Color.primary
+        case .pinned, .isBot:
             return Asset.Colors.FigmaToken.textSecondary.swiftUIColor
         case .isMuted:
             return Asset.Colors.FigmaToken.textInverted.swiftUIColor
@@ -1112,14 +1126,36 @@ extension ProfileBadge: View {
         }
     }
     
+    var foregroundIconColor: Color {
+        switch self {
+        case .followsYou, .role, .pinned, .isBot:
+            return Asset.Colors.FigmaToken.textSecondary.swiftUIColor
+        case .isMuted:
+            return Asset.Colors.FigmaToken.textInverted.swiftUIColor
+        case .isBlocked:
+            return Asset.Colors.FigmaToken.textInverted.swiftUIColor
+        }
+    }
+    
+    var fontWeight: SwiftUI.Font.Weight {
+        switch self {
+        case .followsYou, .role:
+                .regular
+        default:
+                .semibold
+        }
+    }
+    
     var body: some View {
         HStack(spacing: tinySpacing) {
             icon
+                .foregroundColor(foregroundIconColor)
             Text(text)
+                .foregroundColor(foregroundTextColor)
+
         }
         .font(.footnote)
-        .fontWeight(.semibold)
-        .foregroundColor(foregroundColor)
+        .fontWeight(fontWeight)
         .padding(tinySpacing)
         .background() {
             RoundedRectangle(cornerRadius: CornerRadius.standard)
