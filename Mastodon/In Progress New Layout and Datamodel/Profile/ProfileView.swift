@@ -86,8 +86,8 @@ struct ProfileView: View {
     @ViewBuilder var content: some View {
         GeometryReader { geo in
             let fullWidth = min(maxFeedContentWidth, geo.size.width)
-            let headerContentWidth = min(maxFeedContentWidth, geo.size.width - doublePadding * 2)
-            let timelineContentWidth = min(maxFeedContentWidth, geo.size.width - doublePadding)
+            let headerContentWidth = max(0, min(maxFeedContentWidth, geo.size.width - doublePadding * 2))
+            let timelineContentWidth = max(0, min(maxFeedContentWidth, geo.size.width - doublePadding))
             ZStack(alignment: .top) {
                 ScrollView() {
                     VStack(alignment: .center, spacing: 0) {
