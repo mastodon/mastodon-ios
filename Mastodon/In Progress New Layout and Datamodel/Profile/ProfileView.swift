@@ -443,26 +443,7 @@ struct ProfileInfoView: View {
                 MastodonContentView.header(html: displayName, emojis: viewModel.account?.displayInfo.emojis ?? [], style: .profileDisplayName)
                 
                 // HANDLE
-                let handle = viewModel.account?.displayInfo.fullHandle ?? "unknown"
-                HStack(alignment: .firstTextBaseline, spacing: tinySpacing) {
-                    Text("@\(handle)")
-                        .foregroundStyle(.secondary)
-                        .font(.subheadline)
-                    if viewModel.handleDetails?.username != nil {
-                        Image(systemName: "info.circle")
-                            .foregroundColor(Asset.Colors.accent.swiftUIColor)
-                            .font(.caption)
-                    }
-                }
-                .onTapGesture {
-                    isShowingHandleInfo = !isShowingHandleInfo
-                }
-                .popover(isPresented: $isShowingHandleInfo) {
-                    ScrollView() {
-                        HandleInfoPopover()
-                    }
-                    .presentationDetents([.fraction(0.5), .medium, .large])
-                }
+                handleDisplay
                 
                 Spacer()
                     .frame(height: tinySpacing)
@@ -567,6 +548,29 @@ struct ProfileInfoView: View {
         guard !_badges.isEmpty else { return nil }
         
         return _badges
+    }
+    
+    @ViewBuilder var handleDisplay: some View {
+        let handle = viewModel.account?.displayInfo.fullHandle ?? "unknown"
+        HStack(alignment: .firstTextBaseline, spacing: tinySpacing) {
+            Text("@\(handle)")
+                .foregroundStyle(.secondary)
+                .font(.subheadline)
+            if viewModel.handleDetails?.username != nil {
+                Image(systemName: "info.circle")
+                    .foregroundColor(Asset.Colors.accent.swiftUIColor)
+                    .font(.caption)
+            }
+        }
+        .onTapGesture {
+            isShowingHandleInfo = !isShowingHandleInfo
+        }
+        .popover(isPresented: $isShowingHandleInfo) {
+            ScrollView() {
+                HandleInfoPopover()
+            }
+            .presentationDetents([.fraction(0.5), .medium, .large])
+        }
     }
 }
 
