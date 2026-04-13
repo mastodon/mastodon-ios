@@ -34,7 +34,7 @@ platform :ios do
       )
       increment_build_number_in_xcodeproj(
         xcodeproj: "#{$appName}.xcodeproj",
-        build_number: $build_number.to_i
+        build_number: $build_number.to_s
       )
     end
   end
