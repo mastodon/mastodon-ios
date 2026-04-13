@@ -695,7 +695,7 @@ struct CustomFieldsFlow: View {
     var emojis: [Mastodon.Entity.Emoji]
     
     var body: some View {
-        JustifiedBalancedFlowLayout(minItemCountPerRow: 1, maxItemCountPerRow: 2) {
+        JustifiedBalancedFlowLayout(minItemCountPerRow: 1, maxItemCountPerRow: 2, interItemSpacing: tinySpacing, rowSpacing: tinySpacing) {
             ForEach(fields, id: \.self) { field in
                 CustomFieldCard(field: field, emojis: emojis, showFullContents: false)
                     .contentShape(Rectangle())
