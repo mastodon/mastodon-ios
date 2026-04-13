@@ -34,7 +34,7 @@ platform :ios do
       )
       increment_build_number_in_xcodeproj(
         xcodeproj: "#{$appName}.xcodeproj",
-        build_number: $build_number
+        build_number: $build_number.to_i
       )
     end
   end
@@ -90,16 +90,5 @@ platform :ios do
 end
 
 def get_build_number(bundle_id:, version:)
-  testflight_latest = latest_testflight_build_number(
-    app_identifier: bundle_id,
-    version: version
-  ) || 0
-
-  appstore_latest = app_store_build_number(
-    app_identifier: bundle_id
-  ) || 0
-
-  git_count = sh("git rev-list --count HEAD").to_i
-
-  [testflight_latest + 1, appstore_latest + 1, git_count].max
+  7894
 end
