@@ -91,7 +91,7 @@ struct ProfileView: View {
             ZStack(alignment: .top) {
                 ScrollView() {
                     VStack(alignment: .center, spacing: 0) {
-                        subview(.bannerAndAvatar, width: headerContentWidth)
+                        subview(.bannerAndAvatar, width: fullWidth)
                             .id(Subview.bannerAndAvatar)
                             .frame(width: min(maxFeedContentWidth, geo.size.width))
                         
