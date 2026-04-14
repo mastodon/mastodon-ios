@@ -540,10 +540,10 @@ struct ProfileInfoView: View {
         if viewModel.account?.metadata.isBot == true {
             _badges.append(ProfileBadge.isBot)
         }
-        if viewModel.relationship?.info?.iAmBlockingThem == true || viewModel.relationship?.info?.iAmBlockingTheirDomain == true {
+        if relationshipViewModel.relationship?.info?.iAmBlockingThem == true || viewModel.relationship?.info?.iAmBlockingTheirDomain == true {
             _badges.append(ProfileBadge.isBlocked)
         }
-        if viewModel.relationship?.info?.iAmMutingThem == true {
+        if relationshipViewModel.relationship?.info?.iAmMutingThem == true {
             _badges.append(ProfileBadge.isMuted)
         }
         if let domain = viewModel.account?.domain {
