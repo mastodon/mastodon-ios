@@ -14,6 +14,7 @@ enum RelationshipButtonType {
     case iFollowThem(theyFollowMe: Bool)
     case iHaveRequestedToFollowThem
     case edit
+    case hiddenByModerators
     
     enum RelationshipAction {
         case editProfile
@@ -98,6 +99,8 @@ enum RelationshipButtonType {
             }
         case .iHaveRequestedToFollowThem:
             return "iHaveRequestedToFollowThem"
+        case .hiddenByModerators:
+            return "hiddenByModerators"
         }
     }
     
@@ -125,6 +128,8 @@ enum RelationshipButtonType {
             return L10nLookup.Common.Controls.RelationshipAction.unblock
         case .updating, .error:
             return nil
+        case .hiddenByModerators:
+            return "Show anyway" // TODO: L10n
         }
     }
     
@@ -142,6 +147,8 @@ enum RelationshipButtonType {
             return .unmute
         case .iAmBlockingThem:
             return .unblock
+        case .hiddenByModerators:
+            return .noAction
         }
     }
     

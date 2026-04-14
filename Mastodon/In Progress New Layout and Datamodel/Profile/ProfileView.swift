@@ -115,25 +115,27 @@ struct ProfileView: View {
                             }
                             .opacity((embeddedActionBarHasCaughtUpToFloatingActionBar && nestedScrollViewModel.innerScrollDisabled) ? 1.0 : 0.0)
                         
-                        VStack(spacing: 0) {
-                            
-                            Spacer()
-                                .frame(height: doublePadding)
-                            
-                            if viewModel.pagesToShow.count > 1 {
-                                // PAGE SELECTOR
-                                subview(.paginationControl, width: fullWidth)
-                                    .id(Subview.paginationControl)
-                                    .frame(width: fullWidth)
-                                Divider()
-                                    .frame(width: fullWidth)
+                        if !viewModel.hideContent {
+                            VStack(spacing: 0) {
+                                
+                                Spacer()
+                                    .frame(height: doublePadding)
+                                
+                                if viewModel.pagesToShow.count > 1 {
+                                    // PAGE SELECTOR
+                                    subview(.paginationControl, width: fullWidth)
+                                        .id(Subview.paginationControl)
+                                        .frame(width: fullWidth)
+                                    Divider()
+                                        .frame(width: fullWidth)
+                                }
+                                
+                                // PAGES
+                                subview(.pages, width: timelineContentWidth)
+                                    .id(Subview.pages)
                             }
-                            
-                            // PAGES
-                            subview(.pages, width: timelineContentWidth)
-                                .id(Subview.pages)
+                            .frame(height: max(0, geo.size.height - geo.safeAreaInsets.top /*this is always 0*/ - 45 /*because the safeAreaInsets lie*/))
                         }
-                        .frame(height: max(0, geo.size.height - geo.safeAreaInsets.top /*this is always 0*/ - 45 /*because the safeAreaInsets lie*/))
                     }
                     .frame(width: geo.size.width, alignment: .center)
                 }
@@ -355,22 +357,33 @@ struct ProfileAvatarAndBannerView: View {
                         }
                     }
                 }
-        
-                    ZStack {
-                        AvatarView(size: .extraLarge, avatarSource: editingViewModel.avatarConfirmedCroppedImage != nil ? .local(Image(uiImage: editingViewModel.avatarConfirmedCroppedImage!)) : .url(profileViewModel.account?.avatarURL), goToProfile: nil)
-                            .padding(.horizontal, doublePadding)
-                        switch profileViewModel.editingStatus {
-                        case .editing:
-                            // if the user has already chosen a new image, let them see it unobscured, but tapping the avatar will still bring up the photo picker
-                            let buttonSize = AvatarSize.extraLarge + (avatarEditButtonSize / 2.0)
-                            avatarEditButton(showButton: editingViewModel.avatarConfirmedCroppedImage == nil)
-                                .frame(maxWidth: buttonSize, maxHeight: buttonSize)
-                        case .cannotEdit, .notEditing, .pushingChanges:
-                            EmptyView()
-                        }
+                
+                ZStack {
+                    AvatarView(size: .extraLarge, avatarSource: avatarSource, goToProfile: nil)
+                        .padding(.horizontal, doublePadding)
+                    switch profileViewModel.editingStatus {
+                    case .editing:
+                        // if the user has already chosen a new image, let them see it unobscured, but tapping the avatar will still bring up the photo picker
+                        let buttonSize = AvatarSize.extraLarge + (avatarEditButtonSize / 2.0)
+                        avatarEditButton(showButton: editingViewModel.avatarConfirmedCroppedImage == nil)
+                            .frame(maxWidth: buttonSize, maxHeight: buttonSize)
+                    case .cannotEdit, .notEditing, .pushingChanges:
+                        EmptyView()
                     }
-                    .offset(.init(width: 0, height: 16))
+                }
+                .offset(.init(width: 0, height: 16))
             }
+        }
+    }
+    
+    var avatarSource: AvatarView.AvatarSource {
+        guard !profileViewModel.hideContent else {
+            return .url(nil)
+        }
+        if let confirmedCroppedImage = editingViewModel.avatarConfirmedCroppedImage {
+            return .local(Image(uiImage: confirmedCroppedImage))
+        } else {
+            return .url(profileViewModel.account?.avatarURL)
         }
     }
     
@@ -379,6 +392,8 @@ struct ProfileAvatarAndBannerView: View {
             Image(uiImage: replacementImage)
                 .resizable()
                 .scaledToFill()
+        } else if profileViewModel.hideContent {
+            Color.secondary
         } else if let bannerUrl = profileViewModel.account?.displayInfo.bannerImageUrl {
             WebImage(url: bannerUrl) { phase in
                 switch phase {
@@ -469,40 +484,42 @@ struct ProfileInfoView: View {
                 Spacer()
                     .frame(height: doublePadding)
                 
-                // ACCOUNT STATS
-                AccountStatsView(displayType: .smallInline(joinedOn: viewModel.account?.metadata.createdAt), accountMetrics: viewModel.account?.metrics) { stat in
-                    guard let accountID = viewModel.account?.id else { return }
-                    switch stat {
-                    case .postCount, .joinedOn:
-                        break
-                    case .followersCount:
-                        if let count = viewModel.account?.metrics.followersCount, count > 0 {
-                            navigationRouter.push(.timeline(.followers(ofUserId: accountID)))
-                        }
-                    case .followingCount:
-                        if let count = viewModel.account?.metrics.followingCount, count > 0 {
-                            navigationRouter.push(.timeline(.accountsFollowed(byUserId: accountID)))
+                if !viewModel.hideContent {
+                    // ACCOUNT STATS
+                    AccountStatsView(displayType: .smallInline(joinedOn: viewModel.account?.metadata.createdAt), accountMetrics: viewModel.account?.metrics) { stat in
+                        guard let accountID = viewModel.account?.id else { return }
+                        switch stat {
+                        case .postCount, .joinedOn:
+                            break
+                        case .followersCount:
+                            if let count = viewModel.account?.metrics.followersCount, count > 0 {
+                                navigationRouter.push(.timeline(.followers(ofUserId: accountID)))
+                            }
+                        case .followingCount:
+                            if let count = viewModel.account?.metrics.followingCount, count > 0 {
+                                navigationRouter.push(.timeline(.accountsFollowed(byUserId: accountID)))
+                            }
                         }
                     }
-                }
-                .frame(width: min(maxFeedContentWidth, width), alignment: .leading)
-                .fixedSize(horizontal: false, vertical: true)
-                
-                // FAMILIAR FOLLOWERS
-                switch relationshipViewModel.relationship {
-                case .isMe, .none:
-                    EmptyView()
-                case .isNotMe:
-                    if let familiarFollowers = familiarFollowersViewModel.familiarFollowers {
-                        Spacer()
-                            .frame(height: doublePadding)
-                        
-                        FamiliarFollowersElement(familiarFollowers: familiarFollowers)
-                            .onTapGesture {
-                                if let account = viewModel.account {
-                                    navigationRouter.push(.timeline(.familiarFollowers(account, familiarFollowersViewModel)))
+                    .frame(width: min(maxFeedContentWidth, width), alignment: .leading)
+                    .fixedSize(horizontal: false, vertical: true)
+                    
+                    // FAMILIAR FOLLOWERS
+                    switch relationshipViewModel.relationship {
+                    case .isMe, .none:
+                        EmptyView()
+                    case .isNotMe:
+                        if let familiarFollowers = familiarFollowersViewModel.familiarFollowers {
+                            Spacer()
+                                .frame(height: doublePadding)
+                            
+                            FamiliarFollowersElement(familiarFollowers: familiarFollowers)
+                                .onTapGesture {
+                                    if let account = viewModel.account {
+                                        navigationRouter.push(.timeline(.familiarFollowers(account, familiarFollowersViewModel)))
+                                    }
                                 }
-                            }
+                        }
                     }
                 }
                 
@@ -522,14 +539,25 @@ struct ProfileInfoView: View {
                 Spacer()
                     .frame(height: doublePadding)
                 
-                // BIO
-                MastodonContentView.timelinePost(html: viewModel.account?._legacyEntity.note ?? "", emojis: viewModel.account?.displayInfo.emojis ?? [], isInlinePreview: false)
-                
-                // CUSTOM FIELDS
-                if let fields = viewModel.account?.metadata.customFieldsForDisplay, !fields.isEmpty {
-                    Spacer()
-                        .frame(height: doublePadding)
-                    CustomFieldsFlow(focusedField: $viewModel.focusedCustomField, fields: viewModel.account?.metadata.customFieldsForDisplay ?? [], emojis: viewModel.account?._legacyEntity.emojis ?? [])
+                if viewModel.hideContent {
+                    // TODO: L10n
+                    if let domain = AuthenticationServiceProvider.shared.currentActiveUser.value?.domain {
+                        Text("This account has been hidden by the moderators of \(domain).")
+                            .fontWeight(.semibold)
+                    } else {
+                        Text("This account has been hidden by your moderators.")
+                            .fontWeight(.semibold)
+                    }
+                } else {
+                    // BIO
+                    MastodonContentView.timelinePost(html: viewModel.account?._legacyEntity.note ?? "", emojis: viewModel.account?.displayInfo.emojis ?? [], isInlinePreview: false)
+                    
+                    // CUSTOM FIELDS
+                    if let fields = viewModel.account?.metadata.customFieldsForDisplay, !fields.isEmpty {
+                        Spacer()
+                            .frame(height: doublePadding)
+                        CustomFieldsFlow(focusedField: $viewModel.focusedCustomField, fields: viewModel.account?.metadata.customFieldsForDisplay ?? [], emojis: viewModel.account?._legacyEntity.emojis ?? [])
+                    }
                 }
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -807,7 +835,13 @@ struct ProfileActionBar: View {
     
     var body: some View {
         HStack(spacing: standardPadding) {
-            if let account = viewModel.account {
+            if viewModel.hideContent {
+                RelationshipButtonType.hiddenByModerators.largeButton {
+                    viewModel.hideContent = false
+                }
+                .buttonStyle(RelationshipButtonStyle(RelationshipButtonType.hiddenByModerators, isLarge: true))
+                .glassEffectIfAvailable(.regular(interactive: true), in: .capsule)
+            } else if let account = viewModel.account {
                 relationshipViewModel.button.largeButton {
                     switch relationshipViewModel.button {
                     case .edit:
@@ -819,9 +853,9 @@ struct ProfileActionBar: View {
                     }
                 }
                 .glassEffectIfAvailable(.regular(interactive: true), in: .capsule)
-                
-                ActionBarMenuButton()
             }
+            
+            ActionBarMenuButton()
         }
     }
     

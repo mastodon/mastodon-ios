@@ -71,6 +71,7 @@ extension MastodonAccount {
         let fullHandle: String
         let displayName: String
         let emojis: [Mastodon.Entity.Emoji]
+        let limitedByModerators: Bool
         private let avatarImage: ImageUrl
         private let headerImage: ImageUrl?
 
@@ -163,7 +164,7 @@ extension MastodonAccount.DisplayInfo: FromAccountEntityDerivable {
         let escapedDisplayName = escapeHtml(entity.displayNameWithFallback)
         return Self(
             fullHandle: fullHandle, displayName: escapedDisplayName,
-            emojis: entity.emojis, avatarImage: avatarImage,
+            emojis: entity.emojis, limitedByModerators: entity.limited ?? false, avatarImage: avatarImage,
             headerImage: headerImage)
     }
 }

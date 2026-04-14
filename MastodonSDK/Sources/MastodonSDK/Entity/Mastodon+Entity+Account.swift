@@ -56,6 +56,7 @@ extension Mastodon.Entity {
         public let role: Role?
         public let publicRoles: [AccountRole]?
         public let suspended: Bool?
+        public let limited: Bool?
         public let muteExpiresAt: Date?
     }
 }
@@ -96,6 +97,7 @@ extension Mastodon.Entity.Account: Codable {
         case role
         case publicRoles = "roles"
         case suspended
+        case limited
         case muteExpiresAt = "mute_expires_at"
     }
 }
