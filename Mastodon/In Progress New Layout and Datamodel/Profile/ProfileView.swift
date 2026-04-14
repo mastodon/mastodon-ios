@@ -288,17 +288,19 @@ struct ProfileView: View {
     }
     
     @ViewBuilder func focusedCustomFieldOverlay(_ field: Mastodon.Entity.Field) -> some View {
-        ZStack {
-            Color.dimmingBackground
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .onTapGesture {
-                    self.viewModel.focusedCustomField = nil
-                }
-            
-            CustomFieldCard(field: field, emojis: viewModel.account?.displayInfo.emojis ?? [], showFullContents: true)
-                .fixedSize(horizontal: true, vertical: true)
-                .frame(maxWidth: maxFeedContentWidth)
-                .padding(.horizontal, doublePadding)
+        GeometryReader { geo in
+            ZStack {
+                Color.dimmingBackground
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .onTapGesture {
+                        self.viewModel.focusedCustomField = nil
+                    }
+                let _ = print("value: \(field.value)")
+                CustomFieldCard(field: field, emojis: viewModel.account?.displayInfo.emojis ?? [], showFullContents: true)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.horizontal, doublePadding)
+                    .frame(maxWidth: min(maxFeedContentWidth, geo.size.width))
+            }
         }
     }
 }
