@@ -115,7 +115,7 @@ struct ProfileView: View {
                             }
                             .opacity((embeddedActionBarHasCaughtUpToFloatingActionBar && nestedScrollViewModel.innerScrollDisabled) ? 1.0 : 0.0)
                         
-                        if !viewModel.hideContent {
+                        if !viewModel.contentDisplayStatus.hideContent {
                             VStack(spacing: 0) {
                                 
                                 Spacer()
@@ -377,7 +377,7 @@ struct ProfileAvatarAndBannerView: View {
     }
     
     var avatarSource: AvatarView.AvatarSource {
-        guard !profileViewModel.hideContent else {
+        guard !profileViewModel.contentDisplayStatus.hideContent else {
             return .url(nil)
         }
         if let confirmedCroppedImage = editingViewModel.avatarConfirmedCroppedImage {
@@ -392,7 +392,7 @@ struct ProfileAvatarAndBannerView: View {
             Image(uiImage: replacementImage)
                 .resizable()
                 .scaledToFill()
-        } else if profileViewModel.hideContent {
+        } else if profileViewModel.contentDisplayStatus.hideContent {
             Color.secondary
         } else if let bannerUrl = profileViewModel.account?.displayInfo.bannerImageUrl {
             WebImage(url: bannerUrl) { phase in
@@ -484,7 +484,7 @@ struct ProfileInfoView: View {
                 Spacer()
                     .frame(height: doublePadding)
                 
-                if !viewModel.hideContent {
+                if !viewModel.contentDisplayStatus.hideContent {
                     // ACCOUNT STATS
                     AccountStatsView(displayType: .smallInline(joinedOn: viewModel.account?.metadata.createdAt), accountMetrics: viewModel.account?.metrics) { stat in
                         guard let accountID = viewModel.account?.id else { return }
@@ -539,16 +539,8 @@ struct ProfileInfoView: View {
                 Spacer()
                     .frame(height: doublePadding)
                 
-                if viewModel.hideContent {
-                    // TODO: L10n
-                    if let domain = AuthenticationServiceProvider.shared.currentActiveUser.value?.domain {
-                        Text("This account has been hidden by the moderators of \(domain).")
-                            .fontWeight(.semibold)
-                    } else {
-                        Text("This account has been hidden by your moderators.")
-                            .fontWeight(.semibold)
-                    }
-                } else {
+                switch viewModel.contentDisplayStatus {
+                case .showAlways:
                     // BIO
                     MastodonContentView.timelinePost(html: viewModel.account?._legacyEntity.note ?? "", emojis: viewModel.account?.displayInfo.emojis ?? [], isInlinePreview: false)
                     
@@ -557,6 +549,19 @@ struct ProfileInfoView: View {
                         Spacer()
                             .frame(height: doublePadding)
                         CustomFieldsFlow(focusedField: $viewModel.focusedCustomField, fields: viewModel.account?.metadata.customFieldsForDisplay ?? [], emojis: viewModel.account?._legacyEntity.emojis ?? [])
+                    }
+                case .hideAlways:
+                    // TODO: L10n
+                    Text("Account suspended")
+                        .fontWeight(.semibold)
+                case .hideUntilRequestedToShow:
+                    // TODO: L10n
+                    if let domain = AuthenticationServiceProvider.shared.currentActiveUser.value?.domain {
+                        Text("This account has been hidden by the moderators of \(domain).")
+                            .fontWeight(.semibold)
+                    } else {
+                        Text("This account has been hidden by your moderators.")
+                            .fontWeight(.semibold)
                     }
                 }
             }
@@ -835,9 +840,9 @@ struct ProfileActionBar: View {
     
     var body: some View {
         HStack(spacing: standardPadding) {
-            if viewModel.hideContent {
+            if viewModel.contentDisplayStatus.canRevealContent {
                 RelationshipButtonType.hiddenByModerators.largeButton {
-                    viewModel.hideContent = false
+                    viewModel.contentDisplayStatus = .showAlways
                 }
                 .buttonStyle(RelationshipButtonStyle(RelationshipButtonType.hiddenByModerators, isLarge: true))
                 .glassEffectIfAvailable(.regular(interactive: true), in: .capsule)
@@ -1007,6 +1012,30 @@ enum ProfilePage: CaseIterable, Hashable {
                 .featured
         case .featured:
                 .activity
+        }
+    }
+}
+
+enum ProfileContentStatus {
+    case showAlways
+    case hideUntilRequestedToShow
+    case hideAlways
+    
+    var hideContent: Bool {
+        switch self {
+        case .showAlways:
+            return false
+        case .hideAlways, .hideUntilRequestedToShow:
+            return true
+        }
+    }
+
+    var canRevealContent: Bool {
+        switch self {
+        case .showAlways, .hideAlways:
+            return false
+        case .hideUntilRequestedToShow:
+            return true
         }
     }
 }

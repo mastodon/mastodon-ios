@@ -18,7 +18,7 @@ import SwiftUI
     var featuredHashtagsModel = FeaturedHashtagsModel()
     
     var editingStatus: EditingStatus = .cannotEdit
-    var hideContent: Bool = false
+    var contentDisplayStatus: ProfileContentStatus = .showAlways
     
     struct HandleDetails {
         let username: String
@@ -96,7 +96,15 @@ import SwiftUI
     public func set(account: MastodonAccount, relationship: MastodonAccount.Relationship, navigator: MastodonNavigationRouter) {
         self.navigator = navigator
         self.account = account
-        self.hideContent = account.displayInfo.limitedByModerators
+        self.contentDisplayStatus = {
+            if account.displayInfo.isSuspended {
+                return .hideAlways
+            } else if account.displayInfo.isLimitedByModerators {
+                return .hideUntilRequestedToShow
+            } else {
+                return .showAlways
+            }
+        }()
         self.editingViewModel.setAccount(account, textContentDidChange: { self.checkForEditingChanges() } )
         self.relationship = relationship
         self.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts(featuredHashtagsModel))), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
