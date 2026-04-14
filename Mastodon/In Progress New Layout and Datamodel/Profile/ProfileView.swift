@@ -634,6 +634,21 @@ struct HandleInfoPopover: View {
             
             Text(L10nLookup.Scene.Profile.HandleExplainerView.federationExplainerText)
                 .tint(Asset.Colors.accent.swiftUIColor)
+            
+            if let handle = viewModel.account?.displayInfo.fullHandle {
+                Button() {
+                    UIPasteboard.general.string = "@\(handle)"
+                } label: {
+                    HStack {
+                        Image(systemName: "document.on.document")
+                        Text("Copy handle") // TODO: L10n
+                    }
+                    .padding()
+                    .background() {
+                        MastodonSecondaryBackground(fillInDarkModeOnly: true)
+                    }
+                }
+            }
         }
         .padding(doublePadding)
     }
