@@ -91,9 +91,14 @@ struct ProfileView: View {
             ZStack(alignment: .top) {
                 ScrollView() {
                     VStack(alignment: .center, spacing: 0) {
-                        subview(.bannerAndAvatar, width: fullWidth)
-                            .id(Subview.bannerAndAvatar)
-                            .frame(width: min(maxFeedContentWidth, geo.size.width))
+                        ZStack(alignment: .top) {
+                            subview(.bannerAndAvatar, width: fullWidth)
+                                .id(Subview.bannerAndAvatar)
+                                .frame(width: min(maxFeedContentWidth, geo.size.width))
+                            
+                            followRequestApprovalBanner
+                                .padding(.horizontal, doublePadding)
+                        }
                         
                         Spacer()
                             .frame(height: doublePadding * 2)
@@ -208,6 +213,48 @@ struct ProfileView: View {
             .frame(width: min(width, maxFeedContentWidth))
         case .pages:
             ProfilePaginatingView()
+        }
+    }
+    
+    @ViewBuilder var followRequestApprovalBanner: some View {
+        VStack {
+            Spacer()
+                .frame(height: 60)  // to clear the safe area
+            
+            Text(" requested to follow you") // TODO: L10n
+            HStack {
+                Button {
+                    // accept request
+                } label: {
+                    Text("Accept")  // TODO: L10n
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(standardPadding)
+                        .background() {
+                            Capsule()
+                                .fill(Asset.Colors.accent.swiftUIColor)
+                        }
+                }
+                Button {
+                    // reject request
+                } label: {
+                    Text("Reject") // TODO: L10n
+                        .foregroundStyle(Asset.Colors.accent.swiftUIColor)
+                        .frame(maxWidth: .infinity)
+                        .padding(standardPadding)
+                        .background() {
+                            Capsule()
+                                .fill(Asset.Colors.FigmaToken.bgSoftest.swiftUIColor)
+                                .stroke(Asset.Colors.accent.swiftUIColor)
+                        }
+                }
+            }
+        }
+        .padding()
+        .frame(maxWidth: .infinity)
+        .background() {
+            MastodonSecondaryBackground(fillInDarkModeOnly: false)
+                .opacity(0.5)
         }
     }
     
