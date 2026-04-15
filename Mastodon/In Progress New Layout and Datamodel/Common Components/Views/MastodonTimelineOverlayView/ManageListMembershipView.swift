@@ -118,7 +118,7 @@ enum ListManagementNavigationDestination: Hashable {
     var createListError: Error?
     
     init() {
-        listNameFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "", characterLimit: .softLimit(100), autocompleteMastodonItems: false)
+        listNameFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "", characterLimit: .init(initialMessage: nil, softLimit: nil, hardLimit: 100), autocompleteMastodonItems: false)
         listNameFieldEditingViewModel.contentDidChange = {
             withAnimation {
                 self.hasValidName = !self.listNameFieldEditingViewModel.stringContent.isEmpty

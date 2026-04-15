@@ -58,8 +58,12 @@ import Combine
             customEmojiPickerInputViewModel.configure(textInput: textView)
         }
     }
-    let characterLimit: CharacterLimit
+    var characterLimit: CharacterLimit
     public private(set) var characterCount: Int = 0
+    
+    func setHardLimit(_ limit: Int?) {
+        characterLimit = CharacterLimit(initialMessage: characterLimit.initialMessage, softLimit: characterLimit.softLimit, hardLimit: limit)
+    }
     
     func setMetaContent(_ content: MetaContent) {
         contentMetaText?.configure(content: content)
@@ -439,9 +443,10 @@ public struct MetaTextInputField: View {
     }
 }
 
-public enum CharacterLimit {
-    case hardLimit(Int)
-    case softLimit(Int)
+public struct CharacterLimit {
+    let initialMessage: String?
+    let softLimit: Int?
+    let hardLimit: Int?
 }
 
 struct AutoCompleteCard: View {

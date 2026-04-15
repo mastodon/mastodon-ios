@@ -575,9 +575,9 @@ extension RelationshipViewModel {
     
     func beginEditingPersonalNote(account: Mastodon.Entity.Account.ID) {
         if let existingNote = relationship?.info?.myOwnComment, !existingNote.isEmpty {
-            personalNoteEditingState = .init(type: .edit, accountID: account, valueEditingModel: .init(stringContent: existingNote, placeholder: "", characterLimit: .softLimit(300), autocompleteMastodonItems: false))
+            personalNoteEditingState = .init(type: .edit, accountID: account, valueEditingModel: .init(stringContent: existingNote, placeholder: "", characterLimit: .init(initialMessage: nil, softLimit: 300, hardLimit: nil), autocompleteMastodonItems: false))
         } else {
-            personalNoteEditingState = .init(type: .add, accountID: account, valueEditingModel: .init(stringContent: nil, placeholder: "", characterLimit: .softLimit(300), autocompleteMastodonItems: false))
+            personalNoteEditingState = .init(type: .add, accountID: account, valueEditingModel: .init(stringContent: nil, placeholder: "", characterLimit: .init(initialMessage: nil, softLimit: 300, hardLimit: nil), autocompleteMastodonItems: false))
         }
     }
     

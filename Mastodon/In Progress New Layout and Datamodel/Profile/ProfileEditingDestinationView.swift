@@ -190,7 +190,7 @@ struct EditSingleTextView: View {
                     .frame(height: textViewHeight)
                     .focused($isFocused)
             } footer : {
-                CharacterLimitTip()
+                CharacterLimitTip(showCounterOnly: false)
             }
         }
         .onAppear() {
@@ -207,40 +207,65 @@ struct EditSingleTextView: View {
 
 struct CharacterLimitTip: View {
     @Environment(MetaTextInputFieldViewModel.self) var inputModel
+    @State var textHasChanged = false
+    
+    let showCounterOnly: Bool
     
     var body: some View {
-        Text(message(forCharacterCount: inputModel.characterCount))
-            .font(.footnote)
-            .foregroundStyle(characterLimit - inputModel.characterCount < 0 ? overLimitColor : .secondary)
-    }
-    
-    func message(forCharacterCount usedCharacterCount: Int) -> String {
-        // TODO: L10n
-        switch inputModel.characterLimit {
-        case .hardLimit(let limit):
-            if inputModel.characterCount == 0 {
-                "\(limit) character maximum"
-            } else {
-                "\(usedCharacterCount)/\(characterLimit) characters"
+        VStack(alignment: .leading) {
+            let tipText = charCountTipText
+            if !showCounterOnly, let tipText {
+                Text(tipText)
+                    .foregroundStyle(Color.secondary)
             }
-        case .softLimit(let limit):
-            "Tip: try to keep this short, under \(limit) characters is best"
+            if tipText == nil || textHasChanged {
+                Text(charCountDisplay(forCharacterCount: inputModel.characterCount))
+                    .foregroundStyle(limitMessageColor)
+                    .monospaced()
+            }
+        }
+        .font(.footnote)
+        .onChange(of: inputModel.stringContent) { oldValue, newValue in
+            guard !textHasChanged else { return }
+            textHasChanged = true
         }
     }
     
-    var characterLimit: Int {
-        switch inputModel.characterLimit {
-        case .hardLimit(let limit), .softLimit(let limit):
-            return limit
+    var charCountTipText: String? {
+        // TODO: L10n
+        switch (inputModel.characterLimit.softLimit, inputModel.characterLimit.hardLimit) {
+        case (nil, nil): // no limits
+           return nil
+        case (let softLimit, nil):  // only a soft limit
+            return "Tip: try to keep this short, under \(softLimit!) characters is best"
+        case (nil, _):  // only a hard limit
+            return nil
+        case (let softLimit, let hardLimit):
+            guard hardLimit! > softLimit! else { /*effectively, there is only a hard limit*/ return nil }
+            return "Tip: try to keep this short, under \(softLimit!) characters is best"
         }
     }
     
-    var overLimitColor: Color {
-        switch inputModel.characterLimit {
-        case .hardLimit:
-                .red
-        case .softLimit:
-                .yellow
+    func charCountDisplay(forCharacterCount usedCharacterCount: Int) -> String {
+        // TODO: L10n
+        if let characterLimit {
+            return "\(usedCharacterCount)/\(characterLimit) characters"
+        } else {
+            return "\(usedCharacterCount) characters"
+        }
+    }
+    
+    var characterLimit: Int? {
+        return inputModel.characterLimit.hardLimit ?? inputModel.characterLimit.softLimit
+    }
+    
+    var limitMessageColor: Color {
+        if let hardLimit = inputModel.characterLimit.hardLimit, inputModel.characterCount > hardLimit {
+            return .red
+        } else if let softLimit = inputModel.characterLimit.softLimit, inputModel.characterCount > softLimit {
+            return .yellow
+        } else {
+            return .secondary
         }
     }
 }
@@ -826,6 +851,9 @@ struct EditFieldView: View {
     
     @FocusState var focusedField: FocusableField?
     
+    @State var labelContentHasChanged: Bool = false
+    @State var valueContentHasChanged: Bool = false
+    
     let labelWidth: CGFloat = 100
     
     enum FocusableField {
@@ -839,13 +867,18 @@ struct EditFieldView: View {
                 @Bindable var labelEditingModel = editState.labelEditingModel
                 @Bindable var valueEditingModel = editState.valueEditingModel
                 Section {
-                    HStack(spacing: tinySpacing) {
+                    HStack(alignment: .top, spacing: tinySpacing) {
                         Text("Label") // TODO: L10n
                             .fixedSize(horizontal: false, vertical: true)
                             .frame(width: labelWidth, alignment: .leading)
-                            .frame(maxHeight: .infinity)
-                        TextField("", text: $labelEditingModel.stringContent)
-                            .focused($focusedField, equals: .label)
+                        VStack(alignment: .leading) {
+                            TextField("", text: $labelEditingModel.stringContent)
+                                .focused($focusedField, equals: .label)
+                            if focusedField == .label && labelContentHasChanged {
+                                CharacterLimitTip(showCounterOnly: true)
+                                    .environment(labelEditingModel)
+                            }
+                        }
                     }
                     .fixedSize(horizontal: false, vertical: true)
                     .onAppear() {
@@ -857,6 +890,9 @@ struct EditFieldView: View {
                         }
                     }
                     .onChange(of: editState.labelEditingModel.stringContent) { oldValue, newValue in
+                        if !labelContentHasChanged {
+                            labelContentHasChanged = true
+                        }
                         profileViewModel.checkForEditingChanges()
                         if newValue.last == "\n" {
                             focusedField = .value
@@ -868,10 +904,19 @@ struct EditFieldView: View {
                         Text("Value") // TODO: L10n
                             .fixedSize(horizontal: false, vertical: true)
                             .frame(width: labelWidth, alignment: .leading)
-                        TextField("", text: $valueEditingModel.stringContent)
-                            .focused($focusedField, equals: .value)
+                        VStack(alignment: .leading) {
+                            TextField("", text: $valueEditingModel.stringContent)
+                                .focused($focusedField, equals: .value)
+                            if focusedField == .value && valueContentHasChanged {
+                                CharacterLimitTip(showCounterOnly: true)
+                                    .environment(valueEditingModel)
+                            }
+                        }
                     }
                     .onChange(of: editState.valueEditingModel.stringContent) { oldValue, newValue in
+                        if !valueContentHasChanged {
+                            valueContentHasChanged = true
+                        }
                         profileViewModel.checkForEditingChanges()
                         if newValue.last == "\n" {
                             focusedField = nil
