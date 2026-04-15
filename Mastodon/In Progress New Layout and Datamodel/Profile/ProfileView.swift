@@ -338,41 +338,37 @@ struct ProfileAvatarAndBannerView: View {
     let maxWidth: CGFloat
     
     var body: some View {
-        VStack {
-            ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-                VStack(spacing: 0) {
-                    ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
-                        bannerView(maxWidth: maxWidth)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: bannerFullHeight)
-                            .clipped()
-                            .background(.secondary) // in case there is no image
-                        
-                        switch profileViewModel.editingStatus {
-                        case .editing:
-                            bannerEditButton
-                                .padding(standardPadding)
-                        case .cannotEdit, .notEditing, .pushingChanges:
-                            EmptyView()
-                        }
-                    }
-                }
+        ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) { // to place avatar on top of banner image
+            ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) { // for banner edit button
+                bannerView(maxWidth: maxWidth)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: bannerFullHeight)
+                    .clipped()
+                    .background(.secondary) // in case there is no image
                 
-                ZStack {
-                    AvatarView(size: .extraLarge, avatarSource: avatarSource, goToProfile: nil)
-                        .padding(.horizontal, doublePadding)
-                    switch profileViewModel.editingStatus {
-                    case .editing:
-                        // if the user has already chosen a new image, let them see it unobscured, but tapping the avatar will still bring up the photo picker
-                        let buttonSize = AvatarSize.extraLarge + (avatarEditButtonSize / 2.0)
-                        avatarEditButton(showButton: editingViewModel.avatarConfirmedCroppedImage == nil)
-                            .frame(maxWidth: buttonSize, maxHeight: buttonSize)
-                    case .cannotEdit, .notEditing, .pushingChanges:
-                        EmptyView()
-                    }
+                switch profileViewModel.editingStatus {
+                case .editing:
+                    bannerEditButton
+                        .padding(standardPadding)
+                case .cannotEdit, .notEditing, .pushingChanges:
+                    EmptyView()
                 }
-                .offset(.init(width: 0, height: 16))
             }
+            
+            ZStack { // for avatar edit button
+                AvatarView(size: .extraLarge, avatarSource: avatarSource, goToProfile: nil)
+                    .padding(.horizontal, doublePadding)
+                switch profileViewModel.editingStatus {
+                case .editing:
+                    // if the user has already chosen a new image, let them see it unobscured, but tapping the avatar will still bring up the photo picker
+                    let buttonSize = AvatarSize.extraLarge + (avatarEditButtonSize / 2.0)
+                    avatarEditButton(showButton: editingViewModel.avatarConfirmedCroppedImage == nil)
+                        .frame(maxWidth: buttonSize, maxHeight: buttonSize)
+                case .cannotEdit, .notEditing, .pushingChanges:
+                    EmptyView()
+                }
+            }
+            .offset(.init(width: 0, height: 16))
         }
     }
     
