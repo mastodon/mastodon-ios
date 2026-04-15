@@ -91,14 +91,9 @@ struct ProfileView: View {
             ZStack(alignment: .top) {
                 ScrollView() {
                     VStack(alignment: .center, spacing: 0) {
-                        ZStack(alignment: .top) {
-                            subview(.bannerAndAvatar, width: fullWidth)
-                                .id(Subview.bannerAndAvatar)
-                                .frame(width: min(maxFeedContentWidth, geo.size.width))
-                            
-                            followRequestApprovalBanner
-                                .padding(.horizontal, doublePadding)
-                        }
+                        subview(.bannerAndAvatar, width: fullWidth)
+                            .id(Subview.bannerAndAvatar)
+                            .frame(width: min(maxFeedContentWidth, geo.size.width))
                         
                         Spacer()
                             .frame(height: doublePadding * 2)
@@ -203,6 +198,7 @@ struct ProfileView: View {
         case .bannerAndAvatar:
             ProfileAvatarAndBannerView(maxWidth: width)
                 .environment(viewModel.editingViewModel)
+                .environment(viewModel.relationshipViewModel)
         case .mainInfo:
             if let familiarFollowersViewModel = viewModel.familiarFollowersViewModel {
                 ProfileInfoView(width: width)
@@ -213,48 +209,6 @@ struct ProfileView: View {
             .frame(width: min(width, maxFeedContentWidth))
         case .pages:
             ProfilePaginatingView()
-        }
-    }
-    
-    @ViewBuilder var followRequestApprovalBanner: some View {
-        VStack {
-            Spacer()
-                .frame(height: 60)  // to clear the safe area
-            
-            Text(" requested to follow you") // TODO: L10n
-            HStack {
-                Button {
-                    // accept request
-                } label: {
-                    Text("Accept")  // TODO: L10n
-                        .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(standardPadding)
-                        .background() {
-                            Capsule()
-                                .fill(Asset.Colors.accent.swiftUIColor)
-                        }
-                }
-                Button {
-                    // reject request
-                } label: {
-                    Text("Reject") // TODO: L10n
-                        .foregroundStyle(Asset.Colors.accent.swiftUIColor)
-                        .frame(maxWidth: .infinity)
-                        .padding(standardPadding)
-                        .background() {
-                            Capsule()
-                                .fill(Asset.Colors.FigmaToken.bgSoftest.swiftUIColor)
-                                .stroke(Asset.Colors.accent.swiftUIColor)
-                        }
-                }
-            }
-        }
-        .padding()
-        .frame(maxWidth: .infinity)
-        .background() {
-            MastodonSecondaryBackground(fillInDarkModeOnly: false)
-                .opacity(0.5)
         }
     }
     
@@ -380,6 +334,7 @@ extension ProfileView {
 let bannerFullHeight: CGFloat = 194
 struct ProfileAvatarAndBannerView: View {
     @Environment(ProfileViewModel.self) var profileViewModel
+    @Environment(RelationshipViewModel.self) var relationshipViewModel
     @Environment(ProfileEditingViewModel.self) var editingViewModel
     
     let maxWidth: CGFloat
@@ -389,7 +344,7 @@ struct ProfileAvatarAndBannerView: View {
             ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) { // for banner edit button
                 bannerView(maxWidth: maxWidth)
                     .frame(maxWidth: .infinity)
-                    .frame(height: bannerFullHeight)
+                    .frame(height: relationshipViewModel.pendingRequestToFollowMe ? nil : bannerFullHeight)
                     .clipped()
                     .background(.secondary) // in case there is no image
                 
@@ -402,20 +357,26 @@ struct ProfileAvatarAndBannerView: View {
                 }
             }
             
-            ZStack { // for avatar edit button
-                AvatarView(size: .extraLarge, avatarSource: avatarSource, goToProfile: nil)
-                    .padding(.horizontal, doublePadding)
-                switch profileViewModel.editingStatus {
-                case .editing:
-                    // if the user has already chosen a new image, let them see it unobscured, but tapping the avatar will still bring up the photo picker
-                    let buttonSize = AvatarSize.extraLarge + (avatarEditButtonSize / 2.0)
-                    avatarEditButton(showButton: editingViewModel.avatarConfirmedCroppedImage == nil)
-                        .frame(maxWidth: buttonSize, maxHeight: buttonSize)
-                case .cannotEdit, .notEditing, .pushingChanges:
-                    EmptyView()
+            VStack(alignment: .leading, spacing: -(16 + standardPadding) /*because the avatar view is offset down and we want a slight overlap*/) {
+                if relationshipViewModel.pendingRequestToFollowMe {
+                    followRequestApprovalBanner
                 }
+                
+                ZStack { // for avatar edit button
+                    AvatarView(size: .extraLarge, avatarSource: avatarSource, goToProfile: nil)
+                        .padding(.horizontal, doublePadding)
+                    switch profileViewModel.editingStatus {
+                    case .editing:
+                        // if the user has already chosen a new image, let them see it unobscured, but tapping the avatar will still bring up the photo picker
+                        let buttonSize = AvatarSize.extraLarge + (avatarEditButtonSize / 2.0)
+                        avatarEditButton(showButton: editingViewModel.avatarConfirmedCroppedImage == nil)
+                            .frame(maxWidth: buttonSize, maxHeight: buttonSize)
+                    case .cannotEdit, .notEditing, .pushingChanges:
+                        EmptyView()
+                    }
+                }
+                .offset(.init(width: 0, height: 16))
             }
-            .offset(.init(width: 0, height: 16))
         }
     }
     
@@ -427,6 +388,48 @@ struct ProfileAvatarAndBannerView: View {
             return .local(Image(uiImage: confirmedCroppedImage))
         } else {
             return .url(profileViewModel.account?.avatarURL)
+        }
+    }
+    
+    @ViewBuilder var followRequestApprovalBanner: some View {
+        VStack {
+            Spacer()
+                .frame(height: 80)  // to comfortably clear the safe area
+            
+            Text(" requested to follow you") // TODO: L10n
+            HStack {
+                Button {
+                    // accept request
+                } label: {
+                    Text("Accept")  // TODO: L10n
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(standardPadding)
+                        .background() {
+                            Capsule()
+                                .fill(Asset.Colors.accent.swiftUIColor)
+                        }
+                }
+                Button {
+                    // reject request
+                } label: {
+                    Text("Reject") // TODO: L10n
+                        .foregroundStyle(Asset.Colors.accent.swiftUIColor)
+                        .frame(maxWidth: .infinity)
+                        .padding(standardPadding)
+                        .background() {
+                            Capsule()
+                                .fill(Asset.Colors.FigmaToken.bgSoftest.swiftUIColor)
+                                .stroke(Asset.Colors.accent.swiftUIColor)
+                        }
+                }
+            }
+        }
+        .padding()
+        .frame(maxWidth: .infinity)
+        .background() {
+            Color(UIColor.secondarySystemBackground)
+                .opacity(0.5)
         }
     }
     
