@@ -242,6 +242,7 @@ extension MastodonAccount {
         let iHideTheirBoosts: Bool
         let theyFollowMe: Bool?
         let iHaveRequestedToFollowThem: Bool
+        let theyHaveRequestedToFollowMe: Bool?
         let iAmMutingThem: Bool
         let iAmBlockingTheirDomain: Bool
         let iAmBlockingThem: Bool
@@ -256,6 +257,7 @@ extension MastodonAccount {
             iHideTheirBoosts = !entity.showingReblogs
             theyFollowMe = entity.followedBy
             iHaveRequestedToFollowThem = entity.requested
+            theyHaveRequestedToFollowMe = entity.requestedBy
             iAmMutingThem = entity.muting
             iAmBlockingThem = entity.blocking
             iAmBlockingTheirDomain = entity.domainBlocking

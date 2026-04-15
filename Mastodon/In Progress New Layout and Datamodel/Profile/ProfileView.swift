@@ -336,6 +336,9 @@ struct ProfileAvatarAndBannerView: View {
     @Environment(ProfileViewModel.self) var profileViewModel
     @Environment(RelationshipViewModel.self) var relationshipViewModel
     @Environment(ProfileEditingViewModel.self) var editingViewModel
+    @Environment(MastodonNavigationRouter.self) var navigator
+    
+    @State var isAnsweringFollowRequest = false
     
     let maxWidth: CGFloat
     
@@ -396,32 +399,36 @@ struct ProfileAvatarAndBannerView: View {
             Spacer()
                 .frame(height: 80)  // to comfortably clear the safe area
             
-            Text(" requested to follow you") // TODO: L10n
+            followRequestApprovalMessage
             HStack {
-                Button {
-                    // accept request
-                } label: {
-                    Text("Accept")  // TODO: L10n
-                        .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(standardPadding)
-                        .background() {
-                            Capsule()
-                                .fill(Asset.Colors.accent.swiftUIColor)
+                if isAnsweringFollowRequest {
+                    ProgressView().progressViewStyle(.circular)
+                } else {
+                    RelationshipButtonType.acceptTheirFollowRequest.largeButton(isOpaque: true) {
+                        guard let account = profileViewModel.account else { return }
+                        isAnsweringFollowRequest = true
+                        Task {
+                            do {
+                                try await relationshipViewModel.doRelationshipAction(.approveFollowRequest, account: account, navigator: navigator)
+                            } catch {
+                                navigator.didReceiveError(error)
+                            }
+                            isAnsweringFollowRequest = false
                         }
-                }
-                Button {
-                    // reject request
-                } label: {
-                    Text("Reject") // TODO: L10n
-                        .foregroundStyle(Asset.Colors.accent.swiftUIColor)
-                        .frame(maxWidth: .infinity)
-                        .padding(standardPadding)
-                        .background() {
-                            Capsule()
-                                .fill(Asset.Colors.FigmaToken.bgSoftest.swiftUIColor)
-                                .stroke(Asset.Colors.accent.swiftUIColor)
+                    }
+
+                    RelationshipButtonType.rejectTheirFollowRequest.largeButton(isOpaque: true) {
+                        guard let account = profileViewModel.account else { return }
+                        isAnsweringFollowRequest = true
+                        Task {
+                            do {
+                                try await relationshipViewModel.doRelationshipAction(.rejectFollowRequest, account: account, navigator: navigator)
+                            } catch {
+                                navigator.didReceiveError(error)
+                            }
+                            isAnsweringFollowRequest = false
                         }
+                    }
                 }
             }
         }
@@ -430,6 +437,15 @@ struct ProfileAvatarAndBannerView: View {
         .background() {
             Color(UIColor.secondarySystemBackground)
                 .opacity(0.5)
+        }
+    }
+    
+    @ViewBuilder var followRequestApprovalMessage: some View {
+        if let username = profileViewModel.account?.displayInfo.displayName {
+            let message = "\(username) requested to follow you" // TODO: L10n
+            let emojis = profileViewModel.account?.displayInfo.emojis ?? []
+            let messageWithBoldedName = message.htmlParagraph(boldingSubstring: username, workingAroundEmojiCodes: emojis.map { $0.shortcode })
+            MastodonContentView.timelinePost(html: messageWithBoldedName, emojis: emojis, isInlinePreview: false)
         }
     }
     
@@ -902,13 +918,13 @@ struct ProfileActionBar: View {
     var body: some View {
         HStack(spacing: standardPadding) {
             if viewModel.contentDisplayStatus.canRevealContent {
-                RelationshipButtonType.hiddenByModerators.largeButton {
+                RelationshipButtonType.hiddenByModerators.largeButton(isOpaque: false) {
                     viewModel.contentDisplayStatus = .showAlways
                 }
-                .buttonStyle(RelationshipButtonStyle(RelationshipButtonType.hiddenByModerators, isLarge: true))
+                .buttonStyle(RelationshipButtonStyle(RelationshipButtonType.hiddenByModerators, isLarge: true, isOpaque: false))
                 .glassEffectIfAvailable(.regular(interactive: true), in: .capsule)
             } else if let account = viewModel.account {
-                relationshipViewModel.button.largeButton {
+                relationshipViewModel.button.largeButton(isOpaque: false) {
                     switch relationshipViewModel.button {
                     case .edit:
                         navigator.push(.editProfile(profileViewModel: viewModel, editingViewModel: viewModel.editingViewModel))
@@ -1024,9 +1040,9 @@ struct TestAllRelationshipButtons: View {
             ForEach(allButtonTypes, id: \.self.description) { buttonType in
                 HStack {
                     Text(buttonType.description)
-                    buttonType.button {
+                    buttonType.button(isOpaque: false) {
                     }
-                    buttonType.largeButton {
+                    buttonType.largeButton(isOpaque: false) {
                     }
                 }
             }

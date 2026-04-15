@@ -23,6 +23,8 @@ extension Mastodon.Entity {
         public let following: Bool
         /// Do you have a pending follow request for this user?
         public let requested: Bool
+        /// Does this user have a pending request to follow you?
+        public let requestedBy: Bool?
         /// Are you featuring this user on your profile?
         public let endorsed: Bool
         /// Are you followed by this user?
@@ -48,6 +50,7 @@ extension Mastodon.Entity {
             case id
             case following
             case requested
+            case requestedBy = "requested_by"
             case endorsed
             case followedBy = "followed_by"
             case muting
@@ -66,7 +69,7 @@ extension Mastodon.Entity {
         }
         
         public func byUpdatingDomainBlock(isBlocked: Bool) -> Self {
-            return Self(id: self.id, following: self.following, requested: self.requested, endorsed: self.endorsed, followedBy: self.followedBy, muting: self.muting, mutingNotifications: self.mutingNotifications, showingReblogs: self.showingReblogs, notifying: self.notifying, blocking: self.blocking, domainBlocking: isBlocked, blockedBy: self.blockedBy, note: self.note)
+            return Self(id: self.id, following: self.following, requested: self.requested, requestedBy: self.requestedBy, endorsed: self.endorsed, followedBy: self.followedBy, muting: self.muting, mutingNotifications: self.mutingNotifications, showingReblogs: self.showingReblogs, notifying: self.notifying, blocking: self.blocking, domainBlocking: isBlocked, blockedBy: self.blockedBy, note: self.note)
         }
     }
 }

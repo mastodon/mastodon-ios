@@ -42,7 +42,7 @@ struct AccountRowView: View {
                     HStack(spacing: doublePadding) {
                         AccountStatsView(displayType: .largeStacked, accountMetrics: viewModel.account.metrics, onTapOfMetric: nil)
                         Spacer()
-                        viewModel.relationshipButton.button {
+                        viewModel.relationshipButton.button(isOpaque: false) {
                             Task {
                                 try await viewModel.doRelationshipButtonAction(navigator: navigator)
                             }

@@ -601,7 +601,7 @@ struct NotificationRowView: View {
             case .fetching, .unfetched:
                 ProgressView().progressViewStyle(.circular)
             case .relationshipButton(let button):
-                button.button {
+                button.button(isOpaque: false) {
                     viewModel.doAvatarRowButtonAction(navigator: navigator)
                 }
             case .followRequestControls(let controls):
@@ -613,7 +613,7 @@ struct NotificationRowView: View {
                                 // TODO: allow unfollow here?
                             }
                             .buttonStyle(
-                                RelationshipButtonStyle(.iFollowThem(theyFollowMe: false), isLarge: false)
+                                RelationshipButtonStyle(.iFollowThem(theyFollowMe: false), isLarge: false, isOpaque: false)
                             )
                             .fixedSize()
                             .accessibilityLabel(L10n.Common.Controls.Friendship.following)
@@ -854,10 +854,12 @@ extension Mastodon.Entity.Status {
 struct RelationshipButtonStyle: ButtonStyle {
     private let action: RelationshipButtonType.RelationshipAction
     private let isLarge: Bool
+    private let isOpaque: Bool
 
-    init(_ relationshipButton: RelationshipButtonType, isLarge: Bool) {
+    init(_ relationshipButton: RelationshipButtonType, isLarge: Bool, isOpaque: Bool) {
         action = relationshipButton.buttonAction
         self.isLarge = isLarge
+        self.isOpaque = isOpaque
     }
 
     func makeBody(configuration: Configuration) -> some View {
@@ -869,6 +871,7 @@ struct RelationshipButtonStyle: ButtonStyle {
                 .padding([.horizontal], 12)
                 .padding([.vertical], 14)
                 .background(backgroundColor)
+                .background(isOpaque ? Color(UIColor.secondarySystemBackground) : Color.clear)
                 .foregroundStyle(textColor)
                 .controlSize(.small)
                 .fontWeight(fontWeight)
@@ -889,9 +892,9 @@ struct RelationshipButtonStyle: ButtonStyle {
     
     private var backgroundColor: Color {
         switch action {
-        case .follow, .editProfile:
+        case .follow, .editProfile, .approveFollowRequest:
             return Asset.Colors.Button.userFollow.swiftUIColor
-        case .unfollow, .unmute, .unblock:
+        case .unfollow, .unmute, .unblock, .rejectFollowRequest:
             return Asset.Colors.Button.userFollowing.swiftUIColor
         case .noAction:
             return .secondary.opacity(0.2)
@@ -900,9 +903,9 @@ struct RelationshipButtonStyle: ButtonStyle {
     
     private var textColor: Color {
         switch action {
-        case .follow, .editProfile:
+        case .follow, .editProfile, .approveFollowRequest:
             return .white
-        case .unfollow, .unmute, .unblock:
+        case .unfollow, .unmute, .unblock, .rejectFollowRequest:
             return Asset.Colors.Button.userFollowingTitle.swiftUIColor
         case .noAction:
             return Asset.Colors.Button.userFollowingTitle.swiftUIColor
@@ -911,9 +914,9 @@ struct RelationshipButtonStyle: ButtonStyle {
 
     private var fontWeight: SwiftUICore.Font.Weight {
         switch action {
-        case .follow, .editProfile:
+        case .follow, .editProfile, .approveFollowRequest:
             return isLarge ? .bold : .regular
-        case .unfollow, .unmute, .unblock:
+        case .unfollow, .unmute, .unblock, .rejectFollowRequest:
             return isLarge ? .regular : .light
         case .noAction:
             return isLarge ? .bold : .regular

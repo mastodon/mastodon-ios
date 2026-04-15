@@ -332,6 +332,8 @@ extension NotificationRowViewModel {
             ).value
             assert(newRelationship.followedBy == expectedFollowedByResult, "expected to update following relationship after answering follow request")
             self.avatarRowAdditionalElement = .followRequestControls(.iHaveAnsweredTheirRequestToFollowMe(didAccept: accept))
+            let newInfo = MastodonAccount.RelationshipInfo.init(newRelationship, fetchedAt: .now)
+            FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newInfo)))
         } catch {
 //            presentError?(error)
             self.avatarRowAdditionalElement = startingAvatarRowRelationshipElement

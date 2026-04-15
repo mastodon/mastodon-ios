@@ -13,6 +13,8 @@ enum RelationshipButtonType {
     case iDoNotFollowThem(theyFollowMe: Bool, theirAccountIsLocked: Bool)
     case iFollowThem(theyFollowMe: Bool)
     case iHaveRequestedToFollowThem
+    case rejectTheirFollowRequest
+    case acceptTheirFollowRequest
     case edit
     case hiddenByModerators
     
@@ -22,6 +24,8 @@ enum RelationshipButtonType {
         case unfollow
         case unmute
         case unblock
+        case approveFollowRequest
+        case rejectFollowRequest
         case noAction
         
         var mastodonPostMenuAction: MastodonPostMenuAction? {
@@ -34,7 +38,7 @@ enum RelationshipButtonType {
                 return .unmute
             case .unblock:
                 return .unblockUser
-            case .noAction, .editProfile:
+            case .noAction, .editProfile, .approveFollowRequest, .rejectFollowRequest:
                 return nil
             }
         }
@@ -49,7 +53,7 @@ enum RelationshipButtonType {
                 return .unmute
             case .unblock:
                 return .unblockUser
-            case .noAction, .editProfile:
+            case .noAction, .editProfile, .approveFollowRequest, .rejectFollowRequest:
                 return nil
             }
         }
@@ -101,6 +105,10 @@ enum RelationshipButtonType {
             return "iHaveRequestedToFollowThem"
         case .hiddenByModerators:
             return "hiddenByModerators"
+        case .acceptTheirFollowRequest:
+            return "acceptTheirFollowRequest"
+        case .rejectTheirFollowRequest:
+            return "rejectTheirFollowRequest"
         }
     }
     
@@ -130,6 +138,10 @@ enum RelationshipButtonType {
             return nil
         case .hiddenByModerators:
             return "Show anyway" // TODO: L10n
+        case .acceptTheirFollowRequest:
+            return "Accept" // TODO: L10n
+        case .rejectTheirFollowRequest:
+            return "Reject" // TODO: L10n
         }
     }
     
@@ -149,6 +161,10 @@ enum RelationshipButtonType {
             return .unblock
         case .hiddenByModerators:
             return .noAction
+        case .acceptTheirFollowRequest:
+            return .approveFollowRequest
+        case .rejectTheirFollowRequest:
+            return .rejectFollowRequest
         }
     }
     
@@ -162,7 +178,7 @@ enum RelationshipButtonType {
         }
     }
     
-    @ViewBuilder func button(action: @escaping ()->()) -> some View {
+    @ViewBuilder func button(isOpaque: Bool, action: @escaping ()->()) -> some View {
         switch self {
         case .updating:
             Button() {
@@ -170,25 +186,25 @@ enum RelationshipButtonType {
             } label: {
                 ProgressView().progressViewStyle(.circular)
             }
-            .buttonStyle(RelationshipButtonStyle(self, isLarge: false))
+            .buttonStyle(RelationshipButtonStyle(self, isLarge: false, isOpaque: isOpaque))
         case .error:
             Button() {
                 // nothing to do
             } label: {
                 lightwieghtImageView("exclamationmark.triangle", size: AvatarSize.tiny)
             }
-            .buttonStyle(RelationshipButtonStyle(self, isLarge: false))
+            .buttonStyle(RelationshipButtonStyle(self, isLarge: false, isOpaque: isOpaque))
         default:
             if let buttonText = buttonText(isLarge: false) {
                 Button(buttonText) {
                     action()
                 }
-                .buttonStyle(RelationshipButtonStyle(self, isLarge: false))
+                .buttonStyle(RelationshipButtonStyle(self, isLarge: false, isOpaque: isOpaque))
             }
         }
     }
     
-    @ViewBuilder func largeButton(action: @escaping ()->()) -> some View {
+    @ViewBuilder func largeButton(isOpaque: Bool, action: @escaping ()->()) -> some View {
         switch self {
         case .updating:
             Button() {
@@ -196,7 +212,7 @@ enum RelationshipButtonType {
             } label: {
                 ProgressView().progressViewStyle(.circular)
             }
-            .buttonStyle(RelationshipButtonStyle(self, isLarge: true))
+            .buttonStyle(RelationshipButtonStyle(self, isLarge: true, isOpaque: isOpaque))
         case .error:
             Button() {
                 
@@ -204,13 +220,13 @@ enum RelationshipButtonType {
                 lightwieghtImageView(
                     "exclamationmark.triangle", size: AvatarSize.tiny)
             }
-            .buttonStyle(RelationshipButtonStyle(self, isLarge: true))
+            .buttonStyle(RelationshipButtonStyle(self, isLarge: true, isOpaque: isOpaque))
         default:
             if let buttonText = buttonText(isLarge: true) {
                 Button(buttonText) {
                     action()
                 }
-                .buttonStyle(RelationshipButtonStyle(self, isLarge: true))
+                .buttonStyle(RelationshipButtonStyle(self, isLarge: true, isOpaque: isOpaque))
             }
         }
     }

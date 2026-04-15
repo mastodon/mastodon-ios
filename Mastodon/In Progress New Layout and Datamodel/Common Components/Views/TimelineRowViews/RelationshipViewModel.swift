@@ -10,7 +10,7 @@ import SwiftUI
     public private(set) var relationship: MastodonAccount.Relationship? = nil
     public var personalNoteEditingState: ProfileView.PersonalNoteEditState?
     private var theirAccountIsLocked: Bool?
-    public var pendingRequestToFollowMe: Bool = true
+    public var pendingRequestToFollowMe: Bool = false
     
     public func prepareForDisplay(relationship: MastodonAccount.Relationship, theirAccountIsLocked: Bool) {
         self.theirAccountIsLocked = theirAccountIsLocked
@@ -20,6 +20,9 @@ import SwiftUI
             guard let entity = info?._legacyEntity else { break }
             let updatedButton = RelationshipButtonType(relationship: entity, theirAccountIsLocked: theirAccountIsLocked)
             button = updatedButton
+            withAnimation {
+                pendingRequestToFollowMe = info?.theyHaveRequestedToFollowMe ?? false
+            }
         case .isMe:
             button = .edit
         }
@@ -57,10 +60,32 @@ import SwiftUI
                 throw AppError.unexpected(
                     "action attempted for relationship element that has no action"
                 )
+                
+            case .approveFollowRequest:
+                try await doAnswerFollowRequest(true)
+                
+            case .rejectFollowRequest:
+                try await doAnswerFollowRequest(false)
             }
         } catch {
             button = currentState
             throw error
         }
+    }
+    
+    private func doAnswerFollowRequest(_ accept: Bool) async throws {
+        guard let accountID = relationship?.info?.id,
+              let authBox = AuthenticationServiceProvider.shared.currentActiveUser
+            .value
+        else { return }
+        let expectedFollowedByResult = accept
+        let newRelationship = try await APIService.shared.followRequest(
+            userID: accountID,
+            query: accept ? .accept : .reject,
+            authenticationBox: authBox
+        ).value
+        assert(newRelationship.followedBy == expectedFollowedByResult, "expected to update following relationship after answering follow request")
+        let newInfo = MastodonAccount.RelationshipInfo.init(newRelationship, fetchedAt: .now)
+        FeedCoordinator.shared.publishUpdate(.relationship(.isNotMe(newInfo)))
     }
 }
