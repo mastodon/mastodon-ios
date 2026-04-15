@@ -33,6 +33,7 @@ public enum Asset {
     public static let friends = ImageAsset(name: "Asset/friends")
     public static let mastodonTextLogo = ImageAsset(name: "Asset/mastodon.text.logo")
     public static let scribble = ImageAsset(name: "Asset/scribble")
+    public static let emptyStateMastodon = ImageAsset(name: "Asset/emptyStateMastodon")
   }
   public enum Circles {
     public static let forbidden20 = ImageAsset(name: "Circles/forbidden.20")

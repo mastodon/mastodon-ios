@@ -1691,12 +1691,25 @@ struct TimelineListView: View {
                         }
                         .padding(EdgeInsets(top: doublePadding, leading: 0, bottom: doublePadding, trailing: 0))
                     default:
-                        Text("No posts here!")
-                            .font(.title2)
-                            .foregroundStyle(.secondary)
-                            .padding(.horizontal, doublePadding)
-                            .padding(.bottom, doublePadding * 4)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                        ScrollView(showsIndicators: false) {
+                            VStack(spacing: 0) {
+                                Asset.Asset.emptyStateMastodon.swiftUIImage
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: geo.size.width * 0.5)
+                                Text("Nothing to see here") // TODO: L10n
+                                    .font(.title2)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .padding(doublePadding)
+                            .frame(maxWidth: geo.size.width)
+                        }.nestedScrollview(viewModel.timeline.isInNestedScrollview ? .inner : .notNested)
+                            .onScrollPhaseChange({ oldPhase, newPhase in
+                                let isNowScrolling = newPhase != .idle
+                                if isNowScrolling != viewModel.isCurrentlyScrolling {
+                                    viewModel.isCurrentlyScrolling = isNowScrolling
+                                }
+                            })
                     }
                 } else {
                     VStack(alignment: .leading, spacing: 0) {
@@ -3053,7 +3066,7 @@ extension MastodonTimelineType {
     
     var isInNestedScrollview: Bool {
         switch self {
-        case .userPosts:
+        case .userPosts, .featuredItems:
             true
         default:
             false
