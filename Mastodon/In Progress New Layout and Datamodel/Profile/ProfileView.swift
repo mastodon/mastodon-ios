@@ -1264,7 +1264,7 @@ extension ProfileBadge: View {
         case .isMuted:
             return Asset.Colors.FigmaToken.textInverted.swiftUIColor
         case .isBlocked:
-            return Asset.Colors.FigmaToken.textInverted.swiftUIColor
+            return .white
         }
     }
     
