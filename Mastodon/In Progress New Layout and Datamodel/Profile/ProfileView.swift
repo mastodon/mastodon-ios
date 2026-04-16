@@ -671,7 +671,7 @@ struct ProfileInfoView: View {
             ScrollView() {
                 HandleInfoPopover()
             }
-            .presentationDetents([.fraction(0.5), .medium, .large])
+            .presentationDetents([.fraction(0.6), .medium, .large])
         }
     }
 }
