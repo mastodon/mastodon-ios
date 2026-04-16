@@ -2,6 +2,106 @@
 
 import SwiftUI
 
+struct SingleRowFlowLayout: Layout {
+    @Binding var hiddenItemCount: Int
+    var minItemCountPerRow: Int
+    var interItemSpacing: CGFloat = 8
+    
+    func sizeThatFits(
+        proposal: ProposedViewSize,
+        subviews: Subviews,
+        cache: inout ()
+    ) -> CGSize {
+        let maxWidth = proposal.replacingUnspecifiedDimensions().width
+        
+        var currentRowWidth: CGFloat = 0
+        var currentRowItemCount: Int = 0
+        var rowHeight: CGFloat = 0
+        
+        var totalHeight: CGFloat = 0
+        
+        var index = subviews.startIndex
+        while index < subviews.endIndex {
+            let subview = subviews[index]
+            let maxItemWidth = maxWidthAvailableForNextItem(availableWidthRemaining: maxWidth, numberOfItemsAlreadyInRow: currentRowItemCount, totalItemsRemainingToPlace: subviews.count - index, minItemCountPerRow: minItemCountPerRow, interItemSpacing: interItemSpacing)
+            
+            let fittingSize = subview.sizeThatFits(ProposedViewSize(width: maxItemWidth, height: nil))
+            let largestSize = subview.sizeThatFits(ProposedViewSize(width: maxWidth, height: nil))
+            
+            let wouldBeUnnecessarilySquished = (largestSize.width > fittingSize.width) && currentRowItemCount >= minItemCountPerRow
+            let wouldOverrunAvailableSpace = currentRowWidth + fittingSize.width > maxWidth
+            if wouldBeUnnecessarilySquished || wouldOverrunAvailableSpace && currentRowItemCount > 0 {
+                index = subviews.endIndex
+            } else {
+                currentRowWidth += fittingSize.width + interItemSpacing
+                currentRowItemCount += 1
+                rowHeight = max(rowHeight, fittingSize.height)
+                index += 1
+            }
+        }
+        totalHeight += rowHeight
+        
+        return CGSize(width: currentRowWidth, height: totalHeight)
+    }
+    
+    func placeSubviews(
+        in bounds: CGRect,
+        proposal: ProposedViewSize,
+        subviews: Subviews,
+        cache: inout ()
+    ) {
+        var x = bounds.minX
+        let y = bounds.minY
+        var rowHeight: CGFloat = 0
+        var itemsInCurrentRow: Int = 0
+        
+        var index = subviews.startIndex
+        var hideFromIndex: Int?
+        while index < subviews.endIndex {
+            let subview = subviews[index]
+            
+            func hideTheSubview() {
+                // the system will simply plop any unplaced subviews in the middle of the view, so we yeet them off into the far distance instead
+                subview.place(at: CGPoint(x: CGFloat.greatestFiniteMagnitude, y: CGFloat.greatestFiniteMagnitude), proposal: ProposedViewSize(.zero))
+            }
+            
+            if let hideFromIndex, index >= hideFromIndex {
+                hideTheSubview()
+                index += 1
+                continue
+            } else {
+                let maxItemWidth = maxWidthAvailableForNextItem(availableWidthRemaining: bounds.maxX - x, numberOfItemsAlreadyInRow: itemsInCurrentRow, totalItemsRemainingToPlace: subviews.count - index, minItemCountPerRow: minItemCountPerRow, interItemSpacing: interItemSpacing)
+                let fittingSize = subview.sizeThatFits(ProposedViewSize(width: maxItemWidth, height: nil))
+                let largestSize = subview.sizeThatFits(ProposedViewSize(width: bounds.width, height: nil))
+                
+                let wouldBeUnnecessarilySquished = (largestSize.width > fittingSize.width) && (itemsInCurrentRow >= minItemCountPerRow)
+                let wouldOverrunAvailableSpace = x + fittingSize.width > bounds.maxX
+                if wouldBeUnnecessarilySquished || wouldOverrunAvailableSpace && itemsInCurrentRow > 0 {
+                    hideFromIndex = index
+                } else {
+                    subview.place(
+                        at: CGPoint(x: x, y: y),
+                        proposal: ProposedViewSize(fittingSize)
+                    )
+                    
+                    x += fittingSize.width + interItemSpacing
+                    rowHeight = max(rowHeight, fittingSize.height)
+                    itemsInCurrentRow += 1
+                    index += 1
+                }
+            }
+        }
+        if let hideFromIndex {
+            let hidden = subviews.endIndex - hideFromIndex
+            DispatchQueue.main.async {
+                if hiddenItemCount != hidden {
+                    hiddenItemCount = hidden
+                }
+            }
+        }
+    }
+}
+
 struct FlowLayout: Layout {
     var minItemCountPerRow: Int
     var interItemSpacing: CGFloat = 8
@@ -32,7 +132,7 @@ struct FlowLayout: Layout {
         var index = subviews.startIndex
         while index < subviews.endIndex {
             let subview = subviews[index]
-            let maxItemWidth = maxWidthAvailableForNextItem(availableWidthRemaining: maxWidth, numberOfItemsAlreadyInRow: currentRowItemCount, totalItemsRemainingToPlace: subviews.count - index)
+            let maxItemWidth = maxWidthAvailableForNextItem(availableWidthRemaining: maxWidth, numberOfItemsAlreadyInRow: currentRowItemCount, totalItemsRemainingToPlace: subviews.count - index, minItemCountPerRow: minItemCountPerRow, interItemSpacing: interItemSpacing)
             
             let fittingSize = subview.sizeThatFits(ProposedViewSize(width: maxItemWidth, height: nil))
             let largestSize = subview.sizeThatFits(ProposedViewSize(width: maxWidth, height: nil))
@@ -74,7 +174,7 @@ struct FlowLayout: Layout {
         var index = subviews.startIndex
         while index < subviews.endIndex {
             let subview = subviews[index]
-            let maxItemWidth = maxWidthAvailableForNextItem(availableWidthRemaining: bounds.maxX - x, numberOfItemsAlreadyInRow: itemsInCurrentRow, totalItemsRemainingToPlace: subviews.count - index)
+            let maxItemWidth = maxWidthAvailableForNextItem(availableWidthRemaining: bounds.maxX - x, numberOfItemsAlreadyInRow: itemsInCurrentRow, totalItemsRemainingToPlace: subviews.count - index, minItemCountPerRow: minItemCountPerRow, interItemSpacing: interItemSpacing)
             let fittingSize = subview.sizeThatFits(ProposedViewSize(width: maxItemWidth, height: nil))
             let largestSize = subview.sizeThatFits(ProposedViewSize(width: bounds.width, height: nil))
             
@@ -95,15 +195,15 @@ struct FlowLayout: Layout {
             }
         }
     }
+}
+
+private func maxWidthAvailableForNextItem(availableWidthRemaining: CGFloat, numberOfItemsAlreadyInRow: Int, totalItemsRemainingToPlace: Int, minItemCountPerRow: Int, interItemSpacing: CGFloat) -> CGFloat {
+    let remainingMinItemCountForRow = minItemCountPerRow - numberOfItemsAlreadyInRow
+    let remainingActualItemCountForRow = max(min(remainingMinItemCountForRow, totalItemsRemainingToPlace), 1) // we can place more items than the expected number if there is space
     
-    func maxWidthAvailableForNextItem(availableWidthRemaining: CGFloat, numberOfItemsAlreadyInRow: Int, totalItemsRemainingToPlace: Int) -> CGFloat {
-        let remainingMinItemCountForRow = minItemCountPerRow - numberOfItemsAlreadyInRow
-        let remainingActualItemCountForRow = max(min(remainingMinItemCountForRow, totalItemsRemainingToPlace), 1) // we can place more items than the expected number if there is space
-        
-        let interItemSpaceRemaining = CGFloat(remainingActualItemCountForRow - 1) * interItemSpacing
-        let widthAvailableForThisItem = (availableWidthRemaining - interItemSpaceRemaining) / CGFloat(remainingActualItemCountForRow)
-        return widthAvailableForThisItem
-    }
+    let interItemSpaceRemaining = CGFloat(remainingActualItemCountForRow - 1) * interItemSpacing
+    let widthAvailableForThisItem = (availableWidthRemaining - interItemSpaceRemaining) / CGFloat(remainingActualItemCountForRow)
+    return widthAvailableForThisItem
 }
 
 struct JustifiedBalancedFlowLayout: Layout {

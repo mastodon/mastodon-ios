@@ -3118,24 +3118,36 @@ struct FeaturedHashtagsFlow: View {
     @Environment(TimelineQueryFilter.self) var filterModel
     @Environment(FeaturedHashtagsModel.self) var featuredHashtagsModel
     
+    @State var isCollapsed = true
+    @State var hiddenItemCountWithoutButton: Int = 0
+    @State var hiddenItemCountWithButton: Int = 0
+    
+    let interItemSpacing: CGFloat = 4
+    
     var maxItemWidth: CGFloat
     
     var body: some View {
         VStack {
             if !featuredHashtagsModel.featuredHashtags.isEmpty {
-                FlowLayout(minItemCountPerRow: 1) {
-                    ForEach(featuredHashtagsModel.featuredHashtags, id: \.self) { hashtag in
-                        card(hashtag)
-                            .onTapGesture {
-                                if filterModel.selectedHashtag == hashtag {
-                                    filterModel.selectedHashtag = nil
-                                } else {
-                                    filterModel.selectedHashtag = hashtag
-                                }
-                                Task {
-                                    await viewModel.forceReload(.activityFilterUpdated)
-                                }
+                if isCollapsed {
+                    ZStack(alignment: .leading) {
+                        if hiddenItemCountWithoutButton == 0 {
+                            SingleRowFlowLayout(hiddenItemCount: $hiddenItemCountWithoutButton, minItemCountPerRow: 1, interItemSpacing: interItemSpacing) {
+                                allItems
                             }
+                        } else {
+                            HStack(spacing: interItemSpacing) {
+                                SingleRowFlowLayout(hiddenItemCount: $hiddenItemCountWithButton, minItemCountPerRow: 1, interItemSpacing: interItemSpacing) {
+                                    allItems
+                                }
+                                showAllButton
+                            }
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                } else {
+                    FlowLayout(minItemCountPerRow: 1, interItemSpacing: interItemSpacing) {
+                       allItems
                     }
                 }
                 Spacer()
@@ -3146,13 +3158,49 @@ struct FeaturedHashtagsFlow: View {
         }
     }
     
+    @ViewBuilder var allItems: some View {
+        ForEach(featuredHashtagsModel.featuredHashtags, id: \.self) { hashtag in
+            card(hashtag)
+                .onTapGesture {
+                    if filterModel.selectedHashtag == hashtag {
+                        filterModel.selectedHashtag = nil
+                    } else {
+                        filterModel.selectedHashtag = hashtag
+                    }
+                    Task {
+                        await viewModel.forceReload(.activityFilterUpdated)
+                    }
+                }
+        }
+    }
+    
+    @ViewBuilder var showAllButton: some View {
+        Button {
+            isCollapsed = false
+        } label: {
+            ZStack {
+                Text("+\(hiddenItemCountWithButton)")
+                Text("+000")
+                    .hidden()
+            }
+            .font(.subheadline)
+            .foregroundStyle(.primary )
+            .padding(.vertical, tinySpacing)
+            .padding(.horizontal, standardPadding)
+            .background {
+                Capsule()
+                    .fill(.secondary.opacity(0.2))
+            }
+        }
+    }
+    
     @ViewBuilder func card(_ hashtag: Mastodon.Entity.FeaturedTag) -> some View {
         let isSelected = filterModel.selectedHashtag == hashtag
         Text("#\(hashtag.name)")
         .font(.subheadline)
         .foregroundStyle(isSelected ? .white : .primary )
         .padding(.vertical, tinySpacing)
-        .padding(.horizontal, doublePadding)
+        .padding(.horizontal, standardPadding)
         .background {
             Capsule()
                 .fill(isSelected ? Asset.Colors.accent.swiftUIColor : .secondary.opacity(0.2))
