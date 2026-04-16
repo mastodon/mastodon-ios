@@ -288,9 +288,8 @@ extension MastodonFeedLoader {
         case .replace:
             break
         case .end:
-            guard newlyFetchedResults.hasResults else {
+            if !newlyFetchedResults.hasResults {
                 noMoreResultsToFetch()
-                return
             }
         }
         cacheManager.updateByInserting(newlyFetched: newlyFetchedResults, at: insertionPoint)

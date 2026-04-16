@@ -1735,6 +1735,7 @@ struct TimelineListView: View {
                             let result = viewModel.interactiveReloadTriggerModel.visiblePercent(withScrollGeometry: scrollGeometry)
                             return result
                         } action: { oldPercent, newPercent in
+                            guard viewModel.currentDisplaySlice.last == .loadingIndicator else { return }
                             if oldPercent != newPercent {
                                 viewModel.interactiveReloadTriggerModel.updateVisiblePercent(newPercent)
                             }
