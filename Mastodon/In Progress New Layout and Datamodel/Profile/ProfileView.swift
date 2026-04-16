@@ -347,7 +347,7 @@ struct ProfileAvatarAndBannerView: View {
             ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) { // for banner edit button
                 bannerView(maxWidth: maxWidth)
                     .frame(maxWidth: .infinity)
-                    .frame(height: relationshipViewModel.pendingRequestToFollowMe ? nil : bannerFullHeight)
+                    .frame(height: (!profileViewModel.contentDisplayStatus.hideContent && relationshipViewModel.pendingRequestToFollowMe) ? nil : bannerFullHeight)
                     .clipped()
                     .background(.secondary) // in case there is no image
                 
@@ -361,7 +361,7 @@ struct ProfileAvatarAndBannerView: View {
             }
             
             VStack(alignment: .leading, spacing: -(16 + standardPadding) /*because the avatar view is offset down and we want a slight overlap*/) {
-                if relationshipViewModel.pendingRequestToFollowMe {
+                if !profileViewModel.contentDisplayStatus.hideContent && relationshipViewModel.pendingRequestToFollowMe {
                     followRequestApprovalBanner
                 }
                 
@@ -914,15 +914,19 @@ struct ProfileActionBar: View {
     @Environment(ProfileViewModel.self) var viewModel
     @Environment(RelationshipViewModel.self) var relationshipViewModel
     @Environment(MastodonNavigationRouter.self) var navigator
+    @Namespace var profileActionBarAnimationNamespace
     
     var body: some View {
         HStack(spacing: standardPadding) {
             if viewModel.contentDisplayStatus.canRevealContent {
                 RelationshipButtonType.hiddenByModerators.largeButton(isOpaque: false) {
-                    viewModel.contentDisplayStatus = .showAlways
+                    withAnimation {
+                        viewModel.contentDisplayStatus = .showAlways
+                    }
                 }
                 .buttonStyle(RelationshipButtonStyle(RelationshipButtonType.hiddenByModerators, isLarge: true, isOpaque: false))
                 .glassEffectIfAvailable(.regular(interactive: true), in: .capsule)
+                .matchedGeometryEffect(id: "action_button", in: profileActionBarAnimationNamespace)
             } else if let account = viewModel.account {
                 relationshipViewModel.button.largeButton(isOpaque: false) {
                     switch relationshipViewModel.button {
@@ -935,6 +939,7 @@ struct ProfileActionBar: View {
                     }
                 }
                 .glassEffectIfAvailable(.regular(interactive: true), in: .capsule)
+                .matchedGeometryEffect(id: "action_button", in: profileActionBarAnimationNamespace)
             }
             
             ActionBarMenuButton()
