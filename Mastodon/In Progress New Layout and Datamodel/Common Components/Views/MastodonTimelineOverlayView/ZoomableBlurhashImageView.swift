@@ -13,7 +13,7 @@ struct ZoomableBlurhashImageView: View {
         let baseSize = sizeThatFits(aspectRatio: aspectRatio, in: frameSize)
         GeometryReader { geo in
             ZoomableScrollView {
-                BlurhashImageView(url: image.basicData.fullsizeUrl, imageDetails: image.imageDetails, blurhash: viewModel.blurhashes[image.id])
+                BlurhashImageView(url: image.basicData.fullsizeUrl, imageDetails: image.imageDetails, shareTitle: image.basicData.shareTitle, blurhash: viewModel.blurhashes[image.id], onSuccess: nil)
                     .environment(ContentConcealViewModel.alwaysShow)
                     .frame(width: baseSize.width, height: baseSize.height)
             }

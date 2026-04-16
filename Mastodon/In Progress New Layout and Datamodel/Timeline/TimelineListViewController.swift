@@ -2319,15 +2319,28 @@ struct FullSizeImageGallery: View {
             PagingImageGalleryContent()
         } controls: {
             let currentAttachment = viewModel.imageAttachments[pageableZoomableModel.focusedPageIndex]
-            if let currentPageAltText = viewModel.altTextTranslations?[currentAttachment.id] ?? currentAttachment.basicData.altText {
-                AltTextButton(drawBorder: true, altText: currentPageAltText, displayAltText: Binding<String?>(
-                    get: { displayAltText },
-                    set: { newValue in displayAltText = newValue}
-                ))
-                .padding(.horizontal, doublePadding)
-                .padding(.vertical, 100)
-                .frame(width: pageableZoomableModel.pagingPageSize.width, height: pageableZoomableModel.pagingPageSize.height, alignment: .topTrailing)
+            VStack(alignment: .trailing) {
+                if let sharableImage = viewModel.sharableImages[currentAttachment.id] {
+                    ShareLink(item: sharableImage, preview: SharePreview(currentAttachment.basicData.shareTitle ?? "Image", image: sharableImage)) // TODO: L10n
+                        .padding(.vertical, ButtonPadding.vertical)
+                        .padding(.horizontal, ButtonPadding.horizontal)
+                        .background() {
+                            RoundedRectangle(cornerRadius: CornerRadius.small)
+                                .fill(buttonBackgroundColor)
+                        }
+                        .environment(\.colorScheme, .dark)
+                }
+                if let currentPageAltText = viewModel.altTextTranslations?[currentAttachment.id] ?? currentAttachment.basicData.altText {
+                    AltTextButton(drawBorder: true, altText: currentPageAltText, displayAltText: Binding<String?>(
+                        get: { displayAltText },
+                        set: { newValue in displayAltText = newValue}
+                    ))
+                }
+                Spacer()
             }
+            .padding(.vertical, 80)
+            .padding(.horizontal, doublePadding)
+            .frame(width: pageableZoomableModel.pagingPageSize.width, height: pageableZoomableModel.pagingPageSize.height, alignment: .topTrailing)
         }
         .overlay {
             AltTextOverlay(altTextBinding: Binding<String?>(
@@ -2367,7 +2380,10 @@ struct PagingImageGalleryContent: View {
                 let index = galleryViewModel.idToIndex[imageInfo.id] ?? 0
                 ZoomableContentView(contentFullSize: galleryViewModel.imageAttachments[index].imageDetails.originalSize ?? .zero,
                                     index: index) {
-                    BlurhashImageView(url: imageInfo.basicData.fullsizeUrl, imageDetails: imageInfo.imageDetails, blurhash: galleryViewModel.blurhashes[imageInfo.basicData.id])
+                    BlurhashImageView(url: imageInfo.basicData.fullsizeUrl, imageDetails: imageInfo.imageDetails, shareTitle: imageInfo.basicData.shareTitle, blurhash: galleryViewModel.blurhashes[imageInfo.basicData.id])
+                    { image in
+                        galleryViewModel.sharableImages[imageInfo.basicData.id] = image
+                    }
                 }
             }
         }

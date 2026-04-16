@@ -67,6 +67,16 @@ struct MastodonAttachmentBasicData {
     let altText: String?
     let blurhash: String?
     
+    var shareTitle: String? {
+        guard let altText else { return nil }
+        let maxLength = 200
+        if altText.count > maxLength {
+            return altText.prefix(maxLength) + "…"
+        } else {
+            return altText
+        }
+    }
+    
     init(_ entity: Mastodon.Entity.Attachment) {
         id = entity.id
         func url(nullableString: String?) -> URL? {
@@ -283,7 +293,7 @@ struct ImageGridView: View {
         ProportionalImageGridLayout(spacing: 1, aspectRatios: viewModel.imageAttachments.compactMap(\.imageDetails.originalSize?.aspectRatio), canUseTwoRows: !useRestrictedHeight) {
             ForEach(viewModel.imageAttachments) { img in
                 ZStack(alignment: .bottomLeading) { // places the ALT text button
-                    BlurhashImageView(url: img.basicData.fullsizeUrl, imageDetails: img.imageDetails, blurhash: viewModel.blurhashes[img.id])
+                    BlurhashImageView(url: img.basicData.fullsizeUrl, imageDetails: img.imageDetails, shareTitle: img.basicData.shareTitle, blurhash: viewModel.blurhashes[img.id], onSuccess: nil)
                         .clipped()
                         .accessibilityLabel(viewModel.altTextTranslations?[img.id] ?? img.basicData.altText ?? "")
                         .onTapGesture {
@@ -311,6 +321,7 @@ struct ImageGridView: View {
                                 }
                             }
                         ))
+                        .padding()
                     }
                 }
                 .frame(maxHeight: useRestrictedHeight ? maxHeightForHiddenMedia : nil)
@@ -326,7 +337,11 @@ struct BlurhashImageView: View {
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
     let url: URL?
     let imageDetails: ImageAttachmentDetails
+    let shareTitle: String?
     let blurhash: UIImage?
+    let onSuccess: ((Image)->())?
+    
+    @State private var sharableImage: Image?
     
     var body: some View {
         ZStack {
@@ -358,6 +373,18 @@ struct BlurhashImageView: View {
                         EmptyView()
                     }
                 }
+                .onSuccess() { image,_,_ in
+                    DispatchQueue.main.async {
+                        let swiftImage = Image(uiImage: image)
+                        self.sharableImage = swiftImage
+                        self.onSuccess?(swiftImage)
+                    }
+                }
+            }
+        }
+        .contextMenu {
+            if let sharableImage {
+                ShareLink(item: sharableImage, preview: SharePreview(shareTitle ?? "Image", image: sharableImage)) // TODO: L10n
             }
         }
     }
@@ -370,6 +397,7 @@ class ImageGalleryViewModel {
     private var frames = [Mastodon.Entity.Attachment.ID : CGRect]()
     let altTextTranslations: [String : String]?
     var blurhashes = [ Mastodon.Entity.Attachment.ID : UIImage ]()
+    var sharableImages = [ Mastodon.Entity.Attachment.ID : Image ]()
     let idToIndex: [ Mastodon.Entity.Attachment.ID : Int ]
     
     @ObservationIgnored

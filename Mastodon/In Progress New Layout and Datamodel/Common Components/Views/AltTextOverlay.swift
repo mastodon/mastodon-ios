@@ -80,7 +80,6 @@ struct AltTextButton: View {
                 }
         }
         .fixedSize()
-        .padding(standardPadding)
         .buttonStyle(.borderless)
         .accessibilityHidden(true)
     }
