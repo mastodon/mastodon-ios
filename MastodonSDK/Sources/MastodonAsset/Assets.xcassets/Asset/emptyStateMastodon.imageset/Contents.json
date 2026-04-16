@@ -3,6 +3,16 @@
     {
       "filename" : "976202c499f1be99401df74e57a92839c1f2b586.png",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "empty state - dark.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {
