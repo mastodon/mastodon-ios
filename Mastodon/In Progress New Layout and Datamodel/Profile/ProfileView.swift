@@ -706,8 +706,10 @@ struct HandleInfoPopover: View {
                         Text("Copy handle") // TODO: L10n
                     }
                     .padding()
+                    .padding(.horizontal)
                     .background() {
-                        MastodonSecondaryBackground(fillInDarkModeOnly: true)
+                        Capsule()
+                            .stroke(.secondary)
                     }
                 }
             }
