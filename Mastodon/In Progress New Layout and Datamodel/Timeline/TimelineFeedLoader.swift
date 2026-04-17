@@ -1203,13 +1203,15 @@ extension TimelineFeedLoader {
         }
         
         let currentTimestamp = Date.now
+        var result = [MastodonAccount.Relationship]()
         for relationshipEntity in relationships {
-            cachedRelationships[relationshipEntity.id] = MastodonAccount.Relationship.isNotMe(MastodonAccount.RelationshipInfo(relationshipEntity, fetchedAt: currentTimestamp))
+            guard relationshipEntity.id != myAccountID else { continue }
+            let relationship = MastodonAccount.Relationship.isNotMe(MastodonAccount.RelationshipInfo(relationshipEntity, fetchedAt: currentTimestamp))
+            cachedRelationships[relationshipEntity.id] = relationship
+            result.append(relationship)
         }
         
-        return relationships.map { relationshipEntity in
-            MastodonAccount.Relationship.isNotMe(MastodonAccount.RelationshipInfo(relationshipEntity, fetchedAt: currentTimestamp))
-        }
+        return result
     }
 }
 
