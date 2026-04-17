@@ -64,8 +64,6 @@ enum RelationshipButtonType {
             self = .iAmBlockingThem(isDomainBlock: false)
         } else if relationship.domainBlocking {
             self = .iAmBlockingThem(isDomainBlock: true)
-        } else if relationship.muting {
-            self = .iAmMutingThem
         } else if relationship.following {
             self = .iFollowThem(theyFollowMe: relationship.followedBy)
         } else if relationship.requested {
