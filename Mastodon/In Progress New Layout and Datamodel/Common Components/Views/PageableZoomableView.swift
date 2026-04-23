@@ -271,6 +271,8 @@ struct PageableZoomableView<Content: View, Controls: View>: View {
     @State private var lastLiveOffset: CGSize = .zero  // this allows us to smoothly animate page changes when the drag gesture ends
     @State private var offset: CGSize = .zero
     
+    private let dismissThreshold: CGFloat = 90
+    
     let contentView: Content
     let controlsView: Controls
     
@@ -328,7 +330,7 @@ struct PageableZoomableView<Content: View, Controls: View>: View {
                     lastLiveOffset = .zero
                     withAnimation {
                         let excessOffset = pageableZoomableViewModel.absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: value.translation, currentPagingOffset: offset, gestureIsEnded: true)
-                        if abs(excessOffset.height) > (pageableZoomableViewModel.pagingPageSize.height / 4.0) {
+                        if abs(excessOffset.height) > dismissThreshold {
                             pageableZoomableViewModel.dismiss()
                         } else {
                             offset = CGSize(width: excessOffset.width, height: 0)
