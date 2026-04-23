@@ -176,7 +176,7 @@ import MastodonSDK
         let excess = proposedOffset - clamped
         
         if excessScrollDirection == nil {
-            excessScrollDirection = abs(liveOffset.width / liveOffset.height) > 1 ? .horizontal : .vertical
+            excessScrollDirection = abs(liveOffset.width / liveOffset.height) > 0.8 ? .horizontal : .vertical
         }
         
         let unidirectionalExcessOffset: CGSize
