@@ -1012,6 +1012,8 @@ enum MastodonTimelineSheet {
         _timeline = timeline
         guard feedLoader?.timeline != timeline else { return }
         feedLoader = nil
+        feedLoaderErrorSubscription?.cancel()
+        feedLoaderResultsSubscription?.cancel()
         loadingState = .untracked
         currentDisplaySlice = ArraySlice([.loadingIndicator])
         Task {
@@ -1038,8 +1040,10 @@ enum MastodonTimelineSheet {
     }
     
     func setUpFeedLoaderResultsSubscription() {
+        let subscriptionTimeline = feedLoader?.timeline
         feedLoaderResultsSubscription = feedLoader?.$records
             .sink{ [weak self] results in
+                guard subscriptionTimeline == self?.timeline else { return }  // The notifications feedloader gets replaced when switching between Everything and Mentions. This makes sure not to mix lagging results from the previous selection before the old subscription gets canceled.
                 
                 guard results.allRecords.count > 0 || results.canLoadOlder else {
                     self?.feedIsEmpty = true
