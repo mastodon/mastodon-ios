@@ -874,7 +874,6 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
         case .notifications(scope: let scope):
-            print("loading notifications request \(request)")
             let response = try await {
                 if let loadUrl {
                     return try await NotificationsLoader.getNotifications(fromUrl: loadUrl, scope: scope)
