@@ -409,34 +409,30 @@ struct ZoomableContentView<Content: View>: View {
     @State private var fittingSize: CGSize = .zero
     
     var body: some View {
-        ZStack {
-            Color.dimmingBackground
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            GeometryReader { geo in
-                ZStack(alignment: .center) {
-                    Color.clear
-                        .frame(width: geo.size.width, height: geo.size.height)
-                    
-                    contentView
-                        .frame(width: fittingSize.width, height: fittingSize.height)
-                        .offset(pageableZoomableViewModel.liveUpdatePageContentsOffset(index))
-                        .scaleEffect(pageableZoomableViewModel.restingPageContentsScale(index))
-                        .scaleEffect(pageableZoomableViewModel.liveUpdatePageContentsAdditionalScale(index),
-                                     anchor: pageableZoomableViewModel.liveUpdateScaleAnchor(index)
-                        )
-                        .preference(key: SizePreferenceKey.self,
-                                    value: geo.size
-                        )
-                        .onPreferenceChange(SizePreferenceKey.self) { newValue in
-                            updateGeometry(fromSize: newValue)
-                        }
-                        .onAppear() {
-                            updateGeometry(fromSize: geo.size)
-                        }
-                }
+        GeometryReader { geo in
+            ZStack(alignment: .center) {
+                Color.clear
+                    .frame(width: geo.size.width, height: geo.size.height)
+                
+                contentView
+                    .frame(width: fittingSize.width, height: fittingSize.height)
+                    .offset(pageableZoomableViewModel.liveUpdatePageContentsOffset(index))
+                    .scaleEffect(pageableZoomableViewModel.restingPageContentsScale(index))
+                    .scaleEffect(pageableZoomableViewModel.liveUpdatePageContentsAdditionalScale(index),
+                                 anchor: pageableZoomableViewModel.liveUpdateScaleAnchor(index)
+                    )
+                    .preference(key: SizePreferenceKey.self,
+                                value: geo.size
+                    )
+                    .onPreferenceChange(SizePreferenceKey.self) { newValue in
+                        updateGeometry(fromSize: newValue)
+                    }
+                    .onAppear() {
+                        updateGeometry(fromSize: geo.size)
+                    }
             }
-            .padding()
         }
+        .padding()
         .frame(width: pageSize.width, height: pageSize.height)
         .clipped()
     }

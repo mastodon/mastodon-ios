@@ -2346,6 +2346,11 @@ struct FullSizeImageGallery: View {
             .padding(.horizontal, doublePadding)
             .frame(width: pageableZoomableModel.pagingPageSize.width, height: pageableZoomableModel.pagingPageSize.height, alignment: .topTrailing)
         }
+        .background() {
+            Color.dimmingBackground
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ignoresSafeArea()
+        }
         .overlay {
             AltTextOverlay(altTextBinding: Binding<String?>(
                 get: { displayAltText },
