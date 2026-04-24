@@ -1701,9 +1701,17 @@ struct TimelineListView: View {
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: geo.size.width * 0.5)
-                                Text("Nothing to see here") // TODO: L10n
-                                    .font(.title2)
-                                    .foregroundStyle(.secondary)
+                                if let mainMessage = emptyStateMainMessage(viewModel.timeline) {
+                                    Text(mainMessage)
+                                        .font(.title2)
+                                        .foregroundStyle(.secondary)
+                                }
+                                if let secondaryMessage = emptyStateSecondaryMessage(viewModel.timeline) {
+                                    Text(secondaryMessage)
+                                        .font(.body)
+                                        .foregroundStyle(.secondary)
+                                }
+                                emptyStateControls(viewModel.timeline)
                             }
                             .padding(doublePadding)
                             .frame(maxWidth: geo.size.width)
@@ -1869,6 +1877,168 @@ struct TimelineListView: View {
             }
         }
         .environment(TimestampUpdater.timestamper(withInterval: 30))
+    }
+    
+    private func emptyStateMainMessage(_ timeline: MastodonTimelineType, ) -> String? {
+        // TODO: L10n
+        switch timeline {
+        case .homeTimeline:
+            return nil
+        case .featuredItems(userID: let userID):
+            guard viewModel.currentRelationship(to: userID)?.isMe != true else {
+                if AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.collections) == true {
+                    return "Showcase your favorite accounts"
+                } else {
+                    return "Stay tuned for Collections"
+                }
+            }
+            fallthrough
+        case .myBookmarks:
+            fallthrough
+        case .myFavorites:
+            fallthrough
+        case .myFollowedHashtags:
+            fallthrough
+        case .local:
+            fallthrough
+        case .list:
+            fallthrough
+        case .hashtag:
+            fallthrough
+        case .discover:
+            fallthrough
+        case .search:
+            fallthrough
+        case .userPosts:
+            fallthrough
+        case .followers:
+            fallthrough
+        case .accountsFollowed:
+            fallthrough
+        case .familiarFollowers:
+            fallthrough
+        case .thread:
+            fallthrough
+        case .remoteThread:
+            fallthrough
+        case .notifications:
+            fallthrough
+        case .whoFavourited:
+            fallthrough
+        case .whoBoosted:
+            return "Nothing to see here"
+        }
+    }
+    
+    private func emptyStateSecondaryMessage(_ timeline: MastodonTimelineType) -> String? {
+        // TODO: L10n
+        switch timeline {
+        case .featuredItems(userID: let userID):
+            if viewModel.currentRelationship(to: userID)?.isMe == true {
+                if AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.collections) == true {
+                    return "Collections are curated lists of accounts to help others discover more of the Fediverse."
+                } else {
+                    return "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+                }
+            } else {
+                return "\(viewModel.account(userID)?.displayInfo.displayName ?? "This account") hasn't featured anything yet."
+            }
+        case .homeTimeline:
+            fallthrough
+        case .myBookmarks:
+            fallthrough
+        case .myFavorites:
+            fallthrough
+        case .myFollowedHashtags:
+            fallthrough
+        case .local:
+            fallthrough
+        case .list:
+            fallthrough
+        case .hashtag:
+            fallthrough
+        case .discover:
+            fallthrough
+        case .search:
+            fallthrough
+        case .userPosts:
+            fallthrough
+        case .followers:
+            fallthrough
+        case .accountsFollowed:
+            fallthrough
+        case .familiarFollowers:
+            fallthrough
+        case .thread:
+            fallthrough
+        case .remoteThread:
+            fallthrough
+        case .notifications:
+            fallthrough
+        case .whoFavourited:
+            fallthrough
+        case .whoBoosted:
+            return nil
+        }
+    }
+    
+    @ViewBuilder func emptyStateControls(_ timeline: MastodonTimelineType) -> some View {
+        switch timeline {
+        case .featuredItems(userID: let userID):
+            if viewModel.currentRelationship(to: userID)?.isMe == true {
+                if AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.collections) == true {
+                    VStack {
+                        Button("Create a Collection") {
+                            
+                        }
+                        
+                        Button ("Hide this tab instead") {
+                            
+                        }
+                    }
+                } else {
+                    EmptyView()
+                }
+            } else {
+                EmptyView()
+            }
+        case .homeTimeline:
+            EmptyView()
+        case .myBookmarks:
+            EmptyView()
+        case .myFavorites:
+            EmptyView()
+        case .myFollowedHashtags:
+            EmptyView()
+        case .local:
+            EmptyView()
+        case .list:
+            EmptyView()
+        case .hashtag:
+            EmptyView()
+        case .discover:
+            EmptyView()
+        case .search:
+            EmptyView()
+        case .userPosts:
+            EmptyView()
+        case .followers:
+            EmptyView()
+        case .accountsFollowed:
+            EmptyView()
+        case .familiarFollowers:
+            EmptyView()
+        case .thread:
+            EmptyView()
+        case .remoteThread:
+            EmptyView()
+        case .notifications:
+            EmptyView()
+        case .whoFavourited:
+            EmptyView()
+        case .whoBoosted:
+            EmptyView()
+        }
     }
     
     private func queueUpdates(geometry: GeometryProxy? = nil, visibleItems: [TimelineItem]? = nil, scrollAnchor: TimelineItem? = nil) {

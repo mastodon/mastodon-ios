@@ -66,6 +66,7 @@ public enum DiscoveryType: Equatable {
 }
                                 
 public enum MastodonTimelineType: Equatable {
+    // *** WHEN ADDING A CASE, make sure to update the == definition below
     case homeTimeline
     case myBookmarks
     case myFavorites
@@ -85,10 +86,17 @@ public enum MastodonTimelineType: Equatable {
     case notifications(scope: NotificationsScope)
     case whoFavourited(actionableStatusID: Mastodon.Entity.Status.ID)
     case whoBoosted(actionableStatusID: Mastodon.Entity.Status.ID)
+    // *** WHEN ADDING A CASE, make sure to update the == definition below
 
     public static func == (lhs: MastodonTimelineType, rhs: MastodonTimelineType) -> Bool {
         switch (lhs, rhs) {
         case (.homeTimeline, .homeTimeline):
+            return true
+        case (.myBookmarks, .myBookmarks):
+            return true
+        case (.myFavorites, .myFavorites):
+            return true
+        case (.myFollowedHashtags, .myFollowedHashtags):
             return true
         case (.local, .local):
             return true
@@ -102,10 +110,32 @@ public enum MastodonTimelineType: Equatable {
             return firstText == secondText && firstScope == secondScope
         case (.userPosts(let firstID, _), .userPosts(let secondID, _)):
             return firstID == secondID
+        case (.featuredItems(let userIDFirst), .featuredItems(let userIDSecond)):
+            return userIDFirst == userIDSecond
+        case (.followers(let ofUserIdFirst), .followers(let ofUserIdSecond)):
+            return ofUserIdFirst == ofUserIdSecond
+        case (.accountsFollowed(let byUserIdFirst), .accountsFollowed(let byUserIdSecond)):
+            return byUserIdFirst == byUserIdSecond
+        case (.familiarFollowers(let accountIdFirst), .familiarFollowers(let accountIdSecond)):
+            return accountIdFirst == accountIdSecond
         case (.thread(let first), .thread(let second)):
             return first.id == second.id
+        case (.remoteThread(let remoteTypeFirst), .remoteThread(let remoteTypeSecond)):
+            switch (remoteTypeFirst, remoteTypeSecond) {
+            case (.status(let first), .status(let second)):
+                return first == second
+            case (.notification(let first), .notification(let second)):
+                return first == second
+            default:
+                return false
+            }
         case (.notifications(let firstScope), .notifications(let secondScope)):
             return firstScope == secondScope
+        case (.whoFavourited(let actionableStatusIdFirst), .whoFavourited(let actionableStatusIdSecond)):
+            return actionableStatusIdFirst == actionableStatusIdSecond
+        case (.whoBoosted(let actionableStatusIdFirst), .whoBoosted(let actionableStatusIdSecond)):
+            return actionableStatusIdFirst == actionableStatusIdSecond
+            
         default:
             return false
         }
