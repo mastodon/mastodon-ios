@@ -96,25 +96,68 @@ import MastodonSDK
         }
     }
     
-    func absorbLiveUpdateZoomScaleIntoFocusedPage(liveScale: CGFloat, gestureAnchor: UnitPoint, currentOffset: CGSize, gestureIsEnded: Bool) {
+    func toggleZoomIfPointIsInsideContent(_ point: CGPoint) {
+        if let anchorPoint = contentAnchorPoint(forGesturePoint: point) {
+            focusedPageLiveZoomAnchor = focusedPageContentAnchorPoint(forGestureViewAnchorPoint: anchorPoint)
+            let currentZoom = zoomScales[focusedPageIndex]
+            let togglingScale = {
+                if currentZoom > 1 {
+                    return 1 / currentZoom
+                } else {
+                    return maxZoom / currentZoom
+                }
+            }()
+            absorbLiveUpdateZoomScaleIntoFocusedPage(liveScale: togglingScale, gestureAnchor: anchorPoint, gestureState: .ended(wasContinuous: false))
+        }
+    }
+    
+    func contentAnchorPoint(forGesturePoint gesturePoint: CGPoint) -> UnitPoint? {
+        let pageSize = contentPageSizes[focusedPageIndex]
+        let unzoomedContentSize = contentsFittingSizes[focusedPageIndex]
+        let zoomScale = zoomScales[focusedPageIndex]
+        let zoomedContentSize = CGSize(width: unzoomedContentSize.width * zoomScale, height: unzoomedContentSize.height * zoomScale)
+        let centeringOffset = CGPoint(x: (pageSize.width - zoomedContentSize.width) / 2.0, y: (pageSize.height - zoomedContentSize.height) / 2.0)
+        let currentOffset = internalOffsets[focusedPageIndex]
+        let rect = CGRect(x: currentOffset.width + centeringOffset.x, y: currentOffset.height + centeringOffset.y, width: zoomedContentSize.width, height: zoomedContentSize.height)
+        if CGRectContainsPoint(rect, gesturePoint) {
+            guard pageSize.width > 0 && pageSize.height > 0 else { return nil }
+            return UnitPoint(x: gesturePoint.x / pageSize.width, y: gesturePoint.y / pageSize.height)
+        } else {
+            return nil
+        }
+    }
+    
+    enum GestureState {
+        case ongoing
+        case ended(wasContinuous: Bool)
+    }
+    
+    func absorbLiveUpdateZoomScaleIntoFocusedPage(liveScale: CGFloat, gestureAnchor: UnitPoint, gestureState: GestureState) {
         let proposedScale = liveScale * zoomScales[focusedPageIndex]
         let clampedScale = clampZoom(proposedScale)
         focusedPageLiveZoomScale = clampedScale / zoomScales[focusedPageIndex]
         
-        if gestureIsEnded  {
-            // adjust the offset to absorb the shift caused by the scale
-            let anchorRespectingOffset = focusedPageOffsetAbsorbing(additionalScale: focusedPageLiveZoomScale, atGestureViewAnchor: gestureAnchor)
-            
-            zoomScales[focusedPageIndex] = clampedScale
-            resetLiveTransforms()
-            let clampedOffset = clampOffset(focusedPageIndex, proposedOffset: anchorRespectingOffset, scale: clampedScale)
-            internalOffsets[focusedPageIndex] = anchorRespectingOffset
-            withAnimation {
-                internalOffsets[focusedPageIndex] = clampedOffset
-            }
-        } else {
+        switch gestureState {
+        case .ongoing:
             // set the anchor of the live scale effect
             focusedPageLiveZoomAnchor = focusedPageContentAnchorPoint(forGestureViewAnchorPoint: gestureAnchor)
+        case .ended(let wasContinuous):
+            // adjust the offset to absorb the shift caused by the scale
+            let anchorRespectingOffset = focusedPageOffsetAbsorbing(additionalScale: focusedPageLiveZoomScale, atGestureViewAnchor: gestureAnchor)
+            resetLiveTransforms()
+            let clampedOffset = clampOffset(focusedPageIndex, proposedOffset: anchorRespectingOffset, scale: clampedScale)
+            if wasContinuous {
+                zoomScales[focusedPageIndex] = clampedScale
+                internalOffsets[focusedPageIndex] = anchorRespectingOffset
+                withAnimation {
+                    internalOffsets[focusedPageIndex] = clampedOffset
+                }
+            } else {
+                withAnimation {
+                    zoomScales[focusedPageIndex] = clampedScale
+                    internalOffsets[focusedPageIndex] = clampedOffset
+                }
+            }
         }
     }
     
@@ -294,6 +337,15 @@ struct PageableZoomableView<Content: View, Controls: View>: View {
                         .frame(width: geo.size.width, height: geo.size.height)
                         .scaleEffect(pageableZoomableViewModel.restingPageContentsScale(pageableZoomableViewModel.focusedPageIndex), anchor: .center) // applying the same scale to this view as to the content view makes the zooming logic easier
                         .gesture(zoomAndPan) // putting the gesture on a stationary view keeps the motion smooth
+                        .onTapGesture(count: 1) { location in
+                            if pageableZoomableViewModel.contentAnchorPoint(forGesturePoint: location) == nil {
+                                // tap was outside the content. dismiss the gallery
+                                pageableZoomableViewModel.dismiss()
+                            }
+                        }
+                        .onTapGesture(count: 2) { location in
+                            pageableZoomableViewModel.toggleZoomIfPointIsInsideContent(location)
+                        }
                     
                     controlsView // in order to receive touch events, the controls have to be above the clear overlay that holds the zoomAndPan gesture
                 }
@@ -313,10 +365,10 @@ struct PageableZoomableView<Content: View, Controls: View>: View {
             MagnifyGesture()
                 .updating($liveScale) { value, state, _ in
                     state = value.magnification
-                    pageableZoomableViewModel.absorbLiveUpdateZoomScaleIntoFocusedPage(liveScale: value.magnification, gestureAnchor: value.startAnchor, currentOffset: offset, gestureIsEnded: false)
+                    pageableZoomableViewModel.absorbLiveUpdateZoomScaleIntoFocusedPage(liveScale: value.magnification, gestureAnchor: value.startAnchor, gestureState: .ongoing)
                 }
                 .onEnded { value in
-                    pageableZoomableViewModel.absorbLiveUpdateZoomScaleIntoFocusedPage(liveScale: value.magnification, gestureAnchor: value.startAnchor, currentOffset: offset, gestureIsEnded: true)
+                    pageableZoomableViewModel.absorbLiveUpdateZoomScaleIntoFocusedPage(liveScale: value.magnification, gestureAnchor: value.startAnchor, gestureState: .ended(wasContinuous: true))
                 },
             
             DragGesture()
