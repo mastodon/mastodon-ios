@@ -201,22 +201,21 @@ struct ProfileEditingView: View {
     }
     
     func mainLabelForRow(_ destination: ProfileEditDestinationType) -> String? {
-        // TODO: L10n
         switch destination {
         case .displayName:
-            return "Display name"
+            return L10nLookup.Scene.EditProfile.NavigationTitle.displayName
         case .bio:
             if profileViewModel.bioIsEmpty {
-                return "Add a bio"
+                return L10nLookup.Scene.EditProfile.NavigationTitle.addBio
             } else {
-                return "Bio"
+                return L10nLookup.Scene.EditProfile.NavigationTitle.bio
             }
         case .customFields:
-            return "Custom fields"
+            return L10nLookup.Scene.EditProfile.NavigationTitle.customFields
         case .featuredHashtags:
-            return "Featured hashtags"
+            return L10nLookup.Scene.EditProfile.NavigationTitle.featuredHashtags
         case .profileTabSettings:
-            return "Profile tab settings"
+            return L10nLookup.Scene.EditProfile.NavigationTitle.profileTabSettings
         case .verifiedLinkInstructions:
             return nil
         case .editCustomField, .reorderCustomFields, .addHashtag:
@@ -229,9 +228,9 @@ struct ProfileEditingView: View {
         case .displayName, .bio, .profileTabSettings, .verifiedLinkInstructions, .editCustomField, .reorderCustomFields, .addHashtag:
             return nil
         case .customFields:
-            return "E.g. pronouns, external links, etc."  // TODO: L10n
+            return L10nLookup.Scene.EditProfile.NavigationTitle.customFieldsSubtitle
         case .featuredHashtags:
-            return "Allow users to filter your timeline by topic"  // TODO: L10n
+            return L10nLookup.Scene.EditProfile.NavigationTitle.featuredHashtagsSubtitle
         }
     }
     

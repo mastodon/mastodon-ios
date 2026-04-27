@@ -403,19 +403,19 @@ extension RelationshipViewModel {
         case .unfollow:
             return L10n.Common.Controls.Actions.unfollow(username)
         case .featureOnMyProfile:
-            return "Feature on my profile" // TODO: L10n
+            return L10nLookup.MastodonMenuAction.featureOnMyProfile
         case .stopFeaturingOnMyProfile:
-            return "Stop featuring on my profile" // TODO: L10n
+            return L10nLookup.MastodonMenuAction.stopFeaturingOnMyProfile
         case .hideBoosts:
-            return "Hide boosts"
+            return L10nLookup.MastodonMenuAction.hideBoosts
         case .showBoosts:
-            return "Show boosts"
+            return L10nLookup.MastodonMenuAction.showBoosts
         case .mute:
             return L10n.Common.Controls.Friendship.muteUser(username)
         case .unmute:
             return L10n.Common.Controls.Friendship.unmuteUser(username)
         case .removeFollower:
-            return "Remove follower"
+            return L10nLookup.MastodonMenuAction.removeFollower
         case .blockUser:
             return L10n.Common.Controls.Friendship.blockUser(username)
         case .unblockUser:
@@ -423,11 +423,11 @@ extension RelationshipViewModel {
         case .reportUser:
             return L10n.Common.Controls.Actions.reportUser(username)
         case .blockDomain_new:
-            return "Block domain \(domain)"
+            return L10nLookup.MastodonMenuAction.blockDomain(domain)
         case .unblockDomain_new:
-            return "Unblock domain \(domain)"
+            return L10nLookup.MastodonMenuAction.unblockDomain(domain)
         case .personalNote:
-            return relationship?.info?.hasComment == true ? "Edit personal note" : "Add personal note"
+            return relationship?.info?.hasComment == true ? L10nLookup.MastodonMenuAction.editPersonalNote : L10nLookup.MastodonMenuAction.addPersonalNote
         }
     }
     

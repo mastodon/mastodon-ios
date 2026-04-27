@@ -5,6 +5,7 @@ import MastodonAsset
 import MastodonSDK
 import MastodonCore
 import MastodonUI
+import MastodonLocalization
 
 class ProfileEditingDestinationHostingViewController: UIHostingController<AnyView> {
     private let viewModel: ProfileViewModel
@@ -138,36 +139,35 @@ struct ProfileEditingDestinationView: View {
 
 extension ProfileViewModel {
     func navigationTitle(_ destination: ProfileEditDestinationType) -> String {
-        // TODO: L10n
         switch destination {
         case .displayName:
-            return "Edit display name"
+            return L10nLookup.Scene.EditProfile.SubpageTitle.editDisplayName
         case .bio:
             if bioIsEmpty {
-                return "Add bio"
+                return L10nLookup.Scene.EditProfile.SubpageTitle.addBio
             } else {
-                return "Edit bio"
+                return L10nLookup.Scene.EditProfile.SubpageTitle.editBio
             }
         case .customFields:
-            return "Custom fields"
+            return L10nLookup.Scene.EditProfile.SubpageTitle.customFields
         case .featuredHashtags:
-            return "Featured hashtags"
+            return L10nLookup.Scene.EditProfile.SubpageTitle.featuredHashtags
         case .profileTabSettings:
-            return "Profile tab settings"
+            return L10nLookup.Scene.EditProfile.SubpageTitle.profileTabSettings
         case .verifiedLinkInstructions:
-            return "How to add a verified link"
+            return L10nLookup.Scene.EditProfile.SubpageTitle.verifiedLinkHelp
         case .editCustomField(let profileViewModel):
             guard let fieldEditingState = profileViewModel.editingViewModel.fieldEditingState else { return "" }
-            switch fieldEditingState.editingField {  // TODO: L10n
+            switch fieldEditingState.editingField {
             case .create:
-                return "Add field"
+                return L10nLookup.Scene.EditProfile.SubpageTitle.addField
             case .edit:
-                return "Edit field"
+                return L10nLookup.Scene.EditProfile.SubpageTitle.editField
             }
         case .reorderCustomFields:
-            return "Reorder fields"
+            return L10nLookup.Scene.EditProfile.SubpageTitle.reorderFields
         case .addHashtag:
-            return "Add hashtag"
+            return L10nLookup.Scene.EditProfile.SubpageTitle.addHashtag
         }
     }
 }
@@ -451,7 +451,7 @@ struct FeaturedHashtagsEditor: View {
                 get: { needsDeleteConfirmation != nil },
                 set: { newValue in if newValue == false { needsDeleteConfirmation = nil } }
                )) {
-                   Button("Remove", role: .destructive) { // TODO: L10n
+                   Button(L10nLookup.Scene.EditProfile.FeaturedHashtags.remove, role: .destructive) {
                        guard let confirmedForDeletion = needsDeleteConfirmation else { return }
                        Task {
                            do {
@@ -462,7 +462,7 @@ struct FeaturedHashtagsEditor: View {
                        }
                    }
                    
-                   Button("Keep", role: .cancel) { // TODO: L10n
+                   Button(L10nLookup.Scene.EditProfile.FeaturedHashtags.keep, role: .cancel) {
                        return
                    }
                }
@@ -470,11 +470,11 @@ struct FeaturedHashtagsEditor: View {
     
     var alertTitle: String {
         guard let needsDeleteConfirmation else { return "" }
-        return "Remove #\(needsDeleteConfirmation.name)?" // TODO: L10n
+        return L10nLookup.Scene.EditProfile.FeaturedHashtags.removeConfirmation(tagName: needsDeleteConfirmation.name)
     }
     
     @ViewBuilder var addHashtagButton: some View {
-        actionButton(text: "Add hashtag", isDestructive: false, includeBackground: false) {  // TODO: L10n
+        actionButton(text: L10nLookup.Scene.EditProfile.FeaturedHashtags.add, isDestructive: false, includeBackground: false) {
             navigator.presentModal(.editProfileNavigation(destination: .addHashtag(profileViewModel: profileViewModel)))
         }
     }
@@ -579,21 +579,21 @@ struct AddFeaturedHashtagView: View {
             autoCompleteSuggestionsModel.foundPossibleHashtag(withTagSymbol)
         }
         .alert(
-            "#\(didFeature ?? "") featured!",  // TODO: L10n
+            L10nLookup.Scene.EditProfile.FeaturedHashtags.addConfirmedTitle(tagName: didFeature ?? ""),
             isPresented: Binding<Bool>(
                 get: { didFeature != nil },
                 set: { newValue in if newValue == false { didFeature = nil } }
             ),
             actions: {
-                Button("Add another") {  // TODO: L10n
+                Button(L10nLookup.Scene.EditProfile.FeaturedHashtags.addAnother) {
                     return
                 }
-                Button("Done") {   // TODO: L10n
+                Button(L10n.Common.Controls.Actions.done) {
                     dismiss()
                 }
             },
             message: {
-                Text("#\(didFeature ?? "") is now featured on your profile page. Do you want to add another?")   // TODO: L10n
+                Text(L10nLookup.Scene.EditProfile.FeaturedHashtags.addConfirmedText(tagName: didFeature ?? ""))
             })
         .task(id: profileViewModel.account?.id ?? "unknown_account") {
             guard let account = profileViewModel.account else { return }
@@ -657,21 +657,20 @@ struct CustomProfileFieldsEditor: View {
     @Environment(ProfileEditingViewModel.self) var editingViewModel
     
     var body: some View {
-        // TODO: L10n
         List {
             let customFields = editingViewModel.customFields ?? []
             if !customFields.isEmpty {
                 Section {
                     customFieldsList(customFields)
                 } header: {
-                    SubsectionHeading(title: nil, subtitle: "Add your pronouns, external links, or anything else you’d like to share.")
+                    SubsectionHeading(title: nil, subtitle: L10nLookup.Scene.EditProfile.CustomFields.customFieldPrompt)
                 } footer: {
                     verifiedLinksTip
                 }
             }
             if editingViewModel.canAddAnotherProfileField {
                 Section {
-                    actionButton(text: "Add field", isDestructive: false, includeBackground: false) {
+                    actionButton(text: L10nLookup.Scene.EditProfile.CustomFields.addField, isDestructive: false, includeBackground: false) {
                         editingViewModel.beginEditingField(.create, profileViewModel: profileViewModel, navigator: navigator)
                     }
                 } header: {
@@ -683,11 +682,11 @@ struct CustomProfileFieldsEditor: View {
             if !customFields.isEmpty {
                 Section {
                     if editingViewModel.canAddAnotherProfileField {
-                        actionButton(text: "Reorder fields", isDestructive: false, includeBackground: false) {
+                        actionButton(text: L10nLookup.Scene.EditProfile.CustomFields.reorderFields, isDestructive: false, includeBackground: false) {
                             editingViewModel.beginReorderingFields(profileViewModel: profileViewModel, navigator: navigator)
                         }
                     } else {
-                        actionButton(text: "Reorder/delete fields", isDestructive: false, includeBackground: false) {
+                        actionButton(text: L10nLookup.Scene.EditProfile.CustomFields.reorderOrDeleteFields, isDestructive: false, includeBackground: false) {
                             editingViewModel.beginReorderingFields(profileViewModel: profileViewModel, navigator: navigator)
                         }
                     }
@@ -702,9 +701,9 @@ struct CustomProfileFieldsEditor: View {
     
     @ViewBuilder var verifiedLinksTip: some View {
         if editingViewModel.showVerifiedLinkTip {
-            (Text("Tip: Add credibility to your Mastodon account by verifying links to websites you own.  ")
+            (Text( L10nLookup.Scene.EditProfile.CustomFields.verifiedLinkTip + "  ")
                 .font(.footnote)
-             + Text("Learn more")
+             + Text(L10n.Scene.Notification.Warning.learnMore)
                 .font(.footnote)
                 .fontWeight(.bold)
                 .foregroundStyle(Asset.Colors.accent.swiftUIColor))
@@ -743,7 +742,7 @@ struct HashtagRow: View {
                 ProgressView().progressViewStyle(.circular)
             default:
                 if let statusesCount = hashtag.statusesCount, let postCount = intFormatter.number(from: statusesCount)?.intValue, postCount > 0 {
-                    Text("Used in \(postCount) posts")  // TODO: L10n
+                    Text(L10nLookup.Scene.EditProfile.FeaturedHashtags.usedInCountPosts(count: postCount))
                         .foregroundStyle(.secondary)
                 }
             }
@@ -781,10 +780,9 @@ struct VerifiedLinkInstructions: View {
     let accountUrl: String?
     
     var body: some View {
-        // TODO: L10n
         ScrollView() {
             VStack(alignment: .leading, spacing: standardPadding) {
-                Text("Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:")
+                Text(L10nLookup.Scene.EditProfile.VerifiedLinksExplainer.intro)
                 
                 // STEP 1:
                 HStack(alignment: .top) {
@@ -792,7 +790,7 @@ struct VerifiedLinkInstructions: View {
                         .font(.title2)
                         .foregroundStyle(.primary, .tertiary)
                     VStack(alignment: .leading) {
-                        Text("Copy the HTML code below")
+                        Text(L10nLookup.Scene.EditProfile.VerifiedLinksExplainer.copyTheCodeBelow)
                             .fontWeight(.bold)
                         VStack(alignment: .leading) {
                             let codeSnippet = "<a rel=\"me\" href=\"\(accountUrl ?? "<YOUR_ACCOUNT_URL_GOES_HERE>")\">Mastodon</a>"
@@ -801,7 +799,7 @@ struct VerifiedLinkInstructions: View {
                             Button() {
                                 UIPasteboard.general.string = codeSnippet
                             } label: {
-                                Text("Copy code")
+                                Text(L10nLookup.Scene.EditProfile.VerifiedLinksExplainer.copyCode)
                                     .foregroundStyle(Asset.Colors.accent.swiftUIColor)
                             }
                         }
@@ -819,9 +817,9 @@ struct VerifiedLinkInstructions: View {
                         .font(.title2)
                         .foregroundStyle(.primary, .tertiary)
                     VStack(alignment: .leading) {
-                        Text("Paste the code into the header HTML of your website")
+                        Text(L10nLookup.Scene.EditProfile.VerifiedLinksExplainer.pasteCode)
                             .fontWeight(.bold)
-                        Text("Adding the code to your header allows the <a> element to remain invisible. The rel=\"me\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it.")
+                        Text(L10nLookup.Scene.EditProfile.VerifiedLinksExplainer.explanation)
                     }
                 }
                 
@@ -831,9 +829,9 @@ struct VerifiedLinkInstructions: View {
                         .font(.title2)
                         .foregroundStyle(.primary, .tertiary)
                     VStack(alignment: .leading) {
-                        Text("Add your website as a custom field")
+                        Text(L10nLookup.Scene.EditProfile.VerifiedLinksExplainer.addWebsiteAsCustomField)
                             .fontWeight(.bold)
-                        Text("If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification.")
+                        Text(L10nLookup.Scene.EditProfile.VerifiedLinksExplainer.addWebsiteDetailExplainer)
                     }
                 }
                 Spacer()
@@ -868,7 +866,7 @@ struct EditFieldView: View {
                 @Bindable var valueEditingModel = editState.valueEditingModel
                 Section {
                     HStack(alignment: .top, spacing: tinySpacing) {
-                        Text("Label") // TODO: L10n
+                        Text(L10nLookup.Scene.EditProfile.CustomFields.label)
                             .fixedSize(horizontal: false, vertical: true)
                             .frame(width: labelWidth, alignment: .leading)
                         VStack(alignment: .leading) {
@@ -901,7 +899,7 @@ struct EditFieldView: View {
                     }
                     
                     HStack(alignment: .top, spacing: tinySpacing) {
-                        Text("Value") // TODO: L10n
+                        Text(L10nLookup.Scene.EditProfile.CustomFields.value)
                             .fixedSize(horizontal: false, vertical: true)
                             .frame(width: labelWidth, alignment: .leading)
                         VStack(alignment: .leading) {
@@ -924,7 +922,7 @@ struct EditFieldView: View {
                         }
                     }
                 } footer: {
-                    tipText("Tip: Try to keep the label and value short (under 25 characters for each is best).")  // TODO: L10n
+                    tipText(L10nLookup.Scene.EditProfile.CustomFields.characterCountTip)
                 }
                 
                 switch editState.editingField {
@@ -932,7 +930,7 @@ struct EditFieldView: View {
                     EmptyView()
                 case .edit:
                     Section {
-                        actionButton(text: "Delete field", isDestructive: true, includeBackground: false) {  // TODO: L10n
+                        actionButton(text: L10nLookup.Scene.EditProfile.CustomFields.deleteField, isDestructive: true, includeBackground: false) {
                             Task {
                                 editingViewModel.deleteCurrentEditingField()
                                 do {

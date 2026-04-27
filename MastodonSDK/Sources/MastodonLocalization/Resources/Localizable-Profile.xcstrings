@@ -1,0 +1,529 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Common.Controls.RelationshipAction.acceptFollowRequest" : {
+      "comment" : "to accept a follow request",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accept"
+          }
+        }
+      }
+    },
+    "Common.Controls.RelationshipAction.rejectFollowRequest" : {
+      "comment" : "to reject a follow request",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reject"
+          }
+        }
+      }
+    },
+    "Common.Controls.RelationshipAction.showAnyway" : {
+      "comment" : "to show a profile’s contents even though they have been hidden by your moderators",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show anyway"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.CustomFields.addField" : {
+      "comment" : "button text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add field"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.CustomFields.characterCountTip" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tip: Try to keep the label and value short (under 25 characters for each is best)."
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.CustomFields.deleteField" : {
+      "comment" : "button text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete field"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.CustomFields.label" : {
+      "comment" : "indicates the text field to enter the label for a custom field",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Label"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.CustomFields.prompt" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add your pronouns, external links, or anything else you’d like to share."
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.CustomFields.reorderFields" : {
+      "comment" : "button text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reorder fields"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.CustomFields.reorderOrDeleteFields" : {
+      "comment" : "button text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reorder/delete fields"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.CustomFields.value" : {
+      "comment" : "indicates the text field to enter the value for a custom field",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Value"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.CustomFields.verifiedLinkTip" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tip: Add credibility to your Mastodon account by verifying links to websites you own."
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.FeaturedHashtags.add" : {
+      "comment" : "button text to add a featured hashtag to your profile",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add hashtag"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.FeaturedHashtags.addAnother" : {
+      "comment" : "button text to add another featured hashtag",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add another"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.FeaturedHashtags.addConfirmedText" : {
+      "comment" : "translation must include the # hashtag symbol",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "#%1$(tagName)@ is now featured on your profile page. Do you want to add another?"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.FeaturedHashtags.addConfirmedTitle" : {
+      "comment" : "translation must include the # hashtag symbol",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "#%1$(tagName)@ featured!"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.FeaturedHashtags.keep" : {
+      "comment" : "button text to cancel removing a featured hashtag from your profile",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.FeaturedHashtags.remove" : {
+      "comment" : "button text to remove a featured hashtag from your profile",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.FeaturedHashtags.removeConfirmation" : {
+      "comment" : "confirmation for removing a featured hashtag. Translation must include the # hashtag symbol",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove #%1$(hashtagName)@ ?"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.FeaturedHashtags.usedInCountPosts" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Used in %(postCount)lld posts"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.NavigationTitle.addBio" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a bio"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.NavigationTitle.bio" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bio"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.NavigationTitle.customFields" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom fields"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.NavigationTitle.customFieldsSubtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E.g. pronouns, external links, etc."
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.NavigationTitle.displayName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Display name"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.NavigationTitle.featuredHashtags" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Featured hashtags"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.NavigationTitle.featuredHashtagsStubtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allow users to filter your timeline by topic"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.NavigationTitle.profileTabSettings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile tab settings"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.SubpageTitle.addBio" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add bio"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.SubpageTitle.addField" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add field"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.SubpageTitle.addHashtag" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add hashtag"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.SubpageTitle.customFields" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom fields"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.SubpageTitle.editBio" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit bio"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.SubpageTitle.editDisplayName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit display name"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.SubpageTitle.editField" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit field"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.SubpageTitle.featuredHashtags" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Featured hashtags"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.SubpageTitle.profileTabSettings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile tab settings"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.SubpageTitle.reorderFields" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reorder fields"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.SubpageTitle.verifiedLinkHelp" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How to add a verified link"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.VerifiedLinks.addWebsiteAsCustomField" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add your website as a custom field"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.VerifiedLinks.addWebsiteDetailExplainer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification."
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.VerifiedLinks.copyCode" : {
+      "comment" : "button text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy code"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.VerifiedLinks.copyTheCodeBelow" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy the HTML code below"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.VerifiedLinks.explanation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adding the code to your header allows the <a> element to remain invisible. The rel=\\\"me\\\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it."
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.VerifiedLinks.intro" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.VerifiedLinks.pasteCode" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paste the code into the header HTML of your website"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.2"
+}

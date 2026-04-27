@@ -135,11 +135,11 @@ enum RelationshipButtonType {
         case .updating, .error:
             return nil
         case .hiddenByModerators:
-            return "Show anyway" // TODO: L10n
+            return L10nLookup.Common.Controls.RelationshipAction.showAnyway
         case .acceptTheirFollowRequest:
-            return "Accept" // TODO: L10n
+            return L10nLookup.Common.Controls.RelationshipAction.acceptFollowRequest
         case .rejectTheirFollowRequest:
-            return "Reject" // TODO: L10n
+            return L10nLookup.Common.Controls.RelationshipAction.rejectFollowRequest
         }
     }
     

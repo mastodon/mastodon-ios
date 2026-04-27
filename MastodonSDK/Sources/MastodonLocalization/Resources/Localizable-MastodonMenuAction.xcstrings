@@ -1,0 +1,114 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Common.Controls.Actions.addPersonalNote" : {
+      "comment" : "menu action to add your own private note regarding another account’s profile",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add personal note"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.blockDomain" : {
+      "comment" : "menu action to block an entire domain",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Block domain %1$(domainName)@"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.editPersonalNote" : {
+      "comment" : "menu action to edit your own private note regarding another account’s profile",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit personal note"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.featureOnMyProfile" : {
+      "comment" : "menu action to begin featuring an account or hashtag on your profile",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feature on my profile"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.hideBoosts" : {
+      "comment" : "menu action to hide boots from a particular account",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide boosts"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.removeFollower" : {
+      "comment" : "menu action to remove an account from your followers",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove follower"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.showBoosts" : {
+      "comment" : "menu action to show boosts from a particular account",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show boosts"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.stopFeaturingOnMyProfile" : {
+      "comment" : "menu action to stop featuring an account or hashtag on your profile",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop featuring on my profile"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.unblockDomain" : {
+      "comment" : "menu action to unblock an entire domain",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unblock domain %1$(domainName)@"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.2"
+}
