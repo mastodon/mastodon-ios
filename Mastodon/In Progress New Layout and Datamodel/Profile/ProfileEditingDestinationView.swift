@@ -340,20 +340,19 @@ struct ProfileTabSettingsEditor: View {
     
     var body: some View {
         List {
-            // TODO: L10n
             // SHOW/HIDE MEDIA TAB
             Section {
-                toggleRow(label: "'Media' tab", subtitle: "Shows your posts containing media", toggleState: $showMediaTabToggleState, isSaving: $isSavingMediaTabSetting)
+                toggleRow(label: L10nLookup.Scene.EditProfile.TabSettings.mediaTabTitle, subtitle: L10nLookup.Scene.EditProfile.TabSettings.mediaTabSubtitle, toggleState: $showMediaTabToggleState, isSaving: $isSavingMediaTabSetting)
                 if showMediaTabToggleState {
-                    toggleRow(label: "Include replies", subtitle: nil, toggleState: $showMediaRepliesToggleState, isSaving: $isSavingMediaRepliesSetting)
+                    toggleRow(label: L10nLookup.Scene.EditProfile.TabSettings.includeReplies, subtitle: nil, toggleState: $showMediaRepliesToggleState, isSaving: $isSavingMediaRepliesSetting)
                 }
             }
             
             // SHOW/HIDE FEATURED TAB
             Section {
-                toggleRow(label: "'Featured' tab", subtitle: "A space to showcase other accounts", toggleState: $showFeaturedTabToggleState, isSaving: $isSavingFeaturedTabSetting)
+                toggleRow(label: L10nLookup.Scene.EditProfile.TabSettings.featuredTabTitle, subtitle: L10nLookup.Scene.EditProfile.TabSettings.featuredTabSubtitle, toggleState: $showFeaturedTabToggleState, isSaving: $isSavingFeaturedTabSetting)
             } footer: {
-                tipText("These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps.")
+                tipText(L10nLookup.Scene.EditProfile.TabSettings.federationDisclaimer)
             }
         }
         .task {

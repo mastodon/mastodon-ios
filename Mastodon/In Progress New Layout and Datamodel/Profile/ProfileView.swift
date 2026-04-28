@@ -229,7 +229,7 @@ struct ProfileView: View {
                     HStack(alignment: .firstTextBaseline) {
                         Image(systemName: "info.circle")
                             .foregroundStyle(Asset.Colors.accent.swiftUIColor)
-                        Text("Personal notes are only visible to you.") // TODO: L10n
+                        Text(L10nLookup.Scene.Profile.PersonalNote.explainerText)
                     }
                     .font(.footnote)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -240,7 +240,7 @@ struct ProfileView: View {
                     }
                     
                     VStack(alignment: .leading, spacing: tinySpacing) {
-                        SubsectionHeading(title: "Personal note", subtitle: nil)  // TODO: L10n
+                        SubsectionHeading(title: L10nLookup.Scene.Profile.PersonalNote.editTitle, subtitle: nil)
                         MetaTextInputField(allowScroll: true, drawBackground: true, returnKeyType: .done)
                             .environment(editState.valueEditingModel)
                             .frame(height: 72)
@@ -252,7 +252,7 @@ struct ProfileView: View {
                                 self.viewModel.relationshipViewModel.cancelPersonalNoteEdit()
                             }
                         } label: {
-                            Text("Cancel")
+                            Text(L10n.Common.Controls.Actions.cancel)
                                 .padding(.horizontal)
                                 .padding(.vertical, tinySpacing)
                                 .background() {
@@ -266,7 +266,7 @@ struct ProfileView: View {
                                 viewModel.relationshipViewModel.commitPersonalNoteEdit()
                             }
                         } label: {
-                            Text("Save")  // TODO: L10n
+                            Text(L10n.Common.Controls.Actions.save)
                                 .foregroundColor(.white)
                                 .padding(.horizontal)
                                 .padding(.vertical, tinySpacing)
@@ -316,8 +316,8 @@ extension ProfileView {
         
         var title: String {
             switch self {
-            case .add: "Add a personal note" // TODO: L10n
-            case .edit: "Edit personal note" // TODO: L10n
+            case .add: L10nLookup.Scene.Profile.PersonalNote.addPersonalNote
+            case .edit: L10nLookup.Scene.Profile.PersonalNote.editPersonalNote
             case .pending: "" // not actually used
             }
         }
@@ -442,7 +442,7 @@ struct ProfileAvatarAndBannerView: View {
     
     @ViewBuilder var followRequestApprovalMessage: some View {
         if let username = profileViewModel.account?.displayInfo.displayName {
-            let message = "\(username) requested to follow you" // TODO: L10n
+            let message = L10nLookup.Scene.Profile.requestedToFollowYou(username)
             let emojis = profileViewModel.account?.displayInfo.emojis ?? []
             let messageWithBoldedName = message.htmlParagraph(boldingSubstring: username, workingAroundEmojiCodes: emojis.map { $0.shortcode })
             MastodonContentView.timelinePost(html: messageWithBoldedName, emojis: emojis, isInlinePreview: false)
@@ -613,16 +613,14 @@ struct ProfileInfoView: View {
                         CustomFieldsFlow(focusedField: $viewModel.focusedCustomField, fields: viewModel.account?.metadata.customFieldsForDisplay ?? [], emojis: viewModel.account?._legacyEntity.emojis ?? [])
                     }
                 case .hideAlways:
-                    // TODO: L10n
-                    Text("Account suspended")
+                    Text(L10nLookup.Scene.Profile.SuspendedAccount.title)
                         .fontWeight(.semibold)
                 case .hideUntilRequestedToShow:
-                    // TODO: L10n
                     if let domain = AuthenticationServiceProvider.shared.currentActiveUser.value?.domain {
-                        Text("This account has been hidden by the moderators of \(domain).")
+                        Text(L10nLookup.Scene.Profile.SuspendedAccount.explanationWithDomain(domain))
                             .fontWeight(.semibold)
                     } else {
-                        Text("This account has been hidden by your moderators.")
+                        Text(L10nLookup.Scene.Profile.SuspendedAccount.explanation)
                             .fontWeight(.semibold)
                     }
                 }
@@ -703,7 +701,7 @@ struct HandleInfoPopover: View {
                 } label: {
                     HStack {
                         Image(systemName: "document.on.document")
-                        Text("Copy handle") // TODO: L10n
+                        Text(L10nLookup.Scene.Profile.copyHandle)
                     }
                     .padding()
                     .padding(.horizontal)
@@ -773,7 +771,7 @@ struct PersonalNoteView: View {
         ZStack(alignment: .topTrailing) {
             
             VStack(alignment: .leading) {
-                Text( "Personal note (visible only to you)")  // TODO: L10n
+                Text(L10nLookup.Scene.Profile.PersonalNote.title)
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -1237,11 +1235,11 @@ extension ProfileBadge: View {
     var text: String {
         switch self {
         case .followsYou:
-            "Follows you" // TODO: L10n
+            L10nLookup.Scene.Profile.followsYou
         case .role(let roleEntity, let domain):
             "\(roleEntity.name) (\(domain))"
         case .isBot:
-            "Automated account" // TODO: L10n
+            L10nLookup.Scene.Profile.automatedAccount
         case .isMuted:
             L10n.Common.Controls.Friendship.muted
         case .isBlocked:

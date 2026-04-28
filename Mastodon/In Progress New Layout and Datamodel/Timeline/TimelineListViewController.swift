@@ -628,11 +628,11 @@ extension MastodonPostMenuAction {
             case .confirmDomainBlock:
                 L10n.Common.Alerts.BlockDomain.blockEntireDomain
             case .confirmUnhideFeatureTabBeforeFeaturing:
-                "Show featured tab?"  // TODO: L10n
+                L10nLookup.MastodonMenuAction.confirmShowFeaturedTabTitle
             case .confirmFollowBeforeAddingToList(let username, _):
-                "Follow \(username)?"  // TODO: L10n
+                L10nLookup.MastodonMenuAction.confirmFollowBeforeAddingToListTitle(username: username)
             case .confirmRemoveFollower:
-                "Remove follower?" // TODO: L10n
+                L10nLookup.MastodonMenuAction.confirmRemoveFollowerTitle
             case .error:
                 L10n.Common.Alerts.genericError
             }
@@ -660,11 +660,11 @@ extension MastodonPostMenuAction {
             case .confirmDeleteOfPost:
                 L10n.Common.Alerts.DeletePost.message
             case .confirmUnhideFeatureTabBeforeFeaturing(let item, _):
-                "You have hidden your featured tab from other users. Would you like to show it and feature \(item)?" // TODO: L10n
+                L10nLookup.MastodonMenuAction.confirmShowFeatureTabMessage(featureItem: item)
             case .confirmFollowBeforeAddingToList(let username, _):
-                "You must follow \(username) before adding them to a list." // TODO: L10n
+                L10nLookup.MastodonMenuAction.confirmFollowBeforeAddingToListMessage(username: username)
             case .confirmRemoveFollower(let username, _):
-                "\(username) will stop following you. Are you sure you want to proceed?" // TODO: L10n
+                L10nLookup.MastodonMenuAction.confirmRemoveFollowerMessage(username: username)
             case .error(let error):
                 error.localizedDescription
             }
@@ -2452,21 +2452,21 @@ struct TimelineListView: View {
             Button {
                 didConfirm(true)
             } label: {
-                Text("Show Featured tab")  // TODO: L10n
+                Text(L10nLookup.MastodonMenuAction.confirmShowFeaturedTabButton)
             }
         case .confirmFollowBeforeAddingToList(_, let didConfirm):
             cancelButton(didConfirm)
             Button {
                 didConfirm(true)
             } label: {
-                Text("Follow")  // TODO: L10n
+                Text(L10nLookup.MastodonMenuAction.confirmFollowButton)
             }
         case .confirmRemoveFollower(_, let didConfirm):
             cancelButton(didConfirm)
             Button {
                 didConfirm(true)
             } label: {
-                Text("Remove follower") // TODO: L10n
+                Text(L10nLookup.MastodonMenuAction.removeFollower)
             }
         }
     }

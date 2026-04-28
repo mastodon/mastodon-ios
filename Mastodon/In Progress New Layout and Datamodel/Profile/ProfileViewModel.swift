@@ -5,6 +5,7 @@ import MastodonSDK
 import MastodonCore
 import PhotosUI
 import SwiftUI
+import MastodonLocalization
 
 @MainActor
 @Observable class ProfileViewModel {
@@ -252,7 +253,7 @@ class ProfileEditingViewModel {
     
     init() {
         displayNameFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "", characterLimit: .init(initialMessage: nil, softLimit: AccountsLimits.defaultMaxDisplayNameLength, hardLimit: nil /*will be set when the instance is known*/), autocompleteMastodonItems: false)
-        bioFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: "Describe yourself and/or this account.", characterLimit: .init(initialMessage: nil, softLimit: 220, hardLimit: nil /*will be set when the instance is known*/), autocompleteMastodonItems: true) // TODO: L10n
+        bioFieldEditingViewModel = MetaTextInputFieldViewModel(stringContent: "", placeholder: L10nLookup.Scene.EditProfile.SubpageTitle.bioPlaceholder, characterLimit: .init(initialMessage: nil, softLimit: 220, hardLimit: nil /*will be set when the instance is known*/), autocompleteMastodonItems: true)
         
         selectedBannerImage = Binding<[PhotosPickerItem]>(get: {[]}, set: {_ in})
         selectedAvatar = Binding<[PhotosPickerItem]>(get: {[]}, set: {_ in})
@@ -396,15 +397,14 @@ class ProfileEditingViewModel {
     
     func beginEditingField(_ fieldType: ProfileEditingViewModel.FieldEditType, profileViewModel: ProfileViewModel, navigator: MastodonNavigationRouter) {
         switch fieldType {
-            // TODO: L10n for all placeholders
         case .create:
             fieldEditingState = .init(editingField: fieldType,
-                                      labelEditingModel: MetaTextInputFieldViewModel(stringContent: "", placeholder: "E.g. \"Personal website\"", characterLimit: .init(initialMessage: "", softLimit: 25, hardLimit: instanceLimits?.maxProfileFieldNameLength ?? AccountsLimits.defaultMaxProfileFieldNameLength), autocompleteMastodonItems: false),
-                                      valueEditingModel: MetaTextInputFieldViewModel(stringContent: "", placeholder: "E.g. \"example.me\"", characterLimit: .init(initialMessage: nil, softLimit: 25, hardLimit: instanceLimits?.maxProfileFieldValueLength ?? AccountsLimits.defaultMaxProfileFieldValueLength), autocompleteMastodonItems: true))
+                                      labelEditingModel: MetaTextInputFieldViewModel(stringContent: "", placeholder: L10nLookup.Scene.EditProfile.CustomFields.labelPlaceholder, characterLimit: .init(initialMessage: "", softLimit: 25, hardLimit: instanceLimits?.maxProfileFieldNameLength ?? AccountsLimits.defaultMaxProfileFieldNameLength), autocompleteMastodonItems: false),
+                                      valueEditingModel: MetaTextInputFieldViewModel(stringContent: "", placeholder: L10nLookup.Scene.EditProfile.CustomFields.valuePlaceholder, characterLimit: .init(initialMessage: nil, softLimit: 25, hardLimit: instanceLimits?.maxProfileFieldValueLength ?? AccountsLimits.defaultMaxProfileFieldValueLength), autocompleteMastodonItems: true))
         case .edit(let field):
             fieldEditingState = .init(editingField: fieldType,
-                                      labelEditingModel: MetaTextInputFieldViewModel(stringContent: field.name, placeholder: "E.g. \"Personal website\"", characterLimit: .init(initialMessage: "", softLimit: 25, hardLimit: instanceLimits?.maxProfileFieldNameLength ?? AccountsLimits.defaultMaxProfileFieldNameLength), autocompleteMastodonItems: false),
-                                      valueEditingModel: MetaTextInputFieldViewModel(stringContent: field.value, placeholder: "E.g. \"example.me\"", characterLimit: .init(initialMessage: nil, softLimit: 25, hardLimit: instanceLimits?.maxProfileFieldValueLength ?? AccountsLimits.defaultMaxProfileFieldValueLength), autocompleteMastodonItems: true))
+                                      labelEditingModel: MetaTextInputFieldViewModel(stringContent: field.name, placeholder: L10nLookup.Scene.EditProfile.CustomFields.labelPlaceholder, characterLimit: .init(initialMessage: "", softLimit: 25, hardLimit: instanceLimits?.maxProfileFieldNameLength ?? AccountsLimits.defaultMaxProfileFieldNameLength), autocompleteMastodonItems: false),
+                                      valueEditingModel: MetaTextInputFieldViewModel(stringContent: field.value, placeholder: L10nLookup.Scene.EditProfile.CustomFields.valuePlaceholder, characterLimit: .init(initialMessage: nil, softLimit: 25, hardLimit: instanceLimits?.maxProfileFieldValueLength ?? AccountsLimits.defaultMaxProfileFieldValueLength), autocompleteMastodonItems: true))
         }
         navigator.presentModal(.editProfileNavigation(destination: .editCustomField(profileViewModel: profileViewModel)))
     }
@@ -607,9 +607,9 @@ extension ProfileEditingViewModel {
         guard let fieldsCount = customFields?.count else { return nil }
         guard fieldsCount >= limit else { return nil }
         if let domainName = initialInfo?.domain {
-            return "Max \(limit) fields reached (\(domainName))" // TODO: L10n
+            return L10nLookup.Scene.EditProfile.CustomFields.reachedMaxFields(max: limit, domain: domainName)
         } else {
-            return "Max \(limit) fields reached" // TODO: L10n
+            return L10nLookup.Scene.EditProfile.CustomFields.reachedMaxFields(max: limit)
         }
     }
 }

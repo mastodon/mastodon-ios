@@ -86,7 +86,7 @@ public struct L10nLookup {
                 }
                 
                 public static var accountSwitcherTip: String {
-                    let result = tr("Localizable", "L10nLookup.Scene.Settings.Overview.AccountSwitcherTip")
+                    let result = tr("Localizable", "Scene.Settings.Overview.AccountSwitcherTip")
                     return result
                 }
             }
@@ -289,6 +289,64 @@ public extension L10nLookup.Common.Controls.RelationshipAction {
 }
 
 // These translations are in the Localizable-Profile.xcstrings file
+public extension L10nLookup.Scene.Profile {
+    struct PersonalNote {
+        public static let explainerText: String = {
+            let result = tr("Localizable-Profile", "Scene.Profile.PersonalNote.explainerText")
+            return result
+        }()
+        public static let editTitle: String = {
+            let result = tr("Localizable-Profile", "Scene.Profile.PersonalNote.editTitle")
+            return result
+        }()
+        public static let addPersonalNote: String = {
+            let result = tr("Localizable-Profile", "Scene.Profile.PersonalNote.addPersonalNote")
+            return result
+        }()
+        public static let editPersonalNote: String = {
+            let result = tr("Localizable-Profile", "Scene.Profile.PersonalNote.editPersonalNote")
+            return result
+        }()
+        public static let title: String = {
+            let result = tr("Localizable-Profile", "Scene.Profile.PersonalNote.title")
+            return result
+        }()
+    }
+    
+    struct SuspendedAccount {
+        public static let title = {
+            let result = tr("Localizable-Profile", "Scene.Profile.SuspendedAccount.title")
+            return result
+        }()
+        public static func explanationWithDomain(_ domainName: String) -> String {
+            let result = tr("Localizable-Profile", "Scene.Profile.SuspendedAccount.explanationWithDomain", domainName)
+            return result
+        }
+        public static let explanation = {
+            let result = tr("Localizable-Profile", "Scene.Profile.SuspendedAccount.explanation")
+            return result
+        }()
+    }
+    
+    static func requestedToFollowYou(_ username: String) -> String {
+        let result = tr("Localizable-Profile", "Scene.Profile.requestedToFollowYou", username)
+        return result
+    }
+    static let copyHandle = {
+        let result = tr("Localizable-Profile", "Scene.Profile.copyHandle")
+        return result
+    }()
+    static let followsYou = {
+        let result = tr("Localizable-Profile", "Scene.Profile.followsYou")
+        return result
+    }()
+    static let automatedAccount = {
+        let result = tr("Localizable-Profile", "Scene.Profile.automatedAccount")
+        return result
+    }()
+}
+
+// These translations are in the Localizable-Profile.xcstrings file
 public extension L10nLookup.Scene.EditProfile {
     struct NavigationTitle {
         public static let displayName = {
@@ -335,6 +393,10 @@ public extension L10nLookup.Scene.EditProfile {
         }()
         public static let editBio = {
             let result = tr("Localizable-Profile", "Scene.EditProfile.SubpageTitle.editBio")
+            return result
+        }()
+        public static let bioPlaceholder = {
+            let result = tr("Localizable-Profile", "Scene.EditProfile.SubpageTitle.bioPlaceholder")
             return result
         }()
         public static let customFields = {
@@ -451,6 +513,22 @@ public extension L10nLookup.Scene.EditProfile {
             let result = tr("Localizable-Profile", "Scene.EditProfile.CustomFields.deleteCustomFieldConfirmationAlertMessage")
             return result
         }()
+        public static let labelPlaceholder: String = {
+            let result = tr("Localizable-Profile", "Scene.EditProfile.CustomFields.labelPlaceholder")
+            return result
+        }()
+        public static let valuePlaceholder: String = {
+            let result = tr("Localizable-Profile", "Scene.EditProfile.CustomFields.valuePlaceholder")
+            return result
+        }()
+        public static func reachedMaxFields(max: Int, domain: String) -> String {
+            let result = tr("Localizable-Profile", "Scene.EditProfile.CustomFields.reachedMaxFieldsForDomain")
+            return result
+        }
+        public static func reachedMaxFields(max: Int) -> String {
+            let result = tr("Localizable-Profile", "Scene.EditProfile.CustomFields.reachedMaxFields")
+            return result
+        }
     }
     
     struct VerifiedLinksExplainer {
@@ -480,6 +558,33 @@ public extension L10nLookup.Scene.EditProfile {
         }()
         public static let addWebsiteDetailExplainer = {
             let result = tr("Localizable-Profile", "Scene.EditProfile.VerifiedLinks.addWebsiteDetailExplainer")
+            return result
+        }()
+    }
+    
+    struct TabSettings {
+        public static let mediaTabTitle = {
+            let result = tr("Localizable-Profile", "Scene.EditProfile.TabSettings.mediaTabTitle")
+            return result
+        }()
+        public static let mediaTabSubtitle = {
+            let result = tr("Localizable-Profile", "Scene.EditProfile.TabSettings.mediaTabSubtitle")
+            return result
+        }()
+        public static let includeReplies = {
+            let result = tr("Localizable-Profile", "Scene.EditProfile.TabSettings.includeReplies")
+            return result
+        }()
+        public static let featuredTabTitle = {
+            let result = tr("Localizable-Profile", "Scene.EditProfile.TabSettings.featuredTabTitle")
+            return result
+        }()
+        public static let featuredTabSubtitle = {
+            let result = tr("Localizable-Profile", "Scene.EditProfile.TabSettings.featuredTabSubtitle")
+            return result
+        }()
+        public static let federationDisclaimer = {
+            let result = tr("Localizable-Profile", "Scene.EditProfile.TabSettings.federationDisclaimer")
             return result
         }()
     }
@@ -544,6 +649,39 @@ extension L10nLookup {
         }()
         public static let addPersonalNote: String = {
             let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.addPersonalNote")
+            return result
+        }()
+        
+        public static let confirmShowFeaturedTabTitle: String = {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controlls.Actions.confirmShowFeaturedTabTitle")
+            return result
+        }()
+        public static func confirmFollowBeforeAddingToListTitle(username: String) -> String {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controlls.Actions.confirmFollowBeforeAddingToListTitle", username)
+            return result
+        }
+        public static let confirmRemoveFollowerTitle: String = {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controlls.Actions.confirmRemoveFollowerTitle")
+            return result
+        }()
+        public static func confirmShowFeatureTabMessage(featureItem: String) -> String {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controlls.Actions.confirmShowFeatureTabMessage", featureItem)
+            return result
+        }
+        public static func confirmFollowBeforeAddingToListMessage(username: String) -> String {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controlls.Actions.confirmFollowBeforeAddingToListMessage", username)
+            return result
+        }
+        public static func confirmRemoveFollowerMessage(username: String) -> String {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controlls.Actions.confirmRemoveFollowerMessage", username)
+            return result
+        }
+        public static let confirmShowFeaturedTabButton: String = {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controlls.Actions.confirmShowFeaturedTabButton")
+            return result
+        }()
+        public static let confirmFollowButton: String = {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controlls.Actions.confirmFollowButton")
             return result
         }()
     }

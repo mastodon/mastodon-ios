@@ -106,6 +106,17 @@
         }
       }
     },
+    "Scene.EditProfile.CustomFields.labelPlaceholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E.g. “Personal website”"
+          }
+        }
+      }
+    },
     "Scene.EditProfile.CustomFields.prompt" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -113,6 +124,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add your pronouns, external links, or anything else you’d like to share."
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.CustomFields.reachedMaxFields" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Max %1$(limit)lld fields reached"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.CustomFields.reachedMaxFieldsForDomain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Max %1$(limit)lld fields reached (%2$(domainName)@)"
           }
         }
       }
@@ -149,6 +182,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Value"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.CustomFields.valuePlaceholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E.g. “example.me”"
           }
         }
       }
@@ -380,6 +424,17 @@
         }
       }
     },
+    "Scene.EditProfile.SubpageTitle.bioPlaceholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Describe yourself and/or this account."
+          }
+        }
+      }
+    },
     "Scene.EditProfile.SubpageTitle.customFields" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -468,6 +523,73 @@
         }
       }
     },
+    "Scene.EditProfile.TabSettings.featuredTabSubtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A space to showcase other accounts"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.TabSettings.featuredTabTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "'Featured' tab"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.TabSettings.federationDisclaimer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.TabSettings.includeReplies" : {
+      "comment" : "label for a toggle that determines whether replies are included in a timeline on your profile",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Include replies"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.TabSettings.mediaTabSubtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shows your posts containing media"
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.TabSettings.mediaTabTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "'Media' tab"
+          }
+        }
+      }
+    },
     "Scene.EditProfile.VerifiedLinks.addWebsiteAsCustomField" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -542,6 +664,141 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Paste the code into the header HTML of your website"
+          }
+        }
+      }
+    },
+    "Scene.Profile.automatedAccount" : {
+      "comment" : "keep this short",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automated account"
+          }
+        }
+      }
+    },
+    "Scene.Profile.copyHandle" : {
+      "comment" : "button text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy handle"
+          }
+        }
+      }
+    },
+    "Scene.Profile.followsYou" : {
+      "comment" : "keep this short",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Follows you"
+          }
+        }
+      }
+    },
+    "Scene.Profile.PersonalNote.addPersonalNote" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a personal note"
+          }
+        }
+      }
+    },
+    "Scene.Profile.PersonalNote.editPersonalNote" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit personal note"
+          }
+        }
+      }
+    },
+    "Scene.Profile.PersonalNote.editTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personal note"
+          }
+        }
+      }
+    },
+    "Scene.Profile.PersonalNote.explainerText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personal notes are only visible to you."
+          }
+        }
+      }
+    },
+    "Scene.Profile.PersonalNote.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personal note (visible only to you)"
+          }
+        }
+      }
+    },
+    "Scene.Profile.requestedToFollowYou" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$(username)@ requested to follow you"
+          }
+        }
+      }
+    },
+    "Scene.Profile.SuspendedAccount.explanation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This account has been hidden by your moderators."
+          }
+        }
+      }
+    },
+    "Scene.Profile.SuspendedAccount.explanationWithDomain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This account has been hidden by the moderators of %1$(domainName)@."
+          }
+        }
+      }
+    },
+    "Scene.Profile.SuspendedAccount.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account suspended"
           }
         }
       }
