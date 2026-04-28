@@ -280,28 +280,6 @@ struct ProfileEditingView: View {
     }
 }
 
-struct ORIGINALProfileEditingView {
-    enum FieldEditType {
-        case create
-        case edit(Mastodon.Entity.Field)
-        
-        var title: String {
-            switch self {
-            case .create:
-                "Create custom field" // TODO: L10n
-            case .edit:
-                "Edit custom field" // TODO: L10n
-            }
-        }
-    }
-    
-    struct FieldEditingState {
-        let editingField: FieldEditType
-        let labelEditingModel: MetaTextInputFieldViewModel
-        let valueEditingModel: MetaTextInputFieldViewModel
-    }
-}
-
 extension ProfileEditingViewModel {
     enum ProfileEditingAlert {
         case deleteCustomField(Mastodon.Entity.Field)
@@ -309,14 +287,14 @@ extension ProfileEditingViewModel {
         var title: String {
             switch self {
             case .deleteCustomField:
-                "Delete custom field?"
+                L10nLookup.Scene.EditProfile.CustomFields.deleteCustomFieldConfirmationAlertTitle
             }
         }
         
         var messageText: String {
             switch self {
             case .deleteCustomField:
-                "Are you sure you want to delete this custom field? This action can’t be undone."
+                L10nLookup.Scene.EditProfile.CustomFields.deleteCustomFieldConfirmationAlertMessage
             }
         }
     }

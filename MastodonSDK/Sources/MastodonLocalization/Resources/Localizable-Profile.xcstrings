@@ -60,6 +60,28 @@
         }
       }
     },
+    "Scene.EditProfile.CustomFields.deleteCustomFieldConfirmationAlertMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this custom field? This action can’t be undone."
+          }
+        }
+      }
+    },
+    "Scene.EditProfile.CustomFields.deleteCustomFieldConfirmationAlertTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete custom field?"
+          }
+        }
+      }
+    },
     "Scene.EditProfile.CustomFields.deleteField" : {
       "comment" : "button text",
       "extractionState" : "manual",

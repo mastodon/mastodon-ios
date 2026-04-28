@@ -220,7 +220,7 @@ class ProfileEditingViewModel {
     let displayNameFieldEditingViewModel: MetaTextInputFieldViewModel
     let bioFieldEditingViewModel: MetaTextInputFieldViewModel
     
-    var fieldEditingState: ORIGINALProfileEditingView.FieldEditingState?
+    var fieldEditingState: ProfileEditingViewModel.FieldEditingState?
     var isReorderingCustomFields: Bool = false
     
     var selectedBannerImage: Binding<[PhotosPickerItem]>
@@ -394,7 +394,7 @@ class ProfileEditingViewModel {
         isAutomatedAccount = account.metadata.isBot
     }
     
-    func beginEditingField(_ fieldType: ORIGINALProfileEditingView.FieldEditType, profileViewModel: ProfileViewModel, navigator: MastodonNavigationRouter) {
+    func beginEditingField(_ fieldType: ProfileEditingViewModel.FieldEditType, profileViewModel: ProfileViewModel, navigator: MastodonNavigationRouter) {
         switch fieldType {
             // TODO: L10n for all placeholders
         case .create:
@@ -474,6 +474,19 @@ class ProfileEditingViewModel {
     
     func cancelDeleteCustomField() {
         presentingAlert = nil
+    }
+}
+
+extension ProfileEditingViewModel {
+    enum FieldEditType {
+        case create
+        case edit(Mastodon.Entity.Field)
+    }
+    
+    struct FieldEditingState {
+        let editingField: FieldEditType
+        let labelEditingModel: MetaTextInputFieldViewModel
+        let valueEditingModel: MetaTextInputFieldViewModel
     }
 }
 

@@ -443,6 +443,14 @@ public extension L10nLookup.Scene.EditProfile {
             let result = tr("Localizable-Profile", "Scene.EditProfile.CustomFields.characterCountTip")
             return result
         }()
+        public static let deleteCustomFieldConfirmationAlertTitle: String = {
+            let result = tr("Localizable-Profile", "Scene.EditProfile.CustomFields.deleteCustomFieldConfirmationAlertTitle")
+            return result
+        }()
+        public static let deleteCustomFieldConfirmationAlertMessage: String = {
+            let result = tr("Localizable-Profile", "Scene.EditProfile.CustomFields.deleteCustomFieldConfirmationAlertMessage")
+            return result
+        }()
     }
     
     struct VerifiedLinksExplainer {
