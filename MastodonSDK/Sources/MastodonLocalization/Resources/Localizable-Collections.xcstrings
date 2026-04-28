@@ -1,0 +1,39 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Scene.Collections.collectionsExplainerLong" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        }
+      }
+    },
+    "Scene.Collections.collectionsExplainerShort" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        }
+      }
+    },
+    "Scene.Collections.stayTunedForCollections" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stay tuned for Collections"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.2"
+}

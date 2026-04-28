@@ -591,8 +591,8 @@ public extension L10nLookup.Scene.EditProfile {
 }
 
 // These translations are in the Localizable-MastodonMenuAction.xcstrings file
-extension L10nLookup {
-    public struct MastodonMenuAction {
+public extension L10nLookup {
+    struct MastodonMenuAction {
         public static func follow(_ username: String) -> String {
             return L10n.Common.Controls.Actions.follow(username)
         }
@@ -653,35 +653,161 @@ extension L10nLookup {
         }()
         
         public static let confirmShowFeaturedTabTitle: String = {
-            let result = tr("Localizable-MastodonMenuAction", "Common.Controlls.Actions.confirmShowFeaturedTabTitle")
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.confirmShowFeaturedTabTitle")
             return result
         }()
         public static func confirmFollowBeforeAddingToListTitle(username: String) -> String {
-            let result = tr("Localizable-MastodonMenuAction", "Common.Controlls.Actions.confirmFollowBeforeAddingToListTitle", username)
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.confirmFollowBeforeAddingToListTitle", username)
             return result
         }
         public static let confirmRemoveFollowerTitle: String = {
-            let result = tr("Localizable-MastodonMenuAction", "Common.Controlls.Actions.confirmRemoveFollowerTitle")
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.confirmRemoveFollowerTitle")
             return result
         }()
         public static func confirmShowFeatureTabMessage(featureItem: String) -> String {
-            let result = tr("Localizable-MastodonMenuAction", "Common.Controlls.Actions.confirmShowFeatureTabMessage", featureItem)
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.confirmShowFeatureTabMessage", featureItem)
             return result
         }
         public static func confirmFollowBeforeAddingToListMessage(username: String) -> String {
-            let result = tr("Localizable-MastodonMenuAction", "Common.Controlls.Actions.confirmFollowBeforeAddingToListMessage", username)
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.confirmFollowBeforeAddingToListMessage", username)
             return result
         }
         public static func confirmRemoveFollowerMessage(username: String) -> String {
-            let result = tr("Localizable-MastodonMenuAction", "Common.Controlls.Actions.confirmRemoveFollowerMessage", username)
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.confirmRemoveFollowerMessage", username)
             return result
         }
         public static let confirmShowFeaturedTabButton: String = {
-            let result = tr("Localizable-MastodonMenuAction", "Common.Controlls.Actions.confirmShowFeaturedTabButton")
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.confirmShowFeaturedTabButton")
             return result
         }()
         public static let confirmFollowButton: String = {
-            let result = tr("Localizable-MastodonMenuAction", "Common.Controlls.Actions.confirmFollowButton")
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.confirmFollowButton")
+            return result
+        }()
+    }
+}
+
+public extension L10nLookup {
+    struct CommonControls {
+        public static let learnMore: String = {
+            let result = tr("Localizable-CommonControls", "Common.Controls.learnMore")
+            return result
+        }()
+        public static let genericImageDescription: String = {
+            let result = tr("Localizable-CommonControls", "Common.Controls.genericImageDescription")
+            return result
+        }()
+        public struct CharacterLimits {
+            public static func simpleCharacterCount(_ count: Int) -> String {
+                let result = tr("Localizable-CommonControls", "Common.Controls.simpleCharacterCount")
+                return result
+            }
+            public static func characterCount(_ count: Int, outOf: Int) -> String {
+                let result = tr("Localizable-CommonControls", "Common.Controls.characterCount")
+                return result
+            }
+            public static func characterCountSuggestion(_ count: Int) -> String {
+                let result = tr("Localizable-CommonControls", "Common.Controls.characterCountSuggestion")
+                return result
+            }
+        }
+    }
+}
+
+public extension L10nLookup.Scene {
+    struct Lists {
+        public static let listName: String = {
+            let result = tr("Localizable-Lists", "Scene.Lists.listName")
+            return result
+        }()
+        public static let includeRepliesTo: String = {
+            let result = tr("Localizable-Lists", "Scene.Lists.includeRepliesTo")
+            return result
+        }()
+        
+        public struct ReplyFilterOptions {
+            public static let noOne: String = {
+                let result = tr("Localizable-Lists", "Scene.Lists.ReplyFilterOptions.noOne")
+                return result
+            }()
+
+            public static let membersOfTheList: String = {
+                let result = tr("Localizable-Lists", "Scene.Lists.ReplyFilterOptions.membersOfTheList")
+                return result
+            }()
+
+            public static let anyFollowedUser: String = {
+                let result = tr("Localizable-Lists", "Scene.Lists.ReplyFilterOptions.anyFollowedUser")
+                return result
+            }()
+
+        }
+        public static let hideMembersInHomeFeed: String = {
+            let result = tr("Localizable-Lists", "Scene.Lists.hideMembersInHomeFeed")
+            return result
+        }()
+        public static let hideMembersExplainer: String = {
+            let result = tr("Localizable-Lists", "Scene.Lists.hideMembersExplainer")
+            return result
+        }()
+        public static func listCreationError(_ error: String) -> String {
+            let result = tr("Localizable-Lists", "Scene.Lists.listCreationError", error)
+            return result
+        }
+        public static let create: String = {
+            let result = tr("Localizable-Lists", "Scene.Lists.create")
+            return result
+        }()
+        public static let createNewList: String = {
+            let result = tr("Localizable-Lists", "Scene.Lists.createNewList")
+            return result
+        }()
+        public static let createList: String = {
+            let result = tr("Localizable-Lists", "Scene.Lists.createList")
+            return result
+        }()
+    }
+}
+
+public extension L10nLookup {
+    struct Timeline {
+        public struct EmptyState {
+            public static let showcaseYourFavoriteAccounts: String = {
+                let result = tr("Localizable-Timeline", "Scene.Timeline.EmptyState.showcaseYourFavoriteAccounts")
+                return result
+            }()
+            public static let nothingToSeeHere: String = {
+                let result = tr("Localizable-Timeline", "Scene.Timeline.EmptyState.nothingToSeeHere")
+                return result
+            }()
+            public static let someNotificationsHaveBeenFiltered: String = {
+                let result = tr("Localizable-Timeline", "Scene.Timeline.EmptyState.someNotificationsHaveBeenFiltered")
+                return result
+            }()
+            public static let featuredTabEmptyStateMessage: String = {
+                let result = tr("Localizable-Timeline", "Scene.Timeline.EmptyState.featuredTabEmptyStateMessage")
+                return result
+            }()
+            public static func featuredTabEmptyStateMessageWithUsername(_ username: String) -> String {
+                let result = tr("Localizable-Timeline", "Scene.Timeline.EmptyState.featuredTabEmptyStateMessageWithUsername", username)
+                return result
+            }
+        }
+    }
+}
+
+public extension L10nLookup {
+    struct Collections {
+        public static let stayTunedForCollections: String = {
+            let result = tr("Localizable-Collections", "Scene.Collections.stayTunedForCollections")
+            return result
+        }()
+        public static let collectionsExplainerShort: String = {
+            let result = tr("Localizable-Collections", "Scene.Collections.collectionsExplainerShort")
+            return result
+        }()
+        public static let collectionsExplainerLong: String = {
+            let result = tr("Localizable-Collections", "Scene.Collections.collectionsExplainerLong")
             return result
         }()
     }
@@ -703,4 +829,4 @@ private func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
 private var englishBundle: Bundle? = {
     guard let enBundlePath = Bundle.module.path(forResource: "en", ofType: "lproj") else { return nil }
     return Bundle(path: enBundlePath)
-    }()
+}()

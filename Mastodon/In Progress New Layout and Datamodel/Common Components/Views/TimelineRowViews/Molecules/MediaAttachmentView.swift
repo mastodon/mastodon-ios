@@ -384,7 +384,7 @@ struct BlurhashImageView: View {
         }
         .contextMenu {
             if let sharableImage {
-                ShareLink(item: sharableImage, preview: SharePreview(shareTitle ?? "Image", image: sharableImage)) // TODO: L10n
+                ShareLink(item: sharableImage, preview: SharePreview(shareTitle ?? L10nLookup.CommonControls.genericImageDescription, image: sharableImage))
             }
         }
     }

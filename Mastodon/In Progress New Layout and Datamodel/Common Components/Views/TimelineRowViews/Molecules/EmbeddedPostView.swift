@@ -78,7 +78,7 @@ struct QuotedPostPlaceholderView: View {
                         .fixedSize(horizontal: false, vertical: true)
                     Spacer(minLength: 0)
                     if viewModel.quote.state.learnMoreMessage != nil && !isPresentingLearnMore {
-                        Text("Learn more")
+                        Text(L10nLookup.CommonControls.learnMore)
                             .fontWeight(.semibold)
                     }
                 }

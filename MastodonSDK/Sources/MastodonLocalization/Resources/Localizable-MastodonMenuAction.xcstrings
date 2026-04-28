@@ -1,99 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Common.Controlls.Actions.confirmFollowBeforeAddingToListMessage" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
-          }
-        }
-      }
-    },
-    "Common.Controlls.Actions.confirmFollowBeforeAddingToListTitle" : {
-      "comment" : "alert title",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Follow %1$(username)@ ?"
-          }
-        }
-      }
-    },
-    "Common.Controlls.Actions.confirmFollowButton" : {
-      "comment" : "alert button",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Follow"
-          }
-        }
-      }
-    },
-    "Common.Controlls.Actions.confirmRemoveFollowerMessage" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%(username)@ will stop following you. Are you sure you want to proceed?"
-          }
-        }
-      }
-    },
-    "Common.Controlls.Actions.confirmRemoveFollowerTitle" : {
-      "comment" : "alert title",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Remove follower?"
-          }
-        }
-      }
-    },
-    "Common.Controlls.Actions.confirmShowFeaturedTabButton" : {
-      "comment" : "alert button",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show Featured tab"
-          }
-        }
-      }
-    },
-    "Common.Controlls.Actions.confirmShowFeaturedTabTitle" : {
-      "comment" : "alert title",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show featured tab?"
-          }
-        }
-      }
-    },
-    "Common.Controlls.Actions.confirmShowFeatureTabMessage" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You have hidden your featured tab from other users. Would you like to show it and feature %1$(item)@ ?"
-          }
-        }
-      }
-    },
     "Common.Controls.Actions.addPersonalNote" : {
       "comment" : "menu action to add your own private note regarding another account’s profile",
       "extractionState" : "manual",
@@ -114,6 +21,99 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Block domain %1$(domainName)@"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.confirmFollowBeforeAddingToListMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You must follow %1$(username)@  before adding them to a list."
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.confirmFollowBeforeAddingToListTitle" : {
+      "comment" : "alert title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Follow %1$(username)@ ?"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.confirmFollowButton" : {
+      "comment" : "alert button",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Follow"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.confirmRemoveFollowerMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%(username)@ will stop following you. Are you sure you want to proceed?"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.confirmRemoveFollowerTitle" : {
+      "comment" : "alert title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove follower?"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.confirmShowFeaturedTabButton" : {
+      "comment" : "alert button",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Featured tab"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.confirmShowFeaturedTabTitle" : {
+      "comment" : "alert title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show featured tab?"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.confirmShowFeatureTabMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have hidden your featured tab from other users. Would you like to show it and feature %1$(item)@ ?"
           }
         }
       }

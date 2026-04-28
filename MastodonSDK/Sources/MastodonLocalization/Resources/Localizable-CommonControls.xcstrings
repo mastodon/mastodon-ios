@@ -1,0 +1,64 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Common.Controls.characterCount" : {
+      "comment" : "count of characters used out of total available",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%(used)lld/%(limit)lld characters"
+          }
+        }
+      }
+    },
+    "Common.Controls.characterCountSuggestion" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tip: try to keep this short, under %1$(limit)lld characters is best"
+          }
+        }
+      }
+    },
+    "Common.Controls.genericImageDescription" : {
+      "comment" : "used in the share sheet when an image has no ALT text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Image"
+          }
+        }
+      }
+    },
+    "Common.Controls.learnMore" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learn more"
+          }
+        }
+      }
+    },
+    "Common.Controls.simpleCharacterCount" : {
+      "comment" : "count of characters used",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$(limit)lld characters"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.2"
+}

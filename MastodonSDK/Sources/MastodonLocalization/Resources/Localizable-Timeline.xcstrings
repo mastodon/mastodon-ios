@@ -1,0 +1,61 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Scene.Timeline.EmptyState.featuredTabEmptyStateMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This account hasn't featured anything yet."
+          }
+        }
+      }
+    },
+    "Scene.Timeline.EmptyState.featuredTabEmptyStateMessageWithUsername" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$(username)@ hasn't featured anything yet."
+          }
+        }
+      }
+    },
+    "Scene.Timeline.EmptyState.nothingToSeeHere" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing to see here"
+          }
+        }
+      }
+    },
+    "Scene.Timeline.EmptyState.showcaseYourFavoriteAccounts" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Showcase your favorite accounts"
+          }
+        }
+      }
+    },
+    "Scene.Timeline.EmptyState.someNotificationsHaveBeenFiltered" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Some notifications have been filtered."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.2"
+}

@@ -5,6 +5,7 @@ import MastodonSDK
 import SwiftUI
 import MastodonAsset
 import MastodonUI
+import MastodonLocalization
 
 struct ManageListMembershipView: View {
     @Environment(MyListsManagementViewModel.self) var listsViewModel
@@ -70,7 +71,7 @@ struct ManageListMembershipView: View {
         } label: {
             HStack {
                 Image(systemName: "plus")
-                Text("Create new list...")
+                Text(L10nLookup.Scene.Lists.createNewList)
             }
             .lineLimit(1)
             .minimumScaleFactor(0.4)
@@ -134,11 +135,11 @@ enum ListManagementNavigationDestination: Hashable {
         var title: String {
             switch self {
             case .none:
-                "No one"
+                L10nLookup.Scene.Lists.ReplyFilterOptions.noOne
             case .list:
-                "Members of the list"
+                L10nLookup.Scene.Lists.ReplyFilterOptions.membersOfTheList
             case .followed:
-                "Any followed user"
+                L10nLookup.Scene.Lists.ReplyFilterOptions.anyFollowedUser
             }
         }
         
@@ -179,14 +180,14 @@ struct CreateNewListView: View {
         
         VStack(alignment: .leading) {
             VStack(alignment: .leading, spacing: tinySpacing) {
-                SubsectionHeading(title: "List name", subtitle: nil) // TODO: needs L10n
+                SubsectionHeading(title:  L10nLookup.Scene.Lists.listName, subtitle: nil)
                 MetaTextInputField(allowScroll: false, drawBackground: true, returnKeyType: .done)
                     .environment(viewModel.listNameFieldEditingViewModel)
                     .frame(height: 36)
             }
             
             VStack(alignment: .leading, spacing: tinySpacing) {
-                SubsectionHeading(title: "Include replies from list members to", subtitle: nil) // TODO: needs L10n
+                SubsectionHeading(title:  L10nLookup.Scene.Lists.includeRepliesTo, subtitle: nil)
                 Picker(selection: $viewModel.repliesPolicySelection) {
                     ForEach(CreateNewListViewModel.RepliesPolicy.allCases, id: \.self) { replySetting in
                         Text(replySetting.title)
@@ -198,7 +199,7 @@ struct CreateNewListView: View {
             }
             
             HStack(alignment: .top) {
-                SubsectionHeading(title: "Hide members in Home feed", subtitle: "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice.") // TODO: needs L10n
+                SubsectionHeading(title:  L10nLookup.Scene.Lists.hideMembersInHomeFeed, subtitle:  L10nLookup.Scene.Lists.hideMembersExplainer)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Toggle("", isOn: $viewModel.removePostsFromHomeFeed)
                     .fixedSize()
@@ -224,7 +225,7 @@ struct CreateNewListView: View {
                     }
                 } label: {
                     ZStack {
-                        Text("Create")
+                        Text(L10nLookup.Scene.Lists.create)
                             .lineLimit(1)
                             .minimumScaleFactor(0.4)
                             .padding([.horizontal], 12)
@@ -246,7 +247,7 @@ struct CreateNewListView: View {
                 }
                 
                 if let error = createListViewModel.createListError {
-                    Text("Could not create list: \(error.localizedDescription)")
+                    Text(L10nLookup.Scene.Lists.listCreationError(error.localizedDescription))
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -256,7 +257,7 @@ struct CreateNewListView: View {
             Spacer()
         }
         .padding(doublePadding)
-        .navigationTitle("Create list")
+        .navigationTitle(L10nLookup.Scene.Lists.createList)
     }
 }
 

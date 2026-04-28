@@ -1880,16 +1880,15 @@ struct TimelineListView: View {
     }
     
     private func emptyStateMainMessage(_ timeline: MastodonTimelineType, ) -> String? {
-        // TODO: L10n
         switch timeline {
         case .homeTimeline:
             return nil
         case .featuredItems(userID: let userID):
             guard viewModel.currentRelationship(to: userID)?.isMe != true else {
                 if AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.collections) == true {
-                    return "Showcase your favorite accounts"
+                    return L10nLookup.Timeline.EmptyState.showcaseYourFavoriteAccounts
                 } else {
-                    return "Stay tuned for Collections"
+                    return L10nLookup.Collections.stayTunedForCollections
                 }
             }
             fallthrough
@@ -1926,22 +1925,25 @@ struct TimelineListView: View {
         case .whoFavourited:
             fallthrough
         case .whoBoosted:
-            return "Nothing to see here"
+            return L10nLookup.Timeline.EmptyState.nothingToSeeHere
         }
     }
     
     private func emptyStateSecondaryMessage(_ timeline: MastodonTimelineType) -> String? {
-        // TODO: L10n
         switch timeline {
         case .featuredItems(userID: let userID):
             if viewModel.currentRelationship(to: userID)?.isMe == true {
                 if AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.collections) == true {
-                    return "Collections are curated lists of accounts to help others discover more of the Fediverse."
+                    return L10nLookup.Collections.collectionsExplainerShort
                 } else {
-                    return "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+                    return L10nLookup.Collections.collectionsExplainerLong
                 }
             } else {
-                return "\(viewModel.account(userID)?.displayInfo.displayName ?? "This account") hasn't featured anything yet."
+                if let username = viewModel.account(userID)?.displayInfo.displayName {
+                    return L10nLookup.Timeline.EmptyState.featuredTabEmptyStateMessageWithUsername(username)
+                } else {
+                    return L10nLookup.Timeline.EmptyState.featuredTabEmptyStateMessage
+                }
             }
         case .homeTimeline:
             fallthrough
@@ -1986,14 +1988,14 @@ struct TimelineListView: View {
         switch timeline {
         case .featuredItems(userID: let userID):
             if viewModel.currentRelationship(to: userID)?.isMe == true {
-                if AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.collections) == true {
+                if false && AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.collections) == true {
                     VStack {
-                        Button("Create a Collection") {
-                            
+                        Button("Create a Collection") { // TODO: L10n collections
+                            // TODO: implement
                         }
                         
-                        Button ("Hide this tab instead") {
-                            
+                        Button ("Hide this tab instead") {  // TODO: L10n collections
+                            // TODO: implement
                         }
                     }
                 } else {
@@ -2111,7 +2113,7 @@ struct TimelineListView: View {
                             goToFilteredNotifications(filteredNotificationsViewModel)
                         }
                 } else {
-                    Text("Some notifications have been filtered.")
+                    Text(L10nLookup.Timeline.EmptyState.someNotificationsHaveBeenFiltered)
                         .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
                         .frame(width: useableWidth)
                 }
@@ -2495,7 +2497,7 @@ struct FullSizeImageGallery: View {
             let currentAttachment = viewModel.imageAttachments[pageableZoomableModel.focusedPageIndex]
             VStack(alignment: .trailing) {
                 if let sharableImage = viewModel.sharableImages[currentAttachment.id] {
-                    ShareLink(item: sharableImage, preview: SharePreview(currentAttachment.basicData.shareTitle ?? "Image", image: sharableImage)) // TODO: L10n
+                    ShareLink(item: sharableImage, preview: SharePreview(currentAttachment.basicData.shareTitle ?? L10nLookup.CommonControls.genericImageDescription, image: sharableImage))
                         .padding(.vertical, ButtonPadding.vertical)
                         .padding(.horizontal, ButtonPadding.horizontal)
                         .background() {

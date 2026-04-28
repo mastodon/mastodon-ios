@@ -1,0 +1,136 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Scene.Lists.create" : {
+      "comment" : "confirmation button text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create"
+          }
+        }
+      }
+    },
+    "Scene.Lists.createList" : {
+      "comment" : "page title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create list"
+          }
+        }
+      }
+    },
+    "Scene.Lists.createNewList" : {
+      "comment" : "button text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create new list…"
+          }
+        }
+      }
+    },
+    "Scene.Lists.hideMembersExplainer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        }
+      }
+    },
+    "Scene.Lists.hideMembersInHomeFeed" : {
+      "comment" : "label on toggle for list option to hide list members from the home feed",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide members in Home feed"
+          }
+        }
+      }
+    },
+    "Scene.Lists.includeRepliesTo" : {
+      "comment" : "label on picker with options `No one`, `Members of the list`, and `Any followed user`",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Include replies from list members to"
+          }
+        }
+      }
+    },
+    "Scene.Lists.listCreationError" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        }
+      }
+    },
+    "Scene.Lists.listName" : {
+      "comment" : "label on text field to enter list name",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "List name"
+          }
+        }
+      }
+    },
+    "Scene.Lists.ReplyFilterOptions.anyFollowedUser" : {
+      "comment" : "option in picker labeled `Include replies from list members to`",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Any followed user"
+          }
+        }
+      }
+    },
+    "Scene.Lists.ReplyFilterOptions.membersOfTheList" : {
+      "comment" : "option in picker labeled `Include replies from list members to`",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Members of the list"
+          }
+        }
+      }
+    },
+    "Scene.Lists.ReplyFilterOptions.noOne" : {
+      "comment" : "option in picker labeled `Include replies from list members to`",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No one"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.2"
+}

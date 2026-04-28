@@ -232,26 +232,24 @@ struct CharacterLimitTip: View {
     }
     
     var charCountTipText: String? {
-        // TODO: L10n
         switch (inputModel.characterLimit.softLimit, inputModel.characterLimit.hardLimit) {
         case (nil, nil): // no limits
            return nil
         case (let softLimit, nil):  // only a soft limit
-            return "Tip: try to keep this short, under \(softLimit!) characters is best"
+            return L10nLookup.CommonControls.CharacterLimits.characterCountSuggestion(softLimit!)
         case (nil, _):  // only a hard limit
             return nil
         case (let softLimit, let hardLimit):
             guard hardLimit! > softLimit! else { /*effectively, there is only a hard limit*/ return nil }
-            return "Tip: try to keep this short, under \(softLimit!) characters is best"
+            return L10nLookup.CommonControls.CharacterLimits.characterCountSuggestion(softLimit!)
         }
     }
     
     func charCountDisplay(forCharacterCount usedCharacterCount: Int) -> String {
-        // TODO: L10n
         if let characterLimit {
-            return "\(usedCharacterCount)/\(characterLimit) characters"
+            return L10nLookup.CommonControls.CharacterLimits.characterCount(usedCharacterCount, outOf: characterLimit)
         } else {
-            return "\(usedCharacterCount) characters"
+            return L10nLookup.CommonControls.CharacterLimits.simpleCharacterCount(usedCharacterCount)
         }
     }
     
