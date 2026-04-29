@@ -122,6 +122,7 @@ extension Mastodon.API {
     public enum Trends { }
     public enum Suggestions { }
     public enum Notifications { }
+    public enum Collections { }
     public enum Subscriptions { }
     public enum Reports { }
     public enum DomainBlock { }
