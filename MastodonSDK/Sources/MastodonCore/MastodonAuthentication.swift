@@ -80,7 +80,7 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
                 return apiVersion >= 6
             case .collections:
                 guard let apiVersion else { return false }
-                return apiVersion >= 8
+                return apiVersion >= 10
             case .followTags:
                 return serverVersion?.majorServerVersion(greaterThanOrEquals: 4) ?? false // following Tags is supported beginning with Mastodon v4.0.0
             case .groupNotifications:
