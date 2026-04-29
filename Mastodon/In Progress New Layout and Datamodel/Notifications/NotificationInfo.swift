@@ -38,6 +38,8 @@ enum GroupedNotificationType {
     case severedRelationships(Mastodon.Entity.RelationshipSeveranceEvent?, URL?)  // Some of your follow relationships have been severed as a result of a moderation or block event
     case moderationWarning(Mastodon.Entity.AccountWarning?, URL?)  //  A moderator has taken action against your account or has sent you a warning
 
+    case needsImplementation(Mastodon.Entity.NotificationFallback)  // The server has sent a notification that we have not implemented native display for. Plan to update the app to include anything received this way as a full-fledged notification type.
+    
     case _other(String)
 }
 

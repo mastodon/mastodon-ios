@@ -147,6 +147,7 @@ extension Mastodon.API.Notifications {
         public let limit: Int?
         public let types: [Mastodon.Entity.NotificationType]?
         public let excludeTypes: [Mastodon.Entity.NotificationType]?
+        public let supportedTypes: [Mastodon.Entity.NotificationType]? // providing a list of supported types means we will receive new notification types with a fallback attribute to display until we fully implement them
         public let accountID: String?
 
         public init(
@@ -156,6 +157,7 @@ extension Mastodon.API.Notifications {
             limit: Int? = nil,
             types: [Mastodon.Entity.NotificationType]? = nil,
             excludeTypes: [Mastodon.Entity.NotificationType]? = nil,
+            supportedTypes: [Mastodon.Entity.NotificationType]?,
             accountID: String? = nil
         ) {
             self.maxID = maxID
@@ -164,6 +166,7 @@ extension Mastodon.API.Notifications {
             self.limit = limit
             self.types = types
             self.excludeTypes = excludeTypes
+            self.supportedTypes = supportedTypes
             self.accountID = accountID
         }
 
@@ -194,6 +197,13 @@ extension Mastodon.API.Notifications {
                             name: "exclude_types[]", value: $0.rawValue))
                 }
             }
+            if let supportedTypes {
+                supportedTypes.forEach {
+                    items.append(
+                        URLQueryItem(
+                            name: "supported_types[]", value: $0.rawValue))
+                }
+            }
             accountID.flatMap {
                 items.append(URLQueryItem(name: "account_id", value: $0))
             }
@@ -202,6 +212,7 @@ extension Mastodon.API.Notifications {
         }
     }
 
+    /// Note that providing `types` will end up ignoring `supportedTypes`. That is, no unknown notifications with `fallback` will be returned.  To receive unknown notifications with `fallback`, use `excludeTypes` to filter out any you know you don't want, and provide your list of `supportedTypes` to receive `fallback` for any you do not declare as supported.
     public struct GroupedQuery: PagedQueryType, GetQuery {
         public let maxID: Mastodon.Entity.Status.ID?
         public let sinceID: Mastodon.Entity.Status.ID?
@@ -209,6 +220,7 @@ extension Mastodon.API.Notifications {
         public let limit: Int?
         public let types: [Mastodon.Entity.NotificationType]?
         public let excludeTypes: [Mastodon.Entity.NotificationType]?
+        public let supportedTypes: [Mastodon.Entity.NotificationType]? // providing a list of supported types means we will receive new notification types with a fallback attribute to display until we fully implement them
         public let accountID: String?
         public let groupedTypes: [String]?
         public let expandAccounts: Bool
@@ -220,6 +232,7 @@ extension Mastodon.API.Notifications {
             limit: Int? = nil,
             types: [Mastodon.Entity.NotificationType]? = nil,
             excludeTypes: [Mastodon.Entity.NotificationType]? = nil,
+            supportedTypes: [Mastodon.Entity.NotificationType]?,
             accountID: String? = nil,
             groupedTypes: [String]? = ["favourite", "follow", "reblog"],
             expandAccounts: Bool = false
@@ -230,6 +243,7 @@ extension Mastodon.API.Notifications {
             self.limit = limit
             self.types = types
             self.excludeTypes = excludeTypes
+            self.supportedTypes = supportedTypes
             self.accountID = accountID
             self.groupedTypes = groupedTypes
             self.expandAccounts = expandAccounts
@@ -260,6 +274,13 @@ extension Mastodon.API.Notifications {
                     items.append(
                         URLQueryItem(
                             name: "exclude_types[]", value: $0.rawValue))
+                }
+            }
+            if let supportedTypes {
+                supportedTypes.forEach {
+                    items.append(
+                        URLQueryItem(
+                            name: "supported_types[]", value: $0.rawValue))
                 }
             }
             accountID.flatMap {

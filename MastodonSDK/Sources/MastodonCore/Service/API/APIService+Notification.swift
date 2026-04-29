@@ -45,6 +45,7 @@ extension APIService {
             maxID: maxID,
             types: types,
             excludeTypes: excludedTypes,
+            supportedTypes: Mastodon.Entity.NotificationType.supportedTypes,
             accountID: accountID
         )
         
@@ -77,7 +78,7 @@ extension APIService {
             excludedTypes = excludingAdminTypes
         case .mentions:
             types = [.mention]
-            excludedTypes = [.follow, .followRequest, .reblog, .favourite, .poll,.adminReport, .adminSignUp]
+            excludedTypes = nil
         case nil:
             types = nil
             excludedTypes = nil
@@ -88,6 +89,7 @@ extension APIService {
             minID: minID,
             types: types,
             excludeTypes: excludedTypes,
+            supportedTypes: Mastodon.Entity.NotificationType.supportedTypes,
             accountID: accountID
         )
         

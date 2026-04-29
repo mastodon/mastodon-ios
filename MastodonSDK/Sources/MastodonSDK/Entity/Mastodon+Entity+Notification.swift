@@ -28,6 +28,7 @@ extension Mastodon.Entity {
         public let adminReport: Report?
         public let relationshipSeveranceEvent: RelationshipSeveranceEvent?
         public let accountWarning: AccountWarning?
+        public let fallback: NotificationFallback?
 
         enum CodingKeys: String, CodingKey {
             case id
@@ -39,6 +40,7 @@ extension Mastodon.Entity {
             case adminReport = "report"
             case accountWarning = "moderation_warning"
             case relationshipSeveranceEvent = "event"
+            case fallback
         }
     }
     
@@ -56,6 +58,7 @@ extension Mastodon.Entity {
         public let id: ID
         public let notificationsCount: Int
         public let type: NotificationType
+        public let fallback: NotificationFallback?
         public let mostRecentNotificationID: Int
         public let pageOldestID: ID? // ID of the oldest notification from this group represented within the current page. This is only returned when paginating through notification groups. Useful when polling new notifications.
         public let pageNewestID: ID? // ID of the newest notification from this group represented within the current page. This is only returned when paginating through notification groups. Useful when polling new notifications.
@@ -70,6 +73,7 @@ extension Mastodon.Entity {
             case id = "group_key"
             case notificationsCount = "notifications_count"
             case type
+            case fallback
             case mostRecentNotificationID = "most_recent_notification_id"
             case pageOldestID = "page_min_id"
             case pageNewestID = "page_max_id"
@@ -176,6 +180,18 @@ extension Mastodon.Entity {
     }
 }
 
+extension Mastodon.Entity {
+    public struct NotificationFallback: Codable, Sendable {
+        public let title: String
+        public let summary: String?
+        
+        public enum CodingKeys: String, CodingKey {
+            case title
+            case summary
+        }
+    }
+}
+
 extension Mastodon.Entity.PartialAccountWithAvatar: Hashable {
     public func hash(into hasher: inout Hasher) {
         // The URL seems to be the only thing that doesn't change across instances.
@@ -254,6 +270,23 @@ extension Mastodon.Entity {
         case moderationWarning  //  A moderator has taken action against your account or has sent you a warning
 
         case _other(String)
+        
+        public static let supportedTypes: [Self] = [
+            .follow,
+            .followRequest,
+            .mention,
+            .reblog,
+            .quote,
+            .quotedUpdate,
+            .favourite,
+            .poll,
+            .status,
+            .update,
+            .adminSignUp,
+            .adminReport,
+            .severedRelationships,
+            .moderationWarning,
+        ]
         
         public init?(rawValue: String) {
             switch rawValue {

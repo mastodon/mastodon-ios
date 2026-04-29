@@ -60,6 +60,8 @@ extension GroupedNotificationType {
             return "person.badge.minus"
         case .moderationWarning:
             return "exclamationmark.shield.fill"
+        case .needsImplementation:
+            return "circlebadge.fill"
         case ._other:
             return "questionmark.square.dashed"
         case .mention:
@@ -88,6 +90,8 @@ extension GroupedNotificationType {
         case .poll, .severedRelationships, .moderationWarning, .adminReport,
             .adminSignUp:
             return .secondary
+        case .needsImplementation:
+            return Asset.Colors.accent.swiftUIColor
         case ._other:
             return .gray
         }
@@ -139,6 +143,8 @@ extension GroupedNotificationType {
                     plainString = L10n.Scene.Notification.GroupedNotificationDescription.singleNameEditedAPostYouQuoted(firstAuthorName)
                 case .adminReport, .severedRelationships, .moderationWarning, ._other:
                     plainString = firstAuthorName
+                case .needsImplementation(let fallback):
+                    return fallback.title
                 }
             } else {
                 switch self {
@@ -150,6 +156,8 @@ extension GroupedNotificationType {
                     plainString = L10nLookup.Scene.Notification.GroupedNotificationDescription.peopleBoosted(boostCount: totalAuthorCount)
                 case .adminSignUp:
                     plainString = L10n.Plural.Count.newSignups(totalAuthorCount)
+                case .needsImplementation(let fallback):
+                    return fallback.title
                 default:
                     plainString = L10n.Plural.Count.others(totalAuthorCount)
                 }
@@ -502,6 +510,12 @@ struct NotificationRowView: View {
                 Text(label)
                     .bold()
                     .foregroundStyle(Color(asset: Asset.Colors.accent))
+            case .needsImplementation(let fallback):
+                if let fallbackText = fallback.summary {
+                    MastodonContentView.timelinePost(html: fallbackText, emojis: viewModel.avatarRowSourceAccounts?.primaryAuthorAccount?.emojis ?? [], isInlinePreview: false)
+                } else {
+                    EmptyView()
+                }
             default:
                 EmptyView()
             }
@@ -520,7 +534,7 @@ struct NotificationRowView: View {
     
     @ViewBuilder var headlineView: some View {
         switch viewModel.notification.type {
-        case .follow, .followRequest, .reblog, .favourite, .poll, .update, .quotedUpdate, .adminSignUp:
+        case .follow, .followRequest, .reblog, .favourite, .poll, .update, .quotedUpdate, .adminSignUp, .needsImplementation:
             if let sourceAccounts = viewModel.avatarRowSourceAccounts,
                sourceAccounts.primaryAuthorAccount?.displayNameWithFallback != nil,
                let actionLabel = viewModel.notification.type.actionSummaryHtmlLabel(sourceAccounts) {
@@ -533,7 +547,7 @@ struct NotificationRowView: View {
                 MastodonContentView.notificationActionLabel(html: summary, emojis: report?.targetAccount?.emojis ?? [])
             }
         case .severedRelationships(let severanceEvent, _):
-            if let summary = severanceEvent?.summary(myDomain: viewModel.myAccountDomain ?? "")
+            if let summary = severanceEvent?.summary(myDomain: viewModel.myAccountDomain)
             {
                 Text(summary)
             }

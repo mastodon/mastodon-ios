@@ -47,7 +47,7 @@ nonisolated struct MastodonNotificationInfo {
         switch notification.type {
         case .follow, .followRequest:
             return notification.sourceAccounts
-        case .reblog, .favourite, .quotedUpdate, .poll, .update, .adminSignUp:
+        case .reblog, .favourite, .quotedUpdate, .poll, .update, .adminSignUp, .needsImplementation:
             return notification.sourceAccounts
         case .adminReport, .moderationWarning, .severedRelationships:
             return nil
@@ -110,7 +110,7 @@ nonisolated struct MastodonNotificationInfo {
             } else {
                 avatarRowAdditionalElement = .noneNeeded
             }
-        case .mention, .status, .quote:
+        case .mention, .status, .quote, .needsImplementation:
             avatarRowAdditionalElement = .noneNeeded
             break
         case .reblog(let status), .favourite(let status), .poll(let status), .update(let status), .quotedUpdate(let status):
@@ -398,6 +398,8 @@ extension NotificationRowViewModel {
         case .moderationWarning(_, let url):
             let linkDescription =  L10n.Scene.Notification.Warning.learnMore
             return .link(linkDescription, url)
+        case .needsImplementation:
+            break
         case ._other(_):
             break
         }
@@ -457,7 +459,11 @@ extension GroupedNotificationType {
             let url = moderationWarningUrl(forDomain: myAccountDomain, notificationID: notification.id)
             self = .moderationWarning(notification.accountWarning, url)
         case ._other(let string):
-            self = ._other(string)
+            if let fallback = notification.fallback {
+                self = .needsImplementation(fallback)
+            } else {
+                self = ._other(string)
+            }
         }
     }
 
@@ -511,7 +517,11 @@ extension GroupedNotificationType {
             let url = moderationWarningUrl(forDomain: myAccountDomain, notificationID: String(notificationGroup.mostRecentNotificationID))
             self = .moderationWarning(notificationGroup.accountWarning, url)
         case ._other(let string):
-            self = ._other(string)
+            if let fallback = notificationGroup.fallback {
+                self = .needsImplementation(fallback)
+            } else {
+                self = ._other(string)
+            }
         }
     }
 }
