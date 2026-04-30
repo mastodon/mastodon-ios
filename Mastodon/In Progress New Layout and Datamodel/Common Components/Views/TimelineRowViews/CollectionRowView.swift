@@ -88,7 +88,7 @@ struct CollectionRowView: View {
 
 @Observable
 @MainActor class CollectionViewModel {
-    let collection: Mastodon.Entity.Collection
+    nonisolated let collection: Mastodon.Entity.Collection
     var authorHandle: String? 
     var accountAvatarUrls: [URL] = []
     

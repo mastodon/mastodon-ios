@@ -270,11 +270,13 @@ extension GenericMastodonPost {
 }
 
 enum TimelineItem: Identifiable {
+    case heading(String)
     case pinnedPosts([TimelineItem])
     case post(MastodonPostViewModel, isPinned: Bool)
     case notification(NotificationRowViewModel)
     case hashtag(HashtagRowViewModel)
     case account(AccountRowViewModel)
+    case collection(CollectionViewModel)
     case filteredNotificationsInfo(
         Mastodon.Entity.NotificationPolicy?,
         FilteredNotificationsRowView.ViewModel?)
@@ -283,6 +285,8 @@ enum TimelineItem: Identifiable {
     
     var id: String {
         switch self {
+        case .heading(let string):
+            return "heading-\(string)"
         case .pinnedPosts:
             return "pinnedPosts"
         case .post(let postViewModel, let isPinned):
@@ -293,6 +297,8 @@ enum TimelineItem: Identifiable {
             return "hashtag-\(tagViewModel.id)"
         case .account(let accountViewModel):
             return "account-\(accountViewModel.id)"
+        case .collection(let collectionViewModel):
+            return "collection-\(collectionViewModel.collection.id)"
         case .filteredNotificationsInfo:
             return "filteredNotifications"
         case .loadingIndicator:
@@ -304,6 +310,8 @@ enum TimelineItem: Identifiable {
     
     var mastodonID: String? {
         switch self {
+        case .heading:
+            return nil
         case .pinnedPosts:
             return nil
         case .post(let postViewModel, _):
@@ -314,6 +322,8 @@ enum TimelineItem: Identifiable {
             return tagViewModel.id
         case .account(let accountViewModel):
             return accountViewModel.id
+        case .collection(let collectionViewModel):
+            return collectionViewModel.collection.id
         case .filteredNotificationsInfo:
             return nil
         case .loadingIndicator:
@@ -325,9 +335,9 @@ enum TimelineItem: Identifiable {
     
     var isRealItem: Bool {
         switch self {
-        case .pinnedPosts, .post, .notification, .hashtag, .account:
+        case .pinnedPosts, .post, .notification, .hashtag, .account, .collection:
             return true
-        case .filteredNotificationsInfo, .loadingIndicator, .noItem:
+        case .heading, .filteredNotificationsInfo, .loadingIndicator, .noItem:
             return false
         }
     }
@@ -429,7 +439,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                             notificationModel.incorporateUpdate(update)
                         case .hashtag(let hashtagModel):
                             hashtagModel.incorporateUpdate(update)
-                        case .filteredNotificationsInfo, .loadingIndicator, .noItem:
+                        case .filteredNotificationsInfo, .loadingIndicator, .noItem, .collection, .heading:
                             break
                         }
                     }
@@ -978,7 +988,7 @@ struct CacheableTimeline: CacheableFeed {
         }
         return items.compactMap { item -> TimelineItem? in
             switch item {
-            case .loadingIndicator, .filteredNotificationsInfo:
+            case .heading, .loadingIndicator, .filteredNotificationsInfo:
                 return item
             case .noItem:
                 return nil
@@ -993,7 +1003,7 @@ struct CacheableTimeline: CacheableFeed {
                 }
             case .notification:
                 return item
-            case .hashtag, .account:
+            case .hashtag, .account, .collection:
                 return item
             }
         }
@@ -1011,11 +1021,12 @@ struct CacheableTimeline: CacheableFeed {
         if discardOlderIfNoOverlap {
             let oldestIdInNewBatch = newer.last(where: { item in
                 switch item {
-                case .loadingIndicator, .filteredNotificationsInfo, .noItem: return false
+                case .loadingIndicator, .filteredNotificationsInfo, .noItem, .heading: return false
                 case .post, .pinnedPosts: return true
                 case .notification: return true
                 case .hashtag: return true
                 case .account: return true
+                case .collection: return true
                 }
             })?.id
             
@@ -1032,7 +1043,9 @@ struct CacheableTimeline: CacheableFeed {
                         return item.id == oldestIdInNewBatch
                     case .account:
                         return item.id == oldestIdInNewBatch
-                    case .loadingIndicator, .filteredNotificationsInfo, .noItem:
+                    case .collection:
+                        return item.id == oldestIdInNewBatch
+                    case .heading, .loadingIndicator, .filteredNotificationsInfo, .noItem:
                         return false
                     }
                 })
@@ -1068,7 +1081,7 @@ struct CacheableTimeline: CacheableFeed {
     func byDeleting(postId: Mastodon.Entity.Status.ID) -> CacheableTimeline {
         let newItems = items.compactMap { item -> TimelineItem? in
             switch item {
-            case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account:
+            case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account, .collection:
                 return item
             case .post(let postViewModel, _):
                 if postViewModel.fullPost?.actionablePost?.id != postId {
@@ -1287,7 +1300,7 @@ extension TimelineFeedLoader {
         }
         for item in cache.items {
             switch item {
-            case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account, .noItem:
+            case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account, .noItem:
                 break
             case .post:
                 create(forPostItem: item)
@@ -1295,6 +1308,8 @@ extension TimelineFeedLoader {
                 for item in postItems {
                     create(forPostItem: item)
                 }
+            case .collection:
+                break
             case .notification:
                 // TODO: create conceal models for summarized statuses?
                 break

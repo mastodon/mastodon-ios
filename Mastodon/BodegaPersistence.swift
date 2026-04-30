@@ -136,7 +136,7 @@ extension BodegaPersistence {
         var posts = [(CacheKey, Mastodon.Entity.Status)]()
         for item in timeline {
             switch item {
-            case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account, .noItem:
+            case .collection, .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account, .noItem:
                 break
             case .pinnedPosts:
                 break  // this only occurs in user timelines for the profile views, and those are not cached
@@ -156,11 +156,13 @@ extension BodegaPersistence {
         // write the order to the file
         let writableTimeline: [CacheableTimelineItem] = timeline.compactMap { item in
             switch item {
+            case .collection:
+                return nil
             case .post(let viewModel, _):
                 return .cachedPost(viewModel.initialDisplayInfo)
             case .pinnedPosts:
                 return nil // this only occurs in user timelines for the profile views, and those are not cached
-            case .loadingIndicator, .filteredNotificationsInfo, .account, .hashtag, .noItem:
+            case .heading, .loadingIndicator, .filteredNotificationsInfo, .account, .hashtag, .noItem:
                 return nil
             case .notification:
                 // TODO: cache notifications? or give up on all caching?

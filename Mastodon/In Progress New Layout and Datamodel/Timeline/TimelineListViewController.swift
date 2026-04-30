@@ -958,7 +958,7 @@ enum MastodonTimelineSheet {
             case .pinnedPosts:
                 // this should always be the very first item in the list, so we don't need to worry about calculating heights above
                 fallthrough
-            case .notification, .hashtag, .account, .filteredNotificationsInfo, .loadingIndicator, .noItem:
+            case .heading, .collection, .notification, .hashtag, .account, .filteredNotificationsInfo, .loadingIndicator, .noItem:
                 currentDisplaySlice = prefix + newSlice + suffix
                 self.resetToUntrackedAfterDelay(from: loadingState)
             }
@@ -1056,10 +1056,12 @@ enum MastodonTimelineSheet {
                 
                 let needsPrep: [TimelineItem] = results.allRecords.compactMap { item -> TimelineItem? in
                     switch item {
-                    case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .noItem:
+                    case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .noItem:
                         return nil
                     case .account:
                         return item
+                    case .collection:
+                        return nil
                     case .pinnedPosts:
                         let someModelNeedsPrep = {
                             for model in item.postViewModels {
@@ -1466,7 +1468,9 @@ extension TimelineListViewModel {
                 return nil
             case .account:
                 return item.id
-            case .filteredNotificationsInfo, .loadingIndicator, .noItem:
+            case .collection:
+                return nil
+            case .filteredNotificationsInfo, .loadingIndicator, .noItem, .heading:
                 return nil
             }
         }
@@ -1515,9 +1519,9 @@ extension TimelineListViewModel {
                 }
             case .account(let accountRowViewModel):
                 relationshipsToFetch.insert(accountRowViewModel.id)
-            case .hashtag:
+            case .hashtag, .collection:
                 break
-            case .filteredNotificationsInfo, .loadingIndicator, .noItem:
+            case .heading, .filteredNotificationsInfo, .loadingIndicator, .noItem:
                 break
             }
         }
@@ -1569,7 +1573,9 @@ extension TimelineListViewModel {
                     break
                 case .hashtag:
                     break
-                case .filteredNotificationsInfo, .loadingIndicator, .noItem:
+                case .collection:
+                    break
+                case .heading, .filteredNotificationsInfo, .loadingIndicator, .noItem:
                     break
                 }
             }
@@ -2099,6 +2105,13 @@ struct TimelineListView: View {
                         }
                     }
                 
+            case .heading(let text):
+                Text(text)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.secondary)
+                    .padding(standardPadding)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
             case .filteredNotificationsInfo(_, let filteredNotificationsViewModel):
                 if let filteredNotificationsViewModel {
                     FilteredNotificationsRowView(contentWidth: contentWidth)
@@ -2170,6 +2183,12 @@ struct TimelineListView: View {
                     .onTapGesture {
                         navigator.push(.profile(account: accountViewModel.account._legacyEntity, relationship: nil))
                     }
+            case .collection(let collectionViewModel):
+                CollectionRowView(contentWidth: contentWidth)
+                    .environment(collectionViewModel)
+                    .padding(EdgeInsets(top: standardPadding, leading: doublePadding, bottom: standardPadding, trailing: standardPadding))
+                frame(width: useableWidth)
+                
             case .noItem:
                 EmptyView()
             }
@@ -2674,7 +2693,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     feedLoader?.updateCachedResults({ timeline in
                         for item in timeline.items {
                             switch item {
-                            case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .noItem:
+                            case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .noItem:
                                 break
                             case .pinnedPosts:
                                 for viewModel in item.postViewModels {
@@ -2686,7 +2705,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                                 if viewModel.fullPost?.actionablePost?.id == actionablePost.id {
                                     viewModel.isShowingTranslation = true
                                 }
-                            case .notification, .account:
+                            case .notification, .account, .collection:
                                 break
                             }
                         }
@@ -2695,7 +2714,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     feedLoader?.updateCachedResults({ timeline in
                         for item in timeline.items {
                             switch item {
-                            case .loadingIndicator, .filteredNotificationsInfo, .hashtag, .noItem:
+                            case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .noItem:
                                 break
                             case .pinnedPosts:
                                 for viewModel in item.postViewModels {
@@ -2707,7 +2726,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                                 if viewModel.fullPost?.actionablePost?.id == actionablePost.id {
                                     viewModel.isShowingTranslation = false
                                 }
-                            case .notification, .account:
+                            case .notification, .account, .collection:
                                 break
                             }
                         }
