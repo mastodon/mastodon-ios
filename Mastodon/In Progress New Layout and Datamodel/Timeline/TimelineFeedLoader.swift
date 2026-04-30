@@ -717,6 +717,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     return try await APIService.shared.featuredAccounts(userID: userID, maxID: nil, authenticationBox: authenticatedUser)
                 }
             }()
+            // try await APIService.shared.collections(accountID: userID, authenticationBox: authenticatedUser)
+            // TODO: if collections are available, include the fetched collections in the timeline
             newBatch = response.value.map { timelineItem(fromAccount: $0) }
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
