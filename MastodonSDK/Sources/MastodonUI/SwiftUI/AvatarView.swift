@@ -8,6 +8,7 @@ public struct AvatarSize {
     public static var extraLarge: CGFloat = 80
     public static var large: CGFloat = 44
     public static var small: CGFloat = 32
+    public static var extraSmall: CGFloat = 24
     public static var tiny: CGFloat = 16
 }
 
@@ -24,6 +25,7 @@ public struct AvatarView: View {
     var sizeExtraLarge = AvatarSize.extraLarge
     var sizeLarge = AvatarSize.large
     var sizeSmall = AvatarSize.small
+    var sizeExtraSmall = AvatarSize.extraSmall
     var sizeTiny = AvatarSize.tiny
     
     @State var isNavigating: Bool = false
@@ -34,9 +36,10 @@ public struct AvatarView: View {
         case extraLarge
         case large
         case small
+        case extraSmall
         case tiny
         
-        var shape: RoundedRectangle {
+        public var shape: RoundedRectangle {
             switch self {
             case .extraExtraLarge:
                 RoundedRectangle(cornerRadius: CornerRadius.extraExtraLarge)
@@ -46,6 +49,8 @@ public struct AvatarView: View {
                 RoundedRectangle(cornerRadius: CornerRadius.standard)
             case .small:
                 RoundedRectangle(cornerRadius: CornerRadius.standard)
+            case .extraSmall:
+                RoundedRectangle(cornerRadius: CornerRadius.small)
             case .tiny:
                 RoundedRectangle(cornerRadius: CornerRadius.tiny)
             }
@@ -81,6 +86,7 @@ public struct AvatarView: View {
         case .extraLarge: sizeExtraLarge
         case .large: sizeLarge
         case .small: sizeSmall
+        case .extraSmall: sizeExtraSmall
         case .tiny: sizeTiny
         }
     }

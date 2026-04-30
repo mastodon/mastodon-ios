@@ -398,6 +398,7 @@
 				"Common Components/Views/TextViewWithCustomEmoji.swift",
 				"Common Components/Views/TimelineRowViews/AccountRowView.swift",
 				"Common Components/Views/TimelineRowViews/AccountRowViewModel.swift",
+				"Common Components/Views/TimelineRowViews/CollectionRowView.swift",
 				"Common Components/Views/TimelineRowViews/HashtagRowView.swift",
 				"Common Components/Views/TimelineRowViews/HashtagRowViewModel.swift",
 				"Common Components/Views/TimelineRowViews/InteractiveLoadingIndicatorRow.swift",
