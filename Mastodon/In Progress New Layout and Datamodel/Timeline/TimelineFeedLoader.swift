@@ -136,6 +136,8 @@ public enum MastodonTimelineType: Equatable {
             return actionableStatusIdFirst == actionableStatusIdSecond
         case (.whoBoosted(let actionableStatusIdFirst), .whoBoosted(let actionableStatusIdSecond)):
             return actionableStatusIdFirst == actionableStatusIdSecond
+        case (.collection(let collectionViewModelFirst), .collection(let collectionViewModelSecond)):
+            return collectionViewModelFirst.collection.id == collectionViewModelSecond.collection.id
             
         default:
             return false
@@ -783,12 +785,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }()
             newBatch = {
-                if !accounts.isEmpty && !collections.isEmpty {
-                    // TODO: L10n
-                    return [.heading("ACCOUNTS")] + accounts + [.heading("COLLECTIONS")] + collections
-                } else {
-                    return accounts + collections
-                }
+                // TODO: L10n
+                return (accounts.isEmpty ? [] : ([.heading("Accounts")] + accounts)) + (collections.isEmpty ? [] : ([.heading("Collections")] + collections))
             }()
             newBatchBottomLoad = .nothingMoreToLoad
             newAsyncRefreshAvailable = nil
@@ -990,6 +988,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
 #endif
 
         postViewModels = newPostModels
+        collectionViewModels = newCollectionModels
         notificationViewModels = newNotificationModels
         accountViewModels = newAccountModels
         hashtagViewModels = newHashtagModels

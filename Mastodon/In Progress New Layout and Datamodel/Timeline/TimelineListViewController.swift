@@ -1591,6 +1591,8 @@ extension TimelineListViewModel {
                             accountViewModel.actionHandler = self
                         }
                         accountViewModel.prepareForDisplay(withRelationship: relationship)
+                    } else if accountViewModel.id == AuthenticationServiceProvider.shared.currentActiveUser.value?.userID {
+                        accountViewModel.prepareForDisplay(withRelationship: .isMe)
                     }
                 case .post, .pinnedPosts:
                     // handled above
