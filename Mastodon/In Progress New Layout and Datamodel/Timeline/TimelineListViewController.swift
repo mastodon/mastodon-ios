@@ -2186,8 +2186,8 @@ struct TimelineListView: View {
             case .collection(let collectionViewModel):
                 CollectionRowView(contentWidth: contentWidth)
                     .environment(collectionViewModel)
-                    .padding(EdgeInsets(top: standardPadding, leading: doublePadding, bottom: standardPadding, trailing: standardPadding))
-                frame(width: useableWidth)
+                    .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
+                    .frame(width: useableWidth)
                 
             case .noItem:
                 EmptyView()

@@ -720,18 +720,36 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             
         case .featuredItems(let userID):
             // this only includes accounts because the featured hashtags are shown as filters at the top of the main activity tab
-            let response = try await {
+            let accountsResponse = try await {
                 if let loadUrl {
                     return try await APIService.shared.accounts(fromUrl: loadUrl, authenticationBox: authenticatedUser)
                 } else {
                     return try await APIService.shared.featuredAccounts(userID: userID, maxID: nil, authenticationBox: authenticatedUser)
                 }
             }()
-            // try await APIService.shared.collections(accountID: userID, authenticationBox: authenticatedUser)
-            // TODO: if collections are available, include the fetched collections in the timeline
-            newBatch = response.value.map { timelineItem(fromAccount: $0) }
-            newBatchBottomLoad = bottomLoad(fromLink: response.link)
-            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
+            let accounts = accountsResponse.value.map { timelineItem(fromAccount: $0) }
+            let collections: [TimelineItem] = await {
+                do {
+                    let response = try await APIService.shared.collections(accountID: userID, authenticationBox: authenticatedUser)
+                    return response.value.collections.map {
+                        let collectionViewModel = CollectionViewModel(collection: $0)
+                        collectionViewModel.authorHandle = "someone@somewhere.social"
+                        return TimelineItem.collection(collectionViewModel)
+                    }
+                } catch {
+                    return []
+                }
+            }()
+            newBatch = {
+                if !accounts.isEmpty && !collections.isEmpty {
+                    // TODO: L10n
+                    return [.heading("ACCOUNTS")] + accounts + [.heading("COLLECTIONS")] + collections
+                } else {
+                    return accounts + collections
+                }
+            }()
+            newBatchBottomLoad = .nothingMoreToLoad
+            newAsyncRefreshAvailable = nil
             
         case .accountsFollowed(let userId):
             let response = try await {

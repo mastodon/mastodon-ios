@@ -15,24 +15,25 @@ struct CollectionRowView: View {
     let avatarSize = AvatarSize.extraSmall
     
     var body: some View {
-            VStack(alignment: .gutterAlign, spacing: 0) {  // gutterAlign keeps the content properly aligned with the gap between avatar and content
-                HStack(alignment: .top, spacing: spacingBetweenGutterAndContent) {
-                    
-                    ZStack {
-                        avatarsView
-                            .blur(radius: viewModel.collection.sensitive == true ? 3 : 0)
-                        if viewModel.collection.sensitive == true {
-                            avatarViewSize.shape
-                                .fill(Color(uiColor: .systemBackground))
-                                .frame(width: avatarSize, height: avatarSize)
-                            Image(systemName: "eye.slash")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .padding(3)
-                                .frame(width: avatarSize)
-                        }
+        VStack(alignment: .gutterAlign, spacing: 0) {  // gutterAlign keeps the content properly aligned with the gap between avatar and content
+            HStack(alignment: .top, spacing: spacingBetweenGutterAndContent) {
+                
+                ZStack {
+                    avatarsView
+                        .blur(radius: viewModel.collection.sensitive == true ? 3 : 0)
+                    if viewModel.collection.sensitive == true {
+                        avatarViewSize.shape
+                            .fill(Color(uiColor: .systemBackground))
+                            .frame(width: avatarSize, height: avatarSize)
+                        Image(systemName: "eye.slash")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding(3)
+                            .frame(width: avatarSize)
                     }
-                    
+                }
+                
+                HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 0) {
                         Text(viewModel.collection.name ?? "")
                             .fontWeight(.semibold)
@@ -53,6 +54,7 @@ struct CollectionRowView: View {
                     Image(systemName: "ellipsis")
                 }
                 .frame(width: contentWidth)
+            }
         }
         .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
