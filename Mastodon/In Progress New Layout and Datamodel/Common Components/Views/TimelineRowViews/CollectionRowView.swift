@@ -5,6 +5,7 @@ import MastodonLocalization
 import MastodonSDK
 import MastodonUI
 import SwiftUI
+import MastodonCore
 
 struct CollectionRowView: View {
     @Environment(MastodonNavigationRouter.self) private var navigator
@@ -51,7 +52,7 @@ struct CollectionRowView: View {
                         return d[HorizontalAlignment.leading]
                     }
                     
-                    Image(systemName: "ellipsis")
+                    viewModel.menuButton(isFullCollectionView: false, navigator: navigator, relationshipModel: viewModel.relationshipViewModel)
                 }
                 .frame(width: contentWidth)
             }
@@ -89,13 +90,94 @@ struct CollectionRowView: View {
 }
 
 @Observable
-@MainActor class CollectionViewModel {
+@MainActor public class CollectionViewModel {
     nonisolated let collection: Mastodon.Entity.Collection
-    var authorHandle: String? 
+    private(set) var relationshipViewModel = RelationshipViewModel()
+    var authorHandle: String?
+    var authorAccount: MastodonAccount?
     var accountAvatarUrls: [URL] = []
     
     init(collection: Mastodon.Entity.Collection) {
         self.collection = collection
+    }
+    
+    @ViewBuilder func menuButton(isFullCollectionView: Bool, navigator: MastodonNavigationRouter, relationshipModel: RelationshipViewModel?) -> some View {
+        Menu {
+            let submenus = isFullCollectionView ? collectionMenuActions() : collectionRowMenuActions()
+            ForEach(submenus, id: \.self.id) { submenu in
+                ForEach(submenu.items, id: \.self) { menuAction in
+                    switch menuAction {
+                    case .miscellaneous:
+                        EmptyView()
+                    case .navigationalAction(let navAction):
+                        let domainName: String? = {
+                            guard let relationshipModel else { return nil }
+                            switch relationshipModel.relationship {
+                            case .isMe, .none:
+                                return nil
+                            case .isNotMe:
+                                return self.authorAccount?.domain == AuthenticationServiceProvider.shared.currentActiveUser.value?.domain ? nil : self.authorAccount?.domain
+                            }
+                        }()
+                        navigator.menuItem(navAction, notMyDomainName: domainName)
+                    case .postAction:
+                        EmptyView()
+                    case .collectionAction(let action):
+                        switch action {
+                        case .reportCollection:
+                            MastodonMenuAction.menuButton(systemImageName: nil, text: "Report collection") { // TODO: L10n
+                                Task {
+                                    do {
+                                        try await self.doMenuAction(action)
+                                    } catch {
+                                        // TODO: implement error handling
+                                    }
+                                }
+                            }
+                        case .removeMyself:
+                            MastodonMenuAction.menuButton(systemImageName: nil, text: "Remove me") { // TODO: L10n
+                                Task {
+                                    do {
+                                        try await self.doMenuAction(action)
+                                    } catch {
+                                        // TODO: implement error handling
+                                    }
+                                }
+                            }
+                        }
+                    case .relationshipAction(let relAction):
+                        if let relationshipModel, let account = self.authorAccount {
+                            relationshipModel.menuItem(relAction, forAccount: account, navigator: navigator)
+                        } else {
+                            EmptyView()
+                        }
+                    }
+                }
+                Divider()
+            }
+        } label: {
+            Image(systemName: "ellipsis")
+        }
+    }
+    
+    func doMenuAction(_ action: MastodonMenuAction.CollectionMenuAction) async throws {
+        switch action {
+        case .reportCollection:
+            // TODO: implement
+            assertionFailure("reportCollection is not yet implemented")
+        case .removeMyself:
+            // TODO: implement
+            assertionFailure("removeMyself is not yet implemented")
+        }
+    }
+    
+    func prepareForDisplay(withRelationship relationship: MastodonAccount.Relationship) {
+        relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: authorAccount?.locked == true)
+    }
+    
+    func updateAuthorAccount(_ updated: MastodonAccount) {
+        authorAccount = updated
+        authorHandle = updated.handle
     }
 }
 

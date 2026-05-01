@@ -9,6 +9,7 @@ enum MastodonMenuAction: Hashable {
     case postAction(PostMenuAction)
     case relationshipAction(RelationshipMenuAction)
     case navigationalAction(NavigationalMenuAction)
+    case collectionAction(CollectionMenuAction)
     case miscellaneous(MiscellaneousMenuAction)
     
     enum PostMenuAction: String {
@@ -76,6 +77,7 @@ enum MastodonMenuAction: Hashable {
         case myBookmarks
         case myFollowedHashtags
         case myAccountSettings
+        case collection(CollectionViewModel)
         case compose(ComposeViewModel.Context)
         case addToList(MastodonAccount, needsFollowFirst: RelationshipViewModel?) // account -> list
         
@@ -93,12 +95,19 @@ enum MastodonMenuAction: Hashable {
                 "number"
             case .myAccountSettings:
                 "gear"
+            case .collection:
+                nil
             case .compose:
                 nil
             case .addToList:
                 nil
             }
         }
+    }
+    
+    enum CollectionMenuAction: String {
+        case reportCollection
+        case removeMyself
     }
     
     enum MiscellaneousMenuAction: String {
@@ -160,6 +169,7 @@ extension MastodonMenuAction.NavigationalMenuAction: Equatable, Hashable {
         case .myBookmarks: hasher.combine("myBookmarks")
         case .myFollowedHashtags: hasher.combine("myFollowedHashtags")
         case .myAccountSettings: hasher.combine("myAccountSettings")
+        case .collection(let collectionViewModel): hasher.combine("collection-\(collectionViewModel.collection.id)")
         case .addToList(let account, _): hasher.combine("addToList-\(account.id)")
         case .compose(let context):
             switch context {
@@ -181,7 +191,7 @@ extension MastodonMenuAction.NavigationalMenuAction: Equatable, Hashable {
 extension MastodonMenuAction {
     enum SubmenuType: String {
         case sharingActions
-        case myProfileNavigations
+        case navigationActions
         case accountMentionActions
         case accountFeatureAndNotes
         case mutingOptions
@@ -215,6 +225,7 @@ extension MastodonNavigationRouter {
     }
     
     func labelText(forAction menuAction: MastodonMenuAction.NavigationalMenuAction, domainName: String?) -> String? {
+        // TODO: L10n
         switch menuAction {
         case .share:
             return "Share..."
@@ -228,6 +239,8 @@ extension MastodonNavigationRouter {
             return "Followed hashtags"
         case .myAccountSettings:
             return "Account settings"
+        case .collection:
+            return "View collection"
         case .compose(let context):
             switch context {
             case .composeStatus(let quoting):
@@ -262,6 +275,8 @@ extension MastodonNavigationRouter {
             presentModal(.legacy(scene: .safari(url: url), transition: .safariPresent(animated: true, completion: nil)))
         case .share(let items):
             presentModal(.share(activityItems: items))
+        case .collection(let collectionViewModel):
+            push(.timeline(.collection(collectionViewModel)))
         case .addToList(let account, let relationshipViewModel):
             if let relationshipViewModel {
                 await relationshipViewModel.doFollowAndManageListMembership(account, navigator: self)
@@ -308,7 +323,7 @@ extension RelationshipViewModel {
                 .navigationalAction(.myFollowedHashtags),
                 .navigationalAction(.myAccountSettings)
             ]
-            return [.init(.sharingActions, items: sharingActions), .init(.myProfileNavigations, items: myNavigations)].compactMap { $0 }
+            return [.init(.sharingActions, items: sharingActions), .init(.navigationActions, items: myNavigations)].compactMap { $0 }
         } else {
             
             let composeActions = [
@@ -365,6 +380,39 @@ extension RelationshipViewModel {
             
             return [.init(.sharingActions, items: sharingActions), .init(.accountMentionActions, items: composeActions), .init(.accountFeatureAndNotes, items: featureAndNotes), .init(.mutingOptions, items: mutingOptions), .init(.blockingOptions, items: blockingOptions)].compactMap { $0 }
         }
+    }
+}
+
+extension CollectionViewModel {
+    func collectionRowMenuActions() -> [MastodonMenuAction.Submenu] {
+        return [
+            .init(.sharingActions, items: [
+                .navigationalAction(.collection(self)),
+                .navigationalAction(.share([collection.url]))
+            ]),
+            .init(.blockingOptions, items: [
+                .relationshipAction(.reportUser),
+                .relationshipAction(.blockUser)
+            ])
+        ].compactMap { $0 }
+    }
+    
+    func collectionMenuActions() -> [MastodonMenuAction.Submenu] {
+        let openInBrowser: MastodonMenuAction.NavigationalMenuAction? = {
+            guard let url = URL(string: collection.url) else { return nil }
+            return MastodonMenuAction.NavigationalMenuAction.openInBrowser(url)
+        }()
+        let navigations: MastodonMenuAction.Submenu? = {
+            guard let openInBrowser else { return nil }
+            return .init(.navigationActions, items: [.navigationalAction(openInBrowser)])
+        }()
+        return [
+            navigations,
+            .init(.blockingOptions, items: [
+                .relationshipAction(.reportUser),
+                .relationshipAction(.blockUser)
+            ])
+        ].compactMap { $0 }
     }
 }
 

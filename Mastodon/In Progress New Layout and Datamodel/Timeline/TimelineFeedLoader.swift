@@ -74,6 +74,7 @@ public enum MastodonTimelineType: Equatable {
     case local
     case list(String)
     case hashtag(Mastodon.Entity.Tag, includeHeader: Bool)
+    case collection(CollectionViewModel)
     case discover(DiscoveryType)
     case search(String, SearchScope)
     case userPosts(userID: String, queryFilter: TimelineQueryFilter)
@@ -174,6 +175,8 @@ public enum MastodonTimelineType: Equatable {
                 .home
         case .hashtag:
                 .public
+        case .collection:
+            nil
         case .list:
                 .home
         case .local:
@@ -395,6 +398,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
     private var postViewModels = [Mastodon.Entity.Status.ID : MastodonPostViewModel]()
     private var notificationViewModels = [Mastodon.Entity.NotificationGroup.ID : NotificationRowViewModel]()
     private var accountViewModels = [Mastodon.Entity.Account.ID : AccountRowViewModel]()
+    private var collectionViewModels = [Mastodon.Entity.Collection.ID : CollectionViewModel]()
     private var hashtagViewModels = [String : HashtagRowViewModel]()
     
     private let myAccountID: Mastodon.Entity.Account.ID?
@@ -473,6 +477,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         var newPostModels = [Mastodon.Entity.Status.ID : MastodonPostViewModel]()
         var newNotificationModels = [Mastodon.Entity.NotificationGroup.ID : NotificationRowViewModel]()
         var newAccountModels = [Mastodon.Entity.Account.ID : AccountRowViewModel]()
+        var newCollectionModels = [Mastodon.Entity.Collection.ID : CollectionViewModel]()
         var newHashtagModels = [String : HashtagRowViewModel]()
         
         func timelineItem(fromStatus status: Mastodon.Entity.Status, isPinned: Bool) -> TimelineItem {
@@ -516,6 +521,37 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }()
             return TimelineItem.account(viewModel)
+        }
+        func timelineItem(fromCollection collection: Mastodon.Entity.Collection, partialAccounts: [Mastodon.Entity.PartialAccountWithAvatar]) -> TimelineItem {
+            let account = accountViewModels[collection.accountId]?.account
+            let viewModel = {
+                let authorHandle = partialAccounts.first(where: { $0.id == collection.accountId })?.acct ?? "someone@somewhere.social"
+                let firstFourAvatars = collection.items.compactMap({ member -> URL? in
+                    guard let partialAccount = partialAccounts.first(where: { $0.id ==  member.account_id }) else { return nil }
+                    return partialAccount.avatarURL
+                }).prefix(4)
+                
+                if let existing = collectionViewModels[collection.accountId] {
+                    if let account {
+                        existing.updateAuthorAccount(account)
+                    } else {
+                        existing.authorHandle = authorHandle
+                    }
+                    existing.accountAvatarUrls = Array(firstFourAvatars)
+                    return existing
+                } else {
+                    let model = CollectionViewModel(collection: collection)
+                    if let account {
+                        model.updateAuthorAccount(account)
+                    } else {
+                        model.authorHandle = authorHandle
+                    }
+                    model.accountAvatarUrls = Array(firstFourAvatars)
+                    newCollectionModels[collection.id] = model
+                    return model
+                }
+            }()
+            return TimelineItem.collection(viewModel)
         }
         func timelineItem(fromHashtag hashtag: Mastodon.Entity.Tag) -> TimelineItem {
             let viewModel = {
@@ -611,6 +647,13 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             }
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
+        case .collection(let collectionViewModel):
+            let accountIDs = collectionViewModel.collection.items.compactMap { $0.account_id }
+            let response = try await APIService.shared.accountsInfo(userIDs: accountIDs, authenticationBox: authenticatedUser)
+            let accounts = response.map { timelineItem(fromAccount: $0) }
+            newBatch = accounts
+            newBatchBottomLoad = .nothingMoreToLoad
+            newAsyncRefreshAvailable = nil
         case .discover(let discoverType):
             switch discoverType {
             case .posts:
@@ -731,10 +774,9 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             let collections: [TimelineItem] = await {
                 do {
                     let response = try await APIService.shared.collections(accountID: userID, authenticationBox: authenticatedUser)
-                    return response.value.collections.map {
-                        let collectionViewModel = CollectionViewModel(collection: $0)
-                        collectionViewModel.authorHandle = "someone@somewhere.social"
-                        return TimelineItem.collection(collectionViewModel)
+                    let partialAccounts = response.value.accounts ?? []
+                    return response.value.collections.map { collection in
+                        timelineItem(fromCollection: collection, partialAccounts: partialAccounts)
                     }
                 } catch {
                     return []

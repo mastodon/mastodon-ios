@@ -31,6 +31,7 @@ enum TimelineViewType {
     case thread(root: MastodonContentPost)
     case remoteThread(root: RemoteThreadType)
     case hashtag(Mastodon.Entity.Tag)
+    case collection(CollectionViewModel)
     case whoFavourited(actionableStatusID: Mastodon.Entity.Status.ID)
     case whoBoosted(actionableStatusID: Mastodon.Entity.Status.ID)
     
@@ -59,6 +60,9 @@ enum TimelineViewType {
             
         case .myFavorites:
             return L10n.Scene.Favorite.title
+            
+        case .collection(let collectionViewModel):
+            return collectionViewModel.collection.name
             
         case .whoFavourited:
             return L10n.Scene.FavoritedBy.title
@@ -115,6 +119,8 @@ extension TimelineViewType {
             TimelineListViewModel(timeline: .myFavorites, navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .hashtag(let tag):
             TimelineListViewModel(timeline: .hashtag(tag, includeHeader: true), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
+        case .collection(let collectionViewModel):
+            TimelineListViewModel(timeline: .collection(collectionViewModel), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .whoFavourited(let statusID):
             TimelineListViewModel(timeline: .whoFavourited(actionableStatusID: statusID), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .whoBoosted(let statusID):
@@ -172,6 +178,14 @@ class TimelineListViewController: UIHostingController<AnyView>
             }
         case .hashtag:
             navigationItem.rightBarButtonItem = composeHashtagButtonItem
+        case .collection(let collectionViewModel):
+            if let url = URL(string: collectionViewModel.collection.url) {
+                navigationItem.rightBarButtonItems = [
+                  shareBarButtonItem(url),
+                ]
+            } else {
+                
+            }
            
         case .thread, .discover, .profilePosts, .remoteThread, .myBookmarks, .myFavorites, .whoFavourited, .whoBoosted, .followers, .accountsFollowed, .familiarFollowers, .search, .myFollowedHashtags:
             break
@@ -202,6 +216,14 @@ class TimelineListViewController: UIHostingController<AnyView>
         barButtonItem.action = #selector(Self.composeHashtagBarButtonItemPressed(_:))
         return barButtonItem
     }()
+    
+    func shareBarButtonItem(_ shareItem: Any) -> UIBarButtonItem {
+        UIBarButtonItem(title: nil, image: UIImage(systemName: "square.and.arrow.up"), primaryAction: UIAction { _ in
+            let vc = UIActivityViewController(activityItems: [shareItem], applicationActivities: nil)
+            let scene = UIApplication.shared.connectedScenes.first { $0.activationState == .foregroundActive } as? UIWindowScene
+            scene?.keyWindow?.rootViewController?.present(vc, animated: true)
+        })
+    }
     
     lazy var picker = { UISegmentedControl(items: [ NotificationsScope.everything.pickerLabel, NotificationsScope.mentions.pickerLabel ]) }()
     
@@ -334,7 +356,7 @@ extension TimelineListViewController {
         case .hashtag:
             showLocalTimelineAction.state = .off
             showFollowingAction.state = .off
-        case .discover, .search, .userPosts, .featuredItems, .thread, .remoteThread, .myFollowedHashtags, .myBookmarks, .myFavorites, .notifications, .followers, .accountsFollowed, .familiarFollowers, .whoFavourited, .whoBoosted:
+        case .discover, .search, .userPosts, .featuredItems, .thread, .remoteThread, .myFollowedHashtags, .myBookmarks, .myFavorites, .notifications, .followers, .accountsFollowed, .familiarFollowers, .whoFavourited, .whoBoosted, .collection:
             assertionFailure()
             break
         }
@@ -1236,7 +1258,7 @@ enum MastodonTimelineSheet {
             guard userID == self?.authenticatedUser?.globallyUniqueUserIdentifier else { return }
             guard let timeline = self?.timeline else { return }
             switch timeline {
-            case .homeTimeline, .list, .featuredItems, .followers, .accountsFollowed, .familiarFollowers:
+            case .homeTimeline, .list, .featuredItems, .followers, .accountsFollowed, .familiarFollowers, .collection:
                 self?.needsReloadOnNextAppear = true
             case .myBookmarks, .myFavorites, .myFollowedHashtags, .local, .hashtag, .discover, .search, .userPosts, .thread, .remoteThread, .notifications, .whoFavourited, .whoBoosted:
                 return
@@ -1519,8 +1541,10 @@ extension TimelineListViewModel {
                 }
             case .account(let accountRowViewModel):
                 relationshipsToFetch.insert(accountRowViewModel.id)
-            case .hashtag, .collection:
+            case .hashtag:
                 break
+            case .collection(let collectionViewModel):
+                relationshipsToFetch.insert(collectionViewModel.collection.accountId)
             case .heading, .filteredNotificationsInfo, .loadingIndicator, .noItem:
                 break
             }
@@ -1573,8 +1597,10 @@ extension TimelineListViewModel {
                     break
                 case .hashtag:
                     break
-                case .collection:
-                    break
+                case .collection(let collectionViewModel):
+                    if let relationship = fetchedRelationships.first(where: { $0.info?.id == collectionViewModel.collection.accountId }) {
+                        collectionViewModel.prepareForDisplay(withRelationship: relationship)
+                    }
                 case .heading, .filteredNotificationsInfo, .loadingIndicator, .noItem:
                     break
                 }
@@ -1930,6 +1956,8 @@ struct TimelineListView: View {
             fallthrough
         case .whoFavourited:
             fallthrough
+        case .collection:
+            fallthrough
         case .whoBoosted:
             return L10nLookup.Timeline.EmptyState.nothingToSeeHere
         }
@@ -1984,6 +2012,8 @@ struct TimelineListView: View {
         case .notifications:
             fallthrough
         case .whoFavourited:
+            fallthrough
+        case .collection:
             fallthrough
         case .whoBoosted:
             return nil
@@ -2045,6 +2075,8 @@ struct TimelineListView: View {
         case .whoFavourited:
             EmptyView()
         case .whoBoosted:
+            EmptyView()
+        case .collection:
             EmptyView()
         }
     }

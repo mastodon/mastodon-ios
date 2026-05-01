@@ -12,6 +12,7 @@ extension Mastodon.Entity {
     /// This is the response received when querying for all the collections belonging to an account
     public struct CollectionsList: Codable {
         public let collections: [Collection]
+        public let accounts: [PartialAccountWithAvatar]?
     }
     
     /// Collection
@@ -65,7 +66,7 @@ extension Mastodon.Entity {
         public let id: ID
         public let state: String // needs an enum
         public let created_at: Date
-        public let account_id: Mastodon.Entity.Account.ID
+        public let account_id: Mastodon.Entity.Account.ID?
     }
 }
 

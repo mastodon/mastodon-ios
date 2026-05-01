@@ -972,6 +972,8 @@ struct ProfileActionBar: View {
                                 navigator.menuItem(navAction, notMyDomainName: domainName)
                             case .postAction:
                                 EmptyView()
+                            case .collectionAction:
+                                EmptyView()  // we do not expect collection actions to be launched from the profile action bar
                             case .relationshipAction(let relAction):
                                 relationshipViewModel.menuItem(relAction, forAccount: account, navigator: navigator)
                             }
