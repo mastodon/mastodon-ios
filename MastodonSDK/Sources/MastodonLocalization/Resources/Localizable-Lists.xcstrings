@@ -5,10 +5,310 @@
       "comment" : "confirmation button text",
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opret"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstellen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Create"
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crear"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cruthaigh"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Búa til"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oluştur"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tạo"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增"
           }
         }
       }
@@ -17,10 +317,310 @@
       "comment" : "page title",
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opret liste"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liste erstellen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Create list"
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crear lista"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer une liste"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cruthaigh liosta"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Búa til lista"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea una lista"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liste oluştur"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tạo danh sách"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create list"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增列表"
           }
         }
       }
@@ -29,10 +629,310 @@
       "comment" : "button text",
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opret ny liste…"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neue Liste erstellen …"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Create new list…"
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crear nueva lista…"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer une nouvelle liste…"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cruthaigh liosta nua…"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Búa til nýjan lista…"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea una nuova lista…"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni liste oluştur…"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tạo danh sách mới…"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new list…"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增列表..."
           }
         }
       }
@@ -40,10 +940,310 @@
     "Scene.Lists.hideMembersExplainer" : {
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hvis nogen står på denne liste, kan du skjule dem i dit hjem-feed, så du ikke ser deres opslag to gange."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile, die sich auf dieser Liste befinden, werden nicht im Feed deiner Startseite angezeigt, damit deren Beiträge nicht doppelt erscheinen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si alguien está en esta lista, ocultá esa cuenta en tu línea temporal principal para evitar que aparezcan sus mensajes dos veces."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si quelqu'un est dans cette liste, les cacher dans votre fil d'actualité pour éviter de voir leurs messages deux fois."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Má tá duine ar an liosta seo, cuir i bhfolach iad i do fhotha Baile ionas nach bhfeicfidh tú a bpoist faoi dhó."
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ef einhver er á þessum lista, geturðu falið viðkomandi í heimastreyminu þínu til að komast hjá því að sjá færslurnar þeirra í tvígang."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se qualcuno è presente in questo elenco, nascondilo nel tuo feed Home per evitare di visualizzare i suoi post due volte."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eğer bu listede bir hesap bulunuyorsa, gönderilerini iki kez görmemek için ana sayfa akışınızda o hesabı gizleyin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nếu ai đó có trong danh sách này, ẩn họ trong bảng tin Trang chủ để tránh thấy tút của họ hiện trùng lặp."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "如果某個帳號於此列表中，將自您的首頁時間軸中隱藏此帳號，避免重複見到他們的嘟文。"
           }
         }
       }
@@ -52,10 +1252,310 @@
       "comment" : "label on toggle for list option to hide list members from the home feed",
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skjul medlemmer i hjem-feed"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mitglieder auf der Startseite ausblenden"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hide members in Home feed"
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocultar miembros en la línea temporal principal"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cacher les membres du fil d'actualité"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Folaigh baill san fhotha Baile"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fela meðlimi í heimastreymi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nascondi i membri nel feed Home"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ana sayfa akışından üyeleri gizle"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ẩn trên Trang chủ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide members in Home feed"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "於首頁時間軸隱藏列表成員"
           }
         }
       }
@@ -64,10 +1564,310 @@
       "comment" : "label on picker with options `No one`, `Members of the list`, and `Any followed user`",
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medtag svar fra listemedlemmer til"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Antworten von Listenmitgliedern einbeziehen an …"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Include replies from list members to"
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incluir las respuestas de los miembros de la lista a"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inclure les réponses des membres de la liste"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuir san áireamh freagraí ó bhaill an liosta go"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hafa með svör frá meðlimum lista til"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Includi le risposte dai membri della lista a"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şu liste için liste üyelerinin yanıtlarını dahil et:"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bao gồm lượt trả lời từ những tài khoản trong danh sách"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from list members to"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "包含來自列表成員的回覆至"
           }
         }
       }
@@ -75,10 +1875,310 @@
     "Scene.Lists.listCreationError" : {
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kunne ikke oprette liste: %1$(errorDescription)@ "
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liste konnte nicht erstellt werden: %1$(errorDescription)@ "
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo crear la lista: %1$(errorDescription)@ "
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de créer la liste : %1$(errorDescription)@ "
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Níorbh fhéidir liosta a chruthú: %1$(errorDescription)@ "
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tókst ekki að útbúa lista: %1$(errorDescription)@ "
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossibile creare la lista: %1$(errorDescription)@ "
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liste oluşturulamadı: %1$(errorDescription)@ "
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể tạo danh sách: %1$(errorDescription)@ "
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create list: %1$(errorDescription)@ "
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法新增列表：%1$(errorDescription)@ "
           }
         }
       }
@@ -87,10 +2187,310 @@
       "comment" : "label on text field to enter list name",
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listenavn"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Titel der Liste"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "List name"
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre de la lista"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nom de la liste"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ainm an liosta"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heiti lista"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome della lista"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liste adı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tên danh sách"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "List name"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "列表名稱"
           }
         }
       }
@@ -99,10 +2499,310 @@
       "comment" : "option in picker labeled `Include replies from list members to`",
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enhver fulgt bruger"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "alle folgenden Profile"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Any followed user"
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cualquier cuenta seguida"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aux comptes suivis"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aon úsáideoir ina dhiaidh sin"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allra notenda sem fylgst er með"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qualsiasi utente seguito"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Takip edilen herhangi bir kullanıcı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tài khoản mà bạn theo dõi"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any followed user"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "任何已跟隨之使用者"
           }
         }
       }
@@ -111,10 +2811,310 @@
       "comment" : "option in picker labeled `Include replies from list members to`",
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listemedlemmer"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mitglieder der Liste"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Members of the list"
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Miembros de la lista"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aux membres de la liste"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baill an liosta"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meðlima listans"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Membri della lista"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listenin üyeleri"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tài khoản trong danh sách"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the list"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "列表成員"
           }
         }
       }
@@ -123,10 +3123,310 @@
       "comment" : "option in picker labeled `Include replies from list members to`",
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No one"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No one"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нікога"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No one"
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No one"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nikdo"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neb"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingen"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niemandem"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Κανένας"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No one"
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No one"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nadie"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ninguna cuenta"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mitte keegi"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bat ere ez"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No one"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De personne"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Níl aon duine"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Na seall idir"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ninguén"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No one"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No one"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senkitől"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ոչ ոք"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No one"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Engum"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessuno"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "誰にも許可しない"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ula yiwen"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ne yek"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "알림 받지않기"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niekieno"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No one"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No one"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niemand"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No one"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ninguém"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ninguém"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No one"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Никого"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No one"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nikogar"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Askush"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingen"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่มีใคร"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kimse"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ніхто"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không ai"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭通知"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沒有人"
           }
         }
       }

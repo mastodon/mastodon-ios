@@ -4,9 +4,309 @@
     "Scene.Collections.collectionsExplainerLong" : {
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Med samlinger (kommer i Mastodon 4.6) kan du oprette dine egne kuraterede lister over konti, som du kan anbefale til andre."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mit Sammlungen (ab Mastodon v4.6) kannst du eigene Listen kuratieren, um auf empfehlenswerte Profile hinzuweisen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las colecciones (que vendrán en Mastodon 4.6) te permiten crear tus propias listas de cuentas seleccionadas para recomendar a otras personas."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les collections (à venir dans Mastodon 4.6) permettent d'organiser vos propres listes de comptes à recommander aux autres."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ligeann bailiúcháin (atá ar fáil i Mastodon 4.6) duit do liostaí cuntas coimeádta féin a chruthú le moladh do dhaoine eile."
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Söfn (sem koma fram í Mastodon 4.6) gera þér kleift að búa til þina eigin ritstýrðu lista yfir þá aðganga sem þú vilt mæla með við aðra."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le collezioni (in arrivo su Mastodon 4.6) ti permettono di creare i tuoi elenchi curati di account da consigliare ad altri."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koleksiyonlar (Mastodon 4.6 sürümünde geliyor) size başkalarına önermek için kendi derlediğiniz hesap listelerini oluşturmanızı sağlar."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gói khởi đầu (sẽ có trong Mastodon 4.6) cho phép bạn tạo danh sách các tài khoản được tuyển chọn để giới thiệu cho người khác."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
           }
         }
@@ -15,9 +315,309 @@
     "Scene.Collections.collectionsExplainerShort" : {
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samlinger er kuraterede lister over konti, der skal hjælpe andre med at opdage mere af Fediverset."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sammlungen sind kuratierte Listen, die anderen helfen, mehr Konten im Fediverse zu entdecken."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las colecciones son listas de cuentas seleccionadas para ayudar a otras personas a descubrir más del Fediverso."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les collections sont des listes de comptes sélectionnés pour aider les autres à découvrir le Fédivers."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Is liostaí cuntas coimeádta iad bailiúcháin chun cabhrú le daoine eile teacht ar níos mó den Chónaidhm."
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Söfn eru ritstýrðir listar yfir aðganga til að hjálpa öðrum að uppgötva fleira á samfélagsnetinu."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le collezioni sono elenchi curati di account che aiutano gli altri utenti a scoprire di più sul fediverso."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koleksiyonlar diğerlerinin Fediverse'ü daha iyi keşfetmesi için oluşturulan derlenmiş hesap listeleridir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gói khởi đầu là những danh sách chứa những tài khoản tuyển chọn để giúp khám phá mọi người trên Fediverse."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
           }
         }
@@ -26,9 +626,309 @@
     "Scene.Collections.stayTunedForCollections" : {
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hold udkig efter samlinger"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sammlungen sind bald verfügbar"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mantenete pendiente de las colecciones"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restez connecté pour les collections"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bígí ag súil le Bailiúcháin"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kynntu þér hvað séu söfn"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resta sintonizzato/a per le collezioni"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koleksiyonlar için beklemede kalın"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hãy đón chờ Gói khởi đầu"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay tuned for Collections"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Stay tuned for Collections"
           }
         }
