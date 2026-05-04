@@ -512,7 +512,7 @@ struct NotificationRowView: View {
                     .foregroundStyle(Color(asset: Asset.Colors.accent))
             case .needsImplementation(let fallback):
                 if let fallbackText = fallback.summary {
-                    MastodonContentView.timelinePost(html: fallbackText, emojis: viewModel.avatarRowSourceAccounts?.primaryAuthorAccount?.emojis ?? [], isInlinePreview: false)
+                    MastodonContentView.timelinePost(html: fallbackText, emojis: viewModel.avatarRowSourceAccounts?.primaryAuthorAccount?.emojis ?? [], isInlinePreview: true)
                 } else {
                     EmptyView()
                 }
