@@ -157,6 +157,8 @@ struct CollectionRowView: View {
             }
         } label: {
             Image(systemName: "ellipsis")
+                .frame(width: 44, height: 44, alignment: .leading)
+                .rotationEffect(.degrees(90))
         }
     }
     
