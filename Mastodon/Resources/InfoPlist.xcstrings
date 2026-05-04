@@ -205,7 +205,7 @@
         },
         "lv" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Mastodon"
           }
         },
@@ -247,7 +247,7 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Mastodon"
           }
         },
@@ -277,7 +277,7 @@
         },
         "th" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Mastodon"
           }
         },
@@ -988,7 +988,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wird verwendet, um Foto in der Foto-Mediathek zu speichern"
+            "value" : "Wird verwendet, um Foto in der Fotomediathek zu speichern"
           }
         },
         "el" : {
