@@ -185,16 +185,16 @@
             "value" : "Accept"
           }
         },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bipejirîne"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "수락"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bipejirîne"
           }
         },
         "lt" : {
@@ -331,8 +331,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reject"
+            "state" : "translated",
+            "value" : "Адхіліць"
           }
         },
         "ca" : {
@@ -497,13 +497,13 @@
             "value" : "Reject"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reject"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reject"
@@ -809,13 +809,13 @@
             "value" : "Show anyway"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show anyway"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show anyway"
@@ -955,8 +955,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add field"
+            "state" : "translated",
+            "value" : "Дадаць поле"
           }
         },
         "ca" : {
@@ -1121,13 +1121,13 @@
             "value" : "Add field"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add field"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add field"
@@ -1266,8 +1266,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tip: Try to keep the label and value short (under 25 characters for each is best)."
+            "state" : "translated",
+            "value" : "Падказка: Паспрабуйце зрабіць назву і змесціва кароткімі (найлепшы варыянт — да 25 сімвалаў для абаіх)."
           }
         },
         "ca" : {
@@ -1432,13 +1432,13 @@
             "value" : "Tip: Try to keep the label and value short (under 25 characters for each is best)."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tip: Try to keep the label and value short (under 25 characters for each is best)."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tip: Try to keep the label and value short (under 25 characters for each is best)."
@@ -1577,8 +1577,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Are you sure you want to delete this custom field? This action can’t be undone."
+            "state" : "translated",
+            "value" : "Вы ўпэўненыя, што хочаце выдаліць гэтае адвольнае поле? Гэтае дзеянне будзе незваротным."
           }
         },
         "ca" : {
@@ -1743,13 +1743,13 @@
             "value" : "Are you sure you want to delete this custom field? This action can’t be undone."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Are you sure you want to delete this custom field? This action can’t be undone."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Are you sure you want to delete this custom field? This action can’t be undone."
@@ -1888,8 +1888,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Delete custom field?"
+            "state" : "translated",
+            "value" : "Выдаліць адвольнае поле?"
           }
         },
         "ca" : {
@@ -2054,13 +2054,13 @@
             "value" : "Delete custom field?"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete custom field?"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete custom field?"
@@ -2200,8 +2200,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Delete field"
+            "state" : "translated",
+            "value" : "Выдаліць поле"
           }
         },
         "ca" : {
@@ -2366,13 +2366,13 @@
             "value" : "Delete field"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete field"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete field"
@@ -2678,16 +2678,16 @@
             "value" : "Tabzimt"
           }
         },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nîşan"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "라벨"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nîşan"
           }
         },
         "lt" : {
@@ -2823,8 +2823,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. “Personal website”"
+            "state" : "translated",
+            "value" : "Напрыклад, \"Асабісты Сайт\""
           }
         },
         "ca" : {
@@ -2989,13 +2989,13 @@
             "value" : "E.g. “Personal website”"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "E.g. “Personal website”"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "E.g. “Personal website”"
@@ -3134,8 +3134,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add your pronouns, external links, or anything else you’d like to share."
+            "state" : "translated",
+            "value" : "Дадайце свае займеннікі, знешнія спасылкі ці нешта іншае, чым Вы хацелі б падзяліцца."
           }
         },
         "ca" : {
@@ -3300,13 +3300,13 @@
             "value" : "Add your pronouns, external links, or anything else you’d like to share."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add your pronouns, external links, or anything else you’d like to share."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add your pronouns, external links, or anything else you’d like to share."
@@ -3445,8 +3445,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Max %1$(limit)lld fields reached"
+            "state" : "translated",
+            "value" : "Максімум у %1$(limit)lld палёў дасягнуты"
           }
         },
         "ca" : {
@@ -3611,13 +3611,13 @@
             "value" : "Max %1$(limit)lld fields reached"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Max %1$(limit)lld fields reached"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Max %1$(limit)lld fields reached"
@@ -3756,8 +3756,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Max %1$(limit)lld fields reached (%2$(domainName)@)"
+            "state" : "translated",
+            "value" : "Максімум у %1$(limit)lld палёў дасягнуты (%2$(domainName)@)"
           }
         },
         "ca" : {
@@ -3922,13 +3922,13 @@
             "value" : "Max %1$(limit)lld fields reached (%2$(domainName)@)"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Max %1$(limit)lld fields reached (%2$(domainName)@)"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Max %1$(limit)lld fields reached (%2$(domainName)@)"
@@ -4068,8 +4068,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reorder fields"
+            "state" : "translated",
+            "value" : "Змяніць парадак палёў"
           }
         },
         "ca" : {
@@ -4234,13 +4234,13 @@
             "value" : "Reorder fields"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reorder fields"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reorder fields"
@@ -4380,8 +4380,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reorder/delete fields"
+            "state" : "translated",
+            "value" : "Змяніць парадак/выдаліць палі"
           }
         },
         "ca" : {
@@ -4546,13 +4546,13 @@
             "value" : "Reorder/delete fields"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reorder/delete fields"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reorder/delete fields"
@@ -4692,8 +4692,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Value"
+            "state" : "translated",
+            "value" : "Змесціва"
           }
         },
         "ca" : {
@@ -4858,13 +4858,13 @@
             "value" : "Value"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Value"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Value"
@@ -5003,8 +5003,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. “example.me”"
+            "state" : "translated",
+            "value" : "Напрыклад, “example.me”"
           }
         },
         "ca" : {
@@ -5169,13 +5169,13 @@
             "value" : "E.g. “example.me”"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "E.g. “example.me”"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "E.g. “example.me”"
@@ -5314,8 +5314,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tip: Add credibility to your Mastodon account by verifying links to websites you own."
+            "state" : "translated",
+            "value" : "Падказка: дадайце даверу да Вашага профілю Mastodon пацвярджэннем спасылак на сайты, якія Вам належаць."
           }
         },
         "ca" : {
@@ -5480,13 +5480,13 @@
             "value" : "Tip: Add credibility to your Mastodon account by verifying links to websites you own."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tip: Add credibility to your Mastodon account by verifying links to websites you own."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tip: Add credibility to your Mastodon account by verifying links to websites you own."
@@ -5626,8 +5626,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add hashtag"
+            "state" : "translated",
+            "value" : "Дадаць хэштэг"
           }
         },
         "ca" : {
@@ -5792,13 +5792,13 @@
             "value" : "Add hashtag"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add hashtag"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add hashtag"
@@ -5938,8 +5938,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add another"
+            "state" : "translated",
+            "value" : "Дадаць іншы"
           }
         },
         "ca" : {
@@ -6104,13 +6104,13 @@
             "value" : "Add another"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add another"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add another"
@@ -6250,8 +6250,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "#%1$(tagName)@ is now featured on your profile page. Do you want to add another?"
+            "state" : "translated",
+            "value" : "#%1$(tagName)@ цяпер у Вашай укладцы \"Выбранае\" на старонцы профілю. Хочаце дадаць яшчэ адзін?"
           }
         },
         "ca" : {
@@ -6416,13 +6416,13 @@
             "value" : "#%1$(tagName)@ is now featured on your profile page. Do you want to add another?"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "#%1$(tagName)@ is now featured on your profile page. Do you want to add another?"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "#%1$(tagName)@ is now featured on your profile page. Do you want to add another?"
@@ -6562,8 +6562,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "#%1$(tagName)@ featured!"
+            "state" : "translated",
+            "value" : "#%1$(tagName)@ дададзены ў \"Выбранае\"!"
           }
         },
         "ca" : {
@@ -6728,13 +6728,13 @@
             "value" : "#%1$(tagName)@ featured!"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "#%1$(tagName)@ featured!"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "#%1$(tagName)@ featured!"
@@ -6874,8 +6874,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Keep"
+            "state" : "translated",
+            "value" : "Пакінуць"
           }
         },
         "ca" : {
@@ -7040,13 +7040,13 @@
             "value" : "Keep"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Keep"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Keep"
@@ -7352,16 +7352,16 @@
             "value" : "Kkes"
           }
         },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rake"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "삭제"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rake"
           }
         },
         "lt" : {
@@ -7498,8 +7498,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Remove #%1$(hashtagName)@ ?"
+            "state" : "translated",
+            "value" : "Выдаліць #%1$(hashtagName)@ ?"
           }
         },
         "ca" : {
@@ -7664,13 +7664,13 @@
             "value" : "Remove #%1$(hashtagName)@ ?"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove #%1$(hashtagName)@ ?"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove #%1$(hashtagName)@ ?"
@@ -7809,8 +7809,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Used in %(postCount)lld posts"
+            "state" : "translated",
+            "value" : "Выкарыстаны ў %(postCount)lld допісах"
           }
         },
         "ca" : {
@@ -7975,13 +7975,13 @@
             "value" : "Used in %(postCount)lld posts"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Used in %(postCount)lld posts"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Used in %(postCount)lld posts"
@@ -8120,8 +8120,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add a bio"
+            "state" : "translated",
+            "value" : "Апісаць сябе"
           }
         },
         "ca" : {
@@ -8286,13 +8286,13 @@
             "value" : "Add a bio"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add a bio"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add a bio"
@@ -8431,8 +8431,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Bio"
+            "state" : "translated",
+            "value" : "Хто я"
           }
         },
         "ca" : {
@@ -8597,13 +8597,13 @@
             "value" : "Bio"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Bio"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Bio"
@@ -8742,8 +8742,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom fields"
+            "state" : "translated",
+            "value" : "Адвольныя палі"
           }
         },
         "ca" : {
@@ -8908,13 +8908,13 @@
             "value" : "Custom fields"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Custom fields"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Custom fields"
@@ -9053,8 +9053,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. pronouns, external links, etc."
+            "state" : "translated",
+            "value" : "Напрыклад, займеннікі, знешнія спасылкі і г.д."
           }
         },
         "ca" : {
@@ -9219,13 +9219,13 @@
             "value" : "E.g. pronouns, external links, etc."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "E.g. pronouns, external links, etc."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "E.g. pronouns, external links, etc."
@@ -9364,8 +9364,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Display name"
+            "state" : "translated",
+            "value" : "Бачнае імя"
           }
         },
         "ca" : {
@@ -9530,13 +9530,13 @@
             "value" : "Display name"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Display name"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Display name"
@@ -9675,8 +9675,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Featured hashtags"
+            "state" : "translated",
+            "value" : "Выбраныя хэштэгі"
           }
         },
         "ca" : {
@@ -9841,13 +9841,13 @@
             "value" : "Featured hashtags"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Featured hashtags"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Featured hashtags"
@@ -9986,8 +9986,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Allow users to filter your timeline by topic"
+            "state" : "translated",
+            "value" : "Дазволіць карыстальнікам фільтраваць Вашу стужку па тэме"
           }
         },
         "ca" : {
@@ -10152,13 +10152,13 @@
             "value" : "Allow users to filter your timeline by topic"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Allow users to filter your timeline by topic"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Allow users to filter your timeline by topic"
@@ -10297,8 +10297,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Profile tab settings"
+            "state" : "translated",
+            "value" : "Налады ўкладкі профілю"
           }
         },
         "ca" : {
@@ -10463,13 +10463,13 @@
             "value" : "Profile tab settings"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Profile tab settings"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Profile tab settings"
@@ -10608,8 +10608,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add bio"
+            "state" : "translated",
+            "value" : "Апісаць сябе"
           }
         },
         "ca" : {
@@ -10774,13 +10774,13 @@
             "value" : "Add bio"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add bio"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add bio"
@@ -10919,8 +10919,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add field"
+            "state" : "translated",
+            "value" : "Дадаць поле"
           }
         },
         "ca" : {
@@ -11085,13 +11085,13 @@
             "value" : "Add field"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add field"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add field"
@@ -11230,8 +11230,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add hashtag"
+            "state" : "translated",
+            "value" : "Дадаць хэштэг"
           }
         },
         "ca" : {
@@ -11396,13 +11396,13 @@
             "value" : "Add hashtag"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add hashtag"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add hashtag"
@@ -11541,8 +11541,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Describe yourself and/or this account."
+            "state" : "translated",
+            "value" : "Апішыце сябе і/або гэты ўліковы запіс."
           }
         },
         "ca" : {
@@ -11707,13 +11707,13 @@
             "value" : "Describe yourself and/or this account."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Describe yourself and/or this account."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Describe yourself and/or this account."
@@ -11852,8 +11852,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom fields"
+            "state" : "translated",
+            "value" : "Адвольныя палі"
           }
         },
         "ca" : {
@@ -12018,13 +12018,13 @@
             "value" : "Custom fields"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Custom fields"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Custom fields"
@@ -12163,8 +12163,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit bio"
+            "state" : "translated",
+            "value" : "Змяніць апісанне"
           }
         },
         "ca" : {
@@ -12329,13 +12329,13 @@
             "value" : "Edit bio"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit bio"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit bio"
@@ -12474,8 +12474,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit display name"
+            "state" : "translated",
+            "value" : "Рэдагаваць бачнае імя"
           }
         },
         "ca" : {
@@ -12640,13 +12640,13 @@
             "value" : "Edit display name"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit display name"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit display name"
@@ -12785,8 +12785,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit field"
+            "state" : "translated",
+            "value" : "Рэдагаваць поле"
           }
         },
         "ca" : {
@@ -12951,13 +12951,13 @@
             "value" : "Edit field"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit field"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit field"
@@ -13096,8 +13096,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Featured hashtags"
+            "state" : "translated",
+            "value" : "Выбраныя хэштэгі"
           }
         },
         "ca" : {
@@ -13262,13 +13262,13 @@
             "value" : "Featured hashtags"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Featured hashtags"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Featured hashtags"
@@ -13407,8 +13407,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Profile tab settings"
+            "state" : "translated",
+            "value" : "Налады ўкладкі профілю"
           }
         },
         "ca" : {
@@ -13573,13 +13573,13 @@
             "value" : "Profile tab settings"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Profile tab settings"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Profile tab settings"
@@ -13718,8 +13718,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reorder fields"
+            "state" : "translated",
+            "value" : "Змяніць парадак палёў"
           }
         },
         "ca" : {
@@ -13884,13 +13884,13 @@
             "value" : "Reorder fields"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reorder fields"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reorder fields"
@@ -14029,8 +14029,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "How to add a verified link"
+            "state" : "translated",
+            "value" : "Як дадаць пацверджаную спасылку"
           }
         },
         "ca" : {
@@ -14195,13 +14195,13 @@
             "value" : "How to add a verified link"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "How to add a verified link"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "How to add a verified link"
@@ -14340,8 +14340,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A space to showcase other accounts"
+            "state" : "translated",
+            "value" : "Прастора для паказу іншых уліковых запісаў"
           }
         },
         "ca" : {
@@ -14506,13 +14506,13 @@
             "value" : "A space to showcase other accounts"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "A space to showcase other accounts"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "A space to showcase other accounts"
@@ -14651,8 +14651,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "'Featured' tab"
+            "state" : "translated",
+            "value" : "Укладка \"Выбранае\""
           }
         },
         "ca" : {
@@ -14817,13 +14817,13 @@
             "value" : "'Featured' tab"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "'Featured' tab"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "'Featured' tab"
@@ -14951,61 +14951,61 @@
         "an" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "be" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "state" : "new",
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "ckb-IR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "cy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Disse indstillinger tilpasser det, brugerne ser på Mastodon.social i de officielle apps, men de gælder muligvis ikke for brugere på andre servere og i tredjepartsapps."
+            "state" : "translated",
+            "value" : "Disse indstillinger tilpasser det, brugerne ser på din server og i de officielle apps, men de gælder muligvis ikke for brugere på andre servere eller i tredjepartsapps."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Diese Einstellungen legen fest, was andere in den offiziellen Apps auf mastodon.social sehen können. Möglicherweise werden sie nicht von anderen Servern oder Apps von Dritten berücksichtigt."
+            "state" : "new",
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "en" : {
@@ -15017,241 +15017,241 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Esta configuración personaliza lo que los usuarios ven en {server} en las aplicaciones oficiales, pero es posible que no se apliquen a los usuarios en otros servidores y aplicaciones de terceros."
+            "state" : "new",
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ces paramètres personnalisent ce que les personnes voient sur Mastodon.social dans les applications officielles, mais ils peuvent ne pas s'appliquer aux personnes sur d'autres serveurs ou utilisant une application tierce."
+            "state" : "new",
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Saincheapann na socruithe seo an méid a fheiceann úsáideoirí ar Mastodon.social sna haipeanna oifigiúla, ach ní fhéadfaidh siad a bheith i bhfeidhm ar úsáideoirí ar fhreastalaithe eile agus aipeanna 3ú páirtí."
+            "state" : "new",
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "gd" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "is" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Þessar stillingar sérsníða hvað notendur sjá á Mastodon.social í opinberu forritunum, en ekki er víst hvernig þetta virkar fyrir notendur á öðrum netþjónum og utanaðkomandi forritum."
+            "state" : "new",
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Queste impostazioni personalizzano ciò che gli utenti vedono su mastodon.social nelle app ufficiali, ma potrebbero non essere applicate agli utenti su altri server e app di terze parti."
+            "state" : "new",
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "kab" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Bu ayarlar kullanıcıların resmi uygulamalarda Mastodon.social üzerinde gördüklerini özelleştirir, ancak diğer sunuculardaki ve üçüncü taraf uygulamalardaki kullanıcılar için geçerli olmayabilir."
+            "state" : "new",
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Những thiết lập này tùy chỉnh những gì người dùng thấy trên {server} trong ứng dụng chính thức, nhưng có thể sẽ không thấy trên các máy chủ khác hoặc các ứng dụng thứ ba."
+            "state" : "new",
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These settings customize what users see on Mastodon.social in the official apps, but they may not apply to users on other servers and 3rd party apps."
+            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         }
       }
@@ -15274,8 +15274,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies"
+            "state" : "translated",
+            "value" : "Уключыць адказы"
           }
         },
         "ca" : {
@@ -15440,13 +15440,13 @@
             "value" : "Include replies"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Include replies"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Include replies"
@@ -15585,8 +15585,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Shows your posts containing media"
+            "state" : "translated",
+            "value" : "Паказвае Вашы допісы, якія ўтрымліваюць медыя файлы"
           }
         },
         "ca" : {
@@ -15751,13 +15751,13 @@
             "value" : "Shows your posts containing media"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Shows your posts containing media"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Shows your posts containing media"
@@ -15896,8 +15896,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "'Media' tab"
+            "state" : "translated",
+            "value" : "Укладка \"Медыя\""
           }
         },
         "ca" : {
@@ -16062,13 +16062,13 @@
             "value" : "'Media' tab"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "'Media' tab"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "'Media' tab"
@@ -16207,8 +16207,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add your website as a custom field"
+            "state" : "translated",
+            "value" : "Дадаць свой сайт як адвольнае поле"
           }
         },
         "ca" : {
@@ -16373,13 +16373,13 @@
             "value" : "Add your website as a custom field"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add your website as a custom field"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add your website as a custom field"
@@ -16518,8 +16518,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification."
+            "state" : "translated",
+            "value" : "Калі Вы ўжо дадалі свой сайт у якасці адвольнага поля, Вам спатрэбіцца яго выдаліць і зноў дадаць, каб запусціць верыфікацыю."
           }
         },
         "ca" : {
@@ -16684,13 +16684,13 @@
             "value" : "If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification."
@@ -16830,8 +16830,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy code"
+            "state" : "translated",
+            "value" : "Скапіраваць код"
           }
         },
         "ca" : {
@@ -16996,13 +16996,13 @@
             "value" : "Copy code"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copy code"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copy code"
@@ -17141,8 +17141,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy the HTML code below"
+            "state" : "translated",
+            "value" : "Скапіруйце HTML код знізу"
           }
         },
         "ca" : {
@@ -17307,13 +17307,13 @@
             "value" : "Copy the HTML code below"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copy the HTML code below"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copy the HTML code below"
@@ -17452,8 +17452,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Adding the code to your header allows the <a> element to remain invisible. The rel=\\\"me\\\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it."
+            "state" : "translated",
+            "value" : "Дадаванне коду ў свой загаловак дазваляе <a> элементу заставацца нябачным. Атрыбут rel=\\\"me\\\" прадухіляе выдачу сябе за іншую асобу на сайтах з карыстальніцкім кантэнтам, таму важна яго захоўваць."
           }
         },
         "ca" : {
@@ -17618,13 +17618,13 @@
             "value" : "Adding the code to your header allows the <a> element to remain invisible. The rel=\\\"me\\\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Adding the code to your header allows the <a> element to remain invisible. The rel=\\\"me\\\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Adding the code to your header allows the <a> element to remain invisible. The rel=\\\"me\\\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it."
@@ -17763,8 +17763,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:"
+            "state" : "translated",
+            "value" : "Дадайце даверу да Вашага профілю Mastodon, пацвярджэннем спасылак на ўласныя сайты. Вось як гэта працуе:"
           }
         },
         "ca" : {
@@ -17929,13 +17929,13 @@
             "value" : "Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:"
@@ -18074,8 +18074,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Paste the code into the header HTML of your website"
+            "state" : "translated",
+            "value" : "Устаўце код у HTML загаловак свайго сайту"
           }
         },
         "ca" : {
@@ -18240,13 +18240,13 @@
             "value" : "Paste the code into the header HTML of your website"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Paste the code into the header HTML of your website"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Paste the code into the header HTML of your website"
@@ -18386,8 +18386,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Automated account"
+            "state" : "translated",
+            "value" : "Аўтаматызаваны ўліковы запіс"
           }
         },
         "ca" : {
@@ -18552,13 +18552,13 @@
             "value" : "Automated account"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Automated account"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Automated account"
@@ -18698,8 +18698,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy handle"
+            "state" : "translated",
+            "value" : "Скапір. ідэнтыфікатар"
           }
         },
         "ca" : {
@@ -18864,13 +18864,13 @@
             "value" : "Copy handle"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copy handle"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copy handle"
@@ -19010,8 +19010,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Follows you"
+            "state" : "translated",
+            "value" : "Падпісаны(-ая) на Вас"
           }
         },
         "ca" : {
@@ -19176,13 +19176,13 @@
             "value" : "Follows you"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Follows you"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Follows you"
@@ -19321,8 +19321,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add a personal note"
+            "state" : "translated",
+            "value" : "Дадаць асабістую нататку"
           }
         },
         "ca" : {
@@ -19487,13 +19487,13 @@
             "value" : "Add a personal note"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add a personal note"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add a personal note"
@@ -19632,8 +19632,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit personal note"
+            "state" : "translated",
+            "value" : "Рэдагаваць асабістую нататку"
           }
         },
         "ca" : {
@@ -19798,13 +19798,13 @@
             "value" : "Edit personal note"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit personal note"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit personal note"
@@ -19943,8 +19943,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal note"
+            "state" : "translated",
+            "value" : "Асабістая нататка"
           }
         },
         "ca" : {
@@ -20109,13 +20109,13 @@
             "value" : "Personal note"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal note"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal note"
@@ -20254,8 +20254,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal notes are only visible to you."
+            "state" : "translated",
+            "value" : "Асабістыя нататкі бачныя толькі Вам."
           }
         },
         "ca" : {
@@ -20420,13 +20420,13 @@
             "value" : "Personal notes are only visible to you."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal notes are only visible to you."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal notes are only visible to you."
@@ -20565,8 +20565,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal note (visible only to you)"
+            "state" : "translated",
+            "value" : "Асабістая нататка (бачная толькі Вам)"
           }
         },
         "ca" : {
@@ -20731,13 +20731,13 @@
             "value" : "Personal note (visible only to you)"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal note (visible only to you)"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal note (visible only to you)"
@@ -20876,8 +20876,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(username)@ requested to follow you"
+            "state" : "translated",
+            "value" : "%1$(username)@ адправіў(-ла) запыт на падпіску"
           }
         },
         "ca" : {
@@ -21042,13 +21042,13 @@
             "value" : "%1$(username)@ requested to follow you"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$(username)@ requested to follow you"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$(username)@ requested to follow you"
@@ -21187,8 +21187,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This account has been hidden by your moderators."
+            "state" : "translated",
+            "value" : "Гэты ўліковы запіс быў схаваны мадэратарамі."
           }
         },
         "ca" : {
@@ -21353,13 +21353,13 @@
             "value" : "This account has been hidden by your moderators."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This account has been hidden by your moderators."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This account has been hidden by your moderators."
@@ -21498,8 +21498,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This account has been hidden by the moderators of %1$(domainName)@."
+            "state" : "translated",
+            "value" : "Гэты ўліковы запіс быў схаваны мадэратарамі %1$(domainName)@."
           }
         },
         "ca" : {
@@ -21664,13 +21664,13 @@
             "value" : "This account has been hidden by the moderators of %1$(domainName)@."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This account has been hidden by the moderators of %1$(domainName)@."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This account has been hidden by the moderators of %1$(domainName)@."
@@ -21809,8 +21809,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Account suspended"
+            "state" : "translated",
+            "value" : "Уліковы запіс заблакіраваны"
           }
         },
         "ca" : {
@@ -21975,13 +21975,13 @@
             "value" : "Account suspended"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Account suspended"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Account suspended"

@@ -19,8 +19,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add personal note"
+            "state" : "translated",
+            "value" : "Дадаць асабістую нататку"
           }
         },
         "ca" : {
@@ -331,8 +331,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Block domain %1$(domainName)@"
+            "state" : "translated",
+            "value" : "Заблакіраваць дамен %1$(domainName)@"
           }
         },
         "ca" : {
@@ -642,8 +642,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "state" : "translated",
+            "value" : "Вам трэба падпісацца на %1$(username)@ перад тым, як дадаваць яго (яе) ў спіс."
           }
         },
         "ca" : {
@@ -954,8 +954,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Follow %1$(username)@ ?"
+            "state" : "translated",
+            "value" : "Падпісацца на %1$(username)@ ?"
           }
         },
         "ca" : {
@@ -1577,8 +1577,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%(username)@ will stop following you. Are you sure you want to proceed?"
+            "state" : "translated",
+            "value" : "%(username)@ больш не будзе падпісаны(-ая) на Вас. Упэўненыя, што хочаце працягнуць?"
           }
         },
         "ca" : {
@@ -1889,8 +1889,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Remove follower?"
+            "state" : "translated",
+            "value" : "Выдаліць падпісчыка?"
           }
         },
         "ca" : {
@@ -2201,8 +2201,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Show Featured tab"
+            "state" : "translated",
+            "value" : "Паказваць укладку \"Выбранае\""
           }
         },
         "ca" : {
@@ -2513,8 +2513,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Show featured tab?"
+            "state" : "translated",
+            "value" : "Паказваць укладку \"Выбранае\"?"
           }
         },
         "ca" : {
@@ -2824,8 +2824,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You have hidden your featured tab from other users. Would you like to show it and feature %1$(item)@ ?"
+            "state" : "translated",
+            "value" : "Вы схавалі сваю ўкладку з выбраным змесцівам ад іншых карыстальнікаў. Хочаце зноў зрабіць яе бачнай і дадаць туды %1$(item)@ ?"
           }
         },
         "ca" : {
@@ -3136,8 +3136,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit personal note"
+            "state" : "translated",
+            "value" : "Рэдагаваць асабістую нататку"
           }
         },
         "ca" : {
@@ -3448,8 +3448,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Feature on my profile"
+            "state" : "translated",
+            "value" : "Дадаць у \"Выбранае\" ў маім профілі"
           }
         },
         "ca" : {
@@ -3760,8 +3760,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Hide boosts"
+            "state" : "translated",
+            "value" : "Схаваць пашырэнні"
           }
         },
         "ca" : {
@@ -4072,8 +4072,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Remove follower"
+            "state" : "translated",
+            "value" : "Выдаліць падпісчыка"
           }
         },
         "ca" : {
@@ -4696,8 +4696,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Stop featuring on my profile"
+            "state" : "translated",
+            "value" : "Прыбраць з \"Выбранага\" ў маім профілі"
           }
         },
         "ca" : {
@@ -5008,8 +5008,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Unblock domain %1$(domainName)@"
+            "state" : "translated",
+            "value" : "Разблакіраваць дамен %1$(domainName)@"
           }
         },
         "ca" : {

@@ -19,8 +19,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%(used)lld/%(limit)lld characters"
+            "state" : "translated",
+            "value" : "%(used)lld/%(limit)lld сімвалаў"
           }
         },
         "ca" : {
@@ -330,8 +330,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tip: try to keep this short, under %1$(limit)lld characters is best"
+            "state" : "translated",
+            "value" : "Падказка: паспрабуйце зрабіць гэта коратка, найлепшы варыянт — да %1$(limit)lld сімвалаў"
           }
         },
         "ca" : {
@@ -642,8 +642,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Image"
+            "state" : "translated",
+            "value" : "Выява"
           }
         },
         "ca" : {
@@ -1265,8 +1265,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(limit)lld characters"
+            "state" : "translated",
+            "value" : "%1$(limit)lld сімвалаў"
           }
         },
         "ca" : {
