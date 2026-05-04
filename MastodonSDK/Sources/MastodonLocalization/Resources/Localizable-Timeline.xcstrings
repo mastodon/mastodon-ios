@@ -18,8 +18,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This account hasn't featured anything yet."
+            "state" : "translated",
+            "value" : "Гэты ўліковы запіс пакуль нічога не адабраў для паказу."
           }
         },
         "ca" : {
@@ -329,8 +329,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(username)@ hasn't featured anything yet."
+            "state" : "translated",
+            "value" : "%1$(username)@ пакуль нічога не адабраў(-ла) для паказу."
           }
         },
         "ca" : {
@@ -640,8 +640,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Nothing to see here"
+            "state" : "translated",
+            "value" : "Тут нічога няма"
           }
         },
         "ca" : {
@@ -951,8 +951,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Showcase your favorite accounts"
+            "state" : "translated",
+            "value" : "Паказаць Вашыя ўлюбёныя ўліковыя запісы"
           }
         },
         "ca" : {
@@ -1262,8 +1262,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Some notifications have been filtered."
+            "state" : "translated",
+            "value" : "Некаторыя апавяшчэнні былі адфільтраваныя."
           }
         },
         "ca" : {

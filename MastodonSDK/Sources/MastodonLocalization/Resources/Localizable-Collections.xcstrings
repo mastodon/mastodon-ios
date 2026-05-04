@@ -18,8 +18,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+            "state" : "translated",
+            "value" : "Калекцыі (новая функцыя Mastodon 4.6) дазволяць Вам ствараць свае ўласныя спісы ўліковых запісаў, каб раіць іх іншым."
           }
         },
         "ca" : {
@@ -329,8 +329,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+            "state" : "translated",
+            "value" : "Калекцыі — спісы адабраных уліковых запісаў, якія дапамагаюць іншым знаходзіць нешта новае ў федэральным сусвеце."
           }
         },
         "ca" : {
@@ -640,8 +640,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Stay tuned for Collections"
+            "state" : "translated",
+            "value" : "Рыхтуйцеся да Калекцый"
           }
         },
         "ca" : {

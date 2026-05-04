@@ -19,8 +19,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create"
+            "state" : "translated",
+            "value" : "Стварыць"
           }
         },
         "ca" : {
@@ -331,8 +331,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create list"
+            "state" : "translated",
+            "value" : "Стварыць спіс"
           }
         },
         "ca" : {
@@ -643,8 +643,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create new list…"
+            "state" : "translated",
+            "value" : "Стварыць новы спіс…"
           }
         },
         "ca" : {
@@ -954,8 +954,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "state" : "translated",
+            "value" : "Калі ў гэтым спісе нехта ёсць, схавайце яго ў сваёй Галоўнай стужцы, каб не бачыць яго допісы двойчы."
           }
         },
         "ca" : {
@@ -1266,8 +1266,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Hide members in Home feed"
+            "state" : "translated",
+            "value" : "Схаваць карыстальнікаў у Галоўнай стужцы"
           }
         },
         "ca" : {
@@ -1578,8 +1578,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies from list members to"
+            "state" : "translated",
+            "value" : "Уключыць адказы ад карыстальнікаў са спіса"
           }
         },
         "ca" : {
@@ -1889,8 +1889,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "state" : "translated",
+            "value" : "Немагчыма стварыць спіс: %1$(errorDescription)@ "
           }
         },
         "ca" : {
@@ -2201,8 +2201,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "List name"
+            "state" : "translated",
+            "value" : "Назва спіса"
           }
         },
         "ca" : {
@@ -2513,8 +2513,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Any followed user"
+            "state" : "translated",
+            "value" : "Любы, на каго Вы падпісаныя"
           }
         },
         "ca" : {
@@ -2825,8 +2825,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Members of the list"
+            "state" : "translated",
+            "value" : "Удзельнікі гэтага спісу"
           }
         },
         "ca" : {
