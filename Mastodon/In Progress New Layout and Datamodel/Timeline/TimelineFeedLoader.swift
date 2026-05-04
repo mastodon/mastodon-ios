@@ -774,6 +774,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             }()
             let accounts = accountsResponse.value.map { timelineItem(fromAccount: $0) }
             let collections: [TimelineItem] = await {
+                guard UserDefaults.standard.showCollections else { return [] }
                 do {
                     let response = try await APIService.shared.collections(accountID: userID, authenticationBox: authenticatedUser)
                     let partialAccounts = response.value.accounts ?? []

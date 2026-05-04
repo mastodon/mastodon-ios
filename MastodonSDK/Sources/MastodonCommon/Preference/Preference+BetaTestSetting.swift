@@ -58,4 +58,17 @@ extension UserDefaults {
         let showRateLimitTracker = UserDefaults.standard.showRateLimitTracker
         UserDefaults.standard.showRateLimitTracker = !showRateLimitTracker
     }
+    
+    @objc public dynamic var showCollections: Bool {
+        get {
+            register(defaults: [#function: false])
+            return bool(forKey: #function) && UserDefaults.isDebugOrTestflightOrSimulator
+        }
+        set { self[#function] = newValue }
+    }
+    
+    public func toggleShowCollections() {
+        let showRateLimitTracker = UserDefaults.standard.showCollections
+        UserDefaults.standard.showCollections = !showCollections
+    }
 }

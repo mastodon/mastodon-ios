@@ -7,11 +7,13 @@ struct BetaTestSettingsViewModel {
     let useStagingForDonations: Bool
     let testUnreadMarkersForNotifications: Bool
     let showRateLimitTracker: Bool
+    let showCollections: Bool
     
     init() {
         useStagingForDonations = UserDefaults.standard.useStagingForDonations
         testUnreadMarkersForNotifications = UserDefaults.standard.testUnreadMarkersForNotifications
         showRateLimitTracker = UserDefaults.standard.showRateLimitTracker
+        showCollections = UserDefaults.standard.showCollections
     }
     
     func byToggling(_ setting: BetaTestSetting) -> BetaTestSettingsViewModel {
@@ -25,6 +27,8 @@ struct BetaTestSettingsViewModel {
         case .clearPreviousDonationCampaigns:
             assertionFailure("this is an action, not a setting")
             break
+        case .showCollectionsInFeatureTab:
+            UserDefaults.standard.toggleShowCollections()
         }
         return BetaTestSettingsViewModel()
     }
@@ -49,6 +53,7 @@ enum BetaTestSetting: Hashable {
     case clearPreviousDonationCampaigns
     //case testUnreadMarkersForNotifications
     case showRateLimitTracker
+    case showCollectionsInFeatureTab
   
     var labelText: String {
         switch self {
@@ -60,6 +65,8 @@ enum BetaTestSetting: Hashable {
 //            return "Test unread markers for notifications"
         case .showRateLimitTracker:
             return "Show API rate limit tracker"
+        case .showCollectionsInFeatureTab:
+            return "Show Collections"
         }
     }
 }
@@ -122,6 +129,14 @@ class BetaTestSettingsViewController: UIViewController {
                 selectionCell.toggle.removeTarget(self, action: nil, for: .valueChanged)
                 selectionCell.toggle.addTarget(self, action: #selector(didToggleShowRateLimitTracker), for: .valueChanged)
                 return selectionCell
+            case .showCollectionsInFeatureTab:
+                guard let selectionCell = tableView.dequeueReusableCell(withIdentifier: ToggleTableViewCell.reuseIdentifier, for: indexPath) as? ToggleTableViewCell else { assertionFailure("unexpected cell type"); return nil }
+                selectionCell.label.text = itemIdentifier.labelText
+                selectionCell.label.numberOfLines = 0
+                selectionCell.toggle.isOn = self.viewModel.showCollections
+                selectionCell.toggle.removeTarget(self, action: nil, for: .valueChanged)
+                selectionCell.toggle.addTarget(self, action: #selector(didToggleShowCollections), for: .valueChanged)
+                return selectionCell
             }
         })
         
@@ -146,6 +161,10 @@ class BetaTestSettingsViewController: UIViewController {
         viewModel = viewModel.byToggling(.useStagingForDonations)
     }
     
+    @objc func didToggleShowCollections(_ sender: UISwitch) {
+        viewModel = viewModel.byToggling(.showCollectionsInFeatureTab)
+    }
+    
     @objc func didToggleTestUnreadMarkers(_ sender: UISwitch) {
 //        viewModel = viewModel.byToggling(.testUnreadMarkersForNotifications)
     }
@@ -157,7 +176,7 @@ class BetaTestSettingsViewController: UIViewController {
     func loadFromViewModel(animated: Bool = true) {
         var snapshot = NSDiffableDataSourceSnapshot<BetaTestSettingsSectionType, BetaTestSetting>()
         snapshot.appendSections([.features])
-        snapshot.appendItems([.showRateLimitTracker], toSection: .features)
+        snapshot.appendItems([.showRateLimitTracker, .showCollectionsInFeatureTab], toSection: .features)
         snapshot.appendSections([.donations])
         snapshot.appendItems([.useStagingForDonations], toSection: .donations)
         if viewModel.useStagingForDonations {
@@ -180,6 +199,8 @@ extension BetaTestSettingsViewController: UITableViewDelegate {
             }
 //        case .testUnreadMarkersForNotifications:
 //            break
+        case .showCollectionsInFeatureTab:
+            break
         }
     }
 }
