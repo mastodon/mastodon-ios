@@ -6,9 +6,9 @@
 - Swift 5.7+
 - iOS 18.0+
 
-Install the latest version of Xcode from the App Store or Apple Developer Download website. Also, we assert you have the [Homebrew](https://brew.sh) package manager.  
+Install the latest version of Xcode from the App Store or Apple Developer Download website. Also, we assert you have the [Homebrew](https://brew.sh) package manager.
 
-This guide may not suit your machine and actually setup procedure may change in the future. Please file an issue or open a Pull Request if there are any problems.
+This guide may not suit your machine and actual setup procedure may change in the future. Please file an issue or open a Pull Request if there are any problems.
 
 ### Swiftgen and Sourcery
 
@@ -60,13 +60,13 @@ The app is compatible with [toot-relay](https://github.com/DagAgren/toot-relay) 
 Please check the [Establishing a Certificate-Based Connection to APNs
 ](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/establishing_a_certificate-based_connection_to_apns) document to generate the certificate and exports the p12 file.
 
-Note: 
+Note:
 Please check and set the `notification.Topic` to the app BundleID in [toot-relay.go](https://github.com/DagAgren/toot-relay/blob/f9d6894040509881fee845972cd38ec6cd8f5a11/toot-relay.go#L112). The server needs use a reverse proxy to port this relay on 443 port with valid domain and HTTPS certificate.
 
 ## Start
 
-1. Open `Mastodon.xcodeproj` 
-2. Wait for the Swift Package Dependencies to be resolved. 
+1. Open `Mastodon.xcodeproj`
+2. Wait for the Swift Package Dependencies to be resolved.
 2. Check the signing settings make sure to choose a team. [More info…](https://help.apple.com/xcode/mac/current/#/dev23aab79b4)
 3. Select `Mastodon` scheme and device then run it. (Command + R)
 
