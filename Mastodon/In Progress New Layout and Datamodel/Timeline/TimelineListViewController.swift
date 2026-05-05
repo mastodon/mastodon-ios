@@ -62,7 +62,7 @@ enum TimelineViewType {
             return L10n.Scene.Favorite.title
             
         case .collection(let collectionViewModel):
-            return collectionViewModel.collection.name
+            return nil // this will be collectionViewModel.collection.name, but until we require iOS26, cannot be displayed as title+subtitle, so will be displayed in a header section
             
         case .whoFavourited:
             return L10n.Scene.FavoritedBy.title
@@ -1836,7 +1836,6 @@ struct TimelineListView: View {
                 } else {
                     VStack(alignment: .leading, spacing: 0) {
                         fixedHeader(geoWidth: min(maxFeedContentWidth, geo.size.width))
-                            .padding(.horizontal, doublePadding)
                             .frame(maxWidth: maxFeedContentWidth)
                             .frame(maxWidth: .infinity)
                         
@@ -2427,6 +2426,7 @@ struct TimelineListView: View {
         if UserDefaults.standard.showRateLimitTracker {
             RateLimitTracker()
                 .environment(RateLimitViewModel.shared)
+                .padding(.horizontal, doublePadding)
         }
         
         // PROFILE TIMELINE - FILTER BOOSTS AND REPLIES
@@ -2441,12 +2441,14 @@ struct TimelineListView: View {
                     .frame(height: doublePadding)
             }
             .id("repliesAndBoostsFilterButton")
+            .padding(.horizontal, doublePadding)
         }
         
         // PROFILE TIMELINE - FEATURED HASHTAGS
         FeaturedHashtagsFlow(maxItemWidth: min(maxFeedContentWidth, geoWidth) - doublePadding * 2)
             .environment(filterModel)
             .environment(filterModel.featuredHashtagsModel ?? FeaturedHashtagsModel())
+            .padding(.horizontal, doublePadding)
         
         // FAMILIAR FOLLOWERS - subheadline
         switch viewModel.timeline {
@@ -2456,8 +2458,31 @@ struct TimelineListView: View {
                     .font(.footnote)
                     .fontWeight(.semibold)
                     .foregroundColor(.secondary)
+                    .padding(.horizontal, doublePadding)
                     .frame(maxWidth: .infinity, alignment: .center)
             }
+        case .collection(let collectionViewModel):
+            VStack(alignment: .leading, spacing: standardPadding) {
+                VStack(alignment: .leading, spacing: 0) {
+                    if let collectionName = collectionViewModel.collection.name {
+                        Text(collectionName)
+                            .font(.largeTitle)
+                            .fontWeight(.semibold)
+                    }
+                    Text("by \(collectionViewModel.authorHandle ?? "@someone@somewhere.social)")") // TODO: L10n
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+                if let description = collectionViewModel.collection.description, !description.isEmpty {
+                    Text(description)
+                }
+                Text("\(collectionViewModel.collection.itemCount) accounts")  // TODO: L10n
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.secondary)
+            }
+            .padding(.horizontal, standardPadding)
+            .padding(.bottom, doublePadding)
+            .frame(maxWidth: .infinity, alignment: .leading)
         default:
             EmptyView()
         }
