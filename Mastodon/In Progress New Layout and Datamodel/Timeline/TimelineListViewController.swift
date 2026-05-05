@@ -2222,6 +2222,9 @@ struct TimelineListView: View {
                     .environment(collectionViewModel)
                     .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
                     .frame(width: useableWidth)
+                    .onTapGesture {
+                        navigator.push(.timeline(.collection(collectionViewModel)))
+                    }
                 
             case .noItem:
                 EmptyView()
