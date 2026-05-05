@@ -1442,9 +1442,12 @@ extension TimelineListViewModel {
             !(timelineQueryFilter?.excludeReblogs ?? false)
         }
         set {
-            timelineQueryFilter?.excludeReblogs = !newValue
-            Task {
-                await forceReload(.activityFilterUpdated)
+            let updatedValue = !newValue
+            if timelineQueryFilter?.excludeReblogs != updatedValue {
+                timelineQueryFilter?.excludeReblogs = updatedValue
+                Task {
+                    await forceReload(.activityFilterUpdated)
+                }
             }
         }
     }
@@ -1454,9 +1457,12 @@ extension TimelineListViewModel {
             !(timelineQueryFilter?.excludeReplies ?? true)
         }
         set {
-            timelineQueryFilter?.excludeReplies = !newValue
-            Task {
-                await forceReload(.activityFilterUpdated)
+            let updatedValue = !newValue
+            if timelineQueryFilter?.excludeReplies != updatedValue {
+                timelineQueryFilter?.excludeReplies = updatedValue
+                Task {
+                    await forceReload(.activityFilterUpdated)
+                }
             }
         }
     }
@@ -1923,6 +1929,7 @@ struct TimelineListView: View {
                                         guard asyncRefreshViewModel.willRefreshFromOriginalEndpoint() else {
                                             return
                                         }
+                                        guard viewModel.loadingState != .requestedAsyncRefreshResults else { return }
                                         viewModel.loadingState = .requestedAsyncRefreshResults
                                         Task {
                                             await viewModel.forceReload(.asyncRefreshResultsRequested)
@@ -1958,6 +1965,7 @@ struct TimelineListView: View {
                 NotificationService.shared.clearNotificationCountForActiveUser()
             }
             if viewModel.needsReloadOnNextAppear {
+                viewModel.needsReloadOnNextAppear = false
                 Task {
                     await viewModel.forceReload(.notificationCountUpdated)
                 }
