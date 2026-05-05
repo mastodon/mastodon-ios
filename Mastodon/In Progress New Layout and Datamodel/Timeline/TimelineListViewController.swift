@@ -182,6 +182,7 @@ class TimelineListViewController: UIHostingController<AnyView>
             if let url = URL(string: collectionViewModel.collection.url) {
                 navigationItem.rightBarButtonItems = [
                   shareBarButtonItem(url),
+                  UIBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis"), primaryAction: nil, menu: collectionMenu(collectionViewModel))
                 ]
             } else {
                 
@@ -223,6 +224,81 @@ class TimelineListViewController: UIHostingController<AnyView>
             let scene = UIApplication.shared.connectedScenes.first { $0.activationState == .foregroundActive } as? UIWindowScene
             scene?.keyWindow?.rootViewController?.present(vc, animated: true)
         })
+    }
+    
+    func collectionMenu(_ collectionViewModel: CollectionViewModel) -> UIMenu {
+        let submenus = collectionViewModel.collectionMenuActions()
+        
+        func menuElement(_ wrapperAction: MastodonMenuAction) -> UIMenuElement? {
+            switch wrapperAction {
+            case .collectionAction(let action):
+                return UIAction(
+                    title: action.labelText,
+                    image: nil,
+                    identifier: nil,
+                    discoverabilityTitle: nil,
+                    attributes: [],
+                    state: .off
+                ) { _ in
+                    Task {
+                        do {
+                            try await collectionViewModel.doMenuAction(action)
+                        } catch {
+                            self.navigator.didReceiveError(error)
+                        }
+                    }
+                }
+            case .relationshipAction(let action):
+                guard let authorAccount = collectionViewModel.authorAccount else { return nil }
+                return UIAction(
+                    title: collectionViewModel.relationshipViewModel.labelText(forAction: action, account: authorAccount),
+                    image: nil,
+                    identifier: nil,
+                    discoverabilityTitle: nil,
+                    attributes: [],
+                    state: .off
+                ) { _ in
+                    Task {
+                        do {
+                            try await collectionViewModel.relationshipViewModel.doMenuAction(action, forAccount: authorAccount, navigator: self.navigator)
+                        } catch {
+                            self.navigator.didReceiveError(error)
+                        }
+                    }
+                }
+            case .navigationalAction(let action):
+                guard let label = navigator.labelText(forAction: action, domainName: collectionViewModel.authorAccount?.domain) else { return nil }
+                return UIAction(
+                    title: label,
+                    image: nil,
+                    identifier: nil,
+                    discoverabilityTitle: nil,
+                    attributes: [],
+                    state: .off
+                ) { _ in
+                    Task {
+                        do {
+                            try await self.navigator.doMenuAction(action)
+                        } catch {
+                            self.navigator.didReceiveError(error)
+                        }
+                    }
+                }
+            case .miscellaneous(let action):
+                return nil
+            case .postAction(let action):
+                return nil
+            }
+        }
+        
+        let submenuElements = submenus.flatMap { submenu in
+            let children = submenu.items.map { action in
+                menuElement(action)
+            }.compactMap { $0 }
+            return children
+        }
+        
+        return UIMenu(children: submenuElements)
     }
     
     lazy var picker = { UISegmentedControl(items: [ NotificationsScope.everything.pickerLabel, NotificationsScope.mentions.pickerLabel ]) }()

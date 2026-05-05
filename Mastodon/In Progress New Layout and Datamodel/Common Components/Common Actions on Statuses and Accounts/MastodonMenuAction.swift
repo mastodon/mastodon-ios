@@ -108,6 +108,15 @@ enum MastodonMenuAction: Hashable {
     enum CollectionMenuAction: String {
         case reportCollection
         case removeMyself
+        
+        var labelText: String {
+            switch self {
+            case .reportCollection:
+                "Report collection" // TODO: L10n
+            case .removeMyself:
+                "Remove me" // TODO: L10n
+            }
+        }
     }
     
     enum MiscellaneousMenuAction: String {

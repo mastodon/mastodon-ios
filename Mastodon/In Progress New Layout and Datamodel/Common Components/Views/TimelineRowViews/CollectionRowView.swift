@@ -125,7 +125,7 @@ struct CollectionRowView: View {
                     case .collectionAction(let action):
                         switch action {
                         case .reportCollection:
-                            MastodonMenuAction.menuButton(systemImageName: nil, text: "Report collection") { // TODO: L10n
+                            MastodonMenuAction.menuButton(systemImageName: nil, text: action.labelText) {
                                 Task {
                                     do {
                                         try await self.doMenuAction(action)
@@ -135,7 +135,7 @@ struct CollectionRowView: View {
                                 }
                             }
                         case .removeMyself:
-                            MastodonMenuAction.menuButton(systemImageName: nil, text: "Remove me") { // TODO: L10n
+                            MastodonMenuAction.menuButton(systemImageName: nil, text: action.labelText) {
                                 Task {
                                     do {
                                         try await self.doMenuAction(action)
