@@ -58,6 +58,7 @@ extension Mastodon.API.Media {
             withPendingUnitCount: query.progress.totalUnitCount
         )
         
+        RateLimitViewModel.shared.didMakeRequest("upload media")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Attachment.self, from: data, response: response)
@@ -166,6 +167,7 @@ extension Mastodon.API.Media {
             authorization: authorization
         )
         request.timeoutInterval = 10    // short timeout for quick retry
+        RateLimitViewModel.shared.didMakeRequest("get media attachment before it is attached to a status")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Attachment.self, from: data, response: response)
@@ -211,6 +213,7 @@ extension Mastodon.API.Media {
             authorization: authorization
         )
         request.timeoutInterval = 180    // should > 200 Kb/s for 40 MiB media attachment
+        RateLimitViewModel.shared.didMakeRequest("update media attachment before it is attached")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Attachment.self, from: data, response: response)

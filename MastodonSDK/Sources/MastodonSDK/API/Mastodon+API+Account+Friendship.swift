@@ -41,6 +41,7 @@ extension Mastodon.API.Account {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("fetch \(query.ids.count) relationships")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Relationship].self, from: data, response: response)
@@ -127,6 +128,7 @@ extension Mastodon.API.Account {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("follow \(accountID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Relationship.self, from: data, response: response)
@@ -181,6 +183,7 @@ extension Mastodon.API.Account {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("unfollow \(accountID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Relationship.self, from: data, response: response)
@@ -214,6 +217,7 @@ extension Mastodon.API.Account {
             url: url,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("remove \(accountToRemove) from my followers")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Relationship.self, from: data, response: response)
@@ -251,6 +255,7 @@ extension Mastodon.API.Account {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("set personal note for account \(account)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Relationship.self, from: data, response: response)
@@ -321,6 +326,7 @@ public extension Mastodon.API.Account {
             query: BlocksQuery(sinceID: sinceID, limit: limit),
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("block user since status \(sinceID ?? "(none)")")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Account].self, from: data, response: response)
@@ -386,6 +392,7 @@ extension Mastodon.API.Account {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("block \(accountID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Relationship.self, from: data, response: response)
@@ -430,6 +437,7 @@ extension Mastodon.API.Account {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("unblock \(accountID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Relationship.self, from: data, response: response)
@@ -498,6 +506,7 @@ extension Mastodon.API.Account {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("mute \(accountID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Relationship.self, from: data, response: response)
@@ -542,6 +551,7 @@ extension Mastodon.API.Account {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("unmute \(accountID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Relationship.self, from: data, response: response)
@@ -589,6 +599,7 @@ extension Mastodon.API.Account {
                 query: MutesQuery(sinceID: sinceID, limit: limit),
                 authorization: authorization
            )
+           RateLimitViewModel.shared.didMakeRequest("get list of mutes")
            return session.dataTaskPublisher(for: request)
                .tryMap { data, response in
                    let value = try Mastodon.API.decode(type: [Mastodon.Entity.Account].self, from: data, response: response)

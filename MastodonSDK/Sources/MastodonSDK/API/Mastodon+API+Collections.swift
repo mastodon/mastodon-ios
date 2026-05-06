@@ -54,6 +54,7 @@ extension Mastodon.API.Collections {
             url: accountCollectionsEndpointURL(domain: domain, accountID: accountID),
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("collections list for account \(accountID)")
         let (data, response) = try await session.data(for: request)
         let value = try Mastodon.API.decode(
             type: Mastodon.Entity.CollectionsList.self, from: data,
@@ -85,6 +86,7 @@ extension Mastodon.API.Collections {
             url: collectionsEndpointURL(domain: domain),
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("collection \(collectionID)")
         let (data, response) = try await session.data(for: request)
         let value = try Mastodon.API.decode(
             type: Mastodon.Entity.Collection.self, from: data,

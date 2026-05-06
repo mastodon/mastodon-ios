@@ -56,7 +56,7 @@ extension Mastodon.API.V2.Media {
             serialStream.progress,
             withPendingUnitCount: query.progress.totalUnitCount
         )
-        
+        RateLimitViewModel.shared.didMakeRequest("upload media attachment")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Attachment.self, from: data, response: response)

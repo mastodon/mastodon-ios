@@ -42,6 +42,7 @@ extension Mastodon.API.Reblog {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("fetch accounts that boosted status \(statusID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Status.self, from: data, response: response)
@@ -87,6 +88,7 @@ extension Mastodon.API.Reblog {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("boost status \(statusID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Status.self, from: data, response: response)
@@ -141,6 +143,7 @@ extension Mastodon.API.Reblog {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("undo boost of status \(statusID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Status.self, from: data, response: response)

@@ -31,6 +31,7 @@ extension Mastodon.API.DomainBlock {
     ) -> AnyPublisher<Mastodon.Response.Content<[String]>, Error> {
         let url = domainBlockEndpointURL(domain: domain)
         let request = Mastodon.API.get(url: url, query: query, authorization: authorization)
+        RateLimitViewModel.shared.didMakeRequest("get domain block list")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [String].self, from: data, response: response)
@@ -61,6 +62,7 @@ extension Mastodon.API.DomainBlock {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("block domain \(blockDomain)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Empty.self, from: data, response: response)
@@ -91,6 +93,7 @@ extension Mastodon.API.DomainBlock {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("unblock domain \(blockDomain)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Empty.self, from: data, response: response)

@@ -42,6 +42,7 @@ extension Mastodon.API.Statuses {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("get single status \(statusID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Status.self, from: data, response: response)
@@ -89,6 +90,7 @@ extension Mastodon.API.Statuses {
         if let idempotencyKey = idempotencyKey {
             request.setValue(idempotencyKey, forHTTPHeaderField: "Idempotency-Key")
         }
+        RateLimitViewModel.shared.didMakeRequest("publish a status")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Status.self, from: data, response: response)
@@ -196,6 +198,7 @@ extension Mastodon.API.Statuses {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("delete a status")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Status.self, from: data, response: response)
@@ -245,6 +248,7 @@ extension Mastodon.API.Statuses {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("revoke quote authorization")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Status.self, from: data, response: response)
@@ -301,6 +305,7 @@ extension Mastodon.API.Statuses {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("update quote policy")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Status.self, from: data, response: response)
@@ -368,6 +373,7 @@ extension Mastodon.API.Statuses {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("get thread for status \(statusID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Context.self, from: data, response: response)

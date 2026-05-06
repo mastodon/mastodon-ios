@@ -53,6 +53,7 @@ extension Mastodon.API.Account {
             url: pendingFollowRequestEndpointURL(domain: domain),
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("pending follow requests")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Account].self, from: data, response: response)
@@ -86,6 +87,7 @@ extension Mastodon.API.Account {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("accept follow request from \(userID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Relationship.self, from: data, response: response)
@@ -118,6 +120,7 @@ extension Mastodon.API.Account {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("reject follow request from \(userID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Relationship.self, from: data, response: response)

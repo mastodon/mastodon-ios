@@ -46,6 +46,7 @@ extension Mastodon.API.Account {
         )
 
         do {
+            RateLimitViewModel.shared.didMakeRequest("filters")
             let (data, response) = try await session.data(for: v2request)
             let value = try Mastodon.API.decode(type: [Mastodon.Entity.FilterV2].self, from: data, response: response)
             return value
@@ -59,6 +60,7 @@ extension Mastodon.API.Account {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("filters fallback")
         let (data, response) = try await session.data(for: v1request)
         let value = try Mastodon.API.decode(type: [Mastodon.Entity.FilterV1].self, from: data, response: response)
         return value

@@ -36,6 +36,7 @@ extension Mastodon.API.Onboarding {
             query: query,
             authorization: nil
         )
+        RateLimitViewModel.shared.didMakeRequest("fetch server list")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Server].self, from: data, response: response)
@@ -63,6 +64,7 @@ extension Mastodon.API.Onboarding {
             query: nil,
             authorization: nil
         )
+        RateLimitViewModel.shared.didMakeRequest("fetch server categories")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Category].self, from: data, response: response)
@@ -90,6 +92,7 @@ extension Mastodon.API.Onboarding {
             query: nil,
             authorization: nil
         )
+        RateLimitViewModel.shared.didMakeRequest("fetch server languages")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Language].self, from: data, response: response)
@@ -113,6 +116,7 @@ extension Mastodon.API.Onboarding {
         session: URLSession
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.DefaultServer]>, Error>  {
         let request = Mastodon.API.get(url: defaultServersEndpointURL)
+        RateLimitViewModel.shared.didMakeRequest("fetch default servers")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.DefaultServer].self, from: data, response: response)

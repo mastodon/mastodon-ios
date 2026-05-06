@@ -52,6 +52,7 @@ extension Mastodon.API.Statuses {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("translate status \(statusID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Translation.self, from: data, response: response)

@@ -34,6 +34,7 @@ extension Mastodon.API.Instance {
         domain: String
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Instance>, Error>  {
         let request = Mastodon.API.get(url: instanceEndpointURL(domain: domain), authorization: authorization)
+        RateLimitViewModel.shared.didMakeRequest("fetch instance \(domain)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value: Mastodon.Entity.Instance
@@ -59,6 +60,7 @@ extension Mastodon.API.Instance {
         domain: String
     ) async throws -> Mastodon.Entity.Instance {
         let request = Mastodon.API.get(url: instanceEndpointURL(domain: domain), authorization: authorization)
+        RateLimitViewModel.shared.didMakeRequest("instance \(domain)")
         let (data, response) = try await session.data(for: request)
         
         let value: Mastodon.Entity.Instance
@@ -92,6 +94,7 @@ extension Mastodon.API.Instance {
         domain: String
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.ExtendedDescription>, Error>  {
         let request = Mastodon.API.get(url: extendedDescriptionEndpointURL(domain: domain), authorization: authorization)
+        RateLimitViewModel.shared.didMakeRequest("get extended description for instance \(domain)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.ExtendedDescription.self, from: data, response: response)

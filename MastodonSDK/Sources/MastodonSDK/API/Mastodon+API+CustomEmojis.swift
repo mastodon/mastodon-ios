@@ -37,6 +37,7 @@ extension Mastodon.API.CustomEmojis {
             url: customEmojisEndpointURL(domain: domain),
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("get custom emojis for \(domain)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Emoji].self, from: data, response: response)

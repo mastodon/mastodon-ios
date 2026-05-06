@@ -50,6 +50,7 @@ extension Mastodon.API.Timeline {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("get public timeline")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)
@@ -83,6 +84,7 @@ extension Mastodon.API.Timeline {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("get home timeline")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)
@@ -119,6 +121,7 @@ extension Mastodon.API.Timeline {
             authorization: authorization
         )
         
+        RateLimitViewModel.shared.didMakeRequest("get statuses for hashtag #\(hashtag)")
         let (data, response) = try await session.data(for: request)
         let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)
         return Mastodon.Response.Content(value: value, response: response)
@@ -136,6 +139,7 @@ extension Mastodon.API.Timeline {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("get list timeline for list \(id)")
         let (data, response) = try await session.data(for: request)
         
         let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)

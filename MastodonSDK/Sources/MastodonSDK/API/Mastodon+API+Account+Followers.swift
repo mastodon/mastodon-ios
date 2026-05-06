@@ -43,6 +43,7 @@ extension Mastodon.API.Account {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("followers of \(userID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Account].self, from: data, response: response)

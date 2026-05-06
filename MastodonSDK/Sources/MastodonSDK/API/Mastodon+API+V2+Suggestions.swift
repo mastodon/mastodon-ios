@@ -31,6 +31,7 @@ extension Mastodon.API.V2.Suggestions {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("get follow suggestions v2")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.V2.SuggestionAccount].self, from: data, response: response)

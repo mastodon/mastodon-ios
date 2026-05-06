@@ -10,6 +10,16 @@ import SwiftUI
     private init() {}
     
     public static let shared = RateLimitViewModel()
+    public private(set) var previousRequests = [String]()
+    
+    public func didMakeRequest(_ debugName: String) {
+        guard UserDefaults.standard.showRateLimitTracker else { return }
+        previousRequests.append(Mastodon.API.httpHeaderDateFormatter.string(from: .now) + ": " + debugName)
+        let limit = currentState?.limit ?? 300
+        if previousRequests.count > currentState?.limit ?? 300 {
+            previousRequests = Array(previousRequests.suffix(limit))
+        }
+    }
     
     func didReceiveRateLimit(_ rateLimit: Mastodon.Response.RateLimit) {
         currentState = rateLimit

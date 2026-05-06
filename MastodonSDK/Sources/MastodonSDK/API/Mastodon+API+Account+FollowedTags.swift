@@ -39,6 +39,7 @@ extension Mastodon.API.Account {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("followed tags")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Tag].self, from: data, response: response)

@@ -15,6 +15,7 @@ extension Mastodon.API.Instance {
         domain: String
     ) -> AnyPublisher<Mastodon.Response.Content<TranslationLanguages>, Error>  {
         let request = Mastodon.API.get(url: translationLanguagesEndpointURL(domain: domain), authorization: authorization)
+        RateLimitViewModel.shared.didMakeRequest("translation languages available on \(domain)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: TranslationLanguages.self, from: data, response: response)

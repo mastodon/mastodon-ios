@@ -47,6 +47,7 @@ extension Mastodon.API.Polls {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("fetch a poll \(pollID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Poll.self, from: data, response: response)
@@ -84,6 +85,7 @@ extension Mastodon.API.Polls {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("vote in a poll \(pollID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Poll.self, from: data, response: response)

@@ -18,6 +18,7 @@ extension Mastodon.API.Timeline {
             fromPrecompiledUrl: url,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("fetch statuses from precompiled url")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)
@@ -35,6 +36,7 @@ extension Mastodon.API.Timeline {
             fromPrecompiledUrl: url,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("fetch accounts from precompiled url")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Account].self, from: data, response: response)
@@ -52,6 +54,7 @@ extension Mastodon.API.Timeline {
             fromPrecompiledUrl: url,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("fetch hashtags from precompiled url")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Tag].self, from: data, response: response)
@@ -69,6 +72,7 @@ extension Mastodon.API.Timeline {
             fromPrecompiledUrl: url,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("fetch grouped notifications from precompiled url")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.GroupedNotificationsResults.self, from: data, response: response)
@@ -86,6 +90,7 @@ extension Mastodon.API.Timeline {
             fromPrecompiledUrl: url,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("fetch ungrouped notifications from precompiled url")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Notification].self, from: data, response: response)

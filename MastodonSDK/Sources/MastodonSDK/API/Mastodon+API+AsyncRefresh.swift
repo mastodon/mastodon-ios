@@ -39,6 +39,7 @@ extension Mastodon.API.AsyncRefresh {
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.AsyncRefresh>, Error> {
         let url = asyncRefreshUpdateEndpointURL(domain: domain).appendingPathComponent(asyncRefreshID)
         let request = Mastodon.API.get(url: url, authorization: authorization)
+        RateLimitViewModel.shared.didMakeRequest("update async refresh operation \(asyncRefreshID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.AsyncRefreshResult.self, from: data, response: response)

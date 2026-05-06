@@ -42,6 +42,7 @@ extension Mastodon.API.Account {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("register new account")
         let (data, response) = try await session.data(for: request)
         let token = try Mastodon.API.decode(type: Mastodon.Entity.Token.self, from: data, response: response)
         return token
@@ -115,6 +116,7 @@ extension Mastodon.API.Account {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("verify credentials")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Account.self, from: data, response: response)
@@ -133,6 +135,7 @@ extension Mastodon.API.Account {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("verify credentials")
         let (data, response) = try await session.data(for: request)
         let value = try Mastodon.API.decode(type: Mastodon.Entity.Account.self, from: data, response: response)
         return value
@@ -169,6 +172,7 @@ extension Mastodon.API.Account {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("update credentials")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Account.self, from: data, response: response)
@@ -291,7 +295,7 @@ extension Mastodon.API.Account {
             url: url,
             authorization: authorization
         )
-        
+        RateLimitViewModel.shared.didMakeRequest("lists including account \(includingAccount)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.List].self, from: data, response: response)

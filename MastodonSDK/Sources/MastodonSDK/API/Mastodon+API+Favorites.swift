@@ -37,6 +37,7 @@ extension Mastodon.API.Favorites {
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> {
         let url = favoritesStatusesEndpointURL(domain: domain)
         let request = Mastodon.API.get(url: url, query: query, authorization: authorization)
+        RateLimitViewModel.shared.didMakeRequest("get favorites")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)
@@ -120,6 +121,12 @@ extension Mastodon.API.Favorites {
         let url: URL = favoriteActionEndpointURL(domain: domain, statusID: statusID, favoriteKind: favoriteKind)
         var request = Mastodon.API.post(url: url, query: nil, authorization: authorization)
         request.httpMethod = "POST"
+        switch favoriteKind {
+        case .create:
+            RateLimitViewModel.shared.didMakeRequest("add to favorites \(statusID)")
+        case .destroy:
+            RateLimitViewModel.shared.didMakeRequest("remove from favorites \(statusID)")
+        }
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Status.self, from: data, response: response)
@@ -166,6 +173,7 @@ extension Mastodon.API.Favorites {
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error> {
         let url = favoriteByUserListsEndpointURL(domain: domain, statusID: statusID)
         let request = Mastodon.API.get(url: url, query: nil, authorization: authorization)
+        RateLimitViewModel.shared.didMakeRequest("get list of who favorited \(statusID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Account].self, from: data, response: response)

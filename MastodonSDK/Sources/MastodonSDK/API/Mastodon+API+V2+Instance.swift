@@ -29,6 +29,7 @@ extension Mastodon.API.V2.Instance {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("get instance info for \(domain)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value: Mastodon.Entity.V2.Instance
@@ -59,6 +60,7 @@ extension Mastodon.API.V2.Instance {
             authorization: authorization
         )
         
+        RateLimitViewModel.shared.didMakeRequest("get instance \(domain)")
         let (data, response) = try await session.data(for: request)
         
         let value: Mastodon.Entity.V2.Instance

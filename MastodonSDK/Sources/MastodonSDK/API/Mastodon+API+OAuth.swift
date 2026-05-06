@@ -88,6 +88,7 @@ extension Mastodon.API.OAuth {
             query: query,
             authorization: nil
         )
+        RateLimitViewModel.shared.didMakeRequest("obtain user access token")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Token.self, from: data, response: response)
@@ -106,6 +107,7 @@ extension Mastodon.API.OAuth {
             query: query,
             authorization: nil
         )
+        RateLimitViewModel.shared.didMakeRequest("get access token")
         let (data, response) = try await session.data(for: request)
         let value = try Mastodon.API.decode(type: Mastodon.Entity.Token.self, from: data, response: response)
         return value
@@ -135,6 +137,7 @@ extension Mastodon.API.OAuth {
             query: query,
             authorization: nil
         )
+        RateLimitViewModel.shared.didMakeRequest("revoke token")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 // `RevokeToken` returns an empty response when success, so just check whether the data type is String to avoid

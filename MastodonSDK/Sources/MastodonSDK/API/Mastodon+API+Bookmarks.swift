@@ -37,6 +37,7 @@ extension Mastodon.API.Bookmarks {
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> {
         let url = bookmarksStatusesEndpointURL(domain: domain)
         let request = Mastodon.API.get(url: url, query: query, authorization: authorization)
+        RateLimitViewModel.shared.didMakeRequest("get bookmarks")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)
@@ -120,6 +121,7 @@ extension Mastodon.API.Bookmarks {
         let url: URL = bookmarkActionEndpointURL(domain: domain, statusID: statusID, bookmarkKind: bookmarkKind)
         var request = Mastodon.API.post(url: url, query: nil, authorization: authorization)
         request.httpMethod = "POST"
+        RateLimitViewModel.shared.didMakeRequest("add a bookmark for \(statusID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Status.self, from: data, response: response)

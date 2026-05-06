@@ -53,6 +53,7 @@ extension Mastodon.API.Notifications {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("grouped notifications")
         let (data, response) = try await session.data(for: request)
         let value = try Mastodon.API.decode(
             type: Mastodon.Entity.GroupedNotificationsResults.self, from: data,
@@ -88,6 +89,11 @@ extension Mastodon.API.Notifications {
             query: query,
             authorization: authorization
         )
+        if let excluded = query.excludeTypes {
+            RateLimitViewModel.shared.didMakeRequest("get notifications excluding \(excluded.map{ $0.rawValue }.joined(separator: ", "))")
+        } else if let included = query.types {
+            RateLimitViewModel.shared.didMakeRequest("get notifications including \(included.map{ $0.rawValue }.joined(separator: ", "))")
+        }
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(
@@ -127,6 +133,8 @@ extension Mastodon.API.Notifications {
             query: nil,
             authorization: authorization
         )
+        
+        RateLimitViewModel.shared.didMakeRequest("get single notification \(notificationID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(
@@ -361,6 +369,7 @@ extension Mastodon.API.Notifications {
             authorization: authorization
         )
 
+        RateLimitViewModel.shared.didMakeRequest("notification policy")
         let (data, response) = try await session.data(for: request)
 
         let value = try Mastodon.API.decode(
@@ -382,6 +391,7 @@ extension Mastodon.API.Notifications {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("update notification policy")
         let (data, response) = try await session.data(for: request)
         let value = try Mastodon.API.decode(
             type: Mastodon.Entity.NotificationPolicy.self, from: data,
@@ -431,6 +441,7 @@ extension Mastodon.API.Notifications {
             authorization: authorization
         )
 
+        RateLimitViewModel.shared.didMakeRequest("notification requests")
         let (data, response) = try await session.data(for: request)
 
         let value = try Mastodon.API.decode(
@@ -450,6 +461,7 @@ extension Mastodon.API.Notifications {
             authorization: authorization
         )
 
+        RateLimitViewModel.shared.didMakeRequest("accept notification request")
         let (data, response) = try await session.data(for: request)
 
         // we expect an empty dictionary
@@ -469,6 +481,7 @@ extension Mastodon.API.Notifications {
             authorization: authorization
         )
 
+        RateLimitViewModel.shared.didMakeRequest("dismiss notification request")
         let (data, response) = try await session.data(for: request)
 
         // we expect an empty dictionary

@@ -42,6 +42,7 @@ extension Mastodon.API.Account {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("update tab display settings")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Profile.self, from: data, response: response)
@@ -105,6 +106,7 @@ extension Mastodon.API.Account {
             url: url,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("feature account \(accountToFeature)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Relationship.self, from: data, response: response)
@@ -138,6 +140,7 @@ extension Mastodon.API.Account {
             url: url,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("stop featuring \(accountToStopFeaturing)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Relationship.self, from: data, response: response)

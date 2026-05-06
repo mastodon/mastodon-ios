@@ -48,6 +48,7 @@ extension Mastodon.API {
         let url = donationsEndpoint
 
         let request = Mastodon.API.get(url: url, query: query)
+        RateLimitViewModel.shared.didMakeRequest("donation campaign")
         let (data, response) = try await session.data(for: request)
 
         let value = try Mastodon.API.decode(

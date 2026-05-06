@@ -45,6 +45,7 @@ extension Mastodon.API.FeaturedTags {
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.FeaturedTag]>, Error> {
         let url = featuredTagsEndpointURL(accountID: accountID, domain: domain)
         let request = Mastodon.API.get(url: url, query: nil, authorization: authorization)
+        RateLimitViewModel.shared.didMakeRequest("get tags featured by \(accountID ?? "(unknown)")")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.FeaturedTag].self, from: data, response: response)
@@ -81,6 +82,7 @@ extension Mastodon.API.FeaturedTags {
         let url: URL = featuredTagsEndpointURL(accountID: nil, domain: domain)
         var request = Mastodon.API.post(url: url, query: FeaturedTagPostQuery(tagName: tag), authorization: authorization)
         request.httpMethod = "POST"
+        RateLimitViewModel.shared.didMakeRequest("start featuring #\(tag)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.FeaturedTag.self, from: data, response: response)
@@ -132,6 +134,7 @@ extension Mastodon.API.FeaturedTags {
         let url: URL = featuredTagsEndpointURL(accountID: nil, domain: domain).appendingPathComponent(tag.id)
         var request = Mastodon.API.delete(url: url, query: nil, authorization: authorization)
         request.httpMethod = "DELETE"
+        RateLimitViewModel.shared.didMakeRequest("stop featuring #\(tag.name)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 try Mastodon.API.decodeEmpty(from: data, response: response)
@@ -150,6 +153,7 @@ extension Mastodon.API.FeaturedTags {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("get suggested tags")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Array<Mastodon.Entity.Tag>.self, from: data, response: response)

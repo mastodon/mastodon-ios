@@ -25,6 +25,7 @@ extension APIService {
     ) -> AnyPublisher<String, Error> {
         let url = APIService.webFingerEndpointURL(domain: domain)
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 3)
+        RateLimitViewModel.shared.didMakeRequest("webFinger \(domain)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 return response.url?.host ?? domain

@@ -40,6 +40,7 @@ extension Mastodon.API.V2.Search {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("perform search")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.SearchResult.self, from: data, response: response)

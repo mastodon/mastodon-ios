@@ -24,6 +24,7 @@ extension Mastodon.API.Lists {
             authorization: authorization
         )
         
+        RateLimitViewModel.shared.didMakeRequest("get lists")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.List].self, from: data, response: response)
@@ -43,6 +44,7 @@ extension Mastodon.API.Lists {
             authorization: authorization
         )
         
+        RateLimitViewModel.shared.didMakeRequest("get list \(id)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.List.self, from: data, response: response)
@@ -65,6 +67,7 @@ extension Mastodon.API.Lists {
             authorization: authorization
         )
        
+        RateLimitViewModel.shared.didMakeRequest("create list \(listName)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.List.self, from: data, response: response)
@@ -106,6 +109,7 @@ extension Mastodon.API.Lists {
     ) -> AnyPublisher<Void, Error> {
         var request = Mastodon.API.post(url: listAccountsEndpointURL(domain: domain, id: listId), query: AddToListQuery(accountID: accountID), authorization: authorization)
         request.httpMethod = "POST"
+        RateLimitViewModel.shared.didMakeRequest("add account \(accountID) to list \(listId)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 try Mastodon.API.decodeEmpty(from: data, response: response)
@@ -124,6 +128,7 @@ extension Mastodon.API.Lists {
         let url = listAccountsEndpointURL(domain: domain, id: listId)
         var request = Mastodon.API.delete(url: url, query: DeleteFromListQuery(accountID: accountID), authorization: authorization)
         request.httpMethod = "DELETE"
+        RateLimitViewModel.shared.didMakeRequest("remove account \(accountID) from list \(listId)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 try Mastodon.API.decodeEmpty(from: data, response: response)

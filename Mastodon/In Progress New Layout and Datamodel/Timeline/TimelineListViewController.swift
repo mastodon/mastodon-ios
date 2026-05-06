@@ -2612,6 +2612,11 @@ struct TimelineListView: View {
             }
             
         case .error:
+            if UserDefaults.standard.showRateLimitTracker {
+                Button("Copy recent requests") {
+                    UIPasteboard.general.string = RateLimitViewModel.shared.previousRequests.joined(separator: "\n")
+                }
+            }
             Button(L10n.Common.Controls.Actions.ok) {
             }
         case .confirmUnhideFeatureTabBeforeFeaturing(_, let didConfirm):

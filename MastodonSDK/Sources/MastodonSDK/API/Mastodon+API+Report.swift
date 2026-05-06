@@ -38,6 +38,7 @@ extension Mastodon.API.Reports {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("file report")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 guard let response = response as? HTTPURLResponse else {

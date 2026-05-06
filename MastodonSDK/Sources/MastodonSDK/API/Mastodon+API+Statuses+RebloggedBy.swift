@@ -45,6 +45,7 @@ extension Mastodon.API.Statuses {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("list of who boosted status \(statusID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Account].self, from: data, response: response)

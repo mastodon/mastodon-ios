@@ -39,6 +39,7 @@ extension Mastodon.API.Tags {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("get info for tag \(tagId)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Tag.self, from: data, response: response)
@@ -73,6 +74,7 @@ extension Mastodon.API.Tags {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("follow tag \(tagId)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Tag.self, from: data, response: response)
@@ -107,6 +109,7 @@ extension Mastodon.API.Tags {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("unfollow tag \(tagId)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Tag.self, from: data, response: response)

@@ -35,6 +35,7 @@ extension Mastodon.API.Marker {
     ) async throws -> Mastodon.Entity.Marker {
         let url = markersEndpointURL(domain: domain)
         let request = Mastodon.API.get(url: url, query: MarkerFetchQuery(), authorization: authorization)
+        RateLimitViewModel.shared.didMakeRequest("last read markers")
         let (data, response) = try await session.data(for: request)
         let value = try Mastodon.API.decode(type: Mastodon.Entity.Marker.self, from: data, response: response)
         return value

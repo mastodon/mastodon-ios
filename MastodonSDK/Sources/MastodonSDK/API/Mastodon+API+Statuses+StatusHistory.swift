@@ -27,6 +27,7 @@ extension Mastodon.API.Statuses {
         let url = statusSourceEndpointURL(domain: domain, statusID: statusID)
         let request = Mastodon.API.get(url: url, authorization: authorization)
 
+        RateLimitViewModel.shared.didMakeRequest("status source for \(statusID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { (data: Data, response: URLResponse) in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.StatusSource.self, from: data, response: response)
@@ -62,6 +63,7 @@ extension Mastodon.API.Statuses {
         let url = historyEndpointURL(domain: domain, statusID: statusID)
         let request = Mastodon.API.get(url: url, authorization: authorization)
 
+        RateLimitViewModel.shared.didMakeRequest("edit history for status \(statusID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { (data: Data, response: URLResponse) in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.StatusEdit].self, from: data, response: response)
@@ -95,7 +97,7 @@ extension Mastodon.API.Statuses {
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> {
         let url = statusEndpointURL(domain: domain, statusID: statusID)
         let request = Mastodon.API.put(url: url, query: editStatusQuery, authorization: authorization)
-
+        RateLimitViewModel.shared.didMakeRequest("edit status \(statusID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { (data: Data, response: URLResponse) in
                 let editedStatus = try Mastodon.API.decode(type: Mastodon.Entity.Status.self, from: data, response: response)

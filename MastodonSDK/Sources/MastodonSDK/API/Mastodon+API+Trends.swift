@@ -39,6 +39,7 @@ extension Mastodon.API.Trends {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("get trending hashtags")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Tag].self, from: data, response: response)
@@ -97,6 +98,7 @@ extension Mastodon.API.Trends {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("get trending statuses")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)
@@ -162,6 +164,7 @@ extension Mastodon.API.Trends {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("get trending links")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Link].self, from: data, response: response)

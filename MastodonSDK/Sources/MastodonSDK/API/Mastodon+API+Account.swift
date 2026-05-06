@@ -44,6 +44,7 @@ extension Mastodon.API.Account {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("get account \(userID)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Account.self, from: data, response: response)
@@ -78,6 +79,7 @@ extension Mastodon.API.Account {
             query: MultipleAccountsQuery(ids: userIDs),
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("fetch \(userIDs.count) accounts")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Array<Mastodon.Entity.Account>.self, from: data, response: response)
@@ -136,6 +138,7 @@ extension Mastodon.API.Account {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("home timeline")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)
@@ -232,6 +235,7 @@ extension Mastodon.API.Account {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("single account \(query.acct)")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Account.self, from: data, response: response)

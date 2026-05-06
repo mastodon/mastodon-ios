@@ -39,6 +39,7 @@ extension Mastodon.API.Subscriptions {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("get current subscription")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Subscription.self, from: data, response: response)
@@ -73,6 +74,7 @@ extension Mastodon.API.Subscriptions {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("create push notification subscription")
         let (data, response) = try await session.data(for: request)
         let value = try Mastodon.API.decode(type: Mastodon.Entity.Subscription.self, from: data, response: response)
         return Mastodon.Response.Content(value: value, response: response)
@@ -104,6 +106,7 @@ extension Mastodon.API.Subscriptions {
             query: query,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("update current subscription")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Subscription.self, from: data, response: response)
@@ -137,6 +140,7 @@ extension Mastodon.API.Subscriptions {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("remove subscription")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.EmptySubscription.self, from: data, response: response)

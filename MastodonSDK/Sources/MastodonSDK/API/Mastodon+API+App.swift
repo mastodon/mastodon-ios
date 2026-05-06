@@ -43,6 +43,7 @@ extension Mastodon.API.App {
             query: query,
             authorization: nil
         )
+        RateLimitViewModel.shared.didMakeRequest("create application")
         let (data, response) = try await session.data(for: request)
         let value = try Mastodon.API.decode(type: Mastodon.Entity.Application.self, from: data, response: response)
         return value
@@ -73,6 +74,7 @@ extension Mastodon.API.App {
             query: nil,
             authorization: authorization
         )
+        RateLimitViewModel.shared.didMakeRequest("verify credentials")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Application.self, from: data, response: response)
