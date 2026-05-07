@@ -1379,10 +1379,6 @@ public enum L10n {
           public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmBlockDomain.Title", fallback: "Block domain")
         }
         public enum ConfirmBlockUser {
-          /// Confirm to block %@
-          public static func message(_ p1: Any) -> String {
-            return L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message", String(describing: p1), fallback: "Confirm to block %@")
-          }
           /// Block Account
           public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title", fallback: "Block Account")
         }

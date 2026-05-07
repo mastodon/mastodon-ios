@@ -684,6 +684,11 @@ public extension L10nLookup {
             let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.confirmFollowButton")
             return result
         }()
+        
+        public static func confirmBlockUserMessage(bulletNumber: Int) -> String {
+            let result = tr("Localizable-MastodonMenuAction", "RelationshipActions.ConfirmBlockUserMessage.bullet\(bulletNumber)")
+            return result
+        }
     }
 }
 

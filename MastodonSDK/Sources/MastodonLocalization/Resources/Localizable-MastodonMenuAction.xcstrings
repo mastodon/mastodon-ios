@@ -185,13 +185,13 @@
             "value" : "Add personal note"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add personal note"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add personal note"
@@ -497,13 +497,13 @@
             "value" : "Block domain %1$(domainName)@"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Block domain %1$(domainName)@"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Block domain %1$(domainName)@"
@@ -808,13 +808,13 @@
             "value" : "You must follow %1$(username)@  before adding them to a list."
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You must follow %1$(username)@  before adding them to a list."
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You must follow %1$(username)@  before adding them to a list."
@@ -1120,13 +1120,13 @@
             "value" : "Follow %1$(username)@ ?"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Follow %1$(username)@ ?"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Follow %1$(username)@ ?"
@@ -1432,16 +1432,16 @@
             "value" : "Ḍfeṛ"
           }
         },
-        "kmr-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bişopîne"
-          }
-        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "팔로우"
+          }
+        },
+        "ku-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bişopîne"
           }
         },
         "lt" : {
@@ -1743,13 +1743,13 @@
             "value" : "%(username)@ will stop following you. Are you sure you want to proceed?"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%(username)@ will stop following you. Are you sure you want to proceed?"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%(username)@ will stop following you. Are you sure you want to proceed?"
@@ -2055,13 +2055,13 @@
             "value" : "Remove follower?"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove follower?"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove follower?"
@@ -2367,13 +2367,13 @@
             "value" : "Show Featured tab"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show Featured tab"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show Featured tab"
@@ -2679,13 +2679,13 @@
             "value" : "Show featured tab?"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show featured tab?"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show featured tab?"
@@ -2990,13 +2990,13 @@
             "value" : "You have hidden your featured tab from other users. Would you like to show it and feature %1$(item)@ ?"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You have hidden your featured tab from other users. Would you like to show it and feature %1$(item)@ ?"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You have hidden your featured tab from other users. Would you like to show it and feature %1$(item)@ ?"
@@ -3302,13 +3302,13 @@
             "value" : "Edit personal note"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit personal note"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit personal note"
@@ -3614,13 +3614,13 @@
             "value" : "Feature on my profile"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Feature on my profile"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Feature on my profile"
@@ -3926,13 +3926,13 @@
             "value" : "Hide boosts"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Hide boosts"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Hide boosts"
@@ -4238,13 +4238,13 @@
             "value" : "Remove follower"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove follower"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove follower"
@@ -4550,13 +4550,13 @@
             "value" : "Show boosts"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show boosts"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show boosts"
@@ -4862,13 +4862,13 @@
             "value" : "Stop featuring on my profile"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Stop featuring on my profile"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Stop featuring on my profile"
@@ -5174,13 +5174,13 @@
             "value" : "Unblock domain %1$(domainName)@"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Unblock domain %1$(domainName)@"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Unblock domain %1$(domainName)@"
@@ -5298,6 +5298,61 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Unblock domain %1$(domainName)@"
+          }
+        }
+      }
+    },
+    "RelationshipActions.ConfirmBlockUserMessage.bullet1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "They can see that they're blocked."
+          }
+        }
+      }
+    },
+    "RelationshipActions.ConfirmBlockUserMessage.bullet2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "They can't see your content and you won't see theirs."
+          }
+        }
+      }
+    },
+    "RelationshipActions.ConfirmBlockUserMessage.bullet3" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You won't see posts from others that mention them."
+          }
+        }
+      }
+    },
+    "RelationshipActions.ConfirmBlockUserMessage.bullet4" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can't mention, follow, or quote each other."
+          }
+        }
+      }
+    },
+    "RelationshipActions.ConfirmBlockUserMessage.bullet5" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neither of you can add each other to collections. You'll be automatically removed from each others' existing collections, if applicable."
           }
         }
       }

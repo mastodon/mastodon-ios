@@ -747,7 +747,7 @@ extension MastodonPostMenuAction {
                 L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.message(username)
                 
             case .confirmBlock(let username, _):
-                L10n.Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.message(username)
+                [1, 2, 3, 4, 5].map{ "- " + L10nLookup.MastodonMenuAction.confirmBlockUserMessage(bulletNumber: $0) }.joined(separator: "\n")
             case .confirmUnblock(let username, _):
                 L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.message(username)
             case .confirmDomainBlock(let account, _):
