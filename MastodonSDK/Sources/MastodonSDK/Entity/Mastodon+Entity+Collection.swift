@@ -12,7 +12,12 @@ extension Mastodon.Entity {
     /// This is the response received when querying for all the collections belonging to an account
     public struct CollectionsList: Codable {
         public let collections: [Collection]
-        public let accounts: [PartialAccountWithAvatar]?
+        public let partialAccounts: [PartialAccountWithAvatar]?
+        
+        enum CodingKeys: String, CodingKey {
+            case collections
+            case partialAccounts = "partial_accounts"
+        }
     }
     
     /// Collection
