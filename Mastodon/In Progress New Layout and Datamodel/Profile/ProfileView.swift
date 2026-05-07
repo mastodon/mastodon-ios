@@ -1009,6 +1009,7 @@ struct ProfilePaginatingView: View {
                             if let postsTimelineViewModel = viewModel.postsViewModel {
                                 TimelineListView()
                                     .environment(postsTimelineViewModel)
+                                    .environment(ContentConcealViewModel.alwaysShow)
                                     .environment(postsTimelineViewModel.timeline.filterModel)
                                     .environment(AsyncRefreshViewModel())
                                     .tag(page)
@@ -1018,6 +1019,7 @@ struct ProfilePaginatingView: View {
                             if let mediaTimelineViewModel = viewModel.mediaViewModel {
                                 TimelineListView()
                                     .environment(mediaTimelineViewModel)
+                                    .environment(ContentConcealViewModel.alwaysShow)
                                     .environment(mediaTimelineViewModel.timeline.filterModel)
                                     .environment(viewModel.mediaViewAsyncRefresh)
                                     .tag(page)
@@ -1027,6 +1029,7 @@ struct ProfilePaginatingView: View {
                             if let featuredTimelineViewModel = viewModel.featuredItemsViewModel {
                                 TimelineListView()
                                     .environment(featuredTimelineViewModel)
+                                    .environment(ContentConcealViewModel.alwaysShow)
                                     .environment(featuredTimelineViewModel.timeline.filterModel)
                                     .environment(viewModel.featuredItemsAsyncRefresh)
                                     .tag(page)

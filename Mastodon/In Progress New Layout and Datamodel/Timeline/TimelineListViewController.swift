@@ -85,6 +85,19 @@ enum TimelineViewType {
             return L10n.Scene.FollowedTags.title
         }
     }
+    
+    @MainActor var contentConcealModel: ContentConcealViewModel {
+        switch self {
+        case .collection(let viewModel):
+            if viewModel.collection.sensitive == true {
+                return ContentConcealViewModel(initialHideContent: true)
+            } else {
+                return ContentConcealViewModel.alwaysShow
+            }
+        default:
+            return ContentConcealViewModel.alwaysShow
+        }
+    }
 }
 
 extension TimelineViewType {
@@ -146,6 +159,7 @@ class TimelineListViewController: UIHostingController<AnyView>
         let root = TimelineListView()
             .environment(navigator)
             .environment(viewModel)
+            .environment(type.contentConcealModel)
             .environment(viewModel.timeline.filterModel)
             .environment(asyncRefreshViewModel)
             .environment(nestedScrollViewModel)
@@ -1782,6 +1796,7 @@ struct TimelineListView: View {
     @Environment(TimelineQueryFilter.self) private var filterModel
     @Environment(AsyncRefreshViewModel.self) private var asyncRefreshViewModel
     @Environment(NestedScrollInteractionViewModel.self) private var nestedScrollViewModel
+    @Environment(ContentConcealViewModel.self) private var contentConcealModel
     
     @State var _updatedGeometry: GeometryProxy?
     @State var _updatedScrollAnchor: TimelineItem?
@@ -2208,115 +2223,161 @@ struct TimelineListView: View {
         let useableWidth = min(maxFeedContentWidth, useableWidth(fromGeoProxy: geo))
         let contentWidth = contentWidth(forUseableWidth: useableWidth)
         
-        ForEach(viewModel.currentDisplaySlice, id: \.self) { item in
-            switch item {
-            case .loadingIndicator:
-                InteractiveLoadingIndicatorRow()
-                    .environment(viewModel.interactiveReloadTriggerModel)
-                    .accessibilityAction(named: L10n.Common.Controls.Actions.loadOlder) {
-                        switch viewModel.loadingState {
-                        case .untracked:
-                            viewModel.loadMoreFromBottom()
-                        default:
-                            break
-                        }
-                    }
-                
-            case .heading(let text):
-                Text(text)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.secondary)
-                    .padding(standardPadding)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-            case .filteredNotificationsInfo(_, let filteredNotificationsViewModel):
-                if let filteredNotificationsViewModel {
-                    FilteredNotificationsRowView(contentWidth: contentWidth)
-                        .environment(filteredNotificationsViewModel)
-                        .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
-                        .frame(width: useableWidth)
-                        .accessibilityElement(children: .combine)
-                        .accessibilityAction {
-                            goToFilteredNotifications(filteredNotificationsViewModel)
-                        }
-                        .onTapGesture {
-                            goToFilteredNotifications(filteredNotificationsViewModel)
-                        }
-                } else {
-                    Text(L10nLookup.Timeline.EmptyState.someNotificationsHaveBeenFiltered)
-                        .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
-                        .frame(width: useableWidth)
-                }
-                Divider()
-                
-            case .pinnedPosts:
-                pinnedPostsView(item.postViewModels, contentWidth: contentWidth, useableWidth: useableWidth, isScrollAnchor: viewModel.scrollAnchorItem == item)
-                
-            case .post(let postViewModel, let isPinned):
-                singlePostView(postViewModel, contentWidth: contentWidth, useableWidth: useableWidth, isPinned: isPinned, isScrollAnchor: viewModel.scrollAnchorItem == item)
-                
-            case .notification(let notificationViewModel):
-                NotificationRowView(contentWidth: contentWidth, actionHandler: viewModel)
-                    .environment(notificationViewModel)
-                    .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
-                    .frame(width: useableWidth)
-                    .background() {
-                        if let inlinePost = notificationViewModel.inlinePostViewModel {
-                            switch inlinePost.initialDisplayInfo.actionableVisibility {
-                            case .mentionedOnly:
-                                backgroundView(isPrivate: true, isUnread: false) // TODO: implement unread for notifications
+        switch contentConcealModel.currentMode {
+        case .concealAll(_, showAnyway: true), .neverConceal, .concealMediaOnly:
+            ForEach(viewModel.currentDisplaySlice, id: \.self) { item in
+                switch item {
+                case .loadingIndicator:
+                    InteractiveLoadingIndicatorRow()
+                        .environment(viewModel.interactiveReloadTriggerModel)
+                        .accessibilityAction(named: L10n.Common.Controls.Actions.loadOlder) {
+                            switch viewModel.loadingState {
+                            case .untracked:
+                                viewModel.loadMoreFromBottom()
                             default:
-                                EmptyView()
+                                break
                             }
                         }
+                    
+                case .heading(let text):
+                    Text(text)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.secondary)
+                        .padding(standardPadding)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                case .filteredNotificationsInfo(_, let filteredNotificationsViewModel):
+                    if let filteredNotificationsViewModel {
+                        FilteredNotificationsRowView(contentWidth: contentWidth)
+                            .environment(filteredNotificationsViewModel)
+                            .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
+                            .frame(width: useableWidth)
+                            .accessibilityElement(children: .combine)
+                            .accessibilityAction {
+                                goToFilteredNotifications(filteredNotificationsViewModel)
+                            }
+                            .onTapGesture {
+                                goToFilteredNotifications(filteredNotificationsViewModel)
+                            }
+                    } else {
+                        Text(L10nLookup.Timeline.EmptyState.someNotificationsHaveBeenFiltered)
+                            .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
+                            .frame(width: useableWidth)
                     }
-            case .hashtag(let tagViewModel):
-                switch viewModel.timeline {
-                case .hashtag:
-                    HashtagHeaderView(availableWidth: useableWidth - doublePadding * 2)
-                        .environment(tagViewModel)
-                        .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
-                        .frame(width: useableWidth)
                     Divider()
-                case .myFollowedHashtags:
-                    HashtagHeaderView(availableWidth: useableWidth - doublePadding * 2)
-                        .environment(tagViewModel)
-                        .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
+                    
+                case .pinnedPosts:
+                    pinnedPostsView(item.postViewModels, contentWidth: contentWidth, useableWidth: useableWidth, isScrollAnchor: viewModel.scrollAnchorItem == item)
+                    
+                case .post(let postViewModel, let isPinned):
+                    singlePostView(postViewModel, contentWidth: contentWidth, useableWidth: useableWidth, isPinned: isPinned, isScrollAnchor: viewModel.scrollAnchorItem == item)
+                    
+                case .notification(let notificationViewModel):
+                    NotificationRowView(contentWidth: contentWidth, actionHandler: viewModel)
+                        .environment(notificationViewModel)
+                        .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
                         .frame(width: useableWidth)
-                default:
-                    HashtagRowView()
-                        .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
-                        .frame(width: useableWidth)
-                        .environment(tagViewModel)
-                        .onTapGesture {
-                            navigator.push(.timeline(.hashtag(tagViewModel.entity)))
+                        .background() {
+                            if let inlinePost = notificationViewModel.inlinePostViewModel {
+                                switch inlinePost.initialDisplayInfo.actionableVisibility {
+                                case .mentionedOnly:
+                                    backgroundView(isPrivate: true, isUnread: false) // TODO: implement unread for notifications
+                                default:
+                                    EmptyView()
+                                }
+                            }
                         }
-                }
-            case .account(let accountViewModel):
-                AccountRowView(contentWidth: contentWidth)
-                    .environment(accountViewModel)
-                    .padding(EdgeInsets(top: standardPadding, leading: doublePadding, bottom: standardPadding, trailing: standardPadding))
-                    .frame(width: useableWidth)
-                    .onTapGesture {
-                        navigator.push(.profile(account: accountViewModel.account._legacyEntity, relationship: nil))
+                case .hashtag(let tagViewModel):
+                    switch viewModel.timeline {
+                    case .hashtag:
+                        HashtagHeaderView(availableWidth: useableWidth - doublePadding * 2)
+                            .environment(tagViewModel)
+                            .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
+                            .frame(width: useableWidth)
+                        Divider()
+                    case .myFollowedHashtags:
+                        HashtagHeaderView(availableWidth: useableWidth - doublePadding * 2)
+                            .environment(tagViewModel)
+                            .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
+                            .frame(width: useableWidth)
+                    default:
+                        HashtagRowView()
+                            .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
+                            .frame(width: useableWidth)
+                            .environment(tagViewModel)
+                            .onTapGesture {
+                                navigator.push(.timeline(.hashtag(tagViewModel.entity)))
+                            }
                     }
-            case .collection(let collectionViewModel):
-                CollectionRowView(contentWidth: contentWidth)
-                    .environment(collectionViewModel)
-                    .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
-                    .frame(width: useableWidth)
-                    .onTapGesture {
-                        navigator.push(.timeline(.collection(collectionViewModel)))
+                case .account(let accountViewModel):
+                    AccountRowView(contentWidth: contentWidth)
+                        .environment(accountViewModel)
+                        .padding(EdgeInsets(top: standardPadding, leading: doublePadding, bottom: standardPadding, trailing: standardPadding))
+                        .frame(width: useableWidth)
+                        .onTapGesture {
+                            navigator.push(.profile(account: accountViewModel.account._legacyEntity, relationship: nil))
+                        }
+                case .collection(let collectionViewModel):
+                    CollectionRowView(contentWidth: contentWidth)
+                        .environment(collectionViewModel)
+                        .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
+                        .frame(width: useableWidth)
+                        .onTapGesture {
+                            navigator.push(.timeline(.collection(collectionViewModel)))
+                        }
+                    
+                case .noItem:
+                    EmptyView()
+                }
+            }
+            if viewModel.threadedConversationModel != nil {
+                // include a spacer to indicate the end of the conversation and provide scrolling space so that if the focused post is at the end of the conversation it can still be scrolled to the top (or something near it)
+                Color.clear
+                    .frame(height: geo.size.height * 0.5)
+            }
+        case .concealAll(_, showAnyway: false):
+            concealedContentsView()
+                .padding(standardPadding)
+        }
+    }
+    
+    @ViewBuilder func concealedContentsView() -> some View {
+        switch viewModel.timeline {
+        case .collection:
+            HStack(alignment: .top) {
+                Image(systemName: "eye.slash")
+                    .padding(tinySpacing)
+                    .background() {
+                        Circle()
+                            .fill(Asset.Colors.FigmaToken.bgWarningSoft.swiftUIColor)
                     }
                 
-            case .noItem:
-                EmptyView()
+                VStack(alignment: .leading) {
+                    Text("Sensitive content") // TODO: L10n
+                        .fontWeight(.semibold)
+                    Text("The description and accounts may not be suitable for all viewers.")
+                        .font(.subheadline)
+                    Button() {
+                        contentConcealModel.currentMode = .concealAll(reasons: [], showAnyway: true)
+                    } label: {
+                        Text("Show") // TODO: L10n
+                            .padding(.vertical, 4)
+                            .padding(.horizontal, 10)
+                            .background() {
+                                Capsule()
+                                    .fill(Asset.Colors.FigmaToken.bgWarningSoft.swiftUIColor)
+                            }
+                    }
+                }
             }
-        }
-        if viewModel.threadedConversationModel != nil {
-            // include a spacer to indicate the end of the conversation and provide scrolling space so that if the focused post is at the end of the conversation it can still be scrolled to the top (or something near it)
-            Color.clear
-                .frame(height: geo.size.height * 0.5)
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .topLeading)
+            .background() {
+                RoundedRectangle(cornerRadius: CornerRadius.large)
+                    .fill(Asset.Colors.FigmaToken.bgWarningSoftest.swiftUIColor)
+            }
+        default:
+            EmptyView()
         }
     }
     

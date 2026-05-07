@@ -70,6 +70,14 @@ class ContentConcealViewModel {
     
     var currentMode: ContentDisplayMode
     
+    init(initialHideContent: Bool) {
+        filtered = .nothingToWarn
+        contentWarned = .warnAll(reasons: [])
+        showAnyway = (nil, false)
+        currentModeIsFilter = false
+        currentMode = initialHideContent ? .concealAll(reasons: [], showAnyway: false) : .concealAll(reasons: [], showAnyway: true)
+    }
+    
     init(contentPost: MastodonContentPost?, context: Mastodon.Entity.FilterContext?) {
         
         guard let contentPost, let context else {

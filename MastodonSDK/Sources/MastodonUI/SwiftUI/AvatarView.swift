@@ -15,6 +15,7 @@ public struct AvatarSize {
 public struct CornerRadius {
     public static var extraExtraLarge: CGFloat = 27
     public static var extraLarge: CGFloat = 8 * 2
+    public static var large: CGFloat = 12
     public static var standard: CGFloat = 8
     public static var small: CGFloat = 8 / 2
     public static var tiny: CGFloat = 3

@@ -97,6 +97,7 @@ enum MastodonNavigationDestination {
             let queryFilter = timelineViewModel.timelineQueryFilter
             TimelineListView()
                 .environment(timelineViewModel)
+                .environment(timelineType.contentConcealModel)
                 .environment(queryFilter)
                 .environment(asyncRefreshModel)
                 .navigationTitle(timelineType.navigationTitle ?? "")
