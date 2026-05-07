@@ -259,11 +259,11 @@ public struct L10nLookup {
             
             public struct FeaturedTab {
                 public static let accountsHeading: String = {
-                    let result = tr("Localizable", "Scene.Profile.FeaturedTab.accountsHeading")
+                    let result = tr("Localizable-Profile", "Scene.Profile.FeaturedTab.accountsHeading")
                     return result
                 }()
                 public static let collectionsHeading: String = {
-                    let result = tr("Localizable", "Scene.Profile.FeaturedTab.collectionsHeading")
+                    let result = tr("Localizable-Profile", "Scene.Profile.FeaturedTab.collectionsHeading")
                     return result
                 }()
             }
@@ -908,7 +908,7 @@ public extension L10nLookup.Scene {
             return result
         }()
         public static func authorLabel(_ author: String) -> String {
-            let result = tr("Localizable-Collections", "Scene.Collections.hideThisTabInstead", author)
+            let result = tr("Localizable-Collections", "Scene.Collections.authorLabel", author)
             return result
         }
         public static func numberOfAccounts(_ count: Int) -> String {
