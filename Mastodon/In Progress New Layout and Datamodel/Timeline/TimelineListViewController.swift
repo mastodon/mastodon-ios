@@ -2020,7 +2020,7 @@ struct TimelineListView: View {
                 if AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.collections) == true {
                     return L10nLookup.Timeline.EmptyState.showcaseYourFavoriteAccounts
                 } else {
-                    return L10nLookup.Collections.stayTunedForCollections
+                    return L10nLookup.Scene.Collections.stayTunedForCollections
                 }
             }
             fallthrough
@@ -2068,9 +2068,9 @@ struct TimelineListView: View {
         case .featuredItems(userID: let userID):
             if viewModel.currentRelationship(to: userID)?.isMe == true {
                 if AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.collections) == true {
-                    return L10nLookup.Collections.collectionsExplainerShort
+                    return L10nLookup.Scene.Collections.collectionsExplainerShort
                 } else {
-                    return L10nLookup.Collections.collectionsExplainerLong
+                    return L10nLookup.Scene.Collections.collectionsExplainerLong
                 }
             } else {
                 if let username = viewModel.account(userID)?.displayInfo.displayName {
@@ -2126,11 +2126,11 @@ struct TimelineListView: View {
             if viewModel.currentRelationship(to: userID)?.isMe == true {
                 if false && AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.collections) == true {
                     VStack {
-                        Button("Create a Collection") { // TODO: L10n collections
+                        Button(L10nLookup.Scene.Collections.createCollection) {
                             // TODO: implement
                         }
                         
-                        Button ("Hide this tab instead") {  // TODO: L10n collections
+                        Button (L10nLookup.Scene.Collections.hideThisTabInstead) {
                             // TODO: implement
                         }
                     }
@@ -2353,14 +2353,14 @@ struct TimelineListView: View {
                     }
                 
                 VStack(alignment: .leading) {
-                    Text("Sensitive content") // TODO: L10n
+                    Text(L10nLookup.Scene.Collections.sensitiveContentHeading)
                         .fontWeight(.semibold)
-                    Text("The description and accounts may not be suitable for all viewers.")
+                    Text(L10nLookup.Scene.Collections.sensitiveContentMessage)
                         .font(.subheadline)
                     Button() {
                         contentConcealModel.currentMode = .concealAll(reasons: [], showAnyway: true)
                     } label: {
-                        Text("Show") // TODO: L10n
+                        Text(L10n.Common.Controls.Status.showAnyway)
                             .padding(.vertical, 4)
                             .padding(.horizontal, 10)
                             .background() {
@@ -2538,14 +2538,16 @@ struct TimelineListView: View {
                             .font(.largeTitle)
                             .fontWeight(.semibold)
                     }
-                    Text("by \(collectionViewModel.authorHandle ?? "@someone@somewhere.social)")") // TODO: L10n
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                    if let author = collectionViewModel.authorHandle {
+                        Text(L10nLookup.Scene.Collections.authorLabel(author))
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
                 }
                 if let description = collectionViewModel.collection.description, !description.isEmpty {
                     Text(description)
                 }
-                Text("\(collectionViewModel.collection.itemCount) accounts")  // TODO: L10n
+                Text(L10nLookup.Scene.Collections.numberOfAccounts(collectionViewModel.collection.itemCount))
                     .fontWeight(.semibold)
                     .foregroundStyle(.secondary)
             }

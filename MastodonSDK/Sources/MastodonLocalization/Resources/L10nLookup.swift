@@ -256,6 +256,17 @@ public struct L10nLookup {
                     return result
                 }()
             }
+            
+            public struct FeaturedTab {
+                public static let accountsHeading: String = {
+                    let result = tr("Localizable", "Scene.Profile.FeaturedTab.accountsHeading")
+                    return result
+                }()
+                public static let collectionsHeading: String = {
+                    let result = tr("Localizable", "Scene.Profile.FeaturedTab.collectionsHeading")
+                    return result
+                }()
+            }
         }
         
         public struct EditProfile {
@@ -692,6 +703,63 @@ public extension L10nLookup {
     }
 }
 
+public extension L10nLookup.MastodonMenuAction {
+    struct Navigation {
+        public static let share: String = {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.Navigation.share")
+            return result
+        }()
+        public static let openInBrowser: String = {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.Navigation.openInBrowser")
+            return result
+        }()
+        public static let favorites: String = {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.Navigation.favorites")
+            return result
+        }()
+        public static let bookmarks: String = {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.Navigation.bookmarks")
+            return result
+        }()
+        public static let followedHashtags: String = {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.Navigation.followedHashtags")
+            return result
+        }()
+        public static let accountSettings: String = {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.Navigation.accountSettings")
+            return result
+        }()
+        public static let viewCollection: String = {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.Navigation.viewCollection")
+            return result
+        }()
+        public static let compose: String = {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.Navigation.compose")
+            return result
+        }()
+        public static let edit: String = {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.Navigation.edit")
+            return result
+        }()
+        public static let quote: String = {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.Navigation.quote")
+            return result
+        }()
+        public static let mention: String = {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.Navigation.mention")
+            return result
+        }()
+        public static let privatelyMention: String = {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.Navigation.privatelyMention")
+            return result
+        }()
+        public static let addToList: String = {
+            let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.Navigation.addToList")
+            return result
+        }()
+    }
+}
+
 public extension L10nLookup {
     struct CommonControls {
         public static let learnMore: String = {
@@ -801,7 +869,7 @@ public extension L10nLookup {
     }
 }
 
-public extension L10nLookup {
+public extension L10nLookup.Scene {
     struct Collections {
         public static let stayTunedForCollections: String = {
             let result = tr("Localizable-Collections", "Scene.Collections.stayTunedForCollections")
@@ -815,6 +883,38 @@ public extension L10nLookup {
             let result = tr("Localizable-Collections", "Scene.Collections.collectionsExplainerLong")
             return result
         }()
+        public static let reportCollection: String = {
+            let result = tr("Localizable-Collections", "Scene.Collections.reportCollection")
+            return result
+        }()
+        public static let removeMe: String = {
+            let result = tr("Localizable-Collections", "Scene.Collections.removeMe")
+            return result
+        }()
+        public static let createCollection: String = {
+            let result = tr("Localizable-Collections", "Scene.Collections.createCollection")
+            return result
+        }()
+        public static let hideThisTabInstead: String = {
+            let result = tr("Localizable-Collections", "Scene.Collections.hideThisTabInstead")
+            return result
+        }()
+        public static let sensitiveContentHeading: String = {
+            let result = tr("Localizable-Collections", "Scene.Collections.sensitiveContentHeading")
+            return result
+        }()
+        public static let sensitiveContentMessage: String = {
+            let result = tr("Localizable-Collections", "Scene.Collections.sensitiveContentMessage")
+            return result
+        }()
+        public static func authorLabel(_ author: String) -> String {
+            let result = tr("Localizable-Collections", "Scene.Collections.hideThisTabInstead", author)
+            return result
+        }
+        public static func numberOfAccounts(_ count: Int) -> String {
+            let result = tr("Localizable-Collections", "Scene.Collections.numberOfAccounts", count)
+            return result
+        }
     }
 }
 

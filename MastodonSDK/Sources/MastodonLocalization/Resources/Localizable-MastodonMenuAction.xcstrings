@@ -4054,6 +4054,162 @@
         }
       }
     },
+    "Common.Controls.Actions.Navigation.accountSettings" : {
+      "comment" : "menu option to open account settings",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account settings"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.Navigation.addToList" : {
+      "comment" : "menu option to add this account to one of your lists",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add to list…"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.Navigation.bookmarks" : {
+      "comment" : "menu option to open your bookmarks",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bookmarks"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.Navigation.compose" : {
+      "comment" : "menu option to compose a new post",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compose"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.Navigation.edit" : {
+      "comment" : "menu option to edit this post",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.Navigation.favorites" : {
+      "comment" : "menu option to open your favorites",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorites"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.Navigation.followedHashtags" : {
+      "comment" : "menu option to open your followed hashtags",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Followed hashtags"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.Navigation.mention" : {
+      "comment" : "menu option to compose a new post mentioning this account",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mention"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.Navigation.openInBrowser" : {
+      "comment" : "menu option to open the current item in the browser",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open in browser"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.Navigation.privatelyMention" : {
+      "comment" : "menu option to compose a private message to this account",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privately mention"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.Navigation.quote" : {
+      "comment" : "menu option to quote this post",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quote"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.Navigation.share" : {
+      "comment" : "menu option to open the share sheet for the current item",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share…"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.Navigation.viewCollection" : {
+      "comment" : "menu option to view the full collection",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View collection"
+          }
+        }
+      }
+    },
     "Common.Controls.Actions.removeFollower" : {
       "comment" : "menu action to remove an account from your followers",
       "extractionState" : "manual",

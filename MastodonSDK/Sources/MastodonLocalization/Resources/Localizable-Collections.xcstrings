@@ -1,6 +1,18 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Scene.Collections.authorLabel" : {
+      "comment" : "shows who created this collection",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "by %1$(authorHandle)@"
+          }
+        }
+      }
+    },
     "Scene.Collections.collectionsExplainerLong" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -184,13 +196,13 @@
             "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
@@ -495,13 +507,13 @@
             "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
@@ -619,6 +631,102 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+          }
+        }
+      }
+    },
+    "Scene.Collections.createCollection" : {
+      "comment" : "button text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a Collection"
+          }
+        }
+      }
+    },
+    "Scene.Collections.hideThisTabInstead" : {
+      "comment" : "button text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide this tab instead"
+          }
+        }
+      }
+    },
+    "Scene.Collections.numberOfAccounts" : {
+      "comment" : "number of accounts contained in the collection",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$(count)lld account"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$(count)lld accounts"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Scene.Collections.removeMe" : {
+      "comment" : "button to remove myself from a collection",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove me"
+          }
+        }
+      }
+    },
+    "Scene.Collections.reportCollection" : {
+      "comment" : "menu action",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report collection"
+          }
+        }
+      }
+    },
+    "Scene.Collections.sensitiveContentHeading" : {
+      "comment" : "label shown when collection has been marked sensitive and the content is being hidden",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sensitive content"
+          }
+        }
+      }
+    },
+    "Scene.Collections.sensitiveContentMessage" : {
+      "comment" : "message shown when collection has been marked sensitive and the content is being hidden",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The description and accounts may not be suitable for all viewers."
           }
         }
       }
@@ -806,13 +914,13 @@
             "value" : "Stay tuned for Collections"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Stay tuned for Collections"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Stay tuned for Collections"

@@ -112,9 +112,9 @@ enum MastodonMenuAction: Hashable {
         var labelText: String {
             switch self {
             case .reportCollection:
-                "Report collection" // TODO: L10n
+                L10nLookup.Scene.Collections.reportCollection
             case .removeMyself:
-                "Remove me" // TODO: L10n
+                L10nLookup.Scene.Collections.removeMe
             }
         }
     }
@@ -234,33 +234,32 @@ extension MastodonNavigationRouter {
     }
     
     func labelText(forAction menuAction: MastodonMenuAction.NavigationalMenuAction, domainName: String?) -> String? {
-        // TODO: L10n
         switch menuAction {
         case .share:
-            return "Share..."
+            return L10nLookup.MastodonMenuAction.Navigation.share
         case .openInBrowser:
-            return "Open in browser"
+            return L10nLookup.MastodonMenuAction.Navigation.openInBrowser
         case .myFavorites:
-            return "Favorites"
+            return L10nLookup.MastodonMenuAction.Navigation.favorites
         case .myBookmarks:
-            return "Bookmarks"
+            return L10nLookup.MastodonMenuAction.Navigation.bookmarks
         case .myFollowedHashtags:
-            return "Followed hashtags"
+            return L10nLookup.MastodonMenuAction.Navigation.followedHashtags
         case .myAccountSettings:
-            return "Account settings"
+            return L10nLookup.MastodonMenuAction.Navigation.accountSettings
         case .collection:
-            return "View collection"
+            return L10nLookup.MastodonMenuAction.Navigation.viewCollection
         case .compose(let context):
             switch context {
             case .composeStatus(let quoting):
-                return quoting == nil ? "Compose" : "Quote"
+                return quoting == nil ? L10nLookup.MastodonMenuAction.Navigation.compose : L10nLookup.MastodonMenuAction.Navigation.quote
             case .editStatus:
-                return "Edit"
+                return L10nLookup.MastodonMenuAction.Navigation.edit
             case .mentioning(_, let privately):
-                return privately ? "Privately mention" : "Mention"
+                return privately ? L10nLookup.MastodonMenuAction.Navigation.privatelyMention : L10nLookup.MastodonMenuAction.Navigation.mention
             }
         case .addToList:
-            return "Add to list..."
+            return L10nLookup.MastodonMenuAction.Navigation.addToList
         }
     }
     

@@ -4,6 +4,7 @@ import Combine
 import Foundation
 import MastodonCore
 import MastodonSDK
+import MastodonLocalization
 
 public class FeedCoordinator {
     @Published var mostRecentUpdate: UpdatedElement?
@@ -786,8 +787,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }()
             newBatch = {
-                // TODO: L10n
-                return (accounts.isEmpty ? [] : ([.heading("Accounts")] + accounts)) + (collections.isEmpty ? [] : ([.heading("Collections")] + collections))
+                return (accounts.isEmpty ? [] : ([.heading(L10nLookup.Scene.Profile.FeaturedTab.accountsHeading)] + accounts)) + (collections.isEmpty ? [] : ([.heading(L10nLookup.Scene.Profile.FeaturedTab.collectionsHeading)] + collections))
             }()
             newBatchBottomLoad = .nothingMoreToLoad
             newAsyncRefreshAvailable = nil
