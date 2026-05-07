@@ -178,7 +178,17 @@ struct CollectionRowView: View {
     
     func updateAuthorAccount(_ updated: MastodonAccount) {
         authorAccount = updated
-        authorHandle = updated.handle
+        authorHandle = "@" + updated.handle
     }
 }
 
+extension Mastodon.Entity.PartialAccountWithAvatar {
+    @MainActor var fullHandle: String {
+        let acctSplitOnAt = acct.split(separator: "@")
+        if acctSplitOnAt.count == 1, let domain = AuthenticationServiceProvider.shared.currentActiveUser.value?.domain {
+            return acct + "@" + domain
+        } else {
+            return acct
+        }
+    }
+}

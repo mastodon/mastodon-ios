@@ -528,7 +528,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         func timelineItem(fromCollection collection: Mastodon.Entity.Collection, partialAccounts: [Mastodon.Entity.PartialAccountWithAvatar]) -> TimelineItem {
             let account = accountViewModels[collection.accountId]?.account
             let viewModel = {
-                let authorHandle = partialAccounts.first(where: { $0.id == collection.accountId })?.acct ?? "someone@somewhere.social"
+                let authorHandle = partialAccounts.first(where: { $0.id == collection.accountId })?.fullHandle ?? "someone@somewhere.social"
                 let firstFourAvatars = collection.items.compactMap({ member -> URL? in
                     guard let partialAccount = partialAccounts.first(where: { $0.id ==  member.account_id }) else { return nil }
                     return partialAccount.avatarURL
@@ -538,7 +538,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     if let account {
                         existing.updateAuthorAccount(account)
                     } else {
-                        existing.authorHandle = authorHandle
+                        existing.authorHandle = "@" + authorHandle
                     }
                     existing.accountAvatarUrls = Array(firstFourAvatars)
                     return existing
@@ -547,7 +547,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     if let account {
                         model.updateAuthorAccount(account)
                     } else {
-                        model.authorHandle = authorHandle
+                        model.authorHandle = "@" + authorHandle
                     }
                     model.accountAvatarUrls = Array(firstFourAvatars)
                     newCollectionModels[collection.id] = model
