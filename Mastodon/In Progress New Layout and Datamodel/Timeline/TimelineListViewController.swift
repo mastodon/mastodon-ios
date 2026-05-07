@@ -1173,7 +1173,7 @@ enum MastodonTimelineSheet {
                     case .account:
                         return item
                     case .collection:
-                        return nil
+                        return item
                     case .pinnedPosts:
                         let someModelNeedsPrep = {
                             for model in item.postViewModels {
@@ -1594,6 +1594,7 @@ extension TimelineListViewModel {
         }
         
         var needsPrep = [MastodonPostViewModel]()
+        var accountsToFetch = Set<Mastodon.Entity.Account.ID>()
         var relationshipsToFetch = Set<Mastodon.Entity.Account.ID>()
         
         func processPostViewModel(_ postViewModel: MastodonPostViewModel) {
@@ -1640,6 +1641,7 @@ extension TimelineListViewModel {
             case .hashtag:
                 break
             case .collection(let collectionViewModel):
+                accountsToFetch.insert(collectionViewModel.collection.accountId)
                 relationshipsToFetch.insert(collectionViewModel.collection.accountId)
             case .heading, .filteredNotificationsInfo, .loadingIndicator, .noItem:
                 break
@@ -1651,13 +1653,16 @@ extension TimelineListViewModel {
         }
         
         let toPrep = needsPrep
-        let toFetch = relationshipsToFetch
+        let _relationshipsToFetch = relationshipsToFetch
+        let _accountsToFetch = accountsToFetch
         
+        guard let authenticatedUser else { return }
         Task {
-            let fetchedRelationships = try await feedLoader.fetchRelationships(Array(toFetch))
+            let fetchedAccounts = try await APIService.shared.accountsInfo(userIDs: Array(_accountsToFetch), authenticationBox: authenticatedUser)
+            let fetchedRelationships = try await feedLoader.fetchRelationships(Array(_relationshipsToFetch))
             
             for postModel in toPrep {
-                if postModel.fullPost?.actionablePost?.metaData.author.id == authenticatedUser?.userID {
+                if postModel.fullPost?.actionablePost?.metaData.author.id == authenticatedUser.userID {
                     postModel.prepareForDisplay(relationship: .isMe, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
                 } else {
                     let relationship = fetchedRelationships.first(where: {
@@ -1696,6 +1701,9 @@ extension TimelineListViewModel {
                 case .hashtag:
                     break
                 case .collection(let collectionViewModel):
+                    if let account = fetchedAccounts.first(where: { $0.id == collectionViewModel.collection.accountId }) {
+                        collectionViewModel.updateAuthorAccount(MastodonAccount.fromEntity(account, authenticatedDomain: authenticatedUser.domain))
+                    }
                     if let relationship = fetchedRelationships.first(where: { $0.info?.id == collectionViewModel.collection.accountId }) {
                         collectionViewModel.prepareForDisplay(withRelationship: relationship)
                     }
