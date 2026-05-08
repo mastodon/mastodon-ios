@@ -34,8 +34,8 @@ import SwiftUI
         account = updated
     }
     
-    func doRelationshipButtonAction(navigator: MastodonNavigationRouter) async throws {
-        if let action = relationshipViewModel.button.buttonAction.mastodonRelationshipMenuAction {
+    func doRelationshipButtonAction(navigator: MastodonNavigationRouter, isInCollection: Bool) async throws {
+        if let action = relationshipViewModel.button.buttonAction(isInCollection: isInCollection).mastodonRelationshipMenuAction {
             try await relationshipViewModel.doMenuAction(action, forAccount: account, navigator: navigator)
         }
     }

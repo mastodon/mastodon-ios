@@ -15,7 +15,7 @@ enum RelationshipButtonType {
     case iHaveRequestedToFollowThem
     case rejectTheirFollowRequest
     case acceptTheirFollowRequest
-    case edit
+    case editMe
     case hiddenByModerators
     
     enum RelationshipAction {
@@ -75,8 +75,8 @@ enum RelationshipButtonType {
     
     var description: String {
         switch self {
-        case .edit:
-            return "edit"
+        case .editMe:
+            return "editMe"
         case .updating:
             return "updating"
         case .error:
@@ -110,10 +110,18 @@ enum RelationshipButtonType {
         }
     }
     
-    func buttonText(isLarge: Bool) -> String? {
+    func buttonText(isLarge: Bool, isInCollection: Bool) -> String? {
         switch self {
-        case .edit:
-            return L10nLookup.Common.Controls.editProfileButton
+        case .editMe:
+            if isInCollection {
+                if isLarge {
+                    return L10nLookup.Scene.Collections.removeMe
+                } else {
+                    return L10nLookup.Scene.Collections.remove
+                }
+            } else {
+                return L10nLookup.Common.Controls.editProfileButton
+            }
         case .iDoNotFollowThem(let theyFollowMe, let theirAccountIsLocked):
             if theirAccountIsLocked {
                 return L10nLookup.Common.Controls.RelationshipAction.requestToFollow(longForm: isLarge)
@@ -143,10 +151,14 @@ enum RelationshipButtonType {
         }
     }
     
-    var buttonAction: RelationshipAction {
+    func buttonAction(isInCollection: Bool) -> RelationshipAction {
         switch self {
-        case .edit:
-            return .editProfile
+        case .editMe:
+            if isInCollection {
+                return .noAction
+            } else {
+                return .editProfile
+            }
         case .iDoNotFollowThem:
             return .follow
         case .iFollowThem, .iHaveRequestedToFollowThem:
@@ -167,16 +179,16 @@ enum RelationshipButtonType {
     }
     
     
-    var a11yActionTitle: String? {
+    func a11yActionTitle(isInCollection: Bool) -> String? {
         switch self {
         case .error, .updating:
             return nil
         default:
-            return buttonText(isLarge: true)
+            return buttonText(isLarge: true, isInCollection: isInCollection)
         }
     }
     
-    @ViewBuilder func button(isOpaque: Bool, action: @escaping ()->()) -> some View {
+    @ViewBuilder func button(isOpaque: Bool, isInCollection: Bool, action: @escaping ()->()) -> some View {
         switch self {
         case .updating:
             Button() {
@@ -184,25 +196,25 @@ enum RelationshipButtonType {
             } label: {
                 ProgressView().progressViewStyle(.circular)
             }
-            .buttonStyle(RelationshipButtonStyle(self, isLarge: false, isOpaque: isOpaque))
+            .buttonStyle(RelationshipButtonStyle(self, isLarge: false, isOpaque: isOpaque, isInCollection: isInCollection))
         case .error:
             Button() {
                 // nothing to do
             } label: {
                 lightwieghtImageView("exclamationmark.triangle", size: AvatarSize.tiny)
             }
-            .buttonStyle(RelationshipButtonStyle(self, isLarge: false, isOpaque: isOpaque))
+            .buttonStyle(RelationshipButtonStyle(self, isLarge: false, isOpaque: isOpaque, isInCollection: isInCollection))
         default:
-            if let buttonText = buttonText(isLarge: false) {
+            if let buttonText = buttonText(isLarge: false, isInCollection: isInCollection) {
                 Button(buttonText) {
                     action()
                 }
-                .buttonStyle(RelationshipButtonStyle(self, isLarge: false, isOpaque: isOpaque))
+                .buttonStyle(RelationshipButtonStyle(self, isLarge: false, isOpaque: isOpaque, isInCollection: isInCollection))
             }
         }
     }
     
-    @ViewBuilder func largeButton(isOpaque: Bool, action: @escaping ()->()) -> some View {
+    @ViewBuilder func largeButton(isOpaque: Bool, isInCollection: Bool, action: @escaping ()->()) -> some View {
         switch self {
         case .updating:
             Button() {
@@ -210,7 +222,7 @@ enum RelationshipButtonType {
             } label: {
                 ProgressView().progressViewStyle(.circular)
             }
-            .buttonStyle(RelationshipButtonStyle(self, isLarge: true, isOpaque: isOpaque))
+            .buttonStyle(RelationshipButtonStyle(self, isLarge: true, isOpaque: isOpaque, isInCollection: isInCollection))
         case .error:
             Button() {
                 
@@ -218,13 +230,13 @@ enum RelationshipButtonType {
                 lightwieghtImageView(
                     "exclamationmark.triangle", size: AvatarSize.tiny)
             }
-            .buttonStyle(RelationshipButtonStyle(self, isLarge: true, isOpaque: isOpaque))
+            .buttonStyle(RelationshipButtonStyle(self, isLarge: true, isOpaque: isOpaque, isInCollection: isInCollection))
         default:
-            if let buttonText = buttonText(isLarge: true) {
+            if let buttonText = buttonText(isLarge: true, isInCollection: isInCollection) {
                 Button(buttonText) {
                     action()
                 }
-                .buttonStyle(RelationshipButtonStyle(self, isLarge: true, isOpaque: isOpaque))
+                .buttonStyle(RelationshipButtonStyle(self, isLarge: true, isOpaque: isOpaque, isInCollection: isInCollection))
             }
         }
     }

@@ -145,6 +145,15 @@ public enum MastodonTimelineType: Equatable {
         }
     }
     
+    public var isCollection: Bool {
+        switch self {
+        case .collection:
+            return true
+        default:
+            return false
+        }
+    }
+    
     public var canDisplayFilteredNotifications: Bool {
         switch self {
         case .notifications(.everything), .notifications(.mentions):

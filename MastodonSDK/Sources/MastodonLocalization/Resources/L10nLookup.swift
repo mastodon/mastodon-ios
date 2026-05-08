@@ -891,6 +891,10 @@ public extension L10nLookup.Scene {
             let result = tr("Localizable-Collections", "Scene.Collections.removeMe")
             return result
         }()
+        public static let remove: String = {
+            let result = tr("Localizable-Collections", "Scene.Collections.remove")
+            return result
+        }()
         public static let createCollection: String = {
             let result = tr("Localizable-Collections", "Scene.Collections.createCollection")
             return result

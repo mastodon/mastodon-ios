@@ -65,7 +65,7 @@ struct HashtagHeaderView: View {
                 }
                 Spacer()
                 if let isFollowing = viewModel.entity.following {
-                    buttonType.button(isOpaque: false) {
+                    buttonType.button(isOpaque: false, isInCollection: false) {
                         guard let user = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
                         isUpdating = true
                         Task {

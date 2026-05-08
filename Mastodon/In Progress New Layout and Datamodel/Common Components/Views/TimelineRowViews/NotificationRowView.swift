@@ -615,7 +615,7 @@ struct NotificationRowView: View {
             case .fetching, .unfetched:
                 ProgressView().progressViewStyle(.circular)
             case .relationshipButton(let button):
-                button.button(isOpaque: false) {
+                button.button(isOpaque: false, isInCollection: false) {
                     viewModel.doAvatarRowButtonAction(navigator: navigator)
                 }
             case .followRequestControls(let controls):
@@ -627,7 +627,7 @@ struct NotificationRowView: View {
                                 // TODO: allow unfollow here?
                             }
                             .buttonStyle(
-                                RelationshipButtonStyle(.iFollowThem(theyFollowMe: false), isLarge: false, isOpaque: false)
+                                RelationshipButtonStyle(.iFollowThem(theyFollowMe: false), isLarge: false, isOpaque: false, isInCollection: false)
                             )
                             .fixedSize()
                             .accessibilityLabel(L10n.Common.Controls.Friendship.following)
@@ -870,8 +870,8 @@ struct RelationshipButtonStyle: ButtonStyle {
     private let isLarge: Bool
     private let isOpaque: Bool
 
-    init(_ relationshipButton: RelationshipButtonType, isLarge: Bool, isOpaque: Bool) {
-        action = relationshipButton.buttonAction
+    init(_ relationshipButton: RelationshipButtonType, isLarge: Bool, isOpaque: Bool,  isInCollection: Bool) {
+        action = relationshipButton.buttonAction(isInCollection: isInCollection)
         self.isLarge = isLarge
         self.isOpaque = isOpaque
     }

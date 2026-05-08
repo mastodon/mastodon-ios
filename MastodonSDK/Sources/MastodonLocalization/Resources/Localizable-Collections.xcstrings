@@ -695,8 +695,20 @@
         }
       }
     },
+    "Scene.Collections.remove" : {
+      "comment" : "small button to remove myself from a collection",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove"
+          }
+        }
+      }
+    },
     "Scene.Collections.removeMe" : {
-      "comment" : "button to remove myself from a collection",
+      "comment" : "large button to remove myself from a collection",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {

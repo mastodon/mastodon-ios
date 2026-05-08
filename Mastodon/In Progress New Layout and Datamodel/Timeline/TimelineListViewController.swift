@@ -2318,7 +2318,7 @@ struct TimelineListView: View {
                             }
                     }
                 case .account(let accountViewModel):
-                    AccountRowView(contentWidth: contentWidth)
+                    AccountRowView(contentWidth: contentWidth, isInCollection: viewModel.timeline.isCollection)
                         .environment(accountViewModel)
                         .padding(EdgeInsets(top: standardPadding, leading: doublePadding, bottom: standardPadding, trailing: standardPadding))
                         .frame(width: useableWidth)

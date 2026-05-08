@@ -24,7 +24,7 @@ import SwiftUI
                 pendingRequestToFollowMe = info?.theyHaveRequestedToFollowMe ?? false
             }
         case .isMe:
-            button = .edit
+            button = .editMe
         }
     }
     

@@ -404,7 +404,7 @@ struct ProfileAvatarAndBannerView: View {
                 if isAnsweringFollowRequest {
                     ProgressView().progressViewStyle(.circular)
                 } else {
-                    RelationshipButtonType.acceptTheirFollowRequest.largeButton(isOpaque: true) {
+                    RelationshipButtonType.acceptTheirFollowRequest.largeButton(isOpaque: true, isInCollection: false) {
                         guard let account = profileViewModel.account else { return }
                         isAnsweringFollowRequest = true
                         Task {
@@ -417,7 +417,7 @@ struct ProfileAvatarAndBannerView: View {
                         }
                     }
 
-                    RelationshipButtonType.rejectTheirFollowRequest.largeButton(isOpaque: true) {
+                    RelationshipButtonType.rejectTheirFollowRequest.largeButton(isOpaque: true, isInCollection: false) {
                         guard let account = profileViewModel.account else { return }
                         isAnsweringFollowRequest = true
                         Task {
@@ -919,22 +919,22 @@ struct ProfileActionBar: View {
     var body: some View {
         HStack(spacing: standardPadding) {
             if viewModel.contentDisplayStatus.canRevealContent {
-                RelationshipButtonType.hiddenByModerators.largeButton(isOpaque: false) {
+                RelationshipButtonType.hiddenByModerators.largeButton(isOpaque: false, isInCollection: false) {
                     withAnimation {
                         viewModel.contentDisplayStatus = .showAlways
                     }
                 }
-                .buttonStyle(RelationshipButtonStyle(RelationshipButtonType.hiddenByModerators, isLarge: true, isOpaque: false))
+                .buttonStyle(RelationshipButtonStyle(RelationshipButtonType.hiddenByModerators, isLarge: true, isOpaque: false, isInCollection: false))
                 .glassEffectIfAvailable(.regular(interactive: true), in: .capsule)
                 .matchedGeometryEffect(id: "action_button", in: profileActionBarAnimationNamespace)
             } else if let account = viewModel.account {
-                relationshipViewModel.button.largeButton(isOpaque: false) {
+                relationshipViewModel.button.largeButton(isOpaque: false, isInCollection: false) {
                     switch relationshipViewModel.button {
-                    case .edit:
+                    case .editMe:
                         navigator.push(.editProfile(profileViewModel: viewModel, editingViewModel: viewModel.editingViewModel))
                     default:
                         Task {
-                            try await relationshipViewModel.doRelationshipAction(relationshipViewModel.button.buttonAction, account: account, navigator: navigator)
+                            try await relationshipViewModel.doRelationshipAction(relationshipViewModel.button.buttonAction(isInCollection: false), account: account, navigator: navigator)
                         }
                     }
                 }
@@ -1050,11 +1050,13 @@ struct TestAllRelationshipButtons: View {
             ForEach(allButtonTypes, id: \.self.description) { buttonType in
                 HStack {
                     Text(buttonType.description)
-                    buttonType.button(isOpaque: false) {
+                    buttonType.button(isOpaque: false, isInCollection: false) {
                     }
-                    buttonType.largeButton(isOpaque: false) {
+                    buttonType.largeButton(isOpaque: false, isInCollection: false) {
                     }
                 }
+            }
+            RelationshipButtonType.editMe.button(isOpaque: false, isInCollection: true) {
             }
         }
     }

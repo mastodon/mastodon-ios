@@ -267,7 +267,7 @@ extension NotificationRowViewModel {
                 return []
             }
         case .relationshipButton(let button):
-            if let actionTitle = button.a11yActionTitle {
+            if let actionTitle = button.a11yActionTitle(isInCollection: false) {
                 return [ A11yActionInfo(title: actionTitle , doAction: { [weak self] in self?.doAvatarRowButtonAction(navigator: navigator) }) ]
             } else {
                 return []
@@ -304,7 +304,7 @@ extension NotificationRowViewModel {
             if let firstAccount = avatarRowSourceAccounts?.primaryAuthorAccount {
                 FeedbackGenerator.shared.generate(.selectionChanged)
                 Task {
-                    try await relationshipViewModel.doRelationshipAction(button.buttonAction, account: MastodonAccount.fromEntity(firstAccount, authenticatedDomain: myAccountDomain), navigator: navigator)
+                    try await relationshipViewModel.doRelationshipAction(button.buttonAction(isInCollection: false), account: MastodonAccount.fromEntity(firstAccount, authenticatedDomain: myAccountDomain), navigator: navigator)
                     updateAvatarRowAdditionalElement()
                 }
             }

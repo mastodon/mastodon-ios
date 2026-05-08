@@ -10,6 +10,7 @@ struct AccountRowView: View {
     @Environment(MastodonNavigationRouter.self) private var navigator
     @Environment(AccountRowViewModel.self) var viewModel
     let contentWidth: CGFloat
+    let isInCollection: Bool
   
     var body: some View {
         VStack(alignment: .gutterAlign, spacing: 0) {  // gutterAlign keeps the content properly aligned with the gap between avatar and content
@@ -42,9 +43,12 @@ struct AccountRowView: View {
                     HStack(spacing: doublePadding) {
                         AccountStatsView(displayType: .largeStacked, accountMetrics: viewModel.account.metrics, onTapOfMetric: nil)
                         Spacer()
-                        viewModel.relationshipButton.button(isOpaque: false) {
+                        viewModel.relationshipButton.button(isOpaque: false, isInCollection: isInCollection) {
                             Task {
-                                try await viewModel.doRelationshipButtonAction(navigator: navigator)
+                                if isInCollection {
+                                } else {
+                                    try await viewModel.doRelationshipButtonAction(navigator: navigator, isInCollection: false)
+                                }
                             }
                         }
                     }
