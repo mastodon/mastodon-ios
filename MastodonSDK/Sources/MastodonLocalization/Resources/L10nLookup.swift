@@ -933,6 +933,14 @@ public extension L10nLookup.Scene {
             let result = tr("Localizable-Collections", "Scene.Collections.collectionAuthorAddedYouOnDate", author, dateString)
             return result
         }
+        public static func confirmRemoveFromCollectionTitle(collectionName: String) -> String {
+            let result = tr("Localizable-Collections", "Scene.Collections.confirmRemoveFromCollectionTitle", collectionName)
+            return result
+        }
+        public static let confirmRemoveFromCollectionMessage: String = {
+            let result = tr("Localizable-Collections", "Scene.Collections.confirmRemoveFromCollectionMessage")
+            return result
+        }()
     }
 }
 

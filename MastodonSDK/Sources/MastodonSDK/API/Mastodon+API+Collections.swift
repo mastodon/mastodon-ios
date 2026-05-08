@@ -93,4 +93,22 @@ extension Mastodon.API.Collections {
             response: response)
         return Mastodon.Response.Content(value: value, response: response)
     }
+    
+    public static func removeFromCollection(
+        session: URLSession,
+        domain: String,
+        collectionID: Mastodon.Entity.Collection.ID,
+        itemID: Mastodon.Entity.CollectionMember.ID,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) async throws {
+        let url = collectionsEndpointURL(domain: domain).appendingPathComponent(collectionID).appendingPathComponent("items").appendingPathComponent(itemID).appendingPathComponent("revoke")
+        let request = Mastodon.API.post(url: url,
+                                          query: nil,
+                                          authorization: authorization
+        )
+        RateLimitViewModel.shared.didMakeRequest("remove \(itemID) from collection \(collectionID)")
+        let (data, response) = try await session.data(for: request)
+        try Mastodon.API.decodeEmpty(from: data, response: response)
+        return
+    }
 }

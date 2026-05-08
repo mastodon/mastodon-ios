@@ -39,11 +39,11 @@ struct CollectionRowView: View {
                         Text(viewModel.collection.name ?? "")
                             .fontWeight(.semibold)
                         if let author = viewModel.authorHandle {
-                            Text("by \(author)")
+                            Text(L10nLookup.Scene.Collections.authorLabel(author))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
-                        Text("\(viewModel.collection.itemCount) accounts")
+                        Text(L10nLookup.Scene.Collections.numberOfAccounts(viewModel.itemCount))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -95,7 +95,17 @@ struct CollectionRowView: View {
     private(set) var relationshipViewModel = RelationshipViewModel()
     var authorHandle: String?
     var authorAccount: MastodonAccount?
+    private var partialAccounts: [Mastodon.Entity.PartialAccountWithAvatar] = []
     var accountAvatarUrls: [URL] = []
+    var iHaveRemovedMyself = false
+    
+    var itemCount: Int {
+        if iHaveRemovedMyself {
+            return collection.itemCount - 1
+        } else {
+            return collection.itemCount
+        }
+    }
     
     init(collection: Mastodon.Entity.Collection) {
         self.collection = collection
@@ -128,21 +138,25 @@ struct CollectionRowView: View {
                             MastodonMenuAction.menuButton(systemImageName: nil, text: action.labelText) {
                                 Task {
                                     do {
-                                        try await self.doMenuAction(action)
+                                        try await self.doMenuAction(action, navigator: navigator)
                                     } catch {
-                                        // TODO: implement error handling
+                                        navigator.didReceiveError(error)
                                     }
                                 }
                             }
                         case .removeMyself:
-                            MastodonMenuAction.menuButton(systemImageName: nil, text: action.labelText) {
-                                Task {
-                                    do {
-                                        try await self.doMenuAction(action)
-                                    } catch {
-                                        // TODO: implement error handling
+                            if !self.iHaveRemovedMyself {
+                                MastodonMenuAction.menuButton(systemImageName: nil, text: action.labelText) {
+                                    Task {
+                                        do {
+                                            try await self.doMenuAction(action, navigator: navigator)
+                                        } catch {
+                                            navigator.didReceiveError(error)
+                                        }
                                     }
                                 }
+                            } else {
+                                EmptyView()
                             }
                         }
                     case .relationshipAction(let relAction):
@@ -161,14 +175,15 @@ struct CollectionRowView: View {
         }
     }
     
-    func doMenuAction(_ action: MastodonMenuAction.CollectionMenuAction) async throws {
+    func doMenuAction(_ action: MastodonMenuAction.CollectionMenuAction, navigator: MastodonNavigationRouter) async throws {
         switch action {
         case .reportCollection:
             // TODO: implement
             assertionFailure("reportCollection is not yet implemented")
         case .removeMyself:
-            // TODO: implement
-            assertionFailure("removeMyself is not yet implemented")
+            if let meItem = collection.items.first(where: { $0.account_id == AuthenticationServiceProvider.shared.currentActiveUser.value?.userID }) {
+                doRemoveMe(meItemID: meItem.id, navigator: navigator)
+            }
         }
     }
     
@@ -179,6 +194,45 @@ struct CollectionRowView: View {
     func updateAuthorAccount(_ updated: MastodonAccount) {
         authorAccount = updated
         authorHandle = "@" + updated.handle
+    }
+    
+    func updateAvatarUrls(_ updatedPartialAccounts: [Mastodon.Entity.PartialAccountWithAvatar]?) {
+        if let updatedPartialAccounts {
+            partialAccounts = updatedPartialAccounts
+        }
+        let firstFourAvatars = collection.items.compactMap({ member -> URL? in
+            guard !iHaveRemovedMyself || member.account_id != AuthenticationServiceProvider.shared.currentActiveUser.value?.userID else { return nil }
+            guard let partialAccount = partialAccounts.first(where: { $0.id ==  member.account_id }) else { return nil }
+            return partialAccount.avatarURL
+        }).prefix(4)
+        accountAvatarUrls = Array(firstFourAvatars)
+    }
+    
+    func doRemoveMe(meItemID: Mastodon.Entity.CollectionMember.ID, navigator: MastodonNavigationRouter) {
+        navigator.activeAlert = .confirmRemoveMeFromCollection(collectionName: collection.name ?? "Collection", didConfirm: { confirmed in
+            if confirmed {
+                Task {
+                    do {
+                        try await self.commitRemoveMe(meItemID: meItemID)
+                    } catch {
+                        navigator.didReceiveError(error)
+                    }
+                }
+            }
+        })
+    }
+    
+    func commitRemoveMe(meItemID: Mastodon.Entity.CollectionMember.ID) async throws {
+        guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
+        try await APIService.shared.removeFromCollection(collectionId: collection.id, collectionMemberId: meItemID, authenticationBox: authBox)
+        didFinishRemovingMyself()
+    }
+    
+    private func didFinishRemovingMyself() {
+        withAnimation {
+            self.iHaveRemovedMyself = true
+            self.updateAvatarUrls(nil)
+        }
     }
 }
 

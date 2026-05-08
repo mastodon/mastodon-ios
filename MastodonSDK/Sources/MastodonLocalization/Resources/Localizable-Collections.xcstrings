@@ -647,6 +647,29 @@
         }
       }
     },
+    "Scene.Collections.confirmRemoveFromCollectionMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This action can’t be undone. This user will still be able to add you to other collections, unless you block them."
+          }
+        }
+      }
+    },
+    "Scene.Collections.confirmRemoveFromCollectionTitle" : {
+      "comment" : "confirmation alert title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove yourself from “%1$(collectionName)@”?"
+          }
+        }
+      }
+    },
     "Scene.Collections.createCollection" : {
       "comment" : "button text",
       "extractionState" : "manual",

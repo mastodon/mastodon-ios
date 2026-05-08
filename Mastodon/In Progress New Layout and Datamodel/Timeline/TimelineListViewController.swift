@@ -256,7 +256,7 @@ class TimelineListViewController: UIHostingController<AnyView>
                 ) { _ in
                     Task {
                         do {
-                            try await collectionViewModel.doMenuAction(action)
+                            try await collectionViewModel.doMenuAction(action, navigator: self.navigator)
                         } catch {
                             self.navigator.didReceiveError(error)
                         }
@@ -704,6 +704,7 @@ extension MastodonPostMenuAction {
         case confirmMute(username: String, didConfirm: (Bool)->())
         case confirmUnmute(username: String, didConfirm: (Bool)->())
         case confirmRemoveQuote(username: String, didConfirm: (Bool)->())
+        case confirmRemoveMeFromCollection(collectionName: String, didConfirm: (Bool)->())
         case confirmBlock(username: String, didConfirm: (Bool)->())
         case confirmUnblock(username: String, didConfirm: (Bool)->())
         case confirmDomainBlock(account: MastodonAccount, didConfirm: (Bool)->())
@@ -733,6 +734,8 @@ extension MastodonPostMenuAction {
                 
             case .confirmRemoveQuote:
                 L10n.Common.Alerts.ConfirmRemoveQuote.title
+            case .confirmRemoveMeFromCollection(let collectionName, _):
+                L10nLookup.Scene.Collections.confirmRemoveFromCollectionTitle(collectionName: collectionName)
             case .confirmBlock:
                 L10n.Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.title
             case .confirmUnblock:
@@ -769,6 +772,8 @@ extension MastodonPostMenuAction {
                 
             case .confirmRemoveQuote:
                 L10n.Common.Alerts.ConfirmRemoveQuote.message
+            case .confirmRemoveMeFromCollection:
+                L10nLookup.Scene.Collections.confirmRemoveFromCollectionMessage
             case .confirmDeleteOfPost:
                 L10n.Common.Alerts.DeletePost.message
             case .confirmUnhideFeatureTabBeforeFeaturing(let item, _):
@@ -2318,13 +2323,17 @@ struct TimelineListView: View {
                             }
                     }
                 case .account(let accountViewModel):
-                    AccountRowView(contentWidth: contentWidth, isInCollection: viewModel.timeline.isCollection)
-                        .environment(accountViewModel)
-                        .padding(EdgeInsets(top: standardPadding, leading: doublePadding, bottom: standardPadding, trailing: standardPadding))
-                        .frame(width: useableWidth)
-                        .onTapGesture {
-                            navigator.push(.profile(account: accountViewModel.account._legacyEntity, relationship: nil))
-                        }
+                    if let collectionViewModel = viewModel.timeline.collectionViewModel, collectionViewModel.iHaveRemovedMyself, accountViewModel.id == AuthenticationServiceProvider.shared.currentActiveUser.value?.userID {
+                        EmptyView()
+                    } else {
+                        AccountRowView(contentWidth: contentWidth, collectionViewModel: viewModel.timeline.collectionViewModel)
+                            .environment(accountViewModel)
+                            .padding(EdgeInsets(top: standardPadding, leading: doublePadding, bottom: standardPadding, trailing: standardPadding))
+                            .frame(width: useableWidth)
+                            .onTapGesture {
+                                navigator.push(.profile(account: accountViewModel.account._legacyEntity, relationship: nil))
+                            }
+                    }
                 case .collection(let collectionViewModel):
                     CollectionRowView(contentWidth: contentWidth)
                         .environment(collectionViewModel)
@@ -2569,7 +2578,7 @@ struct TimelineListView: View {
                     Text(description)
                 }
                 let myAccountId = AuthenticationServiceProvider.shared.currentActiveUser.value?.userID
-                if let meAsMember = collectionViewModel.collection.items.first(where: { $0.account_id == myAccountId }) {
+                if !collectionViewModel.iHaveRemovedMyself, let meAsMember = collectionViewModel.collection.items.first(where: { $0.account_id == myAccountId }) {
                     infoPlusActionCalloutView(
                         image: Image(systemName: "star"),
                         headline: L10nLookup.Scene.Collections.youAreFeaturedInThisCollection,
@@ -2578,11 +2587,11 @@ struct TimelineListView: View {
                         buttonText: L10nLookup.Scene.Collections.removeMe,
                         buttonColor: Asset.Colors.FigmaToken.bgBrandSoft.swiftUIColor
                     ) {
-                        // TODO: implement
+                        collectionViewModel.doRemoveMe(meItemID: meAsMember.id, navigator: navigator)
                     }
                     .fixedSize(horizontal: false, vertical: true)
                 }
-                Text(L10nLookup.Scene.Collections.numberOfAccounts(collectionViewModel.collection.itemCount))
+                Text(L10nLookup.Scene.Collections.numberOfAccounts(collectionViewModel.itemCount))
                     .fontWeight(.semibold)
                     .foregroundStyle(.secondary)
             }
@@ -2654,6 +2663,14 @@ struct TimelineListView: View {
                 didConfirm(true)
             } label: {
                 Text(L10n.Common.Controls.Actions.remove)
+            }
+            
+        case .confirmRemoveMeFromCollection(_, let didConfirm):
+            cancelButton(didConfirm)
+            Button(role: .destructive) {
+                didConfirm(true)
+            } label: {
+                Text(L10nLookup.Scene.Collections.removeMe)
             }
             
         case .confirmDeleteOfPost(let didConfirm):
