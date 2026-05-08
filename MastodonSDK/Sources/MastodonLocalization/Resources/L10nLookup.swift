@@ -915,6 +915,20 @@ public extension L10nLookup.Scene {
             let result = tr("Localizable-Collections", "Scene.Collections.numberOfAccounts", count)
             return result
         }
+        public static let youAreFeaturedInThisCollection: String = {
+            let result = tr("Localizable-Collections", "Scene.Collections.youAreFeaturedInThisCollection")
+            return result
+        }()
+        private static let dayMonthYearFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            return formatter
+        }()
+        public static func collectionAuthorAddedYouOnDate(author: String, date: Date) -> String {
+            let dateString = dayMonthYearFormatter.string(from: date)
+            let result = tr("Localizable-Collections", "Scene.Collections.collectionAuthorAddedYouOnDate", author, dateString)
+            return result
+        }
     }
 }
 

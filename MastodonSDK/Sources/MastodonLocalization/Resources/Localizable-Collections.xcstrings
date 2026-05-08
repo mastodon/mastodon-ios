@@ -13,6 +13,18 @@
         }
       }
     },
+    "Scene.Collections.collectionAuthorAddedYouOnDate" : {
+      "comment" : "Date will be localized “medium” length formatted string for day, month, and year. For instance, “Apr 30, 2026”",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$(collectionAuthor)@ added you on %2$(date)@"
+          }
+        }
+      }
+    },
     "Scene.Collections.collectionsExplainerLong" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1038,6 +1050,18 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Stay tuned for Collections"
+          }
+        }
+      }
+    },
+    "Scene.Collections.youAreFeaturedInThisCollection" : {
+      "comment" : "headline",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You’re featured in this collection"
           }
         }
       }

@@ -2352,40 +2352,53 @@ struct TimelineListView: View {
     @ViewBuilder func concealedContentsView() -> some View {
         switch viewModel.timeline {
         case .collection:
-            HStack(alignment: .top) {
-                Image(systemName: "eye.slash")
-                    .padding(tinySpacing)
-                    .background() {
-                        Circle()
-                            .fill(Asset.Colors.FigmaToken.bgWarningSoft.swiftUIColor)
-                    }
-                
-                VStack(alignment: .leading) {
-                    Text(L10nLookup.Scene.Collections.sensitiveContentHeading)
-                        .fontWeight(.semibold)
-                    Text(L10nLookup.Scene.Collections.sensitiveContentMessage)
-                        .font(.subheadline)
-                    Button() {
-                        contentConcealModel.currentMode = .concealAll(reasons: [], showAnyway: true)
-                    } label: {
-                        Text(L10n.Common.Controls.Status.showAnyway)
-                            .padding(.vertical, 4)
-                            .padding(.horizontal, 10)
-                            .background() {
-                                Capsule()
-                                    .fill(Asset.Colors.FigmaToken.bgWarningSoft.swiftUIColor)
-                            }
-                    }
-                }
-            }
-            .padding()
-            .frame(maxWidth: .infinity, alignment: .topLeading)
-            .background() {
-                RoundedRectangle(cornerRadius: CornerRadius.large)
-                    .fill(Asset.Colors.FigmaToken.bgWarningSoftest.swiftUIColor)
+            infoPlusActionCalloutView(
+                image: Image(systemName: "eye.slash"),
+                headline: L10nLookup.Scene.Collections.sensitiveContentHeading,
+                message: L10nLookup.Scene.Collections.sensitiveContentMessage,
+                backgroundColor: Asset.Colors.FigmaToken.bgWarningSoftest.swiftUIColor,
+                buttonText: L10n.Common.Controls.Status.showAnyway,
+                buttonColor: Asset.Colors.FigmaToken.bgWarningSoft.swiftUIColor
+            ) {
+                contentConcealModel.currentMode = .concealAll(reasons: [], showAnyway: true)
             }
         default:
             EmptyView()
+        }
+    }
+    
+    @ViewBuilder func infoPlusActionCalloutView(image: Image, headline: String, message: String, backgroundColor: Color, buttonText: String, buttonColor: Color, buttonAction: @escaping ()->()) -> some View {
+        HStack(alignment: .top) {
+            image
+                .padding(tinySpacing)
+                .background() {
+                    Circle()
+                        .fill(buttonColor)
+                }
+            
+            VStack(alignment: .leading) {
+                Text(headline)
+                    .fontWeight(.semibold)
+                Text(message)
+                    .font(.subheadline)
+                Button() {
+                   buttonAction()
+                } label: {
+                    Text(buttonText)
+                        .padding(.vertical, 4)
+                        .padding(.horizontal, 10)
+                        .background() {
+                            Capsule()
+                                .fill(buttonColor)
+                        }
+                }
+            }
+        }
+        .padding()
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+        .background() {
+            RoundedRectangle(cornerRadius: CornerRadius.large)
+                .fill(backgroundColor)
         }
     }
     
@@ -2554,6 +2567,20 @@ struct TimelineListView: View {
                 }
                 if let description = collectionViewModel.collection.description, !description.isEmpty {
                     Text(description)
+                }
+                let myAccountId = AuthenticationServiceProvider.shared.currentActiveUser.value?.userID
+                if let meAsMember = collectionViewModel.collection.items.first(where: { $0.account_id == myAccountId }) {
+                    infoPlusActionCalloutView(
+                        image: Image(systemName: "star"),
+                        headline: L10nLookup.Scene.Collections.youAreFeaturedInThisCollection,
+                        message: L10nLookup.Scene.Collections.collectionAuthorAddedYouOnDate(author: collectionViewModel.authorHandle ?? "", date: meAsMember.created_at),
+                        backgroundColor: Asset.Colors.FigmaToken.bgBrandSoftest.swiftUIColor,
+                        buttonText: L10nLookup.Scene.Collections.removeMe,
+                        buttonColor: Asset.Colors.FigmaToken.bgBrandSoft.swiftUIColor
+                    ) {
+                        // TODO: implement
+                    }
+                    .fixedSize(horizontal: false, vertical: true)
                 }
                 Text(L10nLookup.Scene.Collections.numberOfAccounts(collectionViewModel.collection.itemCount))
                     .fontWeight(.semibold)
