@@ -52,6 +52,8 @@ extension GroupedNotificationType {
             return "quote.opening"
         case .follow:
             return "person.fill.badge.plus"
+        case .addedToCollection, .collectionUpdated:
+            return "square.grid.2x2.fill"
         case .poll:
             return "chart.bar.yaxis"
         case .adminReport:
@@ -85,7 +87,7 @@ extension GroupedNotificationType {
             return .green
         case .quote:
             return Asset.Colors.accent.swiftUIColor
-        case .follow, .followRequest, .status, .mention, .update, .quotedUpdate:
+        case .follow, .followRequest, .status, .mention, .update, .quotedUpdate, .addedToCollection, .collectionUpdated:
             return Color(asset: Asset.Colors.accent)
         case .poll, .severedRelationships, .moderationWarning, .adminReport,
             .adminSignUp:
@@ -130,6 +132,10 @@ extension GroupedNotificationType {
                     plainString = L10n.Scene.Notification.GroupedNotificationDescription.singleNameBoosted(firstAuthorName)
                 case .mention, .quote:
                     plainString = firstAuthorName
+                case .addedToCollection:
+                    plainString = L10n.Scene.Notification.GroupedNotificationDescription.addedYouToCollection(firstAuthorName)
+                case .collectionUpdated:
+                    plainString = L10n.Scene.Notification.GroupedNotificationDescription.updatedCollectionYouAreIn(firstAuthorName)
                 case .poll(let status):
                     let votersCount = status?.poll?.votersCount ?? 0
                     plainString = L10nLookup.Scene.Notification.GroupedNotificationDescription.pollHasEnded(pollAuthor: firstAuthorName, otherVotersCount: votersCount - 1)
@@ -538,6 +544,11 @@ struct NotificationRowView: View {
             if let sourceAccounts = viewModel.avatarRowSourceAccounts,
                sourceAccounts.primaryAuthorAccount?.displayNameWithFallback != nil,
                let actionLabel = viewModel.notification.type.actionSummaryHtmlLabel(sourceAccounts) {
+                MastodonContentView.notificationActionLabel(html: actionLabel, emojis: sourceAccounts.primaryAuthorAccount?.emojis ?? [])
+            }
+        case .addedToCollection, .collectionUpdated:
+            let sourceAccounts = viewModel.notification.sourceAccounts
+            if let actionLabel = viewModel.notification.type.actionSummaryHtmlLabel(sourceAccounts) {
                 MastodonContentView.notificationActionLabel(html: actionLabel, emojis: sourceAccounts.primaryAuthorAccount?.emojis ?? [])
             }
         case .mention, .status, .quote:

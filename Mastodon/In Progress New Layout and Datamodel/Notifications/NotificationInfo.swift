@@ -30,6 +30,8 @@ enum GroupedNotificationType {
     case quote(Mastodon.Entity.Status?)  // Someone quoted one of your statuses
     case quotedUpdate(Mastodon.Entity.Status?)  // Someone edited a post that you quoted
     case favourite(Mastodon.Entity.Status?)  // Someone favourited one of your statuses
+    case addedToCollection(Mastodon.Entity.Collection?) // Someone added you to a Collection
+    case collectionUpdated(Mastodon.Entity.Collection?) // Someone updated a Collection you are in
     case poll(Mastodon.Entity.Status?)  // A poll you have voted in or created has ended
     case status(Mastodon.Entity.Status?)  // Someone you enabled notifications for has posted a status
     case update(Mastodon.Entity.Status?)  // A status you interacted with has been edited

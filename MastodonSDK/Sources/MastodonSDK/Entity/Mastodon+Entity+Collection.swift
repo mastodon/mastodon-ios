@@ -28,7 +28,7 @@ extension Mastodon.Entity {
     ///   2026/04/29
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/) // not yet documented
-    public struct Collection: Codable {
+    public struct Collection: Codable, Sendable {
         public typealias ID = String
         
         public let id: ID

@@ -514,6 +514,10 @@ public enum L10n {
           public static func mention(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Mention", String(describing: p1), fallback: "Show Profile: %@")
           }
+        /// Show Collection: %@
+            public static func collection(_ p1: Any) -> String {
+                return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Collection", String(describing: p1), fallback: "Show Collection: %@")
+        }
           /// Link: %@
           public static func url(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Url", String(describing: p1), fallback: "Link: %@")
@@ -1102,6 +1106,14 @@ public enum L10n {
         public static func singleNameBoosted(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SingleNameBoosted", String(describing: p1), fallback: "%@ boosted:")
         }
+          /// %@ added you to a collection
+          public static func addedYouToCollection(_ p1: Any) -> String {
+              return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.AddedYouToCollection", String(describing: p1), fallback: "%@ added you to a collection")
+          }
+          /// %@ edited a collection you're in
+          public static func updatedCollectionYouAreIn(_ p1: Any) -> String {
+              return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.UpdatedCollectionYouAreIn", String(describing: p1), fallback: "%@ updated a collection you're in")
+          }
         /// %@ edited a post you interacted with
         public static func singleNameEditedAPost(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SingleNameEditedAPost", String(describing: p1), fallback: "%@ edited a post you interacted with")

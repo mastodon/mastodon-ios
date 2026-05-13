@@ -25,6 +25,7 @@ extension Mastodon.Entity {
         public let groupKey: String?
         public let account: Account
         public let status: Status?
+        public let collection: Collection?
         public let adminReport: Report?
         public let relationshipSeveranceEvent: RelationshipSeveranceEvent?
         public let accountWarning: AccountWarning?
@@ -37,6 +38,7 @@ extension Mastodon.Entity {
             case createdAt = "created_at"
             case account
             case status
+            case collection
             case adminReport = "report"
             case accountWarning = "moderation_warning"
             case relationshipSeveranceEvent = "event"
@@ -65,6 +67,7 @@ extension Mastodon.Entity {
         public let latestPageNotificationAt: Date? // Date at which the most recent notification from this group within the current page has been created. This is only returned when paginating through notification groups.
         public let sampleAccountIDs: [String] // IDs of some of the accounts who most recently triggered notifications in this group.
         public let statusID: ID?
+        public let collection: Mastodon.Entity.Collection?
         public let adminReport: Report? // Attached when type of the notification is admin.report
         public let relationshipSeveranceEvent: RelationshipSeveranceEvent? // Attached when type of the notification is severed_relationships
         public let accountWarning: AccountWarning?
@@ -80,6 +83,7 @@ extension Mastodon.Entity {
             case latestPageNotificationAt = "latest_page_notification_at"
             case sampleAccountIDs = "sample_account_ids"
             case statusID = "status_id"
+            case collection = "collection"
             case adminReport = "report"
             case accountWarning = "moderation_warning"
             case relationshipSeveranceEvent = "event"
@@ -261,6 +265,8 @@ extension Mastodon.Entity {
         case quote // Someone quoted one of your statuses
         case quotedUpdate  // Someone edited a post that you quoted
         case favourite // Someone favourited one of your statuses
+        case addedToCollection // Someone added you to a collection
+        case collectionUpdate // Someone updated a collection that you are in
         case poll // A poll you have voted in or created has ended
         case status // Someone you enabled notifications for has posted a status
         case update // A status you interacted with has been edited
@@ -279,6 +285,8 @@ extension Mastodon.Entity {
             .quote,
             .quotedUpdate,
             .favourite,
+            .addedToCollection,
+            .collectionUpdate,
             .poll,
             .status,
             .update,
@@ -297,6 +305,8 @@ extension Mastodon.Entity {
             case "quote":               self = .quote
             case "quoted_update":       self = .quotedUpdate
             case "favourite":           self = .favourite
+            case "added_to_collection": self = .addedToCollection
+            case "collection_update":   self = .collectionUpdate
             case "poll":                self = .poll
             case "status":              self = .status
             case "update":              self = .update
@@ -317,6 +327,8 @@ extension Mastodon.Entity {
             case .quote:                        return "quote"
             case .quotedUpdate:                 return "quoted_update"
             case .favourite:                    return "favourite"
+            case .addedToCollection:            return "added_to_collection"
+            case .collectionUpdate:             return "collection_update"
             case .poll:                         return "poll"
             case .status:                       return "status"
             case .update:                       return "update"

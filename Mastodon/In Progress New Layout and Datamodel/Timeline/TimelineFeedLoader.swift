@@ -1537,7 +1537,7 @@ struct NotificationsLoader {
             let status = group.statusID == nil ? nil : statuses[group.statusID!]
             
             let type = GroupedNotificationType(
-                group, myAccountDomain: authenticationBox.domain, sourceAccounts: sourceAccounts, status: status, adminReportID: group.adminReport?.id)
+                group, myAccountDomain: authenticationBox.domain, sourceAccounts: sourceAccounts, status: status, collection: group.collection, adminReportID: group.adminReport?.id)
             
             let post = status == nil ? nil : GenericMastodonPost.fromStatus(status!, authenticatedDomain: authenticationBox.domain)
             

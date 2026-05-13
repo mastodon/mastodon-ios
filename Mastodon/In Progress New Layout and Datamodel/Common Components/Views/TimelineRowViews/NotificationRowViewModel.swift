@@ -54,6 +54,8 @@ nonisolated struct MastodonNotificationInfo {
         case .mention, .status, .quote:
             // Note: these types are expected to use the MastodonPostRowView, not the NotificationRowView
             return nil
+        case .collectionUpdated, .addedToCollection:
+            return nil
         case ._other:
             return nil
         }
@@ -112,7 +114,8 @@ nonisolated struct MastodonNotificationInfo {
             }
         case .mention, .status, .quote, .needsImplementation:
             avatarRowAdditionalElement = .noneNeeded
-            break
+        case .addedToCollection, .collectionUpdated:
+            avatarRowAdditionalElement = .noneNeeded
         case .reblog(let status), .favourite(let status), .poll(let status), .update(let status), .quotedUpdate(let status):
             avatarRowAdditionalElement = .noneNeeded
             if let status {
@@ -207,7 +210,7 @@ extension NotificationRowViewModel {
         case .link(_, let url):
             guard let url else { return }
             UIApplication.shared.open(url)
-        case .myFollowers, .profile:
+        case .myFollowers, .profile, .collection:
             Task {
                 guard let destination = await primaryNavigation.destination()
                 else { return }
@@ -347,13 +350,14 @@ extension NotificationRowViewModel {
     enum NotificationNavigation {
         case myFollowers
         case profile(Mastodon.Entity.Account)
+        case collection(Mastodon.Entity.Collection?)
         case link(String, URL?)
 
-        func destination() async -> MastodonNavigationDestination? {
+        @MainActor func destination() async -> MastodonNavigationDestination? {
             guard
-                let authBox = await AuthenticationServiceProvider.shared
+                let authBox = AuthenticationServiceProvider.shared
                     .currentActiveUser.value,
-                let myAccount = await authBox.cachedAccount
+                let myAccount = authBox.cachedAccount
             else { return nil }
             switch self {
             case .link(_, let link):
@@ -363,6 +367,10 @@ extension NotificationRowViewModel {
                 return .timeline(.followers(ofUserId: myAccount.id))
             case .profile(let account):
                 return .profile(account: account, relationship: nil)
+            case .collection(let collection):
+                guard let collection else { return nil }
+                let viewModel = CollectionViewModel(collection: collection)
+                return .timeline(.collection(viewModel))
             }
         }
     }
@@ -398,6 +406,8 @@ extension NotificationRowViewModel {
         case .moderationWarning(_, let url):
             let linkDescription =  L10n.Scene.Notification.Warning.learnMore
             return .link(linkDescription, url)
+        case .addedToCollection(let collection), .collectionUpdated(let collection):
+            return .collection(collection)
         case .needsImplementation:
             break
         case ._other(_):
@@ -433,6 +443,10 @@ extension GroupedNotificationType {
             self = .quotedUpdate(notification.status)
         case .favourite:
             self = .favourite(notification.status)
+        case .addedToCollection:
+            self = .addedToCollection(notification.collection)
+        case .collectionUpdate:
+            self = .collectionUpdated(notification.collection)
         case .poll:
             self = .poll(notification.status)
         case .status:
@@ -472,6 +486,7 @@ extension GroupedNotificationType {
         myAccountDomain: String,
         sourceAccounts: NotificationSourceAccounts,
         status: Mastodon.Entity.Status?,
+        collection: Mastodon.Entity.Collection?,
         adminReportID: String?
     ) {
         switch notificationGroup.type {
@@ -491,6 +506,10 @@ extension GroupedNotificationType {
             self = .quote(status)
         case .favourite:
             self = .favourite(status)
+        case .addedToCollection:
+            self = .addedToCollection(collection)
+        case .collectionUpdate:
+            self = .collectionUpdated(collection)
         case .poll:
             self = .poll(status)
         case .status:
@@ -630,6 +649,9 @@ extension NotificationRowViewModel.NotificationNavigation {
             return L10n.Scene.Profile.Dashboard.myFollowers // TODO: improve string
         case .profile(let account):
             return  L10n.Common.Controls.Status.MetaEntity.mention(account.displayNameWithFallback)
+        case .collection(let collection):
+            guard let name = collection?.name else { return nil }
+            return L10n.Common.Controls.Status.MetaEntity.collection(name)
         }
     }
 }
