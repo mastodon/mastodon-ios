@@ -535,6 +535,12 @@ struct NotificationRowView: View {
                         postViewModel.openThreadView(navigator: navigator)
                     }
             }
+            
+            // OPTIONAL COLLECTION PREVIEW
+            if let collectionViewModel = viewModel.inlineCollectionViewModel {
+                EmbeddedCollectionView(layoutWidth: contentWidth, isSummary: true, actionHandler: actionHandler)
+                    .environment(collectionViewModel)
+            }
         }
     }
     

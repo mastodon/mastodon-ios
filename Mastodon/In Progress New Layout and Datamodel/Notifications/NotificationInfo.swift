@@ -45,6 +45,17 @@ enum GroupedNotificationType {
     case _other(String)
 }
 
+extension GroupedNotificationType {
+    var attachedCollection: Mastodon.Entity.Collection? {
+        switch self {
+        case .collectionUpdated(let collection), .addedToCollection(let collection):
+            return collection
+        default:
+            return nil
+        }
+    }
+}
+
 struct GroupedNotificationInfo: Identifiable {
     func availableRelationshipElement() async -> RelationshipElement? {
         return relationshipElement

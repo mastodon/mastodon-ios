@@ -24,6 +24,29 @@ struct EmbeddedPostView: View {
     }
 }
 
+struct EmbeddedCollectionView: View {
+    @Environment(CollectionViewModel.self) private var viewModel
+    let layoutWidth: CGFloat
+    let isSummary: Bool
+    let actionHandler: MastodonPostMenuActionHandler?
+    
+    private let padding: CGFloat = 12
+    
+    var body: some View {
+        let contentWidth = max(0, layoutWidth - padding * 2)
+        CollectionRowView(contentWidth: contentWidth, includeMenu: false)
+            .environment(viewModel)
+            .frame(width: contentWidth)
+            .padding(padding)
+            .frame(maxWidth: .infinity)
+            .background {
+                MastodonSecondaryBackground(fillInDarkModeOnly: true)
+            }
+            .contentShape(Rectangle())
+            .accessibilityElement(children: .contain)
+    }
+}
+
 @MainActor
 @Observable class QuotedPostPlaceholderViewModel {
     let quote: MastodonQuotedPost

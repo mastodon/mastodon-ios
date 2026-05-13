@@ -1641,6 +1641,11 @@ extension TimelineListViewModel {
                 if let needsRelationshipTo = notificationViewModel.needsRelationshipTo {
                     relationshipsToFetch.insert(needsRelationshipTo.id)
                 }
+                if let embeddedCollectionViewModel = notificationViewModel.inlineCollectionViewModel {
+                    for accountId in embeddedCollectionViewModel.collection.items.prefix(4).compactMap({ $0.account_id}) {
+                        accountsToFetch.insert(accountId)
+                    }
+                }
             case .account(let accountRowViewModel):
                 relationshipsToFetch.insert(accountRowViewModel.id)
             case .hashtag:
@@ -1687,10 +1692,11 @@ extension TimelineListViewModel {
                         guard let fetchedID = fetched.info?.id else { return false }
                         return fetchedID == accountRelatingTo?.id
                     }) {
-                        notificationViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: accountRelatingTo?.locked ?? false)
+                        notificationViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: accountRelatingTo?.locked ?? false, collectionAccounts: fetchedAccounts)
                     }
                     notificationViewModel.actionHandler = self
                     notificationViewModel.displayPrepStatus = .donePreparing
+                    notificationViewModel.inlineCollectionViewModel?.updateAvatarUrls(fetchedAccounts)
                 case .account(let accountViewModel):
                     if let relationship = fetchedRelationships.first(where: { $0.info?.id == accountViewModel.id }) {
                         if accountViewModel.actionHandler == nil {
@@ -2335,7 +2341,7 @@ struct TimelineListView: View {
                             }
                     }
                 case .collection(let collectionViewModel):
-                    CollectionRowView(contentWidth: contentWidth)
+                    CollectionRowView(contentWidth: contentWidth, includeMenu: true)
                         .environment(collectionViewModel)
                         .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
                         .frame(width: useableWidth)

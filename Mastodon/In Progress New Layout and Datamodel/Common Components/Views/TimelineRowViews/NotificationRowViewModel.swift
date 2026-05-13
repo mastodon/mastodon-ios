@@ -93,10 +93,11 @@ nonisolated struct MastodonNotificationInfo {
     }
     
     var inlinePostViewModel: MastodonPostViewModel? = nil
+    var inlineCollectionViewModel: CollectionViewModel? = nil
     var contentConcealViewModel: ContentConcealViewModel? = nil
     var usePrivateBackground: Bool = false
 
-    init(_ notificationInfo: GroupedNotificationInfo, myAccountDomain: String) {
+    init(_ notificationInfo: GroupedNotificationInfo, myAccountDomain: String, attachedCollection: CollectionViewModel?) {
         self.primaryNavigation = notificationInfo.primaryNavigation
         self.notification = MastodonNotificationInfo(notificationInfo)
         self.myAccountDomain = myAccountDomain
@@ -114,8 +115,11 @@ nonisolated struct MastodonNotificationInfo {
             }
         case .mention, .status, .quote, .needsImplementation:
             avatarRowAdditionalElement = .noneNeeded
-        case .addedToCollection, .collectionUpdated:
+        case .addedToCollection(let collection), .collectionUpdated(let collection):
             avatarRowAdditionalElement = .noneNeeded
+            if let collection {
+                inlineCollectionViewModel = attachedCollection ?? CollectionViewModel(collection: collection)
+            }
         case .reblog(let status), .favourite(let status), .poll(let status), .update(let status), .quotedUpdate(let status):
             avatarRowAdditionalElement = .noneNeeded
             if let status {
@@ -140,6 +144,10 @@ nonisolated struct MastodonNotificationInfo {
                 inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo())
                 inlinePostViewModel?.initialSetFullPost(inlinePost)
             }
+        case .addedToCollection(let collection), .collectionUpdated(let collection):
+            if let collection {
+                inlineCollectionViewModel?.updateCollection(collection)
+            }
         default:
             break
         }
@@ -159,8 +167,11 @@ nonisolated struct MastodonNotificationInfo {
         return primaryAuthorAccount
     }
     
-    public func prepareForDisplay(relationship: MastodonAccount.Relationship, theirAccountIsLocked: Bool) {
+    public func prepareForDisplay(relationship: MastodonAccount.Relationship, theirAccountIsLocked: Bool, collectionAccounts: [AccountInfo]?) {
         relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: theirAccountIsLocked)
+        if let collectionAccounts {
+            inlineCollectionViewModel?.updateAvatarUrls(collectionAccounts)
+        }
         updateAvatarRowAdditionalElement()
     }
     

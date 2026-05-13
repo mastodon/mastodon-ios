@@ -66,7 +66,7 @@ extension Mastodon.Entity {
         }
     }
     
-    public struct CollectionMember: Codable {
+    public struct CollectionMember: Codable, Sendable {
         public typealias ID = String
         public let id: ID
         public let state: String // needs an enum

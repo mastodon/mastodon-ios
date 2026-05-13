@@ -178,7 +178,7 @@ extension MastodonMenuAction.NavigationalMenuAction: Equatable, Hashable {
         case .myBookmarks: hasher.combine("myBookmarks")
         case .myFollowedHashtags: hasher.combine("myFollowedHashtags")
         case .myAccountSettings: hasher.combine("myAccountSettings")
-        case .collection(let collectionViewModel): hasher.combine("collection-\(collectionViewModel.collection.id)")
+        case .collection(let collectionViewModel): hasher.combine("collection-\(collectionViewModel.id)")
         case .addToList(let account, _): hasher.combine("addToList-\(account.id)")
         case .compose(let context):
             switch context {

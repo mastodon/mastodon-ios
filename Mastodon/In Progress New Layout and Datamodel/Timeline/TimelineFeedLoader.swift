@@ -138,7 +138,7 @@ public enum MastodonTimelineType: Equatable {
         case (.whoBoosted(let actionableStatusIdFirst), .whoBoosted(let actionableStatusIdSecond)):
             return actionableStatusIdFirst == actionableStatusIdSecond
         case (.collection(let collectionViewModelFirst), .collection(let collectionViewModelSecond)):
-            return collectionViewModelFirst.collection.id == collectionViewModelSecond.collection.id
+            return collectionViewModelFirst.id == collectionViewModelSecond.id
             
         default:
             return false
@@ -322,7 +322,7 @@ enum TimelineItem: Identifiable {
         case .account(let accountViewModel):
             return "account-\(accountViewModel.id)"
         case .collection(let collectionViewModel):
-            return "collection-\(collectionViewModel.collection.id)"
+            return "collection-\(collectionViewModel.id)"
         case .filteredNotificationsInfo:
             return "filteredNotifications"
         case .loadingIndicator:
@@ -347,7 +347,7 @@ enum TimelineItem: Identifiable {
         case .account(let accountViewModel):
             return accountViewModel.id
         case .collection(let collectionViewModel):
-            return collectionViewModel.collection.id
+            return collectionViewModel.id
         case .filteredNotificationsInfo:
             return nil
         case .loadingIndicator:
@@ -543,26 +543,26 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             }()
             return TimelineItem.account(viewModel)
         }
+        @MainActor func updateCollectionModel(_ model: CollectionViewModel, withAuthorAccountID authorID: Mastodon.Entity.Account.ID, partialAccounts: [Mastodon.Entity.PartialAccountWithAvatar]) {
+            let authorHandle = partialAccounts.first(where: { $0.id == authorID })?.fullHandle ?? "someone@somewhere.social"
+            let account = accountViewModels[authorID]?.account
+            if let account {
+                model.updateAuthorAccount(account)
+            } else {
+                model.authorHandle = "@" + authorHandle
+            }
+            model.updateAvatarUrls(partialAccounts)
+        }
         func timelineItem(fromCollection collection: Mastodon.Entity.Collection, partialAccounts: [Mastodon.Entity.PartialAccountWithAvatar]) -> TimelineItem {
-            let account = accountViewModels[collection.accountId]?.account
+          
             let viewModel = {
-                let authorHandle = partialAccounts.first(where: { $0.id == collection.accountId })?.fullHandle ?? "someone@somewhere.social"
-                
-                @MainActor func updateModelWithAuthorAccount(_ model: CollectionViewModel) {
-                    if let account {
-                        model.updateAuthorAccount(account)
-                    } else {
-                        model.authorHandle = "@" + authorHandle
-                    }
-                    model.updateAvatarUrls(partialAccounts)
-                }
-                
                 if let existing = collectionViewModels[collection.accountId] {
-                    updateModelWithAuthorAccount(existing)
+                    existing.updateCollection(collection)
+                    updateCollectionModel(existing, withAuthorAccountID: collection.accountId, partialAccounts: partialAccounts)
                     return existing
                 } else {
                     let model = CollectionViewModel(collection: collection)
-                    updateModelWithAuthorAccount(model)
+                    updateCollectionModel(model, withAuthorAccountID: collection.accountId, partialAccounts: partialAccounts)
                     newCollectionModels[collection.id] = model
                     return model
                 }
@@ -969,9 +969,25 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 if groupedNotificationInfo.groupedNotificationType.wantsFullStatusLayout, let post = groupedNotificationInfo.post {
                     return timelineItem(fromPost: post, isPinned: false)
                 } else {
-                    let notificationViewModel = notificationViewModels[groupedNotificationInfo.id] ?? NotificationRowViewModel(groupedNotificationInfo, myAccountDomain: authenticatedUser.domain)
-                    if notificationViewModels[groupedNotificationInfo.id] != nil {
-                        notificationViewModel.update(from: groupedNotificationInfo)
+                    let collectionID = groupedNotificationInfo.groupedNotificationType.attachedCollection?.id
+                    let existingCollection: CollectionViewModel? = {
+                        guard let collectionID else { return nil }
+                        return collectionViewModels[collectionID] ?? newCollectionModels[collectionID]
+                    }()
+                    let notificationViewModel = {
+                        if let existing = notificationViewModels[groupedNotificationInfo.id] {
+                            existing.update(from: groupedNotificationInfo)
+                            return existing
+                        } else {
+                            return NotificationRowViewModel(groupedNotificationInfo, myAccountDomain: authenticatedUser.domain, attachedCollection: existingCollection)
+                        }
+                    }()
+                    if existingCollection == nil {
+                        if let collectionID, let newCollectionModel = notificationViewModel.inlineCollectionViewModel {
+                            newCollectionModels[collectionID] = newCollectionModel
+                        }
+                    } else if let collection = groupedNotificationInfo.groupedNotificationType.attachedCollection {
+                        existingCollection?.updateCollection(collection)
                     }
                     newNotificationModels[groupedNotificationInfo.id] = notificationViewModel
                     return TimelineItem.notification(notificationViewModel)

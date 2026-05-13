@@ -11,6 +11,7 @@ struct CollectionRowView: View {
     @Environment(MastodonNavigationRouter.self) private var navigator
     @Environment(CollectionViewModel.self) var viewModel
     let contentWidth: CGFloat
+    let includeMenu: Bool
     
     let avatarViewSize = AvatarView.Size.extraSmall
     let avatarSize = AvatarSize.extraSmall
@@ -52,9 +53,10 @@ struct CollectionRowView: View {
                         return d[HorizontalAlignment.leading]
                     }
                     
-                    viewModel.menuButton(isFullCollectionView: false, navigator: navigator, relationshipModel: viewModel.relationshipViewModel)
+                    if includeMenu {
+                        viewModel.menuButton(isFullCollectionView: false, navigator: navigator, relationshipModel: viewModel.relationshipViewModel)
+                    }
                 }
-                .frame(width: contentWidth)
             }
         }
         .contentShape(Rectangle())
@@ -91,11 +93,12 @@ struct CollectionRowView: View {
 
 @Observable
 @MainActor public class CollectionViewModel {
-    nonisolated let collection: Mastodon.Entity.Collection
+    let id: Mastodon.Entity.Collection.ID
+    var collection: Mastodon.Entity.Collection
     private(set) var relationshipViewModel = RelationshipViewModel()
     var authorHandle: String?
     var authorAccount: MastodonAccount?
-    private var partialAccounts: [Mastodon.Entity.PartialAccountWithAvatar] = []
+    private var partialAccounts: [AccountInfo] = []
     var accountAvatarUrls: [URL] = []
     var iHaveRemovedMyself = false
     
@@ -108,6 +111,7 @@ struct CollectionRowView: View {
     }
     
     init(collection: Mastodon.Entity.Collection) {
+        self.id = collection.id
         self.collection = collection
     }
     
@@ -191,12 +195,18 @@ struct CollectionRowView: View {
         relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: authorAccount?.locked == true)
     }
     
+    func updateCollection(_ collection: Mastodon.Entity.Collection) {
+        assert(collection.id == id, "Attempting to update a CollectionViewModel with a collection with a different ID will produce unexpected results.")
+        self.collection = collection
+        updateAvatarUrls(nil)
+    }
+    
     func updateAuthorAccount(_ updated: MastodonAccount) {
         authorAccount = updated
         authorHandle = "@" + updated.handle
     }
     
-    func updateAvatarUrls(_ updatedPartialAccounts: [Mastodon.Entity.PartialAccountWithAvatar]?) {
+    func updateAvatarUrls(_ updatedPartialAccounts: [AccountInfo]?) {
         if let updatedPartialAccounts {
             partialAccounts = updatedPartialAccounts
         }
