@@ -48,6 +48,7 @@ extension GenericMastodonPost {
         struct HtmlWithEntities: Codable {
             let html: String?
             let mentions: [Mastodon.Entity.Mention]
+            let collections: [Mastodon.Entity.Collection]
             let tags: [Mastodon.Entity.Tag]
             let emojis: [Mastodon.Entity.Emoji]
         }
@@ -134,7 +135,7 @@ extension GenericMastodonPost.PostContent: FromStatusEntityDerivable {
 extension GenericMastodonPost.PostContent.HtmlWithEntities: FromStatusEntityDerivable {
     static func fromStatus(_ status: Mastodon.Entity.Status, authenticatedDomain: String) -> Self {
         return Self(
-            html: status.content?.strippingQuoteInline, mentions: status.mentions, tags: status.tags,
+            html: status.content?.strippingQuoteInline, mentions: status.mentions, collections: status.collections ?? [], tags: status.tags,
             emojis: status.emojis)
     }
 }

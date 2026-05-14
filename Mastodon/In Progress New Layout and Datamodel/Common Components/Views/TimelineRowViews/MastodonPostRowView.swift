@@ -157,6 +157,15 @@ struct MastodonPostRowView: View {
                             QuotedPostPlaceholderView()
                                 .environment(QuotedPostPlaceholderViewModel(quotePlaceholder, authorName: nil))  // TODO: include author name if possible (will have to fetch from server)
                         }
+                        
+                        // MARK: Tagged collections
+                        if let collectionViewModel = viewModel.collectionViewModel {
+                            EmbeddedCollectionView(layoutWidth: contentWidth, isSummary: true, actionHandler: actionHandler)
+                                .environment(collectionViewModel)
+                                .onTapGesture {
+                                    navigator.push(.timeline(.collection(collectionViewModel)))
+                                }
+                        }
                     }
                     
 #if DEBUG && false

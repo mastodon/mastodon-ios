@@ -42,6 +42,7 @@ extension Mastodon.Entity {
         
         // Rendering
         public let mentions: [Mention]
+        public let collections: [Collection]?
         public let tags: [Tag]
         public let emojis: [Emoji]
         
@@ -87,6 +88,7 @@ extension Mastodon.Entity {
             case quoteApproval = "quote_approval"
             
             case mentions
+            case collections = "tagged_collections"
             case tags
             case emojis
             

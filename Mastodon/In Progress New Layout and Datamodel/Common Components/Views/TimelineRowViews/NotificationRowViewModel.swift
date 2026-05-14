@@ -167,11 +167,8 @@ nonisolated struct MastodonNotificationInfo {
         return primaryAuthorAccount
     }
     
-    public func prepareForDisplay(relationship: MastodonAccount.Relationship, theirAccountIsLocked: Bool, collectionAccounts: [AccountInfo]?) {
+    public func prepareForDisplay(relationship: MastodonAccount.Relationship, theirAccountIsLocked: Bool) {
         relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: theirAccountIsLocked)
-        if let collectionAccounts {
-            inlineCollectionViewModel?.updateAvatarUrls(collectionAccounts)
-        }
         updateAvatarRowAdditionalElement()
     }
     

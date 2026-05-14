@@ -522,6 +522,9 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                         model.initialSetFullPost(post)
                         newPostModels[initialDisplayInfo.id] = model
                         CentralPostViewModelCache.shared.addToCache(model)
+                        if let collectionModel = model.collectionViewModel {
+                            newCollectionModels[collectionModel.id] = collectionModel
+                        }
                         return model
                     }
                 }

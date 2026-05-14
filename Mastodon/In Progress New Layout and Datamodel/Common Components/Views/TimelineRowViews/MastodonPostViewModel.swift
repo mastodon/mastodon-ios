@@ -24,6 +24,8 @@ struct PrecalculatedHeight {
     var fullQuotedPostViewModel: MastodonPostViewModel?
     var placeholderQuotedPost: MastodonQuotedPost?
     
+    var collectionViewModel: CollectionViewModel?
+    
     enum DisplayPrepStatus {
         case unprepared
         case donePreparing
@@ -36,6 +38,7 @@ struct PrecalculatedHeight {
     func initialSetFullPost(_ post: GenericMastodonPost?) {
         fullPost = post
         deriveNewQuotedPostViewModel()
+        deriveNewTaggedCollectionViewModel()
     }
     
     func deriveNewQuotedPostViewModel() {
@@ -48,6 +51,12 @@ struct PrecalculatedHeight {
                 self.fullQuotedPostViewModel = nil
                 placeholderQuotedPost = potentialQuotePost.quotedPost
             }
+        }
+    }
+    
+    func deriveNewTaggedCollectionViewModel() {
+        if let taggedCollection = fullPost?.actionablePost?.content.htmlWithEntities?.collections.first {
+            collectionViewModel = CollectionViewModel(collection: taggedCollection)
         }
     }
     
@@ -111,6 +120,7 @@ struct PrecalculatedHeight {
         self.initialDisplayInfo = initialDisplay
         self.fullPost = fullPost
         self.deriveNewQuotedPostViewModel()
+        self.deriveNewTaggedCollectionViewModel()
     }
     
     public func prepareForDisplay(relationship: MastodonAccount.Relationship, theirAccountIsLocked: Bool) {
@@ -300,6 +310,7 @@ extension MastodonPostViewModel: FeedCoordinatorUpdatable {
             do {
                 self.fullPost = try fullPost?.byReplacingActionablePost(with: updated)
                 deriveNewQuotedPostViewModel()
+                deriveNewTaggedCollectionViewModel()
             } catch {
                 // the full post wasn't a match, but the quoted post might be
                 fullQuotedPostViewModel?.incorporateUpdate(update)

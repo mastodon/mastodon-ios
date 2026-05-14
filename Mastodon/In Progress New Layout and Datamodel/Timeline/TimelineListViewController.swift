@@ -1613,6 +1613,16 @@ extension TimelineListViewModel {
             }
         }
         
+        func processCollectionModel(_ collectionModel: CollectionViewModel) {
+            accountsToFetch.insert(collectionModel.collection.accountId)
+            relationshipsToFetch.insert(collectionModel.collection.accountId)
+            for includedAccount in collectionModel.collection.items.prefix(4) {
+                if let accountID = includedAccount.account_id {
+                    accountsToFetch.insert(accountID)
+                }
+            }
+        }
+        
         for item in batch {
             switch item {
             case .pinnedPosts:
@@ -1630,6 +1640,9 @@ extension TimelineListViewModel {
                 }
                 if let fullQuotedPostViewModel = postModel.fullQuotedPostViewModel {
                     needsPrep.append(fullQuotedPostViewModel)
+                }
+                if let collectionModel = postModel.collectionViewModel {
+                    processCollectionModel(collectionModel)
                 }
             case .notification(let notificationViewModel):
                 if let embeddedPostModel = notificationViewModel.inlinePostViewModel {
@@ -1651,8 +1664,7 @@ extension TimelineListViewModel {
             case .hashtag:
                 break
             case .collection(let collectionViewModel):
-                accountsToFetch.insert(collectionViewModel.collection.accountId)
-                relationshipsToFetch.insert(collectionViewModel.collection.accountId)
+                processCollectionModel(collectionViewModel)
             case .heading, .filteredNotificationsInfo, .loadingIndicator, .noItem:
                 break
             }
@@ -1671,6 +1683,17 @@ extension TimelineListViewModel {
             let fetchedAccounts = try await APIService.shared.accountsInfo(userIDs: Array(_accountsToFetch), authenticationBox: authenticatedUser)
             let fetchedRelationships = try await feedLoader.fetchRelationships(Array(_relationshipsToFetch))
             
+            @MainActor
+            func updateCollectionModel(_ collectionModel: CollectionViewModel) {
+                if let account = fetchedAccounts.first(where: { $0.id == collectionModel.collection.accountId }) {
+                    collectionModel.updateAuthorAccount(MastodonAccount.fromEntity(account, authenticatedDomain: authenticatedUser.domain))
+                }
+                if let relationship = fetchedRelationships.first(where: { $0.info?.id == collectionModel.collection.accountId }) {
+                    collectionModel.prepareForDisplay(withRelationship: relationship)
+                }
+                collectionModel.updateAvatarUrls(fetchedAccounts)
+            }
+            
             for postModel in toPrep {
                 if postModel.fullPost?.actionablePost?.metaData.author.id == authenticatedUser.userID {
                     postModel.prepareForDisplay(relationship: .isMe, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
@@ -1680,6 +1703,9 @@ extension TimelineListViewModel {
                     }) ?? feedLoader.myRelationship(to: postModel.initialDisplayInfo.actionableAuthorId)
                     
                     postModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
+                }
+                if let collectionViewModel = postModel.collectionViewModel {
+                    updateCollectionModel(collectionViewModel)
                 }
                 postModel.displayPrepStatus = .donePreparing
             }
@@ -1692,11 +1718,13 @@ extension TimelineListViewModel {
                         guard let fetchedID = fetched.info?.id else { return false }
                         return fetchedID == accountRelatingTo?.id
                     }) {
-                        notificationViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: accountRelatingTo?.locked ?? false, collectionAccounts: fetchedAccounts)
+                        notificationViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: accountRelatingTo?.locked ?? false)
                     }
                     notificationViewModel.actionHandler = self
                     notificationViewModel.displayPrepStatus = .donePreparing
-                    notificationViewModel.inlineCollectionViewModel?.updateAvatarUrls(fetchedAccounts)
+                    if let collectionModel = notificationViewModel.inlineCollectionViewModel {
+                        updateCollectionModel(collectionModel)
+                    }
                 case .account(let accountViewModel):
                     if let relationship = fetchedRelationships.first(where: { $0.info?.id == accountViewModel.id }) {
                         if accountViewModel.actionHandler == nil {
@@ -1712,12 +1740,7 @@ extension TimelineListViewModel {
                 case .hashtag:
                     break
                 case .collection(let collectionViewModel):
-                    if let account = fetchedAccounts.first(where: { $0.id == collectionViewModel.collection.accountId }) {
-                        collectionViewModel.updateAuthorAccount(MastodonAccount.fromEntity(account, authenticatedDomain: authenticatedUser.domain))
-                    }
-                    if let relationship = fetchedRelationships.first(where: { $0.info?.id == collectionViewModel.collection.accountId }) {
-                        collectionViewModel.prepareForDisplay(withRelationship: relationship)
-                    }
+                    updateCollectionModel(collectionViewModel)
                 case .heading, .filteredNotificationsInfo, .loadingIndicator, .noItem:
                     break
                 }
