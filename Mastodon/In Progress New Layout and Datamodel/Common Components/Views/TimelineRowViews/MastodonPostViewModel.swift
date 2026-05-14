@@ -157,6 +157,16 @@ struct PrecalculatedHeight {
             guard AuthenticationServiceProvider.shared.currentActiveUser.value != nil else { return false }
             navigator.push(.timeline(.hashtag(hashtag)))
             return true
+        } else if let collection = fullPost?.actionablePost?.content.htmlWithEntities?.collections.first(where: { $0.id == url.lastPathComponent && url.pathComponents.contains("collections") }) {
+            let collectionModel = {
+                if self.collectionViewModel?.collection.id == collection.id {
+                    return self.collectionViewModel!
+                } else {
+                    return CollectionViewModel(collection: collection)
+                }
+            }()
+            navigator.push(.timeline(.collection(collectionModel)))
+            return true
         } else {
             // fix non-ascii character URL link can not open issue
             navigator.presentModal(.legacy(scene: .safari(url: url), transition: .safariPresent(animated: true, completion: nil)))
