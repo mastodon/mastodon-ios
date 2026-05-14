@@ -55,7 +55,7 @@ public final class APIService {
 }
 
 extension APIService {
-    public static let onceRequestStatusMaxCount = 100
+    nonisolated public static let onceRequestStatusMaxCount = 100
     public static let onceRequestUserMaxCount = 100
     public static let onceRequestDomainBlocksMaxCount = 100
 }
