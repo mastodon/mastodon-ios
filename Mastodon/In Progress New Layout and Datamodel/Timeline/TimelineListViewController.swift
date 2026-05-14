@@ -3121,7 +3121,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                 case .removeQuote:
                     try await doRemoveQuote(from: actionablePost, askFirst: true, navigator: navigator)
                     
-                case .reportUser:
+                case .reportPost:
                     guard let relationship = try await APIService.shared.relationship(forAccountIds: [author.id], authenticationBox: authenticatedUser).value.first else { throw PostActionFailure.noRelationshipInfo }
                     let accountToReport = try await APIService.shared.accountInfo(domain: authenticatedUser.domain, userID: author.id, authorization: authenticatedUser.userAuthorization)
                     
@@ -3134,6 +3134,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                         account: accountToReport,
                         relationship: relationship,
                         status: statusEntity == nil ? nil : MastodonStatus(entity: statusEntity!, showDespiteContentWarning: true),
+                        collection: nil,
                         contentDisplayMode: .neverConceal
                     )
                     navigator.presentModal(.legacy(scene: .report(viewModel: reportViewModel), transition: .modal(animated: true, completion: nil)))

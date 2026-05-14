@@ -89,7 +89,7 @@ enum MastodonPostMenuAction: String {
     case removeQuote
     case blockUser
     case unblockUser
-    case reportUser
+    case reportPost
     
     // DELETE
     case deletePost
@@ -120,7 +120,7 @@ enum MastodonPostMenuAction: String {
         case .blockUser, .unblockUser:
             true
             
-        case .reportUser:
+        case .reportPost:
             false
             
         case .deletePost:
@@ -151,7 +151,7 @@ enum MastodonPostMenuAction: String {
         case .blockUser, .unblockUser:
             false
             
-        case .reportUser:
+        case .reportPost:
             false
             
         case .deletePost, .removeQuote:
@@ -177,7 +177,7 @@ enum MastodonPostMenuAction: String {
             PostAction.bookmark.systemIconName(filled: true)
         case .translatePost, .showOriginalLanguage:
             "character.book.closed"
-        case .reportUser:
+        case .reportPost:
             "flag"
         case .follow:
             "person.badge.plus"
@@ -233,7 +233,7 @@ enum MastodonPostMenuAction: String {
             return L10n.Common.Controls.Actions.TranslatePost.title(language)
         case .showOriginalLanguage:
             return L10n.Common.Controls.Status.Translation.showOriginal
-        case .reportUser:
+        case .reportPost:
             return L10n.Common.Controls.Actions.reportUser(username)
         case .follow:
             return L10n.Common.Controls.Actions.follow(username)
@@ -268,7 +268,7 @@ enum MastodonPostMenuAction: String {
     
     var isDestructive: Bool {
         switch self {
-        case .blockUser, .reportUser, .deletePost, .removeQuote:
+        case .blockUser, .reportPost, .deletePost, .removeQuote:
             return true
         default:
             return false
@@ -309,7 +309,7 @@ enum MastodonPostMenuAction: String {
                 defensiveActions = [
                     isQuotingMe ? .removeQuote : nil,
                     info.iAmBlockingThem ? .unblockUser : .blockUser,
-                    .reportUser
+                    .reportPost
                 ].compactMap { $0 }
             } else {
                 relationshipActions = nil
@@ -355,7 +355,7 @@ enum MastodonPostMenuAction: String {
                 defensiveActions = [
                     isQuotingMe ? .removeQuote : nil,
                     info.iAmBlockingThem ? .unblockUser : .blockUser,
-                    .reportUser
+                    .reportPost
                 ].compactMap { $0 }
             } else {
                 relationshipActions = []

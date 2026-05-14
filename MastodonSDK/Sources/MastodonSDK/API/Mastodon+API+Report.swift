@@ -68,6 +68,7 @@ public extension Mastodon.API.Reports {
     class FileReportQuery: Codable, PostQuery {
         public let accountID: Mastodon.Entity.Account.ID
         public var statusIDs: [Mastodon.Entity.Status.ID]?
+        public var collectionIDs: [Mastodon.Entity.Collection.ID]?
         public var comment: String?
         public let forward: Bool?
          
@@ -77,6 +78,7 @@ public extension Mastodon.API.Reports {
         enum CodingKeys: String, CodingKey {
             case accountID = "account_id"
             case statusIDs = "status_ids"
+            case collectionIDs = "collection_ids"
             case comment
             case forward
             case category
@@ -93,6 +95,7 @@ public extension Mastodon.API.Reports {
         public init(
             accountID: Mastodon.Entity.Account.ID,
             statusIDs: [Mastodon.Entity.Status.ID]?,
+            collectionIDs: [Mastodon.Entity.Collection.ID]?,
             comment: String?,
             forward: Bool?,
             category: Category?,
@@ -100,6 +103,7 @@ public extension Mastodon.API.Reports {
         ) {
             self.accountID = accountID
             self.statusIDs = statusIDs
+            self.collectionIDs = collectionIDs
             self.comment = comment
             self.forward = forward
             self.category = category

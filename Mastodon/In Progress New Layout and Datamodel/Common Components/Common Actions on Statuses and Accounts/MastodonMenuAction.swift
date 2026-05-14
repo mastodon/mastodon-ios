@@ -399,7 +399,7 @@ extension CollectionViewModel {
                 .navigationalAction(.share([collection.url]))
             ]),
             .init(.blockingOptions, items: [
-                .relationshipAction(.reportUser),
+                .collectionAction(.reportCollection),
                 .relationshipAction(.blockUser)
             ])
         ].compactMap { $0 }
@@ -417,7 +417,7 @@ extension CollectionViewModel {
         return [
             navigations,
             .init(.blockingOptions, items: [
-                .relationshipAction(.reportUser),
+                .collectionAction(.reportCollection),
                 .relationshipAction(.blockUser)
             ])
         ].compactMap { $0 }
@@ -901,6 +901,14 @@ extension MastodonAccount {
     @MainActor
     func reportViewModel(withStatus status: MastodonStatus?, relationship: MastodonAccount.Relationship) -> ReportViewModel? {
         guard let legacyRelationship = relationship.info?._legacyEntity, let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return nil }
-        return ReportViewModel(context: AppContext.shared, authenticationBox: authBox, account: _legacyEntity, relationship: legacyRelationship, status: status, contentDisplayMode: .neverConceal)
+        return ReportViewModel(context: AppContext.shared, authenticationBox: authBox, account: _legacyEntity, relationship: legacyRelationship, status: status, collection: nil, contentDisplayMode: .neverConceal)
+    }
+}
+
+extension MastodonAccount {
+    @MainActor
+    func reportViewModel(withCollection collection: Mastodon.Entity.Collection, relationship: MastodonAccount.Relationship) -> ReportViewModel? {
+        guard let legacyRelationship = relationship.info?._legacyEntity, let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return nil }
+        return ReportViewModel(context: AppContext.shared, authenticationBox: authBox, account: _legacyEntity, relationship: legacyRelationship, status: nil, collection: collection, contentDisplayMode: .neverConceal)
     }
 }

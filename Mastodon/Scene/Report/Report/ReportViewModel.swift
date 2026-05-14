@@ -28,6 +28,7 @@ class ReportViewModel {
     let account: Mastodon.Entity.Account
     let relationship: Mastodon.Entity.Relationship
     let status: MastodonStatus?
+    let collection: Mastodon.Entity.Collection?
     
     // output
     @Published var isReporting = false
@@ -40,6 +41,7 @@ class ReportViewModel {
         account: Mastodon.Entity.Account,
         relationship: Mastodon.Entity.Relationship,
         status: MastodonStatus?,
+        collection: Mastodon.Entity.Collection?,
         contentDisplayMode: StatusView.ContentDisplayMode
     ) {
         self.contentDisplayMode = contentDisplayMode
@@ -48,6 +50,7 @@ class ReportViewModel {
         self.account = account
         self.relationship = relationship
         self.status = status
+        self.collection = collection
         self.reportReasonViewModel = ReportReasonViewModel(context: context)
         self.reportServerRulesViewModel = ReportServerRulesViewModel(context: context)
         self.reportStatusViewModel = ReportStatusViewModel(context: context, authenticationBox: authenticationBox, account: account, status: status)
@@ -115,9 +118,17 @@ extension ReportViewModel {
                 return nil
             }
         }()
+        
+        // collections can be reported from the menu but will not be shown in the user interface for now
+        let collectionIDs: [Mastodon.Entity.Collection.ID]? = {
+            guard let collection = self.collection else { return nil }
+            return [collection.id]
+        }()
+        
         let query = Mastodon.API.Reports.FileReportQuery(
             accountID: account.id,
             statusIDs: statusIDs,
+            collectionIDs: collectionIDs,
             comment: comment,
             forward: true,
             category: {
