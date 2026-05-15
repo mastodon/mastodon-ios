@@ -209848,7 +209848,7 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Гэтак жа, як Вы можаце адпраўляць электронныя лісты людзям праз розныя кліенты электроннай пошты, Вы таксама можаце ўзаемадзейнічаць з людзьмі з іншых сервераў Mastodon, а таксама з усімі, хто карыстаецца іншымі сацыяльнымі сеткамі, якія працуюць па тых жа правілах, што і Mastodon (пратакол ActivityPub)."
           }
         },
@@ -209878,26 +209878,26 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Ligesom du kan sende e-mails til personer, der bruger forskellige e-mail-klienter, kan du interagere med personer på andre Mastodon-servere – og med enhver på andre sociale apps, der fungerer efter de samme regler som Mastodon (ActivityPub-protokollen)."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "So wie du E-Mails an andere trotz unterschiedlicher E-Mail-Provider senden kannst, so kannst du auch mit anderen Profilen auf unterschiedlichen Mastodon-Servern interagieren. Wenn andere soziale Apps die gleichen Kommunikationsregeln (das ActivityPub-Protokoll) wie Mastodon verwenden, dann funktioniert die Kommunikation auch dort."
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Ακριβώς όπως μπορείτε να στείλετε μηνύματα ηλεκτρονικού ταχυδρομείου σε άτομα χρησιμοποιώντας διαφορετικούς παρόχους email, μπορείτε να αλληλεπιδράσετε με άτομα σε άλλους διακομιστές Mastodon – και με οποιονδήποτε σε άλλες κοινωνικές εφαρμογές που τροφοδοτούνται από το ίδιο σύνολο κανόνων όπως χρησιμοποιεί το Mastodon (το πρωτόκολλο ActivityPub)."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Just like you can send emails to people using different email clients, you can interact with people on other Mastodon servers – and with anyone on other social apps powered by the same set of rules as Mastodon uses (the ActivityPub protocol)."
+            "value" : "Just like you can send emails to people using different email providers, you can interact with people on other Mastodon servers, and with anyone on other Fediverse apps."
           }
         },
         "en-US" : {
@@ -209914,19 +209914,19 @@
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Así como podés enviar correos electrónicos a personas usando diferentes clientes de email, del mismo modo podés interactuar con cuentas en otros servidores de Mastodon; y con cuentas en otras aplicaciones sociales que funcionen bajo las mismas normas que Mastodon (esto es, el protocolo ActivityPub)."
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Nii nagu võid saata teiste e-posti serverite kasutajatele e-kirju, saad ka suhelda teiste Mastodoni serverite kasutajatega - ja tegelikult ka muude sotsiaalvõrkude kasutajatega, kus on kasutusel sama lahendus, nagu Mastodon pruugib (ActivityPubi protokoll)."
           }
         },
         "eu" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Eposten bidez bezero desberdinak erabiltzen dituzten pertsonei idatzi diezaiekezun bezala, Mastodoneko beste zerbitzari batzuetako pertsonekin elkarreragin dezakezu —baita Mastodonen arau-multzo bera (ActivityPub protokoloa) erabiltzen duten beste sare sozial batzuetako edonorekin ere—."
           }
         },
@@ -209938,19 +209938,19 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Tout comme vous pouvez envoyer des courriels à des personnes utilisant différents logiciels de messagerie, vous pouvez interagir avec des personnes sur d'autres serveurs Mastodon — et avec n'importe qui sur d'autres applications sociales propulsées par le même ensemble de règles que Mastodon utilise (le protocole ActivityPub)."
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Díreach mar is féidir leat ríomhphoist a sheoladh chuig daoine ag baint úsáide as cliaint ríomhphoist éagsúla, is féidir leat idirghníomhú le daoine ar fhreastalaithe Mastodon eile – agus le duine ar bith ar aipeanna sóisialta eile atá faoi thiomáint ag an tsraith rialacha chéanna a úsáideann Mastodon (an prótacal ActivityPub)."
           }
         },
         "gd" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Air an aon dòigh ’s a chuireas tu puist-d gu daoine le cliantan puist-d eadar-dhealaichte, ’s urrainn dhut conaltradh le daoine air frithealaichean Mastodon eile – agus le duine sam bith air aplacaidean sòisealta eile a chleachdas na h-aon riaghailtean ’s a chleachdas Mastodon (sin pròtacal ActivityPub)."
           }
         },
@@ -209992,13 +209992,13 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Rétt eins og að þú getur sent tölvupóst á fólk í gegnum mismunandi þjónustur og forrit, þá getur þú átt í samskiptum við fólk á öðrum Mastodon-netþjónum – og reyndar við hverja þá sem eru á öðrum þeim samfélagsmiðlum sem nota sömu samskiptareglur og Mastodon notar (sem er ActivityPub-samskiptamátinn)."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Proprio come puoi inviare email a persone che usano client di posta elettronica diversi, tu puoi interagire con le persone su altri server Mastodon — e con chiunque utilizzi altre app social basate sulle stesse regole che Mastodon usa (il protocollo ActivityPub)."
           }
         },
@@ -210076,7 +210076,7 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Так же как вы можете отправлять письма людям, использующим различные почтовые клиенты, вы можете взаимодействовать с людьми на других серверах Mastodon – и с кем угодно на других социальных приложениях, основанных на том же наборе правил, что и у Mastodon (протокол ActivityPub)."
           }
         },
@@ -210112,7 +210112,7 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Farklı e-posta istemcileri kullanan kişilere e-posta gönderebileceğiniz gibi, diğer Mastodon sunucularındaki kişilerle ve Mastodon'un kullandığı kurallarla (ActivityPub protokolü) çalışan diğer sosyal uygulamalardaki herkesle etkileşim kurabilirsiniz."
           }
         },
@@ -210124,19 +210124,19 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Giống như bạn có thể gửi email cho mọi người trên các dịch vụ email khác nhau, bạn có thể tương tác với mọi người trên các máy chủ Mastodon khác – và trên các ứng dụng xã hội khác sử dụng cùng giao thức mà Mastodon sử dụng (ActivityPub)."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "就像你可以用不同的电子邮件客户端向其他人发送同样的电子邮件一般，你也可以和其他 Mastodon 服务器上的用户互动，甚至还能和与 Mastodon 采用相同规则（即 ActivityPub 协议）的其他社交软件上的任何人互动。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "就像是您的以不同 email 程式寄信給他人一樣，您能與其他 Mastodon 伺服器中的人們互動，並且能和使用與 Mastodon 一樣規則 (ActivityPub 協定) 的其他社群軟體上任何人互動。"
           }
         }
