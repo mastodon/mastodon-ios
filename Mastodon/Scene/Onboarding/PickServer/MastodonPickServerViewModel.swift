@@ -36,7 +36,7 @@ class MastodonPickServerViewModel: NSObject {
         items.append(contentsOf: APIService.stubCategories().map { CategoryPickerItem.category(category: $0) })
         return items
     }()
-    let selectCategoryItem = CurrentValueSubject<CategoryPickerItem, Never>(.category(category: Mastodon.Entity.Category(category: Mastodon.Entity.Category.Kind.general.rawValue, serversCount: 0)))
+    let selectCategoryItem = CurrentValueSubject<CategoryPickerItem?, Never>(nil)
     let searchText = CurrentValueSubject<String, Never>("")
     let selectedLanguage = CurrentValueSubject<String?, Never>(nil)
     let manualApprovalRequired = CurrentValueSubject<Bool?, Never>(nil)
@@ -180,6 +180,9 @@ extension MastodonPickServerViewModel {
             case .category(let category):
                 self?.scrollToTop.send()
                 return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: filters.selectedLanguage, manualApprovalRequired: filters.manualApprovalRequired, category: category.category.rawValue, searchText: searchText)
+            case nil:
+                self?.scrollToTop.send()
+                return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: filters.selectedLanguage, manualApprovalRequired: filters.manualApprovalRequired, category: nil, searchText: searchText)
             }
         }
         .assign(to: \.value, on: filteredIndexedServers)
