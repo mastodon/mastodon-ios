@@ -37,6 +37,7 @@ extension Mastodon.Entity {
         public let poll: Poll?
         public let mediaAttachments: [Attachment]?
         public let emojis: [Emoji]
+        public let quote: Quote?
 
         enum CodingKeys: String, CodingKey {
             case content
@@ -47,6 +48,7 @@ extension Mastodon.Entity {
             case poll
             case mediaAttachments = "media_attachments"
             case emojis
+            case quote
         }
 
     }

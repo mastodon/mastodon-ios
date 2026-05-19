@@ -63,6 +63,7 @@ extension GenericMastodonPost {
     enum PostAttachment: Codable {
         case media([Mastodon.Entity.Attachment])
         case poll(Mastodon.Entity.Poll)
+        case pollOptions(Mastodon.Entity.StatusEdit.Poll)
         case linkPreviewCard(Mastodon.Entity.Card)
     }
 }
@@ -208,5 +209,85 @@ extension GenericMastodonPost.InReplyToDetails: FromStatusEntityDerivableOptiona
             let account = status.inReplyToAccountID
         else { return nil }
         return GenericMastodonPost.InReplyToDetails(postID: post, accountID: account)
+    }
+}
+
+// MARK: - From StatusEditDerivable
+protocol FromStatusEditDerivable {
+    static func fromStatusEdit(_ statusEdit: Mastodon.Entity.StatusEdit, actualStatus: MastodonContentPost, authenticatedDomain: String) -> Self?
+}
+
+extension MastodonBasicPost: FromStatusEditDerivable {
+    static func fromStatusEdit(_ statusEdit: Mastodon.Entity.StatusEdit, actualStatus: MastodonContentPost, authenticatedDomain: String) -> Self? {
+        let quoted: MastodonQuotedPost? = {
+            guard let quote = statusEdit.quote else { return nil }
+            return MastodonQuotedPost(quoted: quote, authenticatedDomain: authenticatedDomain)
+        }()
+        
+        guard let content = PostContent.fromStatusEdit(statusEdit,  actualStatus: actualStatus, authenticatedDomain: authenticatedDomain), let metaData = PostMetadata.fromStatusEdit(statusEdit, actualStatus: actualStatus, authenticatedDomain: authenticatedDomain) else { return nil }
+        
+        return MastodonBasicPost(id: "edit-\(statusEdit.createdAt)", metaData: metaData, content: content, inReplyTo: nil, attachment: PostAttachment.fromStatusEdit(statusEdit, actualStatus: actualStatus, authenticatedDomain: authenticatedDomain), quoted: quoted, _legacyEntity: actualStatus._legacyEntity) as? Self
+    }
+}
+
+extension GenericMastodonPost.PostMetadata: FromStatusEditDerivable {
+    static func fromStatusEdit(_ statusEdit: Mastodon.Entity.StatusEdit, actualStatus: MastodonContentPost, authenticatedDomain: String) -> Self? {
+        return Self(
+            author: MastodonAccount.fromEntity(statusEdit.account, authenticatedDomain: authenticatedDomain), uriForFediverse: actualStatus.metaData.uriForFediverse,
+            url: nil,
+            privacyLevel: actualStatus.metaData.privacyLevel,
+            createdAt: statusEdit.createdAt, application: nil)
+    }
+}
+
+extension GenericMastodonPost.PostContent: FromStatusEditDerivable {
+    static func fromStatusEdit(_ statusEdit: Mastodon.Entity.StatusEdit, actualStatus: MastodonContentPost, authenticatedDomain: String) -> Self? {
+        guard let contentWarned = GenericMastodonPost.PostContent.ContentWarned.fromStatusEdit(
+            statusEdit, actualStatus: actualStatus, authenticatedDomain: authenticatedDomain) else { return nil }
+        return Self(
+            editedAt: statusEdit.createdAt, language: actualStatus.content.language,
+            htmlWithEntities: GenericMastodonPost.PostContent.HtmlWithEntities
+                .fromStatusEdit(statusEdit, actualStatus: actualStatus, authenticatedDomain: authenticatedDomain), plainText: nil,
+            attachment: GenericMastodonPost.PostAttachment.fromStatusEdit(statusEdit, actualStatus: actualStatus, authenticatedDomain: authenticatedDomain),
+            contentWarned: contentWarned, filtered: nil,
+            metrics: actualStatus.content.metrics,
+            myActions: actualStatus.content.myActions)
+    }
+}
+
+extension GenericMastodonPost.PostContent.HtmlWithEntities: FromStatusEditDerivable {
+    static func fromStatusEdit(_ statusEdit: Mastodon.Entity.StatusEdit, actualStatus: MastodonContentPost, authenticatedDomain: String) -> Self? {
+        return Self(
+            html: statusEdit.content.strippingQuoteInline, mentions: [], collections: [], tags: [],
+            emojis: statusEdit.emojis)
+    }
+}
+
+extension GenericMastodonPost.PostAttachment: FromStatusEditDerivable {
+    static func fromStatusEdit(_ statusEdit: Mastodon.Entity.StatusEdit, actualStatus: MastodonContentPost, authenticatedDomain: String) -> Self? {
+        if let attachedPoll = statusEdit.poll {
+            return .pollOptions(attachedPoll)
+        } else if let media = statusEdit.mediaAttachments, !media.isEmpty {
+            return .media(media)
+        } else {
+            return nil
+        }
+    }
+}
+
+extension GenericMastodonPost.PostContent.ContentWarned: FromStatusEditDerivable {
+    static func fromStatusEdit(_ statusEdit: Mastodon.Entity.StatusEdit, actualStatus: MastodonContentPost, authenticatedDomain: String) -> Self? {
+        switch (statusEdit.sensitive, statusEdit.spoilerText) {
+        case (false, nil):
+            return .nothingToWarn
+        case (true, nil):
+            return .warnMediaAttachmentOnly
+        case (true, _):
+            guard let reason = statusEdit.spoilerText, !reason.isEmpty else { return .warnMediaAttachmentOnly }
+            return .warnAll(reasons: [reason])
+        case (_, _):
+            guard let reason = statusEdit.spoilerText, !reason.isEmpty else { return .nothingToWarn }
+            return .warnAll(reasons: [reason])
+        }
     }
 }

@@ -23,8 +23,14 @@ struct AuthorHeaderView: View {
                     ProfileBadge.pinned
                 }
             }
-            VisibilityAndTimestampWithUserHandle(referenceDate: postedDate, visibility: postViewModel.fullPost?.actionablePost?.metaData.privacyLevel ?? postViewModel.initialDisplayInfo.actionableVisibility, handle: authorHandle)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            switch postViewModel.displayType {
+            case .editHistory:
+                VisibilityAndTimestampWithUserHandle(referenceDate: nil, visibility: postViewModel.fullPost?.actionablePost?.metaData.privacyLevel ?? postViewModel.initialDisplayInfo.actionableVisibility, handle: authorHandle)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            case .standard:
+                VisibilityAndTimestampWithUserHandle(referenceDate: postedDate, visibility: postViewModel.fullPost?.actionablePost?.metaData.privacyLevel ?? postViewModel.initialDisplayInfo.actionableVisibility, handle: authorHandle)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(postViewModel.a11yHeaderLabel(inThreadedContext: threadedContext, getAccount: getAccount))
@@ -112,7 +118,7 @@ struct VisibilityAndTimestamp: View {
 struct VisibilityAndTimestampWithUserHandle: View {
     @ScaledMetric private var actionSuperheaderHeight = baseActionSuperheaderHeight
     @Environment(TimestampUpdater.self) var timestamper
-    let referenceDate: Date
+    let referenceDate: Date?
     let visibility: GenericMastodonPost.PrivacyLevel?
     let handle: String
     
@@ -121,13 +127,29 @@ struct VisibilityAndTimestampWithUserHandle: View {
             if let visibilityIconName {
                 Image(systemName: visibilityIconName)
             }
-            (Text(referenceDate.localizedExtremelyAbbreviatedTimeElapsedUntil(now: timestamper.timestamp)) + Text(" · @\(handle)"))
-                .lineLimit(1)
+            if let dateText {
+                (Text(dateText) + Text(" · @\(handle)"))
+                    .lineLimit(1)
+            } else {
+                Text("@\(handle)")
+                    .lineLimit(1)
+            }
         }
         .font(.subheadline)
         .frame(height: actionSuperheaderHeight)
         .foregroundColor(.secondary)
-        .accessibilityLabel(referenceDate.localizedAbbreviatedSlowedTimeAgoSinceNow + ", \(handle)")
+        .accessibilityLabel(dateText == nil ? handle : dateText! + ", \(handle)")
+    }
+    
+    var dateText: String? {
+        guard let referenceDate else { return nil }
+        if abs(referenceDate.timeIntervalSinceNow) > 7/*days*/ * 24/*hours*/ * 60/*minutes*/ * 60/*seconds*/ {
+            let dateYear = Calendar.current.component(.year, from: referenceDate)
+            let currentYear = Calendar.current.component(.year, from: .now)
+            return referenceDate.formatted(.dateTime.year( dateYear == currentYear ? .omitted : .defaultDigits).month(.abbreviated).day(.defaultDigits).hour(.omitted).minute(.omitted))
+        } else {
+            return referenceDate.localizedExtremelyAbbreviatedTimeElapsedUntil(now: timestamper.timestamp)
+        }
     }
     
     var visibilityIconName: String? {

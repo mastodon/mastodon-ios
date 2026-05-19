@@ -230,6 +230,8 @@ struct EmbeddedPostContentDisplayedView: View {
                                                                  altTextTranslations: viewModel.altTextTranslations),
                                 containerOverlayBinding: actionHandler.containerOverlayBinding)
                             .frame(width: contentWidth)
+                        case .pollOptions(let poll):
+                            EmptyView()
                         case .poll(let poll):
                             let emojis = viewModel.fullPost?.actionablePost?.content.htmlWithEntities?.emojis
                             PollView(viewModel: PollViewModel(pollEntity: poll, emojis: emojis, optionTranslations: viewModel.isShowingTranslation == true ? viewModel.pollOptionTranslations : nil, containingPostID: viewModel.initialDisplayInfo.actionablePostID, actionHandler: actionHandler), contentWidth: contentWidth)
@@ -365,7 +367,7 @@ extension GenericMastodonPost.PostAttachment {
                     return "rectangle.stack"
                 }
             }
-        case .poll:
+        case .poll, .pollOptions:
             return "chart.bar.yaxis"
         case .linkPreviewCard:
             return nil
@@ -387,7 +389,7 @@ extension GenericMastodonPost.PostAttachment {
             default:
                 return L10n.Plural.Count.attachment(array.count)
             }
-        case .poll:
+        case .poll, .pollOptions:
             return L10nLookup.pluralCountPoll(1)
         case .linkPreviewCard:
             return nil

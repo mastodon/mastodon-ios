@@ -80,7 +80,7 @@ class ContentConcealViewModel {
     
     init(contentPost: MastodonContentPost?, context: Mastodon.Entity.FilterContext?) {
         
-        guard let contentPost, let context else {
+        guard let contentPost else {
             filtered = .nothingToWarn
             contentWarned = .nothingToWarn
             showAnyway = (nil, nil)
@@ -90,7 +90,7 @@ class ContentConcealViewModel {
         }
         
         var filterTitles = [String]()
-        if let filterResults = contentPost.content.filtered {
+        if let filterResults = contentPost.content.filtered, let context {
             for filterResult in filterResults {
                 if filterResult.filter.context.contains(context) {
                     filterTitles.append(filterResult.filter.title)
@@ -173,7 +173,7 @@ class ContentConcealViewModel {
         nestedContentConcealModel?.hide()
     }
     
-    func setShowAnyway(_ newValue: (Bool?, Bool?)) {
+    private func setShowAnyway(_ newValue: (Bool?, Bool?)) {
         showAnyway = newValue
         let (mode, isFilter) = Self.updatedMode(filtered: filtered, contentWarned: contentWarned, showAnyway: showAnyway)
         currentModeIsFilter = isFilter

@@ -64,7 +64,12 @@ struct MastodonPostRowView: View {
                 // MARK: Avatar
                 VStack(spacing: 0) {
                     AvatarView(size: .large, avatarSource: .url(author?.avatarURL ?? viewModel.initialDisplayInfo.actionableAuthorStaticAvatar), goToProfile: {
-                        goToProfile(author)
+                        switch viewModel.displayType {
+                        case .editHistory:
+                            break
+                        case .standard:
+                            goToProfile(author)
+                        }
                     })
                     if let threadedContext, threadedContext.drawsLineBelow {
                         let lowerThreadDecorationHeight: CGFloat? = {
@@ -131,6 +136,11 @@ struct MastodonPostRowView: View {
                                                     containerOverlayBinding:
                                     actionHandler?.containerOverlayBinding)
                                 .frame(width: contentWidth)
+                            case .pollOptions(let pollEdit):
+                                let options = pollEdit.options.enumerated().map { (index, option) in
+                                    PollViewModel.Option(index: index, text: option.title, emojis: (viewModel.fullPost as? MastodonContentPost)?.content.htmlWithEntities?.emojis ?? [])
+                                }
+                                PollOptionsView(options: options, contentWidth: contentWidth)
                             case .poll(let poll):
                                 let emojis = viewModel.fullPost?.actionablePost?.content.htmlWithEntities?.emojis
                                 PollView(viewModel: PollViewModel(pollEntity: poll, emojis: emojis, optionTranslations: viewModel.isShowingTranslation == true ? viewModel.pollOptionTranslations : nil, containingPostID: viewModel.initialDisplayInfo.actionablePostID, actionHandler: actionHandler), contentWidth: contentWidth)
@@ -180,7 +190,7 @@ struct MastodonPostRowView: View {
 #endif
                     
                     // MARK: Action Bar
-                    if let actionablePost = viewModel.fullPost?.actionablePost {
+                    if viewModel.displayType == .standard, let actionablePost = viewModel.fullPost?.actionablePost {
                         Spacer()
                             .frame(height: 0)  // gives double spacing between bottom of post content and action bar
                         ActionBar(instanceCanQuotePosts: instanceCanQuotePosts, actionHandler: actionHandler)
@@ -331,14 +341,7 @@ extension MastodonPostRowView {
                     if let lastEditDate = fullPost.content.editedAt {
                         let lastEditString = staticTimestampFormatter.string(from: lastEditDate)
                         Button {
-                            Task {
-                                do {
-                                    let edits = try await APIService.shared.getHistory(forStatusID: fullPost.id, authenticationBox: authBox).value
-                                    let editsViewModel = StatusEditHistoryViewModel(status: fullPost._legacyEntity, edits: edits, appContext: AppContext.shared, authenticationBox: authBox)
-                                    navigator.push(.legacy(scene: .editHistory(viewModel: editsViewModel), transition: .show))
-                                } catch {
-                                }
-                            }
+                            navigator.push(.timeline(.postHistory(fullPost)))
                         } label: {
                             HStack {
                                 Text(L10n.Common.Controls.Status.Buttons.editHistoryDetail(lastEditString))

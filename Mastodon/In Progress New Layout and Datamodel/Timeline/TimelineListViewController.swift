@@ -28,6 +28,7 @@ enum TimelineViewType {
     case familiarFollowers(MastodonAccount, TimelineListViewModel)
     case search(String, scope: SearchScope)
     case profilePosts(tabTitle: String?, userID: String, queryFilter: TimelineQueryFilter)
+    case postHistory(MastodonContentPost)
     case thread(root: MastodonContentPost)
     case remoteThread(root: RemoteThreadType)
     case hashtag(Mastodon.Entity.Tag)
@@ -50,6 +51,8 @@ enum TimelineViewType {
             return nil
         case .notifications:
             return nil
+        case .postHistory:
+            return L10n.Common.Controls.Status.EditHistory.title
         case .thread(let focusedPost):
             let authorHandle = focusedPost.initialDisplayInfo().actionableAuthorHandle
             return L10n.Scene.Thread.title("@\(authorHandle)")
@@ -114,6 +117,8 @@ extension TimelineViewType {
             TimelineListViewModel(timeline: .search(searchText, scope), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .profilePosts(_, let user, let queryFilter):
             TimelineListViewModel(timeline: .userPosts(userID: user, queryFilter: queryFilter), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
+        case .postHistory(let post):
+            TimelineListViewModel(timeline: .postHistory(post), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .thread(let root):
             TimelineListViewModel(timeline: .thread(root: root), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .remoteThread(let remoteThreadType):
@@ -202,7 +207,7 @@ class TimelineListViewController: UIHostingController<AnyView>
                 
             }
            
-        case .thread, .discover, .profilePosts, .remoteThread, .myBookmarks, .myFavorites, .whoFavourited, .whoBoosted, .followers, .accountsFollowed, .familiarFollowers, .search, .myFollowedHashtags:
+        case .thread, .discover, .profilePosts, .postHistory, .remoteThread, .myBookmarks, .myFavorites, .whoFavourited, .whoBoosted, .followers, .accountsFollowed, .familiarFollowers, .search, .myFollowedHashtags:
             break
         }
     }
@@ -446,7 +451,7 @@ extension TimelineListViewController {
         case .hashtag:
             showLocalTimelineAction.state = .off
             showFollowingAction.state = .off
-        case .discover, .search, .userPosts, .featuredItems, .thread, .remoteThread, .myFollowedHashtags, .myBookmarks, .myFavorites, .notifications, .followers, .accountsFollowed, .familiarFollowers, .whoFavourited, .whoBoosted, .collection:
+        case .discover, .search, .userPosts, .featuredItems, .postHistory, .thread, .remoteThread, .myFollowedHashtags, .myBookmarks, .myFavorites, .notifications, .followers, .accountsFollowed, .familiarFollowers, .whoFavourited, .whoBoosted, .collection:
             assertionFailure()
             break
         }
@@ -1355,7 +1360,7 @@ enum MastodonTimelineSheet {
             switch timeline {
             case .homeTimeline, .list, .featuredItems, .followers, .accountsFollowed, .familiarFollowers, .collection:
                 self?.needsReloadOnNextAppear = true
-            case .myBookmarks, .myFavorites, .myFollowedHashtags, .local, .hashtag, .discover, .search, .userPosts, .thread, .remoteThread, .notifications, .whoFavourited, .whoBoosted:
+            case .myBookmarks, .myFavorites, .myFollowedHashtags, .local, .hashtag, .discover, .search, .userPosts, .postHistory, .thread, .remoteThread, .notifications, .whoFavourited, .whoBoosted:
                 return
             }
         }
@@ -1433,7 +1438,6 @@ enum MastodonTimelineSheet {
         guard let account else { return .isNotMe(nil)}
         return feedLoader?.myRelationship(to: account.id) ?? .isNotMe(nil)
     }
-    
     
     func contentConcealModel(forActionablePost post: Mastodon.Entity.Status.ID) -> ContentConcealViewModel {
         return feedLoader?.contentConcealViewModel(forContentPost: post) ?? .alwaysShow
@@ -2090,6 +2094,8 @@ struct TimelineListView: View {
             fallthrough
         case .familiarFollowers:
             fallthrough
+        case .postHistory:
+            fallthrough
         case .thread:
             fallthrough
         case .remoteThread:
@@ -2146,6 +2152,8 @@ struct TimelineListView: View {
         case .accountsFollowed:
             fallthrough
         case .familiarFollowers:
+            fallthrough
+        case .postHistory:
             fallthrough
         case .thread:
             fallthrough
@@ -2207,6 +2215,8 @@ struct TimelineListView: View {
         case .accountsFollowed:
             EmptyView()
         case .familiarFollowers:
+            EmptyView()
+        case .postHistory:
             EmptyView()
         case .thread:
             EmptyView()
@@ -2312,7 +2322,22 @@ struct TimelineListView: View {
                     pinnedPostsView(item.postViewModels, contentWidth: contentWidth, useableWidth: useableWidth, isScrollAnchor: viewModel.scrollAnchorItem == item)
                     
                 case .post(let postViewModel, let isPinned):
-                    singlePostView(postViewModel, contentWidth: contentWidth, useableWidth: useableWidth, isPinned: isPinned, isScrollAnchor: viewModel.scrollAnchorItem == item)
+                    switch postViewModel.displayType {
+                    case .editHistory(let isOriginal):
+                        VStack(alignment: .leading, spacing: 0) {
+                            let dateString = postViewModel.formattedExactDate
+                            let text = isOriginal ? L10n.Common.Controls.Status.EditHistory.originalPost("\(dateString)") : L10n.Common.Controls.Status.editedAtTimestampPrefix("\(dateString)")
+                            Text(text)
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.secondary)
+                                .padding(.leading, standardPadding)
+                                .padding(.top, standardPadding)
+                            singlePostView(postViewModel, contentWidth: contentWidth, useableWidth: useableWidth, isPinned: isPinned, isScrollAnchor: viewModel.scrollAnchorItem == item)
+                        }
+                    case .standard:
+                        singlePostView(postViewModel, contentWidth: contentWidth, useableWidth: useableWidth, isPinned: isPinned, isScrollAnchor: viewModel.scrollAnchorItem == item)
+                    }
                     
                 case .notification(let notificationViewModel):
                     NotificationRowView(contentWidth: contentWidth, actionHandler: viewModel)

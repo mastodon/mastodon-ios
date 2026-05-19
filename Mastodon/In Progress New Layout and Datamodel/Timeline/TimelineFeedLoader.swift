@@ -83,6 +83,7 @@ public enum MastodonTimelineType: Equatable {
     case followers(ofUserId: String)
     case accountsFollowed(byUserId: String)
     case familiarFollowers(Mastodon.Entity.Account.ID)
+    case postHistory(MastodonContentPost)
     case thread(root: MastodonContentPost)
     case remoteThread(remoteType: RemoteThreadType)
     case notifications(scope: NotificationsScope)
@@ -120,6 +121,8 @@ public enum MastodonTimelineType: Equatable {
             return byUserIdFirst == byUserIdSecond
         case (.familiarFollowers(let accountIdFirst), .familiarFollowers(let accountIdSecond)):
             return accountIdFirst == accountIdSecond
+        case (.postHistory(let first), .postHistory(let second)):
+            return first.id == second.id
         case (.thread(let first), .thread(let second)):
             return first.id == second.id
         case (.remoteThread(let remoteTypeFirst), .remoteThread(let remoteTypeSecond)):
@@ -140,6 +143,15 @@ public enum MastodonTimelineType: Equatable {
         case (.collection(let collectionViewModelFirst), .collection(let collectionViewModelSecond)):
             return collectionViewModelFirst.id == collectionViewModelSecond.id
             
+        default:
+            return false
+        }
+    }
+    
+    public var isHistoryDisplay: Bool {
+        switch self {
+        case .postHistory:
+            return true
         default:
             return false
         }
@@ -212,6 +224,8 @@ public enum MastodonTimelineType: Equatable {
             nil
         case .thread, .remoteThread:
                 .account
+        case .postHistory:
+            nil
         case .myFollowedHashtags:
             nil
         case .myBookmarks:
@@ -503,9 +517,13 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         
         func timelineItem(fromStatus status: Mastodon.Entity.Status, isPinned: Bool) -> TimelineItem {
             let post = GenericMastodonPost.fromStatus(status, authenticatedDomain: authenticatedUser.domain)
-            return timelineItem(fromPost: post, isPinned: isPinned || (status.pinned == true))
+            return timelineItem(fromPost: post, isPinned: isPinned || (status.pinned == true), isOriginal: nil)
         }
-        func timelineItem(fromPost post: GenericMastodonPost, isPinned: Bool) -> TimelineItem {
+        func timelineItem(fromStatusEdit statusEdit: Mastodon.Entity.StatusEdit, actualStatus: MastodonContentPost, isOriginal: Bool) -> TimelineItem? {
+            guard let post = MastodonBasicPost.fromStatusEdit(statusEdit, actualStatus: actualStatus, authenticatedDomain: authenticatedUser.domain) else { return nil }
+            return timelineItem(fromPost: post, isPinned: false, isOriginal: isOriginal)
+        }
+        func timelineItem(fromPost post: GenericMastodonPost, isPinned: Bool, isOriginal: Bool?) -> TimelineItem {
             let initialDisplayInfo = post.initialDisplayInfo()
             let viewModel = {
                 if let existing = postViewModels[initialDisplayInfo.id] {
@@ -518,7 +536,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                         newPostModels[initialDisplayInfo.id] = existingElsewhere
                         return existingElsewhere
                     } else {
-                        let model = MastodonPostViewModel(initialDisplayInfo)
+                        let model = MastodonPostViewModel(initialDisplayInfo, displayType: timeline.isHistoryDisplay ? .editHistory(isOriginal: isOriginal == true) : .standard)
                         model.initialSetFullPost(post)
                         newPostModels[initialDisplayInfo.id] = model
                         CentralPostViewModelCache.shared.addToCache(model)
@@ -843,6 +861,12 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             newBatchBottomLoad = .nothingMoreToLoad
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
+        case .postHistory(let post):
+            let response = try await APIService.shared.getHistory(forStatusID: post.id, authenticationBox: authenticatedUser)
+            newBatch = response.value.enumerated().compactMap { (index, statusEdit) in timelineItem(fromStatusEdit: statusEdit, actualStatus: post, isOriginal: index == response.value.endIndex - 1) }
+            newBatchBottomLoad = .nothingMoreToLoad
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
+            
         case .remoteThread(let remoteThreadType):
             let status: Mastodon.Entity.Status
             switch remoteThreadType {
@@ -970,7 +994,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             }()
             newBatch = response.0.map { groupedNotificationInfo in
                 if groupedNotificationInfo.groupedNotificationType.wantsFullStatusLayout, let post = groupedNotificationInfo.post {
-                    return timelineItem(fromPost: post, isPinned: false)
+                    return timelineItem(fromPost: post, isPinned: false, isOriginal: nil)
                 } else {
                     let collectionID = groupedNotificationInfo.groupedNotificationType.attachedCollection?.id
                     let existingCollection: CollectionViewModel? = {
@@ -1383,7 +1407,17 @@ extension TimelineFeedLoader {
             switch postItem {
             case .post(let postViewModel, _):
                 if let contentPost = postViewModel.fullPost?.actionablePost, contentConcealViewModels[contentPost.id] == nil {
-                    contentConcealViewModels[contentPost.id] = ContentConcealViewModel(contentPost: contentPost, context: timeline.filterContext)
+                    let model = ContentConcealViewModel(contentPost: contentPost, context: timeline.filterContext)
+                    switch timeline {
+                    case .postHistory:
+                        if !model.currentMode.isShowingContent || !model.currentMode.isShowingMedia {
+                            model.showMore() // note that this assumes filters will not be in use and this will unwrap the content warning/spoiler text
+                        }
+                        break
+                    default:
+                        break
+                    }
+                    contentConcealViewModels[contentPost.id] = model
                 }
             default:
                 assertionFailure()

@@ -46,7 +46,7 @@ public actor BodegaPersistence {
             let timeline: [TimelineItem] = cached.compactMap {
                 switch $0 {
                 case .cachedPost(let info):
-                    let viewModel = MastodonPostViewModel(info)
+                    let viewModel = MastodonPostViewModel(info, displayType: .standard)
                     return .post(viewModel, isPinned: false)
                 case .missingPosts(let newerThan, let olderThan):
                     return nil // loading results missing from the middle of a feed is no longer supported

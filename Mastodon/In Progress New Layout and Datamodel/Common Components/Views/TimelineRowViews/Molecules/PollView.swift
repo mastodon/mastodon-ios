@@ -7,6 +7,44 @@ import MastodonUI
 import MastodonLocalization
 import MastodonCore
 
+struct PollOptionsView: View {
+    let options: [PollViewModel.Option]
+    let contentWidth: CGFloat
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: standardPadding) {
+            
+            // OPTIONS
+            ForEach(options, id: \.self.id) { option in
+                optionRow(option, index: option.index)
+            }
+        }
+    }
+    
+    @ViewBuilder func optionRow(_ option: PollViewModel.Option, index: Int) -> some View {
+        ZStack(alignment: .leading) {
+            HStack(spacing: 0) {
+                // The selection button image
+                Image(systemName: "circle.fill")
+                    .foregroundStyle(.quinary)
+                Spacer()
+                    .frame(width: standardPadding)
+                
+                MastodonContentView.header(html: option.text, emojis: option.emojis, style: .pollOption)
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(PollPadding.optionPadding)
+                
+            RoundedRectangle(cornerRadius: CornerRadius.standard)
+                .fill(.clear)
+                .strokeBorder(.separator)
+        }
+        .frame(width: contentWidth)
+        .clipShape(RoundedRectangle(cornerRadius: CornerRadius.standard))
+    }
+}
+
 struct PollView: View {
     @StateObject var viewModel: PollViewModel
     let contentWidth: CGFloat

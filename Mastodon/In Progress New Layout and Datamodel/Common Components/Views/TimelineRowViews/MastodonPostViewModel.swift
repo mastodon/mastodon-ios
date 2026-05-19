@@ -31,7 +31,13 @@ struct PrecalculatedHeight {
         case donePreparing
     }
     
+    enum DisplayType: Equatable {
+        case standard
+        case editHistory(isOriginal: Bool)
+    }
+    
     nonisolated let initialDisplayInfo: GenericMastodonPost.InitialDisplayInfo
+    nonisolated let displayType: DisplayType
     
     private(set) var fullPost: GenericMastodonPost? = nil
     
@@ -44,7 +50,7 @@ struct PrecalculatedHeight {
     func deriveNewQuotedPostViewModel() {
         if let potentialQuotePost = fullPost?.actionablePost as? MastodonBasicPost {
             if let quoted = potentialQuotePost.quotedPost, let quotedFullPost = quoted.fullPost {
-                let updated = MastodonPostViewModel(quotedFullPost.initialDisplayInfo(), fullPost: quotedFullPost)
+                let updated = MastodonPostViewModel(quotedFullPost.initialDisplayInfo(), fullPost: quotedFullPost, displayType: .standard)
                 self.fullQuotedPostViewModel = updated
                 placeholderQuotedPost = nil
             } else {
@@ -112,12 +118,14 @@ struct PrecalculatedHeight {
     }
     
     nonisolated
-    init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo) {
+    init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, displayType: DisplayType) {
         self.initialDisplayInfo = initialDisplay
+        self.displayType = displayType
     }
     
-    private init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, fullPost: GenericMastodonPost? = nil, isShowingTranslation: Bool? = nil, isDoingAction: MastodonPostMenuAction? = nil, myRelationshipToAuthor: MastodonAccount.Relationship? = nil, actionHandler: MastodonPostMenuActionHandler? = nil, translation: Mastodon.Entity.Translation? = nil) {
+    private init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, fullPost: GenericMastodonPost? = nil, displayType: DisplayType, isShowingTranslation: Bool? = nil, isDoingAction: MastodonPostMenuAction? = nil, myRelationshipToAuthor: MastodonAccount.Relationship? = nil, actionHandler: MastodonPostMenuActionHandler? = nil, translation: Mastodon.Entity.Translation? = nil) {
         self.initialDisplayInfo = initialDisplay
+        self.displayType = displayType
         self.fullPost = fullPost
         self.deriveNewQuotedPostViewModel()
         self.deriveNewTaggedCollectionViewModel()
@@ -188,6 +196,17 @@ struct PrecalculatedHeight {
                 authorization: currentUser.userAuthorization
             )
             goToProfile(MastodonAccount.fromEntity(account, authenticatedDomain: currentUser.domain), navigator: navigator)
+        }
+    }
+    
+    public var formattedExactDate: String {
+        let date = fullPost?.actionablePost?.metaData.createdAt ?? initialDisplayInfo.actionableCreatedAt
+        let dateYear = Calendar.current.component(.year, from: date)
+        let currentYear = Calendar.current.component(.year, from: .now)
+        if dateYear == currentYear {
+            return date.formatted(.dateTime.month(.abbreviated).day(.defaultDigits).hour().minute())
+        } else {
+            return date.formatted(.dateTime.year().month(.abbreviated).day(.defaultDigits).hour().minute())
         }
     }
 }

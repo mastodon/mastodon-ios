@@ -124,7 +124,7 @@ nonisolated struct MastodonNotificationInfo {
             avatarRowAdditionalElement = .noneNeeded
             if let status {
                 let inlinePost = GenericMastodonPost.fromStatus(status, authenticatedDomain: myAccountDomain)
-                inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo())
+                inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo(), displayType: .standard)
                 inlinePostViewModel?.initialSetFullPost(inlinePost)
                 usePrivateBackground = status.visibility == .direct
             }
@@ -141,7 +141,7 @@ nonisolated struct MastodonNotificationInfo {
             avatarRowAdditionalElement = .noneNeeded
             if let status {
                 let inlinePost = GenericMastodonPost.fromStatus(status, authenticatedDomain: myAccountDomain)
-                inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo())
+                inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo(), displayType: .standard)
                 inlinePostViewModel?.initialSetFullPost(inlinePost)
             }
         case .addedToCollection(let collection), .collectionUpdated(let collection):
