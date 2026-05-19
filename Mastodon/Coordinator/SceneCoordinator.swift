@@ -174,7 +174,6 @@ extension SceneCoordinator {
         // thread
         case thread(Mastodon.Entity.Status, authenticatedUserDomain: String)
         case threadRemote(RemoteThreadType)
-        case editHistory(viewModel: StatusEditHistoryViewModel)
         
         // Hashtag Timeline
         case hashtagTimeline(Mastodon.Entity.Tag)
@@ -417,9 +416,6 @@ private extension SceneCoordinator {
             viewController = TimelineListViewController(.thread(root: rootPost), navigator: navigator)
         case .threadRemote(let entityType):
             viewController = TimelineListViewController(.remoteThread(root: entityType), navigator: navigator)
-        case .editHistory(let viewModel):
-            let editHistoryViewController = StatusEditHistoryViewController(viewModel: viewModel)
-            viewController = editHistoryViewController
         case .hashtagTimeline(let tag):
             let _viewController = TimelineListViewController(.hashtag(tag), navigator: navigator)
             viewController = _viewController

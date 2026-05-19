@@ -320,10 +320,6 @@ extension SceneDelegate {
             else { return }
             let statusId = components[1]
             // View post from user
-            let threadViewModel = RemoteThreadViewModel(
-                authenticationBox: authenticationBox,
-                statusID: statusId
-            )
             coordinator?.present(scene: .threadRemote(.status(statusId)), from: nil, transition: .show)
         case "search":
             let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
