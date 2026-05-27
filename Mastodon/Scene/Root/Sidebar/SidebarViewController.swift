@@ -196,9 +196,7 @@ extension SidebarViewController: UICollectionViewDelegate {
             case .tab(let tab):
                 delegate?.sidebarViewController(self, didSelectTab: tab)
             case .setting:
-                guard let setting = SettingService.shared.currentSetting.value else { return }
-
-                _ = self.sceneCoordinator?.present(scene: .settings(setting: setting), from: self, transition: .none)
+                _ = self.sceneCoordinator?.present(scene: .settings, from: self, transition: .none)
             case .compose:
                 assertionFailure()
             }

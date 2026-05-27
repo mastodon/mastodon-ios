@@ -1243,13 +1243,14 @@ class TimelineCacheManager: MastodonFeedCacheManager {
         self.useDiskCache = useDiskCache
         
         if useDiskCache {
-            Task {
-                let timeline = BodegaPersistence.cachedTimeline(forUser: currentUser)
-                if trackLastRead {
-                    self.currentLastReadMarker = await BodegaPersistence.LastRead.lastReadMarkers(for: currentUser)?.lastRead(forKind: .home)
-                }
-                self.staleResults = CacheableTimeline(older: [], olderBottomLoad: .nothingMoreToLoad, newer: timeline, newerBottomLoad: .nothingMoreToLoad, discardOlderIfNoOverlap: false)
-            }
+            assertionFailure("caching of timelines to disk has been disabled")
+//            Task {
+//                let timeline = BodegaPersistence.cachedTimeline(forUser: currentUser)
+//                if trackLastRead {
+//                    self.currentLastReadMarker = await BodegaPersistence.LastRead.lastReadMarkers(for: currentUser)?.lastRead(forKind: .home)
+//                }
+//                self.staleResults = CacheableTimeline(older: [], olderBottomLoad: .nothingMoreToLoad, newer: timeline, newerBottomLoad: .nothingMoreToLoad, discardOlderIfNoOverlap: false)
+//            }
         }
     }
     
@@ -1295,7 +1296,7 @@ class TimelineCacheManager: MastodonFeedCacheManager {
     func commitToCache() async {
         guard useDiskCache else { return }
         if let items = currentResults()?.items {
-            BodegaPersistence.cacheTimeline(items, forUser: currentUser)
+           // BodegaPersistence.cacheTimeline(items, forUser: currentUser)
             guard trackLastRead, let currentLastReadMarker else { return }
             Task {
                 let currentMarkers = await BodegaPersistence.LastRead.lastReadMarkers(for: currentUser) ?? LastReadMarkers(userGUID: currentUser.globallyUniqueUserIdentifier, home: nil, notifications: nil, mentions: nil)
@@ -1306,7 +1307,7 @@ class TimelineCacheManager: MastodonFeedCacheManager {
     
     func clearCache() async {
         guard useDiskCache else { return }
-        try? await BodegaPersistence.clearCachedTimeline(forUser: currentUser)
+      //  try? await BodegaPersistence.clearCachedTimeline(forUser: currentUser)
     }
 }
 

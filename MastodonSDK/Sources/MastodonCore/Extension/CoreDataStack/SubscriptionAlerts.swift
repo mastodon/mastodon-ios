@@ -19,7 +19,7 @@ extension SubscriptionAlerts.Property {
             self.init(favourite: true, follow: nil, followRequest: nil, mention: true, poll: true, reblog: true)
         case .followed:
             self.init(favourite: true, follow: true, followRequest: true, mention: true, poll: true, reblog: true)
-        case .none, ._other:
+        case .noone, ._other:
             self.init(favourite: nil, follow: nil, followRequest: nil, mention: nil, poll: nil, reblog: nil)
         }
     }

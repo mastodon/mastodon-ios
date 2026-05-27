@@ -33,7 +33,8 @@ class PolicySelectionViewController: UIViewController {
             }
 
             let policy = self.sections[indexPath.section].entries[indexPath.row]
-            cell.configure(with: policy, selectedPolicy: self.viewModel.selectedPolicy)
+            guard let displaySettings = self.viewModel.displaySettings else { return cell }
+            cell.configure(with: policy, selectedPolicy: NotificationPolicy.fromQueryPolicy(displaySettings.pushNotificationsFrom))
 
             return cell
         }
@@ -66,8 +67,7 @@ extension PolicySelectionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let newPolicy = sections[indexPath.section].entries[indexPath.row]
-        viewModel.selectedPolicy = newPolicy
-        viewModel.updated = true
+        viewModel.selectPolicy(newPolicy.subscriptionPolicy)
 
         if let dataSource {
             dataSource.applySnapshotUsingReloadData(dataSource.snapshot())

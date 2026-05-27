@@ -10,6 +10,7 @@ import UserNotifications
 import AVFoundation
 import MastodonCore
 import MastodonUI
+import MastodonSDK
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -64,7 +65,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        NotificationService.shared.registrationStatus.send(.registrationTokenReceived(deviceToken))
+        Task {
+            NotificationService.shared.registrationStatus.send(.registrationTokenReceived(deviceToken))
+        }
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: any Error) {
@@ -93,8 +96,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         NotificationService.shared.handle(pushNotification: pushNotification)
         completionHandler([.sound])
     }
-    
-    
+
     // notification present in the background (or resume from background)
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) async -> UIBackgroundFetchResult {
         let shortcutItems = try? await NotificationService.shared.unreadApplicationShortcutItems()

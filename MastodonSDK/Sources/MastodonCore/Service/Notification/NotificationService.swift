@@ -18,7 +18,7 @@ public final class NotificationService {
     
     public enum UpdateOperation {
         case allAccounts
-        case singleAccount(subscriptionObjectID: NSManagedObjectID, userAuthBox: MastodonAuthenticationBox, policy: Mastodon.API.Subscriptions.QueryData.Policy, alerts: Mastodon.API.Subscriptions.QueryData.Alerts)
+        case singleAccount(MastodonAuthenticationBox)
     }
     
     public enum PushNotificationRegistrationStatus {
@@ -37,6 +37,8 @@ public final class NotificationService {
             }
         }
     }
+    
+    @MainActor public static var isMigratingSettings = false
     
     public static let shared = { NotificationService() }()
     
@@ -79,6 +81,7 @@ public final class NotificationService {
                     break
                 case (_, .registrationTokenReceived), (_, .errorUpdatingSubscriptions):
                     self.requestUpdate(.allAccounts)
+                        
                 case (_, .subscriptionsUpdated(_, let subscribedAccounts)):
                     guard let userIdentifier = auth?.globallyUniqueUserIdentifier else { return }
                     if !subscribedAccounts.contains(userIdentifier) {
@@ -125,7 +128,7 @@ extension NotificationService {
         switch (granted, registrationStatus.value) {
         case (true, .registrationTokenReceived), (true, .errorUpdatingSubscriptions), (true, .subscriptionsUpdated):
             guard let token = registrationStatus.value.deviceToken else { return }
-            await updatePushNotificationSubscriptions(deviceToken: token)
+            try await updatePushNotificationSubscriptions(deviceToken: token)
         case (true, .errorRegisteringWithAPNS):
             UIApplication.shared.registerForRemoteNotifications()
         case (true, .registering):
@@ -258,8 +261,8 @@ extension NotificationService {
     private func domain(for pushNotification: MastodonPushNotification) async throws -> String? {
         let managedObjectContext = PersistenceManager.shared.mainActorManagedObjectContext
         return try await managedObjectContext.perform {
-            let subscriptionRequest = NotificationSubscription.sortedFetchRequest
-            subscriptionRequest.predicate = NotificationSubscription.predicate(userToken: pushNotification.accessToken)
+            let subscriptionRequest = Subscription.sortedFetchRequest
+            subscriptionRequest.predicate = Subscription.predicate(userToken: pushNotification.accessToken)
             let subscriptions = managedObjectContext.safeFetch(subscriptionRequest)
             
             // note: assert setting not remove after sign-out
@@ -279,24 +282,61 @@ extension NotificationService {
 }
 
 extension NotificationService {
-    private func updatePushNotificationSubscriptions(deviceToken: Data) async {
+    
+    private func didUpdatePushNotificationSubscription(_ subscription: Mastodon.Entity.Subscription, receiveFrom: Mastodon.API.Subscriptions.QueryData.Policy, for authBox: MastodonAuthenticationBox) async throws {
+        try await BodegaPersistence.PushNotifications.didRegisterSubscription(subscription, receiveFrom: receiveFrom, for: authBox)
+    }
+    
+    private func currentPushNotificationSubscriptions() async throws -> [ (MastodonAuthenticationBox, PushNotificationsSubscription.PushNotificationsSettings) ] {
+        guard !NotificationService.isMigratingSettings else { return [] }
+        NotificationService.isMigratingSettings = true
+        try await migrateSettingsIfNeeded()
+        NotificationService.isMigratingSettings = false
+        var result = [ (MastodonAuthenticationBox, PushNotificationsSubscription.PushNotificationsSettings) ]()
+        for authBox in AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes {
+            let subscriptionInfo = await BodegaPersistence.PushNotifications.activeSubscription(for: authBox)
+            guard let subscription = subscriptionInfo?.pending ?? subscriptionInfo?.current else { continue }
+            result.append((authBox, subscription))
+        }
+        return result
+    }
+    
+    private func migrateSettingsIfNeeded() async throws {
+        guard !UserDefaults.standard.didMigratePushNotifications else { return }
+        for userAuthBox in AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes {
+            if let legacySetting = SettingService.shared.setting(for: userAuthBox) {
+                let recentLanguages = legacySetting.recentLanguages
+                try? await BodegaPersistence.RecentLanguages.updateRecentLanguages(recentLanguages, for: userAuthBox)
+                
+                guard let legacySubscription = legacySetting.activeSubscription else { continue }
+                
+                let receiveFrom = legacySubscription.notificationPolicy
+                let newSubscription = PushNotificationsSubscription.PushNotificationsSettings(pushNotificationsFrom: receiveFrom ?? .all,
+                                                                                              mentions: legacySubscription.alert.mention,
+                                                                                              boosts: legacySubscription.alert.reblog,
+                                                                                              favorites: legacySubscription.alert.favourite,
+                                                                                              newFollowers: legacySubscription.alert.follow,
+                                                                                              followRequests: legacySubscription.alert.followRequest,
+                                                                                              polls: legacySubscription.alert.poll)
+                try await BodegaPersistence.PushNotifications.savePendingSubscriptionSettings(newSubscription, for: userAuthBox)
+            }
+        }
+        for userAuthBox in AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes {
+            SettingService.shared.deleteSetting(for: userAuthBox)
+        }
+        UserDefaults.standard.didMigratePushNotifications = true
+    }
+    
+    private func updatePushNotificationSubscriptions(deviceToken: Data) async throws {
         
         var accountsSubscribed = [String]()
         var hasNewError = false
-        for userAuthBox in AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes {
-            guard let setting = SettingService.shared.setting(for: userAuthBox) else { continue }
-            guard let subscription = setting.activeSubscription else { continue }
-            
+        let subscriptions = try await currentPushNotificationSubscriptions()
+        for (userAuthBox, subscription) in subscriptions {
             do {
                 let queryData = Mastodon.API.Subscriptions.QueryData(
-                    policy: subscription.policy,
-                    alerts: Mastodon.API.Subscriptions.QueryData.Alerts(
-                        favourite: subscription.alert.favourite,
-                        follow: subscription.alert.follow,
-                        reblog: subscription.alert.reblog,
-                        mention: subscription.alert.mention,
-                        poll: subscription.alert.poll
-                    )
+                    policy: subscription.pushNotificationsFrom,
+                    alerts: subscription.alerts
                 )
                 let query = NotificationService.createSubscribeQuery(
                     deviceToken: deviceToken,
@@ -306,13 +346,13 @@ extension NotificationService {
                 
                 let createSubscriptionTask = Task {
                     try await APIService.shared.subscribeToPushNotifications(
-                        subscriptionObjectID: subscription.objectID,
                         query: query,
                         mastodonAuthenticationBox: userAuthBox
                     )
                 }
-                let _ = try await createSubscriptionTask.value
+                let newSubscription = try await createSubscriptionTask.value
                 accountsSubscribed.append(userAuthBox.globallyUniqueUserIdentifier)
+                try await didUpdatePushNotificationSubscription(newSubscription, receiveFrom: subscription.pushNotificationsFrom, for: userAuthBox)
 #if DEBUG
                 print("successful register of push notifications for \(String(describing: userAuthBox.cachedAccount?.displayNameWithFallback))")
 #endif
@@ -335,19 +375,21 @@ extension NotificationService {
         }
     }
     
-    private func updatePushNotificationSubscription(_ subscriptionObjectID: NSManagedObjectID, for userAuthBox: MastodonAuthenticationBox, policy: Mastodon.API.Subscriptions.QueryData.Policy, alerts: Mastodon.API.Subscriptions.QueryData.Alerts) async throws {
-        guard let deviceToken = registrationStatus.value.deviceToken else { return }
-        let queryData = Mastodon.API.Subscriptions.QueryData(policy: policy, alerts: alerts)
+    private func updatePushNotificationSubscription(for userAuthBox: MastodonAuthenticationBox) async throws {
+        guard let deviceToken = registrationStatus.value.deviceToken else { throw APIService.APIError.explicit(.authenticationMissing) }
+        guard let subscriptionInfo = await BodegaPersistence.PushNotifications.activeSubscription(for: userAuthBox) else { return }
+        guard let subscription = subscriptionInfo.pending ?? subscriptionInfo.current else { return }
+        let queryData = Mastodon.API.Subscriptions.QueryData(policy: subscription.pushNotificationsFrom, alerts: subscription.alerts)
         let query = NotificationService.createSubscribeQuery(
             deviceToken: deviceToken,
             queryData: queryData,
             mastodonAuthenticationBox: userAuthBox
         )
-        let _ = try await APIService.shared.subscribeToPushNotifications(
-            subscriptionObjectID: subscriptionObjectID,
+        let updatedSubscription = try await APIService.shared.subscribeToPushNotifications(
             query: query,
             mastodonAuthenticationBox: userAuthBox
         )
+        try await BodegaPersistence.PushNotifications.didRegisterSubscription(updatedSubscription, receiveFrom: subscription.pushNotificationsFrom, for: userAuthBox)
     }
 }
 
@@ -367,9 +409,9 @@ extension NotificationService {
                 try? await requestNotificationPermissionAndUpdateSubscriptions()
                 currentUpdateInProgress = nil
             }
-        case let .singleAccount(subscriptionObjectID, userAuthBox, policy, alerts):
+        case .singleAccount(let userAuthBox):
             Task {
-                try? await updatePushNotificationSubscription(subscriptionObjectID, for: userAuthBox, policy: policy, alerts: alerts)
+                try? await updatePushNotificationSubscription(for: userAuthBox)
                 currentUpdateInProgress = nil
             }
         case nil:
@@ -422,4 +464,65 @@ extension NotificationService {
         return query
     }
     
+}
+
+public struct PushNotificationsSubscription: Codable {
+    public let current: PushNotificationsSettings?
+    public let pending: PushNotificationsSettings?
+    
+    public init(current: PushNotificationsSettings?, pending: PushNotificationsSettings?) {
+        self.current = current
+        self.pending = pending
+    }
+    
+    public struct PushNotificationsSettings: Codable {
+        // NOTE: adding items here requires updating the equivalency logic in BodegaPersistence.didRegisterSubscription()
+        public let pushNotificationsFrom: Mastodon.API.Subscriptions.QueryData.Policy
+        public let mentions: Bool?
+        public let boosts: Bool?
+        public let favorites: Bool?
+        public let newFollowers: Bool?
+        public let followRequests: Bool?
+        public let polls: Bool?
+        
+        public init(pushNotificationsFrom: Mastodon.API.Subscriptions.QueryData.Policy, mentions: Bool?, boosts: Bool?, favorites: Bool?, newFollowers: Bool?, followRequests: Bool?, polls: Bool?) {
+            self.pushNotificationsFrom = pushNotificationsFrom
+            self.mentions = mentions
+            self.boosts = boosts
+            self.favorites = favorites
+            self.newFollowers = newFollowers
+            self.followRequests = followRequests
+            self.polls = polls
+        }
+        
+        public static let defaultSettings = PushNotificationsSubscription.PushNotificationsSettings(pushNotificationsFrom: .all, mentions: true, boosts: true, favorites: true, newFollowers: true, followRequests: true, polls: true)
+        
+        public var alerts: Mastodon.API.Subscriptions.QueryData.Alerts {
+            Mastodon.API.Subscriptions.QueryData.Alerts(
+                favourite: favorites,
+                follow: newFollowers,
+                reblog: boosts,
+                mention: mentions,
+                poll: polls
+            )
+        }
+    }
+}
+
+extension CoreDataSubscription {
+    var notificationPolicy: Mastodon.API.Subscriptions.QueryData.Policy? {
+        guard let policy else { return nil }
+        switch policy {
+        case .all:
+            return .all
+        case .followed:
+            return .followed
+        case .follower:
+            return .follower
+        case .noone:
+            return .noone
+        case ._other(_):
+            return .noone
+        }
+    }
 }

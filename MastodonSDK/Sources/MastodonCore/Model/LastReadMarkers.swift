@@ -1,15 +1,14 @@
 // Copyright © 2025 Mastodon gGmbH. All rights reserved.
 
 import MastodonSDK
-import MastodonCore
 import Foundation
 
-struct LastReadMarkers: Identifiable, Codable {
-    enum MarkerPosition: Codable {
+public struct LastReadMarkers: Identifiable, Codable {
+    public enum MarkerPosition: Codable {
         case local(lastReadID: String)
         case fromServer(Mastodon.Entity.Marker.Position)
         
-        var lastReadID: String {
+        public var lastReadID: String {
             switch self {
             case .local(let lastReadID):
                 return lastReadID
@@ -19,16 +18,16 @@ struct LastReadMarkers: Identifiable, Codable {
         }
     }
     
-    let userGUID: String
-    let homeTimelineLastRead: MarkerPosition?
-    let notificationsLastRead: MarkerPosition?
-    let mentionsLastRead: MarkerPosition?
+    public let userGUID: String
+    public let homeTimelineLastRead: MarkerPosition?
+    public let notificationsLastRead: MarkerPosition?
+    public let mentionsLastRead: MarkerPosition?
     
-    var id: String {
+    public var id: String {
         return userGUID
     }
     
-    init(userGUID: String, home: MarkerPosition?, notifications: MarkerPosition?, mentions: MarkerPosition?) {
+    public init(userGUID: String, home: MarkerPosition?, notifications: MarkerPosition?, mentions: MarkerPosition?) {
         self.userGUID = userGUID
         self.homeTimelineLastRead = home
         self.notificationsLastRead = notifications
@@ -43,7 +42,7 @@ struct LastReadMarkers: Identifiable, Codable {
         }
     }
     
-    func lastRead(forKind kind: MastodonFeedKind) -> MarkerPosition? {
+    public func lastRead(forKind kind: MastodonFeedKind) -> MarkerPosition? {
         switch kind {
         case .home:
             return homeTimelineLastRead
@@ -56,7 +55,7 @@ struct LastReadMarkers: Identifiable, Codable {
         }
     }
     
-    func bySettingPosition(_ newPosition: MarkerPosition, forKind kind: MastodonFeedKind, enforceForwardProgress: Bool) -> LastReadMarkers {
+    public func bySettingPosition(_ newPosition: MarkerPosition, forKind kind: MastodonFeedKind, enforceForwardProgress: Bool) -> LastReadMarkers {
         if let previous = lastRead(forKind: kind) {
             guard !enforceForwardProgress || LastReadMarkers.id(previous.lastReadID, isOlderThan: newPosition.lastReadID) else { return self }
         }
@@ -73,7 +72,7 @@ struct LastReadMarkers: Identifiable, Codable {
     }
 }
 
-extension LastReadMarkers {
+public extension LastReadMarkers {
     static func id(_ thisId: String, isOlderThan otherId: String) -> Bool {
         if thisId.count == otherId.count {
             return thisId < otherId

@@ -6,6 +6,7 @@ public extension UserDefaults {
 
     enum Keys {
         static let didMigrateAuthenticationsKey = "didMigrateAuthentications"
+        static let didMigratePushNotificationsKey = "didMigratePushNotifications"
     }
 
     @objc dynamic var didMigrateAuthentications: Bool {
@@ -15,6 +16,15 @@ public extension UserDefaults {
 
         set {
             set(newValue, forKey: Keys.didMigrateAuthenticationsKey)
+        }
+    }
+    
+    @objc dynamic var didMigratePushNotifications: Bool {
+        get {
+            return bool(forKey: Keys.didMigratePushNotificationsKey)
+        }
+        set {
+            set(newValue, forKey: Keys.didMigratePushNotificationsKey)
         }
     }
 }

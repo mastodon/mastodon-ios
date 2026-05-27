@@ -30,16 +30,18 @@ class NotificationSettingTableViewToggleCell: ToggleTableViewCell {
         isUserInteractionEnabled = notificationsEnabled
         self.alert = alert
         
+        guard let displaySettings = viewModel.displaySettings else { return }
+        
         let toggleIsOn: Bool
         switch alert {
             case .mentionsAndReplies:
-                toggleIsOn = viewModel.notifyMentions
+            toggleIsOn = displaySettings.mentions ?? false
             case .boosts:
-                toggleIsOn = viewModel.notifyBoosts
+            toggleIsOn = displaySettings.boosts ?? false
             case .favorites:
-                toggleIsOn = viewModel.notifyFavorites
+                toggleIsOn = displaySettings.favorites ?? false
             case .newFollowers:
-                toggleIsOn = viewModel.notifyNewFollowers
+                toggleIsOn = displaySettings.newFollowers ?? false
         }
 
         label.text = alert.title

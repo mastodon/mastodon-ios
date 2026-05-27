@@ -378,9 +378,7 @@ extension TimelineListViewController {
     }
     
     @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        guard let setting = SettingService.shared.currentSetting.value else { return }
-        
-        _ = self.sceneCoordinator?.present(scene: .settings(setting: setting), from: self, transition: .none)
+        _ = self.sceneCoordinator?.present(scene: .settings, from: self, transition: .none)
     }
     
     @objc private func composeHashtagBarButtonItemPressed(_ sender: UIBarButtonItem) {

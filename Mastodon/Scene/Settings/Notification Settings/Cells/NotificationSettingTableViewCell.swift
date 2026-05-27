@@ -14,7 +14,7 @@ class NotificationSettingTableViewCell: UITableViewCell {
 
         var content = UIListContentConfiguration.valueCell()
         content.text = L10n.Scene.Settings.Notifications.Policy.title
-        content.secondaryText = viewModel.selectedPolicy.title
+        content.secondaryText = viewModel.displaySettings?.pushNotificationsFrom.title
         if notificationsEnabled {
             content.textProperties.color = .label
             content.secondaryTextProperties.color = .secondaryLabel

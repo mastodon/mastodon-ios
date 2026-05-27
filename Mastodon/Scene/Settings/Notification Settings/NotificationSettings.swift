@@ -47,7 +47,17 @@ enum NotificationPolicy: Hashable, CaseIterable {
             case .follow:
                 return .followed
             case .noone:
-                return .none
+                return .noone
+        }
+    }
+    
+    static func fromQueryPolicy(_ policy: Mastodon.API.Subscriptions.QueryData.Policy) -> Self {
+        switch policy {
+        case ._other: return .anyone
+        case .all: return .anyone
+        case .followed: return .follow
+        case .follower: return .followers
+        case .noone: return .noone
         }
     }
 }
@@ -69,25 +79,6 @@ enum NotificationAlert: Hashable, CaseIterable {
             return L10n.Scene.Settings.Notifications.Alert.favorites
         case .newFollowers:
             return L10n.Scene.Settings.Notifications.Alert.newFollowers
-        }
-    }
-}
-
-extension Subscription {
-    var notificationPolicy: NotificationPolicy? {
-        guard let policy else { return nil }
-
-        switch policy {
-            case .all:
-                return .anyone
-            case .followed:
-                return .follow
-            case .follower:
-                return .followers
-            case .none:
-                return .noone
-            case ._other(_):
-                return .noone
         }
     }
 }

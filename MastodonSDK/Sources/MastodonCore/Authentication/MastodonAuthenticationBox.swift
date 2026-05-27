@@ -33,3 +33,10 @@ public struct MastodonAuthenticationBox: UserIdentifier {
         return authentication.cachedAccount()
     }
 }
+
+extension MastodonAuthenticationBox: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(domain)
+        hasher.combine(userID)
+    }
+}

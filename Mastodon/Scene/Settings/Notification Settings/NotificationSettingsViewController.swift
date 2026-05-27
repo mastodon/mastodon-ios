@@ -26,14 +26,8 @@ class NotificationSettingsViewController: UIViewController {
     
     var disposeBag = Set<AnyCancellable>()
 
-    init(currentSetting: Setting?) {
-        let activeSubscription = currentSetting?.activeSubscription
-        let alert = activeSubscription?.alert
-        viewModel = NotificationSettingsViewModel(selectedPolicy: activeSubscription?.notificationPolicy ?? .noone,
-                                                  notifyMentions: alert?.mention ?? false,
-                                                  notifyBoosts: alert?.reblog ?? false,
-                                                  notifyFavorites: alert?.favourite ?? false,
-                                                  notifyNewFollowers: alert?.follow ?? false)
+    init(authBox: MastodonAuthenticationBox) {
+        viewModel = NotificationSettingsViewModel(authBox: authBox)
 
         tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -176,17 +170,6 @@ extension NotificationSettingsViewController: UITableViewDelegate {
 
 extension NotificationSettingsViewController: NotificationSettingToggleCellDelegate {
     func toggleValueChanged(_ tableViewCell: NotificationSettingTableViewToggleCell, alert: NotificationAlert, newValue: Bool) {
-        switch alert {
-            case .mentionsAndReplies:
-                viewModel.notifyMentions = newValue
-            case .boosts:
-                viewModel.notifyBoosts = newValue
-            case .favorites:
-                viewModel.notifyFavorites = newValue
-            case .newFollowers:
-                viewModel.notifyNewFollowers = newValue
-        }
-
-        viewModel.updated = true
+        viewModel.updatePushNotifications(forType: alert, newValue: newValue)
     }
 }

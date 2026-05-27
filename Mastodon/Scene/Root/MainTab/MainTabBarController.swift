@@ -605,9 +605,7 @@ extension MainTabBarController {
             }
             
             // open settings
-            if SettingService.shared.currentSetting.value != nil {
-                commands.append(openSettingsKeyCommand)
-            }
+            commands.append(openSettingsKeyCommand)
         }
 
         return commands
@@ -647,14 +645,11 @@ extension MainTabBarController {
     }
     
     @objc private func showFavoritesKeyCommandHandler(_ sender: UIKeyCommand) {
-        guard let authenticationBox else { return }
         _ = self.sceneCoordinator?.present(scene: .myFavorites, from: nil, transition: .show)
     }
     
     @objc private func openSettingsKeyCommandHandler(_ sender: UIKeyCommand) {
-        guard let setting = SettingService.shared.currentSetting.value else { return }
-
-        _ = self.sceneCoordinator?.present(scene: .settings(setting: setting), from: self, transition: .none)
+        _ = self.sceneCoordinator?.present(scene: .settings, from: self, transition: .none)
     }
     
     @objc private func composeNewPostKeyCommandHandler(_ sender: UIKeyCommand) {

@@ -26,16 +26,15 @@ class SettingsCoordinator: NSObject, Coordinator {
     weak var delegate: SettingsCoordinatorDelegate?
     private let settingsViewController: SettingsViewController
 
-    let setting: Setting
+    var pushNotificationSettings: PushNotificationsSubscription.PushNotificationsSettings?
     let appContext: AppContext
     let authenticationBox: MastodonAuthenticationBox
     var disposeBag = Set<AnyCancellable>()
     let sceneCoordinator: SceneCoordinator
 
-    init(presentedOn: UIViewController, accountName: String, setting: Setting, appContext: AppContext, authenticationBox: MastodonAuthenticationBox, sceneCoordinator: SceneCoordinator) {
+    init(presentedOn: UIViewController, accountName: String, appContext: AppContext, authenticationBox: MastodonAuthenticationBox, sceneCoordinator: SceneCoordinator) {
         self.presentedOn = presentedOn
         navigationController = UINavigationController()
-        self.setting = setting
         self.appContext = appContext
         self.authenticationBox = authenticationBox
         self.sceneCoordinator = sceneCoordinator
@@ -84,9 +83,8 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
             
                 navigationController.pushViewController(generalSettingsViewController, animated: true)
             case .notifications:
-
-                let currentSetting = SettingService.shared.currentSetting.value
-                let notificationViewController = NotificationSettingsViewController(currentSetting: currentSetting)
+                guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
+                let notificationViewController = NotificationSettingsViewController(authBox: authBox)
                 notificationViewController.delegate = self
 
                 navigationController.pushViewController(notificationViewController, animated: true)
@@ -215,23 +213,11 @@ extension SettingsCoordinator: NotificationSettingsViewControllerDelegate {
 
     func viewWillDisappear(_ viewController: UIViewController, viewModel: NotificationSettingsViewModel) {
 
-        guard viewModel.updated else { return }
-
-        //Show spinner?
-
-        guard let subscription = setting.activeSubscription,
-              setting.domain == authenticationBox.domain,
-              setting.userID == authenticationBox.userID else { return }
-
+        guard let updatedSettings = viewModel.updatedSettings else { return }
+        
         NotificationService.shared.requestUpdate(
-            .singleAccount(subscriptionObjectID: subscription.objectID, userAuthBox: authenticationBox, policy:  viewModel.selectedPolicy.subscriptionPolicy, alerts: Mastodon.API.Subscriptions.QueryData.Alerts(
-                favourite: viewModel.notifyFavorites,
-                follow: viewModel.notifyNewFollowers,
-                reblog: viewModel.notifyBoosts,
-                mention: viewModel.notifyMentions,
-                poll: subscription.alert.poll)
+            .singleAccount(authenticationBox)
             )
-        )
     }
     
     func showNotificationSettings(_ viewController: UIViewController) {
@@ -244,8 +230,8 @@ extension SettingsCoordinator: NotificationSettingsViewControllerDelegate {
 //MARK: - PolicySelectionViewControllerDelegate
 extension SettingsCoordinator: PolicySelectionViewControllerDelegate {
     func newPolicySelected(_ viewController: PolicySelectionViewController, newPolicy: NotificationPolicy) {
-        self.setting.activeSubscription?.policyRaw = newPolicy.subscriptionPolicy.rawValue
-        try? PersistenceManager.shared.mainActorManagedObjectContext.save()
+        guard let newQueryDataPolicy = Mastodon.API.Subscriptions.QueryData.Policy(rawValue: newPolicy.subscriptionPolicy.rawValue) else { return }
+        pushNotificationSettings = PushNotificationsSubscription.PushNotificationsSettings(pushNotificationsFrom: newQueryDataPolicy, mentions: pushNotificationSettings?.mentions, boosts: pushNotificationSettings?.boosts, favorites: pushNotificationSettings?.favorites, newFollowers: pushNotificationSettings?.newFollowers, followRequests: pushNotificationSettings?.followRequests, polls: pushNotificationSettings?.polls)
     }
 }
 

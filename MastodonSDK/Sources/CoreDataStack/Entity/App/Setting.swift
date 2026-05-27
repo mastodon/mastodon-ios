@@ -89,8 +89,10 @@ extension Setting {
 
 }
 
+public typealias CoreDataSubscription = Subscription
+
 extension Setting {
-    public var activeSubscription: Subscription? {
+    public var activeSubscription: CoreDataSubscription? {
         return (subscriptions ?? Set())
             .sorted(by: { $0.activedAt > $1.activedAt })
             .first

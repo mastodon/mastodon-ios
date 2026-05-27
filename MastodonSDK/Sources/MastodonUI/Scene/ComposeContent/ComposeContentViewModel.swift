@@ -178,9 +178,20 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.customEmojiViewModel = EmojiService.shared.dequeueCustomEmojiViewModel(
             for: authenticationBox.domain
         )
-                
-        let recentLanguages = SettingService.shared.currentSetting.value?.recentLanguages ?? []
-        self.recentLanguages = recentLanguages
+        
+        self.recentLanguages = []
+      
+        defer {
+            if !UserDefaults.standard.didMigratePushNotifications {
+                let recentLanguages = SettingService.shared._currentSetting.value?.recentLanguages ?? []
+                self.recentLanguages = recentLanguages
+            } else {
+                Task {
+                    let recentLanguages = await BodegaPersistence.RecentLanguages.recentLanguages(for: authenticationBox)
+                    self.recentLanguages = recentLanguages ?? []
+                }
+            }
+        }
         self.language = UserDefaults.shared.defaultPostLanguage
         
         let _initialInteractionSettings: PostInteractionSettingsViewModel.InitialSettings
@@ -560,19 +571,6 @@ extension ComposeContentViewModel {
             return canDiscardContent && canDiscardPoll && canDiscardAttachments
         }
         .assign(to: &$shouldDismiss)
-        
-        // languages
-        SettingService.shared.currentSetting
-            .flatMap { settings in
-                if let settings {
-                    return settings.publisher(for: \.recentLanguages, options: .initial).eraseToAnyPublisher()
-                } else if let code = Locale.current.language.languageCode?.identifier {
-                    return Just([code]).eraseToAnyPublisher()
-                }
-                return Just([]).eraseToAnyPublisher()
-            }
-            .assign(to: &$recentLanguages)
-
     }
 }
 
@@ -651,11 +649,7 @@ extension ComposeContentViewModel {
         }()
         
         // save language to recent languages
-        if let settings = SettingService.shared.currentSetting.value {
-            settings.managedObjectContext?.performAndWait {
-                settings.recentLanguages = [language] + settings.recentLanguages.filter { $0 != language }
-            }
-        }
+        updateRecentLanguages(adding: language)
 
         return MastodonStatusPublisher(
             replyTo: {
@@ -702,11 +696,7 @@ extension ComposeContentViewModel {
         }()
 
         // save language to recent languages
-        if let settings = SettingService.shared.currentSetting.value {
-            settings.managedObjectContext?.performAndWait {
-                settings.recentLanguages = [language] + settings.recentLanguages.filter { $0 != language }
-            }
-        }
+        updateRecentLanguages(adding: language)
 
         return MastodonEditStatusPublisher(statusID: status.id,
                                            author: author,
@@ -722,6 +712,22 @@ extension ComposeContentViewModel {
                                            visibility: interactionSettingsModel.interactionSettings.visibility,
                                            quotability: authenticationBox.authentication.instanceConfiguration?.isAvailable(.quotePosts) == true ? interactionSettingsModel.interactionSettings.quotability : nil,
                                            language: language)
+    }
+    
+    private func updateRecentLanguages(adding mostRecentLanguage: String) {
+        if !UserDefaults.standard.didMigratePushNotifications {
+            if let settings = SettingService.shared._currentSetting.value {
+                let language = language
+                settings.managedObjectContext?.performAndWait {
+                    settings.recentLanguages = [language] + settings.recentLanguages.filter { $0 != language }
+                }
+            }
+        } else {
+            Task {
+                let languages = await BodegaPersistence.RecentLanguages.recentLanguages(for: authenticationBox)
+                try await BodegaPersistence.RecentLanguages.updateRecentLanguages([language] + (languages ?? []).filter { $0 != language }, for: authenticationBox)
+            }
+        }
     }
 
 }

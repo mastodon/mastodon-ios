@@ -191,7 +191,7 @@ extension SceneCoordinator {
         case myFollowedTags
 
         // setting
-        case settings(setting: Setting)
+        case settings
 
         // Notifications
         case notificationPolicy(viewModel: NotificationPolicyViewModel)
@@ -517,7 +517,7 @@ private extension SceneCoordinator {
             activityViewController.popoverPresentationController?.sourceView = sourceView
             activityViewController.popoverPresentationController?.barButtonItem = barButtonItem
             viewController = activityViewController
-        case .settings(let setting):
+        case .settings:
             guard let presentedOn = sender, let authenticationBox = self.authenticationBox
             else { return nil }
             
@@ -525,7 +525,6 @@ private extension SceneCoordinator {
             
             let settingsCoordinator = SettingsCoordinator(presentedOn: presentedOn,
                                                           accountName: accountName,
-                                                          setting: setting,
                                                           appContext: AppContext.shared,
                                                           authenticationBox: authenticationBox,
                                                           sceneCoordinator: self

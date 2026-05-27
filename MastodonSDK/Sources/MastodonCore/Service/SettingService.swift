@@ -26,7 +26,7 @@ public final class SettingService {
     }
     // output
     let settingFetchedResultController: SettingFetchedResultController
-    public let currentSetting = CurrentValueSubject<Setting?, Never>(nil)
+    public let _currentSetting = CurrentValueSubject<Setting?, Never>(nil)
     
     private init() {
         self.settingFetchedResultController = SettingFetchedResultController()
@@ -63,9 +63,10 @@ public final class SettingService {
         )
         .sink { [weak self] mastodonAuthenticationBoxes, settings in
             guard let self = self else { return }
+            guard !UserDefaults.standard.didMigratePushNotifications else { return }
             guard let activeMastodonAuthenticationBox = mastodonAuthenticationBoxes.first else { return }
             let currentSetting = setting(for: activeMastodonAuthenticationBox)
-            self.currentSetting.value = currentSetting
+            self._currentSetting.value = currentSetting
         }
         .store(in: &disposeBag)
     }
@@ -92,5 +93,18 @@ extension SettingService {
             return setting.domain == userAuthBox.domain
             && setting.userID == userAuthBox.userID
         })
+    }
+    
+    public func deleteSetting(for userAuthBox: MastodonAuthenticationBox) {
+        let managedObjectContext = PersistenceManager.shared.backgroundManagedObjectContext
+        if let setting = setting(for: userAuthBox) {
+            let settingID = setting.objectID
+            do {
+                let toDelete = try managedObjectContext.existingObject(with: settingID)
+                managedObjectContext.delete(toDelete)
+            } catch {
+                // TODO: handle error?
+            }
+        }
     }
 }

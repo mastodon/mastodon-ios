@@ -578,22 +578,6 @@ struct NotificationFilterSettings: Codable, Equatable {
         Mastodon.Entity.NotificationPolicy.NotificationFilterAction
 }
 
-struct AdminNotificationFilterSettings: Codable, Equatable {
-    let forReports: Mastodon.Entity.NotificationPolicy.NotificationFilterAction
-    let forSignups: Mastodon.Entity.NotificationPolicy.NotificationFilterAction
-
-    var excludedNotificationTypes: [Mastodon.Entity.NotificationType]? {
-        var excluded = [Mastodon.Entity.NotificationType]()
-        if forReports != .accept {
-            excluded.append(.adminReport)
-        }
-        if forSignups != .accept {
-            excluded.append(.adminSignUp)
-        }
-        return excluded.isEmpty ? nil : excluded
-    }
-}
-
 extension FilterAction {
     var displayTitle: String {
         switch self {

@@ -271,8 +271,7 @@ extension MastodonNavigationRouter {
             presentModal(.legacy(scene: .compose(viewModel: composeModel), transition: .modal(animated: true, completion: nil)))
             
         case .myAccountSettings:
-            guard let setting = SettingService.shared.currentSetting.value else { return }
-            presentModal(.legacy(scene: .settings(setting: setting), transition: .none))
+            presentModal(.legacy(scene: .settings, transition: .none))
         case .myBookmarks:
             push(.timeline(.myBookmarks))
         case .myFavorites:

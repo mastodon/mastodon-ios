@@ -54,7 +54,6 @@
 		DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBF96325262EC0A6001D8D25 /* AuthenticationServices.framework */; };
 		FB3EABBF2ED9E33900400A04 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FB3EABBE2ED9E33900400A04 /* Localizable.xcstrings */; };
 		FB91184C2D9EB96E003F410B /* Bodega in Frameworks */ = {isa = PBXBuildFile; productRef = FB91184B2D9EB96E003F410B /* Bodega */; };
-		FB91188D2D9EECE7003F410B /* BodegaPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB91188C2D9EC208003F410B /* BodegaPersistence.swift */; };
 		FBA184DA2ED9CB1600108354 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FBA184D92ED9CB1600108354 /* InfoPlist.xcstrings */; };
 		FBA2EA9B2E1C0CEA005ADEF0 /* MastoParse in Frameworks */ = {isa = PBXBuildFile; productRef = FBA2EA9A2E1C0CEA005ADEF0 /* MastoParse */; };
 		FBD20F442EECA24C00C4422B /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = FBD20F432EECA24C00C4422B /* AppIcon.icon */; };
@@ -312,7 +311,6 @@
 		FB8522702CEE302300BA2757 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Intents.strings; sourceTree = "<group>"; };
 		FB8522712CEE302300BA2757 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
 		FB8522732CEE302300BA2757 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = hu; path = hu.lproj/Intents.stringsdict; sourceTree = "<group>"; };
-		FB91188C2D9EC208003F410B /* BodegaPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodegaPersistence.swift; sourceTree = "<group>"; };
 		FBA184D92ED9CB1600108354 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		FBD20F432EECA24C00C4422B /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -417,7 +415,6 @@
 				"Common Components/Views/TimelineRowViews/RelationshipViewModel.swift",
 				"Common Components/Views/WebContentView.swift",
 				"Common Components/ZoomableScrollView.swift",
-				FeedLoader/LastReadMarkers.swift,
 				FeedLoader/MastodonFeedLoader.swift,
 				"GenericMastodonPost and Subclasses/GenericMastodonPost.swift",
 				"GenericMastodonPost and Subclasses/GenericMastodonPost+Subclasses.swift",
@@ -636,7 +633,6 @@
 		DB427DD425BAA00100D1B89D /* Mastodon */ = {
 			isa = PBXGroup;
 			children = (
-				FB91188C2D9EC208003F410B /* BodegaPersistence.swift */,
 				FBBEA04E2D380FC70000A900 /* In Progress New Layout and Datamodel */,
 				DB89BA1025C10FF5008580ED /* Mastodon.entitlements */,
 				DB427DE325BAA00100D1B89D /* Info.plist */,
@@ -1169,7 +1165,6 @@
 			files = (
 				DB6746ED278F45F0008A6B94 /* AutoGenerateProtocolRelayDelegate.swift in Sources */,
 				DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */,
-				FB91188D2D9EECE7003F410B /* BodegaPersistence.swift in Sources */,
 				DB697DD1278F4871004EF2F7 /* AutoGenerateTableViewDelegate.swift in Sources */,
 				2AB5011C299243FB00346092 /* WidgetExtension.intentdefinition in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,

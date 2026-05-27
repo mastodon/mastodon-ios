@@ -52,7 +52,7 @@ extension APIService.CoreData {
             .all,
             .followed,
             .follower,
-            .none
+            .noone
         ]
         policies.forEach { policy in
             let (subscription, _) = createOrFetchSubscription(

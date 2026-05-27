@@ -209,7 +209,7 @@ extension Mastodon.API.Subscriptions {
             case all
             case followed
             case follower
-            case none
+            case noone
             
             case _other(String)
             
@@ -218,7 +218,7 @@ extension Mastodon.API.Subscriptions {
                 case "all":             self = .all
                 case "followed":        self = .followed
                 case "follower":        self = .follower
-                case "none":            self = .none
+                case "none":            self = .noone
 
                 default:                self = ._other(rawValue)
                 }
@@ -229,7 +229,7 @@ extension Mastodon.API.Subscriptions {
                 case .all:                      return "all"
                 case .followed:                 return "followed"
                 case .follower:                 return "follower"
-                case .none:                     return "none"
+                case .noone:                     return "none"
                 case ._other(let value):        return value
                 }
             }
