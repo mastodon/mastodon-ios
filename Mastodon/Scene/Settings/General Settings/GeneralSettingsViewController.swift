@@ -19,7 +19,7 @@ struct GeneralSettingsViewModel {
 }
 
 protocol GeneralSettingsViewControllerDelegate: AnyObject {
-    func save(_ viewController: UIViewController, setting: Setting, viewModel: GeneralSettingsViewModel)
+    func save(_ viewController: UIViewController, viewModel: GeneralSettingsViewModel)
     func showLanguagePicker(_ viewModel: GeneralSettingsViewModel, onLanguageSelected: @escaping OnLanguageSelected)
 }
 
@@ -31,11 +31,10 @@ class GeneralSettingsViewController: UIViewController {
     var tableViewDataSource: GeneralSettingsDiffableTableViewDataSource?
 
     private(set) var viewModel: GeneralSettingsViewModel
-    let setting: Setting
 
     let sections: [GeneralSettingsSection]
 
-    init(appContext: AppContext, setting: Setting) {
+    init(appContext: AppContext) {
         tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(GeneralSettingSelectionCell.self, forCellReuseIdentifier: GeneralSettingSelectionCell.reuseIdentifier)
@@ -82,8 +81,6 @@ class GeneralSettingsViewController: UIViewController {
             askBeforeDeletingAPost: UserDefaults.shared.askBeforeDeletingAPost,
             defaultPostLanguage: UserDefaults.shared.defaultPostLanguage
         )
-
-        self.setting = setting
 
         super.init(nibName: nil, bundle: nil)
 
@@ -198,7 +195,7 @@ extension GeneralSettingsViewController: UITableViewDelegate {
         }
 
         tableView.deselectRow(at: indexPath, animated: true)
-        delegate?.save(self, setting: setting, viewModel: viewModel)
+        delegate?.save(self, viewModel: viewModel)
     }
 }
 
@@ -225,6 +222,6 @@ extension GeneralSettingsViewController: GeneralSettingToggleTableViewCellDelega
             }
         }
 
-        delegate?.save(self, setting: self.setting, viewModel: viewModel)
+        delegate?.save(self, viewModel: viewModel)
     }
 }

@@ -78,7 +78,7 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
         switch entry {
             case .general:
             
-                let generalSettingsViewController = GeneralSettingsViewController(appContext: appContext, setting: setting)
+                let generalSettingsViewController = GeneralSettingsViewController(appContext: appContext)
                 generalSettingsViewController.delegate = self
             
                 navigationController.pushViewController(generalSettingsViewController, animated: true)
@@ -189,7 +189,8 @@ extension SettingsCoordinator: ASWebAuthenticationPresentationContextProviding {
 
 //MARK: - GeneralSettingsViewControllerDelegate
 extension SettingsCoordinator: GeneralSettingsViewControllerDelegate {
-    func save(_ viewController: UIViewController, setting: Setting, viewModel: GeneralSettingsViewModel) {
+    
+    func save(_ viewController: UIViewController, viewModel: GeneralSettingsViewModel) {
         UserDefaults.shared.customUserInterfaceStyle = viewModel.selectedAppearence.interfaceStyle
         UserDefaults.shared.preferredStaticEmoji = viewModel.playAnimations == false
         UserDefaults.shared.preferredStaticAvatar = viewModel.playAnimations == false
