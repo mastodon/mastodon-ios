@@ -14,12 +14,12 @@ extension APIService {
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.CollectionsList> {
         let authorization = authenticationBox.userAuthorization
-        
         let response = try await Mastodon.API.Collections.getCollectionsFromAccount(
             session: session,
             domain: authenticationBox.domain,
             accountID: accountID,
-            authorization: authorization
+            authorization: authorization,
+            useBetaEndpoint: !authenticationBox.instanceSupportsNonBetaCollectionsAPI
         )
         
         return response
@@ -31,15 +31,23 @@ extension APIService {
         authenticationBox: MastodonAuthenticationBox
     ) async throws {
         let authorization = authenticationBox.userAuthorization
-        
         try await Mastodon.API.Collections.removeFromCollection(
             session: session,
             domain: authenticationBox.domain,
             collectionID: collectionId,
             itemID: collectionMemberId,
-            authorization: authorization
+            authorization: authorization,
+            useBetaEndpoint: !authenticationBox.instanceSupportsNonBetaCollectionsAPI
         )
         
         return
+    }
+}
+
+fileprivate extension MastodonAuthenticationBox {
+    @MainActor
+    var instanceSupportsNonBetaCollectionsAPI: Bool {
+        guard let isFeatureAvailable = authentication.instanceConfiguration?.isAvailable(.collections) else { return false }
+        return isFeatureAvailable
     }
 }

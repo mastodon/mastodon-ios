@@ -9,25 +9,27 @@ import Foundation
 
 extension Mastodon.API.Collections {
     internal static func collectionsEndpointURL(
-        domain: String
+        domain: String,
+        useBetaEndpoint: Bool
     ) -> URL {
-#if true
-        return Mastodon.API.endpointV1BetaURL(domain: domain).appendingPathComponent("collections") //  GET /api/v1_alpha/collections/:id
-#else
-        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent(
-            "collections")
-#endif
+        if useBetaEndpoint {
+            return Mastodon.API.endpointV1BetaURL(domain: domain).appendingPathComponent("collections") //  GET /api/v1_alpha/collections/:id
+        } else {
+            return Mastodon.API.endpointURL(domain: domain).appendingPathComponent(
+                "collections")
+        }
     }
     
     internal static func accountCollectionsEndpointURL(
         domain: String,
-        accountID: Mastodon.Entity.Account.ID
+        accountID: Mastodon.Entity.Account.ID,
+        useBetaEndpoint: Bool
     ) -> URL {
-#if true
-        return Mastodon.API.endpointV1BetaURL(domain: domain).appendingPathComponent("accounts").appendingPathComponent(accountID).appendingPathComponent("collections")  // GET /api/v1_alpha/accounts/:account_id/collections
-#else
-       return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("accounts").appendingPathComponent(accountID).appendingPathComponent("collections")
-#endif
+        if useBetaEndpoint {
+            return Mastodon.API.endpointV1BetaURL(domain: domain).appendingPathComponent("accounts").appendingPathComponent(accountID).appendingPathComponent("collections")  // GET /api/v1_alpha/accounts/:account_id/collections
+        } else {
+            return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("accounts").appendingPathComponent(accountID).appendingPathComponent("collections")
+        }
     }
     
     /// Get all collections created by an account
@@ -48,10 +50,11 @@ extension Mastodon.API.Collections {
         session: URLSession,
         domain: String,
         accountID: Mastodon.Entity.Account.ID,
-        authorization: Mastodon.API.OAuth.Authorization
+        authorization: Mastodon.API.OAuth.Authorization,
+        useBetaEndpoint: Bool
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.CollectionsList> {
         let request = Mastodon.API.get(
-            url: accountCollectionsEndpointURL(domain: domain, accountID: accountID),
+            url: accountCollectionsEndpointURL(domain: domain, accountID: accountID, useBetaEndpoint: useBetaEndpoint),
             authorization: authorization
         )
         RateLimitViewModel.shared.didMakeRequest("collections list for account \(accountID)")
@@ -80,10 +83,11 @@ extension Mastodon.API.Collections {
         session: URLSession,
         domain: String,
         collectionID: Mastodon.Entity.Collection.ID,
-        authorization: Mastodon.API.OAuth.Authorization
+        authorization: Mastodon.API.OAuth.Authorization,
+        useBetaEndpoint: Bool
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Collection> {
         let request = Mastodon.API.get(
-            url: collectionsEndpointURL(domain: domain),
+            url: collectionsEndpointURL(domain: domain, useBetaEndpoint: useBetaEndpoint),
             authorization: authorization
         )
         RateLimitViewModel.shared.didMakeRequest("collection \(collectionID)")
@@ -99,9 +103,10 @@ extension Mastodon.API.Collections {
         domain: String,
         collectionID: Mastodon.Entity.Collection.ID,
         itemID: Mastodon.Entity.CollectionMember.ID,
-        authorization: Mastodon.API.OAuth.Authorization
+        authorization: Mastodon.API.OAuth.Authorization,
+        useBetaEndpoint: Bool
     ) async throws {
-        let url = collectionsEndpointURL(domain: domain).appendingPathComponent(collectionID).appendingPathComponent("items").appendingPathComponent(itemID).appendingPathComponent("revoke")
+        let url = collectionsEndpointURL(domain: domain, useBetaEndpoint: useBetaEndpoint).appendingPathComponent(collectionID).appendingPathComponent("items").appendingPathComponent(itemID).appendingPathComponent("revoke")
         let request = Mastodon.API.post(url: url,
                                           query: nil,
                                           authorization: authorization
