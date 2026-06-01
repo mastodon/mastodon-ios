@@ -2,7 +2,6 @@
 
 import Foundation
 import Combine
-import CoreDataStack
 import MastodonSDK
 import KeychainAccess
 import MastodonCommon
@@ -42,14 +41,6 @@ public class AuthenticationServiceProvider: ObservableObject {
                 }
             }
             .store(in: &disposeBag)
-        
-        Task {
-            if authenticationMigrationRequired {
-                migrateLegacyAuthentications(
-                    in: PersistenceManager.shared.mainActorManagedObjectContext
-                )
-            }
-        }
     }
     
     public func sendDidChangeFollowersAndFollowing(for user: String) {
@@ -195,47 +186,6 @@ public extension AuthenticationServiceProvider {
             }
             return outdated.updating(accountCreatedAt: newCreatedAt)
         }
-    }
-
-    func migrateLegacyAuthentications(in context: NSManagedObjectContext) {
-        do {
-            let legacyAuthentications = try context.fetch(MastodonAuthenticationLegacy.sortedFetchRequest)
-            let migratedAuthentications = legacyAuthentications.compactMap { auth -> MastodonAuthentication? in
-                return MastodonAuthentication(
-                    identifier: auth.identifier,
-                    domain: auth.domain,
-                    username: auth.username,
-                    appAccessToken: auth.appAccessToken,
-                    userAccessToken: auth.userAccessToken,
-                    clientID: auth.clientID,
-                    clientSecret: auth.clientSecret,
-                    createdAt: auth.createdAt,
-                    updatedAt: auth.updatedAt,
-                    activedAt: auth.activedAt,
-                    userID: auth.userID,
-                    instanceConfiguration: nil,
-                    accountCreatedAt: auth.createdAt
-                )
-            }
-
-            if migratedAuthentications.count != legacyAuthentications.count {
-                logger.log(level: .default, "Not all account authentications could be migrated.")
-            } else {
-                logger.log(level: .default, "All account authentications were successful.")
-            }
-
-            DispatchQueue.main.async {
-                self.authentications = migratedAuthentications
-                self.userDefaults.didMigrateAuthentications = true
-            }
-        } catch {
-            userDefaults.didMigrateAuthentications = false
-            logger.log(level: .error, "Could not migrate legacy authentications")
-        }
-    }
-
-    var authenticationMigrationRequired: Bool {
-        userDefaults.didMigrateAuthentications == false
     }
 
     func fetchAccounts(onlyIfItHasBeenAwhile: Bool) async {

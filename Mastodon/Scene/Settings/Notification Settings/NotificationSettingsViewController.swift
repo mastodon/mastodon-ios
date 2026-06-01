@@ -2,7 +2,6 @@
 
 import UIKit
 import Combine
-import CoreDataStack
 import MastodonLocalization
 import MastodonCore
 

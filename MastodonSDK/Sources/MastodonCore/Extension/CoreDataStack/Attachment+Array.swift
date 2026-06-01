@@ -1,7 +1,7 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import Foundation
-import CoreDataStack
+import CoreDataStack // for MastodonAttachment
 import MastodonMeta
 import MastodonSDK
 

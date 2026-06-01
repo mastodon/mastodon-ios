@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import CoreDataStack
 import MastodonSDK
 import MastodonCore
 import MastodonLocalization
@@ -28,11 +27,7 @@ extension StatusView {
                 return
             }
             configure(status: status, contentDisplayMode: contentMode)
-        case .notificationAll:
-            assertionFailure("TODO")
-        case .notificationMentions:
-            assertionFailure("TODO")
-        case .none:
+        default:
             break
         }
         configureForContentDisplayMode()

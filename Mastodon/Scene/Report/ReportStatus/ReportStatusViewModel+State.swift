@@ -7,8 +7,6 @@
 
 import func QuartzCore.CACurrentMediaTime
 import Foundation
-import CoreData
-import CoreDataStack
 import GameplayKit
 import MastodonCore
 

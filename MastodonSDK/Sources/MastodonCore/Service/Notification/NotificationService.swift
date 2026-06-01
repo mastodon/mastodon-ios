@@ -7,8 +7,8 @@
 
 import UIKit
 import Combine
-import CoreData
-import CoreDataStack
+import CoreData // Needed until migration of push notification subscriptions has had time to occur
+import CoreDataStack // Needed until migration of push notification subscriptions has had time to occur
 import MastodonSDK
 import MastodonCommon
 import MastodonLocalization
@@ -233,17 +233,12 @@ extension NotificationService {
     ) async throws {
         // Subscription maybe failed to cancel when sign-out
         // Try cancel again if receive that kind push notification
-        let managedObjectContext = PersistenceManager.shared.mainActorManagedObjectContext
 
         let userAccessToken = pushNotification.accessToken
 
-        let needsCancelSubscription: Bool = try await managedObjectContext.perform {
-            // check authentication exists
-            let results = AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.filter { $0.authentication.userAccessToken == userAccessToken }
-            return results.first == nil
-        }
-        
-        guard needsCancelSubscription else {
+        let subscribedUser = AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.first(where: { $0.authentication.userAccessToken == userAccessToken })
+       
+        guard subscribedUser == nil else {
             return
         }
         

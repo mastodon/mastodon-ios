@@ -8,13 +8,11 @@
 import Foundation
 import Combine
 import MastodonSDK
-import CoreData
-import CoreDataStack
 
 extension APIService {
     
     private struct MastodonReblogContext {
-        let statusID: Status.ID
+        let statusID: Mastodon.Entity.Status.ID
         let isReblogged: Bool
         let rebloggedCount: Int64
     }

@@ -7,7 +7,6 @@
 import UIKit
 import Combine
 import SafariServices
-import CoreDataStack
 import MastodonSDK
 import MastodonCore
 import MastodonAsset
@@ -207,9 +206,6 @@ extension SceneCoordinator {
 
         // suggestion account
         case suggestionAccount(viewModel: SuggestionAccountViewModel)
-        
-        // media preview
-        case mediaPreview(viewModel: MediaPreviewViewModel)
         
         // misc
         case safari(url: URL)
@@ -490,10 +486,7 @@ private extension SceneCoordinator {
             let _viewController = SuggestionAccountViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
-        case .mediaPreview(let viewModel):
-            let _viewController = MediaPreviewViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
+
         case .safari(let url):
             guard let scheme = url.scheme?.lowercased(),
                   scheme == "http" || scheme == "https" else {

@@ -26,7 +26,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
 
     public enum ComposeContext {
         case composeStatus(quoting: (Mastodon.Entity.Status, ()->(AnyView))?)
-        case editStatus(status: MastodonStatus, statusSource: Mastodon.Entity.StatusSource, quoting: (()->AnyView)?)
+        case editStatus(status: Mastodon.Entity.Status, statusSource: Mastodon.Entity.StatusSource, quoting: (()->AnyView)?)
         
         var quotedID: Mastodon.Entity.Status.ID? {
             switch self {
@@ -206,9 +206,9 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 _initialInteractionSettings = .fresh(replyingToVisibility: nil)
             }
         case .editStatus(let status, _, _):
-            let _quotability = status.entity.specifiedQuotePolicyOrNobody
-            _initialInteractionSettings = .editing(visibility: status.entity.visibility ?? .public, quotability: _quotability)
-            _contentIncludesQuote = status.entity.quote != nil
+            let _quotability = status.specifiedQuotePolicyOrNobody
+            _initialInteractionSettings = .editing(visibility: status.visibility ?? .public, quotability: _quotability)
+            _contentIncludesQuote = status.quote != nil
         }
         self.interactionSettingsModel = PostInteractionSettingsViewModel(account: authenticationBox.cachedAccount, initialSettings: _initialInteractionSettings, contentIncludesQuote: _contentIncludesQuote)
         
@@ -261,7 +261,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         case .composeStatus:
             break
         case let .editStatus(status, _, _):
-            self.attachmentViewModels = status.entity.mastodonAttachments.compactMap {
+            self.attachmentViewModels = status.mastodonAttachments.compactMap {
                 guard let assetURL = $0.assetURL, let url = URL(string: assetURL) else { return nil }
 
                 let attachmentViewModel = AttachmentViewModel(
@@ -277,12 +277,12 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         }
         
         if case let ComposeContext.editStatus(status, _, _) = composeContext {
-            if status.entity.sensitive == true {
+            if status.sensitive == true {
                 isContentWarningActive = true
-                contentWarning = status.entity.spoilerText ?? ""
+                contentWarning = status.spoilerText ?? ""
             }
             Task { @MainActor in
-                if let poll = await status.getPoll(
+                if let poll = await getPoll(forStatus: status,
                     in: authenticationBox.domain,
                     authorization: authenticationBox.userAuthorization
                 ) {
@@ -301,6 +301,12 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         }
         
         bind()
+    }
+    
+    private func getPoll(forStatus status: Mastodon.Entity.Status, in domain: String, authorization: Mastodon.API.OAuth.Authorization) async -> Mastodon.Entity.Poll? {
+        guard let pollId = status.poll?.id else { return nil }
+        let poll = try? await Mastodon.API.Polls.poll(session: .shared, domain: domain, pollID: pollId, authorization: authorization).singleOutput().value
+        return poll
     }
     
     func updateLimits(configuration: MastodonAuthentication.InstanceConfiguration) {

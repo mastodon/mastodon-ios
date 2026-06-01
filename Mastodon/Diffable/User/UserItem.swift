@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import CoreData
-import CoreDataStack
 import MastodonSDK
 
 enum UserItem: Hashable {

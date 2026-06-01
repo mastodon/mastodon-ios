@@ -1,7 +1,7 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import UIKit
-import CoreDataStack
+import CoreDataStack // Needed until StatusView is gone
 import MastodonAsset
 import MastodonSDK
 

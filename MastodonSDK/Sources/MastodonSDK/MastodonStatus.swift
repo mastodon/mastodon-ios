@@ -2,7 +2,7 @@
 
 import Foundation
 import Combine
-import CoreDataStack
+import CoreDataStack // Needed until migration of push notification subscriptions has had time to occur
 
 public enum ContentWarning {
     case warnNothing
@@ -170,12 +170,3 @@ public extension MastodonStatus {
     }
 }
 
-public extension MastodonStatus {
-    func getPoll(in domain: String, authorization: Mastodon.API.OAuth.Authorization) async -> Mastodon.Entity.Poll? {
-        guard
-            let pollId = entity.poll?.id
-        else { return nil }
-        let poll = try? await Mastodon.API.Polls.poll(session: .shared, domain: domain, pollID: pollId, authorization: authorization).singleOutput().value
-        return poll
-    }
-}

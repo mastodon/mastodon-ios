@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreDataStack
 import MastodonSDK
 
 public protocol AuthContextProvider {

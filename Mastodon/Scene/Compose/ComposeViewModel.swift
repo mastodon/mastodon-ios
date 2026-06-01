@@ -16,7 +16,7 @@ final class ComposeViewModel {
 
     enum Context {
         case composeStatus(quoting: (Mastodon.Entity.Status, ()->AnyView)?)
-        case editStatus(status: MastodonStatus, statusSource: Mastodon.Entity.StatusSource, quoting: (()->AnyView)?)
+        case editStatus(status: Mastodon.Entity.Status, statusSource: Mastodon.Entity.StatusSource, quoting: (()->AnyView)?)
         case mentioning(account: Mastodon.Entity.Account, privately: Bool)
     }
 

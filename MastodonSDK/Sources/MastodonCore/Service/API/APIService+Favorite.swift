@@ -8,8 +8,6 @@
 import Foundation
 import Combine
 import MastodonSDK
-import CoreData
-import CoreDataStack
 
 extension APIService {
     

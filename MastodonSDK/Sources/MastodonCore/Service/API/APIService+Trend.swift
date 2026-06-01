@@ -7,7 +7,6 @@
 
 import Foundation
 import MastodonSDK
-import CoreDataStack
 
 extension APIService {
     

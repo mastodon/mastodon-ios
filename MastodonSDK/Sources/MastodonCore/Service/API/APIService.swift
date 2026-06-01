@@ -7,8 +7,6 @@
 
 import UIKit
 import Combine
-import CoreData
-import CoreDataStack
 import MastodonSDK
 import AlamofireImage
 // import AlamofireNetworkActivityIndicator
@@ -17,21 +15,18 @@ import AlamofireImage
 public final class APIService {
     
     @MainActor
-    public static let shared = { APIService(backgroundContext: PersistenceManager.shared.backgroundManagedObjectContext) }()
+    public static let shared = { APIService() }()
     
     public static let callbackURLScheme = "mastodon"
     nonisolated public static let oauthCallbackURL = "mastodon://joinmastodon.org/oauth"
 
     // internal
     let session: URLSession
-    
-    public let backgroundManagedObjectContext: NSManagedObjectContext
 
     // output
     public let error = PassthroughSubject<APIError, Never>()
     
-    private init(backgroundContext: NSManagedObjectContext) {
-        backgroundManagedObjectContext = backgroundContext
+    private init() {
         let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Unknown"
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = ["User-Agent" : "mastodon-ios/" + appVersion]
@@ -49,8 +44,7 @@ public final class APIService {
     }
     
     public static func isolatedService() -> APIService {
-        let taskContext = PersistenceManager.shared.newTaskContext()
-        return APIService(backgroundContext: taskContext)
+        return APIService()
     }
 }
 

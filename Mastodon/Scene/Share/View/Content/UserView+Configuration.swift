@@ -8,7 +8,6 @@
 import UIKit
 import Combine
 import MastodonUI
-import CoreDataStack
 import MastodonLocalization
 import MastodonMeta
 import MastodonCore

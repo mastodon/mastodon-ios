@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreDataStack
 import MastodonCore
 
 final class RootSplitViewController: UISplitViewController {

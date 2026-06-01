@@ -8,8 +8,8 @@
 
 import UIKit
 import Combine
-import CoreData
-import CoreDataStack
+import CoreData // needed for MastodonAttachment
+import CoreDataStack // needed for MastodonAttachment
 import Photos
 import AlamofireImage
 import MastodonCore

@@ -7,8 +7,6 @@
 
 import UIKit
 import Combine
-import CoreData
-import CoreDataStack
 import MastodonSDK
 import MastodonMeta
 import MastodonCore

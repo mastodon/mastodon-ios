@@ -6,8 +6,6 @@
 //
 
 import Combine
-import CoreData
-import CoreDataStack
 import Foundation
 import MastodonCore
 import MastodonSDK

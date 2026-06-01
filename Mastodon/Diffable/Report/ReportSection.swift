@@ -6,8 +6,8 @@
 //
 
 import Combine
-import CoreData
-import CoreDataStack
+import CoreData // needed until ReportStatusViewController is gone
+import CoreDataStack // needed until ReportStatusViewController is gone
 import Foundation
 import MastodonSDK
 import UIKit

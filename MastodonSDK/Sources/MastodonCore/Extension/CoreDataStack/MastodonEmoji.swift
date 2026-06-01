@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import CoreDataStack
+import CoreDataStack // for MastodonEmoji, which is not an NSManagedObject
 import MastodonMeta
 import MastodonSDK
 

@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreData
-import CoreDataStack
 import MastodonSDK
 
 public enum PollItem: Hashable {

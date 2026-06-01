@@ -8,13 +8,11 @@
 import Foundation
 import Combine
 import MastodonSDK
-import CoreData
-import CoreDataStack
 
 extension APIService {
 
     private struct MastodonBookmarkContext {
-        let statusID: Status.ID
+        let statusID: Mastodon.Entity.Status.ID
         let isBookmarked: Bool
     }
 

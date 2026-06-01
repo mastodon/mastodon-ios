@@ -1,7 +1,7 @@
 import UIKit
 import Combine
-import CoreData
-import CoreDataStack
+import CoreData  // Needed until ReportViewController is gone
+import CoreDataStack  // Needed until ReportViewController is gone
 import MastodonSDK
 import os.log
 

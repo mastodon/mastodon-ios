@@ -11,7 +11,6 @@ import MetaTextKit
 import MastodonAsset
 import MastodonLocalization
 import os
-import CoreDataStack
 import MastodonSDK
 
 public protocol UserViewDelegate: AnyObject {

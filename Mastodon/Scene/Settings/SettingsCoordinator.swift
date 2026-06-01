@@ -3,7 +3,6 @@
 import UIKit
 import AuthenticationServices
 import MastodonCore
-import CoreDataStack
 import MastodonSDK
 import Combine
 import MetaTextKit

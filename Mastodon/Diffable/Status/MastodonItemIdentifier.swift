@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import CoreDataStack
+import CoreDataStack // needed until ReportStatusViewController is replaced
 import MastodonUI
 import MastodonSDK
 

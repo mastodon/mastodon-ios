@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import CoreData
-import CoreDataStack
+import CoreData // Needed until migration of push notification subscriptions has had time to occur
+import CoreDataStack // Needed until migration of push notification subscriptions has had time to occur
 import MastodonSDK
 
 extension APIService.CoreData {

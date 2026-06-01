@@ -9,7 +9,6 @@ import UIKit
 import Combine
 import GameplayKit
 import MastodonSDK
-import CoreDataStack
 import OrderedCollections
 import MastodonCore
 import MastodonUI

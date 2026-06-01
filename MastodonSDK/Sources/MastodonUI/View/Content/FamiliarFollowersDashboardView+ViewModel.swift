@@ -7,7 +7,7 @@
 
 import UIKit
 import Combine
-import CoreDataStack
+import CoreDataStack // Needed until DiscoveryForYouViewController is replaced
 import Meta
 import MastodonCore
 import MastodonMeta

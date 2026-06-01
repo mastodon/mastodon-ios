@@ -5,8 +5,6 @@
 //  Created by sxiaojian on 2021/4/21.
 //
 
-import CoreData
-import CoreDataStack
 import Foundation
 import UIKit
 import MastodonAsset

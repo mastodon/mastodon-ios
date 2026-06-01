@@ -9,7 +9,6 @@ import UIKit
 import Combine
 import Meta
 import AlamofireImage
-import CoreDataStack
 import MastodonLocalization
 import MastodonAsset
 import MastodonSDK

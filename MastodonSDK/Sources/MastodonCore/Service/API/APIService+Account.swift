@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021/2/2.
 //
 
-import CoreDataStack
 import Foundation
 import Combine
 import MastodonCommon

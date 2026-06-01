@@ -6,8 +6,8 @@
 //
 
 import Combine
-import CoreData
-import CoreDataStack
+import CoreData // needed until ReportStatusViewController is replaced
+import CoreDataStack // needed until ReportStatusViewController is replaced
 import UIKit
 import AlamofireImage
 import MastodonMeta

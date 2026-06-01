@@ -5,8 +5,6 @@
 //  Created by ihugo on 2021/4/19.
 //
 
-import CoreData
-import CoreDataStack
 import Foundation
 import MastodonSDK
 import OrderedCollections

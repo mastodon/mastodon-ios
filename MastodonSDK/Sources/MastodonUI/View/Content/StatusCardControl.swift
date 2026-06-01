@@ -9,7 +9,7 @@ import AlamofireImage
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
-import CoreDataStack
+import CoreDataStack // Needed until StatusView is gone
 import UIKit
 import WebKit
 import MastodonSDK

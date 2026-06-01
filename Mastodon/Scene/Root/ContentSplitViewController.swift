@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import CoreDataStack
 import MastodonCore
 
 protocol ContentSplitViewControllerDelegate: AnyObject {

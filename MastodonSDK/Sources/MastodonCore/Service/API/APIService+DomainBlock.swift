@@ -7,7 +7,6 @@
 
 import Combine
 import CoreData
-import CoreDataStack
 import Foundation
 import MastodonSDK
 
@@ -28,42 +27,6 @@ extension APIService {
             authorization: authorization,
             query: query
         )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[String]>, Error> in
-            self.backgroundManagedObjectContext.performChanges {
-                let blockedDomains: [DomainBlock] = {
-                    let request = DomainBlock.sortedFetchRequest
-                    request.predicate = DomainBlock.predicate(domain: authorizationBox.domain, userID: authorizationBox.userID)
-                    request.returnsObjectsAsFaults = false
-                    do {
-                        return try self.backgroundManagedObjectContext.fetch(request)
-                    } catch {
-                        assertionFailure(error.localizedDescription)
-                        return []
-                    }
-                }()
-                blockedDomains.forEach { self.backgroundManagedObjectContext.delete($0) }
-                
-                response.value.forEach { domain in
-                    // use constrain to avoid repeated save
-                    _ = DomainBlock.insert(
-                        into: self.backgroundManagedObjectContext,
-                        blockedDomain: domain,
-                        domain: authorizationBox.domain,
-                        userID: authorizationBox.userID
-                    )
-                }
-            }
-            .setFailureType(to: Error.self)
-            .tryMap { result -> Mastodon.Response.Content<[String]> in
-                switch result {
-                case .success:
-                    return response
-                case .failure(let error):
-                    throw error
-                }
-            }
-            .eraseToAnyPublisher()
-        }
         .eraseToAnyPublisher()
     }
 

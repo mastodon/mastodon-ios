@@ -165,7 +165,7 @@ struct LegacyDataSourceFacade {
             )
             
             try? FileManager.default.addSearchItem(searchEntry, for: provider.authenticationBox)
-        case .status, .notification, .notificationBanner(_):
+        case .status, .notificationBanner(_):
             break
             
         }
@@ -174,7 +174,6 @@ struct LegacyDataSourceFacade {
     enum DataSourceItem: Hashable {
         case status(record: MastodonStatus)
         case hashtag(tag: Mastodon.Entity.Tag)
-        case notification(record: MastodonNotification)
         case notificationBanner(policy: Mastodon.Entity.NotificationPolicy)
         case account(account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?)
    

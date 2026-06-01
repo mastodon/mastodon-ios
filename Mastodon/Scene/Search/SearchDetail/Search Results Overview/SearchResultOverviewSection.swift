@@ -3,7 +3,6 @@
 import UIKit
 import MastodonSDK
 import MastodonLocalization
-import CoreDataStack
 
 enum SearchResultOverviewSection: Hashable {
     case `default`

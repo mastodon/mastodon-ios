@@ -3,7 +3,6 @@
 import Foundation
 import MastodonLocalization
 import MastodonSDK
-import CoreDataStack
 
 struct NotificationSettingsSection: Hashable {
     let entries: [NotificationSettingEntry]

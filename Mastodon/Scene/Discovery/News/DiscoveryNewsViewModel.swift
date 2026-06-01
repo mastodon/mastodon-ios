@@ -8,8 +8,8 @@
 import UIKit
 import Combine
 import GameplayKit
-import CoreData
-import CoreDataStack
+import CoreData // needed until DiscoveryForYouViewController is replaced
+import CoreDataStack // needed until DiscoveryForYouViewController is replaced
 import MastodonSDK
 import MastodonCore
 

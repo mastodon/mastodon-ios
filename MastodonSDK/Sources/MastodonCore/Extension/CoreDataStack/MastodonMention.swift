@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import CoreDataStack
+import CoreDataStack // for MastodonMention, which is not an NSManagedObject
 import MastodonSDK
 
 extension MastodonMention {

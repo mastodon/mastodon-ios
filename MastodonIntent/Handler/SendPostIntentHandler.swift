@@ -7,16 +7,11 @@
 
 import Foundation
 import Intents
-import CoreData
-import CoreDataStack
 import MastodonSDK
 import MastodonCore
 
 @MainActor
 final class SendPostIntentHandler: NSObject {
-
-    let coreDataStack = CoreDataStack()
-    lazy var managedObjectContext = coreDataStack.persistentContainer.viewContext
     lazy var api: APIService = {
         return APIService.isolatedService()
     }()

@@ -66,7 +66,6 @@ public enum Persistence {
 
 
 extension Persistence {
-    public enum MastodonUser { }
     public enum Status { }
     public enum SearchHistory { }
     public enum Notification { }

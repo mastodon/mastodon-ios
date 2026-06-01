@@ -8,7 +8,6 @@
 import UIKit
 import Combine
 import CoreData
-import CoreDataStack
 import MetaTextKit
 import MastodonMeta
 import AlamofireImage

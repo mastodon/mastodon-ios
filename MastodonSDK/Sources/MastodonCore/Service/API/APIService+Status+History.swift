@@ -2,12 +2,11 @@
 
 import Foundation
 import MastodonSDK
-import CoreDataStack
 
 extension APIService {
 
     public func getStatusSource(
-        forStatusID statusID: Status.ID,
+        forStatusID statusID: Mastodon.Entity.Status.ID,
         authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Response.Content<Mastodon.Entity.StatusSource> {
             let domain = authenticationBox.domain
             let authorization = authenticationBox.userAuthorization
@@ -22,7 +21,7 @@ extension APIService {
         }
 
     public func getHistory(
-        forStatusID statusID: Status.ID,
+        forStatusID statusID: Mastodon.Entity.Status.ID,
         authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Response.Content<[Mastodon.Entity.StatusEdit]> {
             let domain = authenticationBox.domain
             let authorization = authenticationBox.userAuthorization
@@ -37,7 +36,7 @@ extension APIService {
         }
     
     public func publishStatusEdit(
-        forStatusID statusID: Status.ID,
+        forStatusID statusID: Mastodon.Entity.Status.ID,
         editStatusQuery: Mastodon.API.Statuses.EditStatusQuery,
         authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {
             let domain = authenticationBox.domain

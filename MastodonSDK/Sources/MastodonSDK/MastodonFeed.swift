@@ -1,7 +1,7 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import Foundation
-import CoreDataStack
+import CoreDataStack // Needed for MastodonFollowRequestState
 
 //@available(*, deprecated, message: "migrate to MastodonFeedLoader and MastodonFeedItemIdentifier")
 public final class MastodonFeed {
@@ -33,9 +33,9 @@ public final class MastodonFeed {
     public let relationship: Mastodon.Entity.Relationship?
     public let notification: Mastodon.Entity.Notification?
     
-    public let kind: Feed.Kind
-    
-    init(hasMore: Bool, isLoadingMore: Bool, status: MastodonStatus?, notification: Mastodon.Entity.Notification?, relationship: Mastodon.Entity.Relationship?, kind: Feed.Kind) {
+    public let kind: Kind
+
+    init(hasMore: Bool, isLoadingMore: Bool, status: MastodonStatus?, notification: Mastodon.Entity.Notification?, relationship: Mastodon.Entity.Relationship?, kind: Kind) {
         self.id = notification?.id ?? status?.id ?? UUID().uuidString
         self.hasMore = hasMore
         self.isLoadingMore = isLoadingMore
@@ -47,7 +47,7 @@ public final class MastodonFeed {
 }
 
 public extension MastodonFeed {
-    static func fromStatus(_ status: MastodonStatus, kind: Feed.Kind, hasMore: Bool? = nil) -> MastodonFeed {
+    static func fromStatus(_ status: MastodonStatus, kind: Kind, hasMore: Bool? = nil) -> MastodonFeed {
         MastodonFeed(
             hasMore: hasMore ?? false,
             isLoadingMore: false,
@@ -58,7 +58,7 @@ public extension MastodonFeed {
         )
     }
     
-    static func fromNotification(_ notification: Mastodon.Entity.Notification, relationship: Mastodon.Entity.Relationship?, kind: Feed.Kind) -> MastodonFeed {
+    static func fromNotification(_ notification: Mastodon.Entity.Notification, relationship: Mastodon.Entity.Relationship?, kind: Kind) -> MastodonFeed {
         MastodonFeed(
             hasMore: false,
             isLoadingMore: false,

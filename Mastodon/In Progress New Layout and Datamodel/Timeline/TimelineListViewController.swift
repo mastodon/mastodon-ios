@@ -3060,7 +3060,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     
                     let editStatusViewModel = ComposeViewModel(
                         authenticationBox: authenticatedUser,
-                        composeContext: .editStatus(status: MastodonStatus(entity: statusEntityToEdit, showDespiteContentWarning: true), statusSource: statusSourceToEdit, quoting: {
+                        composeContext: .editStatus(status: statusEntityToEdit, statusSource: statusSourceToEdit, quoting: {
                             if let quotedPostViewModel = postViewModel.fullQuotedPostViewModel {
                                 AnyView(
                                     EmbeddedPostView(layoutWidth: 200, isSummary: false, actionHandler: nil)

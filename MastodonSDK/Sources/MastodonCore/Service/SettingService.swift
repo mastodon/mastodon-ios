@@ -7,7 +7,7 @@
 
 import UIKit
 import Combine
-import CoreDataStack
+import CoreDataStack // Needed until migration of push notification subscriptions has had time to occur
 import MastodonSDK
 import MastodonAsset
 import MastodonLocalization
@@ -31,30 +31,32 @@ public final class SettingService {
     private init() {
         self.settingFetchedResultController = SettingFetchedResultController()
 
-        // create setting (if non-exist) for authenticated users
-        AuthenticationServiceProvider.shared.$mastodonAuthenticationBoxes
-            .compactMap { mastodonAuthenticationBoxes -> AnyPublisher<[MastodonAuthenticationBox], Never>? in
-                let managedObjectContext = PersistenceManager.shared.backgroundManagedObjectContext
-                return managedObjectContext.performChanges {
-                    for authenticationBox in mastodonAuthenticationBoxes {
-                        let domain = authenticationBox.domain
-                        let userID = authenticationBox.userID
-                        _ = APIService.CoreData.createOrMergeSetting(
-                            into: managedObjectContext,
-                            property: Setting.Property(
-                                domain: domain,
-                                userID: userID
+        if !UserDefaults.standard.didMigratePushNotifications {
+            // create setting (if non-exist) for authenticated users
+            AuthenticationServiceProvider.shared.$mastodonAuthenticationBoxes
+                .compactMap { mastodonAuthenticationBoxes -> AnyPublisher<[MastodonAuthenticationBox], Never>? in
+                    let managedObjectContext = PersistenceManager.shared.backgroundManagedObjectContext
+                    return managedObjectContext.performChanges {
+                        for authenticationBox in mastodonAuthenticationBoxes {
+                            let domain = authenticationBox.domain
+                            let userID = authenticationBox.userID
+                            _ = APIService.CoreData.createOrMergeSetting(
+                                into: managedObjectContext,
+                                property: Setting.Property(
+                                    domain: domain,
+                                    userID: userID
+                                )
                             )
-                        )
-                    }   // end for
+                        }   // end for
+                    }
+                    .map { _ in mastodonAuthenticationBoxes }
+                    .eraseToAnyPublisher()
                 }
-                .map { _ in mastodonAuthenticationBoxes }
-                .eraseToAnyPublisher()
-            }
-            .sink { _ in
-                // do nothing
-            }
-            .store(in: &disposeBag)
+                .sink { _ in
+                    // do nothing
+                }
+                .store(in: &disposeBag)
+        }
         
         // bind current setting
         Publishers.CombineLatest(

@@ -1,7 +1,5 @@
 import Foundation
 import Combine
-import CoreData
-import CoreDataStack
 import MastodonSDK
 
 extension APIService {

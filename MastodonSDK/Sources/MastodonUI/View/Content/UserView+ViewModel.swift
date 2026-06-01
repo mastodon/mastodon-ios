@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-1-19.
 //
 
-import CoreDataStack
 import UIKit
 import Combine
 import MetaTextKit

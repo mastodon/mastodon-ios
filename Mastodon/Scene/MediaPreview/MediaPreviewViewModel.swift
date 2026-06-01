@@ -7,8 +7,8 @@
 
 import UIKit
 import Combine
-import CoreData
-import CoreDataStack
+import CoreData // needed until StatusView is gone
+import CoreDataStack // needed until StatusView is gone
 import Pageboy
 import MastodonCore
 import MastodonSDK

@@ -3,7 +3,6 @@
 import UIKit
 import MastodonSDK
 import MastodonCore
-import CoreDataStack
 import MastodonLocalization
 import MastodonUI
 

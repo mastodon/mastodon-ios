@@ -8,7 +8,6 @@
 import UIKit
 import MastodonCore
 import MastodonSDK
-import CoreDataStack
 import UIHostingConfigurationBackport
 
 extension ComposeContentViewModel {
