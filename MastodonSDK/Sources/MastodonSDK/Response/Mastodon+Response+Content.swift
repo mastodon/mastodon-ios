@@ -84,7 +84,7 @@ extension Mastodon.Response {
             self.limit = limit
             self.remaining = remaining
             self.reset = reset
-#if DEBUG
+#if DEBUG && false
             print("LIMIT: \(limit), REMAINING: \(remaining), RESET: \(reset), NOW: \(Date.now)")
 #endif
             RateLimitViewModel.shared.didReceiveRateLimit(self)
