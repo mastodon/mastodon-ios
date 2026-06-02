@@ -22,6 +22,7 @@ extension Mastodon.Response {
         public let link: Link?
         public let asyncRefreshAvaliable: AsyncRefreshAvailable?
         public let responseTime: Int?
+        public let deprecation: Date?
         
         public var networkDate: Date {
             return date ?? Date()
@@ -52,6 +53,8 @@ extension Mastodon.Response {
                 guard let string = (response as? HTTPURLResponse)?.value(forHTTPHeaderField: "x-response-time") else { return nil }
                 return Int(string)
             }()
+
+            self.deprecation = deprecationDate(response)
         }
         
         init<O>(value: T, old: Mastodon.Response.Content<O>) {
@@ -62,6 +65,7 @@ extension Mastodon.Response {
             self.link = old.link
             self.asyncRefreshAvaliable = old.asyncRefreshAvaliable
             self.responseTime = old.responseTime
+            self.deprecation = old.deprecation
         }
         
     }
@@ -111,6 +115,24 @@ extension Mastodon.Response {
         }
         
     }
+}
+
+fileprivate func deprecationDate(_ response: URLResponse) -> Date? {
+    /// The `Deprecation` HTTP response header field https://datatracker.ietf.org/doc/html/rfc9745
+    guard let response = response as? HTTPURLResponse else { return nil }
+    guard let deprecationValue = response.value(forHTTPHeaderField: "Deprecation") else { return nil }
+    let date: Date? = { // date is a time interval since 1970, with a preceding '@'
+        let trimmed = deprecationValue.trimmingCharacters(in: .whitespaces)
+        guard trimmed.hasPrefix("@"), let timestamp = TimeInterval(trimmed.dropFirst()) else { return nil }
+        return Date(timeIntervalSince1970: timestamp)
+    }()
+    
+    if let date {
+        DispatchQueue.main.async {
+            DeprecationTracker.shared.didReceiveDeprecation(date, endpoint: response.url?.path() ?? "unknown")
+        }
+    }
+    return date
 }
 
 extension Mastodon.Response {
