@@ -23,19 +23,13 @@ extension InstanceService {
         let apiService = APIService.shared
         guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value, authBox.domain == domain else { return }
         
-        let response = try? await apiService.instance(domain: domain, authenticationBox: authBox)
-            .singleOutput()
-            
-        if response?.value.version?.majorServerVersion(greaterThanOrEquals: 4) == true {
-            guard let instanceV2 = try? await apiService.instanceV2(domain: domain, authenticationBox: authBox).singleOutput() else {
-                return
-            }
-            
+        if let instanceV2 = try? await apiService.instanceV2(domain: domain, authenticationBox: authBox).singleOutput() {
             self.updateInstanceV2(domain: domain, response: instanceV2)
             if let translationResponse = try? await apiService.translationLanguages(domain: domain, authenticationBox: authBox).singleOutput() {
                 updateTranslationLanguages(domain: domain, response: translationResponse)
             }
-        } else if let response {
+        } else if let response = try? await apiService.instance(domain: domain, authenticationBox: authBox)
+            .singleOutput() {
             self.updateInstance(domain: domain, response: response)
         }
     }
