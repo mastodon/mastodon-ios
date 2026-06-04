@@ -19,68 +19,46 @@ enum DecimalUnit: Int {
     var asInt: Int {
         self.rawValue
     }
-    
-    var asDouble: Double {
-        Double(self.rawValue)
-    }
 }
 
 /// Abbreviate a given number into the highest significant digits and a unit (K for thousands)
 public final class MastodonMetricFormatter: Formatter {
-    
-    private let ten_thousands = DecimalUnit.thousand.asInt * 10
-    private let ten_millions = DecimalUnit.million.asInt * 10
-    
-    /// The number formatter instance that will be used. May be customized through ``abbreviatedGroupingSeparator``.
-    private let numberFormatter = NumberFormatter()
 
-    /// MastodonMetricFormatter first converts to decimel _then_ displays the value.
-    /// Use this instead of the NumberFormatter.groupingSeparator.
-    /// Ex: "1,5K" in the EU, and "1.5K" in the US.
-    public var abbreviatedGroupingSeparator: String {
-        get {
-            numberFormatter.decimalSeparator
-        }
-        set {
-            numberFormatter.decimalSeparator = newValue
-        }
-    }
+    /// The locale that determines the decimal separator (e.g. "1.9K" in the US, "1,9K" in the EU).
+    public var locale: Locale = .autoupdatingCurrent
 
     public func string(from number: Int) -> String? {
         let isPositive = number >= 0
         let symbol = isPositive ? "" : "-"
-     
+
         let value = abs(number)
         let metric: String
-        
+
         switch value {
         case 0 ..< DecimalUnit.thousand.asInt: // 0 ~ 1K
-            numberFormatter.maximumFractionDigits = 0
-            let string = numberFormatter.string(from: NSNumber(value: value)) ?? String(value)
-            metric = string
+            metric = value.formatted(.number.grouping(.never).locale(locale))
         case DecimalUnit.thousand.asInt ..< DecimalUnit.million.asInt: // 1K ~ 1M
-            numberFormatter.maximumFractionDigits = value < ten_thousands ? 1 : 0
-            let string = numberFormatter.string(from: NSNumber(value: Double(value) / DecimalUnit.thousand.asDouble)) ??
-            String(value / DecimalUnit.thousand.asInt)
-            metric = string + "K"
+            metric = abbreviateRoundingDown(value, unit: .thousand, maximumFractionDigits: value < 10_000 ? 1 : 0) + "K"
         case DecimalUnit.million.asInt ..< DecimalUnit.billion.asInt: // 1M ~ 1B
-            numberFormatter.maximumFractionDigits = value < ten_millions ? 1 : 0
-            let string = numberFormatter.string(from: NSNumber(value: Double(value) / DecimalUnit.million.asDouble)) ??
-            String(value / DecimalUnit.million.asInt)
-            metric = string + "M"
+            metric = abbreviateRoundingDown(value, unit: .million, maximumFractionDigits: value < 10_000_000 ? 1 : 0) + "M"
         case DecimalUnit.billion.asInt ..< DecimalUnit.trillion.asInt: // 1B ~ 1T
-            numberFormatter.maximumFractionDigits = 0
-            let string = numberFormatter.string(from: NSNumber(value: Double(value) / DecimalUnit.billion.asDouble)) ??
-            String(value / DecimalUnit.billion.asInt)
-            metric = string + "B"
+            metric = abbreviateRoundingDown(value, unit: .billion, maximumFractionDigits: 0) + "B"
         default: // > 1T
-            numberFormatter.maximumFractionDigits = 0
-            let string = numberFormatter.string(from: NSNumber(value: Double(value) / DecimalUnit.trillion.asDouble)) ??
-            String(value / DecimalUnit.trillion.asInt)
-            metric = string + "T"
+            metric = abbreviateRoundingDown(value, unit: .trillion, maximumFractionDigits: 0) + "T"
         }
-        
+
         return symbol + metric
     }
     
+    private func abbreviateRoundingDown(_ value: Int, unit: DecimalUnit, maximumFractionDigits: Int) -> String {
+        let scaled = Decimal(value) / Decimal(unit.asInt)
+        return scaled.formatted(
+            .number
+                .precision(.fractionLength(0 ... maximumFractionDigits))
+                .rounded(rule: .towardZero)
+                .grouping(.never)
+                .locale(locale)
+        )
+    }
+
 }
