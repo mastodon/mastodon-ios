@@ -9,7 +9,7 @@ import SwiftUI
     public private(set) var button: RelationshipButtonType = .updating
     public private(set) var relationship: MastodonAccount.Relationship? = nil
     public var personalNoteEditingState: ProfileView.PersonalNoteEditState?
-    private var theirAccountIsLocked: Bool?
+    private(set) var theirAccountIsLocked: Bool?
     public var pendingRequestToFollowMe: Bool = false
     
     public func prepareForDisplay(relationship: MastodonAccount.Relationship, theirAccountIsLocked: Bool) {

@@ -124,12 +124,13 @@ extension MastodonAccount.MetaData: FromAccountEntityDerivable {
 }
 
 extension MastodonAccount {
-    func byUpdatingTabSettings(showFeaturedTab: Bool?, showMediaTab: Bool?, showMediaReplies: Bool?) -> MastodonAccount? {
-        let featuredTabChange = showFeaturedTab != nil && showFeaturedTab != metadata.showsFeaturedTab
-        let mediaTabChange = showMediaTab != nil && showMediaTab != metadata.showsMediaTab
-        let mediaTabRepliesChange = showMediaReplies != nil && showMediaReplies != metadata.mediaTabIncludesReplies
+    func byUpdatingProfileSettings(_ profile: Mastodon.Entity.Profile) -> MastodonAccount? {
+        let featuredTabChange = profile.showFeatured != nil && profile.showFeatured != metadata.showsFeaturedTab
+        let mediaTabChange = profile.showMedia != nil && profile.showMedia != metadata.showsMediaTab
+        let mediaTabRepliesChange = profile.showMediaReplies != nil && profile.showMediaReplies != metadata.mediaTabIncludesReplies
         guard featuredTabChange || mediaTabChange || mediaTabRepliesChange else { return nil }
-        return MastodonAccount(id: id, metadata: metadata.byUpdatingTabSettings(showFeaturedTab: showFeaturedTab, showMediaTab: showMediaTab, showMediaReplies: showMediaReplies), displayInfo: displayInfo, metrics: metrics, bioForDisplay: bioForDisplay, bioForEdit: bioForEdit, _legacyEntity: _legacyEntity)
+        let updatedLegacyEntity = Mastodon.Entity.Account.init(original: _legacyEntity, updatedProfileSettings: profile) ?? _legacyEntity
+        return MastodonAccount(id: id, metadata: metadata.byUpdatingTabSettings(showFeaturedTab: profile.showFeatured, showMediaTab: profile.showMedia, showMediaReplies: profile.showMediaReplies), displayInfo: displayInfo, metrics: metrics, bioForDisplay: bioForDisplay, bioForEdit: bioForEdit, _legacyEntity: updatedLegacyEntity)
     }
 }
 

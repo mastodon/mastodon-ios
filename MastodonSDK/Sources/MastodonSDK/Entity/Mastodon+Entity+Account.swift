@@ -32,11 +32,14 @@ extension Mastodon.Entity {
         public let note: String
         public let avatar: String
         public let avatarStatic: String?
+        public let avatarDescription: String?
         public let header: String
         public let headerStatic: String?
+        public let headerDescription: String?
         public let locked: Bool
         public let emojis: [Emoji]
         public let discoverable: Bool?
+        public let indexable: Bool?
         public let showFeatured: Bool?
         public let showMedia: Bool?
         public let showMediaReplies: Bool?
@@ -58,6 +61,49 @@ extension Mastodon.Entity {
         public let suspended: Bool?
         public let limited: Bool?
         public let muteExpiresAt: Date?
+        
+        public init?(original: Mastodon.Entity.Account, updatedProfileSettings: Mastodon.Entity.Profile)  {
+            guard updatedProfileSettings.id == original.id else { return nil }
+            
+            id = original.id
+            
+            // potentially updated:
+            displayName = updatedProfileSettings.displayName
+            note = updatedProfileSettings.note
+            avatar = updatedProfileSettings.avatar ?? original.avatar
+            avatarStatic = updatedProfileSettings.avatarStatic
+            avatarDescription = updatedProfileSettings.avatarDescription
+            header = updatedProfileSettings.header ?? original.header
+            headerStatic = updatedProfileSettings.headerStatic
+            headerDescription = updatedProfileSettings.headerDescription
+            locked = updatedProfileSettings.locked
+            discoverable = updatedProfileSettings.discoverable
+            showFeatured = updatedProfileSettings.showFeatured
+            showMedia = updatedProfileSettings.showMedia
+            showMediaReplies = updatedProfileSettings.showMediaReplies
+            hideCollections = updatedProfileSettings.hideCollections
+            indexable = updatedProfileSettings.indexable
+            fields = updatedProfileSettings.fields
+            bot = updatedProfileSettings.bot
+            
+            // remain unchanged:
+            username = original.username
+            acct = original.acct
+            url = original.url
+            emojis = original.emojis
+            createdAt = original.createdAt
+            lastStatusAt = original.lastStatusAt
+            statusesCount = original.statusesCount
+            followersCount = original.followersCount
+            followingCount = original.followingCount
+            moved = original.moved
+            source = original.source
+            role = original.role
+            publicRoles = original.publicRoles
+            suspended = original.suspended
+            limited = original.limited
+            muteExpiresAt = original.muteExpiresAt
+        }
     }
 }
 
@@ -73,11 +119,14 @@ extension Mastodon.Entity.Account: Codable {
         case note
         case avatar
         case avatarStatic = "avatar_static"
+        case avatarDescription = "avatar_description"
         case header
         case headerStatic = "header_static"
+        case headerDescription = "header_description"
         case locked
         case emojis
         case discoverable
+        case indexable = "indexable"
         
         case showFeatured = "show_featured"
         case showMedia = "show_media"

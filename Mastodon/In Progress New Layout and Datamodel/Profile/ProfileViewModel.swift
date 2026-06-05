@@ -565,12 +565,7 @@ extension ProfileViewModel {
         guard let navigator, let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { throw APIService.APIError.explicit(.authenticationMissing) }
 
         let updatedProfile = try await APIService.shared.updateTabDisplaySettings(showFeaturedTab: editingViewModel.featuredTabVisibilitySetting == .showFeaturedTab, showMediaTab: editingViewModel.mediaTabVisibilitySetting == .showMediaTab, showMediaReplies: editingViewModel.mediaTabRepliesSetting == .includeMyRepliesToOthers, authenticationBox: authBox)
-        guard let updatedAccount = account?.byUpdatingTabSettings(
-            showFeaturedTab: updatedProfile.showFeatured,
-            showMediaTab: updatedProfile.showMedia,
-            showMediaReplies: updatedProfile.showMediaReplies
-        ) else { return }
-        
+        guard let updatedAccount = account?.byUpdatingProfileSettings(updatedProfile) else { return }
         set(account: updatedAccount, relationship: .isMe, navigator: navigator)
         editingViewModel.setAccount(updatedAccount, textContentDidChange: { self.checkForEditingChanges() })
     }
