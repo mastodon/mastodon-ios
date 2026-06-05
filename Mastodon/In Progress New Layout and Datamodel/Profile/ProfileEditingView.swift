@@ -14,8 +14,13 @@ class ProfileEditHostingViewController: UIHostingController<AnyView> {
 
     init(viewModel: ProfileViewModel, navigator: MastodonNavigationRouter) {
         self.viewModel = viewModel
-        super.init(rootView: AnyView(ProfileEditingView().environment(viewModel).environment(viewModel.editingViewModel).environment(navigator)))
-            
+        super.init(rootView: AnyView(ProfileEditingView()
+            .environment(viewModel)
+            .environment(viewModel.relationshipViewModel)
+            .environment(viewModel.editingViewModel)
+            .environment(navigator)
+        ))
+        
     }
     
     @MainActor @preconcurrency required dynamic init?(coder aDecoder: NSCoder) {
