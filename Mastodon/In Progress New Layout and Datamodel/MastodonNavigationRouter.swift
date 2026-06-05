@@ -7,7 +7,7 @@ import MastodonCore
 enum MastodonNavigationDestination {
     case timeline(TimelineViewType)
     case profile(account: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?)
-    case editProfile(profileViewModel: ProfileViewModel, editingViewModel: ProfileEditingViewModel)
+    case editProfile(profileViewModel: ProfileViewModel)
     case editProfileNavigation(destination: ProfileEditDestinationType)
     case share(activityItems: [Any])
     case legacy(scene: SceneCoordinator.Scene, transition: SceneCoordinator.Transition)
@@ -108,11 +108,11 @@ enum MastodonNavigationDestination {
                 .environment(viewModel)
                 .environment(viewModel.relationshipViewModel)
                 .environment(NestedScrollInteractionViewModel())
-        case .editProfile(let profileViewModel, let editingViewModel):
+        case .editProfile(let profileViewModel):
             ProfileEditingView()
                 .environment(profileViewModel)
                 .environment(profileViewModel.relationshipViewModel)
-                .environment(editingViewModel)
+                .environment(profileViewModel.editingViewModel)
             
         case .editProfileNavigation(let destination):
             ProfileEditingDestinationView(destinationType: destination)
@@ -135,7 +135,7 @@ enum MastodonNavigationDestination {
                 let profile = ProfileHostingViewController(navigationRouter: newNavigator)
                 setUpProfileViewModel(profile.viewModel, account: account, relationship: relationship)
                 return profile
-            case .editProfile(let profileViewModel, _):
+            case .editProfile(let profileViewModel):
                 profileViewModel.editingStatus = .editing(hasChanges: false)
                 return ProfileEditHostingViewController(viewModel: profileViewModel, navigator: newNavigator)
                 
@@ -167,7 +167,7 @@ enum MastodonNavigationDestination {
             switch destination {
             case .legacy(let scene, let transition):
                 legacyPresenter?.sceneCoordinator?.present(scene: scene, from: legacyPresenter, transition: transition)
-            case .editProfile(let profileViewModel, _):
+            case .editProfile(let profileViewModel):
                 profileViewModel.editingStatus = .editing(hasChanges: false)
                 fallthrough
             default:

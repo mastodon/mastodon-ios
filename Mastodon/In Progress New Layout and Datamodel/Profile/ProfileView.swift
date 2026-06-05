@@ -931,7 +931,7 @@ struct ProfileActionBar: View {
                 relationshipViewModel.button.largeButton(isOpaque: false, isInCollection: false) {
                     switch relationshipViewModel.button {
                     case .editMe:
-                        navigator.push(.editProfile(profileViewModel: viewModel, editingViewModel: viewModel.editingViewModel))
+                        navigator.push(.editProfile(profileViewModel: viewModel))
                     default:
                         Task {
                             try await relationshipViewModel.doRelationshipAction(relationshipViewModel.button.buttonAction(isInCollection: false), account: account, navigator: navigator)
