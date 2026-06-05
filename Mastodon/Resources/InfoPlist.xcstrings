@@ -181,7 +181,7 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Mastodon"
           }
         },
@@ -289,7 +289,7 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Mastodon"
           }
         },
@@ -911,7 +911,7 @@
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Використовується, щоб зробити фотографію для статусу публікації"
+            "value" : "Використовується, щоб зробити фотографію для статусу допису"
           }
         },
         "vi" : {
@@ -1216,13 +1216,13 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fotoğraf Albümü'ne fotoğraf kaydetmek için kullanılır"
+            "value" : "Fotoğraf Albümüne fotoğraf kaydetmek için kullanılır"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Використовується для збереження фото в бібліотеку"
+            "value" : "Використовується для збереження фото в Бібліотеку Фото"
           }
         },
         "vi" : {

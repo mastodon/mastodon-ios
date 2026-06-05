@@ -61,8 +61,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create"
+            "state" : "translated",
+            "value" : "Δημιουργία"
           }
         },
         "en" : {
@@ -91,8 +91,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create"
+            "state" : "translated",
+            "value" : "Loo"
           }
         },
         "eu" : {
@@ -181,8 +181,8 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create"
+            "state" : "translated",
+            "value" : "Snulfu-d"
           }
         },
         "kmr-TR" : {
@@ -217,8 +217,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create"
+            "state" : "translated",
+            "value" : "Maak aan"
           }
         },
         "pl" : {
@@ -289,8 +289,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create"
+            "state" : "translated",
+            "value" : "Створити"
           }
         },
         "vi" : {
@@ -373,8 +373,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create list"
+            "state" : "translated",
+            "value" : "Δημιουργία λίστας"
           }
         },
         "en" : {
@@ -403,8 +403,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create list"
+            "state" : "translated",
+            "value" : "Koosta loend"
           }
         },
         "eu" : {
@@ -493,8 +493,8 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create list"
+            "state" : "translated",
+            "value" : "Snulfu-d tabdart"
           }
         },
         "kmr-TR" : {
@@ -529,8 +529,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create list"
+            "state" : "translated",
+            "value" : "Lijst aanmaken"
           }
         },
         "pl" : {
@@ -601,8 +601,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create list"
+            "state" : "translated",
+            "value" : "Створити список"
           }
         },
         "vi" : {
@@ -685,8 +685,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create new list…"
+            "state" : "translated",
+            "value" : "Δημιουργία νέας λίστας…"
           }
         },
         "en" : {
@@ -715,8 +715,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create new list…"
+            "state" : "translated",
+            "value" : "Koosta uus loend…"
           }
         },
         "eu" : {
@@ -805,8 +805,8 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create new list…"
+            "state" : "translated",
+            "value" : "Snulfu-d tabdart tamaynut…"
           }
         },
         "kmr-TR" : {
@@ -841,8 +841,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create new list…"
+            "state" : "translated",
+            "value" : "Maak nieuwe lijst aan…"
           }
         },
         "pl" : {
@@ -913,8 +913,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create new list…"
+            "state" : "translated",
+            "value" : "Створити новий список…"
           }
         },
         "vi" : {
@@ -996,8 +996,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "state" : "translated",
+            "value" : "Αν κάποιος είναι σε αυτή τη λίστα, απόκρυψέ τον από την Αρχική ροή σου για να αποφύγεις να βλέπεις τις αναρτήσεις του δύο φορές."
           }
         },
         "en" : {
@@ -1026,8 +1026,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "state" : "translated",
+            "value" : "Kui keegi on selles loendis, peida ta jälgimiste ajajoonelt, vältimaks tema postituste kaks korda nägemist."
           }
         },
         "eu" : {
@@ -1224,8 +1224,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "state" : "translated",
+            "value" : "Якщо хтось є у цьому списку, сховайте їх на своїй домашній сторінці, щоб не бачити їхні дописи двічі."
           }
         },
         "vi" : {
@@ -1308,8 +1308,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Hide members in Home feed"
+            "state" : "translated",
+            "value" : "Απόκρυψη μελών από την Αρχική ροή"
           }
         },
         "en" : {
@@ -1338,8 +1338,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Hide members in Home feed"
+            "state" : "translated",
+            "value" : "Peida liikmed avalehelt"
           }
         },
         "eu" : {
@@ -1536,8 +1536,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Hide members in Home feed"
+            "state" : "translated",
+            "value" : "Сховати учасників у головній стрічці"
           }
         },
         "vi" : {
@@ -1620,8 +1620,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies from list members to"
+            "state" : "translated",
+            "value" : "Συμπερίληψη απαντήσεων από τα μέλη της λίστας προς"
           }
         },
         "en" : {
@@ -1650,8 +1650,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies from list members to"
+            "state" : "translated",
+            "value" : "Kaasa ka loendi liikmete vastused"
           }
         },
         "eu" : {
@@ -1848,8 +1848,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies from list members to"
+            "state" : "translated",
+            "value" : "Включати відповіді зі списку учасників до"
           }
         },
         "vi" : {
@@ -1931,8 +1931,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "state" : "translated",
+            "value" : "Αδυναμία δημιουργίας λίστας: %1$(errorDescription)@ "
           }
         },
         "en" : {
@@ -1961,8 +1961,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "state" : "translated",
+            "value" : "Loendi koostamine ei õnnestunud: %1$(errorDescription)@ "
           }
         },
         "eu" : {
@@ -2087,8 +2087,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "state" : "translated",
+            "value" : "Lijst kon niet worden aangemaakt: %1$(errorDescription)@"
           }
         },
         "pl" : {
@@ -2159,8 +2159,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "state" : "translated",
+            "value" : "Не вдалося створити список: %1$(errorDescription)@ "
           }
         },
         "vi" : {
@@ -2243,8 +2243,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "List name"
+            "state" : "translated",
+            "value" : "Όνομα λίστας"
           }
         },
         "en" : {
@@ -2273,8 +2273,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "List name"
+            "state" : "translated",
+            "value" : "Loendi nimi"
           }
         },
         "eu" : {
@@ -2363,8 +2363,8 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "List name"
+            "state" : "translated",
+            "value" : "Isem n tebdart"
           }
         },
         "kmr-TR" : {
@@ -2399,8 +2399,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "List name"
+            "state" : "translated",
+            "value" : "Naam lijst"
           }
         },
         "pl" : {
@@ -2471,8 +2471,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "List name"
+            "state" : "translated",
+            "value" : "Назва списку"
           }
         },
         "vi" : {
@@ -2555,8 +2555,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Any followed user"
+            "state" : "translated",
+            "value" : "Οποιονδήποτε χρήστης που ακολουθείς"
           }
         },
         "en" : {
@@ -2585,8 +2585,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Any followed user"
+            "state" : "translated",
+            "value" : "Igalt jälgitud kasutajalt"
           }
         },
         "eu" : {
@@ -2711,8 +2711,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Any followed user"
+            "state" : "translated",
+            "value" : "Elke gevolgde gebruiker"
           }
         },
         "pl" : {
@@ -2783,8 +2783,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Any followed user"
+            "state" : "translated",
+            "value" : "Будь-який відстежуваний користувач"
           }
         },
         "vi" : {
@@ -2867,8 +2867,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Members of the list"
+            "state" : "translated",
+            "value" : "Μέλη της λίστας"
           }
         },
         "en" : {
@@ -2897,8 +2897,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Members of the list"
+            "state" : "translated",
+            "value" : "Loendi liikmetelt"
           }
         },
         "eu" : {
@@ -3023,8 +3023,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Members of the list"
+            "state" : "translated",
+            "value" : "Leden van de lijst"
           }
         },
         "pl" : {
@@ -3095,8 +3095,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Members of the list"
+            "state" : "translated",
+            "value" : "Учасники списку"
           }
         },
         "vi" : {
