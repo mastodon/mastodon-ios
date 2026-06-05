@@ -596,7 +596,10 @@ extension RelationshipViewModel {
         do {
             guard let authenticatedUser else { throw APIService.APIError.explicit(.authenticationMissing) }
             if !myAccount.metadata.showsFeaturedTab {
-                let _ = try await APIService.shared.updateTabDisplaySettings(showFeaturedTab: true, showMediaTab: myAccount.metadata.showsMediaTab, showMediaReplies: myAccount.metadata.mediaTabIncludesReplies, authenticationBox: authenticatedUser)  // TODO: update profile tab's featured tab display setting
+                let myUpdatedProfile = try await APIService.shared.updateTabDisplaySettings(showFeaturedTab: true, showMediaTab: myAccount.metadata.showsMediaTab, showMediaReplies: myAccount.metadata.mediaTabIncludesReplies, authenticationBox: authenticatedUser)
+                if let myUpdatedAccount = myAccount.byUpdatingProfileSettings(myUpdatedProfile) {
+                    PersistenceManager.shared.cacheAccount(myUpdatedAccount._legacyEntity, forUserID: authenticatedUser.authentication.userIdentifier())
+                }
             }
             let response = try await APIService.shared.featureAccount(account.id, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)

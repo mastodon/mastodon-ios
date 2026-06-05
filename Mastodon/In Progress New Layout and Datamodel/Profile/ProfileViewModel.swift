@@ -566,6 +566,7 @@ extension ProfileViewModel {
 
         let updatedProfile = try await APIService.shared.updateTabDisplaySettings(showFeaturedTab: editingViewModel.featuredTabVisibilitySetting == .showFeaturedTab, showMediaTab: editingViewModel.mediaTabVisibilitySetting == .showMediaTab, showMediaReplies: editingViewModel.mediaTabRepliesSetting == .includeMyRepliesToOthers, authenticationBox: authBox)
         guard let updatedAccount = account?.byUpdatingProfileSettings(updatedProfile) else { return }
+        PersistenceManager.shared.cacheAccount(updatedAccount._legacyEntity, forUserID: authBox.authentication.userIdentifier())
         set(account: updatedAccount, relationship: .isMe, navigator: navigator)
         editingViewModel.setAccount(updatedAccount, textContentDidChange: { self.checkForEditingChanges() })
     }
