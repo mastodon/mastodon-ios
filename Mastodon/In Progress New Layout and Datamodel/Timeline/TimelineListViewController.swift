@@ -1834,6 +1834,19 @@ func contentWidth(forUseableWidth useableWidth: CGFloat) -> CGFloat {
     return max(1, useableWidth - (standardPadding /*left margin*/ + spacingBetweenGutterAndContent /*avatar trailing to content leading*/ + doublePadding /*right margin*/) - avatarSize)
 }
 
+extension View {
+    func timelineEnvironment(timelineModel: TimelineListViewModel,
+                             contentConcealModel: ContentConcealViewModel,
+                             filter: TimelineQueryFilter?,
+                             asyncRefreshModel: AsyncRefreshViewModel?) -> some View {
+        self
+            .environment(timelineModel)
+            .environment(contentConcealModel)
+            .environment(filter)
+            .environment(asyncRefreshModel)
+    }
+}
+
 struct TimelineListView: View {
     @Environment(MastodonNavigationRouter.self) private var navigator
     @Environment(TimelineListViewModel.self) private var viewModel

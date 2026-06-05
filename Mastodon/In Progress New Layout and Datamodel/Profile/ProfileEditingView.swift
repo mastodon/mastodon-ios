@@ -15,9 +15,7 @@ class ProfileEditHostingViewController: UIHostingController<AnyView> {
     init(viewModel: ProfileViewModel, navigator: MastodonNavigationRouter) {
         self.viewModel = viewModel
         super.init(rootView: AnyView(ProfileEditingView()
-            .environment(viewModel)
-            .environment(viewModel.relationshipViewModel)
-            .environment(viewModel.editingViewModel)
+            .profileEditingEnvironment(viewModel)
             .environment(navigator)
         ))
         
@@ -112,6 +110,21 @@ extension ProfileEditDestinationType {
     }
 }
 
+extension View {
+    func profileEditingEnvironment(_ profileViewModel: ProfileViewModel) -> some View {
+        self
+            .environment(profileViewModel)
+            .environment(profileViewModel.relationshipViewModel)
+            .environment(profileViewModel.editingViewModel)
+    }
+
+    func profileEditingDestinationEnvironment(_ destination: ProfileEditDestinationType) -> some View {
+        self
+            .environment(destination.profileViewModel)
+            .environment(destination.editingViewModel)
+    }
+}
+
 struct ProfileEditingView: View {
     @Environment(MastodonNavigationRouter.self) private var navigator
     @Environment(ProfileViewModel.self) var profileViewModel
@@ -139,8 +152,7 @@ struct ProfileEditingView: View {
                 switch navigationRouter.presentedSheet {
                 case .profileEditingSheet(let type):
                     ProfileEditingDestinationView(destinationType: type)
-                        .environment(type.profileViewModel)
-                        .environment(type.profileViewModel.editingViewModel)
+                        .profileEditingDestinationEnvironment(type)
                         .environment(navigationRouter)
                 case .timelineSheet, .none:
                     EmptyView()

@@ -27,9 +27,7 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
         }()
         self.navigationRouter = navigationRouter
         let root = ProfileView(wrapInSwiftUINavigationStack: wrapInSwiftUINavigationStack)
-            .environment(viewModel)
-            .environment(viewModel.relationshipViewModel)
-            .environment(nestedScrollViewModel)
+            .profileEnvironment(viewModel, nestedScroll: nestedScrollViewModel)
             .environment(navigationRouter)
         super.init(rootView: AnyView(root))
         title = nil
@@ -38,6 +36,16 @@ class ProfileHostingViewController: UIHostingController<AnyView> {
     
     @MainActor @preconcurrency required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension View {
+    func profileEnvironment(_ viewModel: ProfileViewModel,
+                            nestedScroll: NestedScrollInteractionViewModel) -> some View {
+        self
+            .environment(viewModel)
+            .environment(viewModel.relationshipViewModel)
+            .environment(nestedScroll)
     }
 }
 
@@ -1008,30 +1016,30 @@ struct ProfilePaginatingView: View {
                         case .activity:
                             if let postsTimelineViewModel = viewModel.postsViewModel {
                                 TimelineListView()
-                                    .environment(postsTimelineViewModel)
-                                    .environment(ContentConcealViewModel.alwaysShow)
-                                    .environment(postsTimelineViewModel.timeline.filterModel)
-                                    .environment(AsyncRefreshViewModel())
+                                    .timelineEnvironment(timelineModel: postsTimelineViewModel,
+                                                         contentConcealModel: .alwaysShow,
+                                                         filter: postsTimelineViewModel.timeline.filterModel,
+                                                         asyncRefreshModel: AsyncRefreshViewModel())
                                     .tag(page)
                                     .frame(width: geo.size.width, height: geo.size.height)
                             }
                         case .mediaOnly:
                             if let mediaTimelineViewModel = viewModel.mediaViewModel {
                                 TimelineListView()
-                                    .environment(mediaTimelineViewModel)
-                                    .environment(ContentConcealViewModel.alwaysShow)
-                                    .environment(mediaTimelineViewModel.timeline.filterModel)
-                                    .environment(viewModel.mediaViewAsyncRefresh)
+                                    .timelineEnvironment(timelineModel: mediaTimelineViewModel,
+                                                         contentConcealModel: .alwaysShow,
+                                                         filter: mediaTimelineViewModel.timeline.filterModel,
+                                                         asyncRefreshModel: viewModel.mediaViewAsyncRefresh)
                                     .tag(page)
                                     .frame(width: geo.size.width, height: geo.size.height)
                             }
                         case .featured:
                             if let featuredTimelineViewModel = viewModel.featuredItemsViewModel {
                                 TimelineListView()
-                                    .environment(featuredTimelineViewModel)
-                                    .environment(ContentConcealViewModel.alwaysShow)
-                                    .environment(featuredTimelineViewModel.timeline.filterModel)
-                                    .environment(viewModel.featuredItemsAsyncRefresh)
+                                    .timelineEnvironment(timelineModel: featuredTimelineViewModel,
+                                                         contentConcealModel: .alwaysShow,
+                                                         filter: featuredTimelineViewModel.timeline.filterModel,
+                                                         asyncRefreshModel: viewModel.featuredItemsAsyncRefresh)
                                     .tag(page)
                                     .frame(width: geo.size.width, height: geo.size.height)
                             }

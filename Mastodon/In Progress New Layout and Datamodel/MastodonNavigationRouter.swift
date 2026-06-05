@@ -94,30 +94,24 @@ enum MastodonNavigationDestination {
         case .timeline(let timelineType):
             let asyncRefreshModel = AsyncRefreshViewModel()
             let timelineViewModel = timelineType.timelineViewModel(asyncRefreshViewModel: asyncRefreshModel, navigator: self)
-            let queryFilter = timelineViewModel.timelineQueryFilter
             TimelineListView()
-                .environment(timelineViewModel)
-                .environment(timelineType.contentConcealModel)
-                .environment(queryFilter)
-                .environment(asyncRefreshModel)
+                .timelineEnvironment(timelineModel: timelineViewModel,
+                                     contentConcealModel: timelineType.contentConcealModel,
+                                     filter: timelineViewModel.timelineQueryFilter,
+                                     asyncRefreshModel: asyncRefreshModel)
                 .navigationTitle(timelineType.navigationTitle ?? "")
-            
+
         case .profile(let account, let relationship):
             let viewModel = profileViewModel(account, relationship: relationship)
             ProfileView(wrapInSwiftUINavigationStack: false)
-                .environment(viewModel)
-                .environment(viewModel.relationshipViewModel)
-                .environment(NestedScrollInteractionViewModel())
+                .profileEnvironment(viewModel, nestedScroll: NestedScrollInteractionViewModel())
         case .editProfile(let profileViewModel):
             ProfileEditingView()
-                .environment(profileViewModel)
-                .environment(profileViewModel.relationshipViewModel)
-                .environment(profileViewModel.editingViewModel)
+                .profileEditingEnvironment(profileViewModel)
             
         case .editProfileNavigation(let destination):
             ProfileEditingDestinationView(destinationType: destination)
-                .environment(destination.profileViewModel)
-                .environment(destination.editingViewModel)
+                .profileEditingDestinationEnvironment(destination)
             
         case .legacy, .share:
             EmptyView()  // legacy scenes should be presented using the SceneCoordinator instead
