@@ -185,16 +185,16 @@
             "value" : "Accept"
           }
         },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bipejirîne"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "수락"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bipejirîne"
           }
         },
         "lt" : {
@@ -373,8 +373,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reject"
+            "state" : "translated",
+            "value" : "Απόρριψη"
           }
         },
         "en" : {
@@ -403,8 +403,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reject"
+            "state" : "translated",
+            "value" : "Keeldu"
           }
         },
         "eu" : {
@@ -497,13 +497,13 @@
             "value" : "Reject"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reject"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reject"
@@ -529,8 +529,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reject"
+            "state" : "translated",
+            "value" : "Wijs af"
           }
         },
         "pl" : {
@@ -601,8 +601,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reject"
+            "state" : "translated",
+            "value" : "Відмовити"
           }
         },
         "vi" : {
@@ -619,8 +619,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reject"
+            "state" : "translated",
+            "value" : "拒絕"
           }
         }
       }
@@ -805,17 +805,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Show anyway"
+            "state" : "translated",
+            "value" : "Sken-d akken yebɣu yili"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show anyway"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show anyway"
@@ -913,8 +913,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Show anyway"
+            "state" : "translated",
+            "value" : "Усе одно показати"
           }
         },
         "vi" : {
@@ -997,8 +997,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add field"
+            "state" : "translated",
+            "value" : "Προσθήκη πεδίου"
           }
         },
         "en" : {
@@ -1027,8 +1027,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add field"
+            "state" : "translated",
+            "value" : "Lisa väli"
           }
         },
         "eu" : {
@@ -1117,17 +1117,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add field"
+            "state" : "translated",
+            "value" : "Rnu urti"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add field"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add field"
@@ -1153,8 +1153,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add field"
+            "state" : "translated",
+            "value" : "Voeg veld toe"
           }
         },
         "pl" : {
@@ -1225,8 +1225,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add field"
+            "state" : "translated",
+            "value" : "Додати поле"
           }
         },
         "vi" : {
@@ -1243,8 +1243,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add field"
+            "state" : "translated",
+            "value" : "新增欄位"
           }
         }
       }
@@ -1308,8 +1308,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tip: Try to keep the label and value short (under 25 characters for each is best)."
+            "state" : "translated",
+            "value" : "Συμβουλή: Προσπάθησε να κρατήσεις την ετικέτα και την τιμή μικρή (κάτω από 25 χαρακτήρες το κάθε ένα είναι το καλύτερο)."
           }
         },
         "en" : {
@@ -1338,8 +1338,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tip: Try to keep the label and value short (under 25 characters for each is best)."
+            "state" : "translated",
+            "value" : "Soovitus: proovi silt ja tema väärtus koostada lühidalt (kummagi puhul on kuni 25 tähemärki hea mõte)."
           }
         },
         "eu" : {
@@ -1432,13 +1432,13 @@
             "value" : "Tip: Try to keep the label and value short (under 25 characters for each is best)."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tip: Try to keep the label and value short (under 25 characters for each is best)."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tip: Try to keep the label and value short (under 25 characters for each is best)."
@@ -1464,8 +1464,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tip: Try to keep the label and value short (under 25 characters for each is best)."
+            "state" : "translated",
+            "value" : "Tip: Probeer het label en de waarde kort te houden (minder dan 25 tekens voor elk is het beste)."
           }
         },
         "pl" : {
@@ -1536,8 +1536,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tip: Try to keep the label and value short (under 25 characters for each is best)."
+            "state" : "translated",
+            "value" : "Порада: Спробуйте скоротити назву та значення (найкраще до 25 символів для кожного значення)."
           }
         },
         "vi" : {
@@ -1554,8 +1554,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tip: Try to keep the label and value short (under 25 characters for each is best)."
+            "state" : "translated",
+            "value" : "小撇步：請保持標籤與欄位內容簡潔（兩者最好皆少於 25 個字元）。"
           }
         }
       }
@@ -1619,8 +1619,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Are you sure you want to delete this custom field? This action can’t be undone."
+            "state" : "translated",
+            "value" : "Σίγουρα θέλεις να διαγράψεις αυτό το προσαρμοσμένο πεδίο; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί."
           }
         },
         "en" : {
@@ -1649,8 +1649,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Are you sure you want to delete this custom field? This action can’t be undone."
+            "state" : "translated",
+            "value" : "Kas oled kindel, et soovid selle kohandatud välja kustutada? Seda toimingut ei saa tagasi võtta."
           }
         },
         "eu" : {
@@ -1743,13 +1743,13 @@
             "value" : "Are you sure you want to delete this custom field? This action can’t be undone."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Are you sure you want to delete this custom field? This action can’t be undone."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Are you sure you want to delete this custom field? This action can’t be undone."
@@ -1847,8 +1847,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Are you sure you want to delete this custom field? This action can’t be undone."
+            "state" : "translated",
+            "value" : "Ви впевнені, що хочете видалити це власне поле? Цю дію не можна скасувати."
           }
         },
         "vi" : {
@@ -1865,8 +1865,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Are you sure you want to delete this custom field? This action can’t be undone."
+            "state" : "translated",
+            "value" : "您是否確定要刪除此自訂欄位？此動作無法復原。"
           }
         }
       }
@@ -1930,8 +1930,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Delete custom field?"
+            "state" : "translated",
+            "value" : "Διαγραφή προσαρμοσμένου πεδίου;"
           }
         },
         "en" : {
@@ -1960,8 +1960,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Delete custom field?"
+            "state" : "translated",
+            "value" : "Kas kustutame kohandatud välja?"
           }
         },
         "eu" : {
@@ -2054,13 +2054,13 @@
             "value" : "Delete custom field?"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete custom field?"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete custom field?"
@@ -2086,8 +2086,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Delete custom field?"
+            "state" : "translated",
+            "value" : "Aangepast veld verwijderen?"
           }
         },
         "pl" : {
@@ -2158,8 +2158,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Delete custom field?"
+            "state" : "translated",
+            "value" : "Видалити власне поле?"
           }
         },
         "vi" : {
@@ -2176,8 +2176,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Delete custom field?"
+            "state" : "translated",
+            "value" : "是否刪除自訂欄位？"
           }
         }
       }
@@ -2242,8 +2242,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Delete field"
+            "state" : "translated",
+            "value" : "Διαγραφή πεδίου"
           }
         },
         "en" : {
@@ -2272,8 +2272,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Delete field"
+            "state" : "translated",
+            "value" : "Kustuta väli"
           }
         },
         "eu" : {
@@ -2362,17 +2362,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Delete field"
+            "state" : "translated",
+            "value" : "Kkes urti"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete field"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete field"
@@ -2398,8 +2398,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Delete field"
+            "state" : "translated",
+            "value" : "Verwijder veld"
           }
         },
         "pl" : {
@@ -2470,8 +2470,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Delete field"
+            "state" : "translated",
+            "value" : "Видалити поле"
           }
         },
         "vi" : {
@@ -2488,8 +2488,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Delete field"
+            "state" : "translated",
+            "value" : "刪除欄位"
           }
         }
       }
@@ -2678,16 +2678,16 @@
             "value" : "Tabzimt"
           }
         },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nîşan"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "라벨"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nîşan"
           }
         },
         "lt" : {
@@ -2865,8 +2865,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. “Personal website”"
+            "state" : "translated",
+            "value" : "Π.χ. “Προσωπική ιστοσελίδα”"
           }
         },
         "en" : {
@@ -2895,8 +2895,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. “Personal website”"
+            "state" : "translated",
+            "value" : "Näiteks „Isiklik veebileht“"
           }
         },
         "eu" : {
@@ -2985,17 +2985,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. “Personal website”"
+            "state" : "translated",
+            "value" : "Amedya “Asmel-iw Web”"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "E.g. “Personal website”"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "E.g. “Personal website”"
@@ -3021,8 +3021,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. “Personal website”"
+            "state" : "translated",
+            "value" : "Bijv. 'Persoonlijke website'"
           }
         },
         "pl" : {
@@ -3093,8 +3093,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. “Personal website”"
+            "state" : "translated",
+            "value" : "Наприклад, \"Персональний сайт\""
           }
         },
         "vi" : {
@@ -3111,8 +3111,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. “Personal website”"
+            "state" : "translated",
+            "value" : "例如：「個人網站」"
           }
         }
       }
@@ -3176,8 +3176,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add your pronouns, external links, or anything else you’d like to share."
+            "state" : "translated",
+            "value" : "Πρόσθεσε τις αντωνυμίες σου, εξωτερικούς συνδέσμους ή οτιδήποτε άλλο θέλεις να μοιραστείς."
           }
         },
         "en" : {
@@ -3206,8 +3206,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add your pronouns, external links, or anything else you’d like to share."
+            "state" : "translated",
+            "value" : "Lisa oma asesõnad, välislingid või mistahes muu, mida soovid jagada."
           }
         },
         "eu" : {
@@ -3300,13 +3300,13 @@
             "value" : "Add your pronouns, external links, or anything else you’d like to share."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add your pronouns, external links, or anything else you’d like to share."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add your pronouns, external links, or anything else you’d like to share."
@@ -3404,8 +3404,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add your pronouns, external links, or anything else you’d like to share."
+            "state" : "translated",
+            "value" : "Додайте свої займенники, зовнішні посилання або щось інше, чим ви хотіли б поділитися."
           }
         },
         "vi" : {
@@ -3422,8 +3422,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add your pronouns, external links, or anything else you’d like to share."
+            "state" : "translated",
+            "value" : "加入您的稱謂、外部連結、或其他您想分享的。"
           }
         }
       }
@@ -3487,8 +3487,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Max %1$(limit)lld fields reached"
+            "state" : "translated",
+            "value" : "Έφτασες τα μέγιστα %1$(limit)lld πεδία"
           }
         },
         "en" : {
@@ -3517,8 +3517,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Max %1$(limit)lld fields reached"
+            "state" : "translated",
+            "value" : "Maksimaalne %1$(limit)lld välja piir on käes"
           }
         },
         "eu" : {
@@ -3611,13 +3611,13 @@
             "value" : "Max %1$(limit)lld fields reached"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Max %1$(limit)lld fields reached"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Max %1$(limit)lld fields reached"
@@ -3715,8 +3715,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Max %1$(limit)lld fields reached"
+            "state" : "translated",
+            "value" : "Досягнуто обмеження в %1$(limit)lld полів"
           }
         },
         "vi" : {
@@ -3733,8 +3733,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Max %1$(limit)lld fields reached"
+            "state" : "translated",
+            "value" : "已觸及最多 %1$(limit)lld 個欄位上限"
           }
         }
       }
@@ -3798,8 +3798,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Max %1$(limit)lld fields reached (%2$(domainName)@)"
+            "state" : "translated",
+            "value" : "Έφτασες τα μέγιστα %1$(limit)lld πεδία (%2$(domainName)@)"
           }
         },
         "en" : {
@@ -3828,8 +3828,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Max %1$(limit)lld fields reached (%2$(domainName)@)"
+            "state" : "translated",
+            "value" : "Maksimaalne %1$(limit)lld välja piir on käes (%2$(domainName)@)"
           }
         },
         "eu" : {
@@ -3922,13 +3922,13 @@
             "value" : "Max %1$(limit)lld fields reached (%2$(domainName)@)"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Max %1$(limit)lld fields reached (%2$(domainName)@)"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Max %1$(limit)lld fields reached (%2$(domainName)@)"
@@ -4026,8 +4026,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Max %1$(limit)lld fields reached (%2$(domainName)@)"
+            "state" : "translated",
+            "value" : "Досягнуто обмеження в %1$(limit)lld полів (%2$(domainName)@)"
           }
         },
         "vi" : {
@@ -4044,8 +4044,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Max %1$(limit)lld fields reached (%2$(domainName)@)"
+            "state" : "translated",
+            "value" : "已觸及最多 %1$(limit)lld 個欄位上限（%2$(domainName)@）"
           }
         }
       }
@@ -4110,8 +4110,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reorder fields"
+            "state" : "translated",
+            "value" : "Αναδιάταξη πεδίων"
           }
         },
         "en" : {
@@ -4140,8 +4140,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reorder fields"
+            "state" : "translated",
+            "value" : "Muuda väljade järjekorda"
           }
         },
         "eu" : {
@@ -4234,13 +4234,13 @@
             "value" : "Reorder fields"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reorder fields"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reorder fields"
@@ -4338,8 +4338,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reorder fields"
+            "state" : "translated",
+            "value" : "Змінити порядок полів"
           }
         },
         "vi" : {
@@ -4356,8 +4356,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reorder fields"
+            "state" : "translated",
+            "value" : "重新排序欄位"
           }
         }
       }
@@ -4422,8 +4422,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reorder/delete fields"
+            "state" : "translated",
+            "value" : "Αναδιάταξη/διαγραφή πεδίων"
           }
         },
         "en" : {
@@ -4452,8 +4452,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reorder/delete fields"
+            "state" : "translated",
+            "value" : "Muuda väljade järjekorda või kustuta neid"
           }
         },
         "eu" : {
@@ -4546,13 +4546,13 @@
             "value" : "Reorder/delete fields"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reorder/delete fields"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reorder/delete fields"
@@ -4650,8 +4650,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reorder/delete fields"
+            "state" : "translated",
+            "value" : "Змінити порядок / видалити поля"
           }
         },
         "vi" : {
@@ -4668,8 +4668,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reorder/delete fields"
+            "state" : "translated",
+            "value" : "重新排序或刪除欄位"
           }
         }
       }
@@ -4734,8 +4734,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Value"
+            "state" : "translated",
+            "value" : "Τιμή"
           }
         },
         "en" : {
@@ -4764,8 +4764,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Value"
+            "state" : "translated",
+            "value" : "Väärtus"
           }
         },
         "eu" : {
@@ -4854,17 +4854,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Value"
+            "state" : "translated",
+            "value" : "Azal"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Value"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Value"
@@ -4890,8 +4890,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Value"
+            "state" : "translated",
+            "value" : "Waarde"
           }
         },
         "pl" : {
@@ -4962,8 +4962,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Value"
+            "state" : "translated",
+            "value" : "Значення"
           }
         },
         "vi" : {
@@ -4980,8 +4980,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Value"
+            "state" : "translated",
+            "value" : "值"
           }
         }
       }
@@ -5045,8 +5045,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. “example.me”"
+            "state" : "translated",
+            "value" : "Π.χ. “example.me”"
           }
         },
         "en" : {
@@ -5075,8 +5075,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. “example.me”"
+            "state" : "translated",
+            "value" : "Nt. „toredomeen.ee“"
           }
         },
         "eu" : {
@@ -5169,13 +5169,13 @@
             "value" : "E.g. “example.me”"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "E.g. “example.me”"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "E.g. “example.me”"
@@ -5201,8 +5201,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. “example.me”"
+            "state" : "translated",
+            "value" : "Bijv. 'voorbeeld.nl'"
           }
         },
         "pl" : {
@@ -5273,8 +5273,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. “example.me”"
+            "state" : "translated",
+            "value" : "Наприклад, \"example.me\""
           }
         },
         "vi" : {
@@ -5291,8 +5291,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. “example.me”"
+            "state" : "translated",
+            "value" : "例如「example.me」"
           }
         }
       }
@@ -5356,8 +5356,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tip: Add credibility to your Mastodon account by verifying links to websites you own."
+            "state" : "translated",
+            "value" : "Συμβουλή: Πρόσθεσε αξιοπιστία στον Mastodon λογαριασμό σου επαληθεύοντας συνδέσμους προς ιστοσελίδες που κατέχεις."
           }
         },
         "en" : {
@@ -5386,8 +5386,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tip: Add credibility to your Mastodon account by verifying links to websites you own."
+            "state" : "translated",
+            "value" : "Soovitus: Lisa oma Mastodoni kontole usutavust verifitseerides sulle kuuluvate veebisaitide lingid."
           }
         },
         "eu" : {
@@ -5480,13 +5480,13 @@
             "value" : "Tip: Add credibility to your Mastodon account by verifying links to websites you own."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tip: Add credibility to your Mastodon account by verifying links to websites you own."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tip: Add credibility to your Mastodon account by verifying links to websites you own."
@@ -5584,8 +5584,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tip: Add credibility to your Mastodon account by verifying links to websites you own."
+            "state" : "translated",
+            "value" : "Порада: Додайте довіру до вашого профілю Mastodon, підтвердивши посилання на особисті веб-сайти."
           }
         },
         "vi" : {
@@ -5602,8 +5602,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tip: Add credibility to your Mastodon account by verifying links to websites you own."
+            "state" : "translated",
+            "value" : "小撇步：藉由驗證您所擁有之網站連結以增加您的 Mastodon 帳號可信度。"
           }
         }
       }
@@ -5668,8 +5668,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add hashtag"
+            "state" : "translated",
+            "value" : "Προσθήκη ετικέτας"
           }
         },
         "en" : {
@@ -5698,8 +5698,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add hashtag"
+            "state" : "translated",
+            "value" : "Lisa teemaviide"
           }
         },
         "eu" : {
@@ -5788,17 +5788,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add hashtag"
+            "state" : "translated",
+            "value" : "Rnu ahacṭag"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add hashtag"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add hashtag"
@@ -5824,8 +5824,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add hashtag"
+            "state" : "translated",
+            "value" : "Voeg hashtag toe"
           }
         },
         "pl" : {
@@ -5896,8 +5896,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add hashtag"
+            "state" : "translated",
+            "value" : "Додати хештеґ"
           }
         },
         "vi" : {
@@ -5914,8 +5914,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add hashtag"
+            "state" : "translated",
+            "value" : "新增主題標籤"
           }
         }
       }
@@ -5980,8 +5980,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add another"
+            "state" : "translated",
+            "value" : "Προσθήκη άλλης"
           }
         },
         "en" : {
@@ -6010,8 +6010,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add another"
+            "state" : "translated",
+            "value" : "Lisa veel üks"
           }
         },
         "eu" : {
@@ -6100,17 +6100,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add another"
+            "state" : "translated",
+            "value" : "Rnu wayeḍ"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add another"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add another"
@@ -6136,8 +6136,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add another"
+            "state" : "translated",
+            "value" : "Voeg nog een toe"
           }
         },
         "pl" : {
@@ -6208,8 +6208,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add another"
+            "state" : "translated",
+            "value" : "Додати ще"
           }
         },
         "vi" : {
@@ -6226,8 +6226,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add another"
+            "state" : "translated",
+            "value" : "再新增另一個"
           }
         }
       }
@@ -6292,8 +6292,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "#%1$(tagName)@ is now featured on your profile page. Do you want to add another?"
+            "state" : "translated",
+            "value" : "#%1$(tagName)@ αναδεικνύεται τώρα στη σελίδα προφίλ σου. Θέλεις να προσθέσεις μια άλλη;"
           }
         },
         "en" : {
@@ -6322,8 +6322,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "#%1$(tagName)@ is now featured on your profile page. Do you want to add another?"
+            "state" : "translated",
+            "value" : "#%1$(tagName)@ on nüüd sinu profiili lehel esile tõstetud. Kas tahaksid lisada veel ühe?"
           }
         },
         "eu" : {
@@ -6416,13 +6416,13 @@
             "value" : "#%1$(tagName)@ is now featured on your profile page. Do you want to add another?"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "#%1$(tagName)@ is now featured on your profile page. Do you want to add another?"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "#%1$(tagName)@ is now featured on your profile page. Do you want to add another?"
@@ -6448,8 +6448,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "#%1$(tagName)@ is now featured on your profile page. Do you want to add another?"
+            "state" : "translated",
+            "value" : "#%1$(tagName)@ is nu uitgelicht op je profielpagina. Wil je er nog een toevoegen?"
           }
         },
         "pl" : {
@@ -6520,8 +6520,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "#%1$(tagName)@ is now featured on your profile page. Do you want to add another?"
+            "state" : "translated",
+            "value" : "#%1$(tagName)@ тепер рекомендовано на сторінці вашого профілю. Ви хочете додати ще?"
           }
         },
         "vi" : {
@@ -6538,8 +6538,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "#%1$(tagName)@ is now featured on your profile page. Do you want to add another?"
+            "state" : "translated",
+            "value" : "#%1$(tagName)@ 現在已於您的個人檔案頁面中推薦。您是否想要再新增另一個？"
           }
         }
       }
@@ -6604,8 +6604,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "#%1$(tagName)@ featured!"
+            "state" : "translated",
+            "value" : "#%1$(tagName)@ αναδεικνύεται!"
           }
         },
         "en" : {
@@ -6634,8 +6634,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "#%1$(tagName)@ featured!"
+            "state" : "translated",
+            "value" : "#%1$(tagName)@ on esile tõstetud!"
           }
         },
         "eu" : {
@@ -6728,13 +6728,13 @@
             "value" : "#%1$(tagName)@ featured!"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "#%1$(tagName)@ featured!"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "#%1$(tagName)@ featured!"
@@ -6760,8 +6760,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "#%1$(tagName)@ featured!"
+            "state" : "translated",
+            "value" : "#%1$(tagName)@ is uitgelicht!"
           }
         },
         "pl" : {
@@ -6832,8 +6832,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "#%1$(tagName)@ featured!"
+            "state" : "translated",
+            "value" : "#%1$(tagName)@ рекомендовано!"
           }
         },
         "vi" : {
@@ -6850,8 +6850,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "#%1$(tagName)@ featured!"
+            "state" : "translated",
+            "value" : "已推薦 #%1$(tagName)@！"
           }
         }
       }
@@ -6916,8 +6916,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Keep"
+            "state" : "translated",
+            "value" : "Διατήρηση"
           }
         },
         "en" : {
@@ -6946,8 +6946,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Keep"
+            "state" : "translated",
+            "value" : "Säilita"
           }
         },
         "eu" : {
@@ -7036,17 +7036,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Keep"
+            "state" : "translated",
+            "value" : "Anef-as"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Keep"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Keep"
@@ -7072,8 +7072,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Keep"
+            "state" : "translated",
+            "value" : "Behoud"
           }
         },
         "pl" : {
@@ -7144,8 +7144,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Keep"
+            "state" : "translated",
+            "value" : "Залишити"
           }
         },
         "vi" : {
@@ -7162,8 +7162,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Keep"
+            "state" : "translated",
+            "value" : "保留"
           }
         }
       }
@@ -7352,16 +7352,16 @@
             "value" : "Kkes"
           }
         },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rake"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "삭제"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rake"
           }
         },
         "lt" : {
@@ -7540,8 +7540,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Remove #%1$(hashtagName)@ ?"
+            "state" : "translated",
+            "value" : "Αφαίρεση #%1$(hashtagName)@ ;"
           }
         },
         "en" : {
@@ -7570,8 +7570,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Remove #%1$(hashtagName)@ ?"
+            "state" : "translated",
+            "value" : "Kas eemaldad #%1$(hashtagName)@ teemaviite?"
           }
         },
         "eu" : {
@@ -7664,13 +7664,13 @@
             "value" : "Remove #%1$(hashtagName)@ ?"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove #%1$(hashtagName)@ ?"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove #%1$(hashtagName)@ ?"
@@ -7696,8 +7696,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Remove #%1$(hashtagName)@ ?"
+            "state" : "translated",
+            "value" : "#%1$(hashtagName)@ verwijderen?"
           }
         },
         "pl" : {
@@ -7768,8 +7768,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Remove #%1$(hashtagName)@ ?"
+            "state" : "translated",
+            "value" : "Видалити #%1$(hashtagName)@?"
           }
         },
         "vi" : {
@@ -7786,8 +7786,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Remove #%1$(hashtagName)@ ?"
+            "state" : "translated",
+            "value" : "是否刪除 #%1$(hashtagName)@？"
           }
         }
       }
@@ -7851,8 +7851,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Used in %(postCount)lld posts"
+            "state" : "translated",
+            "value" : "Χρησιμοποιείται σε %(postCount)lld αναρτήσεις"
           }
         },
         "en" : {
@@ -7881,8 +7881,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Used in %(postCount)lld posts"
+            "state" : "translated",
+            "value" : "Kasutatud %(postCount)lld-s postituses"
           }
         },
         "eu" : {
@@ -7975,13 +7975,13 @@
             "value" : "Used in %(postCount)lld posts"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Used in %(postCount)lld posts"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Used in %(postCount)lld posts"
@@ -8007,8 +8007,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Used in %(postCount)lld posts"
+            "state" : "translated",
+            "value" : "In %(postCount)lld berichten gebruikt"
           }
         },
         "pl" : {
@@ -8097,8 +8097,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Used in %(postCount)lld posts"
+            "state" : "translated",
+            "value" : "使用於 %(postCount)lld 則嘟文"
           }
         }
       }
@@ -8162,8 +8162,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add a bio"
+            "state" : "translated",
+            "value" : "Πρόσθεσε ένα βιογραφικό"
           }
         },
         "en" : {
@@ -8192,8 +8192,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add a bio"
+            "state" : "translated",
+            "value" : "Lisa elulugu"
           }
         },
         "eu" : {
@@ -8282,17 +8282,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add a bio"
+            "state" : "translated",
+            "value" : "Rnu tameddurt"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add a bio"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add a bio"
@@ -8318,8 +8318,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add a bio"
+            "state" : "translated",
+            "value" : "Voeg bio toe"
           }
         },
         "pl" : {
@@ -8390,8 +8390,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add a bio"
+            "state" : "translated",
+            "value" : "Додати біографію"
           }
         },
         "vi" : {
@@ -8408,8 +8408,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add a bio"
+            "state" : "translated",
+            "value" : "新增個人簡介"
           }
         }
       }
@@ -8473,8 +8473,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Bio"
+            "state" : "translated",
+            "value" : "Βιογραφικό"
           }
         },
         "en" : {
@@ -8503,8 +8503,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Bio"
+            "state" : "translated",
+            "value" : "Elulugu"
           }
         },
         "eu" : {
@@ -8593,17 +8593,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Bio"
+            "state" : "translated",
+            "value" : "Tameddurt"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Bio"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Bio"
@@ -8629,7 +8629,7 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Bio"
           }
         },
@@ -8701,8 +8701,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Bio"
+            "state" : "translated",
+            "value" : "Біографія"
           }
         },
         "vi" : {
@@ -8719,8 +8719,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Bio"
+            "state" : "translated",
+            "value" : "個人簡介"
           }
         }
       }
@@ -8784,8 +8784,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom fields"
+            "state" : "translated",
+            "value" : "Προσαρμοσμένα πεδία"
           }
         },
         "en" : {
@@ -8814,8 +8814,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom fields"
+            "state" : "translated",
+            "value" : "Kohandatud väljad"
           }
         },
         "eu" : {
@@ -8904,17 +8904,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom fields"
+            "state" : "translated",
+            "value" : "Urtiyen udmawanen"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Custom fields"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Custom fields"
@@ -8940,8 +8940,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom fields"
+            "state" : "translated",
+            "value" : "Aangepaste velden"
           }
         },
         "pl" : {
@@ -9012,8 +9012,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom fields"
+            "state" : "translated",
+            "value" : "Користувацькі поля"
           }
         },
         "vi" : {
@@ -9030,8 +9030,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom fields"
+            "state" : "translated",
+            "value" : "自訂欄位"
           }
         }
       }
@@ -9095,8 +9095,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. pronouns, external links, etc."
+            "state" : "translated",
+            "value" : "Πχ. αντωνυμίες, εξωτερικοί σύνδεσμοι, κλπ."
           }
         },
         "en" : {
@@ -9125,8 +9125,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. pronouns, external links, etc."
+            "state" : "translated",
+            "value" : "Nt. asesõnad, välised lingid jne."
           }
         },
         "eu" : {
@@ -9219,13 +9219,13 @@
             "value" : "E.g. pronouns, external links, etc."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "E.g. pronouns, external links, etc."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "E.g. pronouns, external links, etc."
@@ -9251,8 +9251,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. pronouns, external links, etc."
+            "state" : "translated",
+            "value" : "Bijv. voornaamwoorden, externe links enz."
           }
         },
         "pl" : {
@@ -9341,8 +9341,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. pronouns, external links, etc."
+            "state" : "translated",
+            "value" : "例如：稱謂、外部連結等。"
           }
         }
       }
@@ -9406,8 +9406,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Display name"
+            "state" : "translated",
+            "value" : "Εμφανιζόμενο όνομα"
           }
         },
         "en" : {
@@ -9436,8 +9436,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Display name"
+            "state" : "translated",
+            "value" : "Kuvatav nimi"
           }
         },
         "eu" : {
@@ -9526,17 +9526,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Display name"
+            "state" : "translated",
+            "value" : "Isem ara d-yettwaskanen"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Display name"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Display name"
@@ -9562,8 +9562,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Display name"
+            "state" : "translated",
+            "value" : "Schermnaam"
           }
         },
         "pl" : {
@@ -9634,8 +9634,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Display name"
+            "state" : "translated",
+            "value" : "Видиме ім'я"
           }
         },
         "vi" : {
@@ -9652,8 +9652,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Display name"
+            "state" : "translated",
+            "value" : "顯示名稱"
           }
         }
       }
@@ -9717,8 +9717,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Featured hashtags"
+            "state" : "translated",
+            "value" : "Αναδεδειγμένες ετικέτες"
           }
         },
         "en" : {
@@ -9747,8 +9747,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Featured hashtags"
+            "state" : "translated",
+            "value" : "Esiletõstetud teemaviited"
           }
         },
         "eu" : {
@@ -9841,13 +9841,13 @@
             "value" : "Featured hashtags"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Featured hashtags"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Featured hashtags"
@@ -9873,8 +9873,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Featured hashtags"
+            "state" : "translated",
+            "value" : "Uitgelichte hashtags"
           }
         },
         "pl" : {
@@ -9945,8 +9945,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Featured hashtags"
+            "state" : "translated",
+            "value" : "Рекомендовані хештеґи"
           }
         },
         "vi" : {
@@ -9963,8 +9963,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Featured hashtags"
+            "state" : "translated",
+            "value" : "推薦主題標籤"
           }
         }
       }
@@ -10028,8 +10028,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Allow users to filter your timeline by topic"
+            "state" : "translated",
+            "value" : "Να επιτρέπεται στους χρήστες να φιλτράρουν το χρονολόγιο σου ανά θέμα"
           }
         },
         "en" : {
@@ -10058,8 +10058,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Allow users to filter your timeline by topic"
+            "state" : "translated",
+            "value" : "Luba kasutajatel filtreerida sinu ajajoont teemade alusel"
           }
         },
         "eu" : {
@@ -10152,13 +10152,13 @@
             "value" : "Allow users to filter your timeline by topic"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Allow users to filter your timeline by topic"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Allow users to filter your timeline by topic"
@@ -10184,8 +10184,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Allow users to filter your timeline by topic"
+            "state" : "translated",
+            "value" : "Laat gebruikers je tijdlijn filteren op onderwerp"
           }
         },
         "pl" : {
@@ -10256,14 +10256,14 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Allow users to filter your timeline by topic"
+            "state" : "translated",
+            "value" : "Дозволити користувачам фільтрувати вашу шкалу часу за темою"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cho phép người dùng lọc dòng thời gian của bạn theo chủ đề"
+            "value" : "Cho phép mọi người lọc dòng thời gian của bạn theo chủ đề"
           }
         },
         "zh-Hans" : {
@@ -10274,8 +10274,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Allow users to filter your timeline by topic"
+            "state" : "translated",
+            "value" : "允許使用者依照主題過濾您的時間軸"
           }
         }
       }
@@ -10339,8 +10339,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Profile tab settings"
+            "state" : "translated",
+            "value" : "Ρυθμίσεις καρτελών προφίλ"
           }
         },
         "en" : {
@@ -10369,8 +10369,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Profile tab settings"
+            "state" : "translated",
+            "value" : "Profiili vahekaartide seadistused"
           }
         },
         "eu" : {
@@ -10463,13 +10463,13 @@
             "value" : "Profile tab settings"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Profile tab settings"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Profile tab settings"
@@ -10567,8 +10567,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Profile tab settings"
+            "state" : "translated",
+            "value" : "Параметри вкладки профілю"
           }
         },
         "vi" : {
@@ -10585,8 +10585,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Profile tab settings"
+            "state" : "translated",
+            "value" : "個人檔案分頁設定"
           }
         }
       }
@@ -10650,8 +10650,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add bio"
+            "state" : "translated",
+            "value" : "Προσθήκη βιογραφικού"
           }
         },
         "en" : {
@@ -10680,8 +10680,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add bio"
+            "state" : "translated",
+            "value" : "Lisa elulugu"
           }
         },
         "eu" : {
@@ -10770,17 +10770,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add bio"
+            "state" : "translated",
+            "value" : "Rnu tameddurt"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add bio"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add bio"
@@ -10806,8 +10806,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add bio"
+            "state" : "translated",
+            "value" : "Bio toevoegen"
           }
         },
         "pl" : {
@@ -10878,8 +10878,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add bio"
+            "state" : "translated",
+            "value" : "Додати біографію"
           }
         },
         "vi" : {
@@ -10896,8 +10896,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add bio"
+            "state" : "translated",
+            "value" : "新增個人簡介"
           }
         }
       }
@@ -10961,8 +10961,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add field"
+            "state" : "translated",
+            "value" : "Προσθήκη πεδίου"
           }
         },
         "en" : {
@@ -10991,8 +10991,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add field"
+            "state" : "translated",
+            "value" : "Lisa väli"
           }
         },
         "eu" : {
@@ -11081,17 +11081,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add field"
+            "state" : "translated",
+            "value" : "Rnu urti"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add field"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add field"
@@ -11117,8 +11117,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add field"
+            "state" : "translated",
+            "value" : "Voeg veld toe"
           }
         },
         "pl" : {
@@ -11189,8 +11189,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add field"
+            "state" : "translated",
+            "value" : "Додати поле"
           }
         },
         "vi" : {
@@ -11207,8 +11207,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add field"
+            "state" : "translated",
+            "value" : "新增欄位"
           }
         }
       }
@@ -11272,8 +11272,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add hashtag"
+            "state" : "translated",
+            "value" : "Προσθήκη ετικέτας"
           }
         },
         "en" : {
@@ -11302,8 +11302,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add hashtag"
+            "state" : "translated",
+            "value" : "Lisa teemaviide"
           }
         },
         "eu" : {
@@ -11392,17 +11392,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add hashtag"
+            "state" : "translated",
+            "value" : "Rnu ahacṭag"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add hashtag"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add hashtag"
@@ -11428,8 +11428,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add hashtag"
+            "state" : "translated",
+            "value" : "Voeg hashtag toe"
           }
         },
         "pl" : {
@@ -11500,8 +11500,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add hashtag"
+            "state" : "translated",
+            "value" : "Додати хештеґ"
           }
         },
         "vi" : {
@@ -11518,8 +11518,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add hashtag"
+            "state" : "translated",
+            "value" : "新增主題標籤"
           }
         }
       }
@@ -11583,8 +11583,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Describe yourself and/or this account."
+            "state" : "translated",
+            "value" : "Περιέγραψε τον εαυτό σου και/ή αυτόν τον λογαριασμό."
           }
         },
         "en" : {
@@ -11613,8 +11613,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Describe yourself and/or this account."
+            "state" : "translated",
+            "value" : "Kirjelda iseend ja/või seda kasutajakontot."
           }
         },
         "eu" : {
@@ -11707,13 +11707,13 @@
             "value" : "Describe yourself and/or this account."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Describe yourself and/or this account."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Describe yourself and/or this account."
@@ -11739,8 +11739,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Describe yourself and/or this account."
+            "state" : "translated",
+            "value" : "Beschrijf jezelf en/of deze account."
           }
         },
         "pl" : {
@@ -11811,8 +11811,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Describe yourself and/or this account."
+            "state" : "translated",
+            "value" : "Опишіть себе та/або цей обліковий запис."
           }
         },
         "vi" : {
@@ -11829,8 +11829,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Describe yourself and/or this account."
+            "state" : "translated",
+            "value" : "描述關於您自己或者此帳號。"
           }
         }
       }
@@ -11894,8 +11894,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom fields"
+            "state" : "translated",
+            "value" : "Προσαρμοσμένα πεδία"
           }
         },
         "en" : {
@@ -11924,8 +11924,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom fields"
+            "state" : "translated",
+            "value" : "Kohandatud väljad"
           }
         },
         "eu" : {
@@ -12014,17 +12014,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom fields"
+            "state" : "translated",
+            "value" : "Urtiyen udmawanen"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Custom fields"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Custom fields"
@@ -12050,8 +12050,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom fields"
+            "state" : "translated",
+            "value" : "Aangepaste velden"
           }
         },
         "pl" : {
@@ -12122,8 +12122,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom fields"
+            "state" : "translated",
+            "value" : "Користувацькі поля"
           }
         },
         "vi" : {
@@ -12140,8 +12140,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom fields"
+            "state" : "translated",
+            "value" : "自訂欄位"
           }
         }
       }
@@ -12205,8 +12205,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit bio"
+            "state" : "translated",
+            "value" : "Επεξεργασία βιογραφικού"
           }
         },
         "en" : {
@@ -12235,8 +12235,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit bio"
+            "state" : "translated",
+            "value" : "Muuda elulugu"
           }
         },
         "eu" : {
@@ -12329,13 +12329,13 @@
             "value" : "Edit bio"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit bio"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit bio"
@@ -12361,8 +12361,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit bio"
+            "state" : "translated",
+            "value" : "Bio wijzigen"
           }
         },
         "pl" : {
@@ -12433,8 +12433,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit bio"
+            "state" : "translated",
+            "value" : "Редагувати біографію"
           }
         },
         "vi" : {
@@ -12451,8 +12451,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit bio"
+            "state" : "translated",
+            "value" : "編輯個人簡介"
           }
         }
       }
@@ -12516,8 +12516,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit display name"
+            "state" : "translated",
+            "value" : "Επεξεργασία εμφανιζόμενου ονόματος"
           }
         },
         "en" : {
@@ -12546,8 +12546,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit display name"
+            "state" : "translated",
+            "value" : "Muuda kuvatavat nime"
           }
         },
         "eu" : {
@@ -12640,13 +12640,13 @@
             "value" : "Edit display name"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit display name"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit display name"
@@ -12672,8 +12672,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit display name"
+            "state" : "translated",
+            "value" : "Schermnaam wijzigen"
           }
         },
         "pl" : {
@@ -12744,8 +12744,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit display name"
+            "state" : "translated",
+            "value" : "Редагувати видиме ім'я"
           }
         },
         "vi" : {
@@ -12762,8 +12762,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit display name"
+            "state" : "translated",
+            "value" : "編輯顯示名稱"
           }
         }
       }
@@ -12827,8 +12827,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit field"
+            "state" : "translated",
+            "value" : "Επεξεργασία πεδίου"
           }
         },
         "en" : {
@@ -12857,8 +12857,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit field"
+            "state" : "translated",
+            "value" : "Muuda välja"
           }
         },
         "eu" : {
@@ -12951,13 +12951,13 @@
             "value" : "Edit field"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit field"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit field"
@@ -12983,8 +12983,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit field"
+            "state" : "translated",
+            "value" : "Veld wijzigen"
           }
         },
         "pl" : {
@@ -13055,8 +13055,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit field"
+            "state" : "translated",
+            "value" : "Редагувати поле"
           }
         },
         "vi" : {
@@ -13073,8 +13073,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit field"
+            "state" : "translated",
+            "value" : "編輯欄位"
           }
         }
       }
@@ -13138,8 +13138,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Featured hashtags"
+            "state" : "translated",
+            "value" : "Αναδεδειγμένες ετικέτες"
           }
         },
         "en" : {
@@ -13168,8 +13168,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Featured hashtags"
+            "state" : "translated",
+            "value" : "Esiletõstetud teemaviited"
           }
         },
         "eu" : {
@@ -13262,13 +13262,13 @@
             "value" : "Featured hashtags"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Featured hashtags"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Featured hashtags"
@@ -13294,8 +13294,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Featured hashtags"
+            "state" : "translated",
+            "value" : "Uitgelichte hashtags"
           }
         },
         "pl" : {
@@ -13366,8 +13366,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Featured hashtags"
+            "state" : "translated",
+            "value" : "Рекомендовані хештеґи"
           }
         },
         "vi" : {
@@ -13384,8 +13384,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Featured hashtags"
+            "state" : "translated",
+            "value" : "推薦主題標籤"
           }
         }
       }
@@ -13449,8 +13449,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Profile tab settings"
+            "state" : "translated",
+            "value" : "Ρυθμίσεις καρτελών προφίλ"
           }
         },
         "en" : {
@@ -13479,8 +13479,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Profile tab settings"
+            "state" : "translated",
+            "value" : "Profiili vahekaartide seadistused"
           }
         },
         "eu" : {
@@ -13573,13 +13573,13 @@
             "value" : "Profile tab settings"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Profile tab settings"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Profile tab settings"
@@ -13677,8 +13677,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Profile tab settings"
+            "state" : "translated",
+            "value" : "Параметри вкладки профілю"
           }
         },
         "vi" : {
@@ -13695,8 +13695,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Profile tab settings"
+            "state" : "translated",
+            "value" : "個人檔案分頁設定"
           }
         }
       }
@@ -13760,8 +13760,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reorder fields"
+            "state" : "translated",
+            "value" : "Αναδιάταξη πεδίων"
           }
         },
         "en" : {
@@ -13790,8 +13790,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reorder fields"
+            "state" : "translated",
+            "value" : "Muuda väljade järjekorda"
           }
         },
         "eu" : {
@@ -13884,13 +13884,13 @@
             "value" : "Reorder fields"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reorder fields"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reorder fields"
@@ -13988,8 +13988,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reorder fields"
+            "state" : "translated",
+            "value" : "Змінити порядок полів"
           }
         },
         "vi" : {
@@ -14006,8 +14006,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reorder fields"
+            "state" : "translated",
+            "value" : "重新排序欄位"
           }
         }
       }
@@ -14071,8 +14071,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "How to add a verified link"
+            "state" : "translated",
+            "value" : "Πώς να προσθέσεις έναν επαληθευμένο σύνδεσμο"
           }
         },
         "en" : {
@@ -14101,8 +14101,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "How to add a verified link"
+            "state" : "translated",
+            "value" : "Kuidas toimib kinnitatud lingi lisamine"
           }
         },
         "eu" : {
@@ -14195,13 +14195,13 @@
             "value" : "How to add a verified link"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "How to add a verified link"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "How to add a verified link"
@@ -14299,8 +14299,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "How to add a verified link"
+            "state" : "translated",
+            "value" : "Як додати перевірене посилання"
           }
         },
         "vi" : {
@@ -14317,8 +14317,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "How to add a verified link"
+            "state" : "translated",
+            "value" : "如何新增驗證連結"
           }
         }
       }
@@ -14382,8 +14382,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A space to showcase other accounts"
+            "state" : "translated",
+            "value" : "Ένας χώρος για την προβολή άλλων λογαριασμών"
           }
         },
         "en" : {
@@ -14412,8 +14412,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A space to showcase other accounts"
+            "state" : "translated",
+            "value" : "Koht teiste kasutajakontode tutvustamiseks"
           }
         },
         "eu" : {
@@ -14506,13 +14506,13 @@
             "value" : "A space to showcase other accounts"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "A space to showcase other accounts"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "A space to showcase other accounts"
@@ -14610,8 +14610,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A space to showcase other accounts"
+            "state" : "translated",
+            "value" : "Простір для відображення інших облікових записів"
           }
         },
         "vi" : {
@@ -14628,8 +14628,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A space to showcase other accounts"
+            "state" : "translated",
+            "value" : "展示他人帳號之空間"
           }
         }
       }
@@ -14693,8 +14693,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "'Featured' tab"
+            "state" : "translated",
+            "value" : "Καρτέλα «Αναδεδειγμένα»"
           }
         },
         "en" : {
@@ -14723,8 +14723,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "'Featured' tab"
+            "state" : "translated",
+            "value" : "Vahekaart „Esiletõstetud“"
           }
         },
         "eu" : {
@@ -14817,13 +14817,13 @@
             "value" : "'Featured' tab"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "'Featured' tab"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "'Featured' tab"
@@ -14849,8 +14849,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "'Featured' tab"
+            "state" : "translated",
+            "value" : "Tabblad 'Uitgelicht'"
           }
         },
         "pl" : {
@@ -14921,8 +14921,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "'Featured' tab"
+            "state" : "translated",
+            "value" : "Вкладка 'Рекомендоване'"
           }
         },
         "vi" : {
@@ -14939,8 +14939,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "'Featured' tab"
+            "state" : "translated",
+            "value" : "「精選內容」分頁"
           }
         }
       }
@@ -14962,8 +14962,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
+            "state" : "translated",
+            "value" : "Гэтыя налады змяняюць тое, што бачаць карыстальнікі на Вашым серверы і ў афіцыйных праграмах, але гэта можа не ўплываць на карыстальнікаў іншых сервераў ці неафіцыйных праграм."
           }
         },
         "ca" : {
@@ -14998,14 +14998,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
+            "state" : "translated",
+            "value" : "Diese Einstellungen legen fest, was andere in den offiziellen Apps auf diesem Server sehen können. Möglicherweise werden sie nicht von anderen Servern oder Apps von Dritten berücksichtigt."
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
+            "state" : "translated",
+            "value" : "Αυτές οι ρυθμίσεις προσαρμόζουν τι βλέπουν οι χρήστες στον διακομιστή σας και στις επίσημες εφαρμογές, αλλά δεν μπορούν να εφαρμοστούν για χρήστες σε άλλους διακομιστές ή εφαρμογές τρίτων."
           }
         },
         "en" : {
@@ -15028,14 +15028,14 @@
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
+            "state" : "translated",
+            "value" : "Esta configuración personaliza lo que los usuarios ven en tu servidor en las aplicaciones oficiales, pero es posible que no se apliquen a los usuarios en otros servidores y aplicaciones de terceros."
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
+            "state" : "translated",
+            "value" : "Need seadistused määravad, mida kasutajad näevad sinu serveris ja ametlikes rakendustes, kuid ei pruugi kehtida teiste serverite kasutajate ja kolmandate osapoolte rakenduste puhul."
           }
         },
         "eu" : {
@@ -15052,14 +15052,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
+            "state" : "translated",
+            "value" : "Ces paramètres personnalisent ce que les personnes voient sur votre serveur avec les applications officielles, mais ils peuvent ne pas s'appliquer aux personnes sur d'autres serveurs ou utilisant une application tierce."
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
+            "state" : "translated",
+            "value" : "Saincheapann na socruithe seo a bhfeiceann úsáideoirí ar do fhreastalaí agus sna haipeanna oifigiúla, ach ní fhéadfaidh siad a bheith infheidhme maidir le húsáideoirí ar fhreastalaithe eile ná ar aipeanna tríú páirtí."
           }
         },
         "gd" : {
@@ -15106,14 +15106,14 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
+            "state" : "translated",
+            "value" : "Þessar stillingar sérsníða hvað notendur sjá á netþjóninum þínum og í opinberu forritunum, en ekki er víst hvernig þetta virkar fyrir notendur á öðrum netþjónum eða utanaðkomandi forritum."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
+            "state" : "translated",
+            "value" : "Queste impostazioni personalizzano ciò che gli utenti vedono sul tuo server e nelle app ufficiali, ma potrebbero non applicarsi agli utenti su altri server o su app di terze parti."
           }
         },
         "ja" : {
@@ -15128,13 +15128,13 @@
             "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
@@ -15226,20 +15226,20 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
+            "state" : "translated",
+            "value" : "Bu ayarlar kullanıcıların resmi uygulamalarda sunucunuzda gördüklerini özelleştirir, ancak diğer sunuculardaki ve üçüncü taraf uygulamalardaki kullanıcılar için geçerli olmayabilir."
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
+            "state" : "translated",
+            "value" : "Ці налаштування визначають, що користувачі бачать на вашому сервері та в офіційних програмах, але вони можуть не застосовуватися до користувачів на інших серверах або сторонніх програм."
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
+            "state" : "translated",
+            "value" : "Những thiết lập này tùy chỉnh những gì người dùng thấy trên máy chủ của bạn và trong ứng dụng chính thức, nhưng có thể sẽ không thấy trên các máy chủ khác hoặc các ứng dụng thứ ba."
           }
         },
         "zh-Hans" : {
@@ -15250,8 +15250,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
+            "state" : "translated",
+            "value" : "這些設定能自訂使用者於官方應用程式中與您的伺服器所見之內容，但可能不適用於其他伺服器或第三方應用程式之使用者。"
           }
         }
       }
@@ -15316,8 +15316,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies"
+            "state" : "translated",
+            "value" : "Συμπερίληψη απαντήσεων"
           }
         },
         "en" : {
@@ -15346,8 +15346,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies"
+            "state" : "translated",
+            "value" : "Kaasa vastused"
           }
         },
         "eu" : {
@@ -15440,13 +15440,13 @@
             "value" : "Include replies"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Include replies"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Include replies"
@@ -15472,8 +15472,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies"
+            "state" : "translated",
+            "value" : "Inclusief reacties"
           }
         },
         "pl" : {
@@ -15544,8 +15544,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies"
+            "state" : "translated",
+            "value" : "Включати відповіді"
           }
         },
         "vi" : {
@@ -15562,8 +15562,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies"
+            "state" : "translated",
+            "value" : "包含回嘟"
           }
         }
       }
@@ -15627,8 +15627,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Shows your posts containing media"
+            "state" : "translated",
+            "value" : "Εμφανίζει τις αναρτήσεις σου που περιέχουν πολυμέσα"
           }
         },
         "en" : {
@@ -15657,8 +15657,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Shows your posts containing media"
+            "state" : "translated",
+            "value" : "Näitab sinu postitusi, kus leidub multimeediat"
           }
         },
         "eu" : {
@@ -15751,13 +15751,13 @@
             "value" : "Shows your posts containing media"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Shows your posts containing media"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Shows your posts containing media"
@@ -15855,8 +15855,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Shows your posts containing media"
+            "state" : "translated",
+            "value" : "Показує ваші пости з медіавмістом"
           }
         },
         "vi" : {
@@ -15873,8 +15873,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Shows your posts containing media"
+            "state" : "translated",
+            "value" : "顯示您包含多媒體之嘟文"
           }
         }
       }
@@ -15938,8 +15938,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "'Media' tab"
+            "state" : "translated",
+            "value" : "Καρτέλα «Πολυμέσα»"
           }
         },
         "en" : {
@@ -15968,8 +15968,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "'Media' tab"
+            "state" : "translated",
+            "value" : "Vahekaart „Meedium“"
           }
         },
         "eu" : {
@@ -16062,13 +16062,13 @@
             "value" : "'Media' tab"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "'Media' tab"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "'Media' tab"
@@ -16094,8 +16094,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "'Media' tab"
+            "state" : "translated",
+            "value" : "Tabblad 'Media'"
           }
         },
         "pl" : {
@@ -16184,8 +16184,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "'Media' tab"
+            "state" : "translated",
+            "value" : "「多媒體」分頁"
           }
         }
       }
@@ -16249,8 +16249,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add your website as a custom field"
+            "state" : "translated",
+            "value" : "Πρόσθεσε την ιστοσελίδα σου ως προσαρμοσμένο πεδίο"
           }
         },
         "en" : {
@@ -16279,8 +16279,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add your website as a custom field"
+            "state" : "translated",
+            "value" : "Lisa oma veebisait kohandatud väljana"
           }
         },
         "eu" : {
@@ -16373,13 +16373,13 @@
             "value" : "Add your website as a custom field"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add your website as a custom field"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add your website as a custom field"
@@ -16477,8 +16477,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add your website as a custom field"
+            "state" : "translated",
+            "value" : "Додати ваш сайт як власне поле"
           }
         },
         "vi" : {
@@ -16495,8 +16495,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add your website as a custom field"
+            "state" : "translated",
+            "value" : "將您的網站加入為自訂欄位"
           }
         }
       }
@@ -16560,8 +16560,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification."
+            "state" : "translated",
+            "value" : "Αν έχεις ήδη προσθέσει τον ιστότοπό σου ως προσαρμοσμένο πεδίο, θα χρειαστεί να τον διαγράψεις και να τον προσθέσεις ξανά για να ενεργοποιηθεί η επαλήθευση."
           }
         },
         "en" : {
@@ -16590,8 +16590,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification."
+            "state" : "translated",
+            "value" : "Kui oled oma veebisaidi kohandatud väljana juba lisanud, pead verifitseerimise käivitamiseks selle kustutama ja uuesti lisama."
           }
         },
         "eu" : {
@@ -16684,13 +16684,13 @@
             "value" : "If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification."
@@ -16783,7 +16783,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Web sitenizi daha önce bir özel alan olarak eklediyseniz, doğrulamayı tekrar tetiklemek için için onu silip yeniden eklemeniz gerekiyor."
+            "value" : "Web sitenizi daha önce bir özel alan olarak eklediyseniz, doğrulamayı tekrar tetiklemek için için onu silip yeniden eklemeniz gerekir."
           }
         },
         "uk" : {
@@ -16795,7 +16795,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nếu bạn từng trang web của mình dưới dạng trường tùy chỉnh, bạn cần xóa và thêm lại trang web đó để kích hoạt quá trình xác minh."
+            "value" : "Nếu bạn từng thêm trang web của mình dưới dạng trường tùy chỉnh, bạn cần xóa và thêm lại trang web đó để kích hoạt quá trình xác minh."
           }
         },
         "zh-Hans" : {
@@ -16806,8 +16806,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification."
+            "state" : "translated",
+            "value" : "若您已將您的網站新增至自訂欄位，您需要刪除並重新加入以觸發驗證。"
           }
         }
       }
@@ -16872,8 +16872,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy code"
+            "state" : "translated",
+            "value" : "Αντιγραφή κώδικα"
           }
         },
         "en" : {
@@ -16902,8 +16902,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy code"
+            "state" : "translated",
+            "value" : "Kopeeri kood"
           }
         },
         "eu" : {
@@ -16996,13 +16996,13 @@
             "value" : "Copy code"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copy code"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copy code"
@@ -17028,8 +17028,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy code"
+            "state" : "translated",
+            "value" : "Kopieer code"
           }
         },
         "pl" : {
@@ -17100,8 +17100,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy code"
+            "state" : "translated",
+            "value" : "Копіювати код"
           }
         },
         "vi" : {
@@ -17118,8 +17118,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy code"
+            "state" : "translated",
+            "value" : "複製程式碼"
           }
         }
       }
@@ -17183,8 +17183,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy the HTML code below"
+            "state" : "translated",
+            "value" : "Αντέγραψε τον παρακάτω κώδικα HTML"
           }
         },
         "en" : {
@@ -17213,8 +17213,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy the HTML code below"
+            "state" : "translated",
+            "value" : "Kopeeri järgnev HTML-kood"
           }
         },
         "eu" : {
@@ -17307,13 +17307,13 @@
             "value" : "Copy the HTML code below"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copy the HTML code below"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copy the HTML code below"
@@ -17429,8 +17429,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy the HTML code below"
+            "state" : "translated",
+            "value" : "請複製以下 HTML 程式碼"
           }
         }
       }
@@ -17494,8 +17494,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Adding the code to your header allows the <a> element to remain invisible. The rel=\\\"me\\\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it."
+            "state" : "translated",
+            "value" : "Προσθέτοντας τον κώδικα στην κεφαλίδα σου επιτρέπει το στοιχείο <a> να παραμείνει αόρατο. Το χαρακτηριστικό rel=\\\"me\\\" αποτρέπει την προσωποποίηση σε ιστότοπους με περιεχόμενο παραγόμενο από το χρήστη - οπότε είναι σημαντικό να το διατηρήσεις."
           }
         },
         "en" : {
@@ -17524,8 +17524,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Adding the code to your header allows the <a> element to remain invisible. The rel=\\\"me\\\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it."
+            "state" : "translated",
+            "value" : "Lisades antud koodi oma veebisaidi päisesse võimaldab <a> elemendil jääda nähtamatuks. Lisaks võimaldab rel=\\\"me\\\" atribuudi säilitamine ära hoida identiteedivargust kasutajate loodud sisuga veebisaitides. Seega on oluline teda säilitada."
           }
         },
         "eu" : {
@@ -17618,13 +17618,13 @@
             "value" : "Adding the code to your header allows the <a> element to remain invisible. The rel=\\\"me\\\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Adding the code to your header allows the <a> element to remain invisible. The rel=\\\"me\\\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Adding the code to your header allows the <a> element to remain invisible. The rel=\\\"me\\\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it."
@@ -17722,8 +17722,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Adding the code to your header allows the <a> element to remain invisible. The rel=\\\"me\\\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it."
+            "state" : "translated",
+            "value" : "Додавання коду до заголовка дозволяє елементу <a> залишатися невидимим. Атрибут rel=\\\"me\\\" запобігає імітуванню веб-сайтів з згенерованим користувачем вмістом - тому важливо зберегти його."
           }
         },
         "vi" : {
@@ -17740,8 +17740,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Adding the code to your header allows the <a> element to remain invisible. The rel=\\\"me\\\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it."
+            "state" : "translated",
+            "value" : "將程式碼新增至您的標頭能使 <a> 元素保持隱形。rel=\\\"me\\\" 屬性能防止他人於使用者生成內容網站上假冒，因此，保持它是至關重要的。"
           }
         }
       }
@@ -17805,8 +17805,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:"
+            "state" : "translated",
+            "value" : "Πρόσθεσε αξιοπιστία στο Mastodon προφίλ σου επαληθεύοντας συνδέσμους προς προσωπικές ιστοσελίδες. Ορίστε πως δουλεύει:"
           }
         },
         "en" : {
@@ -17835,8 +17835,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:"
+            "state" : "translated",
+            "value" : "Paranda oma Mastodoni profiili usaldusväärsust, kinnitades isiklike veebisaitide lingid. See toimib järgmiselt:"
           }
         },
         "eu" : {
@@ -17929,13 +17929,13 @@
             "value" : "Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:"
@@ -18033,8 +18033,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:"
+            "state" : "translated",
+            "value" : "Додайте довіру до вашого профілю Mastodon, підтвердивши посилання на особисті веб-сайти. Ось як це працює:"
           }
         },
         "vi" : {
@@ -18051,8 +18051,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:"
+            "state" : "translated",
+            "value" : "藉由驗證連結至個人網站增加您 Mastodon 個人檔案之可信度。運作方式如下："
           }
         }
       }
@@ -18116,8 +18116,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Paste the code into the header HTML of your website"
+            "state" : "translated",
+            "value" : "Επικόλλησε τον κώδικα στην κεφαλίδα HTML του ιστότοπού σου"
           }
         },
         "en" : {
@@ -18146,8 +18146,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Paste the code into the header HTML of your website"
+            "state" : "translated",
+            "value" : "Aseta see HTML-kood oma veebisaidi päisesse"
           }
         },
         "eu" : {
@@ -18240,13 +18240,13 @@
             "value" : "Paste the code into the header HTML of your website"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Paste the code into the header HTML of your website"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Paste the code into the header HTML of your website"
@@ -18344,8 +18344,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Paste the code into the header HTML of your website"
+            "state" : "translated",
+            "value" : "Вставити код у заголовок HTML вашого сайту"
           }
         },
         "vi" : {
@@ -18362,8 +18362,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Paste the code into the header HTML of your website"
+            "state" : "translated",
+            "value" : "請將程式碼貼至您網站之 HTML 標頭中"
           }
         }
       }
@@ -18428,8 +18428,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Automated account"
+            "state" : "translated",
+            "value" : "Αυτοματοποιημένος λογαριασμός"
           }
         },
         "en" : {
@@ -18458,8 +18458,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Automated account"
+            "state" : "translated",
+            "value" : "Automatiseeritud kasutajakonto"
           }
         },
         "eu" : {
@@ -18548,17 +18548,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Automated account"
+            "state" : "translated",
+            "value" : "Amiḍan awurman"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Automated account"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Automated account"
@@ -18656,8 +18656,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Automated account"
+            "state" : "translated",
+            "value" : "Автоматизований обліковий запис"
           }
         },
         "vi" : {
@@ -18674,8 +18674,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Automated account"
+            "state" : "translated",
+            "value" : "機器人帳號"
           }
         }
       }
@@ -18740,8 +18740,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy handle"
+            "state" : "translated",
+            "value" : "Αντιγραφή πλήρους ονόματος χρήστη"
           }
         },
         "en" : {
@@ -18770,8 +18770,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy handle"
+            "state" : "translated",
+            "value" : "Kopeeri kasutajatunnus"
           }
         },
         "eu" : {
@@ -18860,17 +18860,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy handle"
+            "state" : "translated",
+            "value" : "Nɣel asulay"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copy handle"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copy handle"
@@ -18896,8 +18896,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy handle"
+            "state" : "translated",
+            "value" : "Kopieer fediverse-adres"
           }
         },
         "pl" : {
@@ -18986,8 +18986,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy handle"
+            "state" : "translated",
+            "value" : "複製帳號"
           }
         }
       }
@@ -18996,10 +18996,310 @@
       "comment" : "section header for featured accounts on a profile page",
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Уліковыя запісы"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konti"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konten"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Accounts"
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuentas"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kasutajakontod"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comptes"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuntais"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aðgangar"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accounts"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hesaplar"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Облікові записи"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tài khoản"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "帳號"
           }
         }
       }
@@ -19008,10 +19308,310 @@
       "comment" : "section header for collection featured on a profile page",
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Калекцыі"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samlinger"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sammlungen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Collections"
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Colecciones"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kogumikud"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Collections"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bailiúcháin"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Söfn"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Collezioni"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verzamelingen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koleksiyonlar"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Колекції"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gói khởi đầu"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "收藏名單"
           }
         }
       }
@@ -19076,8 +19676,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Follows you"
+            "state" : "translated",
+            "value" : "Σε ακολουθεί"
           }
         },
         "en" : {
@@ -19106,8 +19706,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Follows you"
+            "state" : "translated",
+            "value" : "Jälgib sind"
           }
         },
         "eu" : {
@@ -19196,17 +19796,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Follows you"
+            "state" : "translated",
+            "value" : "Yeṭṭafaṛ-ik·em-id"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Follows you"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Follows you"
@@ -19304,8 +19904,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Follows you"
+            "state" : "translated",
+            "value" : "Стежить за вами"
           }
         },
         "vi" : {
@@ -19322,8 +19922,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Follows you"
+            "state" : "translated",
+            "value" : "已跟隨您"
           }
         }
       }
@@ -19387,8 +19987,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add a personal note"
+            "state" : "translated",
+            "value" : "Πρόσθεσε μια προσωπική σημείωση"
           }
         },
         "en" : {
@@ -19417,8 +20017,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add a personal note"
+            "state" : "translated",
+            "value" : "Lisa isiklik märge"
           }
         },
         "eu" : {
@@ -19507,17 +20107,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add a personal note"
+            "state" : "translated",
+            "value" : "Rnu tazmilt tudmawant"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add a personal note"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add a personal note"
@@ -19543,8 +20143,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add a personal note"
+            "state" : "translated",
+            "value" : "Privénotitie toevoegen"
           }
         },
         "pl" : {
@@ -19615,8 +20215,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add a personal note"
+            "state" : "translated",
+            "value" : "Додати особисту нотатку"
           }
         },
         "vi" : {
@@ -19633,8 +20233,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add a personal note"
+            "state" : "translated",
+            "value" : "新增個人備註"
           }
         }
       }
@@ -19698,8 +20298,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit personal note"
+            "state" : "translated",
+            "value" : "Επεξεργασία προσωπικής σημείωσης"
           }
         },
         "en" : {
@@ -19728,8 +20328,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit personal note"
+            "state" : "translated",
+            "value" : "Muuda isiklikku märget"
           }
         },
         "eu" : {
@@ -19822,13 +20422,13 @@
             "value" : "Edit personal note"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit personal note"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit personal note"
@@ -19854,8 +20454,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit personal note"
+            "state" : "translated",
+            "value" : "Wijzig privénotitie"
           }
         },
         "pl" : {
@@ -19926,8 +20526,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit personal note"
+            "state" : "translated",
+            "value" : "Редагувати особисту нотатку"
           }
         },
         "vi" : {
@@ -19944,8 +20544,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit personal note"
+            "state" : "translated",
+            "value" : "編輯個人備註"
           }
         }
       }
@@ -20009,8 +20609,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal note"
+            "state" : "translated",
+            "value" : "Προσωπική σημείωση"
           }
         },
         "en" : {
@@ -20039,8 +20639,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal note"
+            "state" : "translated",
+            "value" : "Isiklik märge"
           }
         },
         "eu" : {
@@ -20129,17 +20729,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal note"
+            "state" : "translated",
+            "value" : "Tazmilt tudmawant"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal note"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal note"
@@ -20165,8 +20765,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal note"
+            "state" : "translated",
+            "value" : "Privénotitie"
           }
         },
         "pl" : {
@@ -20237,8 +20837,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal note"
+            "state" : "translated",
+            "value" : "Особиста нотатка"
           }
         },
         "vi" : {
@@ -20255,8 +20855,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal note"
+            "state" : "translated",
+            "value" : "個人備註"
           }
         }
       }
@@ -20320,8 +20920,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal notes are only visible to you."
+            "state" : "translated",
+            "value" : "Οι προσωπικές σημειώσεις είναι ορατές μόνο σε σένα."
           }
         },
         "en" : {
@@ -20350,8 +20950,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal notes are only visible to you."
+            "state" : "translated",
+            "value" : "Isiklikud märked on nähtavad vaid sulle."
           }
         },
         "eu" : {
@@ -20444,13 +21044,13 @@
             "value" : "Personal notes are only visible to you."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal notes are only visible to you."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal notes are only visible to you."
@@ -20476,8 +21076,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal notes are only visible to you."
+            "state" : "translated",
+            "value" : "Privénotities zijn alleen voor jou zichtbaar."
           }
         },
         "pl" : {
@@ -20548,8 +21148,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal notes are only visible to you."
+            "state" : "translated",
+            "value" : "Особисті нотатки видно тільки вам."
           }
         },
         "vi" : {
@@ -20566,8 +21166,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal notes are only visible to you."
+            "state" : "translated",
+            "value" : "僅有您能見到您的個人備註。"
           }
         }
       }
@@ -20631,8 +21231,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal note (visible only to you)"
+            "state" : "translated",
+            "value" : "Προσωπική σημείωση (ορατή μόνο σε σένα)"
           }
         },
         "en" : {
@@ -20661,8 +21261,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal note (visible only to you)"
+            "state" : "translated",
+            "value" : "Isiklikud märked (nähtavad vaid sulle)"
           }
         },
         "eu" : {
@@ -20755,13 +21355,13 @@
             "value" : "Personal note (visible only to you)"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal note (visible only to you)"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal note (visible only to you)"
@@ -20787,8 +21387,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal note (visible only to you)"
+            "state" : "translated",
+            "value" : "Privénotitie (alleen voor jou zichtbaar)"
           }
         },
         "pl" : {
@@ -20859,8 +21459,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal note (visible only to you)"
+            "state" : "translated",
+            "value" : "Особиста нотатка (відображається лише вам)"
           }
         },
         "vi" : {
@@ -20877,8 +21477,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal note (visible only to you)"
+            "state" : "translated",
+            "value" : "個人備註（僅有您可見）"
           }
         }
       }
@@ -20942,8 +21542,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(username)@ requested to follow you"
+            "state" : "translated",
+            "value" : "Ο χρήστης %1$(username)@ ζήτησε να σε ακολουθήσει"
           }
         },
         "en" : {
@@ -20972,8 +21572,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(username)@ requested to follow you"
+            "state" : "translated",
+            "value" : "%1$(username)@ soovib sind jälgida"
           }
         },
         "eu" : {
@@ -21066,13 +21666,13 @@
             "value" : "%1$(username)@ requested to follow you"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$(username)@ requested to follow you"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$(username)@ requested to follow you"
@@ -21170,8 +21770,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(username)@ requested to follow you"
+            "state" : "translated",
+            "value" : "%1$(username)@ надсилає запит на стеження"
           }
         },
         "vi" : {
@@ -21188,8 +21788,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(username)@ requested to follow you"
+            "state" : "translated",
+            "value" : "%1$(username)@ 要求跟隨您"
           }
         }
       }
@@ -21253,8 +21853,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This account has been hidden by your moderators."
+            "state" : "translated",
+            "value" : "Αυτός ο λογαριασμός έχει κρυφτεί από τους συντονιστές σου."
           }
         },
         "en" : {
@@ -21283,8 +21883,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This account has been hidden by your moderators."
+            "state" : "translated",
+            "value" : "See kasutajakonto on peidetud serveri moderaatorite poolt."
           }
         },
         "eu" : {
@@ -21377,13 +21977,13 @@
             "value" : "This account has been hidden by your moderators."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This account has been hidden by your moderators."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This account has been hidden by your moderators."
@@ -21481,8 +22081,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This account has been hidden by your moderators."
+            "state" : "translated",
+            "value" : "Обліковий запис сховали ваші модератори."
           }
         },
         "vi" : {
@@ -21499,8 +22099,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This account has been hidden by your moderators."
+            "state" : "translated",
+            "value" : "此個人檔案已被您的管理員隱藏。"
           }
         }
       }
@@ -21564,8 +22164,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This account has been hidden by the moderators of %1$(domainName)@."
+            "state" : "translated",
+            "value" : "Αυτός ο λογαριασμός έχει κρυφτεί από τους συντονιστές του %1$(domainName)@."
           }
         },
         "en" : {
@@ -21594,8 +22194,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This account has been hidden by the moderators of %1$(domainName)@."
+            "state" : "translated",
+            "value" : "See kasutajakonto on peidetud %1$(domainName)@ serveri moderaatorite poolt."
           }
         },
         "eu" : {
@@ -21688,13 +22288,13 @@
             "value" : "This account has been hidden by the moderators of %1$(domainName)@."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This account has been hidden by the moderators of %1$(domainName)@."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This account has been hidden by the moderators of %1$(domainName)@."
@@ -21792,8 +22392,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This account has been hidden by the moderators of %1$(domainName)@."
+            "state" : "translated",
+            "value" : "Обліковий запис сховали модератори %1$(domainName)@."
           }
         },
         "vi" : {
@@ -21810,8 +22410,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This account has been hidden by the moderators of %1$(domainName)@."
+            "state" : "translated",
+            "value" : "此個人檔案已被 %1$(domainName)@ 的管理員隱藏。"
           }
         }
       }
@@ -21875,8 +22475,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Account suspended"
+            "state" : "translated",
+            "value" : "Λογαριασμός σε αναστολή"
           }
         },
         "en" : {
@@ -21905,8 +22505,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Account suspended"
+            "state" : "translated",
+            "value" : "Kasutajakonto tegevus on peatatud"
           }
         },
         "eu" : {
@@ -21999,13 +22599,13 @@
             "value" : "Account suspended"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Account suspended"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Account suspended"
@@ -22103,8 +22703,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Account suspended"
+            "state" : "translated",
+            "value" : "Обліковий запис призупинено"
           }
         },
         "vi" : {
@@ -22121,8 +22721,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Account suspended"
+            "state" : "translated",
+            "value" : "帳號己被停權"
           }
         }
       }

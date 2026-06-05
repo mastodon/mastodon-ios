@@ -61,8 +61,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%(used)lld/%(limit)lld characters"
+            "state" : "translated",
+            "value" : "%(used)lld/%(limit)lld χαρακτήρες"
           }
         },
         "en" : {
@@ -91,8 +91,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%(used)lld/%(limit)lld characters"
+            "state" : "translated",
+            "value" : "%(used)lld/%(limit)lld tähemärki"
           }
         },
         "eu" : {
@@ -289,8 +289,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%(used)lld/%(limit)lld characters"
+            "state" : "translated",
+            "value" : "%(used)lld/%(limit)lld символів"
           }
         },
         "vi" : {
@@ -372,8 +372,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tip: try to keep this short, under %1$(limit)lld characters is best"
+            "state" : "translated",
+            "value" : "Συμβουλή: προσπάθησε να το κρατήσεις μικρό, κάτω από %1$(limit)lld χαρακτήρες είναι το καλύτερο"
           }
         },
         "en" : {
@@ -402,8 +402,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tip: try to keep this short, under %1$(limit)lld characters is best"
+            "state" : "translated",
+            "value" : "Soovitus: proovi kirjutada lühidalt, kuni %1$(limit)lld tähemärki on hea pikkus"
           }
         },
         "eu" : {
@@ -528,8 +528,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tip: try to keep this short, under %1$(limit)lld characters is best"
+            "state" : "translated",
+            "value" : "Tip: probeer het kort te houden, minder dan %1$(limit)lld tekens is het beste"
           }
         },
         "pl" : {
@@ -600,8 +600,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tip: try to keep this short, under %1$(limit)lld characters is best"
+            "state" : "translated",
+            "value" : "Порада: намагайтеся бути лаконічними, краще до %1$(limit)lld символів"
           }
         },
         "vi" : {
@@ -684,8 +684,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Image"
+            "state" : "translated",
+            "value" : "Εικόνα"
           }
         },
         "en" : {
@@ -714,8 +714,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Image"
+            "state" : "translated",
+            "value" : "Pilt"
           }
         },
         "eu" : {
@@ -804,8 +804,8 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Image"
+            "state" : "translated",
+            "value" : "Tugna"
           }
         },
         "kmr-TR" : {
@@ -840,8 +840,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Image"
+            "state" : "translated",
+            "value" : "Afbeelding"
           }
         },
         "pl" : {
@@ -912,8 +912,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Image"
+            "state" : "translated",
+            "value" : "Зображення"
           }
         },
         "vi" : {
@@ -1307,8 +1307,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(limit)lld characters"
+            "state" : "translated",
+            "value" : "%1$(limit)lld χαρακτήρες"
           }
         },
         "en" : {
@@ -1337,8 +1337,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(limit)lld characters"
+            "state" : "translated",
+            "value" : "%1$(limit)lld tähemärki"
           }
         },
         "eu" : {
@@ -1535,8 +1535,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(limit)lld characters"
+            "state" : "translated",
+            "value" : "%1$(limit)lld символів"
           }
         },
         "vi" : {
