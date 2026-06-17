@@ -229,11 +229,8 @@ extension SceneDelegate {
             showComposeViewController()
 
         case "org.joinmastodon.app.search":
-            coordinator?.switchToTabBar(tab: .search)
+            coordinator?.switchToTabBar(tab: .explore)
 
-            if let searchViewController = coordinator?.tabBarController.topMost as? SearchViewController {
-                searchViewController.searchBarTapPublisher.send("")
-            }
 
         default:
             assertionFailure()
@@ -251,17 +248,7 @@ extension SceneDelegate {
     }
     
     private func showComposeViewController() {
-        if coordinator?.tabBarController.topMost is ComposeViewController {
-        } else {
-            if let authenticationBox = coordinator?.authenticationBox {
-                let composeViewModel = ComposeViewModel(
-                    authenticationBox: authenticationBox,
-                    composeContext: .composeStatus(quoting: nil),
-                    destination: .topLevel
-                )
-                _ = coordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
-            }
-        }
+        MastodonTabViewRouter.shared.selectedTab = .compose
     }
     
     private func handleUrl(context: UIOpenURLContext) {

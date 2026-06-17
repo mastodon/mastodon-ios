@@ -30,4 +30,18 @@ import SwiftUI
     private var navigationRouters = [ MastodonTab : MastodonNavigationRouter]()
     
     var tabs: [MastodonTab] = [.home, .explore, .compose, .notifications, .profile]
+    
+    public func show(_ destination: MastodonNavigationDestination, in tab: MastodonTab) {
+        var router = navigationRouter(forTab: tab)
+        router.push(destination)
+    }
+    
+    public func navigationRouter(forTab tab: MastodonTab) -> MastodonNavigationRouter {
+        if let existing = navigationRouters[tab] {
+            return existing
+        }
+        let freshRouter = MastodonNavigationRouter(navigationType: .swiftUI(legacyPresenter: nil))
+        navigationRouters[tab] = freshRouter
+        return freshRouter
+    }
 }

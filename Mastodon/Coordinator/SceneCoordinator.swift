@@ -32,9 +32,6 @@ final public class SceneCoordinator {
     
     let id = UUID().uuidString
     
-    // TODO: delete tabBar and splitView
-    private(set) weak var tabBarController: MainTabBarController!
-    private(set) weak var splitViewController: RootSplitViewController?
     private(set) weak var rootViewController: UIViewController?
 
     private(set) var secondaryStackHashValues = Set<Int>()
@@ -74,22 +71,6 @@ final public class SceneCoordinator {
                             // redirect to notifications tab
                             self.switchToTabBar(tab: .notifications)
 
-                            // Note:
-                            // show (push) on phone and pad
-                            let from: UIViewController? = {
-                                if let splitViewController = self.splitViewController {
-                                    if splitViewController.compactMainTabBarViewController.topMost?.view.window != nil {
-                                        // compact
-                                        return splitViewController.compactMainTabBarViewController.topMost
-                                    } else {
-                                        // expand
-                                        return splitViewController.contentSplitViewController.mainTabBarController.topMost
-                                    }
-                                } else {
-                                    return self.tabBarController.topMost
-                                }
-                            }()
-
                             // show notification related content
                             guard let type = Mastodon.Entity.NotificationType(rawValue: pushNotification.notificationType) else { return }
                             guard let me = authenticationBox.cachedAccount else { return }
@@ -102,23 +83,22 @@ final public class SceneCoordinator {
                                     authenticationBox: authenticationBox
                                 ).value.account
 
-                                let relationship = try await APIService.shared.relationship(forAccounts: [account], authenticationBox: authenticationBox).value.first
+                                let relationshipEntity = try await APIService.shared.relationship(forAccounts: [account], authenticationBox: authenticationBox).value.first
 
-                                let profileType: ProfileType = me == account ? .me(me) : .notMe(me: me, displayAccount: account, relationship: relationship)
-                                _ = self.present(
-                                    scene: .profile(profileType),
-                                    from: from,
-                                    transition: .show
-                                )
+                                let relationship: MastodonAccount.Relationship? = {
+                                    guard let relationshipEntity else { return nil }
+                                    if me == account {
+                                        return .isMe
+                                    } else {
+                                        return .isNotMe(MastodonAccount.RelationshipInfo(relationshipEntity, fetchedAt: .now))
+                                    }
+                                }()
+                                MastodonTabViewRouter.shared.show(.profile(account: account, relationship: relationship), in: .notifications)
                             case .followRequest:
                                 // do nothing
                                 break
                             case .mention, .reblog, .favourite, .poll, .status:
-                                _ = self.present(
-                                    scene: .threadRemote(.notification(notificationID)),
-                                    from: from,
-                                    transition: .show
-                                )
+                                MastodonTabViewRouter.shared.show(.timeline(.remoteThread(root: .notification(notificationID))), in: .notifications)
                             case .moderationWarning:
                                 break
                             default:
@@ -260,16 +240,6 @@ extension SceneCoordinator {
         guard var presentingViewController = sender ?? sceneDelegate.window?.rootViewController?.topMost else {
             return nil
         }
-        // adapt for child controller
-        if let navigationControllerVisibleViewController = presentingViewController.navigationController?.visibleViewController {
-            navigationControllerVisibleViewController.navigationItem.backBarButtonItem = nil
-        }
-        
-        if let mainTabBarController = presentingViewController as? MainTabBarController,
-           let navigationController = mainTabBarController.selectedViewController as? UINavigationController,
-           let topViewController = navigationController.topViewController {
-            presentingViewController = topViewController
-        }
 
         switch transition {
         case .none:
@@ -298,12 +268,12 @@ extension SceneCoordinator {
         case .popover(let sourceView):
             viewController.modalPresentationStyle = .popover
             viewController.popoverPresentationController?.sourceView = sourceView
-            (splitViewController ?? presentingViewController)?.present(viewController, animated: true, completion: nil)
+            presentingViewController.present(viewController, animated: true, completion: nil)
         case .custom(let transitioningDelegate):
             viewController.modalPresentationStyle = .custom
             viewController.transitioningDelegate = transitioningDelegate
             viewController.modalPresentationCapturesStatusBarAppearance = true
-            (splitViewController ?? presentingViewController)?.present(viewController, animated: true, completion: nil)
+            presentingViewController.present(viewController, animated: true, completion: nil)
 
         case .customPush(let animated):
             // set delegate in view controller
@@ -337,14 +307,8 @@ extension SceneCoordinator {
         return viewController
     }
 
-    func switchToTabBar(tab: Tab) {
-        splitViewController?.contentSplitViewController.currentSupplementaryTab = tab
-        
-        splitViewController?.compactMainTabBarViewController.selectedIndex = tab.rawValue
-        splitViewController?.compactMainTabBarViewController.currentTab = tab
-        
-        tabBarController.selectedIndex = tab.rawValue
-        tabBarController.currentTab = tab
+    func switchToTabBar(tab: MastodonTabViewRouter.MastodonTab) {
+        MastodonTabViewRouter.shared.selectedTab = tab
     }
 }
 
