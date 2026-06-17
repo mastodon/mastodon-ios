@@ -32,6 +32,7 @@ final public class SceneCoordinator {
     
     let id = UUID().uuidString
     
+    // TODO: delete tabBar and splitView
     private(set) weak var tabBarController: MainTabBarController!
     private(set) weak var splitViewController: RootSplitViewController?
     private(set) weak var rootViewController: UIViewController?

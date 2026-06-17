@@ -9,6 +9,7 @@ struct MastodonMainTabView: View {
     var body: some View {
         TabView(selection: $navigator.selectedTab) {
             ForEach(navigator.tabs, id: \.self) { tab in
+                // TODO: remove obsolete Tab and then remove the unnecessary SwiftUI prefix here
                 SwiftUI.Tab(tab.title, systemImage: tab.systemImage, value: tab) {
                     Text(tab.title)
                         .font(.largeTitle)
