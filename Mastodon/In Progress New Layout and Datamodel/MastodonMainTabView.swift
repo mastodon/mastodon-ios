@@ -15,6 +15,7 @@ struct MastodonMainTabView: View {
                 }
             }
         }
+        .tabViewStyle(.sidebarAdaptable)
     }
     
 }
