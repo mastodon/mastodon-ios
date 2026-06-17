@@ -12,6 +12,7 @@ import MastodonCore
 import MastodonAsset
 import MastodonLocalization
 import MBProgressHUD
+import SwiftUI
 
 @MainActor
 final public class SceneCoordinator {
@@ -233,30 +234,16 @@ extension SceneCoordinator {
     
     @MainActor
     func setup() {
-        let rootViewController: UIViewController
-
-        switch UIDevice.current.userInterfaceIdiom {
-            case .phone:
-                let viewController = MainTabBarController(authenticationBox: authenticationBox)
-                self.splitViewController = nil
-                self.tabBarController = viewController
-                rootViewController = viewController
-            default:
-                let splitViewController = RootSplitViewController(authenticationBox: authenticationBox)
-                self.splitViewController = splitViewController
-                self.tabBarController = splitViewController.contentSplitViewController.mainTabBarController
-                rootViewController = splitViewController
-        }
         
-        // this feels wrong
-        sceneDelegate.window?.rootViewController = rootViewController                   // base: main
-        self.rootViewController = rootViewController
-
+        let mainTabView = UIHostingController(rootView: MastodonMainTabView())
+        sceneDelegate.window?.rootViewController = mainTabView
+        self.rootViewController = mainTabView
+        
         if authenticationBox == nil {                                                        // entry #1: welcome
             DispatchQueue.main.async {
                 _ = self.present(
                     scene: .welcome,
-                    from: rootViewController, // self.sceneDelegate.window?.rootViewController,
+                    from: mainTabView, // self.sceneDelegate.window?.rootViewController,
                     transition: .modal(animated: true, completion: nil)
                 )
             }
