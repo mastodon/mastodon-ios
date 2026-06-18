@@ -6,9 +6,14 @@ import MastodonUI
 import SDWebImageSwiftUI
 import MastodonAsset
 
+extension EnvironmentValues {
+    @Entry var sceneCoordinator: SceneCoordinator? = nil
+}
+
 struct MastodonMainTabView: View {
     @Environment(\.horizontalSizeClass) private var sizeClass
     @Environment(\.displayScale) private var displayScale
+    @Environment(\.sceneCoordinator) private var sceneCoordinator
     
     @State private var navigator = MastodonTabViewRouter.shared
     @State private var avatarIconRenderer = AvatarIconRenderer.shared
