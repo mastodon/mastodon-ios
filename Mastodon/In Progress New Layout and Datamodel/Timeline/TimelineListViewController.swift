@@ -1145,6 +1145,9 @@ enum MastodonTimelineSheet {
     }
     
     private let _asyncRefreshViewModel: AsyncRefreshViewModel?
+    public var asyncRefreshViewModel: AsyncRefreshViewModel? {
+        return _asyncRefreshViewModel
+    }
     
     init(timeline: MastodonTimelineType, navigator: MastodonNavigationRouter, asyncRefreshViewModel: AsyncRefreshViewModel?) {
         self._asyncRefreshViewModel = asyncRefreshViewModel

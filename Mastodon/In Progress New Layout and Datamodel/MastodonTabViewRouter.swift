@@ -7,6 +7,8 @@ import SwiftUI
     
     public static let shared = MastodonTabViewRouter()
     
+    public var homeTimelineModel: TimelineListViewModel?
+    
     enum MastodonTab: Identifiable, Hashable {
         case home
         case explore

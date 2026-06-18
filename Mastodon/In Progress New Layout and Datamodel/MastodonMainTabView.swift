@@ -26,8 +26,7 @@ struct MastodonMainTabView: View {
                     TabSection {
                         ForEach(subtabs, id: \.self) { subtab in
                             Tab(subtab.title, systemImage: subtab.systemImage, value: subtab) {
-                                Text(subtab.title)
-                                    .font(.largeTitle)
+                                view(forTab: subtab)
                             }
                             .customizationID(subtab.id)
                             .customizationBehavior(subtab.customizationBehavior, for: .tabBar, .sidebar)
@@ -47,8 +46,7 @@ struct MastodonMainTabView: View {
                         TabSection {
                             if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value, let currentAuthAccount = currentAuthBox.cachedAccount, let icon = avatarIconRenderer.prerenderedAccountAvatar(currentAuthBox.globallyUniqueUserIdentifier, displayScale: displayScale) {
                                 Tab(value: tab) {
-                                    Text(tab.title)
-                                        .font(.largeTitle)
+                                    view(forTab: tab)
                                 } label: {
                                     Label {
                                         Text(currentAuthAccount.displayName)
@@ -58,8 +56,7 @@ struct MastodonMainTabView: View {
                                 }
                             } else {
                                 Tab(tab.title, systemImage: "person", value: tab) {
-                                    Text(tab.title)
-                                        .font(.largeTitle)
+                                    view(forTab: tab)
                                 }
                             }
                         } header: {
@@ -90,7 +87,7 @@ struct MastodonMainTabView: View {
                             }
                         }
                         
-                    case .compact:
+                    case .compact, .none:
                         Tab(tab.title, systemImage: tab.systemImage, value: tab) {
                             Text(tab.title)
                                 .font(.largeTitle)
@@ -103,8 +100,7 @@ struct MastodonMainTabView: View {
                     }
                 } else {
                     Tab(tab.title, systemImage: tab.systemImage, value: tab) {
-                        Text(tab.title)
-                            .font(.largeTitle)
+                        view(forTab: tab)
                     }
                 }
             }
@@ -152,6 +148,33 @@ struct MastodonMainTabView: View {
             return [.list("alist"), .list("blist")]
         case .hashtags:
             return [.hashtag("ahashtag"), .hashtag("bhashtag")]
+        }
+    }
+    
+    @ViewBuilder private func view(forTab tab: MastodonTabViewRouter.MastodonTab) -> some View {
+        switch tab {
+        case .home:
+            @Bindable var navigationStackNavigator = navigator.navigationRouter(forTab: tab)
+            NavigationStack(path: $navigationStackNavigator.navigationPath) {
+                let timelineModel = homeTimelineViewModel()
+                TimelineListView()
+                    .timelineEnvironment(timelineModel: timelineModel, contentConcealModel: .alwaysShow, filter: timelineModel.timelineQueryFilter, asyncRefreshModel: timelineModel.asyncRefreshViewModel)
+            }
+            .environment(navigationStackNavigator)
+            .environment(NestedScrollInteractionViewModel())
+        default:
+            Text(tab.title)
+                .font(.largeTitle)
+        }
+    }
+    
+    private func homeTimelineViewModel() -> TimelineListViewModel {
+        if let model = navigator.homeTimelineModel {
+            return model
+        } else {
+            let model = TimelineListViewModel(timeline: .homeTimeline, navigator: navigator.navigationRouter(forTab: .home), asyncRefreshViewModel: AsyncRefreshViewModel())
+            navigator.homeTimelineModel = model
+            return model
         }
     }
 }
