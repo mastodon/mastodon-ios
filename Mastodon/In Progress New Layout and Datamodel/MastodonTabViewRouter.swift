@@ -7,12 +7,16 @@ import SwiftUI
     
     public static let shared = MastodonTabViewRouter()
     
-    enum MastodonTab: Identifiable {
+    enum MastodonTab: Identifiable, Hashable {
         case home
         case explore
         case compose
         case notifications
         case profile
+        case lists
+        case hashtags
+        case list(String)
+        case hashtag(String)
         
         var id: String {
             switch self {
@@ -21,6 +25,12 @@ import SwiftUI
             case .compose: "compose"
             case .notifications: "notifications"
             case .profile: "profile"
+            case .hashtags: "hashtags"
+            case .lists: "lists"
+            case .list(let id):
+                "list-\(id)"
+            case .hashtag(let id):
+                "hashtag-\(id)"
             }
         }
     }
@@ -29,11 +39,19 @@ import SwiftUI
     
     private var navigationRouters = [ MastodonTab : MastodonNavigationRouter]()
     
-    var tabs: [MastodonTab] = [.home, .explore, .compose, .notifications, .profile]
+    func tabs(forSizeClass sizeClass: UserInterfaceSizeClass?) -> [MastodonTab] {
+        switch sizeClass {
+        case .regular:
+            return [.home, .explore, .compose, .notifications, .profile, .lists, .hashtags]
+        case .none, .compact:
+            fallthrough
+        @unknown default:
+            return [.home, .explore, .compose, .notifications, .profile]
+        }
+    }
     
     public func show(_ destination: MastodonNavigationDestination, in tab: MastodonTab) {
-        var router = navigationRouter(forTab: tab)
-        router.push(destination)
+        navigationRouter(forTab: tab).push(destination)
     }
     
     public func navigationRouter(forTab tab: MastodonTab) -> MastodonNavigationRouter {
