@@ -29,6 +29,7 @@ struct MastodonMainTabView: View {
                     }
                     .defaultVisibility(.hidden, for: .tabBar)
                 } else if tab == .profile {
+                    // Profile is a special case because we are showing the current profile as a navigation tab and any other logged-in accounts as actions, plus an add additional account action
                     TabSection {
                         Tab(tab.title, systemImage: tab.systemImage, value: tab) {
                             Text(tab.title)
