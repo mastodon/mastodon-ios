@@ -74,6 +74,15 @@ struct MastodonMainTabView: View {
                                     }
                                 }
                             }
+                            Button {
+                                navigator.presentedModal = .legacy(scene: .welcome, transition: .modal(animated: true, completion: nil))
+                            } label: {
+                                Label {
+                                    Text("Add account")
+                                } icon: {
+                                    Image(systemName: "plus")
+                                }
+                            }
                         }
                         
                     case .compact:
@@ -96,6 +105,38 @@ struct MastodonMainTabView: View {
             }
         }
         .tabViewStyle(.sidebarAdaptable)
+        .sheet(isPresented: Binding<Bool>(
+            get: { navigator.presentedModal != nil },
+            set: { value in
+                if value == false && navigator.presentedModal != nil { navigator.presentedModal = nil
+                }
+            })) {
+            switch navigator.presentedModal {
+            case .none:
+                Text("No modal to present")
+            case .timeline:
+                Text("Timeline not implemented as modal presentation")
+            case .profile:
+                Text("Profile not implemented as modal presentation")
+            case .editProfile:
+                Text("Edit Profile not implemented as modal presentation")
+            case .editProfileNavigation:
+                Text("Edit Profile Navigation not implemented as modal presentation")
+            case .share:
+                Text("Share not implemented as modal presentation")
+            case .legacy(let scene, _):
+                switch scene {
+                case .welcome:
+                    if let vc = sceneCoordinator?.welcomeFlowStartController() {
+                        LegacyNavigationViewControllerWrapper(startingRootViewController: vc)
+                    } else {
+                        Text("No Welcome View controller")
+                    }
+                default:
+                    Text("\(scene) not implemented as modal presentation")
+                }
+            }
+        }
     }
     
     private func subtabsFor(_ tab: MastodonTabViewRouter.MastodonTab) -> [MastodonTabViewRouter.MastodonTab]? {
@@ -234,5 +275,19 @@ extension MastodonTabViewRouter.MastodonTab {
         case .lists, .hashtags, .list, .hashtag:
                 .hidden
         }
+    }
+}
+
+struct LegacyNavigationViewControllerWrapper: UIViewControllerRepresentable {
+    
+    let startingRootViewController: UIViewController
+    
+    func makeUIViewController(context: Context) -> UINavigationController {
+        let navController = UINavigationController(rootViewController: startingRootViewController)
+        return navController
+    }
+    
+    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
+        // nothing to do?
     }
 }

@@ -216,7 +216,7 @@ extension SceneCoordinator {
     @MainActor
     func setup() {
         
-        let mainTabView = UIHostingController(rootView: MastodonMainTabView())
+        let mainTabView = UIHostingController(rootView: MastodonMainTabView().environment(\.sceneCoordinator, self))
         sceneDelegate.window?.rootViewController = mainTabView
         self.rootViewController = mainTabView
         
@@ -237,7 +237,7 @@ extension SceneCoordinator {
         guard let viewController = get(scene: scene, from: sender) else {
             return nil
         }
-        guard var presentingViewController = sender ?? sceneDelegate.window?.rootViewController?.topMost else {
+        guard let presentingViewController = sender ?? sceneDelegate.window?.rootViewController?.topMost else {
             return nil
         }
 
@@ -309,6 +309,10 @@ extension SceneCoordinator {
 
     func switchToTabBar(tab: MastodonTabViewRouter.MastodonTab) {
         MastodonTabViewRouter.shared.selectedTab = tab
+    }
+    
+    public func welcomeFlowStartController() -> UIViewController? {
+        return get(scene: .welcome)
     }
 }
 

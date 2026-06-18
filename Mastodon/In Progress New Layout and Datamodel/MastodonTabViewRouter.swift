@@ -62,4 +62,6 @@ import SwiftUI
         navigationRouters[tab] = freshRouter
         return freshRouter
     }
+    
+    public var presentedModal: MastodonNavigationDestination?
 }
