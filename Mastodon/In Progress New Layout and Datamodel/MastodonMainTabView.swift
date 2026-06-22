@@ -193,8 +193,11 @@ struct MastodonMainTabView: View {
         }
         Button {
             if showAccountSwitcher {
+                // must dismiss or the new modal presentation will not happen
                 showAccountSwitcher = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) { // without this delay, the modal presentation gets tangled up with the dismissing sheet
                     navigator.presentedModal = .legacy(scene: .welcome, transition: .modal(animated: true, completion: nil))
+                }
             } else {
                 navigator.presentedModal = .legacy(scene: .welcome, transition: .modal(animated: true, completion: nil))
             }
