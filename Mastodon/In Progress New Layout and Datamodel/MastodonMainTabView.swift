@@ -175,12 +175,12 @@ struct MastodonMainTabView: View {
                             }
                         }
                     }
+                    .navigationDestination(for: MastodonNavigationDestination.self) { destination in
+                        navigationStackNavigator.destinationView(destination)
+                    }
             }
             .environment(navigationStackNavigator)
             .environment(NestedScrollInteractionViewModel())
-            .navigationDestination(for: MastodonNavigationDestination.self) { destination in
-                navigationStackNavigator.destinationView(destination)
-            }
         default:
             Text(tab.title)
                 .font(.largeTitle)
