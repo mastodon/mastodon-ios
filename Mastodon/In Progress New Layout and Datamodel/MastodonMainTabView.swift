@@ -89,15 +89,8 @@ struct MastodonMainTabView: View {
             }
         }
         .tabViewStyle(.sidebarAdaptable)
-        .sheet(isPresented: Binding<Bool>(
-            get: { navigator.presentedModal != nil },
-            set: { value in
-                if value == false && navigator.presentedModal != nil { navigator.presentedModal = nil
-                }
-            })) {
-            switch navigator.presentedModal {
-            case .none:
-                Text("No modal to present")
+        .sheet(item: $navigator.presentedModal) { presentedItem in
+            switch presentedItem {
             case .timeline:
                 Text("Timeline not implemented as modal presentation")
             case .profile:

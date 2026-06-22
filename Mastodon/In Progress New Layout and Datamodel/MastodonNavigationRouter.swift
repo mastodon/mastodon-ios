@@ -4,13 +4,15 @@ import SwiftUI
 import MastodonSDK
 import MastodonCore
 
-enum MastodonNavigationDestination {
+enum MastodonNavigationDestination: Identifiable {
     case timeline(TimelineViewType)
     case profile(account: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?)
     case editProfile(profileViewModel: ProfileViewModel)
     case editProfileNavigation(destination: ProfileEditDestinationType)
     case share(activityItems: [Any])
     case legacy(scene: SceneCoordinator.Scene, transition: SceneCoordinator.Transition)
+    
+    var id: String { description }
 }
 
 /// Views requiring navigation support should include this class as an @Environment var:
