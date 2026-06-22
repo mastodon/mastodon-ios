@@ -80,7 +80,7 @@ struct CollectionRowView: View {
     @ViewBuilder func avatar(atIndex index: Int) -> some View {
         if index < viewModel.accountAvatarUrls.count {
             let url = viewModel.accountAvatarUrls[index]
-            AvatarView(size: avatarViewSize, avatarSource: .url(url), goToProfile: nil)
+            AvatarView(style: .roundedRect, size: avatarViewSize, avatarSource: .url(url), goToProfile: nil)
                 .frame(width: avatarSize, height: avatarSize)
                 .accessibilityHidden(true)
         } else {

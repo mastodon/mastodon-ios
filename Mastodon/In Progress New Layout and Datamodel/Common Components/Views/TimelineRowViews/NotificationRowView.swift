@@ -593,7 +593,7 @@ struct NotificationRowView: View {
                     ForEach(
                         accountInfo.accounts.prefix(maxAvatarCount), id: \.self.id
                     ) { account in
-                        AvatarView(size: .small, avatarSource: .url(account.avatarURL), goToProfile: { try await viewModel.navigateToProfile(account, navigator: navigator) })
+                        AvatarView(style: .roundedRect, size: .small, avatarSource: .url(account.avatarURL), goToProfile: { try await viewModel.navigateToProfile(account, navigator: navigator) })
                             .onTapGesture {
                                 Task {
                                     try await viewModel.navigateToProfile(account, navigator: navigator)

@@ -63,7 +63,7 @@ struct MastodonPostRowView: View {
             HStack(alignment: .top, spacing: spacingBetweenGutterAndContent) {
                 // MARK: Avatar
                 VStack(spacing: 0) {
-                    AvatarView(size: .large, avatarSource: .url(author?.avatarURL ?? viewModel.initialDisplayInfo.actionableAuthorStaticAvatar), goToProfile: {
+                    AvatarView(style: .roundedRect, size: .large, avatarSource: .url(author?.avatarURL ?? viewModel.initialDisplayInfo.actionableAuthorStaticAvatar), goToProfile: {
                         switch viewModel.displayType {
                         case .editHistory:
                             break

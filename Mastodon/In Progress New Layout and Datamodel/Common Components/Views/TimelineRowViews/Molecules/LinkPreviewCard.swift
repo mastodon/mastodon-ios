@@ -197,7 +197,7 @@ struct LinkPreviewCard: View {
                     navigator.push(.profile(account: account, relationship: nil))
                 } label: {
                     HStack(spacing: tinySpacing) {
-                        AvatarView(size: .tiny, avatarSource: .url(account.avatarURL), goToProfile: nil)
+                        AvatarView(style: .roundedRect, size: .tiny, avatarSource: .url(account.avatarURL), goToProfile: nil)
                         MastodonContentView.header(html: account.displayNameWithFallback, emojis: account.emojis, style: .linkPreviewCardAuthorButton)
                             .lineLimit(1)
                     }

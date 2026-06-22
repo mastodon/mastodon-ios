@@ -44,7 +44,7 @@ struct MastodonMainTabView: View {
                     switch sizeClass {
                     case .regular:
                         TabSection {
-                            if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value, let currentAuthAccount = currentAuthBox.cachedAccount, let icon = avatarIconRenderer.prerenderedAccountAvatar(currentAuthBox.globallyUniqueUserIdentifier, displayScale: displayScale) {
+                            if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value, let currentAuthAccount = currentAuthBox.cachedAccount, let icon = avatarIconRenderer.prerenderedAccountAvatar(currentAuthBox.globallyUniqueUserIdentifier, style: .circular, displayScale: displayScale) {
                                 Tab(value: tab) {
                                     view(forTab: tab)
                                 } label: {
@@ -72,7 +72,7 @@ struct MastodonMainTabView: View {
                                     Label {
                                         Text(account.cachedAccount?.displayName ?? "")
                                     } icon: {
-                                        avatarIconRenderer.prerenderedAccountAvatar(account.globallyUniqueUserIdentifier, displayScale: displayScale) ?? Image(systemName: "app.dashed")
+                                        avatarIconRenderer.prerenderedAccountAvatar(account.globallyUniqueUserIdentifier, style: .circular, displayScale: displayScale) ?? Image(systemName: "app.dashed")
                                     }
                                 }
                             }
@@ -159,9 +159,34 @@ struct MastodonMainTabView: View {
                 let timelineModel = homeTimelineViewModel()
                 TimelineListView()
                     .timelineEnvironment(timelineModel: timelineModel, contentConcealModel: .alwaysShow, filter: timelineModel.timelineQueryFilter, asyncRefreshModel: timelineModel.asyncRefreshViewModel)
+                    .toolbar {
+                        if let accountGUID = AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier {
+                            if #available(iOS 26.0, *) {
+                                ToolbarItem(placement: .topBarTrailing) {
+                                    Button {
+                                        // TODO: show the account switcher as a modal, include settings at the bottom
+                                    } label: {
+                                        avatarIconRenderer.prerenderedAccountAvatar(accountGUID, style: .circular, displayScale: displayScale)
+                                    }
+                                }
+                                .sharedBackgroundVisibility(.hidden)
+                            } else {
+                                ToolbarItem(placement: .topBarTrailing) {
+                                    Button {
+                                        // TODO: show the account switcher as a modal, include settings at the bottom
+                                    } label: {
+                                        avatarIconRenderer.prerenderedAccountAvatar(accountGUID, style: .circular, displayScale: displayScale)
+                                    }
+                                }
+                            }
+                        }
+                    }
             }
             .environment(navigationStackNavigator)
             .environment(NestedScrollInteractionViewModel())
+            .navigationDestination(for: MastodonNavigationDestination.self) { destination in
+                navigationStackNavigator.destinationView(destination)
+            }
         default:
             Text(tab.title)
                 .font(.largeTitle)
@@ -192,6 +217,7 @@ struct MastodonMainTabView: View {
         }
     }
     public private(set) var accountAvatarIconsRendered = [ String : Image ]()
+    public private(set) var accountAvatarsCircularCropped = [ String : Image ]()
     
     private var accountAvatarImages = [ String : UIImage ]()
     private var renderQueue = [String]()
@@ -215,15 +241,31 @@ struct MastodonMainTabView: View {
         }
     }
     
-    func prerenderedAccountAvatar(_ accountGUID: String, displayScale: CGFloat) -> Image? {
+    func prerenderedAccountAvatar(_ accountGUID: String, style: AvatarView.AvatarStyle,  displayScale: CGFloat) -> Image? {
         if displayScale != self.displayScale {
             self.displayScale = displayScale
         }
-        if let prerendered = accountAvatarIconsRendered[accountGUID] {
+        
+        let prerendered = {
+            switch style {
+            case .roundedRect:
+                self.accountAvatarIconsRendered[accountGUID]
+            case .circular:
+                self.accountAvatarsCircularCropped[accountGUID]
+            }
+        }()
+        if prerendered != nil {
             return prerendered
         } else if !renderQueue.contains(accountGUID) && currentRender?.0 != accountGUID {
             renderQueue.append(accountGUID)
             doNextRender()
+        }
+        return nil
+    }
+    
+    func baseImage(_ accountGUID: String) -> Image? {
+        if let image = accountAvatarImages[accountGUID] {
+            return Image(uiImage: image)
         }
         return nil
     }
@@ -234,11 +276,19 @@ struct MastodonMainTabView: View {
             currentRender = (nextRenderGUID, Task {
                 guard !Task.isCancelled else { return }
                 guard let image = accountAvatarImages[nextRenderGUID] else { return }
-                let avatarView = AvatarView(size: .small, borderStyle: .separator, avatarSource: .local(Image(uiImage: image)), goToProfile: {})
-                let renderer = ImageRenderer(content: avatarView)
-                renderer.scale = displayScale
-                guard let rendered = renderer.uiImage else { return }
+                
+                let roundedRectAvatarView = AvatarView(style: .roundedRect, size: .small, borderStyle: .separator, avatarSource: .local(Image(uiImage: image)), goToProfile: {})
+                let rectRenderer = ImageRenderer(content: roundedRectAvatarView)
+                rectRenderer.scale = displayScale
+                guard let rendered = rectRenderer.uiImage else { return }
                 accountAvatarIconsRendered[nextRenderGUID] = Image(uiImage: rendered)
+                
+                let circularAvatarView = AvatarView(style: .circular, size: .small, borderStyle: .separator, avatarSource: .local(Image(uiImage: image)), goToProfile: {})
+                let circRenderer = ImageRenderer(content: circularAvatarView)
+                circRenderer.scale = displayScale
+                guard let rendered = circRenderer.uiImage else { return }
+                accountAvatarsCircularCropped[nextRenderGUID] = Image(uiImage: rendered)
+                
             })
         }
     }
