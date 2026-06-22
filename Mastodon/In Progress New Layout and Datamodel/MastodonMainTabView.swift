@@ -5,6 +5,7 @@ import MastodonCore
 import MastodonUI
 import SDWebImageSwiftUI
 import MastodonAsset
+import Combine
 
 extension EnvironmentValues {
     @Entry var sceneCoordinator: SceneCoordinator? = nil
@@ -15,9 +16,11 @@ struct MastodonMainTabView: View {
     @Environment(\.displayScale) private var displayScale
     @Environment(\.sceneCoordinator) private var sceneCoordinator
     
+    @State private var authenticationObserver = AuthenticationObserver.shared
     @State private var navigator = MastodonTabViewRouter.shared
     @State private var avatarIconRenderer = AvatarIconRenderer.shared
     @State private var showAccountSwitcher = false
+    @State private var isSwitchingAccounts = false
    
     
     var body: some View {
@@ -88,6 +91,7 @@ struct MastodonMainTabView: View {
                 }
             }
         }
+        .id(authenticationObserver.currentActiveUser?.globallyUniqueUserIdentifier) // rebuild the full view tree when the active user changes
         .tabViewStyle(.sidebarAdaptable)
         .sheet(item: $navigator.presentedModal) { presentedItem in
             switch presentedItem {
@@ -111,6 +115,14 @@ struct MastodonMainTabView: View {
                     }
                 default:
                     Text("\(scene) not implemented as modal presentation")
+                }
+            }
+        }
+        .overlay {
+            if isSwitchingAccounts {
+                ZStack {
+                    Color.secondary.opacity(0.8)
+                    ProgressView().progressViewStyle(.circular)
                 }
             }
         }
@@ -176,17 +188,18 @@ struct MastodonMainTabView: View {
     }
     
     @ViewBuilder private func alternateAccountButtons() -> some View {
-        ForEach(AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.filter({ $0.globallyUniqueUserIdentifier != AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier }), id: \.self.globallyUniqueUserIdentifier) { account in
+        ForEach(AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.filter({ $0.globallyUniqueUserIdentifier != AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier }), id: \.self.globallyUniqueUserIdentifier) { authBox in
             Button {
+                self.switchTo(authBox)
             } label: {
                 Label {
-                    if let handle = account.cachedAccount?.acctWithDomain {
+                    if let handle = authBox.cachedAccount?.acctWithDomain {
                         Text("@\(handle)")
                     } else {
-                        Text(account.cachedAccount?.displayName ?? "")
+                        Text(authBox.cachedAccount?.displayName ?? "")
                     }
                 } icon: {
-                    avatarIconRenderer.prerenderedAccountAvatar(account.globallyUniqueUserIdentifier, style: .circular, displayScale: displayScale) ?? Image(systemName: "app.dashed")
+                    avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular, displayScale: displayScale) ?? Image(systemName: "app.dashed")
                 }
                 .padding()
             }
@@ -239,6 +252,18 @@ struct MastodonMainTabView: View {
             let model = TimelineListViewModel(timeline: .homeTimeline, navigator: navigator.navigationRouter(forTab: .home), asyncRefreshViewModel: AsyncRefreshViewModel())
             navigator.homeTimelineModel = model
             return model
+        }
+    }
+    
+    private func switchTo(_ authBox: MastodonAuthenticationBox) {
+        isSwitchingAccounts = true
+        if navigator.presentedModal != nil || showAccountSwitcher {
+            navigator.presentedModal = nil
+            showAccountSwitcher = false
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) { // this delay makes the transition feel less abrupt, giving the modals time to dismiss
+            AuthenticationServiceProvider.shared.activateAuthentication(authBox)
+            self.isSwitchingAccounts = false
         }
     }
 }
@@ -406,5 +431,22 @@ struct LegacyNavigationViewControllerWrapper: UIViewControllerRepresentable {
     
     func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
         // nothing to do?
+    }
+}
+
+@MainActor
+@Observable class AuthenticationObserver {
+    static let shared = AuthenticationObserver()
+    
+    private(set) var currentActiveUser: MastodonAuthenticationBox?
+    private(set) var allLoggedInUsers = [MastodonAuthenticationBox]()
+    private var subscriptions = Set<AnyCancellable>()
+    
+    private init() {
+        let authenticationServiceProvider = AuthenticationServiceProvider.shared
+        currentActiveUser = authenticationServiceProvider.currentActiveUser.value
+        allLoggedInUsers = authenticationServiceProvider.mastodonAuthenticationBoxes
+        authenticationServiceProvider.currentActiveUser.assign(to: \.currentActiveUser, on: self).store(in: &subscriptions)
+        authenticationServiceProvider.$mastodonAuthenticationBoxes.assign(to: \.allLoggedInUsers, on: self).store(in: &subscriptions)
     }
 }
