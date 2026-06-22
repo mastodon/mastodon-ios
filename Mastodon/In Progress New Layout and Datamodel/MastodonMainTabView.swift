@@ -192,7 +192,12 @@ struct MastodonMainTabView: View {
             }
         }
         Button {
-            navigator.presentedModal = .legacy(scene: .welcome, transition: .modal(animated: true, completion: nil))
+            if showAccountSwitcher {
+                showAccountSwitcher = false
+                    navigator.presentedModal = .legacy(scene: .welcome, transition: .modal(animated: true, completion: nil))
+            } else {
+                navigator.presentedModal = .legacy(scene: .welcome, transition: .modal(animated: true, completion: nil))
+            }
         } label: {
             Label {
                 Text("Add account")
