@@ -271,7 +271,7 @@ struct MastodonMainTabView: View {
 @MainActor
 @Observable class AvatarIconRenderer {
     public static let shared = AvatarIconRenderer()
-    public var displayScale: CGFloat = 1 {
+    private var displayScale: CGFloat = 1 {
         didSet {
             if oldValue != displayScale {
                 accountAvatarIconsRendered.removeAll(keepingCapacity: true)
