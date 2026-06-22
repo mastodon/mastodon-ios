@@ -17,6 +17,7 @@ struct MastodonMainTabView: View {
     
     @State private var navigator = MastodonTabViewRouter.shared
     @State private var avatarIconRenderer = AvatarIconRenderer.shared
+    @State private var showAccountSwitcher = false
    
     
     var body: some View {
@@ -66,25 +67,7 @@ struct MastodonMainTabView: View {
                             }
                         }
                         .sectionActions {
-                            ForEach(AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.filter({ $0.globallyUniqueUserIdentifier != AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier }), id: \.self.globallyUniqueUserIdentifier) { account in
-                                Button {
-                                } label: {
-                                    Label {
-                                        Text(account.cachedAccount?.displayName ?? "")
-                                    } icon: {
-                                        avatarIconRenderer.prerenderedAccountAvatar(account.globallyUniqueUserIdentifier, style: .circular, displayScale: displayScale) ?? Image(systemName: "app.dashed")
-                                    }
-                                }
-                            }
-                            Button {
-                                navigator.presentedModal = .legacy(scene: .welcome, transition: .modal(animated: true, completion: nil))
-                            } label: {
-                                Label {
-                                    Text("Add account")
-                                } icon: {
-                                    Image(systemName: "plus")
-                                }
-                            }
+                            alternateAccountButtons()
                         }
                         
                     case .compact, .none:
@@ -164,18 +147,24 @@ struct MastodonMainTabView: View {
                             if #available(iOS 26.0, *) {
                                 ToolbarItem(placement: .topBarTrailing) {
                                     Button {
-                                        // TODO: show the account switcher as a modal, include settings at the bottom
+                                        showAccountSwitcher = true
                                     } label: {
                                         avatarIconRenderer.prerenderedAccountAvatar(accountGUID, style: .circular, displayScale: displayScale)
+                                    }
+                                    .popover(isPresented: $showAccountSwitcher) {
+                                        accountSwitcherView()
                                     }
                                 }
                                 .sharedBackgroundVisibility(.hidden)
                             } else {
                                 ToolbarItem(placement: .topBarTrailing) {
                                     Button {
-                                        // TODO: show the account switcher as a modal, include settings at the bottom
+                                        showAccountSwitcher = true
                                     } label: {
                                         avatarIconRenderer.prerenderedAccountAvatar(accountGUID, style: .circular, displayScale: displayScale)
+                                    }
+                                    .popover(isPresented: $showAccountSwitcher) {
+                                        accountSwitcherView()
                                     }
                                 }
                             }
@@ -193,6 +182,55 @@ struct MastodonMainTabView: View {
         }
     }
     
+    @ViewBuilder private func alternateAccountButtons() -> some View {
+        ForEach(AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.filter({ $0.globallyUniqueUserIdentifier != AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier }), id: \.self.globallyUniqueUserIdentifier) { account in
+            Button {
+            } label: {
+                Label {
+                    if let handle = account.cachedAccount?.acctWithDomain {
+                        Text("@\(handle)")
+                    } else {
+                        Text(account.cachedAccount?.displayName ?? "")
+                    }
+                } icon: {
+                    avatarIconRenderer.prerenderedAccountAvatar(account.globallyUniqueUserIdentifier, style: .circular, displayScale: displayScale) ?? Image(systemName: "app.dashed")
+                }
+                .padding()
+            }
+        }
+        Button {
+            navigator.presentedModal = .legacy(scene: .welcome, transition: .modal(animated: true, completion: nil))
+        } label: {
+            Label {
+                Text("Add account")
+            } icon: {
+                Image(systemName: "plus")
+            }
+            .padding()
+        }
+    }
+    
+    @ViewBuilder private func accountSwitcherView() -> some View {
+        LazyVStack(alignment: .leading) {
+                if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value, let currentAuthAccount = currentAuthBox.cachedAccount, let icon = avatarIconRenderer.prerenderedAccountAvatar(currentAuthBox.globallyUniqueUserIdentifier, style: .circular, displayScale: displayScale) {
+                    Button {
+                        navigator.selectedTab = .profile
+                    } label: {
+                        Label {
+                            let handle = currentAuthAccount.acctWithDomain
+                            Text("@\(handle)")
+                        } icon: {
+                            icon
+                        }
+                    }
+                    .padding()
+                }
+                
+                alternateAccountButtons()
+            }
+        .padding()
+    }
+
     private func homeTimelineViewModel() -> TimelineListViewModel {
         if let model = navigator.homeTimelineModel {
             return model
