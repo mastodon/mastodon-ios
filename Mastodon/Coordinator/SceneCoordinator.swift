@@ -596,16 +596,11 @@ extension SceneCoordinator: SettingsCoordinatorDelegate {
 
     func openProfileSettingsURL(_ settingsCoordinator: SettingsCoordinator) {
         guard let authenticationBox else { return }
-
         let domain = authenticationBox.domain
         let profileSettingsURL = Mastodon.API.profileSettingsURL(domain: domain)
-
-//        let authenticationController = MastodonAuthenticationController(authenticateURL: profileSettingsURL)
-//
-//        authenticationController.authenticationSession?.presentationContextProvider = settingsCoordinator
-//        authenticationController.authenticationSession?.start()
-//
-//        self.mastodonAuthenticationController = authenticationController
+        _ = present(scene: .safari(url: profileSettingsURL),
+                    from: settingsCoordinator.settingsViewController.navigationController,
+                    transition: .safariPresent(animated: true))
     }
 }
 
