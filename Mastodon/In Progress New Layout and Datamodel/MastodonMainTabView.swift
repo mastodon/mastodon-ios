@@ -53,7 +53,8 @@ struct MastodonMainTabView: View {
                                     view(forTab: tab)
                                 } label: {
                                     Label {
-                                        Text(currentAuthAccount.displayName)
+                                       let handle = currentAuthAccount.acctWithDomain
+                                        Text("@\(handle)")
                                     } icon: {
                                         icon
                                     }
