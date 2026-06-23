@@ -188,8 +188,7 @@ class TimelineListViewController: UIHostingController<AnyView>
         self.navigationItem.title = type.navigationTitle
         switch type {
         case .home:
-            setUpTimelineSelectorButton()
-            self.navigationItem.rightBarButtonItem = settingBarButtonItem
+            assertionFailure("the home timeline no longer expects to be shown from UIKit navigation")
         case .notifications:
             setUpNotificationsNavBarControls()
             if viewModel.timeline.canDisplayFilteredNotifications {
@@ -216,16 +215,6 @@ class TimelineListViewController: UIHostingController<AnyView>
         fatalError(
             "init(coder:) not implemented for HomeTimelineListViewController")
     }
-    
-    lazy var settingBarButtonItem: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem()
-        barButtonItem.tintColor = Asset.Colors.Brand.blurple.color
-        barButtonItem.image = UIImage(systemName: "gear")
-        barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.settings
-        barButtonItem.target = self
-        barButtonItem.action = #selector(Self.settingBarButtonItemPressed(_:))
-        return barButtonItem
-    }()
     
     lazy var composeHashtagButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
@@ -375,10 +364,6 @@ extension TimelineListViewController {
     // MARK: HomeTimeline Nav Bar controls
     @objc func scrollToTop() {
         viewModel.scrollToTop()
-    }
-    
-    @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        _ = self.sceneCoordinator?.present(scene: .settings, from: self, transition: .none)
     }
     
     @objc private func composeHashtagBarButtonItemPressed(_ sender: UIBarButtonItem) {

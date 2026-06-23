@@ -18,12 +18,11 @@ protocol SettingsCoordinatorDelegate: AnyObject {
 @MainActor
 class SettingsCoordinator: NSObject, Coordinator {
 
-    let navigationController: UINavigationController
-    let presentedOn: UIViewController
+    let presentedOn: UIViewController?
     var navigationFlow: NavigationFlow?
 
     weak var delegate: SettingsCoordinatorDelegate?
-    private let settingsViewController: SettingsViewController
+    public let settingsViewController: SettingsViewController
 
     var pushNotificationSettings: PushNotificationsSubscription.PushNotificationsSettings?
     let appContext: AppContext
@@ -31,16 +30,15 @@ class SettingsCoordinator: NSObject, Coordinator {
     var disposeBag = Set<AnyCancellable>()
     let sceneCoordinator: SceneCoordinator
 
-    init(presentedOn: UIViewController, accountName: String, appContext: AppContext, authenticationBox: MastodonAuthenticationBox, sceneCoordinator: SceneCoordinator) {
+    init(presentedOn: UIViewController?, accountName: String, appContext: AppContext, authenticationBox: MastodonAuthenticationBox, sceneCoordinator: SceneCoordinator) {
         self.presentedOn = presentedOn
-        navigationController = UINavigationController()
         self.appContext = appContext
         self.authenticationBox = authenticationBox
         self.sceneCoordinator = sceneCoordinator
 
         settingsViewController = SettingsViewController(accountName: accountName, domain: authenticationBox.domain)
-        
         super.init()
+        settingsViewController.delegate = self
         
         Task { [weak self] in
             guard let s = self else { return }
@@ -60,10 +58,7 @@ class SettingsCoordinator: NSObject, Coordinator {
     }
 
     func start() {
-        settingsViewController.delegate = self
-
-        navigationController.pushViewController(settingsViewController, animated: false)
-        presentedOn.present(navigationController, animated: true)
+       // vestigial
     }
 }
 
@@ -74,6 +69,7 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
     }
 
     func didSelect(_ viewController: UIViewController, entry: SettingsEntry) {
+        guard let navigationController = viewController.navigationController else { return }
         switch entry {
             case .general:
             
@@ -180,11 +176,6 @@ extension SettingsCoordinator: AboutViewControllerDelegate {
 }
 
 //MARK: - ASWebAuthenticationPresentationContextProviding
-extension SettingsCoordinator: ASWebAuthenticationPresentationContextProviding {
-    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        return navigationController.view.window!
-    }
-}
 
 //MARK: - GeneralSettingsViewControllerDelegate
 extension SettingsCoordinator: GeneralSettingsViewControllerDelegate {
@@ -198,7 +189,7 @@ extension SettingsCoordinator: GeneralSettingsViewControllerDelegate {
     
     func showLanguagePicker(_ viewModel: GeneralSettingsViewModel, onLanguageSelected: @escaping OnLanguageSelected) {
         let viewController = LanguagePickerViewController(onLanguageSelected: onLanguageSelected)
-        navigationController.pushViewController(viewController, animated: true)
+        settingsViewController.navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
@@ -208,7 +199,7 @@ extension SettingsCoordinator: NotificationSettingsViewControllerDelegate {
         let policyListViewController = PolicySelectionViewController(viewModel: viewModel)
         policyListViewController.delegate = self
 
-        navigationController.pushViewController(policyListViewController, animated: true)
+        settingsViewController.navigationController?.pushViewController(policyListViewController, animated: true)
     }
 
     func viewWillDisappear(_ viewController: UIViewController, viewModel: NotificationSettingsViewModel) {

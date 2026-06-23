@@ -64,6 +64,23 @@ import SwiftUI
         navigationRouters[tab] = freshRouter
         return freshRouter
     }
-    
+   
+    /// public set is allowed so that this can be easily bindable, but callers should avoid setting this directly, use presentModal(_,afterDeconflictionDelay:) or dismissCurrentModal() instead.
     public var presentedModal: MastodonNavigationDestination?
+    
+    public func presentModal(_ modal: MastodonNavigationDestination, afterDeconflictionDelay: Bool) {
+        assert(presentedModal == nil, "caller is responsible for dismissing any modals current presented")
+        if afterDeconflictionDelay {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) { // without this delay, the modal presentation gets tangled up with any dismissing sheet
+                self.presentedModal = modal
+            }
+        } else {
+            presentedModal = modal
+        }
+    }
+    
+    public func dismissCurrentModal() {
+        guard presentedModal != nil else { return }
+        presentedModal = nil
+    }
 }

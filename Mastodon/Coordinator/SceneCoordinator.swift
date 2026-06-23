@@ -463,21 +463,19 @@ extension SceneCoordinator {
             activityViewController.popoverPresentationController?.barButtonItem = barButtonItem
             viewController = activityViewController
         case .settings:
-            guard let presentedOn = sender, let authenticationBox = self.authenticationBox
-            else { return nil }
+            guard let authenticationBox = self.authenticationBox else { return nil }
             
             let accountName = authenticationBox.authentication.username
             
-            let settingsCoordinator = SettingsCoordinator(presentedOn: presentedOn,
+            let settingsCoordinator = SettingsCoordinator(presentedOn: sender,
                                                           accountName: accountName,
                                                           appContext: AppContext.shared,
                                                           authenticationBox: authenticationBox,
                                                           sceneCoordinator: self
             )
             settingsCoordinator.delegate = self
-            settingsCoordinator.start()
 
-            viewController = settingsCoordinator.navigationController
+            viewController = settingsCoordinator.settingsViewController
             childCoordinator = settingsCoordinator
 
         case .editStatus(let viewModel):
@@ -582,7 +580,7 @@ extension SceneCoordinator: SettingsCoordinatorDelegate {
 
         _ = present(
             scene: .safari(url: githubURL),
-            from: settingsCoordinator.navigationController,
+            from: settingsCoordinator.settingsViewController.navigationController,
             transition: .safariPresent(animated: true)
         )
     }
@@ -591,7 +589,7 @@ extension SceneCoordinator: SettingsCoordinatorDelegate {
     func openPrivacyURL(_ settingsCoordinator: SettingsCoordinator) {
         guard let privacyURL = URL(string: "https://joinmastodon.org/ios/privacy") else { return }
         _ = present(scene: .safari(url: privacyURL),
-                    from: settingsCoordinator.navigationController,
+                    from: settingsCoordinator.settingsViewController.navigationController,
                     transition: .safariPresent(animated: true))
 
     }
@@ -602,12 +600,12 @@ extension SceneCoordinator: SettingsCoordinatorDelegate {
         let domain = authenticationBox.domain
         let profileSettingsURL = Mastodon.API.profileSettingsURL(domain: domain)
 
-        let authenticationController = MastodonAuthenticationController(authenticateURL: profileSettingsURL)
-
-        authenticationController.authenticationSession?.presentationContextProvider = settingsCoordinator
-        authenticationController.authenticationSession?.start()
-
-        self.mastodonAuthenticationController = authenticationController
+//        let authenticationController = MastodonAuthenticationController(authenticateURL: profileSettingsURL)
+//
+//        authenticationController.authenticationSession?.presentationContextProvider = settingsCoordinator
+//        authenticationController.authenticationSession?.start()
+//
+//        self.mastodonAuthenticationController = authenticationController
     }
 }
 

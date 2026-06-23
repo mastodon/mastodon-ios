@@ -109,7 +109,11 @@ struct MastodonMainTabView: View {
                 Text("Share not implemented as modal presentation")
             case .legacy(let scene, _):
                 if let vc = sceneCoordinator?.get(scene: scene) {
-                    LegacyNavigationViewControllerWrapper(startingRootViewController: vc)
+                    if vc is UINavigationController, let root = vc.topMost {
+                        LegacyNavigationViewControllerWrapper(startingRootViewController: root)
+                    } else {
+                        LegacyNavigationViewControllerWrapper(startingRootViewController: vc)
+                    }
                 } else {
                     Text("\(scene) not implemented as modal presentation")
                 }
