@@ -294,13 +294,14 @@ struct MastodonMainTabView: View {
     private func loadAccountAvatars() {
         for authBox in AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes {
             guard let avatarURL = authBox.cachedAccount?.avatarImageURL() else {
-                return
+                continue
             }
             SDWebImageManager.shared.loadImage(
                 with: avatarURL,
-                progress: nil) { image, _, _, _, _, _ in
-                    guard let image else { return }
-                    self.accountAvatarImages[authBox.globallyUniqueUserIdentifier] = image
+                progress: nil) { [weak self] image, _, _, _, _, _ in
+                    guard let self, let image else { return }
+                    self.accountAvatarImages[accountGUID] = image
+                    self.enqueueRender(accountGUID)
                 }
         }
     }
@@ -320,11 +321,16 @@ struct MastodonMainTabView: View {
         }()
         if prerendered != nil {
             return prerendered
-        } else if !renderQueue.contains(accountGUID) && currentRender?.0 != accountGUID {
-            renderQueue.append(accountGUID)
-            doNextRender()
+        } else {
+            enqueueRender(accountGUID)
         }
         return nil
+    }
+
+    private func enqueueRender(_ accountGUID: String) {
+        guard !renderQueue.contains(accountGUID), currentRender?.0 != accountGUID else { return }
+        renderQueue.append(accountGUID)
+        doNextRender()
     }
     
     func baseImage(_ accountGUID: String) -> Image? {
@@ -338,6 +344,10 @@ struct MastodonMainTabView: View {
         if currentRender == nil, !renderQueue.isEmpty {
             let nextRenderGUID = renderQueue.removeFirst()
             currentRender = (nextRenderGUID, Task {
+                defer {
+                    currentRender = nil
+                    doNextRender()
+                }
                 guard !Task.isCancelled else { return }
                 guard let image = accountAvatarImages[nextRenderGUID] else { return }
                 
