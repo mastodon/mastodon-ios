@@ -181,12 +181,46 @@ struct MastodonMainTabView: View {
             }
             .environment(navigationStackNavigator)
             .environment(NestedScrollInteractionViewModel())
+            
+        case .explore:
+            Text(tab.title)
+                .font(.largeTitle)
+            
         case .compose:
             if let authBox = authenticationObserver.currentActiveUser {
                LegacyComposeViewControllerWrapper(authBox: authBox)
                     .frame(maxWidth: 680)
                     .frame(maxHeight: 700)
                 // probably needs an id to regenerate when you publish a post
+            } else {
+                Asset.Colors.FigmaToken.bgSoftest.swiftUIColor
+            }
+            
+        case .notifications:
+            @Bindable var navigationStackNavigator = navigator.navigationRouter(forTab: tab)
+            NavigationStack(path: $navigationStackNavigator.navigationPath) {
+                let timelineModel = notificationsTimelineViewModel()
+                TimelineListView()
+                    .timelineEnvironment(timelineModel: timelineModel, contentConcealModel: .alwaysShow, filter: timelineModel.timelineQueryFilter, asyncRefreshModel: timelineModel.asyncRefreshViewModel)
+                    .toolbar {
+                        // need the switcher between everything and mentions only
+                    }
+                    .navigationDestination(for: MastodonNavigationDestination.self) { destination in
+                        navigationStackNavigator.destinationView(destination)
+                    }
+            }
+            .environment(navigationStackNavigator)
+            .environment(NestedScrollInteractionViewModel())
+        case .profile:
+            if let account = authenticationObserver.currentActiveUser?.cachedAccount {
+                @Bindable var navigationStackNavigator = navigator.navigationRouter(forTab: tab)
+                NavigationStack(path: $navigationStackNavigator.navigationPath) {
+                    navigationStackNavigator.destinationView(.profile(account: account, relationship: .isMe))
+                }
+                .navigationDestination(for: MastodonNavigationDestination.self) { destination in
+                    navigationStackNavigator.destinationView(destination)
+                }
+                .environment(navigationStackNavigator)
             } else {
                 Asset.Colors.FigmaToken.bgSoftest.swiftUIColor
             }
@@ -276,6 +310,16 @@ struct MastodonMainTabView: View {
         } else {
             let model = TimelineListViewModel(timeline: .homeTimeline, navigator: navigator.navigationRouter(forTab: .home), asyncRefreshViewModel: AsyncRefreshViewModel())
             navigator.homeTimelineModel = model
+            return model
+        }
+    }
+    
+    private func notificationsTimelineViewModel() -> TimelineListViewModel {
+        if let model = navigator.notificationsTimelineModel {
+            return model
+        } else {
+            let model = TimelineListViewModel(timeline: .notifications(scope: .everything), navigator: navigator.navigationRouter(forTab: .notifications), asyncRefreshViewModel: AsyncRefreshViewModel())
+            navigator.notificationsTimelineModel = model
             return model
         }
     }
