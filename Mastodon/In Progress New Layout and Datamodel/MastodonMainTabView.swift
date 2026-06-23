@@ -53,7 +53,7 @@ struct MastodonMainTabView: View {
                                     view(forTab: tab)
                                 } label: {
                                     Label {
-                                       let handle = currentAuthAccount.acctWithDomain
+                                        let handle = currentAuthAccount.acctWithDomain
                                         Text("@\(handle)")
                                     } icon: {
                                         icon
@@ -188,7 +188,7 @@ struct MastodonMainTabView: View {
             
         case .compose:
             if let authBox = authenticationObserver.currentActiveUser {
-               LegacyComposeViewControllerWrapper(authBox: authBox)
+                LegacyComposeViewControllerWrapper(authBox: authBox)
                     .frame(maxWidth: 680)
                     .frame(maxHeight: 700)
                 // probably needs an id to regenerate when you publish a post
