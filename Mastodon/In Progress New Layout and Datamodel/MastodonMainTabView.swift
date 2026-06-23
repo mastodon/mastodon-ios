@@ -71,6 +71,7 @@ struct MastodonMainTabView: View {
                             }
                         }
                         .sectionActions {
+                            settingsButton
                             alternateAccountButtons()
                         }
                         
@@ -107,14 +108,9 @@ struct MastodonMainTabView: View {
             case .share:
                 Text("Share not implemented as modal presentation")
             case .legacy(let scene, _):
-                switch scene {
-                case .welcome:
-                    if let vc = sceneCoordinator?.welcomeFlowStartController() {
-                        LegacyNavigationViewControllerWrapper(startingRootViewController: vc)
-                    } else {
-                        Text("No Welcome View controller")
-                    }
-                default:
+                if let vc = sceneCoordinator?.get(scene: scene) {
+                    LegacyNavigationViewControllerWrapper(startingRootViewController: vc)
+                } else {
                     Text("\(scene) not implemented as modal presentation")
                 }
             }
@@ -188,6 +184,23 @@ struct MastodonMainTabView: View {
         }
     }
     
+    @ViewBuilder private var settingsButton: some View {
+        Button {
+            let needsDismiss = showAccountSwitcher || self.navigator.presentedModal != nil
+            if needsDismiss {
+                showAccountSwitcher = false
+                self.navigator.dismissCurrentModal()
+            }
+            self.navigator.presentModal(.legacy(scene: .settings, transition: .modal(animated: true, completion: nil)), afterDeconflictionDelay: needsDismiss)
+        } label: {
+            Label {
+                Text("Settings")
+            } icon: {
+                Image(systemName: "gear")
+            }
+        }
+    }
+    
     @ViewBuilder private func alternateAccountButtons() -> some View {
         ForEach(AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.filter({ $0.globallyUniqueUserIdentifier != AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier }), id: \.self.globallyUniqueUserIdentifier) { authBox in
             Button {
@@ -206,15 +219,12 @@ struct MastodonMainTabView: View {
             }
         }
         Button {
-            if showAccountSwitcher {
+            let needsDismissCurrent = showAccountSwitcher
+            if needsDismissCurrent {
                 // must dismiss or the new modal presentation will not happen
                 showAccountSwitcher = false
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) { // without this delay, the modal presentation gets tangled up with the dismissing sheet
-                    navigator.presentedModal = .legacy(scene: .welcome, transition: .modal(animated: true, completion: nil))
-                }
-            } else {
-                navigator.presentedModal = .legacy(scene: .welcome, transition: .modal(animated: true, completion: nil))
             }
+            navigator.presentModal(.legacy(scene: .welcome, transition: .modal(animated: true, completion: nil)), afterDeconflictionDelay: needsDismissCurrent)
         } label: {
             Label {
                 Text("Add account")
@@ -227,22 +237,23 @@ struct MastodonMainTabView: View {
     
     @ViewBuilder private func accountSwitcherView() -> some View {
         LazyVStack(alignment: .leading) {
-                if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value, let currentAuthAccount = currentAuthBox.cachedAccount, let icon = avatarIconRenderer.prerenderedAccountAvatar(currentAuthBox.globallyUniqueUserIdentifier, style: .circular, displayScale: displayScale) {
-                    Button {
-                        navigator.selectedTab = .profile
-                    } label: {
-                        Label {
-                            let handle = currentAuthAccount.acctWithDomain
-                            Text("@\(handle)")
-                        } icon: {
-                            icon
-                        }
+            if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value, let currentAuthAccount = currentAuthBox.cachedAccount, let icon = avatarIconRenderer.prerenderedAccountAvatar(currentAuthBox.globallyUniqueUserIdentifier, style: .circular, displayScale: displayScale) {
+                Button {
+                    navigator.selectedTab = .profile
+                } label: {
+                    Label {
+                        let handle = currentAuthAccount.acctWithDomain
+                        Text("@\(handle)")
+                    } icon: {
+                        icon
                     }
-                    .padding()
                 }
-                
-                alternateAccountButtons()
+                .padding()
             }
+            settingsButton
+                .padding()
+            alternateAccountButtons()
+        }
         .padding()
     }
 
@@ -258,11 +269,12 @@ struct MastodonMainTabView: View {
     
     private func switchTo(_ authBox: MastodonAuthenticationBox) {
         isSwitchingAccounts = true
-        if navigator.presentedModal != nil || showAccountSwitcher {
-            navigator.presentedModal = nil
+        let needsDismiss = navigator.presentedModal != nil || showAccountSwitcher
+        if needsDismiss {
+            navigator.dismissCurrentModal()
             showAccountSwitcher = false
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) { // this delay makes the transition feel less abrupt, giving the modals time to dismiss
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) { // this delay gives the modals time to dismiss, making the transition feel less abrupt
             AuthenticationServiceProvider.shared.activateAuthentication(authBox)
             self.isSwitchingAccounts = false
         }

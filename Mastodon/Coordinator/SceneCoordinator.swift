@@ -310,13 +310,9 @@ extension SceneCoordinator {
     func switchToTabBar(tab: MastodonTabViewRouter.MastodonTab) {
         MastodonTabViewRouter.shared.selectedTab = tab
     }
-    
-    public func welcomeFlowStartController() -> UIViewController? {
-        return get(scene: .welcome)
-    }
 }
 
-private extension SceneCoordinator {
+extension SceneCoordinator {
     
     func get(scene: Scene, from sender: UIViewController? = nil) -> UIViewController? {
         let viewController: UIViewController?
