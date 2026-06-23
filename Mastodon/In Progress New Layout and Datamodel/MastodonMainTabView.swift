@@ -184,6 +184,8 @@ struct MastodonMainTabView: View {
         case .compose:
             if let authBox = authenticationObserver.currentActiveUser {
                LegacyComposeViewControllerWrapper(authBox: authBox)
+                    .frame(maxWidth: 680)
+                    .frame(maxHeight: 700)
                 // probably needs an id to regenerate when you publish a post
             } else {
                 Asset.Colors.FigmaToken.bgSoftest.swiftUIColor
@@ -512,7 +514,9 @@ struct LegacyComposeViewControllerWrapper: UIViewControllerRepresentable {
     
     func makeUIViewController(context: Context) -> some UIViewController {
         let viewModel = ComposeViewModel(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel)
-        return ComposeViewController(viewModel: viewModel)
+            let composer = ComposeViewController(viewModel: viewModel)
+        let navigationWrapper = UINavigationController(rootViewController: composer)
+        return navigationWrapper
     }
     
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
