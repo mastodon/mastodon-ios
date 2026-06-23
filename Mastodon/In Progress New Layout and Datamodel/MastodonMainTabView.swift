@@ -181,6 +181,13 @@ struct MastodonMainTabView: View {
             }
             .environment(navigationStackNavigator)
             .environment(NestedScrollInteractionViewModel())
+        case .compose:
+            if let authBox = authenticationObserver.currentActiveUser {
+               LegacyComposeViewControllerWrapper(authBox: authBox)
+                // probably needs an id to regenerate when you publish a post
+            } else {
+                Asset.Colors.FigmaToken.bgSoftest.swiftUIColor
+            }
         default:
             Text(tab.title)
                 .font(.largeTitle)
@@ -468,20 +475,6 @@ extension MastodonTabViewRouter.MastodonTab {
     }
 }
 
-struct LegacyNavigationViewControllerWrapper: UIViewControllerRepresentable {
-    
-    let startingRootViewController: UIViewController
-    
-    func makeUIViewController(context: Context) -> UINavigationController {
-        let navController = UINavigationController(rootViewController: startingRootViewController)
-        return navController
-    }
-    
-    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
-        // nothing to do?
-    }
-}
-
 @MainActor
 @Observable class AuthenticationObserver {
     static let shared = AuthenticationObserver()
@@ -496,5 +489,33 @@ struct LegacyNavigationViewControllerWrapper: UIViewControllerRepresentable {
         allLoggedInUsers = authenticationServiceProvider.mastodonAuthenticationBoxes
         authenticationServiceProvider.currentActiveUser.assign(to: \.currentActiveUser, on: self).store(in: &subscriptions)
         authenticationServiceProvider.$mastodonAuthenticationBoxes.assign(to: \.allLoggedInUsers, on: self).store(in: &subscriptions)
+    }
+}
+
+struct LegacyNavigationViewControllerWrapper: UIViewControllerRepresentable {
+    
+    let startingRootViewController: UIViewController
+    
+    func makeUIViewController(context: Context) -> UINavigationController {
+        let navController = UINavigationController(rootViewController: startingRootViewController)
+        return navController
+    }
+    
+    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
+        // nothing to do?
+    }
+}
+
+
+struct LegacyComposeViewControllerWrapper: UIViewControllerRepresentable {
+    let authBox: MastodonAuthenticationBox
+    
+    func makeUIViewController(context: Context) -> some UIViewController {
+        let viewModel = ComposeViewModel(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel)
+        return ComposeViewController(viewModel: viewModel)
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+        // nothing to do?
     }
 }
