@@ -72,7 +72,6 @@ struct MastodonMainTabView: View {
                         }
                         .sectionActions {
                             settingsButton
-                            alternateAccountButtons()
                         }
                         
                     case .compact, .none:
@@ -255,7 +254,8 @@ struct MastodonMainTabView: View {
                 .padding()
             }
             settingsButton
-                .padding()
+                .padding(.horizontal)
+            Divider()
             alternateAccountButtons()
         }
         .padding()
