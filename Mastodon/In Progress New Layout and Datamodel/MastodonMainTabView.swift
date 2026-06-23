@@ -286,13 +286,35 @@ struct MastodonMainTabView: View {
     private var accountAvatarImages = [ String : UIImage ]()
     private var renderQueue = [String]()
     private var currentRender: (String, Task<Void, Never>)?
+    private var subscriptions = Set<AnyCancellable>()
     
     init() {
-        loadAccountAvatars()
+        loadAccountAvatars() // in case any are already available
+        NotificationCenter.default.addObserver(  // attempt to load avatars again when users are fetched asynchronously (usually only the current active user is available immediately)
+            forName: .userFetched,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            MainActor.assumeIsolated {
+                self?.loadAccountAvatars()
+            }
+        }
+
+        AuthenticationServiceProvider.shared.$mastodonAuthenticationBoxes // and reload again whenever the set of users changes
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                MainActor.assumeIsolated {
+                    self?.loadAccountAvatars()
+                }
+            }
+            .store(in: &subscriptions)
     }
     
     private func loadAccountAvatars() {
         for authBox in AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes {
+            let accountGUID = authBox.globallyUniqueUserIdentifier
+            guard accountAvatarImages[accountGUID] == nil else { continue }
             guard let avatarURL = authBox.cachedAccount?.avatarImageURL() else {
                 continue
             }
@@ -362,7 +384,6 @@ struct MastodonMainTabView: View {
                 circRenderer.scale = displayScale
                 guard let rendered = circRenderer.uiImage else { return }
                 accountAvatarsCircularCropped[nextRenderGUID] = Image(uiImage: rendered)
-                
             })
         }
     }
