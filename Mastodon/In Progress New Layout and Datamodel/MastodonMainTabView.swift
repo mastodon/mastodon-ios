@@ -199,11 +199,31 @@ struct MastodonMainTabView: View {
         case .notifications:
             @Bindable var navigationStackNavigator = navigator.navigationRouter(forTab: tab)
             NavigationStack(path: $navigationStackNavigator.navigationPath) {
-                let timelineModel = notificationsTimelineViewModel()
+                let timelineModel = notificationsTimelineViewModel(scope: navigator.selectedNotificationsTimeline)
                 TimelineListView()
                     .timelineEnvironment(timelineModel: timelineModel, contentConcealModel: .alwaysShow, filter: timelineModel.timelineQueryFilter, asyncRefreshModel: timelineModel.asyncRefreshViewModel)
                     .toolbar {
-                        // need the switcher between everything and mentions only
+                            // picker as the center item
+                            ToolbarItem(placement: .principal) {
+                                Picker("Scope", selection: $navigator.selectedNotificationsTimeline) {
+                                    Text("Everything")
+                                        .tag(NotificationsScope.everything)
+                                    Text("Mentions")
+                                        .tag(NotificationsScope.mentions)
+                                }
+                                .pickerStyle(.segmented)
+                            }
+                            
+                            
+                            // filter button as the trailing item
+                            ToolbarItem(placement: .topBarTrailing) {
+                                Button {
+                                    self.showNotificationPolicySettings()
+                                } label: {
+                                    Image(systemName: "line.3.horizontal.decrease.circle")
+                                }
+                                .buttonStyle(.plain)
+                            }
                     }
                     .navigationDestination(for: MastodonNavigationDestination.self) { destination in
                         navigationStackNavigator.destinationView(destination)
@@ -314,13 +334,28 @@ struct MastodonMainTabView: View {
         }
     }
     
-    private func notificationsTimelineViewModel() -> TimelineListViewModel {
-        if let model = navigator.notificationsTimelineModel {
-            return model
-        } else {
-            let model = TimelineListViewModel(timeline: .notifications(scope: .everything), navigator: navigator.navigationRouter(forTab: .notifications), asyncRefreshViewModel: AsyncRefreshViewModel())
-            navigator.notificationsTimelineModel = model
-            return model
+    private func notificationsTimelineViewModel(scope: NotificationsScope) -> TimelineListViewModel {
+        func newModel() -> TimelineListViewModel {
+            return TimelineListViewModel(timeline: .notifications(scope: scope), navigator: navigator.navigationRouter(forTab: .notifications), asyncRefreshViewModel: AsyncRefreshViewModel())
+        }
+        switch scope {
+        case .everything:
+            if let model = navigator.notificationsTimelineModelEverything {
+                return model
+            }
+            let new = newModel()
+            navigator.notificationsTimelineModelEverything = new
+            return new
+        case .mentions:
+            if let model = navigator.notificationsTimelineModelMentions {
+                return model
+            }
+            let new = newModel()
+            navigator.notificationsTimelineModelMentions = new
+            return new
+        case .fromRequest:
+            assertionFailure()
+            return newModel()
         }
     }
     
@@ -334,6 +369,36 @@ struct MastodonMainTabView: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) { // this delay gives the modals time to dismiss, making the transition feel less abrupt
             AuthenticationServiceProvider.shared.activateAuthentication(authBox)
             self.isSwitchingAccounts = false
+        }
+    }
+    
+    private func showNotificationPolicySettings() {
+        guard let policy = notificationsTimelineViewModel(scope: navigator.selectedNotificationsTimeline).filteredNotificationsViewModel.policy else { return }
+        Task {
+            let adminSettings: AdminNotificationFilterSettings? = await {
+                guard let user = AuthenticationServiceProvider.shared.currentActiveUser.value, let role = user.cachedAccount?.role else { print("no role"); return nil }
+                let permissions = role.rolePermissions()
+                let hasAdminPermissions = permissions.contains(.administrator) || permissions.contains(.manageReports) || permissions.contains(.manageUsers)
+                guard hasAdminPermissions else { print("no permissions"); return nil }
+                if let existingPreferences = await BodegaPersistence.Notifications.currentPreferences(for: user.authentication) {
+                    return existingPreferences
+                } else {
+                    return AdminNotificationFilterSettings(forReports: .accept, forSignups: .accept)
+                }
+            }()
+            
+            let policyViewModel = await NotificationPolicyViewModel(
+                NotificationFilterSettings(
+                    forNotFollowing: policy.forNotFollowing,
+                    forNotFollowers: policy.forNotFollowers,
+                    forNewAccounts: policy.forNewAccounts,
+                    forPrivateMentions: policy.forPrivateMentions,
+                    forLimitedAccounts: policy.forLimitedAccounts
+                ),
+                adminSettings: adminSettings
+            )
+            
+            guard let policyViewController = self.sceneCoordinator?.present(scene: .notificationPolicy(viewModel: policyViewModel), transition: .formSheet(policyViewModel.adminFilterSettings != nil ? [.large()] : nil)) as? NotificationPolicyViewController else { return }
         }
     }
 }
