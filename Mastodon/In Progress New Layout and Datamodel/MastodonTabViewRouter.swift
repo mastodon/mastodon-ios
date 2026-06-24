@@ -11,6 +11,7 @@ import MastodonCore
     public var homeTimelineModel: TimelineListViewModel?
     public var notificationsTimelineModelEverything: TimelineListViewModel?
     public var notificationsTimelineModelMentions: TimelineListViewModel?
+    public var profileModel: ProfileViewModel?
     public var selectedNotificationsTimeline: NotificationsScope = .everything
     
     enum MastodonTab: Identifiable, Hashable {

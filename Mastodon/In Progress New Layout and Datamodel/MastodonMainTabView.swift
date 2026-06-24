@@ -232,18 +232,16 @@ struct MastodonMainTabView: View {
             .environment(navigationStackNavigator)
             .environment(NestedScrollInteractionViewModel())
         case .profile:
-            if let account = authenticationObserver.currentActiveUser?.cachedAccount {
-                @Bindable var navigationStackNavigator = navigator.navigationRouter(forTab: tab)
-                NavigationStack(path: $navigationStackNavigator.navigationPath) {
-                    navigationStackNavigator.destinationView(.profile(account: account, relationship: .isMe), sceneCoordinator: sceneCoordinator)
-                }
-                .navigationDestination(for: MastodonNavigationDestination.self) { destination in
-                    navigationStackNavigator.destinationView(destination, sceneCoordinator: sceneCoordinator)
-                }
-                .environment(navigationStackNavigator)
-            } else {
-                Asset.Colors.FigmaToken.bgSoftest.swiftUIColor
+            @Bindable var navigationStackNavigator = navigator.navigationRouter(forTab: tab)
+            let profileModel = profileViewModel()
+            NavigationStack(path: $navigationStackNavigator.navigationPath) {
+                ProfileView(wrapInSwiftUINavigationStack: false)
+                    .profileEnvironment(profileModel, nestedScroll: NestedScrollInteractionViewModel())
             }
+            .navigationDestination(for: MastodonNavigationDestination.self) { destination in
+                navigationStackNavigator.destinationView(destination, sceneCoordinator: sceneCoordinator)
+            }
+            .environment(navigationStackNavigator)
         default:
             Text(tab.title)
                 .font(.largeTitle)
@@ -330,6 +328,18 @@ struct MastodonMainTabView: View {
         } else {
             let model = TimelineListViewModel(timeline: .homeTimeline, navigator: navigator.navigationRouter(forTab: .home), asyncRefreshViewModel: AsyncRefreshViewModel())
             navigator.homeTimelineModel = model
+            return model
+        }
+    }
+    
+    func profileViewModel() -> ProfileViewModel {
+        if let model = navigator.profileModel {
+            return model
+        } else {
+            let model = ProfileViewModel()
+            guard let authBox = authenticationObserver.currentActiveUser, let account = authBox.cachedAccount else { return model }
+            model.set(account: MastodonAccount.fromEntity(account, authenticatedDomain: authBox.domain), relationship: .isMe, navigator: navigator.navigationRouter(forTab: .profile))
+            navigator.profileModel = model
             return model
         }
     }
