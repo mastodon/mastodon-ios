@@ -81,6 +81,24 @@ extension Mastodon.API.Timeline {
             .eraseToAnyPublisher()
     }
     
+    public static func notificationRequests(
+        session: URLSession,
+        url: URL,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.NotificationRequest]>, Error> {
+        let request = Mastodon.API.get(
+            fromPrecompiledUrl: url,
+            authorization: authorization
+        )
+        RateLimitViewModel.shared.didMakeRequest("fetch notification requests from precompiled url")
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.NotificationRequest].self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
     public static func ungroupedNotifications(
         session: URLSession,
         url: URL,

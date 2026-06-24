@@ -75,4 +75,17 @@ extension APIService {
         
         return response
     }
+    
+    public func notificationRequests(
+        fromUrl url: URL,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.NotificationRequest]> {
+        let response = try await Mastodon.API.Timeline.notificationRequests(
+            session: session,
+            url: url,
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+        
+        return response
+    }
 }

@@ -683,3 +683,37 @@ extension NotificationRowViewModel: FeedCoordinatorUpdatable {
         }
     }
 }
+
+@MainActor
+@Observable class NotificationRequestModel {
+    let id: String
+    let authenticatedUser: MastodonAuthenticationBox
+    let account: MastodonAccount
+    let notificationCount: Int
+    let requestEntity: Mastodon.Entity.NotificationRequest
+    var state: AcceptState = .undecided
+    
+    enum AcceptState: Equatable {
+        case undecided
+        case accepting(Bool)
+        case accepted(Bool)
+    }
+    
+    init(_ entity: Mastodon.Entity.NotificationRequest, authenticatedUser: MastodonAuthenticationBox) {
+        id = entity.id
+        account = MastodonAccount.fromEntity(entity.account, authenticatedDomain: authenticatedUser.domain)
+        notificationCount = Int(entity.notificationsCount) ?? 0
+        requestEntity = entity
+        self.authenticatedUser = authenticatedUser
+    }
+    
+    func acceptRequest() async throws {
+        _ = try await APIService.shared.acceptNotificationRequest(authenticationBox: authenticatedUser,
+                                                                  id: requestEntity.id)
+    }
+    
+    func dismissRequest() async throws {
+        _ = try await APIService.shared.dismissNotificationRequest(authenticationBox: authenticatedUser,
+                                                                   id: requestEntity.id)
+    }
+}

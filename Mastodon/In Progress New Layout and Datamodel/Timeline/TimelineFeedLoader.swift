@@ -87,6 +87,7 @@ public enum MastodonTimelineType: Equatable {
     case thread(root: MastodonContentPost)
     case remoteThread(remoteType: RemoteThreadType)
     case notifications(scope: NotificationsScope)
+    case notificationRequests
     case whoFavourited(actionableStatusID: Mastodon.Entity.Status.ID)
     case whoBoosted(actionableStatusID: Mastodon.Entity.Status.ID)
     // *** WHEN ADDING A CASE, make sure to update the == definition below
@@ -136,6 +137,8 @@ public enum MastodonTimelineType: Equatable {
             }
         case (.notifications(let firstScope), .notifications(let secondScope)):
             return firstScope == secondScope
+        case (.notificationRequests, .notificationRequests):
+            return true
         case (.whoFavourited(let actionableStatusIdFirst), .whoFavourited(let actionableStatusIdSecond)):
             return actionableStatusIdFirst == actionableStatusIdSecond
         case (.whoBoosted(let actionableStatusIdFirst), .whoBoosted(let actionableStatusIdSecond)):
@@ -234,6 +237,8 @@ public enum MastodonTimelineType: Equatable {
             nil
         case .notifications:
                 .notifications
+        case .notificationRequests:
+            nil
         case .whoFavourited, .whoBoosted:
             nil
         }
@@ -312,6 +317,7 @@ enum TimelineItem: Identifiable {
     case pinnedPosts([TimelineItem])
     case post(MastodonPostViewModel, isPinned: Bool)
     case notification(NotificationRowViewModel)
+    case notificationRequest(NotificationRequestModel)
     case hashtag(HashtagRowViewModel)
     case account(AccountRowViewModel)
     case collection(CollectionViewModel)
@@ -331,6 +337,8 @@ enum TimelineItem: Identifiable {
             return "post-\(postViewModel.initialDisplayInfo.id)\(isPinned ? "-pinned" : "")"
         case .notification(let groupedNotificationInfo):
             return "notification-\(groupedNotificationInfo.id)"
+        case .notificationRequest(let request):
+            return "notificationRequest-\(request.id)"
         case .hashtag(let tagViewModel):
             return "hashtag-\(tagViewModel.id)"
         case .account(let accountViewModel):
@@ -356,6 +364,8 @@ enum TimelineItem: Identifiable {
             return postViewModel.initialDisplayInfo.id
         case .notification(let groupedNotificationInfo):
             return groupedNotificationInfo.id
+        case .notificationRequest(let request):
+            return request.id
         case .hashtag(let tagViewModel):
             return tagViewModel.id
         case .account(let accountViewModel):
@@ -373,7 +383,7 @@ enum TimelineItem: Identifiable {
     
     var isRealItem: Bool {
         switch self {
-        case .pinnedPosts, .post, .notification, .hashtag, .account, .collection:
+        case .pinnedPosts, .post, .notification, .notificationRequest, .hashtag, .account, .collection:
             return true
         case .heading, .filteredNotificationsInfo, .loadingIndicator, .noItem:
             return false
@@ -476,6 +486,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                             break // this update is handled by the CentralPostViewModelCache
                         case .notification(let notificationModel):
                             notificationModel.incorporateUpdate(update)
+                        case .notificationRequest:
+                            break
                         case .hashtag(let hashtagModel):
                             hashtagModel.incorporateUpdate(update)
                         case .filteredNotificationsInfo, .loadingIndicator, .noItem, .collection, .heading:
@@ -1022,6 +1034,15 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             }
             newBatchBottomLoad = bottomLoad(fromLink: response.1)
             newAsyncRefreshAvailable = response.2
+            
+        case .notificationRequests:
+            let response = try await APIService.shared
+                        .notificationRequests(authenticationBox: authenticatedUser)
+            newBatch = response.value.compactMap { notificationRequest in
+                return TimelineItem.notificationRequest(NotificationRequestModel(notificationRequest, authenticatedUser: authenticatedUser))
+            }
+            newBatchBottomLoad = .nothingMoreToLoad
+            newAsyncRefreshAvailable = nil
         }
         
         let newCache: CacheableTimeline
@@ -1117,7 +1138,7 @@ struct CacheableTimeline: CacheableFeed {
                 } else {
                     return .pinnedPosts(filteredItems)
                 }
-            case .notification:
+            case .notification, .notificationRequest:
                 return item
             case .hashtag, .account, .collection:
                 return item
@@ -1139,7 +1160,7 @@ struct CacheableTimeline: CacheableFeed {
                 switch item {
                 case .loadingIndicator, .filteredNotificationsInfo, .noItem, .heading: return false
                 case .post, .pinnedPosts: return true
-                case .notification: return true
+                case .notification, .notificationRequest: return true
                 case .hashtag: return true
                 case .account: return true
                 case .collection: return true
@@ -1153,7 +1174,7 @@ struct CacheableTimeline: CacheableFeed {
                         return item.id == oldestIdInNewBatch
                     case .pinnedPosts:
                         return item.id == oldestIdInNewBatch
-                    case .notification:
+                    case .notification, .notificationRequest:
                         return item.id == oldestIdInNewBatch
                     case .hashtag:
                         return item.id == oldestIdInNewBatch
@@ -1219,7 +1240,7 @@ struct CacheableTimeline: CacheableFeed {
                 } else {
                     return .pinnedPosts(undeletedModels)
                 }
-            case .notification:
+            case .notification, .notificationRequest:
                 return item
             case .noItem:
                 return nil
@@ -1439,6 +1460,8 @@ extension TimelineFeedLoader {
                 break
             case .notification:
                 // TODO: create conceal models for summarized statuses?
+                break
+            case .notificationRequest:
                 break
             }
         }

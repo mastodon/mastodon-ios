@@ -19,24 +19,7 @@ struct AccountRowView: View {
                     .accessibilityHidden(true)
                 
                 VStack(alignment: .leading, spacing: 0) {
-                    authorDisplayName
-                        .lineLimit(1)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .alignmentGuide(.gutterAlign) { d in
-                            return d[HorizontalAlignment.leading]
-                        }
-                    Text("@\(viewModel.account.handle)")
-                        .lineLimit(1)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                    if let verifiedLink = viewModel.account.metadata.verifiedLink {
-                        HStack(spacing: 0) {
-                            Image(systemName: "checkmark")
-                                .font(.subheadline)
-                                .foregroundStyle(.link)
-                            MastodonContentView.verifiedLink(html: verifiedLink)
-                        }
-                    }
+                    AccountDisplayNameAndHandle(account: viewModel.account, includeVerifiedLink: true)
                     
                     Spacer()
                     
@@ -63,8 +46,36 @@ struct AccountRowView: View {
         .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
     }
+}
+
+struct AccountDisplayNameAndHandle: View {
+    let account: MastodonAccount
+    let includeVerifiedLink: Bool
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            authorDisplayName
+                .lineLimit(1)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .alignmentGuide(.gutterAlign) { d in
+                    return d[HorizontalAlignment.leading]
+                }
+            Text("@\(account.handle)")
+                .lineLimit(1)
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+            if includeVerifiedLink, let verifiedLink = account.metadata.verifiedLink {
+                HStack(spacing: 0) {
+                    Image(systemName: "checkmark")
+                        .font(.subheadline)
+                        .foregroundStyle(.link)
+                    MastodonContentView.verifiedLink(html: verifiedLink)
+                }
+            }
+        }
+    }
     
     @ViewBuilder var authorDisplayName: some View {
-        MastodonContentView.header(html: viewModel.account.displayInfo.displayName, emojis: viewModel.account.displayInfo.emojis, style: .author(isInlinePreview: false))
+        MastodonContentView.header(html: account.displayInfo.displayName, emojis: account.displayInfo.emojis, style: .author(isInlinePreview: false))
     }
 }

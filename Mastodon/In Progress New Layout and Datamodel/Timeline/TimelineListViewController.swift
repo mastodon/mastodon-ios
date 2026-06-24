@@ -19,6 +19,7 @@ private func debugScroll(_ message: String) {
 enum TimelineViewType {
     case home
     case notifications(NotificationsScope)
+    case notificationRequests
     case discover(DiscoveryType)
     case myBookmarks
     case myFavorites
@@ -51,6 +52,8 @@ enum TimelineViewType {
             return nil
         case .notifications:
             return nil
+        case .notificationRequests:
+            return L10n.Scene.Notification.FilteredNotification.title
         case .postHistory:
             return L10n.Common.Controls.Status.EditHistory.title
         case .thread(let focusedPost):
@@ -111,6 +114,8 @@ extension TimelineViewType {
             TimelineListViewModel(timeline: .homeTimeline, navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .notifications(let scope):
             TimelineListViewModel(timeline: .notifications(scope: scope), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
+        case .notificationRequests:
+            TimelineListViewModel(timeline: .notificationRequests, navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .discover(let type):
             TimelineListViewModel(timeline: .discover(type), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .search(let searchText, let scope):
@@ -190,6 +195,8 @@ class TimelineListViewController: UIHostingController<AnyView>
         case .home:
             assertionFailure("the home timeline no longer expects to be shown from UIKit navigation")
         case .notifications:
+            assertionFailure("the notifications timeline no longer expects to be shown from UIKit navigation")
+        case .notificationRequests:
             assertionFailure("the notifications timeline no longer expects to be shown from UIKit navigation")
         case .hashtag:
             navigationItem.rightBarButtonItem = composeHashtagButtonItem
@@ -431,7 +438,7 @@ extension TimelineListViewController {
         case .hashtag:
             showLocalTimelineAction.state = .off
             showFollowingAction.state = .off
-        case .discover, .search, .userPosts, .featuredItems, .postHistory, .thread, .remoteThread, .myFollowedHashtags, .myBookmarks, .myFavorites, .notifications, .followers, .accountsFollowed, .familiarFollowers, .whoFavourited, .whoBoosted, .collection:
+        case .discover, .search, .userPosts, .featuredItems, .postHistory, .thread, .remoteThread, .myFollowedHashtags, .myBookmarks, .myFavorites, .notifications, .notificationRequests, .followers, .accountsFollowed, .familiarFollowers, .whoFavourited, .whoBoosted, .collection:
             assertionFailure()
             break
         }
@@ -563,13 +570,13 @@ extension TimelineListViewController {
     
     private func acceptNotificationRequest(_ notificationRequest: MastodonSDK.Mastodon.Entity.NotificationRequest) async throws {
         guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
-        _ = try await APIService.shared.acceptNotificationRequests(authenticationBox: authBox, id: notificationRequest.id)
+        _ = try await APIService.shared.acceptNotificationRequest(authenticationBox: authBox, id: notificationRequest.id)
         NotificationCenter.default.post(name: .notificationFilteringChanged, object: nil)
     }
     
     private func rejectNotificationRequest(_ notificationRequest: MastodonSDK.Mastodon.Entity.NotificationRequest) async throws {
         guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
-        _ = try await APIService.shared.rejectNotificationRequests(authenticationBox: authBox, id: notificationRequest.id)
+        _ = try await APIService.shared.dismissNotificationRequest(authenticationBox: authBox, id: notificationRequest.id)
         NotificationCenter.default.post(name: .notificationFilteringChanged, object: nil)
     }
 }
@@ -795,7 +802,6 @@ enum MastodonTimelineSheet {
 @Observable class TimelineListViewModel {
     
     private(set) var authenticatedUser: MastodonAuthenticationBox? = AuthenticationServiceProvider.shared.currentActiveUser.value
-    private weak var navigator: MastodonNavigationRouter?
     
     var unreadCount: Int = 0
     private(set) var waitingReplacementItems: [TimelineItem]?
@@ -996,13 +1002,11 @@ enum MastodonTimelineSheet {
         case .boostOrQuoteDialog(let postViewModel):
             BoostOrQuoteDialog(actionHandler: self)
                 .environment(postViewModel)
-                .environment(navigator)
                 .presentationDetents([.fraction(0.3), .medium, .large])
         case .manageListMembership(let account):
             let viewModel = MyListsManagementViewModel(account)
             ManageListMembershipView()
                 .environment(viewModel)
-                .environment(navigator)
         }
     }
     
@@ -1059,7 +1063,7 @@ enum MastodonTimelineSheet {
             case .pinnedPosts:
                 // this should always be the very first item in the list, so we don't need to worry about calculating heights above
                 fallthrough
-            case .heading, .collection, .notification, .hashtag, .account, .filteredNotificationsInfo, .loadingIndicator, .noItem:
+            case .heading, .collection, .notification, .notificationRequest, .hashtag, .account, .filteredNotificationsInfo, .loadingIndicator, .noItem:
                 currentDisplaySlice = prefix + newSlice + suffix
                 self.resetToUntrackedAfterDelay(from: loadingState)
             }
@@ -1130,7 +1134,6 @@ enum MastodonTimelineSheet {
     init(timeline: MastodonTimelineType, navigator: MastodonNavigationRouter, asyncRefreshViewModel: AsyncRefreshViewModel?) {
         self._asyncRefreshViewModel = asyncRefreshViewModel
         self._timeline = timeline
-        self.navigator = navigator
         
         self.instanceConfigurationUpdateSubscription = AuthenticationServiceProvider.shared.instanceConfigurationUpdates
             .receive(on: DispatchQueue.main)
@@ -1161,7 +1164,7 @@ enum MastodonTimelineSheet {
                 
                 let needsPrep: [TimelineItem] = results.allRecords.compactMap { item -> TimelineItem? in
                     switch item {
-                    case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .noItem:
+                    case .heading, .loadingIndicator, .filteredNotificationsInfo, .notificationRequest, .hashtag, .noItem:
                         return nil
                     case .account:
                         return item
@@ -1340,7 +1343,7 @@ enum MastodonTimelineSheet {
             switch timeline {
             case .homeTimeline, .list, .featuredItems, .followers, .accountsFollowed, .familiarFollowers, .collection:
                 self?.needsReloadOnNextAppear = true
-            case .myBookmarks, .myFavorites, .myFollowedHashtags, .local, .hashtag, .discover, .search, .userPosts, .postHistory, .thread, .remoteThread, .notifications, .whoFavourited, .whoBoosted:
+            case .myBookmarks, .myFavorites, .myFollowedHashtags, .local, .hashtag, .discover, .search, .userPosts, .postHistory, .thread, .remoteThread, .notifications, .notificationRequests, .whoFavourited, .whoBoosted:
                 return
             }
         }
@@ -1565,7 +1568,7 @@ extension TimelineListViewModel {
                 return item.id
             case .collection:
                 return nil
-            case .filteredNotificationsInfo, .loadingIndicator, .noItem, .heading:
+            case .filteredNotificationsInfo, .notificationRequest, .loadingIndicator, .noItem, .heading:
                 return nil
             }
         }
@@ -1637,7 +1640,7 @@ extension TimelineListViewModel {
                 break
             case .collection(let collectionViewModel):
                 processCollectionModel(collectionViewModel)
-            case .heading, .filteredNotificationsInfo, .loadingIndicator, .noItem:
+            case .heading, .filteredNotificationsInfo, .notificationRequest, .loadingIndicator, .noItem:
                 break
             }
         }
@@ -1652,81 +1655,75 @@ extension TimelineListViewModel {
         
         guard let authenticatedUser else { return }
         Task {
+            let fetchedAccounts = try await APIService.shared.accountsInfo(userIDs: Array(_accountsToFetch), authenticationBox: authenticatedUser)
+            let fetchedRelationships = try await feedLoader.fetchRelationships(Array(_relationshipsToFetch))
             
-            defer {
-                currentlyPreparingForDisplay = nil
-                completion?()
+            @MainActor
+            func updateCollectionModel(_ collectionModel: CollectionViewModel) {
+                if let account = fetchedAccounts.first(where: { $0.id == collectionModel.collection.accountId }) {
+                    collectionModel.updateAuthorAccount(MastodonAccount.fromEntity(account, authenticatedDomain: authenticatedUser.domain))
+                }
+                if let relationship = fetchedRelationships.first(where: { $0.info?.id == collectionModel.collection.accountId }) {
+                    collectionModel.prepareForDisplay(withRelationship: relationship)
+                }
+                collectionModel.updateAvatarUrls(fetchedAccounts)
             }
             
-            do {
-                let fetchedAccounts = try await APIService.shared.accountsInfo(userIDs: Array(_accountsToFetch), authenticationBox: authenticatedUser)
-                let fetchedRelationships = try await feedLoader.fetchRelationships(Array(_relationshipsToFetch))
-                
-                @MainActor
-                func updateCollectionModel(_ collectionModel: CollectionViewModel) {
-                    if let account = fetchedAccounts.first(where: { $0.id == collectionModel.collection.accountId }) {
-                        collectionModel.updateAuthorAccount(MastodonAccount.fromEntity(account, authenticatedDomain: authenticatedUser.domain))
-                    }
-                    if let relationship = fetchedRelationships.first(where: { $0.info?.id == collectionModel.collection.accountId }) {
-                        collectionModel.prepareForDisplay(withRelationship: relationship)
-                    }
-                    collectionModel.updateAvatarUrls(fetchedAccounts)
+            for postModel in toPrep {
+                if postModel.fullPost?.actionablePost?.metaData.author.id == authenticatedUser.userID {
+                    postModel.prepareForDisplay(relationship: .isMe, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
+                } else {
+                    let relationship = fetchedRelationships.first(where: {
+                        $0.info?.id == postModel.initialDisplayInfo.actionableAuthorId
+                    }) ?? feedLoader.myRelationship(to: postModel.initialDisplayInfo.actionableAuthorId)
+                    
+                    postModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
                 }
-                
-                for postModel in toPrep {
-                    if postModel.fullPost?.actionablePost?.metaData.author.id == authenticatedUser.userID {
-                        postModel.prepareForDisplay(relationship: .isMe, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
-                    } else {
-                        let relationship = fetchedRelationships.first(where: {
-                            $0.info?.id == postModel.initialDisplayInfo.actionableAuthorId
-                        }) ?? feedLoader.myRelationship(to: postModel.initialDisplayInfo.actionableAuthorId)
-                        
-                        postModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
-                    }
-                    if let collectionViewModel = postModel.collectionViewModel {
-                        updateCollectionModel(collectionViewModel)
-                    }
-                    postModel.displayPrepStatus = .donePreparing
+                if let collectionViewModel = postModel.collectionViewModel {
+                    updateCollectionModel(collectionViewModel)
                 }
-                
-                for item in batch {
-                    switch item {
-                    case .notification(let notificationViewModel):
-                        let accountRelatingTo = notificationViewModel.needsRelationshipTo
-                        if let relationship = fetchedRelationships.first(where: { fetched in
-                            guard let fetchedID = fetched.info?.id else { return false }
-                            return fetchedID == accountRelatingTo?.id
-                        }) {
-                            notificationViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: accountRelatingTo?.locked ?? false)
-                        }
-                        notificationViewModel.actionHandler = self
-                        notificationViewModel.displayPrepStatus = .donePreparing
-                        if let collectionModel = notificationViewModel.inlineCollectionViewModel {
-                            updateCollectionModel(collectionModel)
-                        }
-                    case .account(let accountViewModel):
-                        if let relationship = fetchedRelationships.first(where: { $0.info?.id == accountViewModel.id }) {
-                            if accountViewModel.actionHandler == nil {
-                                accountViewModel.actionHandler = self
-                            }
-                            accountViewModel.prepareForDisplay(withRelationship: relationship)
-                        } else if accountViewModel.id == AuthenticationServiceProvider.shared.currentActiveUser.value?.userID {
-                            accountViewModel.prepareForDisplay(withRelationship: .isMe)
-                        }
-                    case .post, .pinnedPosts:
-                        // handled above
-                        break
-                    case .hashtag:
-                        break
-                    case .collection(let collectionViewModel):
-                        updateCollectionModel(collectionViewModel)
-                    case .heading, .filteredNotificationsInfo, .loadingIndicator, .noItem:
-                        break
-                    }
-                }
-            } catch {
-                navigator?.didReceiveError(error)
+                postModel.displayPrepStatus = .donePreparing
             }
+            
+            for item in batch {
+                switch item {
+                case .notification(let notificationViewModel):
+                    let accountRelatingTo = notificationViewModel.needsRelationshipTo
+                    if let relationship = fetchedRelationships.first(where: { fetched in
+                        guard let fetchedID = fetched.info?.id else { return false }
+                        return fetchedID == accountRelatingTo?.id
+                    }) {
+                        notificationViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: accountRelatingTo?.locked ?? false)
+                    }
+                    notificationViewModel.actionHandler = self
+                    notificationViewModel.displayPrepStatus = .donePreparing
+                    if let collectionModel = notificationViewModel.inlineCollectionViewModel {
+                        updateCollectionModel(collectionModel)
+                    }
+                case .account(let accountViewModel):
+                    if let relationship = fetchedRelationships.first(where: { $0.info?.id == accountViewModel.id }) {
+                        if accountViewModel.actionHandler == nil {
+                            accountViewModel.actionHandler = self
+                        }
+                        accountViewModel.prepareForDisplay(withRelationship: relationship)
+                    } else if accountViewModel.id == AuthenticationServiceProvider.shared.currentActiveUser.value?.userID {
+                        accountViewModel.prepareForDisplay(withRelationship: .isMe)
+                    }
+                case .post, .pinnedPosts:
+                    // handled above
+                    break
+                case .hashtag:
+                    break
+                case .collection(let collectionViewModel):
+                    updateCollectionModel(collectionViewModel)
+                case .heading, .filteredNotificationsInfo, .notificationRequest, .loadingIndicator, .noItem:
+                    break
+                }
+            }
+            
+            currentlyPreparingForDisplay = nil
+            
+            completion?()
         }
     }
 }
@@ -2087,7 +2084,7 @@ struct TimelineListView: View {
             fallthrough
         case .remoteThread:
             fallthrough
-        case .notifications:
+        case .notifications, .notificationRequests:
             fallthrough
         case .whoFavourited:
             fallthrough
@@ -2146,7 +2143,7 @@ struct TimelineListView: View {
             fallthrough
         case .remoteThread:
             fallthrough
-        case .notifications:
+        case .notifications, .notificationRequests:
             fallthrough
         case .whoFavourited:
             fallthrough
@@ -2209,7 +2206,7 @@ struct TimelineListView: View {
             EmptyView()
         case .remoteThread:
             EmptyView()
-        case .notifications:
+        case .notifications, .notificationRequests:
             EmptyView()
         case .whoFavourited:
             EmptyView()
@@ -2293,10 +2290,10 @@ struct TimelineListView: View {
                             .frame(width: useableWidth)
                             .accessibilityElement(children: .combine)
                             .accessibilityAction {
-                                goToFilteredNotifications(filteredNotificationsViewModel)
+                                navigateToFilteredNotifications()
                             }
                             .onTapGesture {
-                                goToFilteredNotifications(filteredNotificationsViewModel)
+                                navigateToFilteredNotifications()
                             }
                     } else {
                         Text(L10nLookup.Timeline.EmptyState.someNotificationsHaveBeenFiltered)
@@ -2304,6 +2301,10 @@ struct TimelineListView: View {
                             .frame(width: useableWidth)
                     }
                     Divider()
+                    
+                case .notificationRequest(let notificationRequestModel):
+                    NotificationRequestRowView(contentWidth: contentWidth)
+                        .environment(notificationRequestModel)
                     
                 case .pinnedPosts:
                     pinnedPostsView(item.postViewModels, contentWidth: contentWidth, useableWidth: useableWidth, isScrollAnchor: viewModel.scrollAnchorItem == item)
@@ -2645,30 +2646,8 @@ struct TimelineListView: View {
         
     }
     
-    func goToFilteredNotifications(_ viewModel: FilteredNotificationsRowView.ViewModel) {
-        viewModel.isPreparingToNavigate = true
-        Task {
-            await navigateToFilteredNotifications()
-            viewModel.isPreparingToNavigate = false
-        }
-    }
-    
-    private func navigateToFilteredNotifications() async {
-        guard
-            let authBox = AuthenticationServiceProvider.shared.currentActiveUser
-                .value
-        else { return }
-
-        do {
-            let notificationRequests = try await APIService.shared
-                .notificationRequests(authenticationBox: authBox).value
-            let requestsViewModel = NotificationRequestsViewModel(
-                authenticationBox: authBox, requests: notificationRequests)
-
-            navigator.push(.legacy(scene: .notificationRequests(viewModel: requestsViewModel), transition: .show))
-        } catch {
-            navigator.didReceiveError(error)
-        }
+    private func navigateToFilteredNotifications() {
+        navigator.push(.timeline(.notificationRequests))
     }
     
     @ViewBuilder func backgroundView(isPrivate: Bool, isUnread: Bool) -> some View {
@@ -3012,7 +2991,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                                 if viewModel.fullPost?.actionablePost?.id == actionablePost.id {
                                     viewModel.isShowingTranslation = true
                                 }
-                            case .notification, .account, .collection:
+                            case .notification, .notificationRequest, .account, .collection:
                                 break
                             }
                         }
@@ -3033,7 +3012,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                                 if viewModel.fullPost?.actionablePost?.id == actionablePost.id {
                                     viewModel.isShowingTranslation = false
                                 }
-                            case .notification, .account, .collection:
+                            case .notification, .notificationRequest, .account, .collection:
                                 break
                             }
                         }
