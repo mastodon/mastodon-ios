@@ -1,6 +1,7 @@
 // Copyright © 2026 Mastodon gGmbH. All rights reserved.
 
 import SwiftUI
+import MastodonCore
 
 @MainActor
 @Observable class MastodonTabViewRouter {
@@ -85,5 +86,17 @@ import SwiftUI
     public func dismissCurrentModal() {
         guard presentedModal != nil else { return }
         presentedModal = nil
+    }
+    
+    func fetchFilteredNotificationsPolicy(andReloadFeed reload: Bool) {
+        guard
+            let authBox = AuthenticationObserver.shared.currentActiveUser
+        else { return }
+        Task {
+            let policy = try? await APIService.shared.notificationPolicy(
+                authenticationBox: authBox)
+            notificationsTimelineModelEverything?.updateFilteredNotificationsPolicy(policy?.value, andReloadFeed: reload)
+            notificationsTimelineModelMentions?.updateFilteredNotificationsPolicy(policy?.value, andReloadFeed: reload)
+        }
     }
 }

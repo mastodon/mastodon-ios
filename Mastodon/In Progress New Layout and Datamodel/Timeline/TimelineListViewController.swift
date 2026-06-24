@@ -190,10 +190,7 @@ class TimelineListViewController: UIHostingController<AnyView>
         case .home:
             assertionFailure("the home timeline no longer expects to be shown from UIKit navigation")
         case .notifications:
-            setUpNotificationsNavBarControls()
-            if viewModel.timeline.canDisplayFilteredNotifications {
-                NotificationCenter.default.addObserver(self, selector: #selector(notificationFilteringPolicyDidChange), name: .notificationFilteringChanged, object: nil)
-            }
+            assertionFailure("the notifications timeline no longer expects to be shown from UIKit navigation")
         case .hashtag:
             navigationItem.rightBarButtonItem = composeHashtagButtonItem
         case .collection(let collectionViewModel):
@@ -670,10 +667,6 @@ extension TimelineListViewController {
 extension TimelineListViewController: NotificationPolicyViewControllerDelegate {
     func policyUpdated(_ viewController: NotificationPolicyViewController, newPolicy: MastodonSDK.Mastodon.Entity.NotificationPolicy) {
         viewModel.updateFilteredNotificationsPolicy(newPolicy, andReloadFeed: true)
-    }
-    
-    @objc func notificationFilteringPolicyDidChange(_ notification: Notification) {
-        viewModel.fetchFilteredNotificationsPolicy(andReloadFeed: true)
     }
 }
 
@@ -1329,10 +1322,7 @@ enum MastodonTimelineSheet {
                 navigator.didReceiveError(error)
             }
         feedLoader?.doFirstLoad()
-       
-        if timeline.canDisplayFilteredNotifications {
-            fetchFilteredNotificationsPolicy(andReloadFeed: false)
-        }
+
         if timeline.canDisplayUnreadNotifications {
             notificationCountUpdateSubscription = NotificationService.shared.unreadNotificationCountDidUpdate
                 .receive(on: DispatchQueue.main)
@@ -1390,7 +1380,7 @@ enum MastodonTimelineSheet {
         needsReloadOnNextAppear = false
         switch reason {
         case .notificationCountUpdated:
-            fetchFilteredNotificationsPolicy(andReloadFeed: true)
+            MastodonTabViewRouter.shared.fetchFilteredNotificationsPolicy(andReloadFeed: true)
         case .notificationFilterPolicyUpdated:
             loadingState = .requestedReloadFromTop
             feedLoader.requestLoad(.reload)
@@ -1403,7 +1393,7 @@ enum MastodonTimelineSheet {
             feedLoader.requestLoad(.reload)
         case .userRequestedRefresh:
             if timeline.canDisplayFilteredNotifications {
-                fetchFilteredNotificationsPolicy(andReloadFeed: false)
+                MastodonTabViewRouter.shared.fetchFilteredNotificationsPolicy(andReloadFeed: false)
             }
             if feedLoader.permissionToLoadImmediately {
                 await feedLoader.loadImmediately(.reload)
@@ -1535,18 +1525,6 @@ extension TimelineListViewModel {
 }
 
 extension TimelineListViewModel {
-    func fetchFilteredNotificationsPolicy(andReloadFeed reload: Bool) {
-        guard
-            let authBox = AuthenticationServiceProvider.shared.currentActiveUser
-                .value
-        else { return }
-        Task {
-            let policy = try? await APIService.shared.notificationPolicy(
-                authenticationBox: authBox)
-            updateFilteredNotificationsPolicy(policy?.value, andReloadFeed: reload)
-        }
-    }
-    
     func updateFilteredNotificationsPolicy(
         _ policy: Mastodon.Entity.NotificationPolicy?,
         andReloadFeed reload: Bool

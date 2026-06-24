@@ -336,7 +336,9 @@ struct MastodonMainTabView: View {
     
     private func notificationsTimelineViewModel(scope: NotificationsScope) -> TimelineListViewModel {
         func newModel() -> TimelineListViewModel {
-            return TimelineListViewModel(timeline: .notifications(scope: scope), navigator: navigator.navigationRouter(forTab: .notifications), asyncRefreshViewModel: AsyncRefreshViewModel())
+            let new = TimelineListViewModel(timeline: .notifications(scope: scope), navigator: navigator.navigationRouter(forTab: .notifications), asyncRefreshViewModel: AsyncRefreshViewModel())
+            navigator.fetchFilteredNotificationsPolicy(andReloadFeed: false)
+            return new
         }
         switch scope {
         case .everything:
