@@ -8,6 +8,9 @@ import SwiftUI
     public static let shared = MastodonTabViewRouter()
     
     public var homeTimelineModel: TimelineListViewModel?
+    public var notificationsTimelineModelEverything: TimelineListViewModel?
+    public var notificationsTimelineModelMentions: TimelineListViewModel?
+    public var selectedNotificationsTimeline: NotificationsScope = .everything
     
     enum MastodonTab: Identifiable, Hashable {
         case home

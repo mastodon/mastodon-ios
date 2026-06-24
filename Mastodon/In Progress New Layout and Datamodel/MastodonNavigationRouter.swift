@@ -91,7 +91,7 @@ enum MastodonNavigationDestination: Identifiable {
     }
     
     @ViewBuilder
-    func destinationView(_ destination: MastodonNavigationDestination) -> some View {
+    func destinationView(_ destination: MastodonNavigationDestination, sceneCoordinator: SceneCoordinator?) -> some View {
         switch destination {
         case .timeline(let timelineType):
             let asyncRefreshModel = AsyncRefreshViewModel()
@@ -115,7 +115,13 @@ enum MastodonNavigationDestination: Identifiable {
             ProfileEditingDestinationView(destinationType: destination)
                 .profileEditingDestinationEnvironment(destination)
             
-        case .legacy, .share:
+        case .legacy(let scene, _):
+            if let sceneCoordinator {
+                LegacyViewControllerWrapper(sceneCoordinator: sceneCoordinator, scene: scene)
+            } else {
+                Text("no scene coordinator")
+            }
+        case .share:
             EmptyView()  // legacy scenes should be presented using the SceneCoordinator instead
         }
     }
@@ -162,7 +168,11 @@ enum MastodonNavigationDestination: Identifiable {
         case .swiftUI(let legacyPresenter):
             switch destination {
             case .legacy(let scene, let transition):
-                legacyPresenter?.sceneCoordinator?.present(scene: scene, from: legacyPresenter, transition: transition)
+                if let legacyPresenter {
+                    legacyPresenter.sceneCoordinator?.present(scene: scene, from: legacyPresenter, transition: transition)
+                } else {
+                    navigationPath.append(destination)
+                }
             case .editProfile(let profileViewModel):
                 profileViewModel.editingStatus = .editing(hasChanges: false)
                 fallthrough

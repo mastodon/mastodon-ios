@@ -76,7 +76,7 @@ struct ProfileView: View {
             NavigationStack(path: $navigationRouter.navigationPath){
                 content
                     .navigationDestination(for: MastodonNavigationDestination.self) { destination in
-                        navigationRouter.destinationView(destination)
+                        navigationRouter.destinationView(destination, sceneCoordinator: nil)
                     }
                     .onChange(of: navigationRouter.navigationPath) { oldValue, newValue in
                         if newValue.isEmpty {

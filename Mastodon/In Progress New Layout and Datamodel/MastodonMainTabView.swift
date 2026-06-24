@@ -176,7 +176,7 @@ struct MastodonMainTabView: View {
                         }
                     }
                     .navigationDestination(for: MastodonNavigationDestination.self) { destination in
-                        navigationStackNavigator.destinationView(destination)
+                        navigationStackNavigator.destinationView(destination, sceneCoordinator: sceneCoordinator)
                     }
             }
             .environment(navigationStackNavigator)
@@ -226,7 +226,7 @@ struct MastodonMainTabView: View {
                             }
                     }
                     .navigationDestination(for: MastodonNavigationDestination.self) { destination in
-                        navigationStackNavigator.destinationView(destination)
+                        navigationStackNavigator.destinationView(destination, sceneCoordinator: sceneCoordinator)
                     }
             }
             .environment(navigationStackNavigator)
@@ -235,10 +235,10 @@ struct MastodonMainTabView: View {
             if let account = authenticationObserver.currentActiveUser?.cachedAccount {
                 @Bindable var navigationStackNavigator = navigator.navigationRouter(forTab: tab)
                 NavigationStack(path: $navigationStackNavigator.navigationPath) {
-                    navigationStackNavigator.destinationView(.profile(account: account, relationship: .isMe))
+                    navigationStackNavigator.destinationView(.profile(account: account, relationship: .isMe), sceneCoordinator: sceneCoordinator)
                 }
                 .navigationDestination(for: MastodonNavigationDestination.self) { destination in
-                    navigationStackNavigator.destinationView(destination)
+                    navigationStackNavigator.destinationView(destination, sceneCoordinator: sceneCoordinator)
                 }
                 .environment(navigationStackNavigator)
             } else {
@@ -630,5 +630,18 @@ struct LegacyComposeViewControllerWrapper: UIViewControllerRepresentable {
     
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
         // nothing to do?
+    }
+}
+
+struct LegacyViewControllerWrapper: UIViewControllerRepresentable {
+    let sceneCoordinator: SceneCoordinator
+    let scene: SceneCoordinator.Scene
+    
+    func makeUIViewController(context: Context) -> some UIViewController {
+        let vc = sceneCoordinator.get(scene: scene)
+        return vc ?? UIViewController()
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
     }
 }
