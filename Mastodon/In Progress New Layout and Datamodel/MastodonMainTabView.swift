@@ -48,7 +48,7 @@ struct MastodonMainTabView: View {
                     switch sizeClass {
                     case .regular:
                         TabSection {
-                            if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value, let currentAuthAccount = currentAuthBox.cachedAccount, let icon = avatarIconRenderer.prerenderedAccountAvatar(currentAuthBox.globallyUniqueUserIdentifier, style: .circular, displayScale: displayScale) {
+                            if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value, let currentAuthAccount = currentAuthBox.cachedAccount, let icon = avatarIconRenderer.prerenderedAccountAvatar(currentAuthBox.globallyUniqueUserIdentifier, style: .circular) {
                                 Tab(value: tab) {
                                     view(forTab: tab)
                                 } label: {
@@ -94,6 +94,9 @@ struct MastodonMainTabView: View {
         }
         .id(authenticationObserver.currentActiveUser?.globallyUniqueUserIdentifier) // rebuild the full view tree when the active user changes
         .tabViewStyle(.sidebarAdaptable)
+        .onChange(of: displayScale, initial: true) { _, newValue in
+            AvatarIconRenderer.shared.displayScale = newValue
+        }
         .sheet(item: $navigator.presentedModal) { presentedItem in
             switch presentedItem {
             case .timeline:
@@ -154,7 +157,7 @@ struct MastodonMainTabView: View {
                                     Button {
                                         showAccountSwitcher = true
                                     } label: {
-                                        avatarIconRenderer.prerenderedAccountAvatar(accountGUID, style: .circular, displayScale: displayScale)
+                                        avatarIconRenderer.prerenderedAccountAvatar(accountGUID, style: .circular)
                                     }
                                     .popover(isPresented: $showAccountSwitcher) {
                                         accountSwitcherView()
@@ -166,7 +169,7 @@ struct MastodonMainTabView: View {
                                     Button {
                                         showAccountSwitcher = true
                                     } label: {
-                                        avatarIconRenderer.prerenderedAccountAvatar(accountGUID, style: .circular, displayScale: displayScale)
+                                        avatarIconRenderer.prerenderedAccountAvatar(accountGUID, style: .circular)
                                     }
                                     .popover(isPresented: $showAccountSwitcher) {
                                         accountSwitcherView()
@@ -277,7 +280,7 @@ struct MastodonMainTabView: View {
                         Text(authBox.cachedAccount?.displayName ?? "")
                     }
                 } icon: {
-                    avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular, displayScale: displayScale) ?? Image(systemName: "app.dashed")
+                    avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular) ?? Image(systemName: "app.dashed")
                 }
                 .padding()
             }
@@ -301,7 +304,7 @@ struct MastodonMainTabView: View {
     
     @ViewBuilder private func accountSwitcherView() -> some View {
         LazyVStack(alignment: .leading) {
-            if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value, let currentAuthAccount = currentAuthBox.cachedAccount, let icon = avatarIconRenderer.prerenderedAccountAvatar(currentAuthBox.globallyUniqueUserIdentifier, style: .circular, displayScale: displayScale) {
+            if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value, let currentAuthAccount = currentAuthBox.cachedAccount, let icon = avatarIconRenderer.prerenderedAccountAvatar(currentAuthBox.globallyUniqueUserIdentifier, style: .circular) {
                 Button {
                     navigator.selectedTab = .profile
                 } label: {
@@ -418,7 +421,7 @@ struct MastodonMainTabView: View {
 @MainActor
 @Observable class AvatarIconRenderer {
     public static let shared = AvatarIconRenderer()
-    private var displayScale: CGFloat = 1 {
+    var displayScale: CGFloat = 1 {
         didSet {
             if oldValue != displayScale {
                 accountAvatarIconsRendered.removeAll(keepingCapacity: true)
@@ -475,11 +478,7 @@ struct MastodonMainTabView: View {
         }
     }
     
-    func prerenderedAccountAvatar(_ accountGUID: String, style: AvatarView.AvatarStyle,  displayScale: CGFloat) -> Image? {
-        if displayScale != self.displayScale {
-            self.displayScale = displayScale
-        }
-        
+    func prerenderedAccountAvatar(_ accountGUID: String, style: AvatarView.AvatarStyle) -> Image? {
         let prerendered = {
             switch style {
             case .roundedRect:
