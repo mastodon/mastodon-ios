@@ -25,6 +25,7 @@ extension EmojiService {
                 _customEmojiViewModel = viewModel
             } else {
                 let viewModel = CustomEmojiViewModel(domain: domain, service: self)
+                customEmojiViewModelDict[domain] = viewModel
                 _customEmojiViewModel = viewModel
                 
                 // trigger loading
