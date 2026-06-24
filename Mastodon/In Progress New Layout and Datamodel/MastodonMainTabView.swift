@@ -186,9 +186,8 @@ struct MastodonMainTabView: View {
             .environment(NestedScrollInteractionViewModel())
             
         case .explore:
-            Text(tab.title)
-                .font(.largeTitle)
-            
+            LegacySearchViewControllerWrapper(authBox: authenticationObserver.currentActiveUser)
+
         case .compose:
             if let authBox = authenticationObserver.currentActiveUser {
                 LegacyComposeViewControllerWrapper(authBox: authBox)
@@ -623,6 +622,21 @@ struct LegacyNavigationViewControllerWrapper: UIViewControllerRepresentable {
         return navController
     }
     
+    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
+        // nothing to do?
+    }
+}
+
+
+struct LegacySearchViewControllerWrapper: UIViewControllerRepresentable {
+    let authBox: MastodonAuthenticationBox?
+
+    func makeUIViewController(context: Context) -> UINavigationController {
+        let searchViewController = SearchViewController()
+        searchViewController.viewModel = SearchViewModel(authenticationBox: authBox)
+        return AdaptiveStatusBarStyleNavigationController(rootViewController: searchViewController)
+    }
+
     func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
         // nothing to do?
     }
