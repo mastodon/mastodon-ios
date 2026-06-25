@@ -2377,15 +2377,21 @@ struct TimelineListView: View {
                     }
                     
                 case .link(let link):
-                    VStack {
+                    VStack(alignment: .trailing) {
                         LinkPreviewCard(cardEntity: link, fittingWidth: useableWidth)
-                        Text(L10n.Plural.peopleTalking(link.talkingPeopleCount ?? 0))
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                            .onTapGesture {
-                                navigator.push(.timeline(.linkMentions(link.url)))
-                            }
+                        HStack {
+                            Text(L10n.Plural.peopleTalking(link.talkingPeopleCount ?? 0))
+                                .onTapGesture {
+                                    navigator.push(.timeline(.linkMentions(link.url)))
+                                }
+                            Image(systemName: "chevron.forward")
+                        }
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .padding(.vertical)
                     }
+                    .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
+                    .frame(width: useableWidth)
                     
                 case .account(let accountViewModel):
                     if let collectionViewModel = viewModel.timeline.collectionViewModel, collectionViewModel.iHaveRemovedMyself, accountViewModel.id == AuthenticationServiceProvider.shared.currentActiveUser.value?.userID {
