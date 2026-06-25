@@ -21,7 +21,7 @@ final class DiscoveryNewsViewModel {
     let authenticationBox: MastodonAuthenticationBox
 
     // output
-    @Published var links: [Mastodon.Entity.Link] = []
+    @Published var links: [Mastodon.Entity.Card] = []
     var diffableDataSource: UITableViewDiffableDataSource<DiscoverySection, DiscoveryItem>?
     private(set) lazy var stateMachine: GKStateMachine = {
         let stateMachine = GKStateMachine(states: [

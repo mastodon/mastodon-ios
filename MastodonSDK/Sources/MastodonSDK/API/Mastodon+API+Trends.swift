@@ -158,7 +158,7 @@ extension Mastodon.API.Trends {
         domain: String,
         query: Mastodon.API.Trends.LinkQuery?,
         authorization: Mastodon.API.OAuth.Authorization
-    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Link]>, Error> {
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Card]>, Error> {
         let request = Mastodon.API.get(
             url: trendLinksURL(domain: domain),
             query: query,
@@ -167,7 +167,7 @@ extension Mastodon.API.Trends {
         RateLimitViewModel.shared.didMakeRequest("get trending links")
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
-                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Link].self, from: data, response: response)
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Card].self, from: data, response: response)
                 return Mastodon.Response.Content(value: value, response: response)
             }
             .eraseToAnyPublisher()

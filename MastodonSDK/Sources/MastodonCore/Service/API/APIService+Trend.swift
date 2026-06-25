@@ -44,7 +44,7 @@ extension APIService {
         domain: String,
         query: Mastodon.API.Trends.LinkQuery,
         authenticationBox: MastodonAuthenticationBox
-    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Link]> {
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Card]> {
         let response = try await Mastodon.API.Trends.links(
             session: session,
             domain: domain,
