@@ -186,7 +186,15 @@ struct MastodonMainTabView: View {
             .environment(NestedScrollInteractionViewModel())
             
         case .explore:
-            LegacySearchViewControllerWrapper(authBox: authenticationObserver.currentActiveUser)
+            @Bindable var navigationStackNavigator = navigator.navigationRouter(forTab: .explore)
+            NavigationStack(path: $navigationStackNavigator.navigationPath) {
+                DiscoveryFeedsView()
+                    .navigationDestination(for: MastodonNavigationDestination.self) { destination in
+                        navigationStackNavigator.destinationView(destination, sceneCoordinator: sceneCoordinator)
+                    }
+                    .environment(NestedScrollInteractionViewModel())
+            }
+            .environment(navigationStackNavigator)
 
         case .compose:
             if let authBox = authenticationObserver.currentActiveUser {
@@ -206,7 +214,7 @@ struct MastodonMainTabView: View {
                     .timelineEnvironment(timelineModel: timelineModel, contentConcealModel: .alwaysShow, filter: timelineModel.timelineQueryFilter, asyncRefreshModel: timelineModel.asyncRefreshViewModel)
                     .toolbar {
                             // picker as the center item
-                            ToolbarItem(placement: .principal) {
+                            ToolbarItem(placement: .title) {
                                 Picker("Scope", selection: $navigator.selectedNotificationsTimeline) {
                                     Text("Everything")
                                         .tag(NotificationsScope.everything)

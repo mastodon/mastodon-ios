@@ -415,6 +415,7 @@
 				"Common Components/Views/TimelineRowViews/RelationshipViewModel.swift",
 				"Common Components/Views/WebContentView.swift",
 				"Common Components/ZoomableScrollView.swift",
+				DiscoveryFeedsView.swift,
 				FeedLoader/MastodonFeedLoader.swift,
 				"GenericMastodonPost and Subclasses/GenericMastodonPost.swift",
 				"GenericMastodonPost and Subclasses/GenericMastodonPost+Subclasses.swift",
