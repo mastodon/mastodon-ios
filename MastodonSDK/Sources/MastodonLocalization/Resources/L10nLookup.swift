@@ -944,6 +944,13 @@ public extension L10nLookup.Scene {
     }
 }
 
+public extension L10nLookup.Scene.Notification {
+    static func viewNotifications(count: Int) -> String {
+        let result = tr("Localizable-Notifications", "Scene.NotificationRequests.viewCountNotfications", count)
+        return result
+    }
+}
+
 private func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
     let missingKey = "_MISSING_"
     let format = {

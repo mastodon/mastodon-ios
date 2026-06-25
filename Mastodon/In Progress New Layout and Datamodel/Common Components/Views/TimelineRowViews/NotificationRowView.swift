@@ -439,7 +439,7 @@ struct NotificationRequestRowView: View {
                     Spacer()
  
                     HStack(alignment: .top, spacing: 0) {
-                        Text("View \(viewModel.notificationCount) notifications")
+                        Text(L10nLookup.Scene.Notification.viewNotifications(count: viewModel.notificationCount))
                             .foregroundStyle(.secondary)
                         
                         // DISCLOSURE INDICATOR

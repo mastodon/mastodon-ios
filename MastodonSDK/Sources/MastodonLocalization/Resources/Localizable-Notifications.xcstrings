@@ -1,0 +1,18 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Scene.NotificationRequests.viewCountNotfications" : {
+      "comment" : "A navigation button that takes you to the list of n notifications",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View %1$(count)lld notifications"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.2"
+}
