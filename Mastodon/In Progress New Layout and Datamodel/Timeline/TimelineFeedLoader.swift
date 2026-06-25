@@ -64,6 +64,7 @@ public enum NotificationsScope: Hashable {
 public enum DiscoveryType: Equatable {
     case posts
     case hashtags
+    case forYou
 }
                                 
 public enum MastodonTimelineType: Equatable {
@@ -738,6 +739,24 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     }
                 }()
                 newBatch = response.value.map { timelineItem(fromHashtag: $0) }
+                newBatchBottomLoad = bottomLoad(fromLink: response.link)
+                newAsyncRefreshAvailable = response.asyncRefreshAvaliable
+            case .forYou:
+                let response = try await {
+                    if let loadUrl {
+                        return try await APIService.shared.suggestionAccounts(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                    } else {
+                            return try await APIService.shared.suggestionAccountV2(
+                                query: nil,
+                                authenticationBox: authenticatedUser
+                            )
+                    }
+                }()
+               
+                newBatch = response.value.map { suggestion in
+                    let suggestedBecause = suggestion.sources ?? [suggestion.source].compactMap{$0}
+                    return timelineItem(fromAccount: suggestion.account, suggestedBecause: suggestedBecause.isEmpty ? nil : suggestedBecause)
+                }
                 newBatchBottomLoad = bottomLoad(fromLink: response.link)
                 newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             }
