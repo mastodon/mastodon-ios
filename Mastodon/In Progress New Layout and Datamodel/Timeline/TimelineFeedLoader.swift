@@ -562,14 +562,14 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             let isPinnedByMe = (post as? MastodonContentPost)?.content.myActions.pinnedByMe
             return TimelineItem.post(viewModel, isPinned: isPinned || (isPinnedByMe == true))
         }
-        func timelineItem(fromAccount accountEntity: Mastodon.Entity.Account) -> TimelineItem {
+        func timelineItem(fromAccount accountEntity: Mastodon.Entity.Account, suggestedBecause: [Mastodon.Entity.V2.SuggestionAccount.SuggestionReason]?) -> TimelineItem {
             let account = MastodonAccount.fromEntity(accountEntity, authenticatedDomain: authenticatedUser.domain)
             let viewModel = {
                 if let existing = accountViewModels[account.id] {
-                    existing.updateAccount(account)
+                    existing.updateAccount(account, suggestionReasons: suggestedBecause)
                     return existing
                 } else {
-                    let model = AccountRowViewModel(account: account)
+                    let model = AccountRowViewModel(account: account, suggestedBecause: suggestedBecause)
                     newAccountModels[account.id] = model
                     return model
                 }
@@ -699,7 +699,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         case .collection(let collectionViewModel):
             let accountIDs = collectionViewModel.collection.items.compactMap { $0.account_id }
             let response = try await APIService.shared.accountsInfo(userIDs: accountIDs, authenticationBox: authenticatedUser)
-            let accounts = response.map { timelineItem(fromAccount: $0) }
+            let accounts = response.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
             newBatch = accounts
             newBatchBottomLoad = .nothingMoreToLoad
             newAsyncRefreshAvailable = nil
@@ -761,7 +761,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             let results = response.value
             let statuses = results.statuses.map { timelineItem(fromStatus: $0, isPinned: false) }
             let hashtags = results.hashtags.map { timelineItem(fromHashtag: $0) }
-            let accounts = results.accounts.map { timelineItem(fromAccount: $0) }
+            let accounts = results.accounts.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
             newBatch = accounts + hashtags + statuses
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
@@ -819,7 +819,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     return try await APIService.shared.featuredAccounts(userID: userID, maxID: nil, authenticationBox: authenticatedUser)
                 }
             }()
-            let accounts = accountsResponse.value.map { timelineItem(fromAccount: $0) }
+            let accounts = accountsResponse.value.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
             let collections: [TimelineItem] = await {
                 guard UserDefaults.standard.showCollections else { return [] }
                 do {
@@ -846,7 +846,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     return try await APIService.shared.following(userID: userId, maxID: nil, authenticationBox: authenticatedUser)
                 }
             }()
-            newBatch = response.value.map { timelineItem(fromAccount: $0) }
+            newBatch = response.value.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
@@ -858,7 +858,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     return try await APIService.shared.followers(userID: userId, maxID: nil, authenticationBox: authenticatedUser)
                 }
             }()
-            newBatch = response.value.map { timelineItem(fromAccount: $0) }
+            newBatch = response.value.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
@@ -868,7 +868,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             }()
             newBatch = {
                 guard let familiarFollowersList = response.value.first?.accounts else { return [] }
-                return familiarFollowersList.map { timelineItem(fromAccount: $0) }
+                return familiarFollowersList.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
             }()
             newBatchBottomLoad = .nothingMoreToLoad
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
@@ -976,7 +976,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     )
                 }
             }()
-            newBatch = response.value.map { timelineItem(fromAccount: $0) }
+            newBatch = response.value.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
@@ -992,7 +992,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     )
                 }
             }()
-            newBatch = response.value.map { timelineItem(fromAccount: $0) }
+            newBatch = response.value.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             

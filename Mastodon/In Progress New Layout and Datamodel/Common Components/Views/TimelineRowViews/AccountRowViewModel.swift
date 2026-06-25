@@ -8,6 +8,7 @@ import SwiftUI
 @Observable class AccountRowViewModel {
     private(set) var account: MastodonAccount
     private var relationshipViewModel = RelationshipViewModel()
+    private(set) var suggestionReasons: [Mastodon.Entity.V2.SuggestionAccount.SuggestionReason]?
     var actionHandler: MastodonPostMenuActionHandler?
     var relationshipButton: RelationshipButtonType = .updating
     var accountFollowsMe: Bool? {
@@ -20,9 +21,10 @@ import SwiftUI
     }
     nonisolated let id: Mastodon.Entity.Account.ID
     
-    init(account: MastodonAccount) {
+    init(account: MastodonAccount, suggestedBecause: [Mastodon.Entity.V2.SuggestionAccount.SuggestionReason]?) {
         self.account = account
         self.id = account.id
+        suggestionReasons = suggestedBecause
     }
     
     func prepareForDisplay(withRelationship relationship: MastodonAccount.Relationship) {
@@ -30,8 +32,11 @@ import SwiftUI
         relationshipButton = relationshipViewModel.button
     }
     
-    func updateAccount(_ updated: MastodonAccount) {
+    func updateAccount(_ updated: MastodonAccount, suggestionReasons: [Mastodon.Entity.V2.SuggestionAccount.SuggestionReason]?) {
         account = updated
+        if let suggestionReasons {
+            self.suggestionReasons = suggestionReasons
+        }
     }
     
     func doRelationshipButtonAction(navigator: MastodonNavigationRouter, isInCollection: Bool) async throws {

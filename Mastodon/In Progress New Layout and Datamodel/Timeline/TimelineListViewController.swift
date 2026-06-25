@@ -2368,6 +2368,7 @@ struct TimelineListView: View {
                     if let collectionViewModel = viewModel.timeline.collectionViewModel, collectionViewModel.iHaveRemovedMyself, accountViewModel.id == AuthenticationServiceProvider.shared.currentActiveUser.value?.userID {
                         EmptyView()
                     } else {
+                        // TODO: larger, more informative view if in a .discovery timeline?
                         AccountRowView(contentWidth: contentWidth, collectionViewModel: viewModel.timeline.collectionViewModel)
                             .environment(accountViewModel)
                             .padding(EdgeInsets(top: standardPadding, leading: doublePadding, bottom: standardPadding, trailing: standardPadding))

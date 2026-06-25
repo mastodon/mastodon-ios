@@ -50,6 +50,20 @@ extension APIService {
         return response
     }
     
+    
+    public func suggestionAccounts(
+        fromUrl url: URL,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.V2.SuggestionAccount]> {
+        let response = try await Mastodon.API.Timeline.suggestionAccounts(
+            session: session,
+            url: url,
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+        
+        return response
+    }
+
     public func ungroupedNotifications(
         fromUrl url: URL,
         authenticationBox: MastodonAuthenticationBox
