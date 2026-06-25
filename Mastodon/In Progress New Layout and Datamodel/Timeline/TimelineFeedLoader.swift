@@ -64,6 +64,7 @@ public enum NotificationsScope: Hashable {
 public enum DiscoveryType: Equatable {
     case posts
     case hashtags
+    case news
     case forYou
 }
                                 
@@ -78,6 +79,7 @@ public enum MastodonTimelineType: Equatable {
     case hashtag(Mastodon.Entity.Tag, includeHeader: Bool)
     case collection(CollectionViewModel)
     case discover(DiscoveryType)
+    case linkMentions(String)
     case search(String, SearchScope)
     case userPosts(userID: String, queryFilter: TimelineQueryFilter)
     case featuredItems(userID: String)
@@ -111,6 +113,8 @@ public enum MastodonTimelineType: Equatable {
             return firstTag == secondTag && firstHeader == secondHeader
         case (.discover(let firstType), .discover(let secondType)):
             return firstType == secondType
+        case (.linkMentions(let firstURL), .linkMentions(let secondURL)):
+            return firstURL == secondURL
         case (.search(let firstText, let firstScope), .search(let secondText, let secondScope)):
             return firstText == secondText && firstScope == secondScope
         case (.userPosts(let firstID, _), .userPosts(let secondID, _)):
@@ -218,7 +222,7 @@ public enum MastodonTimelineType: Equatable {
                 .home
         case .local:
                 .public
-        case .discover:
+        case .discover, .linkMentions:
                 .public
         case .search:
             nil
@@ -320,6 +324,7 @@ enum TimelineItem: Identifiable {
     case notification(NotificationRowViewModel)
     case notificationRequest(NotificationRequestModel)
     case hashtag(HashtagRowViewModel)
+    case link(Mastodon.Entity.Card)
     case account(AccountRowViewModel)
     case collection(CollectionViewModel)
     case filteredNotificationsInfo(
@@ -342,6 +347,8 @@ enum TimelineItem: Identifiable {
             return "notificationRequest-\(request.id)"
         case .hashtag(let tagViewModel):
             return "hashtag-\(tagViewModel.id)"
+        case .link(let link):
+            return "link-\(link.url)"
         case .account(let accountViewModel):
             return "account-\(accountViewModel.id)"
         case .collection(let collectionViewModel):
@@ -369,6 +376,8 @@ enum TimelineItem: Identifiable {
             return request.id
         case .hashtag(let tagViewModel):
             return tagViewModel.id
+        case .link(let link):
+            return link.url
         case .account(let accountViewModel):
             return accountViewModel.id
         case .collection(let collectionViewModel):
@@ -384,7 +393,7 @@ enum TimelineItem: Identifiable {
     
     var isRealItem: Bool {
         switch self {
-        case .pinnedPosts, .post, .notification, .notificationRequest, .hashtag, .account, .collection:
+        case .pinnedPosts, .post, .notification, .notificationRequest, .hashtag, .link, .account, .collection:
             return true
         case .heading, .filteredNotificationsInfo, .loadingIndicator, .noItem:
             return false
@@ -491,7 +500,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                             break
                         case .hashtag(let hashtagModel):
                             hashtagModel.incorporateUpdate(update)
-                        case .filteredNotificationsInfo, .loadingIndicator, .noItem, .collection, .heading:
+                        case .filteredNotificationsInfo, .loadingIndicator, .noItem, .collection, .heading, .link:
                             break
                         }
                     }
@@ -614,6 +623,9 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             }()
             newHashtagModels[hashtag.uniqueID] = viewModel
             return TimelineItem.hashtag(viewModel)
+        }
+        func timelineItem(fromNewsLink link: Mastodon.Entity.Card) -> TimelineItem {
+            return TimelineItem.link(link)
         }
 
         let newBatch: [TimelineItem]
@@ -741,6 +753,21 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 newBatch = response.value.map { timelineItem(fromHashtag: $0) }
                 newBatchBottomLoad = bottomLoad(fromLink: response.link)
                 newAsyncRefreshAvailable = response.asyncRefreshAvaliable
+            case .news:
+                let response = try await {
+                    if let loadUrl {
+                        return try await APIService.shared.links(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                    } else {
+                        return try await APIService.shared.trendLinks(
+                            domain: authenticatedUser.domain,
+                            query: .init(offset: nil, limit: nil),
+                            authenticationBox: authenticatedUser
+                        )
+                    }
+                }()
+                newBatch = response.value.map { timelineItem(fromNewsLink: $0) }
+                newBatchBottomLoad = bottomLoad(fromLink: response.link)
+                newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             case .forYou:
                 let response = try await {
                     if let loadUrl {
@@ -760,6 +787,20 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 newBatchBottomLoad = bottomLoad(fromLink: response.link)
                 newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             }
+        case .linkMentions(let url):
+            let response = try await {
+                if let loadUrl {
+                    return try await APIService.shared.statuses(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                } else {
+                    return try await APIService.shared.linkMentionsTimeline(
+                        linkUrl: url,
+                        authenticationBox: authenticatedUser
+                    )
+                }
+            }()
+            newBatch = response.value.map { timelineItem(fromStatus: $0, isPinned: false) }
+            newBatchBottomLoad = bottomLoad(fromLink: response.link)
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
         case .search(let searchText, let scope):
             let query = Mastodon.API.V2.Search.Query(
                 q: searchText,
@@ -1159,7 +1200,7 @@ struct CacheableTimeline: CacheableFeed {
                 }
             case .notification, .notificationRequest:
                 return item
-            case .hashtag, .account, .collection:
+            case .hashtag, .link, .account, .collection:
                 return item
             }
         }
@@ -1181,6 +1222,7 @@ struct CacheableTimeline: CacheableFeed {
                 case .post, .pinnedPosts: return true
                 case .notification, .notificationRequest: return true
                 case .hashtag: return true
+                case .link: return true
                 case .account: return true
                 case .collection: return true
                 }
@@ -1196,6 +1238,8 @@ struct CacheableTimeline: CacheableFeed {
                     case .notification, .notificationRequest:
                         return item.id == oldestIdInNewBatch
                     case .hashtag:
+                        return item.id == oldestIdInNewBatch
+                    case .link:
                         return item.id == oldestIdInNewBatch
                     case .account:
                         return item.id == oldestIdInNewBatch
@@ -1237,7 +1281,7 @@ struct CacheableTimeline: CacheableFeed {
     func byDeleting(postId: Mastodon.Entity.Status.ID) -> CacheableTimeline {
         let newItems = items.compactMap { item -> TimelineItem? in
             switch item {
-            case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account, .collection:
+            case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .link, .account, .collection:
                 return item
             case .post(let postViewModel, _):
                 if postViewModel.fullPost?.actionablePost?.id != postId {
@@ -1467,7 +1511,7 @@ extension TimelineFeedLoader {
         }
         for item in cache.items {
             switch item {
-            case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account, .noItem:
+            case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .link, .account, .noItem:
                 break
             case .post:
                 create(forPostItem: item)

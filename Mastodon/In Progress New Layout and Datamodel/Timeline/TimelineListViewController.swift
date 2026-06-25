@@ -21,6 +21,7 @@ enum TimelineViewType {
     case notifications(NotificationsScope)
     case notificationRequests
     case discover(DiscoveryType)
+    case linkMentions(String)
     case myBookmarks
     case myFavorites
     case myFollowedHashtags
@@ -51,6 +52,8 @@ enum TimelineViewType {
         case .home:
             return nil
         case .notifications:
+            return nil
+        case .linkMentions:
             return nil
         case .notificationRequests:
             return L10n.Scene.Notification.FilteredNotification.title
@@ -118,6 +121,8 @@ extension TimelineViewType {
             TimelineListViewModel(timeline: .notificationRequests, navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .discover(let type):
             TimelineListViewModel(timeline: .discover(type), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
+        case .linkMentions(let url):
+            TimelineListViewModel(timeline: .linkMentions(url), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .search(let searchText, let scope):
             TimelineListViewModel(timeline: .search(searchText, scope), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .profilePosts(_, let user, let queryFilter):
@@ -210,7 +215,7 @@ class TimelineListViewController: UIHostingController<AnyView>
                 
             }
            
-        case .thread, .discover, .profilePosts, .postHistory, .remoteThread, .myBookmarks, .myFavorites, .whoFavourited, .whoBoosted, .followers, .accountsFollowed, .familiarFollowers, .search, .myFollowedHashtags:
+        case .thread, .discover, .linkMentions, .profilePosts, .postHistory, .remoteThread, .myBookmarks, .myFavorites, .whoFavourited, .whoBoosted, .followers, .accountsFollowed, .familiarFollowers, .search, .myFollowedHashtags:
             break
         }
     }
@@ -438,7 +443,7 @@ extension TimelineListViewController {
         case .hashtag:
             showLocalTimelineAction.state = .off
             showFollowingAction.state = .off
-        case .discover, .search, .userPosts, .featuredItems, .postHistory, .thread, .remoteThread, .myFollowedHashtags, .myBookmarks, .myFavorites, .notifications, .notificationRequests, .followers, .accountsFollowed, .familiarFollowers, .whoFavourited, .whoBoosted, .collection:
+        case .discover, .linkMentions, .search, .userPosts, .featuredItems, .postHistory, .thread, .remoteThread, .myFollowedHashtags, .myBookmarks, .myFavorites, .notifications, .notificationRequests, .followers, .accountsFollowed, .familiarFollowers, .whoFavourited, .whoBoosted, .collection:
             assertionFailure()
             break
         }
@@ -1063,7 +1068,7 @@ enum MastodonTimelineSheet {
             case .pinnedPosts:
                 // this should always be the very first item in the list, so we don't need to worry about calculating heights above
                 fallthrough
-            case .heading, .collection, .notification, .notificationRequest, .hashtag, .account, .filteredNotificationsInfo, .loadingIndicator, .noItem:
+            case .heading, .collection, .notification, .notificationRequest, .hashtag, .link, .account, .filteredNotificationsInfo, .loadingIndicator, .noItem:
                 currentDisplaySlice = prefix + newSlice + suffix
                 self.resetToUntrackedAfterDelay(from: loadingState)
             }
@@ -1164,7 +1169,7 @@ enum MastodonTimelineSheet {
                 
                 let needsPrep: [TimelineItem] = results.allRecords.compactMap { item -> TimelineItem? in
                     switch item {
-                    case .heading, .loadingIndicator, .filteredNotificationsInfo, .notificationRequest, .hashtag, .noItem:
+                    case .heading, .loadingIndicator, .filteredNotificationsInfo, .notificationRequest, .hashtag, .link, .noItem:
                         return nil
                     case .account:
                         return item
@@ -1343,7 +1348,7 @@ enum MastodonTimelineSheet {
             switch timeline {
             case .homeTimeline, .list, .featuredItems, .followers, .accountsFollowed, .familiarFollowers, .collection:
                 self?.needsReloadOnNextAppear = true
-            case .myBookmarks, .myFavorites, .myFollowedHashtags, .local, .hashtag, .discover, .search, .userPosts, .postHistory, .thread, .remoteThread, .notifications, .notificationRequests, .whoFavourited, .whoBoosted:
+            case .myBookmarks, .myFavorites, .myFollowedHashtags, .local, .hashtag, .linkMentions, .discover, .search, .userPosts, .postHistory, .thread, .remoteThread, .notifications, .notificationRequests, .whoFavourited, .whoBoosted:
                 return
             }
         }
@@ -1562,7 +1567,7 @@ extension TimelineListViewModel {
                 return item.id
             case .notification:
                 return item.id
-            case .hashtag:
+            case .hashtag, .link:
                 return nil
             case .account:
                 return item.id
@@ -1636,7 +1641,7 @@ extension TimelineListViewModel {
                 }
             case .account(let accountRowViewModel):
                 relationshipsToFetch.insert(accountRowViewModel.id)
-            case .hashtag:
+            case .hashtag, .link:
                 break
             case .collection(let collectionViewModel):
                 processCollectionModel(collectionViewModel)
@@ -1712,7 +1717,7 @@ extension TimelineListViewModel {
                 case .post, .pinnedPosts:
                     // handled above
                     break
-                case .hashtag:
+                case .hashtag, .link:
                     break
                 case .collection(let collectionViewModel):
                     updateCollectionModel(collectionViewModel)
@@ -2068,6 +2073,8 @@ struct TimelineListView: View {
             fallthrough
         case .discover:
             fallthrough
+        case .linkMentions:
+            fallthrough
         case .search:
             fallthrough
         case .userPosts:
@@ -2126,6 +2133,8 @@ struct TimelineListView: View {
         case .hashtag:
             fallthrough
         case .discover:
+            fallthrough
+        case .linkMentions:
             fallthrough
         case .search:
             fallthrough
@@ -2189,6 +2198,8 @@ struct TimelineListView: View {
         case .hashtag:
             EmptyView()
         case .discover:
+            EmptyView()
+        case .linkMentions:
             EmptyView()
         case .search:
             EmptyView()
@@ -2364,6 +2375,18 @@ struct TimelineListView: View {
                                 navigator.push(.timeline(.hashtag(tagViewModel.entity)))
                             }
                     }
+                    
+                case .link(let link):
+                    VStack {
+                        LinkPreviewCard(cardEntity: link, fittingWidth: useableWidth)
+                        Text(L10n.Plural.peopleTalking(link.talkingPeopleCount ?? 0))
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .onTapGesture {
+                                navigator.push(.timeline(.linkMentions(link.url)))
+                            }
+                    }
+                    
                 case .account(let accountViewModel):
                     if let collectionViewModel = viewModel.timeline.collectionViewModel, collectionViewModel.iHaveRemovedMyself, accountViewModel.id == AuthenticationServiceProvider.shared.currentActiveUser.value?.userID {
                         EmptyView()
@@ -2980,7 +3003,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     feedLoader?.updateCachedResults({ timeline in
                         for item in timeline.items {
                             switch item {
-                            case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .noItem:
+                            case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .link, .noItem:
                                 break
                             case .pinnedPosts:
                                 for viewModel in item.postViewModels {
@@ -3001,7 +3024,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     feedLoader?.updateCachedResults({ timeline in
                         for item in timeline.items {
                             switch item {
-                            case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .noItem:
+                            case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .link, .noItem:
                                 break
                             case .pinnedPosts:
                                 for viewModel in item.postViewModels {

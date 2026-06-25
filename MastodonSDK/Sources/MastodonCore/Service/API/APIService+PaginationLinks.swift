@@ -50,6 +50,18 @@ extension APIService {
         return response
     }
     
+    public func links(
+        fromUrl url: URL,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Card]> {
+        let response = try await Mastodon.API.Timeline.links(
+            session: session,
+            url: url,
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+        
+        return response
+    }
     
     public func suggestionAccounts(
         fromUrl url: URL,
