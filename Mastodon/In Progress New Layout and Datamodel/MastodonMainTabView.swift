@@ -17,7 +17,7 @@ struct MastodonMainTabView: View {
     @Environment(\.sceneCoordinator) private var sceneCoordinator
     
     @State private var authenticationObserver = AuthenticationObserver.shared
-    @State private var navigator = MastodonTabViewRouter.shared
+    @State private var navigator = MastodonTabViewRouter.current
     @State private var avatarIconRenderer = AvatarIconRenderer.shared
     @State private var showAccountSwitcher = false
     @State private var isSwitchingAccounts = false
@@ -92,8 +92,13 @@ struct MastodonMainTabView: View {
                 }
             }
         }
-        .id(authenticationObserver.currentActiveUser?.globallyUniqueUserIdentifier) // rebuild the full view tree when the active user changes
+        .environment(authenticationObserver)
         .tabViewStyle(.sidebarAdaptable)
+        .onChange(of: authenticationObserver.currentActiveUser, initial: true) { _, newValue in
+            guard MastodonTabViewRouter.current.userGUID != newValue?.globallyUniqueUserIdentifier else { return }
+            let newRouter = MastodonTabViewRouter.changeAuthenticatedUser(newValue)
+            navigator = newRouter
+        }
         .onChange(of: displayScale, initial: true) { _, newValue in
             AvatarIconRenderer.shared.displayScale = newValue
         }
@@ -188,13 +193,10 @@ struct MastodonMainTabView: View {
         case .explore:
             @Bindable var navigationStackNavigator = navigator.navigationRouter(forTab: .explore)
             NavigationStack(path: $navigationStackNavigator.navigationPath) {
-                DiscoveryFeedsView()
-                    .navigationDestination(for: MastodonNavigationDestination.self) { destination in
-                        navigationStackNavigator.destinationView(destination, sceneCoordinator: sceneCoordinator)
-                    }
-                    .environment(NestedScrollInteractionViewModel())
+                ExploreRootView(sceneCoordinator: sceneCoordinator)
             }
             .environment(navigationStackNavigator)
+            .environment(navigator.searchModel)
 
         case .compose:
             if let authBox = authenticationObserver.currentActiveUser {

@@ -6,14 +6,27 @@ import MastodonCore
 @MainActor
 @Observable class MastodonTabViewRouter {
     
-    public static let shared = MastodonTabViewRouter()
+    public private(set) static var current = MastodonTabViewRouter(authenticatedUser: nil)
     
+    let userGUID: String
     public var homeTimelineModel: TimelineListViewModel?
     public var notificationsTimelineModelEverything: TimelineListViewModel?
     public var notificationsTimelineModelMentions: TimelineListViewModel?
     public var profileModel: ProfileViewModel?
     public var selectedNotificationsTimeline: NotificationsScope = .everything
+    public var searchModel: SearchModel
     
+    public static func changeAuthenticatedUser(_ newUser: MastodonAuthenticationBox?) -> MastodonTabViewRouter {
+        let updated = MastodonTabViewRouter(authenticatedUser: newUser)
+        current = updated
+        return updated
+    }
+    
+    private init(authenticatedUser: MastodonAuthenticationBox?) {
+        userGUID = authenticatedUser?.globallyUniqueUserIdentifier ?? "NONE"
+        searchModel = SearchModel(authenticationBox: authenticatedUser)
+    }
+        
     enum MastodonTab: Identifiable, Hashable {
         case home
         case explore

@@ -248,7 +248,7 @@ extension SceneDelegate {
     }
     
     private func showComposeViewController() {
-        MastodonTabViewRouter.shared.selectedTab = .compose
+        MastodonTabViewRouter.current.selectedTab = .compose
     }
     
     private func handleUrl(context: UIOpenURLContext) {

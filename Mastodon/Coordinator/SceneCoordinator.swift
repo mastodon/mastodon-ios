@@ -93,12 +93,12 @@ final public class SceneCoordinator {
                                         return .isNotMe(MastodonAccount.RelationshipInfo(relationshipEntity, fetchedAt: .now))
                                     }
                                 }()
-                                MastodonTabViewRouter.shared.show(.profile(account: account, relationship: relationship), in: .notifications)
+                                MastodonTabViewRouter.current.show(.profile(account: account, relationship: relationship), in: .notifications)
                             case .followRequest:
                                 // do nothing
                                 break
                             case .mention, .reblog, .favourite, .poll, .status:
-                                MastodonTabViewRouter.shared.show(.timeline(.remoteThread(root: .notification(notificationID))), in: .notifications)
+                                MastodonTabViewRouter.current.show(.timeline(.remoteThread(root: .notification(notificationID))), in: .notifications)
                             case .moderationWarning:
                                 break
                             default:
@@ -297,7 +297,7 @@ extension SceneCoordinator {
     }
 
     func switchToTabBar(tab: MastodonTabViewRouter.MastodonTab) {
-        MastodonTabViewRouter.shared.selectedTab = tab
+        MastodonTabViewRouter.current.selectedTab = tab
     }
 }
 

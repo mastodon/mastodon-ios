@@ -1388,7 +1388,7 @@ enum MastodonTimelineSheet {
         needsReloadOnNextAppear = false
         switch reason {
         case .notificationCountUpdated:
-            MastodonTabViewRouter.shared.fetchFilteredNotificationsPolicy(andReloadFeed: true)
+            MastodonTabViewRouter.current.fetchFilteredNotificationsPolicy(andReloadFeed: true)
         case .notificationFilterPolicyUpdated:
             loadingState = .requestedReloadFromTop
             feedLoader.requestLoad(.reload)
@@ -1401,7 +1401,7 @@ enum MastodonTimelineSheet {
             feedLoader.requestLoad(.reload)
         case .userRequestedRefresh:
             if timeline.canDisplayFilteredNotifications {
-                MastodonTabViewRouter.shared.fetchFilteredNotificationsPolicy(andReloadFeed: false)
+                MastodonTabViewRouter.current.fetchFilteredNotificationsPolicy(andReloadFeed: false)
             }
             if feedLoader.permissionToLoadImmediately {
                 await feedLoader.loadImmediately(.reload)
