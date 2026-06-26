@@ -25,19 +25,6 @@ final class SearchViewController: UIViewController {
 
     // value is the initial search text to set
     let searchBarTapPublisher = PassthroughSubject<String, Never>()
-    
-    private(set) lazy var discoveryViewController: DiscoveryViewController? = {
-        if let authenticationBox = viewModel?.authenticationBox {
-            let viewController = DiscoveryViewController()
-            viewController.viewModel = .init(
-                authenticationBox: authenticationBox
-            )
-            viewController.delegate = self
-            return viewController
-        } else {
-            return nil
-        }
-    }()
 
     let segmentedControl: UISegmentedControl
     let segmentedControlBackground: UIView
@@ -79,23 +66,11 @@ final class SearchViewController: UIViewController {
         }
 
         setupSearchBar()
-        guard let discoveryViewController else { return }
         
-        addChild(discoveryViewController)
-        discoveryViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(discoveryViewController.view)
-        discoveryViewController.didMove(toParent: self)
 
         segmentedControlBackground.addSubview(segmentedControl)
         view.addSubview(segmentedControlBackground)
         
-        let (topConstraint, bottomConstraint) = {
-            if #available(iOS 26, *) {
-                return (view.topAnchor.constraint(equalTo: discoveryViewController.view.topAnchor), view.bottomAnchor.constraint(equalTo: discoveryViewController.view.bottomAnchor))
-            } else {
-                return (discoveryViewController.view.topAnchor.constraint(equalTo: segmentedControlBackground.bottomAnchor), view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: discoveryViewController.view.bottomAnchor))
-            }
-        }()
 
         let constraints = [
             segmentedControl.topAnchor.constraint(equalTo: segmentedControlBackground.topAnchor, constant: 8),
@@ -107,10 +82,6 @@ final class SearchViewController: UIViewController {
             segmentedControlBackground.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: segmentedControlBackground.trailingAnchor),
 
-            topConstraint,
-            discoveryViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: discoveryViewController.view.trailingAnchor),
-            bottomConstraint
         ]
 
         NSLayoutConstraint.activate(constraints)
@@ -170,7 +141,6 @@ final class SearchViewController: UIViewController {
 
     @objc
     private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-        discoveryViewController?.scrollToPage(.at(index: sender.selectedSegmentIndex), animated: true)
     }
 
 }
@@ -197,10 +167,9 @@ extension SearchViewController: UISearchControllerDelegate {
 // MARK: - ScrollViewContainer
 extension SearchViewController: ScrollViewContainer {
     var scrollView: UIScrollView {
-        discoveryViewController?.scrollView ?? UIScrollView()
+        UIScrollView()
     }
     func scrollToTop(animated: Bool) {
-        discoveryViewController?.scrollToTop(animated: animated)
     }
 }
 

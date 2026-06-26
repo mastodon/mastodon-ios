@@ -23,7 +23,6 @@ class SettingsViewController: UIViewController {
         var baseSections: [SettingsSection] = [
             .init(entries: [.general, .notifications, .privacySafety]),
             .init(entries: [.serverDetails(domain: domain), .aboutMastodon]),
-            .init(entries: [.loggedInAs(accountName: accountName)])
         ]
         
         if Mastodon.Entity.DonationCampaign.isEligibleForDonationsSettingsSection(domain: domain) {

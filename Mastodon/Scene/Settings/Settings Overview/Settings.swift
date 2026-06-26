@@ -16,7 +16,6 @@ enum SettingsEntry: Hashable {
     case aboutMastodon
     case makeDonation
     case manageDonations
-    case loggedInAs(accountName: String)
     case manageBetaFeatures
 
     var title: String {
@@ -35,8 +34,6 @@ enum SettingsEntry: Hashable {
             return L10n.Scene.Settings.Donation.manage
             case .aboutMastodon:
                 return L10n.Scene.Settings.Overview.aboutMastodon
-            case .loggedInAs(let accountName):
-                return L10nLookup.Scene.Settings.Overview.loggedInAs(accountName)
             case .manageBetaFeatures:
                 return "Beta Features"
         }
@@ -46,8 +43,6 @@ enum SettingsEntry: Hashable {
         switch self {
             case .serverDetails(domain: let domain):
                 return domain
-            case .loggedInAs:
-                return L10nLookup.Scene.Settings.Overview.accountSwitcherTip
             case .general, .notifications, .privacySafety, .makeDonation, .manageDonations, .aboutMastodon:
                 return nil
         case .manageBetaFeatures:
@@ -57,7 +52,7 @@ enum SettingsEntry: Hashable {
 
     var accessoryType: UITableViewCell.AccessoryType {
         switch self {
-        case .general, .notifications, .privacySafety, .serverDetails(_), .manageDonations, .aboutMastodon, .loggedInAs(_), .manageBetaFeatures:
+        case .general, .notifications, .privacySafety, .serverDetails(_), .manageDonations, .aboutMastodon, /*.loggedInAs(_),*/ .manageBetaFeatures:
                 return .disclosureIndicator
             case .makeDonation:
                 return .none
@@ -80,8 +75,6 @@ enum SettingsEntry: Hashable {
                 return UIImage(systemName: "gear")
             case .aboutMastodon:
                 return UIImage(systemName: "info.circle.fill")
-            case .loggedInAs(_):
-                return nil
             case .manageBetaFeatures:
                 return UIImage(systemName: "wrench.adjustable.fill")
         }
@@ -101,8 +94,6 @@ enum SettingsEntry: Hashable {
                 return .systemPurple
             case .aboutMastodon:
                 return .systemPurple
-            case .loggedInAs(_):
-                return nil
             case .manageBetaFeatures:
                 return .systemOrange
         }
@@ -112,8 +103,6 @@ enum SettingsEntry: Hashable {
     var textColor: UIColor {
         switch self {
         case .general, .notifications, .privacySafety, .makeDonation, .manageDonations, .aboutMastodon, .serverDetails(_):
-                return .label
-            case .loggedInAs(_):
                 return .label
             case .manageBetaFeatures:
                 return .systemIndigo

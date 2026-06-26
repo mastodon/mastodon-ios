@@ -160,23 +160,13 @@ extension SceneCoordinator {
         case hashtagTimeline(Mastodon.Entity.Tag)
 
         // profile
-        case accountList(viewModel: AccountListViewModel)
         case profile(ProfileType)
-        case myFavorites
-        case followers(ofUserId: Mastodon.Entity.Account.ID)
-        case followedBy(userId: Mastodon.Entity.Account.ID)
-        case familiarFollowers(Mastodon.Entity.Account, MastodonAuthenticationBox)
-        case whoBoosted(actionableStatusID: Mastodon.Entity.Status.ID)
-        case whoFavourited(actionableStatusID: Mastodon.Entity.Status.ID)
-        case myBookmarks
-        case myFollowedTags
 
         // setting
         case settings
 
         // Notifications
         case notificationPolicy(viewModel: NotificationPolicyViewModel)
-        case accountNotificationTimeline(request: Mastodon.Entity.NotificationRequest)
 
         // report
         case report(viewModel: ReportViewModel)
@@ -366,10 +356,6 @@ extension SceneCoordinator {
         case .hashtagTimeline(let tag):
             let _viewController = TimelineListViewController(.hashtag(tag), navigator: navigator)
             viewController = _viewController
-        case .accountList(let viewModel):
-            let accountListViewController = AccountListViewController()
-            accountListViewController.viewModel = viewModel
-            viewController = accountListViewController
         case .profile(let profileType):
             let _viewController: UIViewController =  {
                 let needsNavigationStack = !(sender is UINavigationController) &&  sender?.navigationController == nil
@@ -393,28 +379,7 @@ extension SceneCoordinator {
                 return controller
             }()
             viewController = _viewController
-        case .myBookmarks:
-            viewController = TimelineListViewController(.myBookmarks, navigator: navigator)
-        case .myFollowedTags:
-            viewController = TimelineListViewController(.myFollowedHashtags, navigator: navigator)
-        case .myFavorites:
-            viewController = TimelineListViewController(.myFavorites, navigator: navigator)
-        case .followers(let followedId):
-            let followerListViewController = TimelineListViewController(.followers(ofUserId: followedId), navigator: navigator)
-            viewController = followerListViewController
-        case .followedBy(let userId):
-            let followingListViewController = TimelineListViewController(.accountsFollowed(byUserId: userId), navigator: navigator)
-            viewController = followingListViewController
-        case .familiarFollowers(let accountEntity, let authBox):
-            let account = MastodonAccount.fromEntity(accountEntity, authenticatedDomain: authBox.domain)
-            let viewModel = TimelineListViewModel(timeline: .familiarFollowers(account.userID), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
-            viewController = TimelineListViewController(.familiarFollowers(account, viewModel), navigator: navigator)
-        case .whoBoosted(let statusID):
-            let _viewController = TimelineListViewController(.whoBoosted(actionableStatusID: statusID), navigator: navigator)
-            viewController = _viewController
-        case .whoFavourited(let statusID):
-            let _viewController = TimelineListViewController(.whoFavourited(actionableStatusID: statusID), navigator: navigator)
-            viewController = _viewController
+       
         case .report(let viewModel):
             viewController = ReportViewController(viewModel: viewModel)
         case .reportServerRules(let viewModel):
@@ -482,8 +447,6 @@ extension SceneCoordinator {
             viewController = composeViewController
         case .notificationPolicy(let viewModel):
             viewController = NotificationPolicyViewController(viewModel)
-        case .accountNotificationTimeline(let request):
-            viewController = TimelineListViewController(.notifications(.fromRequest(request)), navigator: navigator)
         }
 
         return viewController
