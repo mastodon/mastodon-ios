@@ -77013,19 +77013,19 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(unreadCount) новых"
+                  "value" : "%(unreadCount)lld новых"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(unreadCount) новых"
+                  "value" : "%(unreadCount)lld новых"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(unreadCount) новый"
+                  "value" : "%(unreadCount)lld новый"
                 }
               },
               "other" : {
@@ -108060,13 +108060,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(reblogCount) hooandmine"
+                  "value" : "%(reblogCount)lld hooandmine"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(reblogCount) hooandmist"
+                  "value" : "%(reblogCount)lld hooandmist"
                 }
               }
             }
@@ -109121,13 +109121,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(reblogCount) hooandmine"
+                  "value" : "%(reblogCount)lld hooandmine"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(reblogCount) hooandmist"
+                  "value" : "%(reblogCount)lld hooandmist"
                 }
               }
             }
@@ -153270,7 +153270,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Jälgijaks %(firstAccount), %(secondAccount) ja veel %(otherCount) kasutajat"
+                  "value" : "Jälgijaks %(firstAccount)@, %(secondAccount)@ ja veel %(otherCount)lld kasutajat"
                 }
               }
             }
@@ -153972,7 +153972,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(firstAccount)、%(secondAccount) 和其他 %(otherCount) 人关注了此账号"
+                  "value" : "%(firstAccount)@、%(secondAccount)@ 和其他 %(otherCount)lld 人关注了此账号"
                 }
               }
             }
@@ -154962,7 +154962,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(followersCount) ผู้ติดตามที่คุณรู้จัก"
+                  "value" : "%(followersCount)lld ผู้ติดตามที่คุณรู้จัก"
                 }
               }
             }
@@ -168139,13 +168139,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(boostCount) kasutaja andis hoogu:"
+                  "value" : "%(boostCount)lld kasutaja andis hoogu:"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(boostCount) kasutajat andsid hoogu:"
+                  "value" : "%(boostCount)lld kasutajat andsid hoogu:"
                 }
               }
             }
@@ -168847,7 +168847,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(boostCount) 人转嘟了："
+                  "value" : "%(boostCount)lld 人转嘟了："
                 }
               }
             }
@@ -169200,13 +169200,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(favouriteCount) kasutaja lisas lemmikuks:"
+                  "value" : "%(favouriteCount)lld kasutaja lisas lemmikuks:"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(favouriteCount) kasutajat lisasid lemmikuks:"
+                  "value" : "%(favouriteCount)lld kasutajat lisasid lemmikuks:"
                 }
               }
             }
@@ -169908,7 +169908,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(favouriteCount) 人喜欢了："
+                  "value" : "%(favouriteCount)lld 人喜欢了："
                 }
               }
             }
@@ -170018,7 +170018,7 @@
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%(newFollowerCount) kasutajat hakkasid sind jälgima"
+            "value" : "%(newFollowerCount)lld kasutajat hakkasid sind jälgima"
           }
         },
         "eu" : {
@@ -170042,7 +170042,7 @@
         "ga" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lean %(newFollowerCount)ll duine thú"
+            "value" : "Lean %(newFollowerCount)lld duine thú"
           }
         },
         "gd" : {
@@ -170228,7 +170228,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%(newFollowerCount) 人关注了您"
+            "value" : "%(newFollowerCount)lld 人关注了您"
           }
         },
         "zh-Hant" : {
@@ -170650,7 +170650,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(pollAuthor)@ koostas küsitluse, kus sina ja veel %(otherVotersCount) kasutajat hääletasid"
+                  "value" : "%(pollAuthor)@ koostas küsitluse, kus sina ja veel %(otherVotersCount)lld kasutajat hääletasid"
                 }
               },
               "zero" : {
@@ -171484,7 +171484,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(pollAuthor)@ sizin ve %(otherVotersCount) kullanıcının oy verdiği bir anket düzenledi"
+                  "value" : "%(pollAuthor)@ sizin ve %(otherVotersCount)lld kullanıcının oy verdiği bir anket düzenledi"
                 }
               },
               "zero" : {
@@ -171556,13 +171556,13 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(pollAuthor) 发起的你和其它 %(otherVotersCount) 人参与过的投票已结束"
+                  "value" : "%(pollAuthor)@ 发起的你和其它 %(otherVotersCount)lld 人参与过的投票已结束"
                 }
               },
               "zero" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(pollAuthor) 发起的你曾参与过的投票已结束"
+                  "value" : "%(pollAuthor)@ 发起的你曾参与过的投票已结束"
                 }
               }
             }
@@ -171678,7 +171678,7 @@
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%(username) andis hoogu:"
+            "value" : "%(username)@ andis hoogu:"
           }
         },
         "eu" : {
@@ -171888,7 +171888,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%(username) 转嘟了："
+            "value" : "%(username)@ 转嘟了："
           }
         },
         "zh-Hant" : {
@@ -172611,7 +172611,7 @@
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%(username) märkis lemmikuks:"
+            "value" : "%(username)@ märkis lemmikuks:"
           }
         },
         "eu" : {
@@ -172803,7 +172803,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%(username) favoriledi:"
+            "value" : "%(username)@ favoriledi:"
           }
         },
         "uk" : {
@@ -172821,7 +172821,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%(username) 喜欢了："
+            "value" : "%(username)@ 喜欢了："
           }
         },
         "zh-Hant" : {
@@ -180521,13 +180521,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Sina ja veel %(othersCount) muu kasutaja lisas lemmikuks:"
+                  "value" : "Sina ja veel %(othersCount)lld muu kasutaja lisas lemmikuks:"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Sina ja veel %(othersCount) muud kasutajat lisasid lemmikuks:"
+                  "value" : "Sina ja veel %(othersCount)lld muud kasutajat lisasid lemmikuks:"
                 }
               }
             }
@@ -180593,31 +180593,31 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Chuir tusa agus %(othersCount) daoine eile seo i do rogha pearsanta:"
+                  "value" : "Chuir tusa agus %(othersCount)lld daoine eile seo i do rogha pearsanta:"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Chuir tusa agus %(othersCount) daoine eile seo i do rogha pearsanta:"
+                  "value" : "Chuir tusa agus %(othersCount)lld daoine eile seo i do rogha pearsanta:"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Tusa agus %(othersCount)ll is fearr leat eile:"
+                  "value" : "Tusa agus %(othersCount)lld is fearr leat eile:"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Chuir tusa agus %(othersCount) daoine eile seo i do rogha pearsanta:"
+                  "value" : "Chuir tusa agus %(othersCount)lld daoine eile seo i do rogha pearsanta:"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Chuir tusa agus %(othersCount) daoine eile seo i do rogha pearsanta:"
+                  "value" : "Chuir tusa agus %(othersCount)lld daoine eile seo i do rogha pearsanta:"
                 }
               }
             }
@@ -181229,7 +181229,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "你与其他 %(othersCount) 人喜欢了："
+                  "value" : "你与其他 %(othersCount)lld 人喜欢了："
                 }
               }
             }
