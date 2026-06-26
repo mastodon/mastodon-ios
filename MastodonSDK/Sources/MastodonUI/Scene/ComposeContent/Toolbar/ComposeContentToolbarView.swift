@@ -94,12 +94,13 @@ struct ComposeContentToolbarView: View {
                                         showingLanguagePicker = true
                                     }
                                 } label: {
-                                    let font = SwiftUI.Font.system(size: 11, weight: .semibold).width(viewModel.language.count == 3 ? .compressed : .standard)
+                                    let font = SwiftUI.Font.system(size: 11, weight: .semibold).width(viewModel.language.count >= 3 ? .compressed : .standard).leading(.tight)
                                     
-                                    Text(viewModel.language)
+                                    Text(viewModel.language.replacing("-", with: "").prefix(4))
                                         .font(font)
                                         .textCase(.uppercase)
                                         .padding(.horizontal, 4)
+                                        .padding(.vertical, 2)
                                         .minimumScaleFactor(0.5)
                                         .frame(width: 24, height: 24, alignment: .center)
                                         .overlay { RoundedRectangle(cornerRadius: 7).inset(by: 3).stroke(lineWidth: 1.5) }
