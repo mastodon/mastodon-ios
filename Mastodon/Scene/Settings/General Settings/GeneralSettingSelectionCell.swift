@@ -59,7 +59,7 @@ class GeneralSettingSelectionCell: UITableViewCell {
         content.prefersSideBySideTextAndSecondaryText = true
         content.text = setting.title
         
-        if let text = LanguagePicker.availableLanguages().first(where: { $0.localeId == UserDefaults.shared.defaultPostLanguage })?.exonym {
+        if let text = LanguagePicker.availableLanguages().first(where: { $0.id == UserDefaults.shared.defaultPostLanguage })?.exonym {
             content.secondaryAttributedText = NSAttributedString(
                 string: text,
                 attributes: [
