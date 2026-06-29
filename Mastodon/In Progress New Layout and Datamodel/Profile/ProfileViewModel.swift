@@ -106,7 +106,7 @@ import MastodonLocalization
                 return .showAlways
             }
         }()
-        self.editingViewModel.setAccount(account, textContentDidChange: { self.checkForEditingChanges() } )
+        self.editingViewModel.setAccount(account, textContentDidChange: { self.checkForEditingChanges(andCommit: false) } )
         self.relationship = relationship
         self.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts(featuredHashtagsModel))), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
         
@@ -171,7 +171,7 @@ import MastodonLocalization
     
     public func resetEditingViewModel() {
         guard let account else { return }
-        editingViewModel.setAccount(account, textContentDidChange: { self.checkForEditingChanges() })
+        editingViewModel.setAccount(account, textContentDidChange: { self.checkForEditingChanges(andCommit: false) })
     }
     
     public func updateMediaFilter() {
@@ -184,7 +184,7 @@ import MastodonLocalization
         }
     }
     
-    public func checkForEditingChanges() {
+    public func checkForEditingChanges(andCommit commit: Bool) {
         switch editingStatus {
         case .cannotEdit, .notEditing:
             return
@@ -196,6 +196,15 @@ import MastodonLocalization
         }
         let editingViewModelHasChanges = editingViewModel.checkForChanges()
         editingStatus = .editing(hasChanges: editingViewModelHasChanges)
+        if commit {
+            Task {
+                do {
+                    try await commitEdits()
+                } catch {
+                    navigator?.didReceiveError(error)
+                }
+            }
+        }
     }
 }
 
@@ -551,9 +560,9 @@ extension ProfileViewModel {
             )
             let updatedAccount = MastodonAccount.fromEntity(response.value, authenticatedDomain: domain)
             account = updatedAccount
-            editingViewModel.setAccount(updatedAccount, textContentDidChange: { self.checkForEditingChanges() })
+            editingViewModel.setAccount(updatedAccount, textContentDidChange: { self.checkForEditingChanges(andCommit: false) })
             editingStatus = .pushingChanges(success: true)
-            checkForEditingChanges()
+            checkForEditingChanges(andCommit: false)
         } catch {
             editingStatus = .pushingChanges(success: false)
             throw error
@@ -568,7 +577,7 @@ extension ProfileViewModel {
         guard let updatedAccount = account?.byUpdatingProfileSettings(updatedProfile) else { return }
         PersistenceManager.shared.cacheAccount(updatedAccount._legacyEntity, forUserID: authBox.authentication.userIdentifier())
         set(account: updatedAccount, relationship: .isMe, navigator: navigator)
-        editingViewModel.setAccount(updatedAccount, textContentDidChange: { self.checkForEditingChanges() })
+        editingViewModel.setAccount(updatedAccount, textContentDidChange: { self.checkForEditingChanges(andCommit: false) })
     }
 }
 

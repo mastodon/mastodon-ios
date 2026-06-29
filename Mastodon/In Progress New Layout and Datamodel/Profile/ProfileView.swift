@@ -389,6 +389,22 @@ struct ProfileAvatarAndBannerView: View {
                 .offset(.init(width: 0, height: 16))
             }
         }
+        .sheet(isPresented: editingViewModel.showCroppingView) {
+            if let image = editingViewModel.avatarImageToCrop {
+                PhotoCropperView(originalImage: image) { confirmedImage in
+                    defer {
+                        editingViewModel.avatarImageToCrop = nil
+                    }
+
+
+                    editingViewModel.avatarConfirmedCroppedImage = confirmedImage
+                    profileViewModel.checkForEditingChanges(andCommit: true)
+                }
+            }
+        }
+        .onChange(of: editingViewModel.confirmedBannerImage) {
+            profileViewModel.checkForEditingChanges(andCommit: true)
+        }
     }
     
     var avatarSource: AvatarView.AvatarSource {

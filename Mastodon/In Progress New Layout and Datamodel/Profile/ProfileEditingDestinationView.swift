@@ -199,7 +199,7 @@ struct EditSingleTextView: View {
         .onChange(of: textInputModel.stringContent) { oldValue, newValue in
             if newValue.last == "\n" {
                 isFocused = false
-                profileViewModel.checkForEditingChanges()
+                profileViewModel.checkForEditingChanges(andCommit: false)
             }
         }
     }
@@ -888,10 +888,10 @@ struct EditFieldView: View {
                         if !labelContentHasChanged {
                             labelContentHasChanged = true
                         }
-                        profileViewModel.checkForEditingChanges()
+                        profileViewModel.checkForEditingChanges(andCommit: false)
                         if newValue.last == "\n" {
                             focusedField = .value
-                            profileViewModel.checkForEditingChanges()
+                            profileViewModel.checkForEditingChanges(andCommit: false)
                         }
                     }
                     
@@ -912,10 +912,10 @@ struct EditFieldView: View {
                         if !valueContentHasChanged {
                             valueContentHasChanged = true
                         }
-                        profileViewModel.checkForEditingChanges()
+                        profileViewModel.checkForEditingChanges(andCommit: false)
                         if newValue.last == "\n" {
                             focusedField = nil
-                            profileViewModel.checkForEditingChanges()
+                            profileViewModel.checkForEditingChanges(andCommit: false)
                         }
                     }
                 } footer: {
@@ -961,7 +961,7 @@ struct ReorderCustomFieldsView: View {
                     .padding(.vertical, doublePadding)
             }
             .onChange(of: editingViewModel.reorderingCustomFields) { oldValue, newValue in
-                profileViewModel.checkForEditingChanges()
+                profileViewModel.checkForEditingChanges(andCommit: false)
             }
             .ignoresSafeArea()
         }.listStyle(.insetGrouped)
