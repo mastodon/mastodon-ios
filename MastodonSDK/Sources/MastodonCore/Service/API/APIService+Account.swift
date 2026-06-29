@@ -109,6 +109,7 @@ extension APIService {
         ).singleOutput()
         
         PersistenceManager.shared.cacheAccount(response.value, forUserID: MastodonUserIdentifier(domain: domain, userID: response.value.id))
+        NotificationCenter.default.post(name: .userFetched, object: nil)
         
         return response
     }
