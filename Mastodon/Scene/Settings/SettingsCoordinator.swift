@@ -213,11 +213,14 @@ extension SettingsCoordinator: NotificationSettingsViewControllerDelegate {
 
     func viewWillDisappear(_ viewController: UIViewController, viewModel: NotificationSettingsViewModel) {
 
-        guard let updatedSettings = viewModel.updatedSettings else { return }
+        guard let newSettings = viewModel.settingsToRegister else { return }
         
-        NotificationService.shared.requestUpdate(
-            .singleAccount(authenticationBox)
+        Task {
+            try await BodegaPersistence.PushNotifications.savePendingSubscriptionSettings(newSettings, for: authenticationBox)
+            NotificationService.shared.requestUpdate(
+                .singleAccount(authenticationBox)
             )
+        }
     }
     
     func showNotificationSettings(_ viewController: UIViewController) {
