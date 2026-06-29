@@ -246,13 +246,14 @@ extension Mastodon.API {
         do {
             return try Mastodon.API.decoder.decode(type, from: data)
         } catch let decodeError {
+            let fullErrorDescription = "URL: \(String(describing: response.url))\nData: \(String(data: data, encoding: .utf8) ?? "-")\nError:\(decodeError)\n----\n"
             #if DEBUG
-            debugPrint("URL: \(String(describing: response.url))\nData: \(String(data: data, encoding: .utf8) ?? "-")\nError:\(decodeError)\n----\n")
+            debugPrint(fullErrorDescription)
             #endif
             
             guard let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode != 200 else {
                 assertionFailure()
-                throw decodeError
+                throw Mastodon.API.Error(httpResponseStatus: nil, mastodonError: .decodeError(message: fullErrorDescription))
             }
             
             let httpResponseStatus = HTTPResponseStatus(statusCode: httpURLResponse.statusCode)

@@ -53,7 +53,7 @@ extension APIService.APIError: LocalizedError {
                 guard error.httpResponseStatus != .ok else {
                     return "Unknown Error"
                 }
-                return error.httpResponseStatus.reasonPhrase
+                return error.httpResponseStatus?.reasonPhrase
             }
             
             return responseError.errorDescription

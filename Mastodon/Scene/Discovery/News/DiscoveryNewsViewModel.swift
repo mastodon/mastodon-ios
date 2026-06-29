@@ -58,7 +58,7 @@ extension DiscoveryNewsViewModel {
                 query: .init(offset: nil, limit: nil),
                 authenticationBox: authenticationBox
             )
-        } catch let error as Mastodon.API.Error where error.httpResponseStatus.code == 404 {
+        } catch let error as Mastodon.API.Error where error.httpResponseStatus?.code == 404 {
             isServerSupportEndpoint = false
         } catch {
             // do nothing

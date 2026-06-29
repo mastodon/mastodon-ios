@@ -11,11 +11,11 @@ import enum NIOHTTP1.HTTPResponseStatus
 extension Mastodon.API {
     public struct Error: Swift.Error {
         
-        public var httpResponseStatus: HTTPResponseStatus
+        public var httpResponseStatus: HTTPResponseStatus?
         public var mastodonError: MastodonError?
         
         init(
-            httpResponseStatus: HTTPResponseStatus,
+            httpResponseStatus: HTTPResponseStatus?,
             mastodonError: Mastodon.API.Error.MastodonError?
         ) {
             self.httpResponseStatus = httpResponseStatus

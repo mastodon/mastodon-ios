@@ -10,6 +10,7 @@ import Foundation
 extension Mastodon.API.Error {
     public enum MastodonError: Swift.Error {
         case generic(error: Mastodon.Entity.Error)
+        case decodeError(message: String)
         
         init(error: Mastodon.Entity.Error) {
             self = .generic(error: error)
@@ -24,6 +25,8 @@ extension Mastodon.API.Error.MastodonError: LocalizedError {
         switch self {
         case .generic(let error):
             return error.error
+        case .decodeError(let message):
+            return message
         }
     }
     
@@ -31,6 +34,8 @@ extension Mastodon.API.Error.MastodonError: LocalizedError {
         switch self {
         case .generic(let error):
             return error.errorDescription
+        case .decodeError(let message):
+            return message
         }
     }
     

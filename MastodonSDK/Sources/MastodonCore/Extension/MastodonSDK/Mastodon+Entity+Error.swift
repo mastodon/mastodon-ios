@@ -12,7 +12,11 @@ extension Mastodon.API.Error: LocalizedError {
     
     public var errorDescription: String? {
         guard let mastodonError = mastodonError else {
-            return "HTTP \(httpResponseStatus.code)"
+            if let httpResponseStatus {
+                return "HTTP \(httpResponseStatus.code)"
+            } else {
+                return nil
+            }
         }
         switch mastodonError {
         case .generic(let error):
@@ -21,12 +25,18 @@ extension Mastodon.API.Error: LocalizedError {
             } else {
                 return error.error
             }
+        case .decodeError(let message):
+            return message
         }
     }
     
     public var failureReason: String? {
         guard let mastodonError = mastodonError else {
-            return httpResponseStatus.reasonPhrase
+            if let httpResponseStatus {
+                return httpResponseStatus.reasonPhrase
+            } else {
+                return nil
+            }
         }
         switch mastodonError {
         case .generic(let error):
@@ -35,6 +45,8 @@ extension Mastodon.API.Error: LocalizedError {
             } else {
                 return error.errorDescription
             }
+        case .decodeError(let message):
+            return message
         }
     }
     
