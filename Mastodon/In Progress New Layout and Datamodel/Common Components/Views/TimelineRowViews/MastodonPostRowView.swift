@@ -146,8 +146,10 @@ struct MastodonPostRowView: View {
                                 PollView(viewModel: PollViewModel(pollEntity: poll, emojis: emojis, optionTranslations: viewModel.isShowingTranslation == true ? viewModel.pollOptionTranslations : nil, containingPostID: viewModel.initialDisplayInfo.actionablePostID, actionHandler: actionHandler), contentWidth: contentWidth)
                                     .frame(width: contentWidth)
                             case .linkPreviewCard(let card):
-                                LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth)
-                                .frame(width: contentWidth)
+                                if viewModel.collectionViewModel == nil { // do not show both a link preview and a collection preview
+                                    LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth)
+                                        .frame(width: contentWidth)
+                                }
                             }
                         }
                         
