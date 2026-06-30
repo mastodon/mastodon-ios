@@ -637,22 +637,6 @@ struct LegacyNavigationViewControllerWrapper: UIViewControllerRepresentable {
     }
 }
 
-
-struct LegacySearchViewControllerWrapper: UIViewControllerRepresentable {
-    let authBox: MastodonAuthenticationBox?
-
-    func makeUIViewController(context: Context) -> UINavigationController {
-        let searchViewController = SearchViewController()
-        searchViewController.viewModel = SearchViewModel(authenticationBox: authBox)
-        return AdaptiveStatusBarStyleNavigationController(rootViewController: searchViewController)
-    }
-
-    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
-        // nothing to do?
-    }
-}
-
-
 struct LegacyComposeViewControllerWrapper: UIViewControllerRepresentable {
     let authBox: MastodonAuthenticationBox
     
