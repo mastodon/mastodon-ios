@@ -71,6 +71,9 @@ import MastodonCore
     }
     
     public func show(_ destination: MastodonNavigationDestination, in tab: MastodonTab) {
+        if selectedTab != tab {
+            selectedTab = tab
+        }
         navigationRouter(forTab: tab).push(destination)
     }
     
