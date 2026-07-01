@@ -9,6 +9,7 @@ import MastoParse
 import Combine
 import MastodonUI
 import Meta
+import WebKit
 
 private func debugScroll(_ message: String) {
 #if DEBUG && false
@@ -157,435 +158,6 @@ extension TimelineViewType {
     }
 }
 
-class TimelineListViewController: UIHostingController<AnyView>
-{
-    public let type: TimelineViewType
-    private let viewModel: TimelineListViewModel
-    private let navigator: MastodonNavigationRouter
-    private let asyncRefreshViewModel = AsyncRefreshViewModel()
-    private let nestedScrollViewModel = NestedScrollInteractionViewModel()
-    private var navigationFlow: NavigationFlow?
-    private let _mediaPreviewTransitionController = MediaPreviewTransitionController()
-    
-    init(_ type: TimelineViewType, navigator: MastodonNavigationRouter) {
-        self.type = type
-        self.navigator = navigator
-        self.viewModel = type.timelineViewModel(asyncRefreshViewModel: self.asyncRefreshViewModel, navigator: navigator)
-        let root = TimelineListView()
-            .environment(navigator)
-            .environment(viewModel)
-            .environment(type.contentConcealModel)
-            .environment(viewModel.timeline.filterModel)
-            .environment(asyncRefreshViewModel)
-            .environment(nestedScrollViewModel)
-        super.init(rootView: AnyView(root))
-
-        viewModel.presentDonationDialog = { [weak self] campaign in
-            guard let self else { return }
-            guard let coordinator = self.sceneCoordinator, let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
-            self.navigationFlow = NewDonationNavigationFlow(flowPresenter: self, campaign: campaign, authenticationBox: authBox, sceneCoordinator: coordinator)
-            self.navigationFlow?.presentFlow { [weak self] in
-                self?.navigationFlow = nil
-            }
-        }
-        viewModel.hostingViewController = self
-        navigator.navigationType = .uiKit(self)
-        
-        setUpNavigationBar()
-    }
-    
-    func setUpNavigationBar() {
-        self.navigationItem.title = type.navigationTitle
-        switch type {
-        case .home:
-            assertionFailure("the home timeline no longer expects to be shown from UIKit navigation")
-        case .notifications:
-            assertionFailure("the notifications timeline no longer expects to be shown from UIKit navigation")
-        case .notificationRequests:
-            assertionFailure("the notifications timeline no longer expects to be shown from UIKit navigation")
-        case .hashtag:
-            navigationItem.rightBarButtonItem = composeHashtagButtonItem
-        case .collection(let collectionViewModel):
-            if let url = URL(string: collectionViewModel.collection.url) {
-                navigationItem.rightBarButtonItems = [
-                  shareBarButtonItem(url),
-                  UIBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis"), primaryAction: nil, menu: collectionMenu(collectionViewModel))
-                ]
-            } else {
-                
-            }
-           
-        case .thread, .discover, .linkMentions, .profilePosts, .postHistory, .remoteThread, .myBookmarks, .myFavorites, .whoFavourited, .whoBoosted, .followers, .accountsFollowed, .familiarFollowers, .search, .myFollowedHashtags:
-            break
-        }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError(
-            "init(coder:) not implemented for HomeTimelineListViewController")
-    }
-    
-    lazy var composeHashtagButtonItem: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem()
-        barButtonItem.tintColor = Asset.Colors.Brand.blurple.color
-        barButtonItem.image = UIImage(systemName: "square.and.pencil")
-        barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.compose
-        barButtonItem.target = self
-        barButtonItem.action = #selector(Self.composeHashtagBarButtonItemPressed(_:))
-        return barButtonItem
-    }()
-    
-    func shareBarButtonItem(_ shareItem: Any) -> UIBarButtonItem {
-        UIBarButtonItem(title: nil, image: UIImage(systemName: "square.and.arrow.up"), primaryAction: UIAction { _ in
-            let vc = UIActivityViewController(activityItems: [shareItem], applicationActivities: nil)
-            let scene = UIApplication.shared.connectedScenes.first { $0.activationState == .foregroundActive } as? UIWindowScene
-            scene?.keyWindow?.rootViewController?.present(vc, animated: true)
-        })
-    }
-    
-    func collectionMenu(_ collectionViewModel: CollectionViewModel) -> UIMenu {
-        let submenus = collectionViewModel.collectionMenuActions()
-        
-        func menuElement(_ wrapperAction: MastodonMenuAction) -> UIMenuElement? {
-            switch wrapperAction {
-            case .collectionAction(let action):
-                return UIAction(
-                    title: action.labelText,
-                    image: nil,
-                    identifier: nil,
-                    discoverabilityTitle: nil,
-                    attributes: [],
-                    state: .off
-                ) { _ in
-                    Task {
-                        do {
-                            try await collectionViewModel.doMenuAction(action, navigator: self.navigator)
-                        } catch {
-                            self.navigator.didReceiveError(error)
-                        }
-                    }
-                }
-            case .relationshipAction(let action):
-                guard let authorAccount = collectionViewModel.authorAccount else { return nil }
-                return UIAction(
-                    title: collectionViewModel.relationshipViewModel.labelText(forAction: action, account: authorAccount),
-                    image: nil,
-                    identifier: nil,
-                    discoverabilityTitle: nil,
-                    attributes: [],
-                    state: .off
-                ) { _ in
-                    Task {
-                        do {
-                            try await collectionViewModel.relationshipViewModel.doMenuAction(action, forAccount: authorAccount, navigator: self.navigator)
-                        } catch {
-                            self.navigator.didReceiveError(error)
-                        }
-                    }
-                }
-            case .navigationalAction(let action):
-                guard let label = navigator.labelText(forAction: action, domainName: collectionViewModel.authorAccount?.domain) else { return nil }
-                return UIAction(
-                    title: label,
-                    image: nil,
-                    identifier: nil,
-                    discoverabilityTitle: nil,
-                    attributes: [],
-                    state: .off
-                ) { _ in
-                    Task {
-                        do {
-                            try await self.navigator.doMenuAction(action)
-                        } catch {
-                            self.navigator.didReceiveError(error)
-                        }
-                    }
-                }
-            case .miscellaneous(let action):
-                return nil
-            case .postAction(let action):
-                return nil
-            }
-        }
-        
-        let submenuElements = submenus.flatMap { submenu in
-            let children = submenu.items.map { action in
-                menuElement(action)
-            }.compactMap { $0 }
-            return children
-        }
-        
-        return UIMenu(children: submenuElements)
-    }
-    
-    lazy var picker = { UISegmentedControl(items: [ NotificationsScope.everything.pickerLabel, NotificationsScope.mentions.pickerLabel ]) }()
-    
-    lazy var timelineSelectorButton = {
-        let button = UIButton(type: .custom)
-        
-        button.setAttributedTitle(
-            .init(string: L10n.Scene.HomeTimeline.TimelineMenu.following, attributes: [
-                .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
-            ]),
-            for: .normal)
-        
-        let imageConfiguration = UIImage.SymbolConfiguration(paletteColors: [.secondaryLabel, .secondarySystemFill])
-            .applying(UIImage.SymbolConfiguration(textStyle: .subheadline))
-            .applying(UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .medium))
-        
-        button.configuration = {
-            var config = UIButton.Configuration.plain()
-            config.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
-            config.imagePadding = 8
-            config.image = UIImage(systemName: "chevron.down.circle.fill", withConfiguration: imageConfiguration)
-            config.imagePlacement = .trailing
-            return config
-        }()
-        
-        button.showsMenuAsPrimaryAction = true
-        button.menu = generateTimelineSelectorMenu(navigator: navigator)
-        return button
-    }()
-    
-    func notificationAcceptRejectMenuButton(forRequest request: Mastodon.Entity.NotificationRequest) -> UIButton {
-        let button = UIButton(type: .custom)
-        
-        let imageConfiguration = UIImage.SymbolConfiguration(paletteColors: [.label])
-            .applying(UIImage.SymbolConfiguration(textStyle: .subheadline))
-            .applying(UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .medium))
-        
-        button.configuration = {
-            var config = UIButton.Configuration.plain()
-            config.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
-            config.imagePadding = 8
-            config.image = UIImage(systemName: "ellipsis", withConfiguration: imageConfiguration)
-            config.imagePlacement = .trailing
-            return config
-        }()
-        
-        button.showsMenuAsPrimaryAction = true
-        button.menu = generateNotificationRequestMenu(request)
-        return button
-    }
-}
-
-extension TimelineListViewController {
-    // MARK: HomeTimeline Nav Bar controls
-    @objc func scrollToTop() {
-        viewModel.scrollToTop()
-    }
-    
-    @objc private func composeHashtagBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        guard let authenticatedUser = viewModel.authenticatedUser else { return }
-        switch viewModel.timeline {
-        case .hashtag(let tag, _):
-            let composeViewModel = ComposeViewModel(
-                authenticationBox: authenticatedUser,
-                composeContext: .composeStatus(quoting: nil),
-                destination: .topLevel,
-                initialContent: "#\(tag.name)",
-                completion: { success in
-                   // TODO: reload at least enough to indicate that there is an additional post
-                }
-            )
-            sceneCoordinator?.present(scene: .compose(viewModel: composeViewModel), transition: .modal(animated: true, completion: nil))
-        default:
-            break
-        }
-    }
-    
-    func setUpTimelineSelectorButton() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: timelineSelectorButton)
-        if #available(iOS 26.0, *) {
-            self.navigationItem.leftBarButtonItem?.hidesSharedBackground = true
-        }
-    }
-    
-    @MainActor
-    private func generateTimelineSelectorMenu(navigator: MastodonNavigationRouter) -> UIMenu {
-        let showFollowingAction = UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.following, image: .init(systemName: "house")) { [weak self] _ in
-            guard let self else { return }
-            
-            viewModel.setTimeline(.homeTimeline, navigator: navigator)
-            self.timelineSelectorButton.setAttributedTitle(
-                NSAttributedString(string: L10n.Scene.HomeTimeline.TimelineMenu.following, attributes: [
-                    .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
-                ]),
-                for: UIControl.State.normal)
-            
-            self.timelineSelectorButton.sizeToFit()
-            self.timelineSelectorButton.menu = self.generateTimelineSelectorMenu(navigator: navigator)
-        }
-        
-        let showLocalTimelineAction = UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.localCommunity, image: .init(systemName: "building.2")) { [weak self] action in
-            guard let self else { return }
-            
-            viewModel.setTimeline(.local, navigator: navigator)
-            timelineSelectorButton.setAttributedTitle(
-                .init(string: L10n.Scene.HomeTimeline.TimelineMenu.localCommunity, attributes: [
-                    .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
-                ]),
-                for: .normal)
-            timelineSelectorButton.sizeToFit()
-            timelineSelectorButton.menu = generateTimelineSelectorMenu(navigator: navigator)
-        }
-        
-        switch viewModel.timeline {
-        case .homeTimeline:
-            showLocalTimelineAction.state = .off
-            showFollowingAction.state = .on
-        case .local:
-            showLocalTimelineAction.state = .on
-            showFollowingAction.state = .off
-        case .list:
-            showLocalTimelineAction.state = .off
-            showFollowingAction.state = .off
-        case .hashtag:
-            showLocalTimelineAction.state = .off
-            showFollowingAction.state = .off
-        case .discover, .linkMentions, .search, .userPosts, .featuredItems, .postHistory, .thread, .remoteThread, .myFollowedHashtags, .myBookmarks, .myFavorites, .notifications, .notificationRequests, .followers, .accountsFollowed, .familiarFollowers, .whoFavourited, .whoBoosted, .collection:
-            assertionFailure()
-            break
-        }
-        
-        let listsSubmenu = UIDeferredMenuElement.uncached { [weak self] callback in
-            guard let self else { return callback([]) }
-            
-            Task { @MainActor in
-                guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
-                
-                let lists = (try? await Mastodon.API.Lists.getLists(
-                    session: .shared,
-                    domain: currentUser.domain,
-                    authorization: currentUser.userAuthorization
-                ).singleOutput().value) ?? []
-                
-                var listEntries = lists.sorted(by: { first, second in
-                    let comparisonResult = emojiFirstComparator(first.title, second.title)
-                    return comparisonResult != .orderedDescending
-                }).map { entry in
-                    return LabeledAction(title: entry.title, image: nil, handler: { [weak self] in
-                        guard let self else { return }
-                        viewModel.setTimeline(.list(entry.id), navigator: navigator)
-                        timelineSelectorButton.setAttributedTitle(
-                            .init(string: entry.title, attributes: [
-                                .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
-                            ]),
-                            for: .normal)
-                        timelineSelectorButton.sizeToFit()
-                        timelineSelectorButton.menu = generateTimelineSelectorMenu(navigator: navigator)
-                    }).menuElement
-                }
-                
-                if listEntries.isEmpty {
-                    listEntries = [
-                        UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.Lists.emptyMessage, attributes: [.disabled], handler: {_ in })
-                    ]
-                }
-                
-                callback(listEntries)
-            }
-        }
-        
-        let listsMenu = UIMenu(
-            title: L10n.Scene.HomeTimeline.TimelineMenu.Lists.title,
-            image: UIImage(systemName: "list.bullet.rectangle.portrait"),
-            children: [listsSubmenu]
-        )
-        
-        let hashtagsSubmenu = UIDeferredMenuElement.uncached { [weak self] callback in
-            guard let self else { return callback([]) }
-            
-            Task { @MainActor in
-                guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
-                
-                let lists = (try? await Mastodon.API.Account.followedTags(
-                    session: .shared,
-                    domain: currentUser.domain,
-                    query: .init(limit: nil),
-                    authorization: currentUser.userAuthorization
-                ).singleOutput().value) ?? []
-                
-                var listEntries = lists.map { entry in
-                    let entryName = "#\(entry.name)"
-                    return LabeledAction(title: entryName, image: nil, handler: { [weak self] in
-                        guard let self else { return }
-                        viewModel.setTimeline(.hashtag(entry, includeHeader: false), navigator: navigator)
-                        timelineSelectorButton.setAttributedTitle(
-                            .init(string: entryName, attributes: [
-                                .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
-                            ]),
-                            for: .normal)
-                        timelineSelectorButton.sizeToFit()
-                        timelineSelectorButton.menu = generateTimelineSelectorMenu(navigator: navigator)
-                    }).menuElement
-                }
-                
-                if listEntries.isEmpty {
-                    listEntries = [
-                        UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.Hashtags.emptyMessage, attributes: [.disabled], handler: {_ in })
-                    ]
-                }
-                
-                callback(listEntries)
-            }
-        }
-        
-        let hashtagsMenu = UIMenu(
-            title: L10n.Scene.HomeTimeline.TimelineMenu.Hashtags.title,
-            image: UIImage(systemName: "number"),
-            children: [hashtagsSubmenu]
-        )
-        
-        let listsDivider = UIMenu(title: "", options: .displayInline, children: [listsMenu, hashtagsMenu])
-        
-        // check if the instance allows the local timeline
-        if AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.localTimeline) ?? true {
-            return UIMenu(children: [showFollowingAction, showLocalTimelineAction, listsDivider])
-        } else {
-            guard listsMenu.children.count > 0 || hashtagsMenu.children.count > 0 else { return UIMenu(children: [showFollowingAction]) }
-            return UIMenu(children: [showFollowingAction, listsDivider])
-        }
-    }
-    
-    private func generateNotificationRequestMenu(_ request: Mastodon.Entity.NotificationRequest) -> UIMenu {
-        let acceptAction = UIAction(title: L10n.Scene.Notification.FilteredNotification.accept, image: .init(systemName: "checkmark")) { [weak self] _ in
-            Task {
-                do {
-                    try await self?.acceptNotificationRequest(request)
-                } catch {
-                    self?.navigator.didReceiveError(error)
-                }
-            }
-        }
-        
-        let rejectAction = UIAction(title: L10n.Scene.Notification.FilteredNotification.dismiss, image: .init(systemName: "trash")) { [weak self] _ in
-            Task {
-                do {
-                    try await self?.rejectNotificationRequest(request)
-                } catch {
-                    self?.navigator.didReceiveError(error)
-                }
-            }
-        }
-        
-        let acceptRejectMenu = UIMenu(children: [acceptAction, rejectAction])
-        return acceptRejectMenu
-    }
-    
-    private func acceptNotificationRequest(_ notificationRequest: MastodonSDK.Mastodon.Entity.NotificationRequest) async throws {
-        guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
-        _ = try await APIService.shared.acceptNotificationRequest(authenticationBox: authBox, id: notificationRequest.id)
-        NotificationCenter.default.post(name: .notificationFilteringChanged, object: nil)
-    }
-    
-    private func rejectNotificationRequest(_ notificationRequest: MastodonSDK.Mastodon.Entity.NotificationRequest) async throws {
-        guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
-        _ = try await APIService.shared.dismissNotificationRequest(authenticationBox: authBox, id: notificationRequest.id)
-        NotificationCenter.default.post(name: .notificationFilteringChanged, object: nil)
-    }
-}
-
 extension NotificationsScope {
     var pickerLabel: String {
         switch self {
@@ -596,95 +168,6 @@ extension NotificationsScope {
         case .fromRequest:
             ""
         }
-    }
-}
-
-extension TimelineListViewController {
-    // MARK: Notifications Nav Bar controls
-    
-    func setUpNotificationsNavBarControls() {
-        switch viewModel.timeline {
-        case .notifications(.everything), .notifications(.mentions):
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal.decrease.circle"), style: .plain, target: self, action: #selector(showNotificationPolicySettings))
-            
-            picker.translatesAutoresizingMaskIntoConstraints = false
-            picker.selectedSegmentIndex = 0
-            navigationItem.titleView = picker
-            NSLayoutConstraint.activate([
-                picker.widthAnchor.constraint(greaterThanOrEqualToConstant: 287)
-            ])
-            picker.addTarget(self, action: #selector(pickerValueChanged(_:)), for: .valueChanged)
-        case .notifications(.fromRequest(let request)):
-            navigationItem.title = "@\(request.account.handle)"
-            navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationAcceptRejectMenuButton(forRequest: request))
-        default:
-            break
-        }
-    }
-    
-    @objc private func pickerValueChanged(_ sender: UISegmentedControl) {
-        let newScope: NotificationsScope
-        switch sender.selectedSegmentIndex {
-        case 0:
-            newScope = .everything
-        case 1:
-            newScope = .mentions
-        default:
-            newScope = .everything
-        }
-        switch viewModel.timeline {
-        case .notifications(let scope):
-            if scope != newScope {
-                viewModel.resetToUntrackedAfterDelay(from: viewModel.loadingState)
-                viewModel.setTimeline(.notifications(scope: newScope), navigator: navigator)
-            }
-        default:
-            break
-        }
-    }
-    
-    @objc private func showNotificationPolicySettings(_ sender: Any) {
-        guard let policy = viewModel.filteredNotificationsViewModel.policy else { return }
-        Task {
-            let adminSettings: AdminNotificationFilterSettings? = await {
-                guard let user = AuthenticationServiceProvider.shared.currentActiveUser.value, let role = user.cachedAccount?.role else { print("no role"); return nil }
-                let permissions = role.rolePermissions()
-                let hasAdminPermissions = permissions.contains(.administrator) || permissions.contains(.manageReports) || permissions.contains(.manageUsers)
-                guard hasAdminPermissions else { print("no permissions"); return nil }
-                if let existingPreferences = await BodegaPersistence.Notifications.currentPreferences(for: user.authentication) {
-                    return existingPreferences
-                } else {
-                    return AdminNotificationFilterSettings(forReports: .accept, forSignups: .accept)
-                }
-            }()
-            
-            let policyViewModel = await NotificationPolicyViewModel(
-                NotificationFilterSettings(
-                    forNotFollowing: policy.forNotFollowing,
-                    forNotFollowers: policy.forNotFollowers,
-                    forNewAccounts: policy.forNewAccounts,
-                    forPrivateMentions: policy.forPrivateMentions,
-                    forLimitedAccounts: policy.forLimitedAccounts
-                ),
-                adminSettings: adminSettings
-            )
-            
-            guard let policyViewController = self.sceneCoordinator?.present(scene: .notificationPolicy(viewModel: policyViewModel), transition: .formSheet(policyViewModel.adminFilterSettings != nil ? [.large()] : nil)) as? NotificationPolicyViewController else { return }
-            
-            policyViewController.delegate = self
-        }
-    }
-}
-
-extension TimelineListViewController: NotificationPolicyViewControllerDelegate {
-    func policyUpdated(_ viewController: NotificationPolicyViewController, newPolicy: MastodonSDK.Mastodon.Entity.NotificationPolicy) {
-        viewModel.updateFilteredNotificationsPolicy(newPolicy, andReloadFeed: true)
-    }
-}
-
-extension TimelineListViewController: MediaPreviewableViewController {
-    var mediaPreviewTransitionController: MediaPreviewTransitionController {
-        return _mediaPreviewTransitionController
     }
 }
 
@@ -797,10 +280,21 @@ enum MastodonTimelineFadeInOverlay {
     case altText(String)
 }
 
-enum MastodonTimelineSheet {
+enum MastodonTimelineSheet: Identifiable {
     case postInteractionSettingsEdit(PostInteractionSettingsViewModel)
     case boostOrQuoteDialog(MastodonPostViewModel)
     case manageListMembership(MastodonAccount)
+    
+    var id: String {
+        switch self {
+        case .postInteractionSettingsEdit(let viewModel):
+            return "post-interaction-settings-edit"
+        case .boostOrQuoteDialog(let viewModel):
+            return "boost-or-quote-\(viewModel.initialDisplayInfo.id)"
+        case .manageListMembership(let account):
+            return "manage-list-membership-\(account.id)"
+        }
+    }
 }
 
 @MainActor
@@ -1434,7 +928,7 @@ enum MastodonTimelineSheet {
     func suggestAccountsToFollow(navigator: MastodonNavigationRouter) {
         guard let authenticatedUser else { return }
         let suggestionAccountViewModel = SuggestionAccountViewModel(authenticationBox: authenticatedUser)
-        navigator.presentModal(.legacy(scene: .suggestionAccount(viewModel: suggestionAccountViewModel), transition: .modal(animated: true, completion: nil)))
+//        navigator.presentModal(.legacy(scene: .suggestionAccount(viewModel: suggestionAccountViewModel), transition: .modal(animated: true, completion: nil)))
     }
 }
 
@@ -1826,6 +1320,7 @@ extension View {
 }
 
 struct TimelineListView: View {
+    @Environment(AuthenticationObserver.self) private var authenticationObserver
     @Environment(MastodonNavigationRouter.self) private var navigator
     @Environment(TimelineListViewModel.self) private var viewModel
     @Environment(TimelineQueryFilter.self) private var filterModel
@@ -2033,13 +1528,13 @@ struct TimelineListView: View {
                 Text(messageText)
             }
         }
-        .sheet(isPresented: $navigator.isPresentingTimelineSheet) {
+        .sheet(isPresented: $navigator.isPresentingSheet) {
             if let presentedSheet = navigator.presentedSheet {
                 switch presentedSheet {
                 case .timelineSheet(let sheet):
                     viewModel.activeSheetContents(sheet, navigator: navigator)
-                case .profileEditingSheet:
-                    EmptyView()
+                default:
+                    navigator.sheetContents(presentedSheet)
                 }
             }
         }
@@ -2975,7 +2470,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                             }
                         }
                     )
-                    navigator.presentModal(.legacy(scene: .compose(viewModel: composeViewModel), transition: .modal(animated: true, completion: nil)))
+                    navigator.presentSheet(.modalCompose(composeViewModel), afterDeconflictionDelay: true)
                 case .boost:
                     Task {
                         let canDoQuotePosts = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.quotePosts) ?? false
@@ -3077,7 +2572,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                                 self.refetchAndDisplay(actionablePostID: statusEntityToEdit.id)
                             }
                         })
-                    navigator.presentModal(.legacy(scene: .editStatus(viewModel: editStatusViewModel), transition: .modal(animated: true)))
+                    navigator.presentSheet(.modalCompose(editStatusViewModel), afterDeconflictionDelay: true)
                     
                 case .changeQuotePolicy:
                     let activeSheet = MastodonTimelineSheet.postInteractionSettingsEdit(
@@ -3127,7 +2622,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     
                 case .openPostInBrowser:
                     guard let urlString = actionablePost.metaData.url, let url = URL(string: urlString) else { throw PostActionFailure.noActionablePostId }
-                    navigator.presentModal(.legacy(scene: .safari(url: url), transition: .safariPresent(animated: true)))
+                    navigator.presentSheet(.url(url), afterDeconflictionDelay: true)
                     
                 case .sharePost:
                     sharePost(actionablePost, navigator: navigator)
@@ -3158,7 +2653,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                         collection: nil,
                         contentDisplayMode: .neverConceal
                     )
-                    navigator.presentModal(.legacy(scene: .report(viewModel: reportViewModel), transition: .modal(animated: true, completion: nil)))
+                    navigator.presentSheet(.report(reportViewModel), afterDeconflictionDelay: true)
                     
             // MARK: DELETE
                 case .deletePost:
@@ -3370,15 +2865,6 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             applicationActivities: nil
         )
         
-        navigator.presentModal(
-            .legacy(
-                scene: .activityViewController(
-                    activityViewController: activityViewController,
-                    sourceView: nil,
-                    barButtonItem: nil
-                ), transition: .activityViewControllerPresent(animated: true, completion: nil)
-            )
-        )
     }
 }
 

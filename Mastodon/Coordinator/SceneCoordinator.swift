@@ -305,7 +305,6 @@ extension SceneCoordinator {
     
     func get(scene: Scene, from sender: UIViewController? = nil) -> UIViewController? {
         let viewController: UIViewController?
-        let navigator = MastodonNavigationRouter(navigationType: .uiKit(nil))
         switch scene {
         case .welcome:
             let _viewController = WelcomeViewController()
@@ -403,15 +402,6 @@ extension SceneCoordinator {
             _viewController.viewModel = viewModel
             viewController = _viewController
 
-        case .safari(let url):
-            guard let scheme = url.scheme?.lowercased(),
-                  scheme == "http" || scheme == "https" else {
-                return nil
-            }
-            let _viewController = SFSafariViewController(url: url)
-            _viewController.preferredBarTintColor = SystemTheme.navigationBarBackgroundColor
-            _viewController.preferredControlTintColor = Asset.Colors.Brand.blurple.color
-            viewController = _viewController
 
         case .alertController(let alertController):
             if let popoverPresentationController = alertController.popoverPresentationController {
@@ -534,34 +524,6 @@ extension SceneCoordinator: SettingsCoordinatorDelegate {
         (viewController.navigationController ?? viewController).present(alertController, animated: true)
     }
 
-    @MainActor
-    func openGithubURL(_ settingsCoordinator: SettingsCoordinator) {
-        guard let githubURL = URL(string: "https://github.com/mastodon/mastodon-ios") else { return }
-
-        _ = present(
-            scene: .safari(url: githubURL),
-            from: settingsCoordinator.settingsViewController.navigationController,
-            transition: .safariPresent(animated: true)
-        )
-    }
-
-    @MainActor
-    func openPrivacyURL(_ settingsCoordinator: SettingsCoordinator) {
-        guard let privacyURL = URL(string: "https://joinmastodon.org/ios/privacy") else { return }
-        _ = present(scene: .safari(url: privacyURL),
-                    from: settingsCoordinator.settingsViewController.navigationController,
-                    transition: .safariPresent(animated: true))
-
-    }
-
-    func openProfileSettingsURL(_ settingsCoordinator: SettingsCoordinator) {
-        guard let authenticationBox else { return }
-        let domain = authenticationBox.domain
-        let profileSettingsURL = Mastodon.API.profileSettingsURL(domain: domain)
-        _ = present(scene: .safari(url: profileSettingsURL),
-                    from: settingsCoordinator.settingsViewController.navigationController,
-                    transition: .safariPresent(animated: true))
-    }
 }
 
 public extension UIViewController {

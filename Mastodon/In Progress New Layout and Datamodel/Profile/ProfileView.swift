@@ -10,35 +10,6 @@ import MastodonSDK
 import MastodonUI
 import Combine
 
-class ProfileHostingViewController: UIHostingController<AnyView> {
-    let wrapInSwiftUINavigationStack: Bool
-    let viewModel = ProfileViewModel()
-    let nestedScrollViewModel = NestedScrollInteractionViewModel()
-    let navigationRouter: MastodonNavigationRouter
-    
-    init(navigationRouter: MastodonNavigationRouter) {
-        self.wrapInSwiftUINavigationStack = {
-            switch navigationRouter.navigationType {
-            case .uiKit:
-                return false
-            case .swiftUI:
-                return true
-            }
-        }()
-        self.navigationRouter = navigationRouter
-        let root = ProfileView(wrapInSwiftUINavigationStack: wrapInSwiftUINavigationStack)
-            .profileEnvironment(viewModel, nestedScroll: nestedScrollViewModel)
-            .environment(navigationRouter)
-        super.init(rootView: AnyView(root))
-        title = nil
-        navigationRouter.navigationType = .uiKit(self)
-    }
-    
-    @MainActor @preconcurrency required dynamic init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 extension View {
     func profileEnvironment(_ viewModel: ProfileViewModel,
                             nestedScroll: NestedScrollInteractionViewModel) -> some View {

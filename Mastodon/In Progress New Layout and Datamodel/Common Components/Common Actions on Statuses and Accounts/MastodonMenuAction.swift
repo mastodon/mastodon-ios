@@ -268,10 +268,9 @@ extension MastodonNavigationRouter {
         case .compose(let composeContext):
             guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
             let composeModel = ComposeViewModel(authenticationBox: authBox, composeContext: composeContext, destination: .topLevel)
-            presentModal(.legacy(scene: .compose(viewModel: composeModel), transition: .modal(animated: true, completion: nil)))
             
         case .myAccountSettings:
-            presentModal(.legacy(scene: .settings, transition: .none))
+            presentSheet(.settings, afterDeconflictionDelay: true)
         case .myBookmarks:
             push(.timeline(.myBookmarks))
         case .myFavorites:
@@ -279,9 +278,9 @@ extension MastodonNavigationRouter {
         case .myFollowedHashtags:
             push(.timeline(.myFollowedHashtags))
         case .openInBrowser(let url):
-            presentModal(.legacy(scene: .safari(url: url), transition: .safariPresent(animated: true, completion: nil)))
+            assertionFailure("not implemented")
         case .share(let items):
-            presentModal(.share(activityItems: items))
+            break
         case .collection(let collectionViewModel):
             push(.timeline(.collection(collectionViewModel)))
         case .addToList(let account, let relationshipViewModel):
@@ -513,7 +512,7 @@ extension RelationshipViewModel {
         case .reportUser:
             guard let relationship else { return }
             guard let reportViewModel = account.reportViewModel(withStatus: nil, relationship: relationship) else { return }
-            navigator.presentModal(.legacy(scene: .report(viewModel: reportViewModel), transition: .modal(animated: true, completion: nil)))
+            navigator.presentSheet(.report(reportViewModel), afterDeconflictionDelay: true)
         case .blockDomain_new:
             await doDomainBlock(account, navigator: navigator)
         case .unblockDomain_new:

@@ -1,6 +1,7 @@
 // Copyright © 2026 Mastodon gGmbH. All rights reserved.
 
 import SwiftUI
+import WebKit
 import MastodonSDK
 import MastodonCore
 
@@ -25,42 +26,16 @@ enum MastodonNavigationDestination: Identifiable {
 /// See https://azamsharp.com/2024/07/29/navigation-patterns-in-swiftui.html, the section titled "Global Routing in SwiftUI"
 @MainActor
 @Observable class MastodonNavigationRouter {
-    enum NavigationType {
-        case uiKit(UIViewController?)
-        case swiftUI(legacyPresenter: UIViewController?)
-    }
-    var navigationType: NavigationType
-    
     var navigationPath: [MastodonNavigationDestination] = []
     
     let uuid = UUID()
     
     // Action Sheets
+    /// public set is allowed so that this can be easily bindable, but callers should avoid setting this directly, use presentModal(_,afterDeconflictionDelay:) or dismissCurrentModal() instead.
     var presentedSheet: MastodonSheet?
-    var isPresentingTimelineSheet: Bool {
+    var isPresentingSheet: Bool {
         get {
-            switch presentedSheet {
-            case .timelineSheet:
-                true
-            case .profileEditingSheet, .none:
-                false
-            }
-        }
-        set {
-            if newValue == false {
-                presentedSheet = nil
-            }
-        }
-    }
-    
-    var isPresentingProfileEditSheet: Bool {
-        get {
-            switch presentedSheet {
-            case .profileEditingSheet:
-                true
-            case .timelineSheet, .none:
-                false
-            }
+            presentedSheet != nil
         }
         set {
             if newValue == false {
@@ -84,10 +59,6 @@ enum MastodonNavigationDestination: Identifiable {
                 self?.activeAlert = .noAlert
             }
         })
-    }
-    
-    init(navigationType: NavigationType) {
-        self.navigationType = navigationType
     }
     
     @ViewBuilder
@@ -126,97 +97,59 @@ enum MastodonNavigationDestination: Identifiable {
         }
     }
     
-    private func destinationViewController(_ destination: MastodonNavigationDestination) -> UIViewController? {
-        let newNavigator = MastodonNavigationRouter(navigationType: .uiKit(nil))
-        let newController: UIViewController? = {
-            switch destination {
-            case .timeline(let timelineViewType):
-                return TimelineListViewController(timelineViewType, navigator: newNavigator)
-                
-            case .profile(let account, let relationship):
-                let profile = ProfileHostingViewController(navigationRouter: newNavigator)
-                setUpProfileViewModel(profile.viewModel, account: account, relationship: relationship)
-                return profile
-            case .editProfile(let profileViewModel):
-                profileViewModel.editingStatus = .editing(hasChanges: false)
-                return ProfileEditHostingViewController(viewModel: profileViewModel, navigator: newNavigator)
-                
-            case .editProfileNavigation(let destination):
-                return ProfileEditingDestinationHostingViewController(destination, navigator: newNavigator)
-                
-            case .legacy, .share:
-                return nil
+    @ViewBuilder func sheetContents(_ sheet: MastodonSheet) -> some View {
+        switch sheet {
+        case .timelineSheet:
+            Text("Timeline must create timeline sheets itself")
+        
+        case .modalCompose(let model):
+            let authBox = model.authenticationBox
+            LegacyComposeViewControllerWrapper(authBox: authBox, composeViewModel: model)
+        
+        case .report(let model):
+            LegacyReportFlowViewControllerWrapper(viewModel: model)
+            
+        case .welcome:
+            LegacyWelcomeFlowWrapper()
+        
+        case .url(let url):
+            if #available(iOS 26.0, *) {
+                WebView(url: url)
+            } else {
+                Text("needs legacy webview")
             }
-        }()
-        newNavigator.navigationType = .uiKit(newController)
-        return newController
+        default:
+            Text("Default")
+        }
     }
     
     func push(_ destination: MastodonNavigationDestination) {
-        switch navigationType {
-        case .uiKit(let uiViewController):
-            if let navigationController = (uiViewController as? UINavigationController) ?? uiViewController?.navigationController, let pushedController = destinationViewController(destination) {
-                navigationController.pushViewController(pushedController, animated: true)
-            } else {
-                switch destination {
-                case .legacy(let scene, let transition):
-                    uiViewController?.sceneCoordinator?.present(scene: scene, from: uiViewController, transition: transition)
-                default:
-                    assertionFailure("non-legacy destinations should have been handled above")
-                }
-            }
-        case .swiftUI(let legacyPresenter):
             switch destination {
             case .legacy(let scene, let transition):
-                if let legacyPresenter {
-                    legacyPresenter.sceneCoordinator?.present(scene: scene, from: legacyPresenter, transition: transition)
-                } else {
-                    navigationPath.append(destination)
-                }
+                navigationPath.append(destination)
             case .editProfile(let profileViewModel):
                 profileViewModel.editingStatus = .editing(hasChanges: false)
                 fallthrough
             default:
                 navigationPath.append(destination)
             }
+    }
+    
+    
+    public func presentSheet(_ sheet: MastodonSheet, afterDeconflictionDelay: Bool) {
+        assert(presentedSheet == nil, "caller is responsible for dismissing any modals currently presented")
+        if afterDeconflictionDelay {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) { // without this delay, the modal presentation gets tangled up with any dismissing sheet
+                self.presentedSheet = sheet
+            }
+        } else {
+            self.presentedSheet = sheet
         }
     }
     
-    func presentModal(_ destination: MastodonNavigationDestination) {
-        switch destination {
-        case .legacy(let scene, let transition):
-            switch navigationType {
-            case .uiKit(let presenter), .swiftUI(let presenter):
-                if presentedSheet != nil {
-                    presentedSheet = nil
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) { // without this delay, the modal presentation gets tangled up with the dismissing sheet
-                        presenter?.sceneCoordinator?.present(scene: scene, from: presenter, transition: transition)
-                    }
-                } else {
-                    presenter?.sceneCoordinator?.present(scene: scene, from: presenter, transition: transition)
-                }
-            }
-        case .share(let activityItems):
-            let sceneCoordinator: SceneCoordinator? = {
-                switch navigationType {
-                case .uiKit(let presenter), .swiftUI(let presenter):
-                    presenter?.sceneCoordinator
-                }
-            }()
-            let activityViewController = UIActivityViewController(
-                activityItems: activityItems,
-                applicationActivities: [SafariActivity(sceneCoordinator: sceneCoordinator)]
-            )
-            self.presentModal(.legacy(scene: .activityViewController(activityViewController: activityViewController, sourceView: nil, barButtonItem: nil), transition: .activityViewControllerPresent(animated: true, completion: nil)))
-
-        case .editProfileNavigation(let destination):
-            assert(destination.expectsModalPresentation)
-            presentedSheet = .profileEditingSheet(destination)
-            
-        default:
-            assertionFailure()
-            break
-        }
+    public func dismissCurrentModal() {
+        guard presentedSheet != nil else { return }
+        presentedSheet = nil
     }
     
     private func profileScene(accountEntity: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?) -> ProfileType? {
@@ -310,7 +243,31 @@ extension MastodonNavigationDestination: Hashable {
     }
 }
 
-enum MastodonSheet {
+enum MastodonSheet: Identifiable {
     case timelineSheet(MastodonTimelineSheet)
     case profileEditingSheet(ProfileEditDestinationType)
+    case modalCompose(ComposeViewModel)
+    case settings
+    case report(ReportViewModel)
+    case welcome
+    case url(URL)
+    
+    var id: String {
+        switch self {
+        case .timelineSheet(let sheet):
+            return sheet.id
+        case .profileEditingSheet(let type):
+            return type.id
+        case .modalCompose(let model):
+            return "modal-compose"
+        case .settings:
+            return "settings"
+        case .report(let model):
+            return "report-\(model.account.id)"
+        case .welcome:
+            return "welcome"
+        case .url(let url):
+            return "url-\(url.absoluteString)"
+        }
+    }
 }

@@ -184,7 +184,7 @@ struct CollectionRowView: View {
         case .reportCollection:
             guard let relationship = relationshipViewModel.relationship, let account = authorAccount else { return }
             guard let reportViewModel = account.reportViewModel(withCollection: collection, relationship: relationship) else { return }
-            navigator.presentModal(.legacy(scene: .report(viewModel: reportViewModel), transition: .modal(animated: true, completion: nil)))
+            navigator.presentSheet(.report(reportViewModel), afterDeconflictionDelay: true)
         case .removeMyself:
             if let meItem = collection.items.first(where: { $0.account_id == AuthenticationServiceProvider.shared.currentActiveUser.value?.userID }) {
                 doRemoveMe(meItemID: meItem.id, navigator: navigator)

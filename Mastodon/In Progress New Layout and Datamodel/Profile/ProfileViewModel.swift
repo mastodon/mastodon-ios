@@ -415,13 +415,13 @@ class ProfileEditingViewModel {
                                       labelEditingModel: MetaTextInputFieldViewModel(stringContent: field.name, placeholder: L10nLookup.Scene.EditProfile.CustomFields.labelPlaceholder, characterLimit: .init(initialMessage: "", softLimit: 25, hardLimit: instanceLimits?.maxProfileFieldNameLength ?? AccountsLimits.defaultMaxProfileFieldNameLength), autocompleteMastodonItems: false),
                                       valueEditingModel: MetaTextInputFieldViewModel(stringContent: field.value, placeholder: L10nLookup.Scene.EditProfile.CustomFields.valuePlaceholder, characterLimit: .init(initialMessage: nil, softLimit: 25, hardLimit: instanceLimits?.maxProfileFieldValueLength ?? AccountsLimits.defaultMaxProfileFieldValueLength), autocompleteMastodonItems: true))
         }
-        navigator.presentModal(.editProfileNavigation(destination: .editCustomField(profileViewModel: profileViewModel)))
+        navigator.presentSheet(.profileEditingSheet(.editCustomField(profileViewModel: profileViewModel)), afterDeconflictionDelay: false)
     }
     
     func beginReorderingFields(profileViewModel: ProfileViewModel, navigator: MastodonNavigationRouter) {
         isReorderingCustomFields = true
         reorderingCustomFields = customFields ?? []
-        navigator.presentModal(.editProfileNavigation(destination: .reorderCustomFields(profileViewModel: profileViewModel)))
+        navigator.presentSheet(.profileEditingSheet(.reorderCustomFields(profileViewModel: profileViewModel)), afterDeconflictionDelay: false)
     }
     
     func deleteCurrentEditingField() {

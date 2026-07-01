@@ -211,7 +211,7 @@ struct MediaAttachmentView: View {
             }
         case .openInBrowser(let url):
             Button {
-                navigator.presentModal(.legacy(scene: .safari(url: url), transition: .safariPresent(animated: true, completion: nil)))
+                navigator.presentSheet(.url(url), afterDeconflictionDelay: true)
             } label: {
                 HStack {
                     VStack(alignment: .leading) {

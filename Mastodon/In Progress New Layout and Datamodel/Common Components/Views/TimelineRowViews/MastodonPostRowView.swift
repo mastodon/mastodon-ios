@@ -243,7 +243,7 @@ struct MastodonPostRowView: View {
                     Button(fullTitle) {
                         if isEnabled {
                             guard let composeViewModel = viewModel.composeViewModelQuotingThisPost else { return }
-                            navigator.presentModal(.legacy(scene: .compose(viewModel: composeViewModel), transition: .modal(animated: true, completion: nil)))
+                            navigator.presentSheet(.modalCompose(composeViewModel), afterDeconflictionDelay: false)
                         }
                     }
                 }

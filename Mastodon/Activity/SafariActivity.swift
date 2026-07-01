@@ -59,17 +59,6 @@ final class SafariActivity: UIActivity {
             activityDidFinish(false)
             return
         }
-        
-        Task {
-            let scene: SceneCoordinator.Scene = .safari(url: url as URL)
-            let transition: SceneCoordinator.Transition = .safariPresent(animated: true, completion: nil)
-            if let sceneCoordinator = await activityViewController?.sceneCoordinator {
-                _ = await sceneCoordinator.present(scene: scene, transition: transition)
-            } else if let presentScene {
-                await presentScene(scene, transition)
-            }
-            activityDidFinish(true)
-        }
     }
     
 }

@@ -369,8 +369,7 @@ extension NotificationRowViewModel {
             else { return nil }
             switch self {
             case .link(_, let link):
-                guard let link else { return nil }
-                return .legacy(scene: .mastodonWebView(viewModel: WebViewModel(url: link)), transition: .safariPresent(animated: true, completion: nil))
+                return nil
             case .myFollowers:
                 return .timeline(.followers(ofUserId: myAccount.id))
             case .profile(let account):
@@ -629,24 +628,6 @@ extension Mastodon.Entity.AccountWarning.Action {
     }
 }
 
-func statusViewModel(_ status: Mastodon.Entity.Status,  myAccountID: String,
-                     myAccountDomain: String,
-                     navigateToScene: @escaping (
-                        SceneCoordinator.Scene, SceneCoordinator.Transition
-                     ) -> Void) -> Mastodon.Entity.Status.ViewModel {
-                         
-                         return status.viewModel(myAccountID: myAccountID, myDomain: myAccountDomain, navigateToStatus: {
-                             Task {
-                                 guard
-                let authBox =
-                    await AuthenticationServiceProvider.shared
-                    .currentActiveUser.value
-            else { return }
-            await navigateToScene(
-                .thread(status, authenticatedUserDomain: authBox.domain), .show)
-        }
-    })
-}
 
 extension NotificationRowViewModel.NotificationNavigation {
     var a11yTitle: String? {

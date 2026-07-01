@@ -177,7 +177,7 @@ struct PrecalculatedHeight {
             return true
         } else {
             // fix non-ascii character URL link can not open issue
-            navigator.presentModal(.legacy(scene: .safari(url: url), transition: .safariPresent(animated: true, completion: nil)))
+            navigator.presentSheet(.url(url), afterDeconflictionDelay: true)
             return true
         }
     }

@@ -6,6 +6,7 @@ import MastodonUI
 import SDWebImageSwiftUI
 import MastodonAsset
 import Combine
+import WebKit
 
 extension EnvironmentValues {
     @Entry var sceneCoordinator: SceneCoordinator? = nil
@@ -17,15 +18,15 @@ struct MastodonMainTabView: View {
     @Environment(\.sceneCoordinator) private var sceneCoordinator
     
     @State private var authenticationObserver = AuthenticationObserver.shared
-    @State private var navigator = MastodonTabViewRouter.current
+    @State private var tabViewRouter = MastodonTabViewRouter.current
     @State private var avatarIconRenderer = AvatarIconRenderer.shared
     @State private var showAccountSwitcher = false
     @State private var isSwitchingAccounts = false
    
     
     var body: some View {
-        TabView(selection: $navigator.selectedTab) {
-            ForEach(navigator.tabs(forSizeClass: sizeClass), id: \.self) { tab in
+        TabView(selection: $tabViewRouter.selectedTab) {
+            ForEach(tabViewRouter.tabs(forSizeClass: sizeClass), id: \.self) { tab in
                 if let subtabs = subtabsFor(tab) {
                     TabSection {
                         ForEach(subtabs, id: \.self) { subtab in
@@ -44,7 +45,7 @@ struct MastodonMainTabView: View {
                     }
                     .defaultVisibility(.hidden, for: .tabBar)
                 } else if tab == .profile {
-                    // Profile is a special case because when sidebar is available we are showing the current profile as a navigation tab and any other logged-in accounts as actions, plus an add additional account action, but when sidebar is not available (.compact width), we only want to show the profile icon
+                    // Profile is a special case because when sidebar is available we are showing the current profile as a navigation tab and settings as an action, but when sidebar is not available (.compact width), we only want to show the profile icon
                     switch sizeClass {
                     case .regular:
                         TabSection {
@@ -93,38 +94,15 @@ struct MastodonMainTabView: View {
             }
         }
         .environment(authenticationObserver)
+        .environment(tabViewRouter)
         .tabViewStyle(.sidebarAdaptable)
         .onChange(of: authenticationObserver.currentActiveUser, initial: true) { _, newValue in
             guard MastodonTabViewRouter.current.userGUID != newValue?.globallyUniqueUserIdentifier else { return }
             let newRouter = MastodonTabViewRouter.changeAuthenticatedUser(newValue)
-            navigator = newRouter
+            tabViewRouter = newRouter
         }
         .onChange(of: displayScale, initial: true) { _, newValue in
             AvatarIconRenderer.shared.displayScale = newValue
-        }
-        .sheet(item: $navigator.presentedModal) { presentedItem in
-            switch presentedItem {
-            case .timeline:
-                Text("Timeline not implemented as modal presentation")
-            case .profile:
-                Text("Profile not implemented as modal presentation")
-            case .editProfile:
-                Text("Edit Profile not implemented as modal presentation")
-            case .editProfileNavigation:
-                Text("Edit Profile Navigation not implemented as modal presentation")
-            case .share:
-                Text("Share not implemented as modal presentation")
-            case .legacy(let scene, _):
-                if let vc = sceneCoordinator?.get(scene: scene) {
-                    if vc is UINavigationController, let root = vc.topMost {
-                        LegacyNavigationViewControllerWrapper(startingRootViewController: root)
-                    } else {
-                        LegacyNavigationViewControllerWrapper(startingRootViewController: vc)
-                    }
-                } else {
-                    Text("\(scene) not implemented as modal presentation")
-                }
-            }
         }
         .overlay {
             if isSwitchingAccounts {
@@ -150,7 +128,7 @@ struct MastodonMainTabView: View {
     @ViewBuilder private func view(forTab tab: MastodonTabViewRouter.MastodonTab) -> some View {
         switch tab {
         case .home:
-            @Bindable var navigationStackNavigator = navigator.navigationRouter(forTab: tab)
+            @Bindable var navigationStackNavigator = tabViewRouter.navigationRouter(forTab: tab)
             NavigationStack(path: $navigationStackNavigator.navigationPath) {
                 let timelineModel = homeTimelineViewModel()
                 TimelineListView()
@@ -191,33 +169,33 @@ struct MastodonMainTabView: View {
             .environment(NestedScrollInteractionViewModel())
             
         case .explore:
-            @Bindable var navigationStackNavigator = navigator.navigationRouter(forTab: .explore)
+            @Bindable var navigationStackNavigator = tabViewRouter.navigationRouter(forTab: .explore)
             NavigationStack(path: $navigationStackNavigator.navigationPath) {
                 ExploreRootView(sceneCoordinator: sceneCoordinator)
             }
             .environment(navigationStackNavigator)
-            .environment(navigator.searchModel)
+            .environment(tabViewRouter.searchModel)
 
         case .compose:
             if let authBox = authenticationObserver.currentActiveUser {
-                LegacyComposeViewControllerWrapper(authBox: authBox)
+                LegacyComposeViewControllerWrapper(authBox: authBox, composeViewModel: nil)
                     .frame(maxWidth: 680)
                     .frame(maxHeight: 700)
                 // probably needs an id to regenerate when you publish a post
             } else {
                 Asset.Colors.FigmaToken.bgSoftest.swiftUIColor
             }
-            
+                
         case .notifications:
-            @Bindable var navigationStackNavigator = navigator.navigationRouter(forTab: tab)
+            @Bindable var navigationStackNavigator = tabViewRouter.navigationRouter(forTab: tab)
             NavigationStack(path: $navigationStackNavigator.navigationPath) {
-                let timelineModel = notificationsTimelineViewModel(scope: navigator.selectedNotificationsTimeline)
+                let timelineModel = notificationsTimelineViewModel(scope: tabViewRouter.selectedNotificationsTimeline)
                 TimelineListView()
                     .timelineEnvironment(timelineModel: timelineModel, contentConcealModel: .alwaysShow, filter: timelineModel.timelineQueryFilter, asyncRefreshModel: timelineModel.asyncRefreshViewModel)
                     .toolbar {
                             // picker as the center item
                             ToolbarItem(placement: .title) {
-                                Picker("Scope", selection: $navigator.selectedNotificationsTimeline) {
+                                Picker("Scope", selection: $tabViewRouter.selectedNotificationsTimeline) {
                                     Text("Everything")
                                         .tag(NotificationsScope.everything)
                                     Text("Mentions")
@@ -243,8 +221,9 @@ struct MastodonMainTabView: View {
             }
             .environment(navigationStackNavigator)
             .environment(NestedScrollInteractionViewModel())
+            
         case .profile:
-            @Bindable var navigationStackNavigator = navigator.navigationRouter(forTab: tab)
+            @Bindable var navigationStackNavigator = tabViewRouter.navigationRouter(forTab: tab)
             let profileModel = profileViewModel()
             NavigationStack(path: $navigationStackNavigator.navigationPath) {
                 ProfileView(wrapInSwiftUINavigationStack: false)
@@ -254,6 +233,7 @@ struct MastodonMainTabView: View {
                 navigationStackNavigator.destinationView(destination, sceneCoordinator: sceneCoordinator)
             }
             .environment(navigationStackNavigator)
+            
         default:
             Text(tab.title)
                 .font(.largeTitle)
@@ -262,12 +242,13 @@ struct MastodonMainTabView: View {
     
     @ViewBuilder private var settingsButton: some View {
         Button {
-            let needsDismiss = showAccountSwitcher || self.navigator.presentedModal != nil
+            let currentTabNavigator = self.tabViewRouter.navigationRouter(forTab: self.tabViewRouter.selectedTab)
+            let needsDismiss = showAccountSwitcher || currentTabNavigator.presentedSheet != nil
             if needsDismiss {
                 showAccountSwitcher = false
-                self.navigator.dismissCurrentModal()
+                currentTabNavigator.dismissCurrentModal()
             }
-            self.navigator.presentModal(.legacy(scene: .settings, transition: .modal(animated: true, completion: nil)), afterDeconflictionDelay: needsDismiss)
+            currentTabNavigator.presentSheet(.settings, afterDeconflictionDelay: needsDismiss)
         } label: {
             Label {
                 Text("Settings")
@@ -294,13 +275,18 @@ struct MastodonMainTabView: View {
                 .padding()
             }
         }
+        
         Button {
             let needsDismissCurrent = showAccountSwitcher
             if needsDismissCurrent {
                 // must dismiss or the new modal presentation will not happen
                 showAccountSwitcher = false
             }
-            navigator.presentModal(.legacy(scene: .welcome, transition: .modal(animated: true, completion: nil)), afterDeconflictionDelay: needsDismissCurrent)
+            let needsTabSwitch = tabViewRouter.selectedTab != .home
+            if needsTabSwitch {
+                tabViewRouter.selectedTab = .home
+            }
+            tabViewRouter.navigationRouter(forTab: .home).presentSheet(.welcome, afterDeconflictionDelay: needsDismissCurrent || needsTabSwitch)
         } label: {
             Label {
                 Text("Add account")
@@ -315,7 +301,7 @@ struct MastodonMainTabView: View {
         LazyVStack(alignment: .leading) {
             if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value, let currentAuthAccount = currentAuthBox.cachedAccount, let icon = avatarIconRenderer.prerenderedAccountAvatar(currentAuthBox.globallyUniqueUserIdentifier, style: .circular) {
                 Button {
-                    navigator.selectedTab = .profile
+                    tabViewRouter.selectedTab = .profile
                 } label: {
                     Label {
                         let handle = currentAuthAccount.acctWithDomain
@@ -335,47 +321,47 @@ struct MastodonMainTabView: View {
     }
 
     private func homeTimelineViewModel() -> TimelineListViewModel {
-        if let model = navigator.homeTimelineModel {
+        if let model = tabViewRouter.homeTimelineModel {
             return model
         } else {
-            let model = TimelineListViewModel(timeline: .homeTimeline, navigator: navigator.navigationRouter(forTab: .home), asyncRefreshViewModel: AsyncRefreshViewModel())
-            navigator.homeTimelineModel = model
+            let model = TimelineListViewModel(timeline: .homeTimeline, navigator: tabViewRouter.navigationRouter(forTab: .home), asyncRefreshViewModel: AsyncRefreshViewModel())
+            tabViewRouter.homeTimelineModel = model
             return model
         }
     }
     
     func profileViewModel() -> ProfileViewModel {
-        if let model = navigator.profileModel {
+        if let model = tabViewRouter.profileModel {
             return model
         } else {
             let model = ProfileViewModel()
             guard let authBox = authenticationObserver.currentActiveUser, let account = authBox.cachedAccount else { return model }
-            model.set(account: MastodonAccount.fromEntity(account, authenticatedDomain: authBox.domain), relationship: .isMe, navigator: navigator.navigationRouter(forTab: .profile))
-            navigator.profileModel = model
+            model.set(account: MastodonAccount.fromEntity(account, authenticatedDomain: authBox.domain), relationship: .isMe, navigator: tabViewRouter.navigationRouter(forTab: .profile))
+            tabViewRouter.profileModel = model
             return model
         }
     }
     
     private func notificationsTimelineViewModel(scope: NotificationsScope) -> TimelineListViewModel {
         func newModel() -> TimelineListViewModel {
-            let new = TimelineListViewModel(timeline: .notifications(scope: scope), navigator: navigator.navigationRouter(forTab: .notifications), asyncRefreshViewModel: AsyncRefreshViewModel())
-            navigator.fetchFilteredNotificationsPolicy(andReloadFeed: false)
+            let new = TimelineListViewModel(timeline: .notifications(scope: scope), navigator: tabViewRouter.navigationRouter(forTab: .notifications), asyncRefreshViewModel: AsyncRefreshViewModel())
+            tabViewRouter.fetchFilteredNotificationsPolicy(andReloadFeed: false)
             return new
         }
         switch scope {
         case .everything:
-            if let model = navigator.notificationsTimelineModelEverything {
+            if let model = tabViewRouter.notificationsTimelineModelEverything {
                 return model
             }
             let new = newModel()
-            navigator.notificationsTimelineModelEverything = new
+            tabViewRouter.notificationsTimelineModelEverything = new
             return new
         case .mentions:
-            if let model = navigator.notificationsTimelineModelMentions {
+            if let model = tabViewRouter.notificationsTimelineModelMentions {
                 return model
             }
             let new = newModel()
-            navigator.notificationsTimelineModelMentions = new
+            tabViewRouter.notificationsTimelineModelMentions = new
             return new
         case .fromRequest:
             assertionFailure()
@@ -385,9 +371,8 @@ struct MastodonMainTabView: View {
     
     private func switchTo(_ authBox: MastodonAuthenticationBox) {
         isSwitchingAccounts = true
-        let needsDismiss = navigator.presentedModal != nil || showAccountSwitcher
+        let needsDismiss = showAccountSwitcher
         if needsDismiss {
-            navigator.dismissCurrentModal()
             showAccountSwitcher = false
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) { // this delay gives the modals time to dismiss, making the transition feel less abrupt
@@ -397,7 +382,7 @@ struct MastodonMainTabView: View {
     }
     
     private func showNotificationPolicySettings() {
-        guard let policy = notificationsTimelineViewModel(scope: navigator.selectedNotificationsTimeline).filteredNotificationsViewModel.policy else { return }
+        guard let policy = notificationsTimelineViewModel(scope: tabViewRouter.selectedNotificationsTimeline).filteredNotificationsViewModel.policy else { return }
         Task {
             let adminSettings: AdminNotificationFilterSettings? = await {
                 guard let user = AuthenticationServiceProvider.shared.currentActiveUser.value, let role = user.cachedAccount?.role else { print("no role"); return nil }
@@ -422,7 +407,6 @@ struct MastodonMainTabView: View {
                 adminSettings: adminSettings
             )
             
-            guard let policyViewController = self.sceneCoordinator?.present(scene: .notificationPolicy(viewModel: policyViewModel), transition: .formSheet(policyViewModel.adminFilterSettings != nil ? [.large()] : nil)) as? NotificationPolicyViewController else { return }
         }
     }
 }
@@ -639,11 +623,38 @@ struct LegacyNavigationViewControllerWrapper: UIViewControllerRepresentable {
 
 struct LegacyComposeViewControllerWrapper: UIViewControllerRepresentable {
     let authBox: MastodonAuthenticationBox
+    let composeViewModel: ComposeViewModel?
     
     func makeUIViewController(context: Context) -> some UIViewController {
-        let viewModel = ComposeViewModel(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel)
+        let viewModel = composeViewModel ?? ComposeViewModel(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel)
             let composer = ComposeViewController(viewModel: viewModel)
         let navigationWrapper = UINavigationController(rootViewController: composer)
+        return navigationWrapper
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+        // nothing to do?
+    }
+}
+
+struct LegacyReportFlowViewControllerWrapper: UIViewControllerRepresentable {
+    let viewModel: ReportViewModel
+    
+    func makeUIViewController(context: Context) -> some UIViewController {
+        let rootVC = ReportViewController(viewModel: viewModel)
+        let navigationWrapper = UINavigationController(rootViewController: rootVC)
+        return navigationWrapper
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+        // nothing to do?
+    }
+}
+
+struct LegacyWelcomeFlowWrapper: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> some UIViewController {
+        let rootVC = WelcomeViewController()
+        let navigationWrapper = UINavigationController(rootViewController: rootVC)
         return navigationWrapper
     }
     
