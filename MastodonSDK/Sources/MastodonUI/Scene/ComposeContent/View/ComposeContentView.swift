@@ -227,6 +227,7 @@ public struct ComposeContentView: View {
             viewModel.previousInteractionSettings = nil
             isPresentingInteractionSettings = false
         })
+        .environment(interactionSettingsViewModel)
         .onAppear() {
             viewModel.previousInteractionSettings = interactionSettingsViewModel.interactionSettings
         }

@@ -1017,11 +1017,13 @@ enum MastodonTimelineSheet {
         case .boostOrQuoteDialog(let postViewModel):
             BoostOrQuoteDialog(actionHandler: self)
                 .environment(postViewModel)
+                .environment(navigator)
                 .presentationDetents([.fraction(0.3), .medium, .large])
         case .manageListMembership(let account):
             let viewModel = MyListsManagementViewModel(account)
             ManageListMembershipView()
                 .environment(viewModel)
+                .environment(navigator)
         }
     }
     
