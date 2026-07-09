@@ -657,7 +657,7 @@ struct ProfileInfoView: View {
         if viewModel.account?.metadata.isBot == true {
             _badges.append(ProfileBadge.isBot)
         }
-        if relationshipViewModel.relationship?.info?.iAmBlockingThem == true || viewModel.relationship?.info?.iAmBlockingTheirDomain == true {
+        if relationshipViewModel.relationship?.info?.iAmBlockingThem == true || viewModel.relationshipViewModel.relationship?.info?.iAmBlockingTheirDomain == true {
             _badges.append(ProfileBadge.isBlocked)
         }
         if relationshipViewModel.relationship?.info?.iAmMutingThem == true {
@@ -1196,7 +1196,9 @@ extension ProfileViewModel: FeedCoordinatorUpdatable {
     func incorporateUpdate(_ update: UpdatedElement) {
         switch update {
         case .relationship(let updatedRelationship):
-            relationshipViewModel.prepareForDisplay(relationship: updatedRelationship, theirAccountIsLocked: account?.locked ?? false)
+            if let relationship = relationshipViewModel.relationship, updatedRelationship.refersToSameAccount(as: relationship) {
+                relationshipViewModel.prepareForDisplay(relationship: updatedRelationship, theirAccountIsLocked: account?.locked ?? false)
+            }
         case .deletedPost, .hashtag, .post:
             break
         case .domainBlockChange(let domain, let isBlocked):

@@ -28,7 +28,6 @@ import MastodonLocalization
     }
     var navigator: MastodonNavigationRouter?
     var account: MastodonAccount?
-    var relationship: MastodonAccount.Relationship?
     var familiarFollowersViewModel: TimelineListViewModel?
     var pagesToShow: [ProfilePage] = []
     var postsViewModel: TimelineListViewModel? {
@@ -68,7 +67,7 @@ import MastodonLocalization
     var handleDetails: HandleDetails?
     
     var navigationButtons: [UIBarButtonItem] {
-        guard account != nil, let relationship else { return [] }
+        guard account != nil, let relationship = relationshipViewModel.relationship else { return [] }
         switch relationship {
         case .isMe:
             let settings = UIBarButtonItem(image: .init(systemName: "gearshape"), style: .plain, target: self, action: nil)
@@ -106,9 +105,14 @@ import MastodonLocalization
                 return .showAlways
             }
         }()
+        
         self.editingViewModel.setAccount(account, textContentDidChange: { self.checkForEditingChanges(andCommit: false) } )
-        self.relationship = relationship
+       
         self.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts(featuredHashtagsModel))), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
+        
+        self.relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: account.locked)
+        
+        self.relationshipViewModel.actionHandler = self.postsViewModel
         
         Task {
             do {
@@ -140,10 +144,6 @@ import MastodonLocalization
         } else {
             self.featuredItemsViewModel = nil
         }
-        
-        self.relationshipViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: account.locked)
-        
-        self.relationshipViewModel.actionHandler = self.postsViewModel
         
         switch relationship {
         case .isMe:
