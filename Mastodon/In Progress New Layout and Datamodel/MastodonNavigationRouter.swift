@@ -233,9 +233,12 @@ enum MastodonNavigationDestination {
                 Task {
                     let relationshipFetchID = account.id
                     if let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
-                        Task {
-                            guard let relationship = try await APIService.shared.relationship(forAccountIds: [relationshipFetchID], authenticationBox: authBox).value.first else { return }
-                            viewModel.set(account: account, relationship: .isNotMe(MastodonAccount.RelationshipInfo(relationship, fetchedAt: .now)), navigator: self)
+                        do {
+                            let relationship = try await APIService.shared.relationship(forAccountIds: [relationshipFetchID], authenticationBox: authBox).value.first
+                            guard let relationship else { return }
+                            viewModel.updateRelationship(.isNotMe(MastodonAccount.RelationshipInfo(relationship, fetchedAt: .now)))
+                        } catch {
+                            didReceiveError(error)
                         }
                     }
                 }

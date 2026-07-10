@@ -817,6 +817,7 @@ enum MastodonTimelineSheet {
 @Observable class TimelineListViewModel {
     
     private(set) var authenticatedUser: MastodonAuthenticationBox? = AuthenticationServiceProvider.shared.currentActiveUser.value
+    private weak var navigator: MastodonNavigationRouter?
     
     var unreadCount: Int = 0
     private(set) var waitingReplacementItems: [TimelineItem]?
@@ -1148,6 +1149,7 @@ enum MastodonTimelineSheet {
     init(timeline: MastodonTimelineType, navigator: MastodonNavigationRouter, asyncRefreshViewModel: AsyncRefreshViewModel?) {
         self._asyncRefreshViewModel = asyncRefreshViewModel
         self._timeline = timeline
+        self.navigator = navigator
         
         self.instanceConfigurationUpdateSubscription = AuthenticationServiceProvider.shared.instanceConfigurationUpdates
             .receive(on: DispatchQueue.main)
@@ -1684,75 +1686,81 @@ extension TimelineListViewModel {
         
         guard let authenticatedUser else { return }
         Task {
-            let fetchedAccounts = try await APIService.shared.accountsInfo(userIDs: Array(_accountsToFetch), authenticationBox: authenticatedUser)
-            let fetchedRelationships = try await feedLoader.fetchRelationships(Array(_relationshipsToFetch))
             
-            @MainActor
-            func updateCollectionModel(_ collectionModel: CollectionViewModel) {
-                if let account = fetchedAccounts.first(where: { $0.id == collectionModel.collection.accountId }) {
-                    collectionModel.updateAuthorAccount(MastodonAccount.fromEntity(account, authenticatedDomain: authenticatedUser.domain))
-                }
-                if let relationship = fetchedRelationships.first(where: { $0.info?.id == collectionModel.collection.accountId }) {
-                    collectionModel.prepareForDisplay(withRelationship: relationship)
-                }
-                collectionModel.updateAvatarUrls(fetchedAccounts)
+            defer {
+                currentlyPreparingForDisplay = nil
+                completion?()
             }
             
-            for postModel in toPrep {
-                if postModel.fullPost?.actionablePost?.metaData.author.id == authenticatedUser.userID {
-                    postModel.prepareForDisplay(relationship: .isMe, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
-                } else {
-                    let relationship = fetchedRelationships.first(where: {
-                        $0.info?.id == postModel.initialDisplayInfo.actionableAuthorId
-                    }) ?? feedLoader.myRelationship(to: postModel.initialDisplayInfo.actionableAuthorId)
-                    
-                    postModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
-                }
-                if let collectionViewModel = postModel.collectionViewModel {
-                    updateCollectionModel(collectionViewModel)
-                }
-                postModel.displayPrepStatus = .donePreparing
-            }
-            
-            for item in batch {
-                switch item {
-                case .notification(let notificationViewModel):
-                    let accountRelatingTo = notificationViewModel.needsRelationshipTo
-                    if let relationship = fetchedRelationships.first(where: { fetched in
-                        guard let fetchedID = fetched.info?.id else { return false }
-                        return fetchedID == accountRelatingTo?.id
-                    }) {
-                        notificationViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: accountRelatingTo?.locked ?? false)
+            do {
+                let fetchedAccounts = try await APIService.shared.accountsInfo(userIDs: Array(_accountsToFetch), authenticationBox: authenticatedUser)
+                let fetchedRelationships = try await feedLoader.fetchRelationships(Array(_relationshipsToFetch))
+                
+                @MainActor
+                func updateCollectionModel(_ collectionModel: CollectionViewModel) {
+                    if let account = fetchedAccounts.first(where: { $0.id == collectionModel.collection.accountId }) {
+                        collectionModel.updateAuthorAccount(MastodonAccount.fromEntity(account, authenticatedDomain: authenticatedUser.domain))
                     }
-                    notificationViewModel.actionHandler = self
-                    notificationViewModel.displayPrepStatus = .donePreparing
-                    if let collectionModel = notificationViewModel.inlineCollectionViewModel {
-                        updateCollectionModel(collectionModel)
+                    if let relationship = fetchedRelationships.first(where: { $0.info?.id == collectionModel.collection.accountId }) {
+                        collectionModel.prepareForDisplay(withRelationship: relationship)
                     }
-                case .account(let accountViewModel):
-                    if let relationship = fetchedRelationships.first(where: { $0.info?.id == accountViewModel.id }) {
-                        if accountViewModel.actionHandler == nil {
-                            accountViewModel.actionHandler = self
+                    collectionModel.updateAvatarUrls(fetchedAccounts)
+                }
+                
+                for postModel in toPrep {
+                    if postModel.fullPost?.actionablePost?.metaData.author.id == authenticatedUser.userID {
+                        postModel.prepareForDisplay(relationship: .isMe, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
+                    } else {
+                        let relationship = fetchedRelationships.first(where: {
+                            $0.info?.id == postModel.initialDisplayInfo.actionableAuthorId
+                        }) ?? feedLoader.myRelationship(to: postModel.initialDisplayInfo.actionableAuthorId)
+                        
+                        postModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
+                    }
+                    if let collectionViewModel = postModel.collectionViewModel {
+                        updateCollectionModel(collectionViewModel)
+                    }
+                    postModel.displayPrepStatus = .donePreparing
+                }
+                
+                for item in batch {
+                    switch item {
+                    case .notification(let notificationViewModel):
+                        let accountRelatingTo = notificationViewModel.needsRelationshipTo
+                        if let relationship = fetchedRelationships.first(where: { fetched in
+                            guard let fetchedID = fetched.info?.id else { return false }
+                            return fetchedID == accountRelatingTo?.id
+                        }) {
+                            notificationViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: accountRelatingTo?.locked ?? false)
                         }
-                        accountViewModel.prepareForDisplay(withRelationship: relationship)
-                    } else if accountViewModel.id == AuthenticationServiceProvider.shared.currentActiveUser.value?.userID {
-                        accountViewModel.prepareForDisplay(withRelationship: .isMe)
+                        notificationViewModel.actionHandler = self
+                        notificationViewModel.displayPrepStatus = .donePreparing
+                        if let collectionModel = notificationViewModel.inlineCollectionViewModel {
+                            updateCollectionModel(collectionModel)
+                        }
+                    case .account(let accountViewModel):
+                        if let relationship = fetchedRelationships.first(where: { $0.info?.id == accountViewModel.id }) {
+                            if accountViewModel.actionHandler == nil {
+                                accountViewModel.actionHandler = self
+                            }
+                            accountViewModel.prepareForDisplay(withRelationship: relationship)
+                        } else if accountViewModel.id == AuthenticationServiceProvider.shared.currentActiveUser.value?.userID {
+                            accountViewModel.prepareForDisplay(withRelationship: .isMe)
+                        }
+                    case .post, .pinnedPosts:
+                        // handled above
+                        break
+                    case .hashtag:
+                        break
+                    case .collection(let collectionViewModel):
+                        updateCollectionModel(collectionViewModel)
+                    case .heading, .filteredNotificationsInfo, .loadingIndicator, .noItem:
+                        break
                     }
-                case .post, .pinnedPosts:
-                    // handled above
-                    break
-                case .hashtag:
-                    break
-                case .collection(let collectionViewModel):
-                    updateCollectionModel(collectionViewModel)
-                case .heading, .filteredNotificationsInfo, .loadingIndicator, .noItem:
-                    break
                 }
+            } catch {
+                navigator?.didReceiveError(error)
             }
-            
-            currentlyPreparingForDisplay = nil
-            
-            completion?()
         }
     }
 }

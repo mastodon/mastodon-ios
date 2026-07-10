@@ -1197,7 +1197,7 @@ extension ProfileViewModel: FeedCoordinatorUpdatable {
         switch update {
         case .relationship(let updatedRelationship):
             if let relationship = relationshipViewModel.relationship, updatedRelationship.refersToSameAccount(as: relationship) {
-                relationshipViewModel.prepareForDisplay(relationship: updatedRelationship, theirAccountIsLocked: account?.locked ?? false)
+                updateRelationship(updatedRelationship)
             }
         case .deletedPost, .hashtag, .post:
             break
@@ -1206,6 +1206,10 @@ extension ProfileViewModel: FeedCoordinatorUpdatable {
                 relationshipViewModel.updateForDomainBlockChange(isBlocked: isBlocked)
             }
         }
+    }
+    
+    func updateRelationship(_ updatedRelationship: MastodonAccount.Relationship) {
+        relationshipViewModel.prepareForDisplay(relationship: updatedRelationship, theirAccountIsLocked: account?.locked ?? false)
     }
 }
 
