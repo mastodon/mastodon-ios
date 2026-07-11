@@ -105,3 +105,19 @@ struct ExploreRootView: View {
         }
     }
 }
+
+public enum SearchScope: CaseIterable {
+    case all
+    case people
+    case hashtags
+    case posts
+    
+    var searchType: Mastodon.API.V2.Search.SearchType {
+        switch self {
+        case .all:          return .default
+        case .people:       return .accounts
+        case .hashtags:     return .hashtags
+        case .posts:        return .statuses
+        }
+    }
+}
