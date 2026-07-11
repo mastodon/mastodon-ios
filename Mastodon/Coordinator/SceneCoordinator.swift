@@ -147,16 +147,6 @@ extension SceneCoordinator {
         case compose(viewModel: ComposeViewModel)
         case editStatus(viewModel: ComposeViewModel)
         
-        // thread
-        case thread(Mastodon.Entity.Status, authenticatedUserDomain: String)
-        case threadRemote(RemoteThreadType)
-        
-        // Hashtag Timeline
-        case hashtagTimeline(Mastodon.Entity.Tag)
-
-        // profile
-        case profile(ProfileType)
-
         // setting
         case settings
 
@@ -326,37 +316,6 @@ extension SceneCoordinator {
             viewController = _viewController
         case .compose(let viewModel):
             let _viewController = ComposeViewController(viewModel: viewModel)
-            viewController = _viewController
-        case .thread(let rootRecord, let domain):
-            guard let rootPost = GenericMastodonPost.fromStatus(rootRecord, authenticatedDomain: domain) as? MastodonContentPost else { return nil }
-            viewController = TimelineListViewController(.thread(root: rootPost), navigator: navigator)
-        case .threadRemote(let entityType):
-            viewController = TimelineListViewController(.remoteThread(root: entityType), navigator: navigator)
-        case .hashtagTimeline(let tag):
-            let _viewController = TimelineListViewController(.hashtag(tag), navigator: navigator)
-            viewController = _viewController
-        case .profile(let profileType):
-            let _viewController: UIViewController =  {
-                let needsNavigationStack = !(sender is UINavigationController) &&  sender?.navigationController == nil
-                let controller = ProfileHostingViewController(navigationRouter: navigator)
-                let account = MastodonAccount.fromEntity(profileType.accountToDisplay, authenticatedDomain: AuthenticationServiceProvider.shared.currentActiveUser.value?.domain ?? "")
-                if account.globallyUniqueUserIdentifier == AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier {
-                    controller.viewModel.set(account: account, relationship: .isMe, navigator: navigator)
-                } else {
-                    controller.viewModel.set(account: account, relationship: .isNotMe(nil), navigator: navigator)
-                    
-                    Task {
-                        let relationshipFetchID = profileType.accountToDisplay.id
-                        if let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
-                            Task {
-                                guard let relationship = try await APIService.shared.relationship(forAccountIds: [relationshipFetchID], authenticationBox: authBox).value.first else { return }
-                                controller.viewModel.set(account: account, relationship: .isNotMe(MastodonAccount.RelationshipInfo(relationship, fetchedAt: .now)), navigator: navigator)
-                            }
-                        }
-                    }
-                }
-                return controller
-            }()
             viewController = _viewController
        
         case .report(let viewModel):
