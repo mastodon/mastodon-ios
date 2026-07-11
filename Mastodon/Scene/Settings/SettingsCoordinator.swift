@@ -240,7 +240,7 @@ extension SettingsCoordinator: AboutInstanceViewControllerDelegate {
                     .notMe(me: myAccount, displayAccount: account, relationship: nil)
                 }
             }()
-            viewController.sceneCoordinator?.present(scene: .profile(profile), from: viewController, transition: .show)
+            assertionFailure("no longer implemented")
         }
     }
     
@@ -260,15 +260,15 @@ extension SettingsCoordinator: MetaLabelDelegate {
     func metaLabel(_ metaLabel: MetaLabel, didSelectMeta meta: Meta) {
         switch meta {
             case .url(_, _, let url, _):
+            assertionFailure("no longer implemented")
                 guard let url = URL(string: url) else { return }
-                _ = sceneCoordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
             case .mention(_, _, let userInfo):
+            assertionFailure("no longer implemented")
                 guard let href = userInfo?["href"] as? String,
                       let url = URL(string: href) else { return }
-                _ = sceneCoordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
             case .hashtag(_, let hashtag, _):
                 let tag = Mastodon.Entity.Tag(name: hashtag, url: "")
-                _ = sceneCoordinator.present(scene: .hashtagTimeline(tag), from: nil, transition: .show)
+            assertionFailure("no longer implemented")
             case .email(let email, _):
                 if let emailUrl = URL(string: "mailto:\(email)"), UIApplication.shared.canOpenURL(emailUrl) {
                     UIApplication.shared.open(emailUrl)
