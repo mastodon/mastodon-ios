@@ -143,10 +143,6 @@ extension SceneCoordinator {
         case mastodonWebView(viewModel: WebViewModel)
         case mastodonLogin(authenticationViewModel: AuthenticationViewModel, suggestedDomain: String?)
 
-        // search
-        case searchDetail(viewModel: SearchDetailViewModel)
-        case searchResult(viewModel: SearchResultViewModel)
-
         // compose
         case compose(viewModel: ComposeViewModel)
         case editStatus(viewModel: ComposeViewModel)
@@ -328,12 +324,6 @@ extension SceneCoordinator {
         case .mastodonWebView(let viewModel):
             let _viewController = WebViewController(viewModel)
             viewController = _viewController
-        case .searchDetail(let viewModel):
-            let _viewController = SearchDetailViewController(authenticationBox: viewModel.authenticationBox)
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .searchResult(let viewModel):
-            viewController = TimelineListViewController(.search(viewModel.searchText, scope: viewModel.searchScope), navigator: navigator)
         case .compose(let viewModel):
             let _viewController = ComposeViewController(viewModel: viewModel)
             viewController = _viewController
