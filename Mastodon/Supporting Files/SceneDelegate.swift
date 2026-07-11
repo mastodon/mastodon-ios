@@ -303,13 +303,9 @@ extension SceneDelegate {
             }
         case "search":
             let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
-            guard
-                let authenticationBox = coordinator?.authenticationBox,
-                let searchQuery = queryItems?.first(where: { $0.name == "query" })?.value
-            else { return }
-            
-            let viewModel = SearchDetailViewModel(authenticationBox: authenticationBox, initialSearchText: searchQuery)
-            coordinator?.present(scene: .searchDetail(viewModel: viewModel), from: nil, transition: .show)
+            guard let searchQuery = queryItems?.first(where: { $0.name == "query" })?.value else { return }
+            MastodonTabViewRouter.current.openSearch(searchQuery)
+
         default:
             var openableUrl: URL?
             if let host = url.host(percentEncoded: false) {

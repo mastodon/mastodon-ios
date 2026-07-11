@@ -86,7 +86,16 @@ import MastodonCore
         return freshRouter
     }
    
-    
+    func openSearch(_ searchString: String?) {
+        guard AuthenticationObserver.shared.currentActiveUser != nil else { return }
+        if let searchString {
+            searchModel.searchText = searchString
+        }
+        searchModel.isSearchActive = true
+        let searchTabRouter = navigationRouter(forTab: .explore)
+        searchTabRouter.navigationPath.removeAll()
+        selectedTab = .explore
+    }
     
     func fetchFilteredNotificationsPolicy(andReloadFeed reload: Bool) {
         guard
