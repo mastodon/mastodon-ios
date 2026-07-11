@@ -98,7 +98,7 @@ extension SearchHistoryViewController: UICollectionViewDelegate {
             switch item {
             case .account(account: let account, relationship: _):
                 guard let myAccount = authenticationBox.cachedAccount else { return }
-                let navigator = MastodonNavigationRouter(navigationType: .uiKit(self))
+                let navigator = MastodonNavigationRouter()
                 navigator.push(.profile(account: account, relationship: nil))
                 
             case .hashtag(let tag):

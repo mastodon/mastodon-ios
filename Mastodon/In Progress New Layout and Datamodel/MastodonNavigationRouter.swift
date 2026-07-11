@@ -112,12 +112,9 @@ enum MastodonNavigationDestination: Identifiable {
         case .welcome:
             LegacyWelcomeFlowWrapper()
         
-        case .url(let url):
-            if #available(iOS 26.0, *) {
-                WebView(url: url)
-            } else {
-                Text("needs legacy webview")
-            }
+        case .contentUrl(let url):
+            SafariView(url: url.url)
+            
         default:
             Text("Default")
         }
@@ -144,6 +141,14 @@ enum MastodonNavigationDestination: Identifiable {
             }
         } else {
             self.presentedSheet = sheet
+        }
+    }
+    
+    public func openUrl(_ url: URL, afterDeconflictionDelay: Bool, forceInBrowser: Bool = false) {
+        if forceInBrowser || UserDefaults.shared.preferredUsingDefaultBrowser {
+            UIApplication.shared.open(url)
+        } else {
+            presentSheet(.contentUrl(ContentURL(url: url)), afterDeconflictionDelay: afterDeconflictionDelay)
         }
     }
     
@@ -250,7 +255,7 @@ enum MastodonSheet: Identifiable {
     case settings
     case report(ReportViewModel)
     case welcome
-    case url(URL)
+    case contentUrl(ContentURL)
     
     var id: String {
         switch self {
@@ -266,8 +271,17 @@ enum MastodonSheet: Identifiable {
             return "report-\(model.account.id)"
         case .welcome:
             return "welcome"
-        case .url(let url):
-            return "url-\(url.absoluteString)"
+        case .contentUrl(let url):
+            return "url-\(url.url.absoluteString)"
         }
+    }
+}
+
+/// The init is fileprivate so that callers cannot present a .url sheet without going through the MastodonNavigationRouter's openURL method
+struct ContentURL {
+    let url: URL
+    
+    fileprivate init(url: URL) {
+        self.url = url
     }
 }

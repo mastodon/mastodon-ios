@@ -65,7 +65,7 @@ struct LinkPreviewCard: View {
         .accessibilityLabel(L10n.Common.Controls.Status.linkA11YLabel)
         .onTapGesture {
             guard let url = URL(string: cardEntity.url) else { return }
-            navigator.presentSheet(.url(url), afterDeconflictionDelay: false)
+            navigator.openUrl(url, afterDeconflictionDelay: false)
         }
     }
     

@@ -125,7 +125,6 @@ extension SceneCoordinator {
         case popover(sourceView: UIView)
         case custom(transitioningDelegate: UIViewControllerTransitioningDelegate)
         case customPush(animated: Bool)
-        case safariPresent(animated: Bool, completion: (() -> Void)? = nil)
         case alertController(animated: Bool, completion: (() -> Void)? = nil)
         case activityViewControllerPresent(animated: Bool, completion: (() -> Void)? = nil)
         case formSheet([UISheetPresentationController.Detent]?)
@@ -179,7 +178,6 @@ extension SceneCoordinator {
         case suggestionAccount(viewModel: SuggestionAccountViewModel)
         
         // misc
-        case safari(url: URL)
         case alertController(alertController: UIAlertController)
         case activityViewController(activityViewController: UIActivityViewController, sourceView: UIView?, barButtonItem: UIBarButtonItem?)
 
@@ -268,14 +266,6 @@ extension SceneCoordinator {
             // set delegate in view controller
             assert(sender?.navigationController?.delegate != nil)
             sender?.navigationController?.pushViewController(viewController, animated: animated)
-
-        case .safariPresent(let animated, let completion):
-            if UserDefaults.shared.preferredUsingDefaultBrowser, case let .safari(url) = scene {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                viewController.modalPresentationCapturesStatusBarAppearance = true
-                presentingViewController.present(viewController, animated: animated, completion: completion)
-            }
 
         case .alertController(let animated, let completion):
             viewController.modalPresentationCapturesStatusBarAppearance = true

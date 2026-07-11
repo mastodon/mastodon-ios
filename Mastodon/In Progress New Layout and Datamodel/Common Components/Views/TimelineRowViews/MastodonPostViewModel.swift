@@ -177,7 +177,7 @@ struct PrecalculatedHeight {
             return true
         } else {
             // fix non-ascii character URL link can not open issue
-            navigator.presentSheet(.url(url), afterDeconflictionDelay: true)
+            navigator.openUrl(url, afterDeconflictionDelay: true)
             return true
         }
     }

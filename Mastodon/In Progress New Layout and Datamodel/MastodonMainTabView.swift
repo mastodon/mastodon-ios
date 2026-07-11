@@ -7,6 +7,7 @@ import SDWebImageSwiftUI
 import MastodonAsset
 import Combine
 import WebKit
+import SafariServices
 
 extension EnvironmentValues {
     @Entry var sceneCoordinator: SceneCoordinator? = nil
@@ -673,5 +674,17 @@ struct LegacyViewControllerWrapper: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+    }
+}
+
+struct SafariView: UIViewControllerRepresentable {
+    let url: URL
+    
+    func makeUIViewController(context: Context) -> SFSafariViewController {
+        SFSafariViewController(url: url)
+    }
+    
+    func updateUIViewController(_ uiViewController: SFSafariViewController, context: Context) {
+        // nothing to do?
     }
 }

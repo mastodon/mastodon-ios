@@ -2631,7 +2631,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     
                 case .openPostInBrowser:
                     guard let urlString = actionablePost.metaData.url, let url = URL(string: urlString) else { throw PostActionFailure.noActionablePostId }
-                    navigator.presentSheet(.url(url), afterDeconflictionDelay: true)
+                    navigator.openUrl(url, afterDeconflictionDelay: false, forceInBrowser: true)
                     
                 case .sharePost:
                     sharePost(actionablePost, navigator: navigator)
