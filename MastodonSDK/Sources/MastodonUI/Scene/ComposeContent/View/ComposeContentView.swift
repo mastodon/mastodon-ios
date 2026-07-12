@@ -93,6 +93,7 @@ public struct ComposeContentView: View {
                 // author
                 authorView
                     .padding(.horizontal, ComposeContentView.margin)
+                    .fixedSize(horizontal: false, vertical: true)
                 // content editor
                 MetaTextViewRepresentable(
                     string: $viewModel.content,
