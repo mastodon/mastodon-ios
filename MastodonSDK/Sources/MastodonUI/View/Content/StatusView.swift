@@ -704,6 +704,8 @@ extension StatusView.Style {
         statusView.contentContainer.setContentCompressionResistancePriority(.required - 1, for: .vertical)
 
         // status content
+        statusView.contentMetaText.textView.textContainer.maximumNumberOfLines = 15
+        statusView.contentMetaText.textView.textContainer.lineBreakMode = .byTruncatingTail
         statusView.contentContainer.addArrangedSubview(statusView.contentMetaText.textView)
 
         // translated info
@@ -759,6 +761,9 @@ extension StatusView.Style {
         // container: V - [ … | statusMetricView ]
         base(statusView: statusView)      // override the base style
         
+        // remove line count limit
+        statusView.contentMetaText.textView.textContainer.maximumNumberOfLines = 0
+
         // statusMetricView
         statusView.statusMetricView.margin = StatusView.containerLayoutMargin
         statusView.containerStackView.addArrangedSubview(statusView.statusMetricView)
