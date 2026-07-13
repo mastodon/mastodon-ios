@@ -15,6 +15,7 @@ import MastodonCore
     public var profileModel: ProfileViewModel?
     public var selectedNotificationsTimeline: NotificationsScope = .everything
     public var searchModel: SearchModel
+    public var discoveryModel: DiscoveryFeedsViewModel
     
     public static func changeAuthenticatedUser(_ newUser: MastodonAuthenticationBox?) -> MastodonTabViewRouter {
         let updated = MastodonTabViewRouter(authenticatedUser: newUser)
@@ -25,6 +26,7 @@ import MastodonCore
     private init(authenticatedUser: MastodonAuthenticationBox?) {
         userGUID = authenticatedUser?.globallyUniqueUserIdentifier ?? "NONE"
         searchModel = SearchModel(authenticationBox: authenticatedUser)
+        discoveryModel = DiscoveryFeedsViewModel()
     }
         
     enum MastodonTab: Identifiable, Hashable {
@@ -94,6 +96,14 @@ import MastodonCore
         searchModel.isSearchActive = true
         let searchTabRouter = navigationRouter(forTab: .explore)
         searchTabRouter.navigationPath.removeAll()
+        selectedTab = .explore
+    }
+    
+    func openExplore(_ discoveryType: DiscoveryType) {
+        guard AuthenticationObserver.shared.currentActiveUser != nil else { return }
+        discoveryModel.selectedViewType = discoveryType
+        let discoveryTabRouter = navigationRouter(forTab: .explore)
+        discoveryTabRouter.navigationPath.removeAll()
         selectedTab = .explore
     }
     

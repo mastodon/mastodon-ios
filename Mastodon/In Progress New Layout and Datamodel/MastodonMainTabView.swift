@@ -176,6 +176,7 @@ struct MastodonMainTabView: View {
             }
             .environment(navigationStackNavigator)
             .environment(tabViewRouter.searchModel)
+            .environment(tabViewRouter.discoveryModel)
 
         case .compose:
             if let authBox = authenticationObserver.currentActiveUser {

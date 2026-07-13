@@ -5,17 +5,16 @@ import MastodonLocalization
 
 struct DiscoveryFeedsView: View {
     @Environment(MastodonNavigationRouter.self) var navigator
-    @State var selectedView: DiscoveryType = .posts
-    @State var viewModel = DiscoveryFeedsViewModel()
+    @Environment(DiscoveryFeedsViewModel.self) var viewModel
     
     var body: some View {
-       
-        let timelineModel = viewModel.timelineModel(selectedView, navigator: navigator)
+        @Bindable var viewModel = viewModel
+        let timelineModel = viewModel.timelineModel(viewModel.selectedViewType, navigator: navigator)
             TimelineListView()
-            .timelineEnvironment(timelineModel: timelineModel, contentConcealModel: .alwaysShow, filter: timelineModel.timelineQueryFilter, asyncRefreshModel: viewModel.asyncRefreshModel(selectedView))
+            .timelineEnvironment(timelineModel: timelineModel, contentConcealModel: .alwaysShow, filter: timelineModel.timelineQueryFilter, asyncRefreshModel: viewModel.asyncRefreshModel(viewModel.selectedViewType))
             .toolbar {
                 ToolbarItem(placement: .title) {
-                    Picker("Feed", selection: $selectedView) {
+                    Picker("Feed", selection: $viewModel.selectedViewType) {
                         Text(L10n.Scene.Discovery.Tabs.posts)
                             .tag(DiscoveryType.posts)
                         Text(L10n.Scene.Discovery.Tabs.hashtags)
@@ -34,6 +33,7 @@ struct DiscoveryFeedsView: View {
 @MainActor
 @Observable class DiscoveryFeedsViewModel {
     // create the requested timelineviewmodel lazily and keep it in case we switch back
+    public var selectedViewType: DiscoveryType = .posts
     private var timelineModels = [DiscoveryType : TimelineListViewModel]()
     private var asyncRefreshModels = [DiscoveryType : AsyncRefreshViewModel]()
     

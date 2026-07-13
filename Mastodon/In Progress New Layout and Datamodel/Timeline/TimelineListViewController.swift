@@ -1354,7 +1354,7 @@ struct TimelineListView: View {
                             .scaledToFit()
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         Button {
-                            viewModel.suggestAccountsToFollow(navigator: navigator)
+                            MastodonTabViewRouter.current.openExplore(.forYou)
                         } label: {
                             Text(L10n.Common.Controls.Actions.findPeople)
                                 .bold()
