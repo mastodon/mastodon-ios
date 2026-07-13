@@ -6,6 +6,7 @@ import MastodonLocalization
 struct DiscoveryFeedsView: View {
     @Environment(MastodonNavigationRouter.self) var navigator
     @Environment(DiscoveryFeedsViewModel.self) var viewModel
+    @Environment(\.dismissSearch) private var dismissSearch
     
     var body: some View {
         @Bindable var viewModel = viewModel
@@ -26,6 +27,9 @@ struct DiscoveryFeedsView: View {
                     }
                     .pickerStyle(.segmented)
                 }
+            }
+            .onAppear {
+                dismissSearch()
             }
     }
 }

@@ -101,6 +101,9 @@ import MastodonCore
     
     func openExplore(_ discoveryType: DiscoveryType) {
         guard AuthenticationObserver.shared.currentActiveUser != nil else { return }
+        searchModel.searchText = ""
+        searchModel.isSearchActive = false
+        
         discoveryModel.selectedViewType = discoveryType
         let discoveryTabRouter = navigationRouter(forTab: .explore)
         discoveryTabRouter.navigationPath.removeAll()

@@ -7,7 +7,6 @@ import MastodonCore
 struct ExploreRootView: View {
     @Environment(MastodonNavigationRouter.self) var navigationStackNavigator
     @Environment(SearchModel.self) var searchModel
-    @Environment(DiscoveryFeedsViewModel.self) var discoveryModel
     
     @State var searchTimelineModel: TimelineListViewModel?
     @State var asyncRefreshModel = AsyncRefreshViewModel()
@@ -42,7 +41,6 @@ struct ExploreRootView: View {
                     navigationStackNavigator.destinationView(destination, sceneCoordinator: nil)
                 }
                 .environment(NestedScrollInteractionViewModel())
-                .environment(discoveryModel)
         }
     }
     
