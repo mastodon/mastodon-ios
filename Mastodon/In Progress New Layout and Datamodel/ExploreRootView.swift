@@ -5,14 +5,23 @@ import MastodonSDK
 import MastodonCore
 
 struct ExploreRootView: View {
-    var sceneCoordinator: SceneCoordinator?
     @Environment(MastodonNavigationRouter.self) var navigationStackNavigator
     @Environment(SearchModel.self) var searchModel
+    
+    @State var searchTimelineModel: TimelineListViewModel?
+    @State var asyncRefreshModel = AsyncRefreshViewModel()
     
     var body: some View {
         @Bindable var searchModel = searchModel
         contents
             .searchable(text: $searchModel.searchText, isPresented: $searchModel.isSearchActive)
+            .task(id: searchModel.searchText) {
+                if searchTimelineModel == nil {
+                    searchTimelineModel = TimelineListViewModel(timeline: .search(searchModel.searchText, .all), navigator: navigationStackNavigator, asyncRefreshViewModel: asyncRefreshModel)
+                }
+                do { try await Task.sleep(for: .milliseconds(300)) } catch { return } // wait for a pause in typing before performing the search
+                searchTimelineModel?.setTimeline(.search(searchModel.searchText, .all), navigator: navigationStackNavigator)
+            }
     }
     
     @ViewBuilder var contents: some View {
@@ -20,16 +29,16 @@ struct ExploreRootView: View {
             if searchModel.searchText.isEmpty {
                 searchHistory
             } else {
-                VStack {
-                    Text("Searching...")
-                        .font(.title)
-                    Text(searchModel.searchText)
+                if let searchTimelineModel {
+                    TimelineListView()
+                        .timelineEnvironment(timelineModel: searchTimelineModel, contentConcealModel: .alwaysShow, filter: searchTimelineModel.timeline.filterModel, asyncRefreshModel: asyncRefreshModel)
+                        .environment(NestedScrollInteractionViewModel())
                 }
             }
         } else {
             DiscoveryFeedsView()
                 .navigationDestination(for: MastodonNavigationDestination.self) { destination in
-                    navigationStackNavigator.destinationView(destination, sceneCoordinator: sceneCoordinator)
+                    navigationStackNavigator.destinationView(destination, sceneCoordinator: nil)
                 }
                 .environment(NestedScrollInteractionViewModel())
         }

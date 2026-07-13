@@ -802,29 +802,36 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
         case .search(let searchText, let scope):
-            let query = Mastodon.API.V2.Search.Query(
-                q: searchText,
-                type: scope.searchType,
-                accountID: nil,
-                maxID: nil,
-                minID: nil,
-                excludeUnreviewed: nil,
-                resolve: true,
-                limit: nil,
-                offset: 0,
-                following: nil
-            )
-            let response = try await APIService.shared.search(
-                query: query,
-                authenticationBox: authenticatedUser
-            )
-            let results = response.value
-            let statuses = results.statuses.map { timelineItem(fromStatus: $0, isPinned: false) }
-            let hashtags = results.hashtags.map { timelineItem(fromHashtag: $0) }
-            let accounts = results.accounts.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
-            newBatch = accounts + hashtags + statuses
-            newBatchBottomLoad = bottomLoad(fromLink: response.link)
-            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
+            let trimmedSearchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+            if trimmedSearchText.isEmpty {
+                newBatch = []
+                newBatchBottomLoad = .nothingMoreToLoad
+                newAsyncRefreshAvailable = nil
+            } else {
+                let query = Mastodon.API.V2.Search.Query(
+                    q: trimmedSearchText,
+                    type: scope.searchType,
+                    accountID: nil,
+                    maxID: nil,
+                    minID: nil,
+                    excludeUnreviewed: nil,
+                    resolve: true,
+                    limit: nil,
+                    offset: 0,
+                    following: nil
+                )
+                let response = try await APIService.shared.search(
+                    query: query,
+                    authenticationBox: authenticatedUser
+                )
+                let results = response.value
+                let statuses = results.statuses.map { timelineItem(fromStatus: $0, isPinned: false) }
+                let hashtags = results.hashtags.map { timelineItem(fromHashtag: $0) }
+                let accounts = results.accounts.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
+                newBatch = accounts + hashtags + statuses
+                newBatchBottomLoad = bottomLoad(fromLink: response.link)
+                newAsyncRefreshAvailable = response.asyncRefreshAvaliable
+            }
             
         case .userPosts(let userID, let queryFilter):
             let pinnedPosts = try await APIService.shared.userTimeline(

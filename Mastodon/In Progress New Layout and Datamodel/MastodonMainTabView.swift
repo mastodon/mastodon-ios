@@ -172,7 +172,7 @@ struct MastodonMainTabView: View {
         case .explore:
             @Bindable var navigationStackNavigator = tabViewRouter.navigationRouter(forTab: .explore)
             NavigationStack(path: $navigationStackNavigator.navigationPath) {
-                ExploreRootView(sceneCoordinator: sceneCoordinator)
+                ExploreRootView()
             }
             .environment(navigationStackNavigator)
             .environment(tabViewRouter.searchModel)
