@@ -25,7 +25,7 @@ extension Mastodon.Entity.V2 {
         public enum SuggestionReason: String, Codable, Sendable {
             // Values returned for "source"; deprecated as of 4.3
             case staff /// This account was manually recommended by the administration team
-            case pastInterations = "past_interactions" /// The authenticated account has interacted with this account previously
+            case pastInteractions = "past_interactions" /// The authenticated account has interacted with this account previously
             case global /// This account has many reblogs, favourites, and active local followers within the last 30 days
             
             // Values returned in "sources"; available as of 4.3
