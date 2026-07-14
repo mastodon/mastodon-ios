@@ -167,8 +167,7 @@ struct MastodonMainTabView: View {
                     }
             }
             .environment(navigationStackNavigator)
-            .environment(NestedScrollInteractionViewModel())
-            
+             
         case .explore:
             @Bindable var navigationStackNavigator = tabViewRouter.navigationRouter(forTab: .explore)
             NavigationStack(path: $navigationStackNavigator.navigationPath) {
@@ -222,7 +221,6 @@ struct MastodonMainTabView: View {
                     }
             }
             .environment(navigationStackNavigator)
-            .environment(NestedScrollInteractionViewModel())
             
         case .profile:
             @Bindable var navigationStackNavigator = tabViewRouter.navigationRouter(forTab: tab)

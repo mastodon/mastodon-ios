@@ -35,12 +35,10 @@ struct ExploreRootView: View {
                 if let searchTimelineModel {
                     TimelineListView()
                         .timelineEnvironment(timelineModel: searchTimelineModel, contentConcealModel: .alwaysShow, filter: searchTimelineModel.timeline.filterModel, asyncRefreshModel: asyncRefreshModel)
-                        .environment(NestedScrollInteractionViewModel())
                 }
             }
         } else {
             DiscoveryFeedsView()
-                .environment(NestedScrollInteractionViewModel())
         }
     }
     

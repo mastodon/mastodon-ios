@@ -1328,7 +1328,6 @@ struct TimelineListView: View {
     @Environment(TimelineListViewModel.self) private var viewModel
     @Environment(TimelineQueryFilter.self) private var filterModel
     @Environment(AsyncRefreshViewModel.self) private var asyncRefreshViewModel
-    @Environment(NestedScrollInteractionViewModel.self) private var nestedScrollViewModel
     @Environment(ContentConcealViewModel.self) private var contentConcealModel
     
     @State var _updatedGeometry: GeometryProxy?
