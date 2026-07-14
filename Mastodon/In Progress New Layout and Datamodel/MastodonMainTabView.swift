@@ -512,13 +512,13 @@ struct MastodonMainTabView: View {
                 guard !Task.isCancelled else { return }
                 guard let image = accountAvatarImages[nextRenderGUID] else { return }
                 
-                let roundedRectAvatarView = AvatarView(style: .roundedRect, size: .small, borderStyle: .separator, avatarSource: .local(Image(uiImage: image)), goToProfile: {})
+                let roundedRectAvatarView = AvatarView(style: .roundedRect, size: .small, borderStyle: .separator, avatarSource: .local(Image(uiImage: image)))
                 let rectRenderer = ImageRenderer(content: roundedRectAvatarView)
                 rectRenderer.scale = displayScale
                 guard let rendered = rectRenderer.uiImage else { return }
                 accountAvatarIconsRendered[nextRenderGUID] = Image(uiImage: rendered)
                 
-                let circularAvatarView = AvatarView(style: .circular, size: .small, borderStyle: .separator, avatarSource: .local(Image(uiImage: image)), goToProfile: {})
+                let circularAvatarView = AvatarView(style: .circular, size: .small, borderStyle: .separator, avatarSource: .local(Image(uiImage: image)))
                 let circRenderer = ImageRenderer(content: circularAvatarView)
                 circRenderer.scale = displayScale
                 guard let rendered = circRenderer.uiImage else { return }

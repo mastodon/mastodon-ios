@@ -29,7 +29,6 @@ public struct AvatarView: View {
     var sizeExtraSmall = AvatarSize.extraSmall
     var sizeTiny = AvatarSize.tiny
     
-    @State var isNavigating: Bool = false
     @Environment(\.displayScale) var displayScale
     
     public enum AvatarStyle {
@@ -78,14 +77,12 @@ public struct AvatarView: View {
     let size: Size
     let borderStyle: BorderStyle?
     let avatarSource: AvatarSource?
-    let goToProfile: (() async throws -> ())?
     
-    public init(style: AvatarStyle, size: Size, borderStyle: BorderStyle? = nil, avatarSource: AvatarSource?, goToProfile: (() async throws -> ())?) {
+    public init(style: AvatarStyle, size: Size, borderStyle: BorderStyle? = nil, avatarSource: AvatarSource?) {
         self.avatarStyle = style
         self.size = size
         self.borderStyle = borderStyle
         self.avatarSource = avatarSource
-        self.goToProfile = goToProfile
     }
     
     private var viewDimension: CGFloat {
@@ -109,46 +106,26 @@ public struct AvatarView: View {
     }
     
     public var body: some View {
-        ZStack {
-            avatarImageOrPlaceholder
-                .background() {
-                    // in case the avatar has an alpha channel
-                    switch avatarStyle {
-                    case .roundedRect:
-                        background(size.shape)
-                    case .circular:
-                        background(Circle())
-                    }
-                }
-                .overlay {
-                    switch avatarStyle {
-                    case .roundedRect:
-                        overlay(size.shape)
-                    case .circular:
-                        overlay(Circle())
-                    }
-                  
-                }
-            
-            if isNavigating {
-                ProgressView()
-                    .progressViewStyle(.circular)
-                    .frame(width: 30)
-            }
-        }
-        .frame(width: viewDimension, height: viewDimension)
-        .onTapGesture {
-            if let goToProfile, !isNavigating {
-                Task {
-                    do {
-                        isNavigating = true
-                        try await goToProfile()
-                    } catch {
-                    }
-                    isNavigating = false
+        avatarImageOrPlaceholder
+            .background() {
+                // in case the avatar has an alpha channel
+                switch avatarStyle {
+                case .roundedRect:
+                    background(size.shape)
+                case .circular:
+                    background(Circle())
                 }
             }
-        }
+            .overlay {
+                switch avatarStyle {
+                case .roundedRect:
+                    overlay(size.shape)
+                case .circular:
+                    overlay(Circle())
+                }
+                
+            }
+            .frame(width: viewDimension, height: viewDimension)
     }
     
     @ViewBuilder var avatarImageOrPlaceholder: some View {

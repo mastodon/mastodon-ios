@@ -21,6 +21,8 @@ import SwiftUI
     }
     nonisolated let id: Mastodon.Entity.Account.ID
     
+    public var myRelationship: MastodonAccount.Relationship? { relationshipViewModel.relationship }
+    
     init(account: MastodonAccount, suggestedBecause: [Mastodon.Entity.V2.SuggestionAccount.SuggestionReason]?) {
         self.account = account
         self.id = account.id
@@ -43,10 +45,6 @@ import SwiftUI
         if let action = relationshipViewModel.button.buttonAction(isInCollection: isInCollection).mastodonRelationshipMenuAction {
             try await relationshipViewModel.doMenuAction(action, forAccount: account, navigator: navigator)
         }
-    }
-    
-    func goToProfile(navigator: MastodonNavigationRouter) {
-        navigator.push(.profile(account: account._legacyEntity, relationship: relationshipViewModel.relationship))
     }
 }
 

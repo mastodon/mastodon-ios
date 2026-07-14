@@ -385,9 +385,13 @@ struct NotificationRequestRowView: View {
         VStack(alignment: .gutterAlign, spacing: 0) {
             HStack(alignment: .top, spacing: 0) {
                 // ICON
-                AvatarView(style: .roundedRect, size: .large, avatarSource: .url(viewModel.account.avatarURL)) {
-                    navigator.push(.profile(account: viewModel.account._legacyEntity, relationship: nil))
-                }
+                AvatarView(style: .roundedRect, size: .large, avatarSource: .url(viewModel.account.avatarURL))
+                    .onAsyncTap {
+                        navigator.push(.profile(account: viewModel.account._legacyEntity, relationship: nil))
+                    } onError: { error in
+                        navigator.didReceiveError(error)
+                    }
+                
                 Spacer()
                     .frame(width: spacingBetweenGutterAndContent)
                 
@@ -669,11 +673,11 @@ struct NotificationRowView: View {
                     ForEach(
                         accountInfo.accounts.prefix(maxAvatarCount), id: \.self.id
                     ) { account in
-                        AvatarView(style: .roundedRect, size: .small, avatarSource: .url(account.avatarURL), goToProfile: { try await viewModel.navigateToProfile(account, navigator: navigator) })
-                            .onTapGesture {
-                                Task {
-                                    try await viewModel.navigateToProfile(account, navigator: navigator)
-                                }
+                        AvatarView(style: .roundedRect, size: .small, avatarSource: .url(account.avatarURL))
+                            .onAsyncTap {
+                                try await viewModel.navigateToProfile(account, navigator: navigator)
+                            } onError: { error in
+                                navigator.didReceiveError(error)
                             }
                     }
                 }

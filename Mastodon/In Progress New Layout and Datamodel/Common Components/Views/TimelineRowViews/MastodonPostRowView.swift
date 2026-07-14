@@ -63,14 +63,15 @@ struct MastodonPostRowView: View {
             HStack(alignment: .top, spacing: spacingBetweenGutterAndContent) {
                 // MARK: Avatar
                 VStack(spacing: 0) {
-                    AvatarView(style: .roundedRect, size: .large, avatarSource: .url(author?.avatarURL ?? viewModel.initialDisplayInfo.actionableAuthorStaticAvatar), goToProfile: {
-                        switch viewModel.displayType {
-                        case .editHistory:
-                            break
-                        case .standard:
-                            goToProfile(author)
+                    AvatarView(style: .roundedRect, size: .large, avatarSource: .url(author?.avatarURL ?? viewModel.initialDisplayInfo.actionableAuthorStaticAvatar))
+                        .onAsyncTap {
+                            if let author {
+                                navigator.push(.profile(account: author._legacyEntity, relationship: viewModel.myRelationshipToAuthor))
+                            }
+                        } onError: { error in
+                            navigator.didReceiveError(error)
                         }
-                    })
+
                     if let threadedContext, threadedContext.drawsLineBelow {
                         let lowerThreadDecorationHeight: CGFloat? = {
                             if let precalculatedHeight {
