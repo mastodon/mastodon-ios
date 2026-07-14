@@ -75,8 +75,6 @@ struct ExploreRootView: View {
 
 @MainActor
 @Observable class SearchModel {
-    private let user: String
-    
     var searchText = ""
     var isSearchActive: Bool = false
     var searchHistory: [TimelineItem] = []
@@ -86,32 +84,39 @@ struct ExploreRootView: View {
     
     init(authenticationBox: MastodonAuthenticationBox?) {
         if let authenticationBox {
-            user = authenticationBox.globallyUniqueUserIdentifier
-            let historyItems = (try? FileManager.default.searchItems(for: authenticationBox)) ?? []
-            searchHistory = historyItems.compactMap({ item -> TimelineItem? in
-                if let account = item.account {
-                    if let existing = accountModels[account.id] {
-                        return .account(existing)
-                    } else {
-                        let model = AccountRowViewModel(account: MastodonAccount.fromEntity(account, authenticatedDomain: authenticationBox.domain), suggestedBecause: nil)
-                        accountModels[account.id] = model
-                        return .account(model)
-                    }
-                } else if let hashtag = item.hashtag {
-                    if let existing = hashtagModels[hashtag.uniqueID] {
-                        return .hashtag(existing)
-                    } else {
-                        let model = HashtagRowViewModel(entity: hashtag)
-                        hashtagModels[hashtag.uniqueID] = model
-                        return .hashtag(model)
-                    }
-                } else {
-                    return nil
-                }
-            })
-        } else {
-            user = "NONE"
+           updateHistory(authenticationBox)
         }
+    }
+    
+    private func updateHistory(_ authBox: MastodonAuthenticationBox) {
+        let historyItems = (try? FileManager.default.searchItems(for: authBox)) ?? []
+        searchHistory = historyItems.compactMap({ item -> TimelineItem? in
+            if let account = item.account {
+                if let existing = accountModels[account.id] {
+                    return .account(existing)
+                } else {
+                    let model = AccountRowViewModel(account: MastodonAccount.fromEntity(account, authenticatedDomain: authBox.domain), suggestedBecause: nil)
+                    accountModels[account.id] = model
+                    return .account(model)
+                }
+            } else if let hashtag = item.hashtag {
+                if let existing = hashtagModels[hashtag.uniqueID] {
+                    return .hashtag(existing)
+                } else {
+                    let model = HashtagRowViewModel(entity: hashtag)
+                    hashtagModels[hashtag.uniqueID] = model
+                    return .hashtag(model)
+                }
+            } else {
+                return nil
+            }
+        })
+    }
+    
+    public func didSelectSearchResult(_ authBox: MastodonAuthenticationBox, account: Mastodon.Entity.Account?, hashtag: Mastodon.Entity.Tag?) {
+        let historyItem = Persistence.SearchHistory.Item(updatedAt: .now, userID: authBox.userID, account: account, hashtag: hashtag)
+        try? FileManager.default.addSearchItem(historyItem, for: authBox)
+        updateHistory(authBox)
     }
 }
 
