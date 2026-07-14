@@ -928,12 +928,6 @@ enum MastodonTimelineSheet: Identifiable {
     func contentConcealModel(forActionablePost post: Mastodon.Entity.Status.ID) -> ContentConcealViewModel {
         return feedLoader?.contentConcealViewModel(forContentPost: post) ?? .alwaysShow
     }
-    
-    func suggestAccountsToFollow(navigator: MastodonNavigationRouter) {
-        guard let authenticatedUser else { return }
-        let suggestionAccountViewModel = SuggestionAccountViewModel(authenticationBox: authenticatedUser)
-//        navigator.presentModal(.legacy(scene: .suggestionAccount(viewModel: suggestionAccountViewModel), transition: .modal(animated: true, completion: nil)))
-    }
 }
 
 extension TimelineListViewModel {
