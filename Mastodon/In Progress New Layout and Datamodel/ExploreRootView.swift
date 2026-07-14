@@ -25,6 +25,20 @@ struct ExploreRootView: View {
                 do { try await Task.sleep(for: .milliseconds(300)) } catch { return } // wait for a pause in typing before performing the search
                 searchTimelineModel?.setTimeline(.search(searchModel.searchText, .all), navigator: navigationStackNavigator)
             }
+            .onChange(of: navigationStackNavigator.navigationPath) { oldValue, newValue in
+                // record this as a recent search if appropriate
+                let isNavigatingFromSearchScreen = oldValue.isEmpty
+                let searchIsShowingNewResults = !searchModel.searchText.isEmpty
+                guard isNavigatingFromSearchScreen, searchIsShowingNewResults, let authenticatedUser = AuthenticationObserver.shared.currentActiveUser else { return }
+                switch newValue.first {
+                case .profile(let account, _):
+                    searchModel.didSelectSearchResult(authenticatedUser, account: account, hashtag: nil)
+                case .timeline(.hashtag(let tag)):
+                    searchModel.didSelectSearchResult(authenticatedUser, account: nil, hashtag: tag)
+                default:
+                    break
+                }
+            }
     }
     
     @ViewBuilder var contents: some View {

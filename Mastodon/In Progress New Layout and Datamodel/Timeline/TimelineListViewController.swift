@@ -1869,14 +1869,6 @@ struct TimelineListView: View {
                             .frame(width: useableWidth)
                             .environment(tagViewModel)
                             .onTapGesture {
-                                switch viewModel.timeline {
-                                case .search:
-                                    if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
-                                        MastodonTabViewRouter.current.searchModel.didSelectSearchResult(currentAuthBox, account: nil, hashtag: tagViewModel.entity)
-                                    }
-                                default:
-                                    break
-                                }
                                 navigator.push(.timeline(.hashtag(tagViewModel.entity)))
                             }
                     }
@@ -1908,14 +1900,6 @@ struct TimelineListView: View {
                             .padding(EdgeInsets(top: standardPadding, leading: doublePadding, bottom: standardPadding, trailing: standardPadding))
                             .frame(width: useableWidth)
                             .onTapGesture {
-                                switch viewModel.timeline {
-                                case .search:
-                                    if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
-                                        MastodonTabViewRouter.current.searchModel.didSelectSearchResult(currentAuthBox, account: accountViewModel.account._legacyEntity, hashtag: nil)
-                                    }
-                                default:
-                                    break
-                                }
                                 navigator.push(.profile(account: accountViewModel.account._legacyEntity, relationship: nil))
                             }
                     }
