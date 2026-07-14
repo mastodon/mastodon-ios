@@ -66,6 +66,9 @@ struct ExploreRootView: View {
                     case .account(let model):
                         AccountRowView(contentWidth: contentWidth, collectionViewModel: nil)
                             .environment(model)
+                            .onTapGesture {
+                                navigationStackNavigator.push(.profile(account: model.account._legacyEntity, relationship: model.myRelationship))
+                            }
                     case .hashtag(let tagModel):
                         HashtagRowView()
                             .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
