@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct NestedScrollView: ViewModifier {
-    @Environment(NestedScrollInteractionViewModel.self) var viewModel
+    @Environment(NestedScrollInteractionViewModel.self) var viewModel: NestedScrollInteractionViewModel?
     let nestedRole: NestedScrollviewRole
     
     func body(content: Content) -> some View {
@@ -11,8 +11,10 @@ struct NestedScrollView: ViewModifier {
             let scrollDisabled = {
                 switch nestedRole {
                 case .outer:
+                    guard let viewModel else { assertionFailure(); return false }
                     return !viewModel.innerScrollDisabled
                 case .inner:
+                    guard let viewModel else { assertionFailure(); return false }
                     return viewModel.innerScrollDisabled
                 case .notNested:
                     return false
@@ -23,16 +25,19 @@ struct NestedScrollView: ViewModifier {
                 .onScrollGeometryChange(for: ScrollInteractionState.self) { scrollGeometry in
                     let contentHeight = scrollGeometry.contentSize.height
                     let snapshot = ScrollSnapshot(yOffset: scrollGeometry.contentOffset.y, contentHeight: contentHeight)
+                    let defaultValue = ScrollInteractionState(previousState: nil, currentSnapshot: snapshot, scrollPhase: nil, maxOffset: 0)
                     switch nestedRole {
                     case .outer:
+                        guard let viewModel else { assertionFailure(); return defaultValue }
                         let contentSizeWithoutInnerScrollview = contentHeight - geo.size.height
                         let maxOffset = contentSizeWithoutInnerScrollview - geo.safeAreaInsets.top
                         return viewModel.updateOuterScroll(newSnapshot: snapshot, maxOffset: maxOffset)
                     case .inner:
+                        guard let viewModel else { assertionFailure(); return defaultValue }
                         let maxOffset = contentHeight - geo.size.height // the real value doesn't matter much here because we don't do anything when reaching the bottom
                         return viewModel.updateInnerScroll(newSnapshot: snapshot, maxOffset: maxOffset)
                     case .notNested:
-                        return ScrollInteractionState(previousState: nil, currentSnapshot: snapshot, scrollPhase: nil, maxOffset: 0)
+                        return defaultValue
                     }
                 } action: { _, newScroll in
                     switch (nestedRole, newScroll) {
@@ -43,26 +48,31 @@ struct NestedScrollView: ViewModifier {
                         
                     // OUTER
                     case (.outer, .draggingTowardsContentTop):
+                        guard let viewModel else { assertionFailure(); return }
                         if !viewModel.innerScrollDisabled {
                             viewModel.innerScrollDisabled = true // this handles the case that you scrolled just exactly enough to enable inner scrolling, then changed your mind and used the inner view to pull down and start to show some of the outer scroll contents again
                         }
                     case (.outer, .coastingTowardsContentTop), (.outer, .bouncingOffTop):
                         break
                     case (.outer, .draggingTowardsContentBottom(_, let hasReachedBottom)), (.outer, .coastingTowardsContentBottom(_, let hasReachedBottom)):
+                        guard let viewModel else { assertionFailure(); return }
                         if hasReachedBottom && viewModel.innerScrollDisabled {
                             viewModel.innerScrollDisabled = false
                         }
                     case (.outer, .bouncingOffBottom):
+                        guard let viewModel else { assertionFailure(); return }
                         if viewModel.innerScrollDisabled {
                             viewModel.innerScrollDisabled = false
                         }
                         
                     // INNER
                     case (.inner, .draggingTowardsContentTop(_, let hasReachedTop)), (.inner, .coastingTowardsContentTop(_, let hasReachedTop)):
+                        guard let viewModel else { assertionFailure(); return }
                         if hasReachedTop && !viewModel.innerScrollDisabled {
                             viewModel.innerScrollDisabled = true
                         }
                     case (.inner, .bouncingOffTop):
+                        guard let viewModel else { assertionFailure(); return }
                         if !viewModel.innerScrollDisabled {
                             viewModel.innerScrollDisabled = true
                         }
@@ -73,8 +83,10 @@ struct NestedScrollView: ViewModifier {
                 .onScrollPhaseChange { oldPhase, newPhase in
                     switch nestedRole {
                     case .outer:
+                        guard let viewModel else { assertionFailure(); return }
                         viewModel.updateOuterScrollPhase(newPhase)
                     case .inner:
+                        guard let viewModel else { assertionFailure(); return }
                         viewModel.updateInnerScrollPhase(newPhase)
                     case .notNested:
                         break
