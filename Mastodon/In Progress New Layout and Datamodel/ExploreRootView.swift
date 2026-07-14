@@ -15,6 +15,9 @@ struct ExploreRootView: View {
         @Bindable var searchModel = searchModel
         contents
             .searchable(text: $searchModel.searchText, isPresented: $searchModel.isSearchActive)
+            .navigationDestination(for: MastodonNavigationDestination.self) { destination in
+                navigationStackNavigator.destinationView(destination, sceneCoordinator: nil)
+            }
             .task(id: searchModel.searchText) {
                 if searchTimelineModel == nil {
                     searchTimelineModel = TimelineListViewModel(timeline: .search(searchModel.searchText, .all), navigator: navigationStackNavigator, asyncRefreshViewModel: asyncRefreshModel)
@@ -37,9 +40,6 @@ struct ExploreRootView: View {
             }
         } else {
             DiscoveryFeedsView()
-                .navigationDestination(for: MastodonNavigationDestination.self) { destination in
-                    navigationStackNavigator.destinationView(destination, sceneCoordinator: nil)
-                }
                 .environment(NestedScrollInteractionViewModel())
         }
     }
