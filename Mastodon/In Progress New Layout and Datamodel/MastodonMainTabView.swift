@@ -94,6 +94,7 @@ struct MastodonMainTabView: View {
                 }
             }
         }
+        .id(tabViewRouter.userGUID)
         .environment(authenticationObserver)
         .environment(tabViewRouter)
         .tabViewStyle(.sidebarAdaptable)
