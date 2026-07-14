@@ -78,13 +78,11 @@ struct MastodonMainTabView: View {
                         
                     case .compact, .none:
                         Tab(tab.title, systemImage: tab.systemImage, value: tab) {
-                            Text(tab.title)
-                                .font(.largeTitle)
+                            view(forTab: tab)
                         }
                     @unknown default:
                         Tab(tab.title, systemImage: tab.systemImage, value: tab) {
-                            Text(tab.title)
-                                .font(.largeTitle)
+                            view(forTab: tab)
                         }
                     }
                 } else {
@@ -105,6 +103,11 @@ struct MastodonMainTabView: View {
         }
         .onChange(of: displayScale, initial: true) { _, newValue in
             AvatarIconRenderer.shared.displayScale = newValue
+        }
+        .onReceive(AuthenticationServiceProvider.shared.updateActiveUserAccountPublisher) { _ in
+            // make sure the profile view has correct contents
+            guard let authBox = authenticationObserver.currentActiveUser, let account = authBox.cachedAccount else { return }
+            tabViewRouter.profileModel?.set(account: MastodonAccount.fromEntity(account, authenticatedDomain: authBox.domain), relationship: .isMe, navigator: tabViewRouter.navigationRouter(forTab: .profile))
         }
         .overlay {
             if isSwitchingAccounts {
@@ -336,8 +339,9 @@ struct MastodonMainTabView: View {
             return model
         } else {
             let model = ProfileViewModel()
-            guard let authBox = authenticationObserver.currentActiveUser, let account = authBox.cachedAccount else { return model }
-            model.set(account: MastodonAccount.fromEntity(account, authenticatedDomain: authBox.domain), relationship: .isMe, navigator: tabViewRouter.navigationRouter(forTab: .profile))
+            if let authBox = authenticationObserver.currentActiveUser, let account = authBox.cachedAccount {
+                model.set(account: MastodonAccount.fromEntity(account, authenticatedDomain: authBox.domain), relationship: .isMe, navigator: tabViewRouter.navigationRouter(forTab: .profile))
+            }
             tabViewRouter.profileModel = model
             return model
         }
