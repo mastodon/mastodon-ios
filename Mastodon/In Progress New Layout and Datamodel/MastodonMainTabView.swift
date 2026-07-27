@@ -139,30 +139,24 @@ struct MastodonMainTabView: View {
                 TimelineListView()
                     .timelineEnvironment(timelineModel: timelineModel, contentConcealModel: .alwaysShow, filter: timelineModel.timelineQueryFilter, asyncRefreshModel: timelineModel.asyncRefreshViewModel)
                     .toolbar {
-                        if let accountGUID = AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier {
-                            if #available(iOS 26.0, *) {
-                                ToolbarItem(placement: .topBarTrailing) {
-                                    Button {
-                                        showAccountSwitcher = true
-                                    } label: {
-                                        avatarIconRenderer.prerenderedAccountAvatar(accountGUID, style: .circular)
-                                    }
-                                    .popover(isPresented: $showAccountSwitcher) {
-                                        accountSwitcherView()
-                                    }
+                        if let authBox = authenticationObserver.currentActiveUser {
+                            ToolbarItem(placement: .topBarLeading) {
+                                Button {
+                                    showAccountSwitcher = true
+                                } label: {
+                                    avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular)
                                 }
-                                .sharedBackgroundVisibility(.hidden)
-                            } else {
-                                ToolbarItem(placement: .topBarTrailing) {
-                                    Button {
-                                        showAccountSwitcher = true
-                                    } label: {
-                                        avatarIconRenderer.prerenderedAccountAvatar(accountGUID, style: .circular)
-                                    }
-                                    .popover(isPresented: $showAccountSwitcher) {
-                                        accountSwitcherView()
-                                    }
+                                .popover(isPresented: $showAccountSwitcher) {
+                                    accountSwitcherView()
                                 }
+                            }
+                            .sharedBackgroundVisibilityHidden()
+                            
+                            if sizeClass != .compact {
+                                ToolbarItem(placement: .topBarTrailing) {
+                                    modalComposeButton(navigator: navigationStackNavigator)
+                                }
+                                .sharedBackgroundVisibilityHidden()
                             }
                         }
                     }
@@ -171,6 +165,11 @@ struct MastodonMainTabView: View {
                     }
             }
             .environment(navigationStackNavigator)
+            .overlay(alignment: .bottomTrailing) {
+                if sizeClass == .compact {
+                    modalComposeButton(navigator: navigationStackNavigator)
+                }
+            }
              
         case .explore:
             @Bindable var navigationStackNavigator = tabViewRouter.navigationRouter(forTab: .explore)
@@ -259,6 +258,23 @@ struct MastodonMainTabView: View {
             } icon: {
                 Image(systemName: "gear")
             }
+        }
+    }
+    
+    @ViewBuilder private func modalComposeButton(navigator: MastodonNavigationRouter) -> some View {
+        if let authBox = AuthenticationObserver.shared.currentActiveUser {
+            Button {
+                navigator.presentSheet(.modalCompose(.init(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel)), afterDeconflictionDelay: false)
+            } label: {
+                Image(systemName: "square.and.pencil")
+                    .foregroundStyle(.white)
+                    .padding(standardPadding)
+                    .background {
+                        Circle()
+                            .fill(Asset.Colors.accent.swiftUIColor)
+                    }
+            }
+            .padding()
         }
     }
     

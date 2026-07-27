@@ -64,11 +64,11 @@ import MastodonCore
     func tabs(forSizeClass sizeClass: UserInterfaceSizeClass?) -> [MastodonTab] {
         switch sizeClass {
         case .regular:
-            return [.home, .explore, .compose, .notifications, .profile, .lists, .hashtags]
+            return [.home, .explore, .notifications, .profile, .lists, .hashtags]
         case .none, .compact:
             fallthrough
         @unknown default:
-            return [.home, .explore, .compose, .notifications, .profile]
+            return [.home, .explore, .notifications, .profile]
         }
     }
     
