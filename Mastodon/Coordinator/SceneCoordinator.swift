@@ -307,7 +307,7 @@ extension SceneCoordinator {
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .compose(let viewModel):
-            let _viewController = ComposeViewController(viewModel: viewModel)
+            let _viewController = ComposeViewController(viewModel: viewModel, draftContentModel: nil)
             viewController = _viewController
        
         case .report(let viewModel):

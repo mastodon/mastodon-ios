@@ -252,7 +252,11 @@ extension SceneDelegate {
     }
     
     private func showComposeViewController() {
-        MastodonTabViewRouter.current.selectedTab = .compose
+        guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
+        let currentTab = MastodonTabViewRouter.current.selectedTab
+        let currentNavigator = MastodonTabViewRouter.current.navigationRouter(forTab: currentTab)
+        currentNavigator.dismissCurrentModal()
+        currentNavigator.presentSheet(.modalCompose(.init(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel), nil), afterDeconflictionDelay: true)
     }
     
     private func handleUrl(context: UIOpenURLContext) {

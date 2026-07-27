@@ -4,6 +4,7 @@ import SwiftUI
 import WebKit
 import MastodonSDK
 import MastodonCore
+import MastodonUI
 
 enum MastodonNavigationDestination: Identifiable {
     case timeline(TimelineViewType)
@@ -102,9 +103,9 @@ enum MastodonNavigationDestination: Identifiable {
         case .timelineSheet:
             Text("Timeline must create timeline sheets itself")
         
-        case .modalCompose(let model):
+        case .modalCompose(let model, let contentModel):
             let authBox = model.authenticationBox
-            LegacyComposeViewControllerWrapper(authBox: authBox, composeViewModel: model)
+            LegacyComposeViewControllerWrapper(authBox: authBox, composeViewModel: model, composeContentViewModel: contentModel)
         
         case .report(let model):
             LegacyReportFlowViewControllerWrapper(viewModel: model)
@@ -251,7 +252,7 @@ extension MastodonNavigationDestination: Hashable {
 enum MastodonSheet: Identifiable {
     case timelineSheet(MastodonTimelineSheet)
     case profileEditingSheet(ProfileEditDestinationType)
-    case modalCompose(ComposeViewModel)
+    case modalCompose(ComposeViewModel, ComposeContentViewModel?)
     case settings
     case report(ReportViewModel)
     case welcome
@@ -263,7 +264,7 @@ enum MastodonSheet: Identifiable {
             return sheet.id
         case .profileEditingSheet(let type):
             return type.id
-        case .modalCompose(let model):
+        case .modalCompose:
             return "modal-compose"
         case .settings:
             return "settings"

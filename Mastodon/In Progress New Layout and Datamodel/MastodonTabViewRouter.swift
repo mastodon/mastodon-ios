@@ -2,6 +2,7 @@
 
 import SwiftUI
 import MastodonCore
+import MastodonUI
 
 @MainActor
 @Observable class MastodonTabViewRouter {
@@ -16,6 +17,7 @@ import MastodonCore
     public var selectedNotificationsTimeline: NotificationsScope = .everything
     public var searchModel: SearchModel
     public var discoveryModel: DiscoveryFeedsViewModel
+    public var currentDraftContentViewModel: ComposeContentViewModel?
     
     public static func changeAuthenticatedUser(_ newUser: MastodonAuthenticationBox?) -> MastodonTabViewRouter {
         let updated = MastodonTabViewRouter(authenticatedUser: newUser)
@@ -32,7 +34,6 @@ import MastodonCore
     enum MastodonTab: Identifiable, Hashable {
         case home
         case explore
-        case compose
         case notifications
         case profile
         case lists
@@ -44,7 +45,6 @@ import MastodonCore
             switch self {
             case .home: "home"
             case .explore: "explore"
-            case .compose: "compose"
             case .notifications: "notifications"
             case .profile: "profile"
             case .hashtags: "hashtags"

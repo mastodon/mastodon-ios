@@ -2472,7 +2472,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                             }
                         }
                     )
-                    navigator.presentSheet(.modalCompose(composeViewModel), afterDeconflictionDelay: true)
+                    navigator.presentSheet(.modalCompose(composeViewModel, nil), afterDeconflictionDelay: true)
                 case .boost:
                     Task {
                         let canDoQuotePosts = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.quotePosts) ?? false
@@ -2574,7 +2574,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                                 self.refetchAndDisplay(actionablePostID: statusEntityToEdit.id)
                             }
                         })
-                    navigator.presentSheet(.modalCompose(editStatusViewModel), afterDeconflictionDelay: true)
+                    navigator.presentSheet(.modalCompose(editStatusViewModel, nil), afterDeconflictionDelay: true)
                     
                 case .changeQuotePolicy:
                     let activeSheet = MastodonTimelineSheet.postInteractionSettingsEdit(

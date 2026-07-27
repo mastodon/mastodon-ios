@@ -32,9 +32,11 @@ final class ComposeViewController: UIViewController {
     
     var disposeBag = Set<AnyCancellable>()
     var viewModel: ComposeViewModel
+    let draftContentModel: ComposeContentViewModel?
 
-    init(viewModel: ComposeViewModel) {
+    init(viewModel: ComposeViewModel, draftContentModel: ComposeContentViewModel?) {
         self.viewModel = viewModel
+        self.draftContentModel = draftContentModel
         super.init(nibName: nil, bundle: nil)
         self.setUpPublishingIndicator()
     }
@@ -79,6 +81,10 @@ final class ComposeViewController: UIViewController {
     }
 
     lazy var composeContentViewModel: ComposeContentViewModel = {
+        
+        if let draftContentModel {
+            return draftContentModel
+        }
 
         let composeContext: ComposeContentViewModel.ComposeContext
         let initialContent: String

@@ -121,7 +121,7 @@ struct MastodonMainTabView: View {
     
     private func subtabsFor(_ tab: MastodonTabViewRouter.MastodonTab) -> [MastodonTabViewRouter.MastodonTab]? {
         switch tab {
-        case .home, .explore, .compose, .notifications, .profile, .list, .hashtag:
+        case .home, .explore, .notifications, .profile, .list, .hashtag:
             return nil
         case .lists:
             return [.list("alist"), .list("blist")]
@@ -179,16 +179,6 @@ struct MastodonMainTabView: View {
             .environment(navigationStackNavigator)
             .environment(tabViewRouter.searchModel)
             .environment(tabViewRouter.discoveryModel)
-
-        case .compose:
-            if let authBox = authenticationObserver.currentActiveUser {
-                LegacyComposeViewControllerWrapper(authBox: authBox, composeViewModel: nil)
-                    .frame(maxWidth: 680)
-                    .frame(maxHeight: 700)
-                // probably needs an id to regenerate when you publish a post
-            } else {
-                Asset.Colors.FigmaToken.bgSoftest.swiftUIColor
-            }
                 
         case .notifications:
             @Bindable var navigationStackNavigator = tabViewRouter.navigationRouter(forTab: tab)
@@ -264,7 +254,7 @@ struct MastodonMainTabView: View {
     @ViewBuilder private func modalComposeButton(navigator: MastodonNavigationRouter) -> some View {
         if let authBox = AuthenticationObserver.shared.currentActiveUser {
             Button {
-                navigator.presentSheet(.modalCompose(.init(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel)), afterDeconflictionDelay: false)
+                navigator.presentSheet(.modalCompose(.init(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel), tabViewRouter.currentDraftContentViewModel), afterDeconflictionDelay: false)
             } label: {
                 Image(systemName: "square.and.pencil")
                     .foregroundStyle(.white)
@@ -556,8 +546,6 @@ extension MastodonTabViewRouter.MastodonTab {
             "Home"
         case .explore:
             "Explore"
-        case .compose:
-            "Compose"
         case .notifications:
             "Notifications"
         case .profile:
@@ -579,8 +567,6 @@ extension MastodonTabViewRouter.MastodonTab {
             "house"
         case .explore:
             "binoculars"
-        case .compose:
-            "square.and.pencil"
         case .notifications:
             "bell"
         case .profile:
@@ -594,7 +580,7 @@ extension MastodonTabViewRouter.MastodonTab {
     
     var customizationBehavior: TabCustomizationBehavior {
         switch self {
-        case .home, .explore, .compose, .notifications, .profile, .lists, .hashtags:
+        case .home, .explore, .notifications, .profile, .lists, .hashtags:
                 .disabled
         case .list, .hashtag:
                 .automatic
@@ -603,7 +589,7 @@ extension MastodonTabViewRouter.MastodonTab {
     
     var defaultTabBarVisibility: Visibility {
         switch self {
-        case .home, .explore, .compose, .notifications, .profile:
+        case .home, .explore, .notifications, .profile:
                 .visible
         case .lists, .hashtags, .list, .hashtag:
                 .hidden
@@ -645,10 +631,11 @@ struct LegacyNavigationViewControllerWrapper: UIViewControllerRepresentable {
 struct LegacyComposeViewControllerWrapper: UIViewControllerRepresentable {
     let authBox: MastodonAuthenticationBox
     let composeViewModel: ComposeViewModel?
+    let composeContentViewModel: ComposeContentViewModel?
     
     func makeUIViewController(context: Context) -> some UIViewController {
         let viewModel = composeViewModel ?? ComposeViewModel(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel)
-            let composer = ComposeViewController(viewModel: viewModel)
+            let composer = ComposeViewController(viewModel: viewModel, draftContentModel: composeContentViewModel)
         let navigationWrapper = UINavigationController(rootViewController: composer)
         return navigationWrapper
     }
