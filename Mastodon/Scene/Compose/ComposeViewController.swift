@@ -83,6 +83,7 @@ final class ComposeViewController: UIViewController {
     lazy var composeContentViewModel: ComposeContentViewModel = {
         
         if let draftContentModel {
+            draftContentModel.completion = viewModel.postPublishCompletion
             return draftContentModel
         }
 

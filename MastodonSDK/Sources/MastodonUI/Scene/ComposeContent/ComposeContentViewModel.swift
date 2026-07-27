@@ -57,7 +57,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published public internal(set) var composeContext: ComposeContext
     let destination: Destination
     weak var delegate: ComposeContentViewModelDelegate?
-    let completion: ((Bool)->())?
+    public var completion: ((Bool)->())?
     
     @Published var viewLayoutFrame = ViewLayoutFrame()
     
