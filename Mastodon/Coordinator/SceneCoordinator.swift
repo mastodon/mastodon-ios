@@ -307,6 +307,7 @@ extension SceneCoordinator {
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .compose(let viewModel):
+            // TODO: This scene is now only used by the donations flow, so this scene should be removed when Settings is migrated to SwiftUI.
             let _viewController = ComposeViewController(viewModel: viewModel, draftContentModel: nil)
             viewController = _viewController
        
