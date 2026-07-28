@@ -15,6 +15,12 @@ import MastodonCore
 import MastodonSDK
 import MastodonLocalization
 
+public enum PublishCompletionStatus {
+    case success
+    case failure(Error)
+    case cancelled
+}
+
 public protocol ComposeContentViewModelDelegate: AnyObject {
     func composeContentViewModel(_ viewModel: ComposeContentViewModel, handleAutoComplete info: ComposeContentViewModel.AutoCompleteInfo) -> Bool
 }
@@ -57,7 +63,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published public internal(set) var composeContext: ComposeContext
     let destination: Destination
     weak var delegate: ComposeContentViewModelDelegate?
-    public var completion: ((Bool)->())?
+    public var completion: ((PublishCompletionStatus)->())?
     
     @Published var viewLayoutFrame = ViewLayoutFrame()
     
@@ -168,7 +174,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         composeContext: ComposeContext,
         destination: Destination,
         initialContent: String,
-        completion: ((Bool)->())?
+        completion: ((PublishCompletionStatus)->())?
     ) {
         self.authenticationBox = authenticationBox
         self.destination = destination
@@ -361,8 +367,8 @@ extension ComposeContentViewModel {
         isPublishing = true
     }
     
-    public func donePublishing(success: Bool) {
-        completion?(success)
+    public func donePublishing(_ outcome: PublishCompletionStatus) {
+        completion?(outcome)
         isPublishing = false
     }
     

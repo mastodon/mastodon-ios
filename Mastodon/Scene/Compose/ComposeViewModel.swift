@@ -29,7 +29,7 @@ final class ComposeViewModel {
     let initialContent: String
 
     // output
-    let postPublishCompletion: ((Bool)->())?
+    let postPublishCompletion: ((PublishCompletionStatus)->())?
     
     // UI & UX
     @Published var title: String
@@ -39,7 +39,7 @@ final class ComposeViewModel {
         composeContext: ComposeViewModel.Context,
         destination: ComposeContentViewModel.Destination,
         initialContent: String = "",
-        completion: ((Bool)->())? = nil
+        completion: ((PublishCompletionStatus)->())? = nil
     ) {
         self.authenticationBox = authenticationBox
         self.destination = destination

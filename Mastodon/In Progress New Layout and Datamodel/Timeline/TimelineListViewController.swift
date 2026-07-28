@@ -2465,10 +2465,15 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                         authenticationBox: authenticatedUser,
                         composeContext: .composeStatus(quoting: nil),
                         destination: .reply(parent: MastodonStatus(entity: statusEntityToReplyTo, showDespiteContentWarning: true)),
-                        completion: { success in
-                            // refetch this post to update the reply button
-                            if success {
+                        completion: { outcome in
+                            switch outcome {
+                            case .success:
+                                // refetch this post to update the reply button
                                 self.refetchAndDisplay(actionablePostID: actionablePost.id)
+                            case .failure:
+                                break
+                            case .cancelled:
+                                break
                             }
                         }
                     )
@@ -2568,10 +2573,13 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                                 AnyView(EmptyView())
                             }
                         }),
-                        destination: .topLevel, completion: { success in
-                            // refetch the post to display the edits
-                            if success {
+                        destination: .topLevel, completion: { outcome in
+                            switch outcome {
+                            case .success:
+                                // refetch the post to display the edits
                                 self.refetchAndDisplay(actionablePostID: statusEntityToEdit.id)
+                            case .failure, .cancelled:
+                                break
                             }
                         })
                     navigator.presentSheet(.modalCompose(editStatusViewModel, nil), afterDeconflictionDelay: true)
