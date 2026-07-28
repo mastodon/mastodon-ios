@@ -89,6 +89,7 @@ extension ShareViewController {
                 composeContext: .composeStatus(quoting: nil),
                 destination: .topLevel,
                 initialContent: "",
+                requestConfirmToDismiss: true,
                 completion: nil
             )
             let composeContentViewController = ComposeContentViewController()
@@ -194,7 +195,7 @@ extension ShareViewController {
 extension ShareViewController: UIAdaptivePresentationControllerDelegate {
     
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
-        return composeContentViewModel?.shouldDismiss ?? true
+        return composeContentViewModel?.dismissWithoutConfirmation ?? true
     }
     
     func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {

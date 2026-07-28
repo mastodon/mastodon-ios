@@ -106,6 +106,7 @@ final class ComposeViewController: UIViewController {
             composeContext: composeContext,
             destination: viewModel.destination,
             initialContent: initialContent,
+            requestConfirmToDismiss: true,
             completion: nil
         )
         
@@ -292,7 +293,7 @@ extension ComposeViewController {
     }
 
     @objc private func cancelBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        guard composeContentViewModel.shouldDismiss else {
+        guard composeContentViewModel.dismissWithoutConfirmation else {
             showDismissConfirmAlertController()
             return
         }
@@ -526,7 +527,7 @@ extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
     }
     
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
-        return composeContentViewModel.shouldDismiss
+        return composeContentViewModel.dismissWithoutConfirmation
     }
     
     func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {

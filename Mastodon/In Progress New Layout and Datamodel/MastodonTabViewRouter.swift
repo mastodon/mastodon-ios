@@ -23,7 +23,7 @@ import MastodonUI
         if let _currentDraftContentViewModel, _currentDraftContentViewModel.authenticationBox == authBox {
             return _currentDraftContentViewModel
         } else {
-            _currentDraftContentViewModel = ComposeContentViewModel(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel, initialContent: "") { [weak self] outcome in
+            _currentDraftContentViewModel = ComposeContentViewModel(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel, initialContent: "", requestConfirmToDismiss: false) { [weak self] outcome in
                 switch outcome {
                 case .success:
                     self?.clearDraftContentViewModel()
