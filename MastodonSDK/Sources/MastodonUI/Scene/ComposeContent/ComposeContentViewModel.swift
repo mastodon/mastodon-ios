@@ -62,7 +62,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published var viewLayoutFrame = ViewLayoutFrame()
     
     // author (me)
-    @Published var authenticationBox: MastodonAuthenticationBox
+    @Published public var authenticationBox: MastodonAuthenticationBox
     
     // auto-complete info
     @Published var autoCompleteRetryLayoutTimes = 0
@@ -361,7 +361,8 @@ extension ComposeContentViewModel {
         isPublishing = true
     }
     
-    public func donePublishing() {
+    public func donePublishing(success: Bool) {
+        completion?(success)
         isPublishing = false
     }
     

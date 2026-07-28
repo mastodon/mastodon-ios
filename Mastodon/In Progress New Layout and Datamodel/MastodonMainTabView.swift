@@ -254,7 +254,7 @@ struct MastodonMainTabView: View {
     @ViewBuilder private func modalComposeButton(navigator: MastodonNavigationRouter) -> some View {
         if let authBox = AuthenticationObserver.shared.currentActiveUser {
             Button {
-                navigator.presentSheet(.modalCompose(.init(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel), tabViewRouter.currentDraftContentViewModel), afterDeconflictionDelay: false)
+                navigator.presentSheet(.modalCompose(.init(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel), tabViewRouter.currentDraftContentViewModel(authBox: authBox)), afterDeconflictionDelay: false)
             } label: {
                 Image(systemName: "square.and.pencil")
                     .foregroundStyle(.white)
@@ -635,7 +635,7 @@ struct LegacyComposeViewControllerWrapper: UIViewControllerRepresentable {
     
     func makeUIViewController(context: Context) -> some UIViewController {
         let viewModel = composeViewModel ?? ComposeViewModel(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel)
-            let composer = ComposeViewController(viewModel: viewModel, draftContentModel: composeContentViewModel)
+        let composer = ComposeViewController(viewModel: viewModel, draftContentModel: composeContentViewModel)
         let navigationWrapper = UINavigationController(rootViewController: composer)
         return navigationWrapper
     }

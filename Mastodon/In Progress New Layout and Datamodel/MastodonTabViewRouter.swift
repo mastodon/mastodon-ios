@@ -17,7 +17,24 @@ import MastodonUI
     public var selectedNotificationsTimeline: NotificationsScope = .everything
     public var searchModel: SearchModel
     public var discoveryModel: DiscoveryFeedsViewModel
-    public var currentDraftContentViewModel: ComposeContentViewModel?
+    private var _currentDraftContentViewModel: ComposeContentViewModel?
+    
+    public func currentDraftContentViewModel(authBox: MastodonAuthenticationBox) -> ComposeContentViewModel? {
+        if let _currentDraftContentViewModel, _currentDraftContentViewModel.authenticationBox == authBox {
+            return _currentDraftContentViewModel
+        } else {
+            _currentDraftContentViewModel = ComposeContentViewModel(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel, initialContent: "") { [weak self] success in
+                if success {
+                    self?.clearDraftContentViewModel()
+                }
+            }
+            return _currentDraftContentViewModel
+        }
+    }
+    
+    public func clearDraftContentViewModel() {
+        _currentDraftContentViewModel = nil
+    }
     
     public static func changeAuthenticatedUser(_ newUser: MastodonAuthenticationBox?) -> MastodonTabViewRouter {
         let updated = MastodonTabViewRouter(authenticatedUser: newUser)

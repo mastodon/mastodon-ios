@@ -83,7 +83,6 @@ final class ComposeViewController: UIViewController {
     lazy var composeContentViewModel: ComposeContentViewModel = {
         
         if let draftContentModel {
-            draftContentModel.completion = viewModel.postPublishCompletion
             return draftContentModel
         }
 
@@ -107,7 +106,7 @@ final class ComposeViewController: UIViewController {
             composeContext: composeContext,
             destination: viewModel.destination,
             initialContent: initialContent,
-            completion: viewModel.postPublishCompletion
+            completion: nil
         )
         
         switch viewModel.composeContext {
@@ -372,14 +371,14 @@ extension ComposeViewController {
                         self?.publishProgressView.progress = 100
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                             self?.dismiss(animated: true, completion: { self?.viewModel.postPublishCompletion?(true)
-                                self?.composeContentViewModel.donePublishing()
+                                self?.composeContentViewModel.donePublishing(success: true)
                             })
                         }
                     case .failure(let error):
                         UIView.animate(withDuration: 0.25) {
                             self?.publishProgressView.alpha = 0
                         }
-                        self?.composeContentViewModel.donePublishing()
+                        self?.composeContentViewModel.donePublishing(success: false)
                         let alertController = UIAlertController.standardAlert(of: error)
                         self?.present(alertController, animated: true)
                         // HomeTimelineViewController is also listening and will post the alert if this view has been dismissed
@@ -394,7 +393,7 @@ extension ComposeViewController {
                 authenticationBox: viewModel.authenticationBox
             )
         } catch {
-            composeContentViewModel.donePublishing()
+            composeContentViewModel.donePublishing(success: false)
             let alertController = UIAlertController.standardAlert(of: error)
             present(alertController, animated: true)
             return
@@ -450,14 +449,14 @@ extension ComposeViewController {
                         self?.editPublishProgressView.progress = 100
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                             self?.dismiss(animated: true, completion: { self?.viewModel.postPublishCompletion?(true)
-                                self?.composeContentViewModel.donePublishing()
+                                self?.composeContentViewModel.donePublishing(success: true)
                             })
                         }
                     case .failure(let error):
                         UIView.animate(withDuration: 0.25) {
                             self?.editPublishProgressView.alpha = 0
                         }
-                        self?.composeContentViewModel.donePublishing()
+                        self?.composeContentViewModel.donePublishing(success: false)
                         let alertController = UIAlertController.standardAlert(of: error)
                         self?.present(alertController, animated: true)
                         // HomeTimelineViewController is also listening and will post the alert if this view has been dismissed
@@ -471,7 +470,7 @@ extension ComposeViewController {
                 authenticationBox: viewModel.authenticationBox
             )
         } catch {
-            composeContentViewModel.donePublishing()
+            composeContentViewModel.donePublishing(success: false)
             let alertController = UIAlertController.standardAlert(of: error)
             present(alertController, animated: true)
             return
