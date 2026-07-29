@@ -9,6 +9,7 @@ import MastodonUI
 enum MastodonNavigationDestination: Identifiable {
     case timeline(TimelineViewType)
     case profile(account: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?)
+    case settings(SettingsDestinationType)
     case editProfile(profileViewModel: ProfileViewModel)
     case editProfileNavigation(destination: ProfileEditDestinationType)
     case share(activityItems: [Any])
@@ -86,6 +87,14 @@ enum MastodonNavigationDestination: Identifiable {
         case .editProfileNavigation(let destination):
             ProfileEditingDestinationView(destinationType: destination)
                 .profileEditingDestinationEnvironment(destination)
+            
+        case .settings(let type):
+            switch type {
+            case .generalSettings:
+                GeneralSettingsView()
+            default:
+                Text("Unimplemented")
+            }
             
         case .legacy(let scene, _):
             if let sceneCoordinator {
@@ -244,6 +253,8 @@ extension MastodonNavigationDestination: Hashable {
             return "editProfile"
         case .editProfileNavigation(let destination):
             return "editProfile-\(destination.id)"
+        case .settings(let type):
+            return "settings-\(type)"
         case .share:
             return "share"
         case .legacy(let scene, let transition):

@@ -6,16 +6,7 @@ import MastodonCore
 import MastodonLocalization
 import MastodonUI
 
-struct GeneralSettingsViewModel {
-    var selectedAppearence: GeneralSetting.Appearance
-    var playAnimations: Bool
-    var selectedOpenLinks: GeneralSetting.OpenLinksIn
-    var askBeforePostingWithoutAltText: Bool
-    var askBeforeUnfollowingSomeone: Bool
-    var askBeforeBoostingAPost: Bool
-    var askBeforeDeletingAPost: Bool
-    var defaultPostLanguage: String
-}
+
 
 protocol GeneralSettingsViewControllerDelegate: AnyObject {
     func save(_ viewController: UIViewController, viewModel: GeneralSettingsViewModel)
@@ -63,23 +54,7 @@ class GeneralSettingsViewController: UIViewController {
             ])
         ]
 
-        let openLinksIn: GeneralSetting.OpenLinksIn
-        if UserDefaults.shared.preferredUsingDefaultBrowser {
-            openLinksIn = .browser
-        } else {
-            openLinksIn = .mastodon
-        }
-        let playAnimations = (UserDefaults.shared.preferredStaticAvatar == false && UserDefaults.shared.preferredStaticEmoji == false)
-        viewModel = GeneralSettingsViewModel(
-            selectedAppearence: GeneralSetting.Appearance(rawValue: UserDefaults.shared.customUserInterfaceStyle.rawValue) ?? .system,
-            playAnimations: playAnimations,
-            selectedOpenLinks: openLinksIn,
-            askBeforePostingWithoutAltText: UserDefaults.shared.askBeforePostingWithoutAltText,
-            askBeforeUnfollowingSomeone: UserDefaults.shared.askBeforeUnfollowingSomeone,
-            askBeforeBoostingAPost: UserDefaults.shared.askBeforeBoostingAPost,
-            askBeforeDeletingAPost: UserDefaults.shared.askBeforeDeletingAPost,
-            defaultPostLanguage: UserDefaults.shared.defaultPostLanguage
-        )
+        viewModel = GeneralSettingsViewModel()
 
         super.init(nibName: nil, bundle: nil)
 
