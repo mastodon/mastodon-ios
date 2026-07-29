@@ -393,6 +393,7 @@
 				"Common Components/Views/PageableZoomableView.swift",
 				"Common Components/Views/PhotoCropperView.swift",
 				"Common Components/Views/ProfileType.swift",
+				"Common Components/Views/Settings/SettingsRootView.swift",
 				"Common Components/Views/StatefulActionButton.swift",
 				"Common Components/Views/TextViewWithCustomEmoji.swift",
 				"Common Components/Views/TimelineRowViews/AccountRowView.swift",

@@ -116,6 +116,9 @@ enum MastodonNavigationDestination: Identifiable {
         case .contentUrl(let url):
             SafariView(url: url.url)
             
+        case .settings:
+            SettingsNavigationView()
+            
         default:
             Text("Default")
         }
