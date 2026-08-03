@@ -38,7 +38,7 @@ extension MastodonSDKTests {
     func _testVerifyAppCredentials(domain: String, accessToken: String) throws {
         let theExpectation = expectation(description: "Verify App Credentials")
         
-        let authorization = Mastodon.API.OAuth.Authorization(accessToken: accessToken)
+        let authorization = Mastodon.API.OAuth.Authorization(accessToken: accessToken, domain: domain)
         Mastodon.API.App.verifyCredentials(
             session: session,
             domain: domain,

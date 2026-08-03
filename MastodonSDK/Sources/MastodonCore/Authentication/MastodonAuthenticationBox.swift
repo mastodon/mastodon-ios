@@ -17,10 +17,10 @@ public struct MastodonAuthenticationBox: UserIdentifier {
     public var domain: String { authentication.domain }
     public var userID: String { authentication.userID }
     public var appAuthorization: Mastodon.API.OAuth.Authorization {
-        Mastodon.API.OAuth.Authorization(accessToken: authentication.appAccessToken)
+        Mastodon.API.OAuth.Authorization(accessToken: authentication.appAccessToken, domain: domain)
     }
     public var userAuthorization: Mastodon.API.OAuth.Authorization {
-        Mastodon.API.OAuth.Authorization(accessToken: authentication.userAccessToken)
+        Mastodon.API.OAuth.Authorization(accessToken: authentication.userAccessToken, domain: domain)
     }
     
     public init(authentication: MastodonAuthentication) {

@@ -257,6 +257,6 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
     }
 
     var authorization: Mastodon.API.OAuth.Authorization {
-        .init(accessToken: userAccessToken)
+        .init(accessToken: userAccessToken, domain: domain)
     }
 }

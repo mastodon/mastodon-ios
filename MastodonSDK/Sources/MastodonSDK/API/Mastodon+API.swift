@@ -146,6 +146,10 @@ extension Mastodon.API {
         )
         request.httpMethod = RequestMethod.GET.rawValue
         if let authorization = authorization {
+            guard authorization.isForUrl(requestUrl) else {
+                assertionFailure("attempting to authenticate to \(String(describing: requestUrl.host())) with a token meant for \(String(describing: authorization.domain))")
+                return request
+            }
             request.setValue(
                 "Bearer \(authorization.accessToken)",
                 forHTTPHeaderField: Mastodon.API.OAuth.authorizationField
@@ -233,6 +237,10 @@ extension Mastodon.API {
             request.setValue("\(body.count)", forHTTPHeaderField: "Content-Length")
         }
         if let authorization = authorization {
+            guard authorization.isForUrl(requestURL) else {
+                assertionFailure("attempting to authenticate to \(String(describing: url.host())) with a token meant for \(String(describing: authorization.domain))")
+                return request
+            }
             request.setValue(
                 "Bearer \(authorization.accessToken)",
                 forHTTPHeaderField: Mastodon.API.OAuth.authorizationField

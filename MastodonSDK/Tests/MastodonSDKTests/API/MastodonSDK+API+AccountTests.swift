@@ -15,7 +15,7 @@ extension MastodonSDKTests {
     func testVerifyCredentials() throws {
         let theExpectation = expectation(description: "Verify Account Credentials")
 
-        let authorization = Mastodon.API.OAuth.Authorization(accessToken: testToken)
+        let authorization = Mastodon.API.OAuth.Authorization(accessToken: testToken, domain: domain)
         Mastodon.API.Account.verifyCredentials(session: session, domain: domain, authorization: authorization)
         .receive(on: DispatchQueue.main)
         .sink { completion in
@@ -38,7 +38,7 @@ extension MastodonSDKTests {
         let theExpectation1 = expectation(description: "Verify Account Credentials")
         let theExpectation2 = expectation(description: "Update Account Credentials")
 
-        let authorization = Mastodon.API.OAuth.Authorization(accessToken: testToken)
+        let authorization = Mastodon.API.OAuth.Authorization(accessToken: testToken, domain: domain)
         let dateString = "\(Date().timeIntervalSince1970)"
 
         Mastodon.API.Account.verifyCredentials(session: session, domain: domain, authorization: authorization)

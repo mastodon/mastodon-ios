@@ -97,7 +97,7 @@ final class MastodonRegisterViewModel: ObservableObject {
         self.approvalRequired = instance.approvalRequired ?? false
         self.reasonRequired = instance.reasonRequired
         self.minAge = instance.minAge
-        self.applicationAuthorization = Mastodon.API.OAuth.Authorization(accessToken: applicationToken.accessToken)
+        self.applicationAuthorization = Mastodon.API.OAuth.Authorization(accessToken: applicationToken.accessToken, domain: domain)
         self.submitValidatedUserRegistration = submitValidatedUserRegistration
         
         $dateOfBirth
