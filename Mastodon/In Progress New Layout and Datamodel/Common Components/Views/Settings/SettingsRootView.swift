@@ -5,6 +5,7 @@ import MastodonSDK
 import MastodonCore
 import MastodonLocalization
 import MastodonAsset
+import MastodonUI
 
 enum SettingsDestinationType {
     case generalSettings
@@ -13,6 +14,7 @@ enum SettingsDestinationType {
     case serverDetails
     case aboutMastodon
     case betaFeatures
+    case languageSelection
 }
 
 enum SettingsRowAction {
@@ -23,6 +25,7 @@ enum SettingsRowAction {
 
 struct SettingsNavigationView: View {
     @Environment(\.dismiss) private var dismiss
+    @State private var viewModel = GeneralSettingsViewModel()
     @State private var navigator = MastodonNavigationRouter()
     
     var body: some View {
@@ -47,6 +50,13 @@ struct SettingsNavigationView: View {
                                 Text("TODO")
                             case .generalSettings:
                                 GeneralSettingsView()
+                            case .languageSelection:
+                                LanguagePicker(selectedLanguage: viewModel.defaultPostLanguage, onSelect: { selected in
+                                    viewModel.defaultPostLanguage = selected
+                                    guard !navigator.navigationPath.isEmpty else { return }
+                                    navigator.navigationPath.removeLast()
+                                })
+                                .navigationTitle(L10n.Scene.Settings.General.Language.defaultPostLanguage)
                             case .notificationsSettings:
                                 Text("TODO")
                             case .privacyAndSafety:
@@ -57,7 +67,8 @@ struct SettingsNavigationView: View {
                                 Text("TODO")
                             }
                         default:
-                            Text("unexpected destination")
+                            let _ = assertionFailure("SettingsNavigationView does not expect to push a \(destination)")
+                            EmptyView()
                         }
                     }
             } else {
@@ -65,6 +76,7 @@ struct SettingsNavigationView: View {
             }
         }
         .environment(navigator)
+        .environment(viewModel)
     }
 }
 

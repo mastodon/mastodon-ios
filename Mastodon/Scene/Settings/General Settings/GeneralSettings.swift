@@ -121,7 +121,8 @@ enum GeneralSetting: Hashable {
 }
 
 struct GeneralSettingsView: View {
-    @State private var viewModel = GeneralSettingsViewModel()
+    @Environment(GeneralSettingsViewModel.self) private var viewModel
+    @Environment(MastodonNavigationRouter.self) private var navigator
     
     let sections = [
         GeneralSettingsSection(type: .appearance, entries: [
@@ -165,7 +166,7 @@ struct GeneralSettingsView: View {
                         case .language(let language):
                             NavigationRow(label: language.title, sublabel: viewModel.defaultPostLanguageName)
                                 .onTapGesture {
-                                    // TODO: navigate to language picker
+                                    navigator.push(.settings(.languageSelection))
                                 }
                         case .openLinksIn(let openLinksIn):
                             SelectionRow(label: openLinksIn.title, isSelected: viewModel.openLinksInBinding(openLinksIn))

@@ -88,13 +88,9 @@ enum MastodonNavigationDestination: Identifiable {
             ProfileEditingDestinationView(destinationType: destination)
                 .profileEditingDestinationEnvironment(destination)
             
-        case .settings(let type):
-            switch type {
-            case .generalSettings:
-                GeneralSettingsView()
-            default:
-                Text("Unimplemented")
-            }
+        case .settings:
+            let _ = assertionFailure("SettingsNavigationView handles these")
+            EmptyView()
             
         case .legacy(let scene, _):
             if let sceneCoordinator {
