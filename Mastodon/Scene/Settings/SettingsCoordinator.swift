@@ -72,11 +72,12 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
         guard let navigationController = viewController.navigationController else { return }
         switch entry {
             case .general:
-            
-                let generalSettingsViewController = GeneralSettingsViewController(appContext: appContext)
-                generalSettingsViewController.delegate = self
-            
-                navigationController.pushViewController(generalSettingsViewController, animated: true)
+            assertionFailure("migrating to SettingsNavigationView")
+            break
+//                let generalSettingsViewController = GeneralSettingsViewController(appContext: appContext)
+//                generalSettingsViewController.delegate = self
+//            
+//                navigationController.pushViewController(generalSettingsViewController, animated: true)
             case .notifications:
                 guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
                 let notificationViewController = NotificationSettingsViewController(authBox: authBox)
@@ -170,22 +171,6 @@ extension SettingsCoordinator: AboutViewControllerDelegate {
 }
 
 //MARK: - ASWebAuthenticationPresentationContextProviding
-
-//MARK: - GeneralSettingsViewControllerDelegate
-extension SettingsCoordinator: GeneralSettingsViewControllerDelegate {
-    
-    func save(_ viewController: UIViewController, viewModel: GeneralSettingsViewModel) {
-        UserDefaults.shared.customUserInterfaceStyle = viewModel.selectedAppearence.interfaceStyle
-        UserDefaults.shared.preferredStaticEmoji = viewModel.playAnimations == false
-        UserDefaults.shared.preferredStaticAvatar = viewModel.playAnimations == false
-        UserDefaults.shared.preferredUsingDefaultBrowser = viewModel.selectedOpenLinks == .browser
-    }
-    
-    func showLanguagePicker(_ viewModel: GeneralSettingsViewModel, onLanguageSelected: @escaping OnLanguageSelected) {
-        let viewController = LanguagePickerViewController(onLanguageSelected: onLanguageSelected)
-        settingsViewController.navigationController?.pushViewController(viewController, animated: true)
-    }
-}
 
 //MARK: - NotificationSettingsViewControllerDelegate
 extension SettingsCoordinator: NotificationSettingsViewControllerDelegate {
