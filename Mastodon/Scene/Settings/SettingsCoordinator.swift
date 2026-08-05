@@ -79,11 +79,13 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
 //            
 //                navigationController.pushViewController(generalSettingsViewController, animated: true)
             case .notifications:
-                guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
-                let notificationViewController = NotificationSettingsViewController(authBox: authBox)
-                notificationViewController.delegate = self
-
-                navigationController.pushViewController(notificationViewController, animated: true)
+            assertionFailure("migrating to SettingsNavigationView")
+            break
+//                guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
+//                let notificationViewController = NotificationSettingsViewController(authBox: authBox)
+//                notificationViewController.delegate = self
+//
+//                navigationController.pushViewController(notificationViewController, animated: true)
             case .privacySafety:
                 let privacySafetyViewController = PrivacySafetyViewController(
                     appContext: appContext,
@@ -171,42 +173,6 @@ extension SettingsCoordinator: AboutViewControllerDelegate {
 }
 
 //MARK: - ASWebAuthenticationPresentationContextProviding
-
-//MARK: - NotificationSettingsViewControllerDelegate
-extension SettingsCoordinator: NotificationSettingsViewControllerDelegate {
-    func showPolicyList(_ viewController: UIViewController, viewModel: NotificationSettingsViewModel) {
-        let policyListViewController = PolicySelectionViewController(viewModel: viewModel)
-        policyListViewController.delegate = self
-
-        settingsViewController.navigationController?.pushViewController(policyListViewController, animated: true)
-    }
-
-    func viewWillDisappear(_ viewController: UIViewController, viewModel: NotificationSettingsViewModel) {
-
-        guard let newSettings = viewModel.settingsToRegister else { return }
-        
-        Task {
-            try await BodegaPersistence.PushNotifications.savePendingSubscriptionSettings(newSettings, for: authenticationBox)
-            NotificationService.shared.requestUpdate(
-                .singleAccount(authenticationBox)
-            )
-        }
-    }
-    
-    func showNotificationSettings(_ viewController: UIViewController) {
-        if let url = URL(string: UIApplication.openNotificationSettingsURLString) {
-            UIApplication.shared.open(url)
-        }
-    }
-}
-
-//MARK: - PolicySelectionViewControllerDelegate
-extension SettingsCoordinator: PolicySelectionViewControllerDelegate {
-    func newPolicySelected(_ viewController: PolicySelectionViewController, newPolicy: NotificationPolicy) {
-        guard let newQueryDataPolicy = Mastodon.API.Subscriptions.QueryData.Policy(rawValue: newPolicy.subscriptionPolicy.rawValue) else { return }
-        pushNotificationSettings = PushNotificationsSubscription.PushNotificationsSettings(pushNotificationsFrom: newQueryDataPolicy, mentions: pushNotificationSettings?.mentions, boosts: pushNotificationSettings?.boosts, favorites: pushNotificationSettings?.favorites, newFollowers: pushNotificationSettings?.newFollowers, followRequests: pushNotificationSettings?.followRequests, polls: pushNotificationSettings?.polls)
-    }
-}
 
 //MARK: - ServerDetailsViewControllerDelegate
 extension SettingsCoordinator: ServerDetailsViewControllerDelegate {
