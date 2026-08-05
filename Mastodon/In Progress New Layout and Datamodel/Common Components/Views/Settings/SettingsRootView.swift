@@ -10,6 +10,7 @@ import MastodonUI
 enum SettingsDestinationType {
     case generalSettings
     case notificationsSettings
+    case notificationsReceiveFromPicker
     case privacyAndSafety
     case serverDetails
     case aboutMastodon
@@ -23,15 +24,32 @@ enum SettingsRowAction {
     case makeDonation
 }
 
+@MainActor
+class SettingsModels {
+    private var _notificationSettings: NotificationSettingsViewModel?
+    
+    func notificationSettings(authBox: MastodonAuthenticationBox) -> NotificationSettingsViewModel {
+        if let _notificationSettings {
+            return _notificationSettings
+        } else {
+            let newModel = NotificationSettingsViewModel(authBox: authBox)
+            _notificationSettings = newModel
+            return newModel
+        }
+    }
+}
+
 struct SettingsNavigationView: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var viewModel = GeneralSettingsViewModel()
+    @State private var generalSettingsViewModel = GeneralSettingsViewModel()
+    @State private var viewModels = SettingsModels()
     @State private var navigator = MastodonNavigationRouter()
     
     var body: some View {
         @Bindable var navigator = navigator
         NavigationStack(path: $navigator.navigationPath) {
-            if let domain = AuthenticationServiceProvider.shared.currentActiveUser.value?.domain {
+            let authBox = AuthenticationObserver.shared.currentActiveUser
+            if let domain = authBox?.domain {
                 SettingsRootView(domain: domain)
                     .navigationTitle(L10n.Scene.Settings.Overview.title)
                     .navigationBarTitleDisplayMode(.inline)
@@ -50,15 +68,25 @@ struct SettingsNavigationView: View {
                                 Text("TODO")
                             case .generalSettings:
                                 GeneralSettingsView()
+                                    .environment(generalSettingsViewModel)
                             case .languageSelection:
-                                LanguagePicker(selectedLanguage: viewModel.defaultPostLanguage, onSelect: { selected in
-                                    viewModel.defaultPostLanguage = selected
-                                    guard !navigator.navigationPath.isEmpty else { return }
-                                    navigator.navigationPath.removeLast()
+                                LanguagePicker(selectedLanguage: generalSettingsViewModel.defaultPostLanguage, onSelect: { selected in
+                                    generalSettingsViewModel.defaultPostLanguage = selected
+                                    navigator.pop()
                                 })
+                                .environment(generalSettingsViewModel)
                                 .navigationTitle(L10n.Scene.Settings.General.Language.defaultPostLanguage)
                             case .notificationsSettings:
-                                Text("TODO")
+                                if let authBox = AuthenticationObserver.shared.currentActiveUser {
+                                    NotificationSettingsView()
+                                        .environment(viewModels.notificationSettings(authBox: authBox))
+                                }
+                            case .notificationsReceiveFromPicker:
+                                if let authBox = AuthenticationObserver.shared.currentActiveUser {
+                                    NotificationReceiveFromPicker()
+                                        .environment(viewModels.notificationSettings(authBox: authBox))
+                                        .navigationTitle(L10n.Scene.Settings.Notifications.Policy.title)
+                                }
                             case .privacyAndSafety:
                                 Text("TODO")
                             case .serverDetails:
@@ -76,7 +104,6 @@ struct SettingsNavigationView: View {
             }
         }
         .environment(navigator)
-        .environment(viewModel)
     }
 }
 

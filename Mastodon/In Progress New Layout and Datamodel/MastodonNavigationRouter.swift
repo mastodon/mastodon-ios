@@ -141,6 +141,10 @@ enum MastodonNavigationDestination: Identifiable {
             }
     }
     
+    func pop() {
+        guard !navigationPath.isEmpty else { return }
+        navigationPath.removeLast()
+    }
     
     public func presentSheet(_ sheet: MastodonSheet, afterDeconflictionDelay: Bool) {
         assert(presentedSheet == nil, "caller is responsible for dismissing any modals currently presented")

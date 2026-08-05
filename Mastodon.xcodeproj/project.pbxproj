@@ -394,6 +394,7 @@
 				"Common Components/Views/PhotoCropperView.swift",
 				"Common Components/Views/ProfileType.swift",
 				"Common Components/Views/Settings/GeneralSettingsView.swift",
+				"Common Components/Views/Settings/NotificationSettingsView.swift",
 				"Common Components/Views/Settings/SettingsRootView.swift",
 				"Common Components/Views/StatefulActionButton.swift",
 				"Common Components/Views/TextViewWithCustomEmoji.swift",

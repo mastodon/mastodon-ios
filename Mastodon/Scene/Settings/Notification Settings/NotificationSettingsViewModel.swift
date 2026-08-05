@@ -1,18 +1,33 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import Foundation
+import SwiftUI
+import Combine
 import MastodonSDK
 import MastodonCore
 
-@Observable
-class NotificationSettingsViewModel {
+@MainActor
+@Observable class NotificationSettingsViewModel {
 
     private(set) var originalSettings: PushNotificationsSubscription?
     var updatedSettings: PushNotificationsSubscription.PushNotificationsSettings?
     private(set) var isLoading: Bool
+    private(set) var isNotificationPermissionGranted: Bool = false
+    private let authBox: MastodonAuthenticationBox
+    
+    @ObservationIgnored private var subscriptions = Set<AnyCancellable>()
 
     init(authBox: MastodonAuthenticationBox) {
+        self.authBox = authBox
         isLoading = true
+        isNotificationPermissionGranted = NotificationService.shared.isNotificationPermissionGranted.value
+        NotificationService.shared.isNotificationPermissionGranted
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] notificationsPermitted in
+                self?.isNotificationPermissionGranted = notificationsPermitted
+            }
+            .store(in: &subscriptions)
+        
         Task {
             self.originalSettings = await BodegaPersistence.PushNotifications.activeSubscription(for: authBox)
             isLoading = false
@@ -85,5 +100,27 @@ class NotificationSettingsViewModel {
                 followRequests: currentSettings.followRequests,
                 polls: currentSettings.polls)
         }
+    }
+    
+    func receiveFromBinding(_ receiveFrom: NotificationPolicy) -> Binding<Bool> {
+        return Binding<Bool>(
+            get: {
+                NotificationPolicy.fromQueryPolicy(self.displaySettings?.pushNotificationsFrom ?? .all) == receiveFrom
+            },
+            set: { newValue in
+                if newValue {
+                    self.selectPolicy(receiveFrom.subscriptionPolicy)
+                }
+            }
+        )
+    }
+    
+    func commitChanges() async throws {
+        guard let newSettings = settingsToRegister else { return }
+        
+        try await BodegaPersistence.PushNotifications.savePendingSubscriptionSettings(newSettings, for: authBox)
+        NotificationService.shared.requestUpdate(
+            .singleAccount(authBox)
+        )
     }
 }

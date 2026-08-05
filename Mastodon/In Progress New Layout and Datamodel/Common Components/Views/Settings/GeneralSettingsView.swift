@@ -155,7 +155,7 @@ struct GeneralSettingsView: View {
                     ForEach(section.entries, id: \.self) { entry in
                         switch entry {
                         case .appearance(let appearance):
-                            SelectionRow(label: appearance.title, isSelected: viewModel.appearanceBinding(appearance))
+                            SelectionRow(label: appearance.title, isSelected: viewModel.appearanceBinding(appearance), onSelect: nil)
                             
                         case .askBefore(let askBefore):
                             ToggleRow(label: askBefore.title, isOn: viewModel.askBeforeBinding(askBefore))
@@ -169,7 +169,7 @@ struct GeneralSettingsView: View {
                                     navigator.push(.settings(.languageSelection))
                                 }
                         case .openLinksIn(let openLinksIn):
-                            SelectionRow(label: openLinksIn.title, isSelected: viewModel.openLinksInBinding(openLinksIn))
+                            SelectionRow(label: openLinksIn.title, isSelected: viewModel.openLinksInBinding(openLinksIn), onSelect: nil)
                         }
                     }
                 }
@@ -182,6 +182,7 @@ struct GeneralSettingsView: View {
 struct SelectionRow: View {
     let label: String
     @Binding var isSelected: Bool
+    let onSelect: (()->())?
     
     var body: some View {
         HStack {
@@ -195,6 +196,7 @@ struct SelectionRow: View {
         .contentShape(Rectangle())
         .onTapGesture {
             isSelected = true
+            onSelect?()
         }
     }
     
@@ -212,18 +214,20 @@ struct ToggleRow: View {
 struct NavigationRow: View {
     let label: String
     let sublabel: String?
+    @Environment(\.isEnabled) var enabled
     
     var body: some View {
         HStack {
             Text(label)
+                .foregroundStyle(enabled ? .primary : .secondary)
             Spacer()
             if let sublabel {
                 Text(sublabel)
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(enabled ? .secondary : .tertiary)
             }
             Image(systemName: "chevron.right")
-                .foregroundStyle(.secondary)
+                .foregroundStyle(enabled ? .secondary : .tertiary)
         }
     }
 }
