@@ -29,15 +29,16 @@ struct NotificationSettingsView: View {
                     .onTapGesture {
                         navigator.push(.settings(.notificationsReceiveFromPicker))
                     }
-                    .disabled(!viewModel.isNotificationPermissionGranted)
             }
+            .disabled(!viewModel.isNotificationPermissionGranted || viewModel.isLoading)
             
             Section {
-            // mentions and replies
-                // boosts
-                // favorites
-                // new followers
+                // Individual notification type settings
+                ForEach(NotificationAlert.allCases, id: \.self) { notificationType in
+                    ToggleRow(label: notificationType.title, isOn: viewModel.notificationTypeToggleBinding(notificationType))
+                }
             }
+            .disabled(!viewModel.isNotificationPermissionGranted || viewModel.isLoading)
         }
         .navigationTitle(title)
         .task {

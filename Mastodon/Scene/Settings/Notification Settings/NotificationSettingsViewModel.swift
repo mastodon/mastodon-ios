@@ -115,6 +115,23 @@ import MastodonCore
         )
     }
     
+    func notificationTypeToggleBinding(_ notificationType: NotificationAlert) -> Binding<Bool> {
+        Binding<Bool> (
+            get: {
+                guard let displaySettings = self.displaySettings else { return true }
+                switch notificationType {
+                case .mentionsAndReplies: return displaySettings.mentions ?? true
+                case .boosts: return displaySettings.boosts ?? true
+                case .favorites: return displaySettings.favorites ?? true
+                case .newFollowers: return displaySettings.newFollowers ?? true
+                }
+            },
+            set: { newValue in
+                self.updatePushNotifications(forType: notificationType, newValue: newValue)
+            }
+        )
+    }
+    
     func commitChanges() async throws {
         guard let newSettings = settingsToRegister else { return }
         
