@@ -15,7 +15,7 @@ final class PrivacySafetyViewController: UIHostingController<AnyView> {
     
     init(appContext: AppContext, authenticationBox: MastodonAuthenticationBox, coordinator: SceneCoordinator) {
         self.viewModel = PrivacySafetyViewModel(
-            appContext: appContext, authenticationBox: authenticationBox, coordinator: coordinator
+            appContext: appContext, authenticationBox: authenticationBox
         )
         let interactionSettingsDefaults = PostInteractionSettingsViewModel.InitialSettings.accountDefaults
         let rootView = PrivacySafetyView(

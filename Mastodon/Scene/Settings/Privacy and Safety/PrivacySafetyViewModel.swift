@@ -66,17 +66,15 @@ class PrivacySafetyViewModel: ObservableObject, PrivacySafetySettingApplicable {
     
     private var appContext: AppContext?
     private var authenticationBox: MastodonAuthenticationBox?
-    private var coordinator: SceneCoordinator?
     
     @MainActor
     public var canSetQuotability: Bool {
         return authenticationBox?.authentication.instanceConfiguration?.isAvailable(.quotePostSettings) ?? false
     }
 
-    init(appContext: AppContext?, authenticationBox: MastodonAuthenticationBox?, coordinator: SceneCoordinator?) {
+    init(appContext: AppContext?, authenticationBox: MastodonAuthenticationBox?) {
         self.appContext = appContext
         self.authenticationBox = authenticationBox
-        self.coordinator = coordinator
     }
 
     @Published var preset: Preset = .openPublic {
