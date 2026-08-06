@@ -124,6 +124,7 @@ struct PrivacySafetyView: View {
         }
         .onAppear(perform: viewModel.viewDidAppear)
         .onDisappear(){
+            guard viewModel.isUserInteractionEnabled else { return }
             viewModel.visibility = visibilityAndQuotabilityViewModel.interactionSettings.visibility.toModelVisibility
             viewModel.quotability = visibilityAndQuotabilityViewModel.interactionSettings.quotability
             viewModel.saveSettings()

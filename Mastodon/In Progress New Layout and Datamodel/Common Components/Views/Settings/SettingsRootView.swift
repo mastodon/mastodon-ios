@@ -88,7 +88,9 @@ struct SettingsNavigationView: View {
                                         .navigationTitle(L10n.Scene.Settings.Notifications.Policy.title)
                                 }
                             case .privacyAndSafety:
-                                Text("TODO")
+                                PrivacySafetyView(viewModel: PrivacySafetyViewModel(authenticationBox: authBox))
+                                    .environment(PostInteractionSettingsViewModel(account: authBox?.cachedAccount, initialSettings: .accountDefaults, contentIncludesQuote: false))
+                                    .navigationTitle(L10n.Scene.Settings.PrivacySafety.title)
                             case .serverDetails:
                                 Text("TODO")
                             case .betaFeatures:

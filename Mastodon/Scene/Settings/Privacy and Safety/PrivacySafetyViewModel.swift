@@ -63,8 +63,7 @@ class PrivacySafetyViewModel: ObservableObject, PrivacySafetySettingApplicable {
             }
         }
     }
-    
-    private var appContext: AppContext?
+
     private var authenticationBox: MastodonAuthenticationBox?
     
     @MainActor
@@ -72,8 +71,7 @@ class PrivacySafetyViewModel: ObservableObject, PrivacySafetySettingApplicable {
         return authenticationBox?.authentication.instanceConfiguration?.isAvailable(.quotePostSettings) ?? false
     }
 
-    init(appContext: AppContext?, authenticationBox: MastodonAuthenticationBox?) {
-        self.appContext = appContext
+    init(authenticationBox: MastodonAuthenticationBox?) {
         self.authenticationBox = authenticationBox
     }
 
@@ -150,7 +148,7 @@ extension PrivacySafetyViewModel {
 
     private func loadSettings() {
         Task { @MainActor in
-            guard let appContext, let authenticationBox else {
+            guard let authenticationBox else {
                 return dismiss()
             }
             

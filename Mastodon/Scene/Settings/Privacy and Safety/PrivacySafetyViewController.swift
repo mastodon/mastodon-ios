@@ -14,8 +14,7 @@ final class PrivacySafetyViewController: UIHostingController<AnyView> {
     private var disposeBag = [AnyCancellable]()
     
     init(appContext: AppContext, authenticationBox: MastodonAuthenticationBox, coordinator: SceneCoordinator) {
-        self.viewModel = PrivacySafetyViewModel(
-            appContext: appContext, authenticationBox: authenticationBox
+        self.viewModel = PrivacySafetyViewModel(authenticationBox: authenticationBox
         )
         let interactionSettingsDefaults = PostInteractionSettingsViewModel.InitialSettings.accountDefaults
         let rootView = PrivacySafetyView(
