@@ -712,7 +712,10 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         case .collection(let collectionViewModel):
             let accountIDs = collectionViewModel.collection.items.compactMap { $0.account_id }
             let response = try await APIService.shared.accountsInfo(userIDs: accountIDs, authenticationBox: authenticatedUser)
-            let accounts = response.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
+            let accounts: [TimelineItem] = accountIDs.compactMap {
+                guard let account = response[$0] else { return nil }
+                return timelineItem(fromAccount: account, suggestedBecause: nil)
+            }
             newBatch = accounts
             newBatchBottomLoad = .nothingMoreToLoad
             newAsyncRefreshAvailable = nil
@@ -1481,8 +1484,9 @@ extension TimelineFeedLoader {
         let accounts = try await APIService.shared.accountsInfo(userIDs: accountsToFetch, authenticationBox: authenticatedUser)
         
         accountsCache.removeAll(keepingCapacity: true)
-        for account in accounts {
-            accountsCache[account.id] = MastodonAccount.fromEntity(account, authenticatedDomain: authenticatedUser.domain)
+        for accountID in accounts.keys {
+            guard let accountEntity = accounts[accountID] else { continue }
+            accountsCache[accountID] = MastodonAccount.fromEntity(accountEntity, authenticatedDomain: authenticatedUser.domain)
         }
     }
 }

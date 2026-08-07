@@ -1158,12 +1158,13 @@ extension TimelineListViewModel {
             }
             
             do {
-                let fetchedAccounts = try await APIService.shared.accountsInfo(userIDs: Array(_accountsToFetch), authenticationBox: authenticatedUser)
+                let fetchedAccountsDict = try await APIService.shared.accountsInfo(userIDs: Array(_accountsToFetch), authenticationBox: authenticatedUser)
                 let fetchedRelationships = try await feedLoader.fetchRelationships(Array(_relationshipsToFetch))
+                let fetchedAccounts = _accountsToFetch.compactMap { fetchedAccountsDict[$0] }
                 
                 @MainActor
                 func updateCollectionModel(_ collectionModel: CollectionViewModel) {
-                    if let account = fetchedAccounts.first(where: { $0.id == collectionModel.collection.accountId }) {
+                    if let account = fetchedAccountsDict[collectionModel.collection.accountId] {
                         collectionModel.updateAuthorAccount(MastodonAccount.fromEntity(account, authenticatedDomain: authenticatedUser.domain))
                     }
                     if let relationship = fetchedRelationships[collectionModel.collection.accountId] {
