@@ -199,7 +199,7 @@ enum MastodonNavigationDestination: Identifiable {
                     let relationshipFetchID = account.id
                     if let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
                         do {
-                            let relationship = try await APIService.shared.relationship(forAccountIds: [relationshipFetchID], authenticationBox: authBox).value.first
+                            let relationship = try await APIService.shared.relationship(forAccountIds: [relationshipFetchID], authenticationBox: authBox)[relationshipFetchID]
                             guard let relationship else { return }
                             viewModel.updateRelationship(.isNotMe(MastodonAccount.RelationshipInfo(relationship, fetchedAt: .now)))
                         } catch {

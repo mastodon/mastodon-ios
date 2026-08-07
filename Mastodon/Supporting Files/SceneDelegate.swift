@@ -185,7 +185,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let relationshipEntity = try? await APIService.shared.relationship(
                 forAccounts: [displayAccount],
                 authenticationBox: authenticationBox
-            ).value.first
+            )[displayAccount.id]
             let relationshipInfo = relationshipEntity != nil ? MastodonAccount.RelationshipInfo(relationshipEntity!, fetchedAt: .now) : nil
             MastodonTabViewRouter.current.show(.profile(account: displayAccount, relationship: .isNotMe(relationshipInfo)), in: .home)
         }

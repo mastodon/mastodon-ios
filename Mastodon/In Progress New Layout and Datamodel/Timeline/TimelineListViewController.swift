@@ -1166,7 +1166,7 @@ extension TimelineListViewModel {
                     if let account = fetchedAccounts.first(where: { $0.id == collectionModel.collection.accountId }) {
                         collectionModel.updateAuthorAccount(MastodonAccount.fromEntity(account, authenticatedDomain: authenticatedUser.domain))
                     }
-                    if let relationship = fetchedRelationships.first(where: { $0.info?.id == collectionModel.collection.accountId }) {
+                    if let relationship = fetchedRelationships[collectionModel.collection.accountId] {
                         collectionModel.prepareForDisplay(withRelationship: relationship)
                     }
                     collectionModel.updateAvatarUrls(fetchedAccounts)
@@ -1176,9 +1176,7 @@ extension TimelineListViewModel {
                     if postModel.fullPost?.actionablePost?.metaData.author.id == authenticatedUser.userID {
                         postModel.prepareForDisplay(relationship: .isMe, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
                     } else {
-                        let relationship = fetchedRelationships.first(where: {
-                            $0.info?.id == postModel.initialDisplayInfo.actionableAuthorId
-                        }) ?? feedLoader.myRelationship(to: postModel.initialDisplayInfo.actionableAuthorId)
+                        let relationship = fetchedRelationships[postModel.initialDisplayInfo.actionableAuthorId] ?? feedLoader.myRelationship(to: postModel.initialDisplayInfo.actionableAuthorId)
                         
                         postModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: postModel.fullPost?.actionablePost?.metaData.author.locked ?? false)
                     }
@@ -1192,10 +1190,7 @@ extension TimelineListViewModel {
                     switch item {
                     case .notification(let notificationViewModel):
                         let accountRelatingTo = notificationViewModel.needsRelationshipTo
-                        if let relationship = fetchedRelationships.first(where: { fetched in
-                            guard let fetchedID = fetched.info?.id else { return false }
-                            return fetchedID == accountRelatingTo?.id
-                        }) {
+                        if let id = accountRelatingTo?.id, let relationship = fetchedRelationships[id] {
                             notificationViewModel.prepareForDisplay(relationship: relationship, theirAccountIsLocked: accountRelatingTo?.locked ?? false)
                         }
                         notificationViewModel.actionHandler = self
@@ -1204,7 +1199,7 @@ extension TimelineListViewModel {
                             updateCollectionModel(collectionModel)
                         }
                     case .account(let accountViewModel):
-                        if let relationship = fetchedRelationships.first(where: { $0.info?.id == accountViewModel.id }) {
+                        if let relationship = fetchedRelationships[accountViewModel.id] {
                             if accountViewModel.actionHandler == nil {
                                 accountViewModel.actionHandler = self
                             }
@@ -2648,7 +2643,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     try await doRemoveQuote(from: actionablePost, askFirst: true, navigator: navigator)
                     
                 case .reportPost:
-                    guard let relationship = try await APIService.shared.relationship(forAccountIds: [author.id], authenticationBox: authenticatedUser).value.first else { throw PostActionFailure.noRelationshipInfo }
+                    guard let relationship = try await APIService.shared.relationship(forAccountIds: [author.id], authenticationBox: authenticatedUser)[author.id] else { throw PostActionFailure.noRelationshipInfo }
                     let accountToReport = try await APIService.shared.accountInfo(domain: authenticatedUser.domain, userID: author.id, authorization: authenticatedUser.userAuthorization)
                     
                     let statusEntity: Mastodon.Entity.Status?

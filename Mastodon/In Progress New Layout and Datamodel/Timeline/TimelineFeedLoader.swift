@@ -1442,25 +1442,20 @@ extension TimelineFeedLoader {
         }
     }
     
-    func fetchRelationships(_ batch: [Mastodon.Entity.Account.ID]) async throws -> [MastodonAccount.Relationship] {
-        guard !batch.isEmpty else { return [] }
+    func fetchRelationships(_ batch: [Mastodon.Entity.Account.ID]) async throws -> [String : MastodonAccount.Relationship] {
+        guard !batch.isEmpty else { return [:] }
         
-        let chunkSize = 100
-        var relationships = [Mastodon.Entity.Relationship]()
-        for start in stride(from: 0, to: batch.count, by: chunkSize) { // asking for too many at once can cause an API error
-            let end = min(start + chunkSize, batch.count)
-            let chunk = Array(batch[start..<end])
-            let chunkResults = try await APIService.shared.relationship(forAccountIds: chunk, authenticationBox: authenticatedUser).value
-            relationships.append(contentsOf: chunkResults)
-        }
+        let relationships = try await APIService.shared.relationship(forAccountIds: batch, authenticationBox: authenticatedUser)
         
         let currentTimestamp = Date.now
-        var result = [MastodonAccount.Relationship]()
-        for relationshipEntity in relationships {
-            guard relationshipEntity.id != myAccountID else { continue }
+        var result = [String : MastodonAccount.Relationship]()
+
+        for id in relationships.keys {
+            guard id != myAccountID else { continue }
+            guard let relationshipEntity = relationships[id] else { continue }
             let relationship = MastodonAccount.Relationship.isNotMe(MastodonAccount.RelationshipInfo(relationshipEntity, fetchedAt: currentTimestamp))
-            cachedRelationships[relationshipEntity.id] = relationship
-            result.append(relationship)
+            cachedRelationships[id] = relationship
+            result[id] = relationship
         }
         
         return result

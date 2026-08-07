@@ -83,7 +83,7 @@ final public class SceneCoordinator {
                                     authenticationBox: authenticationBox
                                 ).value.account
 
-                                let relationshipEntity = try await APIService.shared.relationship(forAccounts: [account], authenticationBox: authenticationBox).value.first
+                                let relationshipEntity = try await APIService.shared.relationship(forAccounts: [account], authenticationBox: authenticationBox)[account.id]
 
                                 let relationship: MastodonAccount.Relationship? = {
                                     guard let relationshipEntity else { return nil }

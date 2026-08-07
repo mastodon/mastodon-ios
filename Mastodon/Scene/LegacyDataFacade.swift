@@ -15,7 +15,7 @@ struct LegacyDataSourceFacade {
         let authBox = dependency.authenticationBox
         guard let relationship = try await APIService.shared.relationship(
             forAccounts: [account], authenticationBox: authBox
-        ).value.first else { throw AppError.unexpected() }
+        )[account.id] else { throw AppError.unexpected() }
         
         return try await withCheckedThrowingContinuation { continuation in
             Task { @MainActor in
