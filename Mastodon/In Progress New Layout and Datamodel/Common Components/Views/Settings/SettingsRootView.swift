@@ -44,66 +44,62 @@ struct SettingsNavigationView: View {
     @State private var generalSettingsViewModel = GeneralSettingsViewModel()
     @State private var viewModels = SettingsModels()
     @State private var navigator = MastodonNavigationRouter()
+    @State var authBox: MastodonAuthenticationBox
     
     var body: some View {
         @Bindable var navigator = navigator
         NavigationStack(path: $navigator.navigationPath) {
-            let authBox = AuthenticationObserver.shared.currentActiveUser
-            if let domain = authBox?.domain {
-                SettingsRootView(domain: domain)
-                    .navigationTitle(L10n.Scene.Settings.Overview.title)
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .confirmationAction) {
-                            Button(L10n.Common.Controls.Actions.done) {
-                                dismiss()
-                            }
+            let domain = authBox.domain
+            SettingsRootView(domain: domain)
+                .navigationTitle(L10n.Scene.Settings.Overview.title)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button(L10n.Common.Controls.Actions.done) {
+                            dismiss()
                         }
                     }
-                    .navigationDestination(for: MastodonNavigationDestination.self) { destination in
-                        switch destination {
-                        case .settings(let settingsType):
-                            switch settingsType {
-                            case .aboutMastodon:
-                                Text("TODO")
-                            case .generalSettings:
-                                GeneralSettingsView()
-                                    .environment(generalSettingsViewModel)
-                            case .languageSelection:
-                                LanguagePicker(selectedLanguage: generalSettingsViewModel.defaultPostLanguage, onSelect: { selected in
-                                    generalSettingsViewModel.defaultPostLanguage = selected
-                                    navigator.pop()
-                                })
+                }
+                .navigationDestination(for: MastodonNavigationDestination.self) { destination in
+                    switch destination {
+                    case .settings(let settingsType):
+                        switch settingsType {
+                        case .aboutMastodon:
+                            Text("TODO")
+                        case .generalSettings:
+                            GeneralSettingsView()
                                 .environment(generalSettingsViewModel)
-                                .navigationTitle(L10n.Scene.Settings.General.Language.defaultPostLanguage)
-                            case .notificationsSettings:
-                                if let authBox = AuthenticationObserver.shared.currentActiveUser {
-                                    NotificationSettingsView()
-                                        .environment(viewModels.notificationSettings(authBox: authBox))
-                                }
-                            case .notificationsReceiveFromPicker:
-                                if let authBox = AuthenticationObserver.shared.currentActiveUser {
-                                    NotificationReceiveFromPicker()
-                                        .environment(viewModels.notificationSettings(authBox: authBox))
-                                        .navigationTitle(L10n.Scene.Settings.Notifications.Policy.title)
-                                }
-                            case .privacyAndSafety:
-                                PrivacySafetyView(viewModel: PrivacySafetyViewModel(authenticationBox: authBox))
-                                    .environment(PostInteractionSettingsViewModel(account: authBox?.cachedAccount, initialSettings: .accountDefaults, contentIncludesQuote: false))
-                                    .navigationTitle(L10n.Scene.Settings.PrivacySafety.title)
-                            case .serverDetails:
-                                ServerDetailsView()
-                            case .betaFeatures:
-                                Text("TODO")
+                        case .languageSelection:
+                            LanguagePicker(selectedLanguage: generalSettingsViewModel.defaultPostLanguage, onSelect: { selected in
+                                generalSettingsViewModel.defaultPostLanguage = selected
+                                navigator.pop()
+                            })
+                            .environment(generalSettingsViewModel)
+                            .navigationTitle(L10n.Scene.Settings.General.Language.defaultPostLanguage)
+                        case .notificationsSettings:
+                            if let authBox = AuthenticationObserver.shared.currentActiveUser {
+                                NotificationSettingsView()
+                                    .environment(viewModels.notificationSettings(authBox: authBox))
                             }
-                        default:
-                            let _ = assertionFailure("SettingsNavigationView does not expect to push a \(destination)")
-                            EmptyView()
+                        case .notificationsReceiveFromPicker:
+                            if let authBox = AuthenticationObserver.shared.currentActiveUser {
+                                NotificationReceiveFromPicker()
+                                    .environment(viewModels.notificationSettings(authBox: authBox))
+                                    .navigationTitle(L10n.Scene.Settings.Notifications.Policy.title)
+                            }
+                        case .privacyAndSafety:
+                            PrivacySafetyView(viewModel: PrivacySafetyViewModel(authenticationBox: authBox))
+                                .environment(PostInteractionSettingsViewModel(account: authBox.cachedAccount, initialSettings: .accountDefaults, contentIncludesQuote: false))
+                                .navigationTitle(L10n.Scene.Settings.PrivacySafety.title)
+                        case .serverDetails:
+                            ServerDetailsView()
+                        case .betaFeatures:
+                            Text("TODO")
                         }
+                    default:
+                        navigator.destinationView(destination, sceneCoordinator: nil)
                     }
-            } else {
-                Text("No logged in user.")
-            }
+                }
         }
         .environment(navigator)
     }

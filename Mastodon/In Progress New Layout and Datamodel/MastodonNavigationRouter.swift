@@ -122,7 +122,9 @@ enum MastodonNavigationDestination: Identifiable {
             SafariView(url: url.url)
             
         case .settings:
-            SettingsNavigationView()
+            if let authBox = AuthenticationObserver.shared.currentActiveUser {
+                SettingsNavigationView(authBox: authBox)
+            }
             
         default:
             Text("Default")
