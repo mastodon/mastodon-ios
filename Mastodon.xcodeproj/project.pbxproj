@@ -400,6 +400,7 @@
 				"Common Components/Views/Settings/Privacy and Safety/PrivacySafetySettingPreset.swift",
 				"Common Components/Views/Settings/Privacy and Safety/PrivacySafetyView.swift",
 				"Common Components/Views/Settings/Privacy and Safety/PrivacySafetyViewModel.swift",
+				"Common Components/Views/Settings/ServerDetails/ServerDetailsView.swift",
 				"Common Components/Views/Settings/SettingsRootView.swift",
 				"Common Components/Views/StatefulActionButton.swift",
 				"Common Components/Views/TextViewWithCustomEmoji.swift",

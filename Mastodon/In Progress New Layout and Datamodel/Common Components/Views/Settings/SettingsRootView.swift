@@ -92,7 +92,7 @@ struct SettingsNavigationView: View {
                                     .environment(PostInteractionSettingsViewModel(account: authBox?.cachedAccount, initialSettings: .accountDefaults, contentIncludesQuote: false))
                                     .navigationTitle(L10n.Scene.Settings.PrivacySafety.title)
                             case .serverDetails:
-                                Text("TODO")
+                                ServerDetailsView()
                             case .betaFeatures:
                                 Text("TODO")
                             }
