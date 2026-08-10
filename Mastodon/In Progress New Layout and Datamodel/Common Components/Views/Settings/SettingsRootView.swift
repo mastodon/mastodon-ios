@@ -65,7 +65,8 @@ struct SettingsNavigationView: View {
                     case .settings(let settingsType):
                         switch settingsType {
                         case .aboutMastodon:
-                            Text("TODO")
+                            AboutMastodonView(authBox: authBox)
+                                .navigationTitle(L10n.Scene.Settings.AboutMastodon.title)
                         case .generalSettings:
                             GeneralSettingsView()
                                 .environment(generalSettingsViewModel)

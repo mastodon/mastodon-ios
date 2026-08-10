@@ -393,6 +393,7 @@
 				"Common Components/Views/PageableZoomableView.swift",
 				"Common Components/Views/PhotoCropperView.swift",
 				"Common Components/Views/ProfileType.swift",
+				"Common Components/Views/Settings/AboutMastodonView.swift",
 				"Common Components/Views/Settings/GeneralSettingsView.swift",
 				"Common Components/Views/Settings/Notifications/NotificationSettingsView.swift",
 				"Common Components/Views/Settings/Notifications/NotificationSettingsViewModel.swift",

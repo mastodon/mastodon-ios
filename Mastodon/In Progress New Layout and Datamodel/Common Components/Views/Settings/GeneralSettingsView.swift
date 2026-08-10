@@ -229,6 +229,7 @@ struct NavigationRow: View {
             Image(systemName: "chevron.right")
                 .foregroundStyle(enabled ? .secondary : .tertiary)
         }
+        .contentShape(Rectangle())
     }
 }
 

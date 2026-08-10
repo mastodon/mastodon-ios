@@ -259,4 +259,20 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
     var authorization: Mastodon.API.OAuth.Authorization {
         .init(accessToken: userAccessToken)
     }
+    
+    public var privacyPolicyURL: URL? {
+        switch instanceConfiguration {
+        case .fromEndpointV1(let instance):
+            if let urlString = instance.urls?.privacyPolicy, let url = URL(string: urlString) {
+                return url
+            }
+        case .fromEndpointV2(let instance, _):
+            if let urlString = instance.configuration?.urls?.privacyPolicy, let url = URL(string: urlString) {
+                return url
+            }
+        case .none:
+            break
+        }
+        return URL(string: "\(URL.httpScheme(domain:domain))://\(domain)/privacy_policy")
+    }
 }
