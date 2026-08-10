@@ -10,9 +10,6 @@ import MastodonUI
 
 protocol SettingsCoordinatorDelegate: AnyObject {
     func logout(_ user: MastodonAuthentication, presentingFrom viewController: UIViewController)
-    func openGithubURL(_ settingsCoordinator: SettingsCoordinator)
-    func openPrivacyURL(_ settingsCoordinator: SettingsCoordinator)
-    func openProfileSettingsURL(_ settingsCoordinator: SettingsCoordinator)
 }
 
 @MainActor
@@ -74,27 +71,15 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
             case .general:
             assertionFailure("migrating to SettingsNavigationView")
             break
-//                let generalSettingsViewController = GeneralSettingsViewController(appContext: appContext)
-//                generalSettingsViewController.delegate = self
-//            
-//                navigationController.pushViewController(generalSettingsViewController, animated: true)
+
             case .notifications:
             assertionFailure("migrating to SettingsNavigationView")
             break
-//                guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
-//                let notificationViewController = NotificationSettingsViewController(authBox: authBox)
-//                notificationViewController.delegate = self
-//
-//                navigationController.pushViewController(notificationViewController, animated: true)
+
             case .privacySafety:
             assertionFailure("migrating to SettingsNavigationView")
             break
-//                let privacySafetyViewController = PrivacySafetyViewController(
-//                    appContext: appContext,
-//                    authenticationBox: authenticationBox,
-//                    coordinator: sceneCoordinator
-//                )
-//                navigationController.pushViewController(privacySafetyViewController, animated: true)
+
             case .serverDetails(let domain):
                 let serverDetailsViewController = ServerDetailsViewController(domain: domain, appContext: appContext, authenticationBox: authenticationBox, sceneCoordinator: sceneCoordinator)
                 serverDetailsViewController.delegate = self
@@ -135,41 +120,12 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
                 let webViewController = WebViewController(WebViewModel(url: url))
                 navigationController.pushViewController(webViewController, animated: true)
             case .aboutMastodon:
-                let aboutViewController = AboutViewController()
-                aboutViewController.delegate = self
-
-                navigationController.pushViewController(aboutViewController, animated: true)
+            assertionFailure("migrating to SettingsNavigationView")
+                
             case .manageBetaFeatures:
                 let betaTestSettingsViewController = BetaTestSettingsViewController()
             
                 navigationController.pushViewController(betaTestSettingsViewController, animated: true)
-        }
-    }
-}
-
-//MARK: - AboutViewControllerDelegate
-extension SettingsCoordinator: AboutViewControllerDelegate {
-    func didSelect(_ viewController: AboutViewController, entry: AboutSettingsEntry) {
-        switch entry {
-        case .evenMoreSettings:
-            delegate?.openProfileSettingsURL(self)
-        case .contributeToMastodon:
-            delegate?.openGithubURL(self)
-        case .privacyPolicy:
-            delegate?.openPrivacyURL(self)
-        case .clearMediaCache(_):
-            //FIXME: maybe we should inject an AppContext/AuthContext here instead of delegating everything to SceneCoordinator?
-            AppContext.shared.purgeCache()
-            viewController.update(with:
-                                    [AboutSettingsSection(entries: [
-                                        .evenMoreSettings,
-                                        .contributeToMastodon,
-                                        .privacyPolicy
-                                    ]),
-                                     AboutSettingsSection(entries: [
-                                        .clearMediaCache(AppContext.shared.currentDiskUsage())
-                                     ])]
-            )
         }
     }
 }

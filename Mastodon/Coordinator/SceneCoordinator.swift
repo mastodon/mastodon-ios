@@ -411,17 +411,6 @@ extension SceneCoordinator: MastodonLoginViewControllerDelegate {
 
 //MARK: - SettingsCoordinatorDelegate
 extension SceneCoordinator: SettingsCoordinatorDelegate {
-    func openGithubURL(_ settingsCoordinator: SettingsCoordinator) {
-        assertionFailure("no longer implemented")
-    }
-    
-    func openPrivacyURL(_ settingsCoordinator: SettingsCoordinator) {
-        assertionFailure("no longer implemented")
-    }
-    
-    func openProfileSettingsURL(_ settingsCoordinator: SettingsCoordinator) {
-        assertionFailure("no longer implemented")
-    }
     
     func logout(_ user: MastodonAuthentication, presentingFrom viewController: UIViewController) {
 
