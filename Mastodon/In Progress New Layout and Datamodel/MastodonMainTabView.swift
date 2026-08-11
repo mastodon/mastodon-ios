@@ -24,6 +24,7 @@ struct MastodonMainTabView: View {
     @State private var showAccountSwitcher = false
     @State private var isSwitchingAccounts = false
    
+    @State private var tabCustomization = TabViewCustomization()
     
     var body: some View {
         TabView(selection: $tabViewRouter.selectedTab) {
@@ -90,6 +91,9 @@ struct MastodonMainTabView: View {
                     Tab(tab.title, systemImage: tab.systemImage, value: tab) {
                         view(forTab: tab)
                     }
+                    .customizationID(tab.id)
+                    .customizationBehavior(tab.customizationBehavior, for: .tabBar, .sidebar)
+                    .defaultVisibility(tab.defaultTabBarVisibility, for: .tabBar)
                 }
             }
         }
@@ -97,6 +101,7 @@ struct MastodonMainTabView: View {
         .environment(authenticationObserver)
         .environment(tabViewRouter)
         .tabViewStyle(.sidebarAdaptable)
+        .tabViewCustomization($tabCustomization)
         .onChange(of: authenticationObserver.currentActiveUser, initial: true) { _, newValue in
             guard MastodonTabViewRouter.current.userGUID != newValue?.globallyUniqueUserIdentifier else { return }
             let newRouter = MastodonTabViewRouter.changeAuthenticatedUser(newValue)
@@ -122,12 +127,16 @@ struct MastodonMainTabView: View {
     
     private func subtabsFor(_ tab: MastodonTabViewRouter.MastodonTab) -> [MastodonTabViewRouter.MastodonTab]? {
         switch tab {
-        case .home, .explore, .notifications, .profile, .list, .hashtag:
+        case .home, .localFeed, .explore, .notifications, .profile, .list, .hashtag:
             return nil
         case .lists:
-            return [.list("alist"), .list("blist")]
+            return tabViewRouter.lists.map { list in
+                    .list(list)
+            }
         case .hashtags:
-            return [.hashtag("ahashtag"), .hashtag("bhashtag")]
+            return tabViewRouter.followedHashtags.map { tag in
+                    .hashtag(tag)
+            }
         }
     }
     
@@ -561,14 +570,16 @@ extension MastodonTabViewRouter.MastodonTab {
             "Notifications"
         case .profile:
             "Profile"
+        case .localFeed:
+            "Local"
         case .lists:
             "Lists"
         case .hashtags:
             "Hashtags"
-        case .list(let title):
-            title
+        case .list(let list):
+            list.title
         case .hashtag(let hashtag):
-            hashtag
+            hashtag.name
         }
     }
     
@@ -582,6 +593,8 @@ extension MastodonTabViewRouter.MastodonTab {
             "bell"
         case .profile:
             "person"
+        case .localFeed:
+            "building.2"
         case .lists, .list:
             "list.star"
         case .hashtags, .hashtag:
@@ -593,7 +606,7 @@ extension MastodonTabViewRouter.MastodonTab {
         switch self {
         case .home, .explore, .notifications, .profile, .lists, .hashtags:
                 .disabled
-        case .list, .hashtag:
+        case .localFeed, .list, .hashtag:
                 .automatic
         }
     }
@@ -602,7 +615,7 @@ extension MastodonTabViewRouter.MastodonTab {
         switch self {
         case .home, .explore, .notifications, .profile:
                 .visible
-        case .lists, .hashtags, .list, .hashtag:
+        case .localFeed, .lists, .hashtags, .list, .hashtag:
                 .hidden
         }
     }

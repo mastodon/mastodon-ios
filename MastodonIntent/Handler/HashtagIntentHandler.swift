@@ -26,7 +26,6 @@ class HashtagIntentHandler: INExtension, HashtagIntentHandling {
 
         } else {
             let followedTags = try await APIService.shared.getFollowedTags(
-                domain: authenticationBox.domain,
                 query: Mastodon.API.Account.FollowedTagsQuery(limit: nil),
                 authenticationBox: authenticationBox)
                 .value

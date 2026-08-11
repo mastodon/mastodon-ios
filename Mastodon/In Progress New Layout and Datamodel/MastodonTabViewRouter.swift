@@ -3,6 +3,8 @@
 import SwiftUI
 import MastodonCore
 import MastodonUI
+import MastodonSDK
+import Combine
 
 @MainActor
 @Observable class MastodonTabViewRouter {
@@ -17,6 +19,13 @@ import MastodonUI
     public var selectedNotificationsTimeline: NotificationsScope = .everything
     public var searchModel: SearchModel
     public var discoveryModel: DiscoveryFeedsViewModel
+    
+    public var isLocalTimelineAvailable: Bool = false
+    public var lists: [Mastodon.Entity.List] = []
+    public var followedHashtags: [Mastodon.Entity.Tag] = []
+    
+    private var _combineSubscriptions = Set<AnyCancellable>()
+    
     private var _currentDraftContentViewModel: ComposeContentViewModel?
     
     public func currentDraftContentViewModel(authBox: MastodonAuthenticationBox) -> ComposeContentViewModel? {
@@ -49,17 +58,75 @@ import MastodonUI
         userGUID = authenticatedUser?.globallyUniqueUserIdentifier ?? "NONE"
         searchModel = SearchModel(authenticationBox: authenticatedUser)
         discoveryModel = DiscoveryFeedsViewModel()
+        if let authenticatedUser {
+            updateIsLocalTimelineAvailable(authenticatedUser)
+            updateLists(authenticatedUser)
+            updateFollowedHashtags(authenticatedUser)
+            
+            AuthenticationServiceProvider.shared.updateActiveUserAccountPublisher.receive(on: DispatchQueue.main).sink { [weak self] _ in
+                self?.updateLists(authenticatedUser)
+                self?.updateFollowedHashtags(authenticatedUser)
+            }.store(in: &_combineSubscriptions)
+            
+            AuthenticationServiceProvider.shared.instanceConfigurationUpdates
+                .receive(on: DispatchQueue.main)
+                .sink{ [weak self] updatedDomain in
+                    guard let self, authenticatedUser.domain == updatedDomain else { return }
+                    self.updateIsLocalTimelineAvailable(authenticatedUser)
+                }.store(in: &_combineSubscriptions)
+        }
+    }
+    
+    private func updateIsLocalTimelineAvailable(_ authenticatedUser: MastodonAuthenticationBox) {
+        isLocalTimelineAvailable = authenticatedUser.authentication.instanceConfiguration?.isAvailable(.localTimeline) ?? true
+    }
+    
+    private var isUpdatingLists = false
+    private func updateLists(_ authenticatedUser: MastodonAuthenticationBox) {
+        guard !isUpdatingLists else { return }
+        isUpdatingLists = true
+        Task {
+            defer { isUpdatingLists = false }
+            do {
+                lists = try await APIService.shared.getLists(authenticationBox: authenticatedUser).value
+            } catch {
+                navigationRouter(forTab: .home).didReceiveError(error)
+            }
+        }
+    }
+    
+    private var isUpdatingHashtags = false
+    private func updateFollowedHashtags(_ authenticatedUser: MastodonAuthenticationBox) {
+        guard !isUpdatingHashtags else { return }
+        isUpdatingHashtags = true
+        Task {
+            defer { isUpdatingHashtags = false }
+            do {
+                followedHashtags = try await APIService.shared.getFollowedTags(query: .init(limit: nil), authenticationBox: authenticatedUser).value
+            } catch {
+                navigationRouter(forTab: .home).didReceiveError(error)
+            }
+        }
     }
         
     enum MastodonTab: Identifiable, Hashable {
+        static func == (lhs: MastodonTabViewRouter.MastodonTab, rhs: MastodonTabViewRouter.MastodonTab) -> Bool {
+            lhs.id == rhs.id
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
+        
         case home
         case explore
         case notifications
         case profile
         case lists
         case hashtags
-        case list(String)
-        case hashtag(String)
+        case localFeed
+        case list(Mastodon.Entity.List)
+        case hashtag(Mastodon.Entity.Tag)
         
         var id: String {
             switch self {
@@ -69,12 +136,15 @@ import MastodonUI
             case .profile: "profile"
             case .hashtags: "hashtags"
             case .lists: "lists"
-            case .list(let id):
-                "list-\(id)"
-            case .hashtag(let id):
-                "hashtag-\(id)"
+            case .localFeed: "localFeed"
+            case .list(let list):
+                "list-\(list.id)"
+            case .hashtag(let tag):
+                "hashtag-\(tag.name)"
             }
         }
+        
+        
     }
     
     var selectedTab: MastodonTab = .home
@@ -84,7 +154,8 @@ import MastodonUI
     func tabs(forSizeClass sizeClass: UserInterfaceSizeClass?) -> [MastodonTab] {
         switch sizeClass {
         case .regular:
-            return [.home, .explore, .notifications, .profile, .lists, .hashtags]
+            return [.home, isLocalTimelineAvailable ? .localFeed : nil, .explore, .notifications, .profile, .lists, .hashtags]
+                .compactMap { $0 }
         case .none, .compact:
             fallthrough
         @unknown default:

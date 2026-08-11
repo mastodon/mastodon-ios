@@ -996,7 +996,6 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     return try await APIService.shared.hashtags(fromUrl: loadUrl, authenticationBox: authenticatedUser)
                 } else {
                     return try await APIService.shared.getFollowedTags(
-                        domain: authenticatedUser.domain,
                         query: Mastodon.API.Account.FollowedTagsQuery(limit: nil),
                         authenticationBox: authenticatedUser
                     )

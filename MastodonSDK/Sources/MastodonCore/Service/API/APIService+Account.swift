@@ -157,7 +157,6 @@ extension APIService {
 extension APIService {
     @discardableResult
     public func getFollowedTags(
-        domain: String,
         query: Mastodon.API.Account.FollowedTagsQuery,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Tag]> {
@@ -172,6 +171,20 @@ extension APIService {
         ).singleOutput()
 
         return followedTags
+    }
+    
+    public func getLists(authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.List]> {
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
+        
+        let lists = try await Mastodon.API.Lists.getLists(
+            session: session,
+            domain: domain,
+            authorization: authorization
+        ).singleOutput()
+        
+        return lists
     }
 }
 
