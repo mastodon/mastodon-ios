@@ -187,6 +187,7 @@ struct MastodonMainTabView: View {
                 let timelineModel = notificationsTimelineViewModel(scope: tabViewRouter.selectedNotificationsTimeline)
                 TimelineListView()
                     .timelineEnvironment(timelineModel: timelineModel, contentConcealModel: .alwaysShow, filter: timelineModel.timelineQueryFilter, asyncRefreshModel: timelineModel.asyncRefreshViewModel)
+                    .toolbarTitleDisplayMode(.inline)
                     .toolbar {
                             // picker as the center item
                             ToolbarItem(placement: .title) {

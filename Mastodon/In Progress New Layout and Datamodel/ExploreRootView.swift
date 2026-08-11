@@ -14,6 +14,7 @@ struct ExploreRootView: View {
     var body: some View {
         @Bindable var searchModel = searchModel
         contents
+            .toolbarTitleDisplayMode(.inline)
             .searchable(text: $searchModel.searchText, isPresented: $searchModel.isSearchActive)
             .navigationDestination(for: MastodonNavigationDestination.self) { destination in
                 navigationStackNavigator.destinationView(destination, sceneCoordinator: nil)
