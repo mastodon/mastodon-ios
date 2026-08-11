@@ -74,6 +74,7 @@ struct MastodonMainTabView: View {
                         }
                         .sectionActions {
                             settingsButton
+                            alternateAccountButtons()
                         }
                         
                     case .compact, .none:
@@ -269,23 +270,6 @@ struct MastodonMainTabView: View {
     }
     
     @ViewBuilder private func alternateAccountButtons() -> some View {
-        ForEach(AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.filter({ $0.globallyUniqueUserIdentifier != AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier }), id: \.self.globallyUniqueUserIdentifier) { authBox in
-            Button {
-                self.switchTo(authBox)
-            } label: {
-                Label {
-                    if let handle = authBox.cachedAccount?.acctWithDomain {
-                        Text("@\(handle)")
-                    } else {
-                        Text(authBox.cachedAccount?.displayName ?? "")
-                    }
-                } icon: {
-                    avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular) ?? Image(systemName: "app.dashed")
-                }
-                .padding()
-            }
-        }
-        
         Button {
             let needsDismissCurrent = showAccountSwitcher
             if needsDismissCurrent {
@@ -304,6 +288,23 @@ struct MastodonMainTabView: View {
                 Image(systemName: "plus")
             }
             .padding()
+        }
+        
+        ForEach(AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.filter({ $0.globallyUniqueUserIdentifier != AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier }), id: \.self.globallyUniqueUserIdentifier) { authBox in
+            Button {
+                self.switchTo(authBox)
+            } label: {
+                Label {
+                    if let handle = authBox.cachedAccount?.acctWithDomain {
+                        Text("@\(handle)")
+                    } else {
+                        Text(authBox.cachedAccount?.displayName ?? "")
+                    }
+                } icon: {
+                    avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular) ?? Image(systemName: "app.dashed")
+                }
+                .padding()
+            }
         }
     }
     
