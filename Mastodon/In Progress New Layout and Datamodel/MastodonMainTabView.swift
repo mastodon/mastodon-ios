@@ -271,6 +271,26 @@ struct MastodonMainTabView: View {
     }
     
     @ViewBuilder private func alternateAccountButtons() -> some View {
+        // List additional logged-in accounts
+        ForEach(AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.filter({ $0.globallyUniqueUserIdentifier != AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier }), id: \.self.globallyUniqueUserIdentifier) { authBox in
+            Button {
+                self.switchTo(authBox)
+            } label: {
+                Label {
+                    if let handle = authBox.cachedAccount?.acctWithDomain {
+                        Text("@\(handle)")
+                    } else {
+                        Text(authBox.cachedAccount?.displayName ?? "")
+                    }
+                } icon: {
+                    avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular) ?? Image(systemName: "app.dashed")
+                }
+                .padding(.horizontal)
+                .padding(.vertical, tinySpacing)
+            }
+        }
+        
+        // Offer adding another account
         Button {
             let needsDismissCurrent = showAccountSwitcher
             if needsDismissCurrent {
@@ -288,48 +308,37 @@ struct MastodonMainTabView: View {
             } icon: {
                 Image(systemName: "plus")
             }
-            .padding()
-        }
-        
-        ForEach(AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.filter({ $0.globallyUniqueUserIdentifier != AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier }), id: \.self.globallyUniqueUserIdentifier) { authBox in
-            Button {
-                self.switchTo(authBox)
-            } label: {
-                Label {
-                    if let handle = authBox.cachedAccount?.acctWithDomain {
-                        Text("@\(handle)")
-                    } else {
-                        Text(authBox.cachedAccount?.displayName ?? "")
-                    }
-                } icon: {
-                    avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular) ?? Image(systemName: "app.dashed")
-                }
-                .padding()
-            }
+            .padding(.horizontal)
+            .padding(.vertical, tinySpacing)
         }
     }
     
     @ViewBuilder private func accountSwitcherView() -> some View {
-        LazyVStack(alignment: .leading) {
-            if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value, let currentAuthAccount = currentAuthBox.cachedAccount, let icon = avatarIconRenderer.prerenderedAccountAvatar(currentAuthBox.globallyUniqueUserIdentifier, style: .circular) {
-                Button {
-                    tabViewRouter.selectedTab = .profile
-                } label: {
-                    Label {
+        ScrollView {
+            LazyVStack(alignment: .leading) {
+                if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value, let currentAuthAccount = currentAuthBox.cachedAccount, let icon = avatarIconRenderer.prerenderedAccountAvatar(currentAuthBox.globallyUniqueUserIdentifier, style: .circular) {
+                    Button {
+                        tabViewRouter.selectedTab = .profile
+                        showAccountSwitcher = false
+                    } label: {
                         let handle = currentAuthAccount.acctWithDomain
-                        Text("@\(handle)")
-                    } icon: {
-                        icon
+                        VStack {
+                            icon
+                            Text("@\(handle)")
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                        }
                     }
+                    .padding()
+                    .frame(maxWidth: .infinity)
                 }
-                .padding()
+                settingsButton
+                    .padding(.horizontal)
+                Divider()
+                alternateAccountButtons()
             }
-            settingsButton
-                .padding(.horizontal)
-            Divider()
-            alternateAccountButtons()
+            .padding()
         }
-        .padding()
     }
 
     private func homeTimelineViewModel() -> TimelineListViewModel {
