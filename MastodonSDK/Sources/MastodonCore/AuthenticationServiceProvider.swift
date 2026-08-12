@@ -104,6 +104,7 @@ public class AuthenticationServiceProvider: ObservableObject {
     func delete(authentication: MastodonAuthentication) throws {
         try Self.keychain.remove(authentication.persistenceIdentifier)
         authentications.removeAll(where: { $0 == authentication })
+        UserDefaults.standard.removeObject(forKey: authentication.tabCustomizationDefaultsKey)
     }
     
     public func activateExistingUser(_ userID: String, inDomain domain: String) -> Bool {

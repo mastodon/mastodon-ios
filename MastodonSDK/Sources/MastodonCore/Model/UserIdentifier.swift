@@ -17,6 +17,10 @@ public extension UserIdentifier {
     var globallyUniqueUserIdentifier: String {
         "\(userID)@\(domain)"
     }
+    
+    var tabCustomizationDefaultsKey: String {
+        "tabCustomization-\(globallyUniqueUserIdentifier)"
+    }
 }
 
 public struct MastodonUserIdentifier: UserIdentifier {
