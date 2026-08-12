@@ -5,6 +5,7 @@ import MastodonCore
 import MastodonUI
 import SDWebImageSwiftUI
 import MastodonAsset
+import MastodonLocalization
 import Combine
 import WebKit
 import SafariServices
@@ -163,43 +164,7 @@ struct MastodonMainTabView: View {
     @ViewBuilder private func view(forTab tab: MastodonTabViewRouter.MastodonTab) -> some View {
         switch tab {
         case .home:
-            @Bindable var navigationStackNavigator = tabViewRouter.navigationRouter(forTab: tab)
-            NavigationStack(path: $navigationStackNavigator.navigationPath) {
-                let timelineModel = homeTimelineViewModel()
-                TimelineListView()
-                    .timelineEnvironment(timelineModel: timelineModel, contentConcealModel: .alwaysShow, filter: timelineModel.timelineQueryFilter, asyncRefreshModel: timelineModel.asyncRefreshViewModel)
-                    .toolbar {
-                        if let authBox = authenticationObserver.currentActiveUser {
-                            ToolbarItem(placement: .topBarLeading) {
-                                Button {
-                                    showAccountSwitcher = true
-                                } label: {
-                                    avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular)
-                                }
-                                .popover(isPresented: $showAccountSwitcher) {
-                                    accountSwitcherView()
-                                }
-                            }
-                            .sharedBackgroundVisibilityHidden()
-                            
-                            if sizeClass != .compact {
-                                ToolbarItem(placement: .topBarTrailing) {
-                                    modalComposeButton(navigator: navigationStackNavigator)
-                                }
-                                .sharedBackgroundVisibilityHidden()
-                            }
-                        }
-                    }
-                    .navigationDestination(for: MastodonNavigationDestination.self) { destination in
-                        navigationStackNavigator.destinationView(destination, sceneCoordinator: sceneCoordinator)
-                    }
-            }
-            .environment(navigationStackNavigator)
-            .overlay(alignment: .bottomTrailing) {
-                if sizeClass == .compact {
-                    modalComposeButton(navigator: navigationStackNavigator)
-                }
-            }
+            timelineNavigationStack(forTab: tab)
              
         case .explore:
             @Bindable var navigationStackNavigator = tabViewRouter.navigationRouter(forTab: .explore)
@@ -258,9 +223,12 @@ struct MastodonMainTabView: View {
             }
             .environment(navigationStackNavigator)
             
-        default:
-            Text(tab.title)
-                .font(.largeTitle)
+        case .localFeed, .list, .hashtag:
+            timelineNavigationStack(forTab: tab)
+            
+        case .lists, .hashtags:
+            // these should never be called upon to actually produce a view, they are only used as sidebar sections for the actual views
+            EmptyView()
         }
     }
     
@@ -282,7 +250,8 @@ struct MastodonMainTabView: View {
         }
     }
     
-    @ViewBuilder private func modalComposeButton(navigator: MastodonNavigationRouter) -> some View {
+    @ViewBuilder private func modalComposeButton(forTab tab: MastodonTabViewRouter.MastodonTab) -> some View {
+        let navigator = tabViewRouter.navigationRouter(forTab: tab)
         if let authBox = AuthenticationObserver.shared.currentActiveUser {
             Button {
                 navigator.presentSheet(.modalCompose(.init(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel), tabViewRouter.currentDraftContentViewModel(authBox: authBox)), afterDeconflictionDelay: false)
@@ -370,13 +339,44 @@ struct MastodonMainTabView: View {
         }
     }
 
-    private func homeTimelineViewModel() -> TimelineListViewModel {
-        if let model = tabViewRouter.homeTimelineModel {
-            return model
-        } else {
-            let model = TimelineListViewModel(timeline: .homeTimeline, navigator: tabViewRouter.navigationRouter(forTab: .home), asyncRefreshViewModel: AsyncRefreshViewModel())
-            tabViewRouter.homeTimelineModel = model
-            return model
+    private func timelineViewModel(forTab tab: MastodonTabViewRouter.MastodonTab) -> TimelineListViewModel? {
+        switch tab {
+        case .home:
+            if let model = tabViewRouter.homeTimelineModel {
+                return model
+            } else {
+                let model = TimelineListViewModel(timeline: .homeTimeline, navigator: tabViewRouter.navigationRouter(forTab: .home), asyncRefreshViewModel: AsyncRefreshViewModel())
+                tabViewRouter.homeTimelineModel = model
+                return model
+            }
+            
+        case .localFeed:
+            if let model = tabViewRouter.customTimelineModels[tab] {
+                return model
+            } else {
+                let model = TimelineListViewModel(timeline: .local, navigator: tabViewRouter.navigationRouter(forTab: tab), asyncRefreshViewModel: AsyncRefreshViewModel())
+                tabViewRouter.customTimelineModels[tab] = model
+                return model
+            }
+            
+        case .list(let list):
+            if let model = tabViewRouter.customTimelineModels[tab] {
+                return model
+            } else {
+                let model = TimelineListViewModel(timeline: .list(list.id), navigator: tabViewRouter.navigationRouter(forTab: tab), asyncRefreshViewModel: AsyncRefreshViewModel())
+                tabViewRouter.customTimelineModels[tab] = model
+                return model
+            }
+        case .hashtag(let hashtag):
+            if let model = tabViewRouter.customTimelineModels[tab] {
+                return model
+            } else {
+                let model = TimelineListViewModel(timeline: .hashtag(hashtag, includeHeader: false), navigator: tabViewRouter.navigationRouter(forTab: tab), asyncRefreshViewModel: AsyncRefreshViewModel())
+                tabViewRouter.customTimelineModels[tab] = model
+                return model
+            }
+        default:
+            return nil
         }
     }
     
@@ -460,6 +460,50 @@ struct MastodonMainTabView: View {
             
         }
     }
+    
+    @ViewBuilder func timelineNavigationStack(forTab tab: MastodonTabViewRouter.MastodonTab) -> some View {
+        @Bindable var navigationStackNavigator = tabViewRouter.navigationRouter(forTab: tab)
+        if let timelineModel = timelineViewModel(forTab: tab) {
+            NavigationStack(path: $navigationStackNavigator.navigationPath) {
+                TimelineListView()
+                    .timelineEnvironment(timelineModel: timelineModel, contentConcealModel: .alwaysShow, filter: timelineModel.timelineQueryFilter, asyncRefreshModel: timelineModel.asyncRefreshViewModel)
+                    .toolbar {
+                        if tab == .home, let authBox = authenticationObserver.currentActiveUser {
+                            ToolbarItem(placement: .topBarLeading) {
+                                Button {
+                                    showAccountSwitcher = true
+                                } label: {
+                                    avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular)
+                                }
+                                .popover(isPresented: $showAccountSwitcher) {
+                                    accountSwitcherView()
+                                }
+                            }
+                            .sharedBackgroundVisibilityHidden()
+                            
+                            if sizeClass != .compact {
+                                ToolbarItem(placement: .topBarTrailing) {
+                                    modalComposeButton(forTab: tab)
+                                }
+                                .sharedBackgroundVisibilityHidden()
+                            }
+                        }
+                    }
+                    .navigationDestination(for: MastodonNavigationDestination.self) { destination in
+                        navigationStackNavigator.destinationView(destination, sceneCoordinator: sceneCoordinator)
+                    }
+            }
+            .environment(navigationStackNavigator)
+            .overlay(alignment: .bottomTrailing) {
+                if sizeClass == .compact {
+                    modalComposeButton(forTab: tab)
+                }
+            }
+        } else {
+            EmptyView()
+        }
+    }
+}
 }
 
 @MainActor

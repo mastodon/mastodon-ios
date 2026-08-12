@@ -19,6 +19,7 @@ import Combine
     public var selectedNotificationsTimeline: NotificationsScope = .everything
     public var searchModel: SearchModel
     public var discoveryModel: DiscoveryFeedsViewModel
+    public var customTimelineModels = [ MastodonTab : TimelineListViewModel]()
     
     public var isLocalTimelineAvailable: Bool = false
     public var lists: [Mastodon.Entity.List] = []
