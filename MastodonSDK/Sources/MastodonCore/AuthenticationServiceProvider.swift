@@ -178,6 +178,18 @@ public extension AuthenticationServiceProvider {
             keychainAuthentications = []
         }
         self.authentications = keychainAuthentications
+        removeUnusedTabCustomizations()
+    }
+    
+    private func removeUnusedTabCustomizations() {
+        let validTabCustomizationKeys = self.authentications.map { $0.tabCustomizationDefaultsKey }
+        let defaults = UserDefaults.standard
+        for key in defaults.dictionaryRepresentation().keys
+            .filter({ isUserDefaultsTabCustomizationKey($0) }) {
+            if !validTabCustomizationKeys.contains(key) {
+                defaults.removeObject(forKey: key)
+            }
+        }
     }
     
     func updateAccountCreatedAt(_ newCreatedAt: Date, forAuthentication outdated: MastodonAuthentication) {
