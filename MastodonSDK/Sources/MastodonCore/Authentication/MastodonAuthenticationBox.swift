@@ -31,6 +31,10 @@ public struct MastodonAuthenticationBox: UserIdentifier {
     public var cachedAccount: Mastodon.Entity.Account? {
         return authentication.cachedAccount()
     }
+    
+    public var tabCustomizationDefaultsKey: String {
+        "tabCustomization-\(globallyUniqueUserIdentifier)"
+    }
 }
 
 extension MastodonAuthenticationBox: Hashable {

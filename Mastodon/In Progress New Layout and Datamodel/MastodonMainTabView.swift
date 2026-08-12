@@ -107,6 +107,12 @@ struct MastodonMainTabView: View {
             let newRouter = MastodonTabViewRouter.changeAuthenticatedUser(newValue)
             tabViewRouter = newRouter
         }
+        .onChange(of: authenticationObserver.currentActiveUser?.globallyUniqueUserIdentifier, initial: true) { _, _ in
+            loadTabCustomization(authenticationObserver.currentActiveUser)
+        }
+        .onChange(of: tabCustomization) { _, newValue in
+            saveTabCustomization(newValue, forAuthBox: authenticationObserver.currentActiveUser)
+        }
         .onChange(of: displayScale, initial: true) { _, newValue in
             AvatarIconRenderer.shared.displayScale = newValue
         }
@@ -138,6 +144,20 @@ struct MastodonMainTabView: View {
                     .hashtag(tag)
             }
         }
+    }
+    
+    private func loadTabCustomization(_ authBox: MastodonAuthenticationBox?) {
+        if let customizationKey = authBox?.tabCustomizationDefaultsKey, let tabCustomizationData = UserDefaults.standard.data(forKey: customizationKey) {
+            tabCustomization = (try? JSONDecoder().decode(TabViewCustomization.self, from: tabCustomizationData)) ?? TabViewCustomization()
+        } else {
+            tabCustomization = TabViewCustomization()
+        }
+    }
+    
+    private func saveTabCustomization(_ customization: TabViewCustomization, forAuthBox authBox: MastodonAuthenticationBox?) {
+        guard let authBox else { return }
+        guard let data = try? JSONEncoder().encode(customization) else { return }
+        UserDefaults.standard.set(data, forKey: authBox.tabCustomizationDefaultsKey)
     }
     
     @ViewBuilder private func view(forTab tab: MastodonTabViewRouter.MastodonTab) -> some View {
