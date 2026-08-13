@@ -385,6 +385,7 @@ enum MastodonTimelineSheet: Identifiable {
     var filteredNotificationsViewModel =
         FilteredNotificationsRowView.ViewModel(policy: nil)
     var needsReloadOnNextAppear = false
+    var notificationRequestsAcceptanceDidChange = false
     
     // MARK - Overlays
     var hasActiveOverlay: Bool {
@@ -1518,6 +1519,10 @@ struct TimelineListView: View {
         .toolbar(viewModel.hasActiveOverlay ? .hidden : .visible, for: .tabBar)
         .onDisappear() {
             viewModel.loadingState = .untracked
+            if viewModel.timeline == .notificationRequests, viewModel.notificationRequestsAcceptanceDidChange {
+                viewModel.notificationRequestsAcceptanceDidChange = false
+                MastodonTabViewRouter.current.fetchFilteredNotificationsPolicy(andReloadFeed: true)
+            }
         }
         .alert(navigator.activeAlert.title, isPresented: navigator.alertIsPresented, presenting: navigator.activeAlert) { alert in
             alertContents(alert)

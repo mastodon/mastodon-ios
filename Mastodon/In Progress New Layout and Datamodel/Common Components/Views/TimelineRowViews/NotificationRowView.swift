@@ -380,6 +380,7 @@ struct NotificationRequestRowView: View {
     
     @Environment(NotificationRequestModel.self) var viewModel
     @Environment(MastodonNavigationRouter.self) var navigator
+    @Environment(TimelineListViewModel.self) var timelineViewModel
     
     var body: some View {
         VStack(alignment: .gutterAlign, spacing: 0) {
@@ -405,6 +406,7 @@ struct NotificationRequestRowView: View {
                                     do {
                                         try await viewModel.acceptRequest()
                                         viewModel.state = .accepted(true)
+                                        timelineViewModel.notificationRequestsAcceptanceDidChange = true
                                     } catch {
                                         viewModel.state = .undecided
                                         navigator.didReceiveError(error)
@@ -425,6 +427,7 @@ struct NotificationRequestRowView: View {
                                     do {
                                         try await viewModel.dismissRequest()
                                         viewModel.state = .accepted(false)
+                                        timelineViewModel.notificationRequestsAcceptanceDidChange = true
                                     } catch {
                                         viewModel.state = .undecided
                                         navigator.didReceiveError(error)
