@@ -461,8 +461,8 @@ struct MastodonMainTabView: View {
             policyViewModel.dismissView = { [weak navigator] in
                 navigator?.dismissCurrentModal()
             }
-            policyViewModel.didDismissView = { _ in
-                NotificationCenter.default.post(name: .notificationFilteringChanged, object: nil)
+            policyViewModel.didDismissView = { [weak tabViewRouter] _ in
+                tabViewRouter?.fetchFilteredNotificationsPolicy(andReloadFeed: true)
             }
             
             navigator.presentSheet(.notificationPolicy(policyViewModel), afterDeconflictionDelay: false)
