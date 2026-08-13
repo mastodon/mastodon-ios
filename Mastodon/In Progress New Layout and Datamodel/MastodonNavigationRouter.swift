@@ -126,8 +126,13 @@ enum MastodonNavigationDestination: Identifiable {
                 SettingsNavigationView(authBox: authBox)
             }
             
-        default:
-            Text("Default")
+        
+        case .profileEditingSheet(let profileEditType):
+            ProfileEditingDestinationView(destinationType: profileEditType)
+                .profileEditingDestinationEnvironment(profileEditType)
+            
+        case .notificationPolicy(let viewModel):
+            NotificationPolicyView(viewModel: viewModel)
         }
     }
     
@@ -273,6 +278,7 @@ enum MastodonSheet: Identifiable {
     case report(ReportViewModel)
     case welcome
     case contentUrl(ContentURL)
+    case notificationPolicy(NotificationPolicyViewModel)
     
     var id: String {
         switch self {
@@ -290,6 +296,8 @@ enum MastodonSheet: Identifiable {
             return "welcome"
         case .contentUrl(let url):
             return "url-\(url.url.absoluteString)"
+        case .notificationPolicy:
+            return "notifications-policy"
         }
     }
 }

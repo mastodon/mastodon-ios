@@ -217,9 +217,9 @@ struct MastodonMainTabView: View {
             NavigationStack(path: $navigationStackNavigator.navigationPath) {
                 ProfileView(wrapInSwiftUINavigationStack: false)
                     .profileEnvironment(profileModel, nestedScroll: NestedScrollInteractionViewModel())
-            }
-            .navigationDestination(for: MastodonNavigationDestination.self) { destination in
-                navigationStackNavigator.destinationView(destination, sceneCoordinator: sceneCoordinator)
+                    .navigationDestination(for: MastodonNavigationDestination.self) { destination in
+                        navigationStackNavigator.destinationView(destination, sceneCoordinator: sceneCoordinator)
+                    }
             }
             .environment(navigationStackNavigator)
             
@@ -457,7 +457,15 @@ struct MastodonMainTabView: View {
                 ),
                 adminSettings: adminSettings
             )
+            let navigator = tabViewRouter.navigationRouter(forTab: .notifications)
+            policyViewModel.dismissView = { [weak navigator] in
+                navigator?.dismissCurrentModal()
+            }
+            policyViewModel.didDismissView = { _ in
+                NotificationCenter.default.post(name: .notificationFilteringChanged, object: nil)
+            }
             
+            navigator.presentSheet(.notificationPolicy(policyViewModel), afterDeconflictionDelay: false)
         }
     }
     
