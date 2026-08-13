@@ -185,7 +185,3 @@ extension APIService {
         return response
     }
 }
-
-extension Notification.Name {
-    public static let notificationFilteringChanged = Notification.Name(rawValue: "org.joinmastodon.app.notificationFilteringsChanged")
-}

@@ -9,48 +9,6 @@ import SwiftUI
 private typealias FilterAction = Mastodon.Entity.NotificationPolicy
     .NotificationFilterAction
 
-protocol NotificationPolicyViewControllerDelegate: AnyObject {
-    func policyUpdated(
-        _ viewController: NotificationPolicyViewController,
-        newPolicy: Mastodon.Entity.NotificationPolicy)
-}
-
-class NotificationPolicyViewController: UIHostingController<
-    NotificationPolicyView
->
-{
-    let viewModel: NotificationPolicyViewModel
-    weak var delegate: NotificationPolicyViewControllerDelegate?
-
-    init(_ viewModel: NotificationPolicyViewModel) {
-        self.viewModel = viewModel
-        let root = NotificationPolicyView(viewModel: viewModel)
-        super.init(rootView: root)
-
-        viewModel.dismissView = { [weak self] in
-            self?.dismiss(animated: true)
-        }
-        viewModel.didDismissView = { updatedPolicy in
-            self.didUpdatePolicy(updatedPolicy)
-            viewModel.didDismissView = nil  // break retain cycle
-        }
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init with coder not implemented")
-    }
-
-    private func didUpdatePolicy(
-        _ updatedPolicy: Mastodon.Entity.NotificationPolicy?
-    ) {
-        if let updatedPolicy {
-            delegate?.policyUpdated(self, newPolicy: updatedPolicy)
-        }
-        NotificationCenter.default.post(
-            name: .notificationFilteringChanged, object: nil)
-    }
-}
-
 extension VerticalAlignment {
     enum MenuAlign: AlignmentID {
         static func defaultValue(in context: ViewDimensions) -> CGFloat {
