@@ -186,9 +186,9 @@ struct MastodonMainTabView: View {
                             // picker as the center item
                             ToolbarItem(placement: .title) {
                                 Picker("Scope", selection: $tabViewRouter.selectedNotificationsTimeline) {
-                                    Text("Everything")
+                                    Text(L10n.Scene.Notification.Title.everything)
                                         .tag(NotificationsScope.everything)
-                                    Text("Mentions")
+                                    Text(L10n.Scene.Notification.Title.mentions)
                                         .tag(NotificationsScope.mentions)
                                 }
                                 .pickerStyle(.segmented)
@@ -243,7 +243,7 @@ struct MastodonMainTabView: View {
             currentTabNavigator.presentSheet(.settings, afterDeconflictionDelay: needsDismiss)
         } label: {
             Label {
-                Text("Settings")
+                Text(L10n.Common.Controls.Actions.settings)
             } icon: {
                 Image(systemName: "gear")
             }
@@ -302,7 +302,7 @@ struct MastodonMainTabView: View {
             tabViewRouter.navigationRouter(forTab: .home).presentSheet(.welcome, afterDeconflictionDelay: needsDismissCurrent || needsTabSwitch)
         } label: {
             Label {
-                Text("Add account")
+                Text(L10n.Scene.AccountList.addAccount)
             } icon: {
                 Image(systemName: "plus")
             }
@@ -467,7 +467,7 @@ struct MastodonMainTabView: View {
             NavigationStack(path: $navigationStackNavigator.navigationPath) {
                 TimelineListView()
                     .timelineEnvironment(timelineModel: timelineModel, contentConcealModel: .alwaysShow, filter: timelineModel.timelineQueryFilter, asyncRefreshModel: timelineModel.asyncRefreshViewModel)
-                    .navigationTitle(includeTimelineSwitcherMenu ? currentHomeFeedName ?? "Feed" : "")
+                    .navigationTitle(includeTimelineSwitcherMenu ? currentHomeFeedName ?? "" : "")
                     .toolbarTitleDisplayMode(.inline)
                     .toolbar {
                         if tab == .home, let authBox = authenticationObserver.currentActiveUser {
@@ -515,17 +515,16 @@ struct MastodonMainTabView: View {
     
     @ViewBuilder var homeTimelineFeedPickerContents: some View {
         let homeTabNavigator = tabViewRouter.navigationRouter(forTab: .home)
-        // TODO: Localization
-        Button("Following") {
+        Button(L10n.Scene.HomeTimeline.TimelineMenu.following) {
             tabViewRouter.homeTimelineModel?.setTimeline(.homeTimeline, navigator: homeTabNavigator)
         }
         if tabViewRouter.isLocalTimelineAvailable {
-            Button("Local") {
+            Button(L10n.Scene.HomeTimeline.TimelineMenu.localCommunity) {
                 tabViewRouter.homeTimelineModel?.setTimeline(.local, navigator: homeTabNavigator)
             }
         }
         if !tabViewRouter.lists.isEmpty {
-            Menu("Lists") {
+            Menu(L10n.Scene.HomeTimeline.TimelineMenu.Lists.title) {
                 ForEach(tabViewRouter.lists, id: \.self.id) { list in
                     Button(list.title) {
                         tabViewRouter.homeTimelineModel?.setTimeline(.list(list.id), navigator: homeTabNavigator)
@@ -534,7 +533,7 @@ struct MastodonMainTabView: View {
             }
         }
         if !tabViewRouter.followedHashtags.isEmpty {
-            Menu("Hashtags") {
+            Menu(L10n.Scene.HomeTimeline.TimelineMenu.Hashtags.title) {
                 ForEach(tabViewRouter.followedHashtags, id: \.self.name) { hashtag in
                     Button("#\(hashtag.name)") {
                         tabViewRouter.homeTimelineModel?.setTimeline(.hashtag(hashtag, includeHeader: false), navigator: homeTabNavigator)
@@ -548,8 +547,7 @@ struct MastodonMainTabView: View {
         guard let timeline = tabViewRouter.homeTimelineModel?.timeline else { return nil }
         switch timeline {
         case .homeTimeline:
-            // TODO: localization
-            return "Following"
+            return L10n.Scene.HomeTimeline.TimelineMenu.following
         case .local:
             return L10n.Scene.HomeTimeline.TimelineMenu.localCommunity
         case .list(let listID):
@@ -684,19 +682,19 @@ extension MastodonTabViewRouter.MastodonTab {
     var title: String {
         switch self {
         case .home:
-            "Home"
+            L10n.Common.Controls.Tabs.home
         case .explore:
-            "Explore"
+            L10n.Common.Controls.Tabs.A11Y.explore
         case .notifications:
-            "Notifications"
+            L10n.Common.Controls.Tabs.notifications
         case .profile:
-            "Profile"
+            L10n.Common.Controls.Tabs.profile
         case .localFeed:
-            "Local"
+            L10n.Scene.HomeTimeline.TimelineMenu.localCommunity
         case .lists:
-            "Lists"
+            L10n.Scene.HomeTimeline.TimelineMenu.Lists.title
         case .hashtags:
-            "Hashtags"
+            L10n.Scene.HomeTimeline.TimelineMenu.Hashtags.title
         case .list(let list):
             list.title
         case .hashtag(let hashtag):
