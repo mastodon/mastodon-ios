@@ -164,7 +164,7 @@ struct MastodonMainTabView: View {
     @ViewBuilder private func view(forTab tab: MastodonTabViewRouter.MastodonTab) -> some View {
         switch tab {
         case .home:
-            timelineNavigationStack(forTab: tab)
+            timelineNavigationStack(forTab: tab, includeTimelineSwitcherMenu: sizeClass == .compact)
              
         case .explore:
             @Bindable var navigationStackNavigator = tabViewRouter.navigationRouter(forTab: .explore)
@@ -224,7 +224,7 @@ struct MastodonMainTabView: View {
             .environment(navigationStackNavigator)
             
         case .localFeed, .list, .hashtag:
-            timelineNavigationStack(forTab: tab)
+            timelineNavigationStack(forTab: tab, includeTimelineSwitcherMenu: false) // these are only created as their own tabs in .regular size class, where the timeline switcher never appears
             
         case .lists, .hashtags:
             // these should never be called upon to actually produce a view, they are only used as sidebar sections for the actual views
@@ -461,12 +461,14 @@ struct MastodonMainTabView: View {
         }
     }
     
-    @ViewBuilder func timelineNavigationStack(forTab tab: MastodonTabViewRouter.MastodonTab) -> some View {
+    @ViewBuilder func timelineNavigationStack(forTab tab: MastodonTabViewRouter.MastodonTab, includeTimelineSwitcherMenu: Bool) -> some View {
         @Bindable var navigationStackNavigator = tabViewRouter.navigationRouter(forTab: tab)
         if let timelineModel = timelineViewModel(forTab: tab) {
             NavigationStack(path: $navigationStackNavigator.navigationPath) {
                 TimelineListView()
                     .timelineEnvironment(timelineModel: timelineModel, contentConcealModel: .alwaysShow, filter: timelineModel.timelineQueryFilter, asyncRefreshModel: timelineModel.asyncRefreshViewModel)
+                    .navigationTitle(includeTimelineSwitcherMenu ? currentHomeFeedName ?? "Feed" : "")
+                    .toolbarTitleDisplayMode(.inline)
                     .toolbar {
                         if tab == .home, let authBox = authenticationObserver.currentActiveUser {
                             ToolbarItem(placement: .topBarLeading) {
@@ -487,6 +489,13 @@ struct MastodonMainTabView: View {
                                 }
                                 .sharedBackgroundVisibilityHidden()
                             }
+                            
+                            if includeTimelineSwitcherMenu {
+                                ToolbarTitleMenu() {
+                                    homeTimelineFeedPickerContents
+                                }
+                                
+                            }
                         }
                     }
                     .navigationDestination(for: MastodonNavigationDestination.self) { destination in
@@ -503,7 +512,55 @@ struct MastodonMainTabView: View {
             EmptyView()
         }
     }
-}
+    
+    @ViewBuilder var homeTimelineFeedPickerContents: some View {
+        let homeTabNavigator = tabViewRouter.navigationRouter(forTab: .home)
+        // TODO: Localization
+        Button("Following") {
+            tabViewRouter.homeTimelineModel?.setTimeline(.homeTimeline, navigator: homeTabNavigator)
+        }
+        if tabViewRouter.isLocalTimelineAvailable {
+            Button("Local") {
+                tabViewRouter.homeTimelineModel?.setTimeline(.local, navigator: homeTabNavigator)
+            }
+        }
+        if !tabViewRouter.lists.isEmpty {
+            Menu("Lists") {
+                ForEach(tabViewRouter.lists, id: \.self.id) { list in
+                    Button(list.title) {
+                        tabViewRouter.homeTimelineModel?.setTimeline(.list(list.id), navigator: homeTabNavigator)
+                    }
+                }
+            }
+        }
+        if !tabViewRouter.followedHashtags.isEmpty {
+            Menu("Hashtags") {
+                ForEach(tabViewRouter.followedHashtags, id: \.self.name) { hashtag in
+                    Button("#\(hashtag.name)") {
+                        tabViewRouter.homeTimelineModel?.setTimeline(.hashtag(hashtag, includeHeader: false), navigator: homeTabNavigator)
+                    }
+                }
+            }
+        }
+    }
+    
+    var currentHomeFeedName: String? {
+        guard let timeline = tabViewRouter.homeTimelineModel?.timeline else { return nil }
+        switch timeline {
+        case .homeTimeline:
+            // TODO: localization
+            return "Following"
+        case .local:
+            return L10n.Scene.HomeTimeline.TimelineMenu.localCommunity
+        case .list(let listID):
+            return tabViewRouter.lists.first(where: { $0.id == listID })?.title
+        case .hashtag(let hashtag, _):
+            return "#\(hashtag.name)"
+
+        default:
+            return nil
+        }
+    }
 }
 
 @MainActor
