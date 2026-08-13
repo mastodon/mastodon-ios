@@ -126,7 +126,6 @@ enum MastodonNavigationDestination: Identifiable {
                 SettingsNavigationView(authBox: authBox)
             }
             
-        
         case .profileEditingSheet(let profileEditType):
             ProfileEditingDestinationView(destinationType: profileEditType)
                 .profileEditingDestinationEnvironment(profileEditType)
@@ -297,7 +296,7 @@ enum MastodonSheet: Identifiable {
         case .contentUrl(let url):
             return "url-\(url.url.absoluteString)"
         case .notificationPolicy:
-            return "notifications-policy"
+            return "notification-policy"
         }
     }
 }

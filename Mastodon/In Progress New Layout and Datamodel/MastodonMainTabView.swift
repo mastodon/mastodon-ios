@@ -436,10 +436,10 @@ struct MastodonMainTabView: View {
         guard let policy = notificationsTimelineViewModel(scope: tabViewRouter.selectedNotificationsTimeline).filteredNotificationsViewModel.policy else { return }
         Task {
             let adminSettings: AdminNotificationFilterSettings? = await {
-                guard let user = AuthenticationServiceProvider.shared.currentActiveUser.value, let role = user.cachedAccount?.role else { print("no role"); return nil }
+                guard let user = AuthenticationServiceProvider.shared.currentActiveUser.value, let role = user.cachedAccount?.role else { return nil }
                 let permissions = role.rolePermissions()
                 let hasAdminPermissions = permissions.contains(.administrator) || permissions.contains(.manageReports) || permissions.contains(.manageUsers)
-                guard hasAdminPermissions else { print("no permissions"); return nil }
+                guard hasAdminPermissions else { return nil }
                 if let existingPreferences = await BodegaPersistence.Notifications.currentPreferences(for: user.authentication) {
                     return existingPreferences
                 } else {
