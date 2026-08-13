@@ -75,6 +75,18 @@ import Combine
                     guard let self, authenticatedUser.domain == updatedDomain else { return }
                     self.updateIsLocalTimelineAvailable(authenticatedUser)
                 }.store(in: &_combineSubscriptions)
+            
+            NotificationCenter.default.publisher(for: .followedTagsDidChange)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] _ in
+                    self?.updateFollowedHashtags(authenticatedUser)
+                }.store(in: &_combineSubscriptions)
+            
+            NotificationCenter.default.publisher(for: .listsDidChange)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] _ in
+                    self?.updateLists(authenticatedUser)
+                }.store(in: &_combineSubscriptions)
         }
     }
     
@@ -83,11 +95,18 @@ import Combine
     }
     
     private var isUpdatingLists = false
+    private var needsAnotherUpdateLists = false
     private func updateLists(_ authenticatedUser: MastodonAuthenticationBox) {
-        guard !isUpdatingLists else { return }
+        guard !isUpdatingLists else { needsAnotherUpdateLists = true; return }
         isUpdatingLists = true
+        needsAnotherUpdateLists = false
         Task {
-            defer { isUpdatingLists = false }
+            defer {
+                isUpdatingLists = false
+                if needsAnotherUpdateLists {
+                    updateLists(authenticatedUser)
+                }
+            }
             do {
                 lists = try await APIService.shared.getLists(authenticationBox: authenticatedUser).value
             } catch {
@@ -97,11 +116,18 @@ import Combine
     }
     
     private var isUpdatingHashtags = false
+    private var needsAnotherUpdateHashtags = false
     private func updateFollowedHashtags(_ authenticatedUser: MastodonAuthenticationBox) {
-        guard !isUpdatingHashtags else { return }
+        guard !isUpdatingHashtags else { needsAnotherUpdateHashtags = true; return }
         isUpdatingHashtags = true
+        needsAnotherUpdateHashtags = false
         Task {
-            defer { isUpdatingHashtags = false }
+            defer {
+                isUpdatingHashtags = false
+                if needsAnotherUpdateHashtags {
+                    updateFollowedHashtags(authenticatedUser)
+                }
+            }
             do {
                 followedHashtags = try await APIService.shared.getFollowedTags(query: .init(limit: nil), authenticationBox: authenticatedUser).value
             } catch {
