@@ -123,9 +123,7 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
             assertionFailure("migrating to SettingsNavigationView")
                 
             case .manageBetaFeatures:
-                let betaTestSettingsViewController = BetaTestSettingsViewController()
-            
-                navigationController.pushViewController(betaTestSettingsViewController, animated: true)
+            assertionFailure("migrating to SettingsNavigationView")
         }
     }
 }

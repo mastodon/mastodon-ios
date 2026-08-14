@@ -394,6 +394,7 @@
 				"Common Components/Views/PhotoCropperView.swift",
 				"Common Components/Views/ProfileType.swift",
 				"Common Components/Views/Settings/AboutMastodonView.swift",
+				"Common Components/Views/Settings/BetaFeaturesView.swift",
 				"Common Components/Views/Settings/CacheOverviewManager.swift",
 				"Common Components/Views/Settings/GeneralSettingsView.swift",
 				"Common Components/Views/Settings/Notifications/NotificationSettingsView.swift",

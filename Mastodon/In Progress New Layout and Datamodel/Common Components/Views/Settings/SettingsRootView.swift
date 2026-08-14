@@ -95,7 +95,7 @@ struct SettingsNavigationView: View {
                         case .serverDetails:
                             ServerDetailsView()
                         case .betaFeatures:
-                            Text("TODO")
+                            BetaFeaturesView()
                         }
                     default:
                         navigator.destinationView(destination, sceneCoordinator: nil)
