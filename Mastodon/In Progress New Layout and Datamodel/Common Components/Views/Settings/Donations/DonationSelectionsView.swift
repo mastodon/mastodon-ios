@@ -24,7 +24,7 @@ enum DonationFlowDestination {
     case donationCompleted(DonationResult)
 }
 
-struct DonationView: View {
+struct DonationSelectionsView: View {
     @Environment(DonationViewModel.self) var viewModel
     @Environment(MastodonNavigationRouter.self) var navigator
 

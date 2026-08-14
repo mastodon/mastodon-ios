@@ -14,7 +14,7 @@ struct DonationFlowView: View {
     var body: some View {
         @Bindable var navigator = navigator
         NavigationStack(path: $navigator.navigationPath) {
-            DonationView()
+            DonationSelectionsView()
                 .environment(viewModel)
                 .navigationDestination(for: MastodonNavigationDestination.self) { destination in
                     switch destination {
