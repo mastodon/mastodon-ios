@@ -205,6 +205,10 @@ import Combine
         navigationRouters[tab] = freshRouter
         return freshRouter
     }
+    
+    public func navigationRouterForCurrentTab() -> MastodonNavigationRouter {
+        return navigationRouter(forTab: selectedTab)
+    }
    
     func openSearch(_ searchString: String?) {
         guard AuthenticationObserver.shared.currentActiveUser != nil else { return }

@@ -132,6 +132,9 @@ enum MastodonNavigationDestination: Identifiable {
             
         case .notificationPolicy(let viewModel):
             NotificationPolicyView(viewModel: viewModel)
+            
+        case .makeDonation:
+            DonationFlowView()
         }
     }
     
@@ -278,6 +281,7 @@ enum MastodonSheet: Identifiable {
     case welcome
     case contentUrl(ContentURL)
     case notificationPolicy(NotificationPolicyViewModel)
+    case makeDonation
     
     var id: String {
         switch self {
@@ -297,6 +301,8 @@ enum MastodonSheet: Identifiable {
             return "url-\(url.url.absoluteString)"
         case .notificationPolicy:
             return "notification-policy"
+        case .makeDonation:
+            return "make-donation"
         }
     }
 }

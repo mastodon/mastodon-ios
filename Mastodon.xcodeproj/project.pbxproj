@@ -396,6 +396,7 @@
 				"Common Components/Views/Settings/AboutMastodonView.swift",
 				"Common Components/Views/Settings/BetaFeaturesView.swift",
 				"Common Components/Views/Settings/CacheOverviewManager.swift",
+				"Common Components/Views/Settings/Donations/DonationFlowView.swift",
 				"Common Components/Views/Settings/GeneralSettingsView.swift",
 				"Common Components/Views/Settings/Notifications/NotificationSettingsView.swift",
 				"Common Components/Views/Settings/Notifications/NotificationSettingsViewModel.swift",

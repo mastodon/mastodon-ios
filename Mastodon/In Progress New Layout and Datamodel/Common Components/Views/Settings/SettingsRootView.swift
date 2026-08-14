@@ -135,7 +135,9 @@ struct SettingsRootView: View {
                                 case .openUrl(let url):
                                     break
                                 case .makeDonation:
-                                    break
+                                    let presentingNavigator = MastodonTabViewRouter.current.navigationRouterForCurrentTab()
+                                    presentingNavigator.dismissCurrentModal()
+                                    presentingNavigator.presentSheet(.makeDonation, afterDeconflictionDelay: true)
                                 }
                             }
                     }
