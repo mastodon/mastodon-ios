@@ -16,7 +16,6 @@ protocol SettingsCoordinatorDelegate: AnyObject {
 class SettingsCoordinator: NSObject, Coordinator {
 
     let presentedOn: UIViewController?
-    var navigationFlow: NavigationFlow?
 
     weak var delegate: SettingsCoordinatorDelegate?
     public let settingsViewController: SettingsViewController
@@ -104,17 +103,8 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
                 navigationController.pushViewController(serverDetailsViewController, animated: true)
             
             case .makeDonation:
-                Task {
-                    await MainActor.run { [weak self] in
-                        guard let s = self, let donationCampaign = s.settingsViewController.donationCampaign else { return }
-                        
-                        let donationFlow = NewDonationNavigationFlow(flowPresenter: viewController, campaign: donationCampaign, authenticationBox: s.authenticationBox, sceneCoordinator: s.sceneCoordinator)
-                        s.navigationFlow = donationFlow
-                        donationFlow.presentFlow { [weak self] in
-                            self?.navigationFlow = nil
-                        }
-                    }
-                }
+            assertionFailure("migrating to DonationFlowView")
+            break
             case .manageDonations:
                 guard let url = URL(string: "https://sponsor.joinmastodon.org/donate/manage") else { return }
                 let webViewController = WebViewController(WebViewModel(url: url))

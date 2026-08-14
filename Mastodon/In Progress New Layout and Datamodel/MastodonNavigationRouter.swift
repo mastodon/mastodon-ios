@@ -10,6 +10,7 @@ enum MastodonNavigationDestination: Identifiable {
     case timeline(TimelineViewType)
     case profile(account: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?)
     case settings(SettingsDestinationType)
+    case donations(DonationFlowDestination)
     case editProfile(profileViewModel: ProfileViewModel)
     case editProfileNavigation(destination: ProfileEditDestinationType)
     case share(activityItems: [Any])
@@ -92,6 +93,10 @@ enum MastodonNavigationDestination: Identifiable {
             let _ = assertionFailure("SettingsNavigationView handles these")
             EmptyView()
             
+        case .donations:
+            let _ = assertionFailure("DonationFlowView handles these")
+            EmptyView()
+            
         case .legacy(let scene, _):
             if let sceneCoordinator {
                 LegacyViewControllerWrapper(sceneCoordinator: sceneCoordinator, scene: scene)
@@ -134,7 +139,7 @@ enum MastodonNavigationDestination: Identifiable {
             NotificationPolicyView(viewModel: viewModel)
             
         case .makeDonation:
-            DonationFlowView()
+            DonationFlowView(campaign: nil, presentationSource: .menu)
         }
     }
     
@@ -264,6 +269,8 @@ extension MastodonNavigationDestination: Hashable {
             return "editProfile-\(destination.id)"
         case .settings(let type):
             return "settings-\(type)"
+        case .donations(let type):
+            return "donations-\(type)"
         case .share:
             return "share"
         case .legacy(let scene, let transition):

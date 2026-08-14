@@ -1,6 +1,7 @@
 // Copyright © 2024 Mastodon gGmbH. All rights reserved.
 import Foundation
 import MastodonSDK
+import MastodonCore
 
 struct SuggestedDonation {
     let unitAmount: Int
@@ -19,36 +20,49 @@ struct SuggestedDonation {
 typealias DonationFrequency = Mastodon.Entity.DonationCampaign.DonationFrequency
 typealias DonationSource = Mastodon.Entity.DonationCampaign.DonationSource
 
-protocol DonationCampaignViewModel {
-    var id: String { get }
-    func paymentURL(
-        currency: String, source: DonationSource,
-        frequency: Mastodon.Entity.DonationCampaign.DonationFrequency,
-        amount: Int
-    ) -> URL?
-    var paymentBaseURL: URL? { get }
-    var callbackBaseURL: URL? { get }
-    var source: DonationSource { get }
-    var donationMessage: String { get }
-    var defaultFrequency: DonationFrequency { get }
-    var defaultCurrency: String { get }
-    var defaultAmount: Int { get }
-    var availableFrequencies: [DonationFrequency] { get }
-    func suggestedDonations(frequency: DonationFrequency, currency: String, sorted: Bool)
-        -> [SuggestedDonation]?
-    func availableCurrencies(frequency: DonationFrequency) -> [String]?
-    var donationSuccessPost: String { get }
-}
 
-extension DonationCampaignViewModel {
+@MainActor
+@Observable class DonationViewModel {
+    var campaign: Mastodon.Entity.DonationCampaign?
+    var selectedFrequency: DonationFrequency?
+    var selectedCurrency: String?
+    var selectedAmount: Int?
+    
+    public init(campaign: Mastodon.Entity.DonationCampaign?, presentationSource: Mastodon.Entity.DonationCampaign.DonationCampaignRequestSource) {
+        if let campaign {
+            updateCampaign(campaign)
+        } else {
+            Task {
+                guard let authBox = AuthenticationObserver.shared.currentActiveUser else { return }
+                let seed = Mastodon.Entity.DonationCampaign.donationSeed(username: authBox.authentication.username, domain: authBox.authentication.domain)
+                if let campaign = try? await APIService.shared.getDonationCampaign(seed: seed, source: presentationSource).value {
+                    updateCampaign(campaign)
+                }
+            }
+        }
+    }
+    
+    public func updateCampaign(_ campaign: Mastodon.Entity.DonationCampaign) {
+        selectedFrequency = campaign.defaultFrequency
+        selectedAmount = campaign.defaultAmount
+        selectedCurrency = campaign.defaultCurrency
+        self.campaign = campaign
+    }
+    
+    public var urlForCurrentSelections: URL? {
+        guard let currency = selectedCurrency, let source = campaign?.source, let frequency = selectedFrequency, let amount = selectedAmount else { return nil }
+        return paymentURL(
+            currency: currency, source: source,
+            frequency: frequency, amount: amount * 100)  // amount needs to be sent in pennies
+    }
 
-    public func paymentURL(
+    private func paymentURL(
         currency: String, source: DonationSource,
         frequency: Mastodon.Entity.DonationCampaign.DonationFrequency,
         amount: Int
     ) -> URL? {
-        guard let paymentBaseURL = paymentBaseURL,
-            let callbackBaseURL = callbackBaseURL
+        guard let paymentBaseURL = campaign?.paymentBaseURL,
+              let callbackBaseURL = campaign?.callbackBaseURL
         else { return nil }
         let successURL = callbackBaseURL.appendingPathComponent(
             "success", isDirectory: false)
@@ -100,7 +114,7 @@ extension DonationCampaignViewModel {
     }
 }
 
-extension Mastodon.Entity.DonationCampaign: DonationCampaignViewModel {
+extension Mastodon.Entity.DonationCampaign {
 
     private typealias MulticurrencySuggestedDonationAmounts = [String: [Int]]
 
