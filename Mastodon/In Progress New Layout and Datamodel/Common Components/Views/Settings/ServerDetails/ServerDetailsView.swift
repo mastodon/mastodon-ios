@@ -7,6 +7,18 @@ import MastodonSDK
 import MastodonUI
 import SDWebImageSwiftUI
 
+enum ServerDetailsTab: Int, CaseIterable {
+    case about = 0
+    case rules = 1
+    
+    var title: String {
+        switch self {
+        case .about: return L10n.Scene.Settings.ServerDetails.about
+        case .rules: return L10n.Scene.Settings.ServerDetails.rules
+        }
+    }
+}
+
 struct ServerDetailsView: View {
     @State var selectedTab = ServerDetailsTab.about
     @State var viewModel = ServerDetailsViewModel()

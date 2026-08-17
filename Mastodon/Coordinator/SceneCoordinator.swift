@@ -384,50 +384,6 @@ extension SceneCoordinator: MastodonLoginViewControllerDelegate {
     }
 }
 
-//MARK: - SettingsCoordinatorDelegate
-extension SceneCoordinator: SettingsCoordinatorDelegate {
-    
-    func logout(_ user: MastodonAuthentication, presentingFrom viewController: UIViewController) {
-
-        let preferredStyle: UIAlertController.Style
-
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            preferredStyle = .actionSheet
-        } else {
-            preferredStyle = .alert
-        }
-
-        let alertController = UIAlertController(
-            title: L10n.Common.Alerts.SignOut.title,
-            message: L10n.Common.Alerts.SignOut.message,
-            preferredStyle: preferredStyle
-        )
-
-        let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
-        let signOutAction = UIAlertAction(title: L10n.Common.Alerts.SignOut.confirm, style: .destructive) { [weak self] _ in
-            guard let self else { return }
-
-            NotificationService.shared.clearNotificationCountForActiveUser()
-
-            Task { @MainActor in
-                try await AuthenticationServiceProvider.shared.signOutMastodonUser(
-                    authentication: user
-                )
-                self.setup()
-                PersistenceManager.shared.removeAllCaches(forUser: user)
-                try await BodegaPersistence.removeUser(user)
-            }
-
-        }
-
-        alertController.addAction(cancelAction)
-        alertController.addAction(signOutAction)
-
-        (viewController.navigationController ?? viewController).present(alertController, animated: true)
-    }
-
-}
-
 public extension UIViewController {
     var sceneCoordinator: SceneCoordinator? {
         guard let view = viewIfLoaded else { assert(false); return nil }
