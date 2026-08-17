@@ -76,7 +76,9 @@ struct MastodonMainTabView: View {
                         }
                         .sectionActions {
                             settingsButton
+                            logOutActiveUserButton
                             alternateAccountButtons()
+                            logOutAllUsersButton
                         }
                         
                     case .compact, .none:
@@ -257,6 +259,20 @@ struct MastodonMainTabView: View {
         }
     }
     
+    @ViewBuilder private var logOutActiveUserButton: some View {
+        Button(role: .destructive) {
+        } label: {
+            Label(L10n.Scene.AccountList.logout, systemImage: "rectangle.portrait.and.arrow.forward")
+        }
+    }
+    
+    @ViewBuilder private var logOutAllUsersButton: some View {
+        Button(role: .destructive) {
+        } label: {
+            Label(L10n.Scene.AccountList.logoutAllAccounts, systemImage: "rectangle.portrait.and.arrow.forward")
+        }
+    }
+    
     @ViewBuilder private func modalComposeButton(forTab tab: MastodonTabViewRouter.MastodonTab) -> some View {
         let navigator = tabViewRouter.navigationRouter(forTab: tab)
         if let authBox = AuthenticationObserver.shared.currentActiveUser {
@@ -339,8 +355,15 @@ struct MastodonMainTabView: View {
                 }
                 settingsButton
                     .padding(.horizontal)
+                logOutActiveUserButton
+                    .padding(.horizontal)
+                    .padding(.vertical, tinySpacing)
                 Divider()
                 alternateAccountButtons()
+                Divider()
+                logOutAllUsersButton
+                    .padding(.horizontal)
+                    .padding(.vertical, tinySpacing)
             }
             .padding()
         }
