@@ -78,7 +78,9 @@ struct MastodonMainTabView: View {
                             settingsButton
                             logOutActiveUserButton
                             alternateAccountButtons()
-                            logOutAllUsersButton
+                            if AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.count > 1 {
+                                logOutAllUsersButton
+                            }
                         }
                         
                     case .compact, .none:
@@ -279,6 +281,10 @@ struct MastodonMainTabView: View {
                             presenting: isConfirmingLogOut) { logOutType in
             Button(role: .destructive) {
                 isConfirmingLogOut = nil
+                guard let currentUser = authenticationObserver.currentActiveUser else { return }
+                Task {
+                    try await AuthenticationServiceProvider.shared.signOutMastodonUser(authentication: currentUser.authentication)
+                }
             } label: {
                 Text(logOutType.buttonText)
             }
@@ -311,6 +317,9 @@ struct MastodonMainTabView: View {
                             presenting: isConfirmingLogOut) { logOutType in
             Button(role: .destructive) {
                 isConfirmingLogOut = nil
+                Task {
+                    try await AuthenticationServiceProvider.shared.signOutAllUsers()
+                }
             } label: {
                 Text(logOutType.buttonText)
             }
@@ -411,10 +420,12 @@ struct MastodonMainTabView: View {
                     .padding(.vertical, tinySpacing)
                 Divider()
                 alternateAccountButtons()
-                Divider()
-                logOutAllUsersButton
-                    .padding(.horizontal)
-                    .padding(.vertical, tinySpacing)
+                if AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.count > 1 {
+                    Divider()
+                    logOutAllUsersButton
+                        .padding(.horizontal)
+                        .padding(.vertical, tinySpacing)
+                }
             }
             .padding()
         }

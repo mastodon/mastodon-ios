@@ -107,6 +107,16 @@ public class AuthenticationServiceProvider: ObservableObject {
         UserDefaults.standard.removeObject(forKey: authentication.tabCustomizationDefaultsKey)
     }
     
+    @MainActor
+    func deleteAllAuthentications() throws {
+        let allAuthentications = authentications
+        try Self.keychain.removeAll()
+        authentications.removeAll()
+        for auth in allAuthentications {
+            UserDefaults.standard.removeObject(forKey: auth.globallyUniqueUserIdentifier)
+        }
+    }
+    
     public func activateExistingUser(_ userID: String, inDomain domain: String) -> Bool {
         var found = false
         authentications = authentications.map { authentication in
@@ -145,6 +155,14 @@ public extension AuthenticationServiceProvider {
     func signOutMastodonUser(authentication: MastodonAuthentication) async throws {
         try AuthenticationServiceProvider.shared.delete(authentication: authentication)
         _ = try await APIService.shared.cancelSubscription(domain: authentication.domain, authorization: authentication.authorization)
+    }
+    
+    func signOutAllUsers() async throws {
+        let allAuthentications = authentications
+        try AuthenticationServiceProvider.shared.deleteAllAuthentications()
+        for auth in allAuthentications {
+            _ = try await APIService.shared.cancelSubscription(domain: auth.domain, authorization: auth.authorization)
+        }
     }
     
     @MainActor
