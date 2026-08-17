@@ -181,16 +181,6 @@ extension SceneCoordinator {
         let mainTabView = UIHostingController(rootView: MastodonMainTabView().environment(\.sceneCoordinator, self))
         sceneDelegate.window?.rootViewController = mainTabView
         self.rootViewController = mainTabView
-        
-        if authenticationBox == nil {                                                        // entry #1: welcome
-            DispatchQueue.main.async {
-                _ = self.present(
-                    scene: .welcome,
-                    from: mainTabView, // self.sceneDelegate.window?.rootViewController,
-                    transition: .modal(animated: true, completion: nil)
-                )
-            }
-        }
     }
 
     @MainActor

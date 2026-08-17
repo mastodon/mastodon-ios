@@ -103,6 +103,13 @@ struct MastodonMainTabView: View {
         .environment(tabViewRouter)
         .tabViewStyle(.sidebarAdaptable)
         .tabViewCustomization($tabCustomization)
+        .fullScreenCover(isPresented:
+                            Binding<Bool>(
+                                get: { authenticationObserver.currentActiveUser == nil },
+                                set: { _ in }
+                            ), content: {
+                                LegacyWelcomeFlowWrapper()
+                            })
         .onChange(of: authenticationObserver.currentActiveUser, initial: true) { _, newValue in
             guard MastodonTabViewRouter.current.userGUID != newValue?.globallyUniqueUserIdentifier else { return }
             let newRouter = MastodonTabViewRouter.changeAuthenticatedUser(newValue)
