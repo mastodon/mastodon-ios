@@ -28,45 +28,18 @@ struct MastodonMainTabView: View {
     @State private var tabCustomization = TabViewCustomization()
     
     var body: some View {
-        TabView(selection: $tabViewRouter.selectedTab) {
-            ForEach(tabViewRouter.tabs(forSizeClass: sizeClass), id: \.self) { tab in
-                if let subtabs = subtabsFor(tab) {
-                    TabSection {
-                        ForEach(subtabs, id: \.self) { subtab in
-                            Tab(subtab.title, systemImage: subtab.systemImage, value: subtab) {
-                                view(forTab: subtab)
-                            }
-                            .customizationID(subtab.id)
-                            .customizationBehavior(subtab.customizationBehavior, for: .tabBar, .sidebar)
-                            .defaultVisibility(subtab.defaultTabBarVisibility, for: .tabBar)
-                        }
-                    } header: {
-                        HStack {
-                            Image(systemName: tab.systemImage)
-                            Text(tab.title)
-                        }
-                    }
-                    .defaultVisibility(.hidden, for: .tabBar)
-                } else if tab == .profile {
-                    // Profile is a special case because when sidebar is available we are showing the current profile as a navigation tab and settings as an action, but when sidebar is not available (.compact width), we only want to show the profile icon
-                    switch sizeClass {
-                    case .regular:
+        if let authBox = authenticationObserver.currentActiveUser {
+            TabView(selection: $tabViewRouter.selectedTab) {
+                ForEach(tabViewRouter.tabs(forSizeClass: sizeClass), id: \.self) { tab in
+                    if let subtabs = subtabsFor(tab) {
                         TabSection {
-                            if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value, let currentAuthAccount = currentAuthBox.cachedAccount, let icon = avatarIconRenderer.prerenderedAccountAvatar(currentAuthBox.globallyUniqueUserIdentifier, style: .circular) {
-                                Tab(value: tab) {
-                                    view(forTab: tab)
-                                } label: {
-                                    Label {
-                                        let handle = currentAuthAccount.acctWithDomain
-                                        Text("@\(handle)")
-                                    } icon: {
-                                        icon
-                                    }
+                            ForEach(subtabs, id: \.self) { subtab in
+                                Tab(subtab.title, systemImage: subtab.systemImage, value: subtab) {
+                                    view(forTab: subtab)
                                 }
-                            } else {
-                                Tab(tab.title, systemImage: "person", value: tab) {
-                                    view(forTab: tab)
-                                }
+                                .customizationID(subtab.id)
+                                .customizationBehavior(subtab.customizationBehavior, for: .tabBar, .sidebar)
+                                .defaultVisibility(subtab.defaultTabBarVisibility, for: .tabBar)
                             }
                         } header: {
                             HStack {
@@ -74,72 +47,97 @@ struct MastodonMainTabView: View {
                                 Text(tab.title)
                             }
                         }
-                        .sectionActions {
-                            settingsButton
-                            logOutActiveUserButton
-                            alternateAccountButtons()
-                            if AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.count > 1 {
-                                logOutAllUsersButton
+                        .defaultVisibility(.hidden, for: .tabBar)
+                    } else if tab == .profile {
+                        // Profile is a special case because when sidebar is available we are showing the current profile as a navigation tab and settings as an action, but when sidebar is not available (.compact width), we only want to show the profile icon
+                        switch sizeClass {
+                        case .regular:
+                            TabSection {
+                                if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value, let currentAuthAccount = currentAuthBox.cachedAccount, let icon = avatarIconRenderer.prerenderedAccountAvatar(currentAuthBox.globallyUniqueUserIdentifier, style: .circular) {
+                                    Tab(value: tab) {
+                                        view(forTab: tab)
+                                    } label: {
+                                        Label {
+                                            let handle = currentAuthAccount.acctWithDomain
+                                            Text("@\(handle)")
+                                        } icon: {
+                                            icon
+                                        }
+                                    }
+                                } else {
+                                    Tab(tab.title, systemImage: "person", value: tab) {
+                                        view(forTab: tab)
+                                    }
+                                }
+                            } header: {
+                                HStack {
+                                    Image(systemName: tab.systemImage)
+                                    Text(tab.title)
+                                }
+                            }
+                            .sectionActions {
+                                settingsButton
+                                logOutActiveUserButton
+                                alternateAccountButtons()
+                                if AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.count > 1 {
+                                    logOutAllUsersButton
+                                }
+                            }
+                            
+                        case .compact, .none:
+                            Tab(tab.title, systemImage: tab.systemImage, value: tab) {
+                                view(forTab: tab)
+                            }
+                        @unknown default:
+                            Tab(tab.title, systemImage: tab.systemImage, value: tab) {
+                                view(forTab: tab)
                             }
                         }
-                        
-                    case .compact, .none:
+                    } else {
                         Tab(tab.title, systemImage: tab.systemImage, value: tab) {
                             view(forTab: tab)
                         }
-                    @unknown default:
-                        Tab(tab.title, systemImage: tab.systemImage, value: tab) {
-                            view(forTab: tab)
-                        }
+                        .customizationID(tab.id)
+                        .customizationBehavior(tab.customizationBehavior, for: .tabBar, .sidebar)
+                        .defaultVisibility(tab.defaultTabBarVisibility, for: .tabBar)
                     }
-                } else {
-                    Tab(tab.title, systemImage: tab.systemImage, value: tab) {
-                        view(forTab: tab)
-                    }
-                    .customizationID(tab.id)
-                    .customizationBehavior(tab.customizationBehavior, for: .tabBar, .sidebar)
-                    .defaultVisibility(tab.defaultTabBarVisibility, for: .tabBar)
                 }
             }
-        }
-        .id(tabViewRouter.userGUID)
-        .environment(authenticationObserver)
-        .environment(tabViewRouter)
-        .tabViewStyle(.sidebarAdaptable)
-        .tabViewCustomization($tabCustomization)
-        .fullScreenCover(isPresented:
-                            Binding<Bool>(
-                                get: { authenticationObserver.currentActiveUser == nil },
-                                set: { _ in }
-                            ), content: {
-                                LegacyWelcomeFlowWrapper()
-                            })
-        .onChange(of: authenticationObserver.currentActiveUser, initial: true) { _, newValue in
-            guard MastodonTabViewRouter.current.userGUID != newValue?.globallyUniqueUserIdentifier else { return }
-            let newRouter = MastodonTabViewRouter.changeAuthenticatedUser(newValue)
-            tabViewRouter = newRouter
-        }
-        .onChange(of: authenticationObserver.currentActiveUser?.globallyUniqueUserIdentifier, initial: true) { _, _ in
-            loadTabCustomization(authenticationObserver.currentActiveUser)
-        }
-        .onChange(of: tabCustomization) { _, newValue in
-            saveTabCustomization(newValue, forAuthBox: authenticationObserver.currentActiveUser)
-        }
-        .onChange(of: displayScale, initial: true) { _, newValue in
-            AvatarIconRenderer.shared.displayScale = newValue
-        }
-        .onReceive(AuthenticationServiceProvider.shared.updateActiveUserAccountPublisher) { _ in
-            // make sure the profile view has correct contents
-            guard let authBox = authenticationObserver.currentActiveUser, let account = authBox.cachedAccount else { return }
-            tabViewRouter.profileModel?.set(account: MastodonAccount.fromEntity(account, authenticatedDomain: authBox.domain), relationship: .isMe, navigator: tabViewRouter.navigationRouter(forTab: .profile))
-        }
-        .overlay {
-            if isSwitchingAccounts {
-                ZStack {
-                    Color.secondary.opacity(0.8)
-                    ProgressView().progressViewStyle(.circular)
+            .id(tabViewRouter.userGUID)
+            .environment(authenticationObserver)
+            .environment(tabViewRouter)
+            .tabViewStyle(.sidebarAdaptable)
+            .tabViewCustomization($tabCustomization)
+            .onChange(of: authenticationObserver.currentActiveUser, initial: true) { _, newValue in
+                guard MastodonTabViewRouter.current.userGUID != newValue?.globallyUniqueUserIdentifier else { return }
+                let newRouter = MastodonTabViewRouter.changeAuthenticatedUser(newValue)
+                tabViewRouter = newRouter
+            }
+            .onChange(of: authenticationObserver.currentActiveUser?.globallyUniqueUserIdentifier, initial: true) { _, _ in
+                loadTabCustomization(authenticationObserver.currentActiveUser)
+            }
+            .onChange(of: tabCustomization) { _, newValue in
+                saveTabCustomization(newValue, forAuthBox: authBox)
+            }
+            .onChange(of: displayScale, initial: true) { _, newValue in
+                AvatarIconRenderer.shared.displayScale = newValue
+            }
+            .onReceive(AuthenticationServiceProvider.shared.updateActiveUserAccountPublisher) { _ in
+                // make sure the profile view has correct contents
+                guard let account = authBox.cachedAccount else { return }
+                tabViewRouter.profileModel?.set(account: MastodonAccount.fromEntity(account, authenticatedDomain: authBox.domain), relationship: .isMe, navigator: tabViewRouter.navigationRouter(forTab: .profile))
+            }
+            .overlay {
+                if isSwitchingAccounts {
+                    ZStack {
+                        Color.secondary.opacity(0.8)
+                        ProgressView().progressViewStyle(.circular)
+                    }
                 }
             }
+        } else {
+            LegacyWelcomeFlowWrapper()
+                .ignoresSafeArea()
         }
     }
     
