@@ -259,17 +259,68 @@ struct MastodonMainTabView: View {
         }
     }
     
+    @State private var isConfirmingLogOut: LogOutConfirmationType?
     @ViewBuilder private var logOutActiveUserButton: some View {
         Button(role: .destructive) {
+            isConfirmingLogOut = .logOutActiveAccount
         } label: {
             Label(L10n.Scene.AccountList.logout, systemImage: "rectangle.portrait.and.arrow.forward")
         }
+        .disabled(isConfirmingLogOut != nil)
+        .confirmationDialog(isConfirmingLogOut?.title ?? "",
+                            isPresented:
+                                Binding<Bool>(
+                                    get: { isConfirmingLogOut == .logOutActiveAccount },
+                                    set: { newValue in
+                                        if !newValue {
+                                            isConfirmingLogOut = nil
+                                        }
+                                    }),
+                            presenting: isConfirmingLogOut) { logOutType in
+            Button(role: .destructive) {
+                isConfirmingLogOut = nil
+            } label: {
+                Text(logOutType.buttonText)
+            }
+            Button(role: .cancel) {
+                isConfirmingLogOut = nil
+            } label: {
+                Text(L10n.Common.Controls.Actions.cancel)
+            }
+        } message: { logOutType in
+            Text(logOutType.message)
+        }
+
     }
     
     @ViewBuilder private var logOutAllUsersButton: some View {
         Button(role: .destructive) {
+            isConfirmingLogOut = .logOutAllAccounts
         } label: {
             Label(L10n.Scene.AccountList.logoutAllAccounts, systemImage: "rectangle.portrait.and.arrow.forward")
+        }
+        .disabled(isConfirmingLogOut != nil)
+        .confirmationDialog(isConfirmingLogOut?.title ?? "",
+                            isPresented:
+                                Binding<Bool>(
+                                    get: { isConfirmingLogOut == .logOutAllAccounts },
+                                    set: { newValue in
+                                        if !newValue { isConfirmingLogOut = nil
+                                        }}),
+                            titleVisibility: .visible,
+                            presenting: isConfirmingLogOut) { logOutType in
+            Button(role: .destructive) {
+                isConfirmingLogOut = nil
+            } label: {
+                Text(logOutType.buttonText)
+            }
+            Button(role: .cancel) {
+              isConfirmingLogOut = nil
+            } label: {
+                Text(L10n.Common.Controls.Actions.cancel)
+            }
+        } message: { logOutType in
+            Text(logOutType.message)
         }
     }
     
@@ -792,6 +843,35 @@ extension MastodonTabViewRouter.MastodonTab {
         allLoggedInUsers = authenticationServiceProvider.mastodonAuthenticationBoxes
         authenticationServiceProvider.currentActiveUser.assign(to: \.currentActiveUser, on: self).store(in: &subscriptions)
         authenticationServiceProvider.$mastodonAuthenticationBoxes.assign(to: \.allLoggedInUsers, on: self).store(in: &subscriptions)
+    }
+}
+
+enum LogOutConfirmationType {
+    case logOutActiveAccount
+    case logOutAllAccounts
+    var title: String {
+        switch self {
+        case .logOutAllAccounts:
+            L10nLookup.ConfirmationDialog.LogOut.AllAccounts.title
+        case .logOutActiveAccount:
+            L10nLookup.ConfirmationDialog.LogOut.ActiveAccount.title
+        }
+    }
+    var message: String {
+        switch self {
+        case .logOutAllAccounts:
+            L10nLookup.ConfirmationDialog.LogOut.AllAccounts.message
+        case .logOutActiveAccount:
+            L10nLookup.ConfirmationDialog.LogOut.ActiveAccount.message
+        }
+    }
+    var buttonText: String {
+        switch self {
+        case .logOutAllAccounts:
+            L10nLookup.ConfirmationDialog.LogOut.AllAccounts.buttonText
+        case .logOutActiveAccount:
+            L10nLookup.ConfirmationDialog.LogOut.ActiveAccount.buttonText
+        }
     }
 }
 

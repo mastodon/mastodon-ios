@@ -1,0 +1,72 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "ConfirmationDialog.LogOut.ActiveAccount.buttonText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log Out"
+          }
+        }
+      }
+    },
+    "ConfirmationDialog.LogOut.ActiveAccount.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can log in again at any time, but all local settings for this account will be erased."
+          }
+        }
+      }
+    },
+    "ConfirmationDialog.LogOut.ActiveAccount.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log out?"
+          }
+        }
+      }
+    },
+    "ConfirmationDialog.LogOut.AllAccounts.buttonText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log Out of All Accounts"
+          }
+        }
+      }
+    },
+    "ConfirmationDialog.LogOut.AllAccounts.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All your local settings and data will be erased. To log in again, you will have to handle each account separately."
+          }
+        }
+      }
+    },
+    "ConfirmationDialog.LogOut.AllAccounts.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log out of all accounts?"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.2"
+}
