@@ -142,12 +142,6 @@ extension SceneCoordinator {
         case mastodonResendEmail(viewModel: MastodonResendEmailViewModel)
         case mastodonLogin(authenticationViewModel: AuthenticationViewModel, suggestedDomain: String?)
 
-        // compose
-        case compose(viewModel: ComposeViewModel)
-         
-        // setting
-        case settings
-
         // report
         case report(viewModel: ReportViewModel)
         case reportServerRules(viewModel: ReportServerRulesViewModel)
@@ -306,10 +300,6 @@ extension SceneCoordinator {
             let _viewController = MastodonResendEmailViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
-        case .compose(let viewModel):
-            // TODO: This scene is now only used by the donations flow, so this scene should be removed when Settings is migrated to SwiftUI.
-            let _viewController = ComposeViewController(viewModel: viewModel, draftContentModel: nil)
-            viewController = _viewController
        
         case .report(let viewModel):
             viewController = ReportViewController(viewModel: viewModel)
@@ -348,21 +338,6 @@ extension SceneCoordinator {
             activityViewController.popoverPresentationController?.sourceView = sourceView
             activityViewController.popoverPresentationController?.barButtonItem = barButtonItem
             viewController = activityViewController
-        case .settings:
-            guard let authenticationBox = self.authenticationBox else { return nil }
-            
-            let accountName = authenticationBox.authentication.username
-            
-            let settingsCoordinator = SettingsCoordinator(presentedOn: sender,
-                                                          accountName: accountName,
-                                                          appContext: AppContext.shared,
-                                                          authenticationBox: authenticationBox,
-                                                          sceneCoordinator: self
-            )
-            settingsCoordinator.delegate = self
-
-            viewController = settingsCoordinator.settingsViewController
-            childCoordinator = settingsCoordinator
         }
 
         return viewController
