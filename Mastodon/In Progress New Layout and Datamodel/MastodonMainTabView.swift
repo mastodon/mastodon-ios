@@ -283,7 +283,7 @@ struct MastodonMainTabView: View {
                 isConfirmingLogOut = nil
                 guard let currentUser = authenticationObserver.currentActiveUser else { return }
                 Task {
-                    try await AuthenticationServiceProvider.shared.signOutMastodonUser(authentication: currentUser.authentication)
+                    await AuthenticationServiceProvider.shared.signOutMastodonUser(authentication: currentUser.authentication)
                 }
             } label: {
                 Text(logOutType.buttonText)
@@ -318,7 +318,7 @@ struct MastodonMainTabView: View {
             Button(role: .destructive) {
                 isConfirmingLogOut = nil
                 Task {
-                    try await AuthenticationServiceProvider.shared.signOutAllUsers()
+                    await AuthenticationServiceProvider.shared.signOutAllUsers()
                 }
             } label: {
                 Text(logOutType.buttonText)

@@ -101,20 +101,24 @@ public class AuthenticationServiceProvider: ObservableObject {
     }
     
     @MainActor
-    func delete(authentication: MastodonAuthentication) throws {
+    private func delete(authentication: MastodonAuthentication) throws {
         try Self.keychain.remove(authentication.persistenceIdentifier)
         authentications.removeAll(where: { $0 == authentication })
-        UserDefaults.standard.removeObject(forKey: authentication.tabCustomizationDefaultsKey)
     }
     
     @MainActor
-    func deleteAllAuthentications() throws {
+    private func deleteAllAuthentications() throws {
         let allAuthentications = authentications
         try Self.keychain.removeAll()
         authentications.removeAll()
-        for auth in allAuthentications {
-            UserDefaults.standard.removeObject(forKey: auth.globallyUniqueUserIdentifier)
-        }
+    }
+    
+    @MainActor
+    private func cleanUpAfterDeleting(authentication: MastodonAuthentication) async throws {
+        UserDefaults.standard.removeObject(forKey: authentication.tabCustomizationDefaultsKey)
+        PersistenceManager.shared.removeAllCaches(forUser: authentication)
+        try? await BodegaPersistence.removeUser(authentication)
+        _ = try await APIService.shared.cancelSubscription(domain: authentication.domain, authorization: authentication.authorization)
     }
     
     public func activateExistingUser(_ userID: String, inDomain domain: String) -> Bool {
@@ -152,16 +156,16 @@ public extension AuthenticationServiceProvider {
         authentications.first(where: { $0.userAccessToken == userAccessToken })
     }
     
-    func signOutMastodonUser(authentication: MastodonAuthentication) async throws {
-        try AuthenticationServiceProvider.shared.delete(authentication: authentication)
-        _ = try await APIService.shared.cancelSubscription(domain: authentication.domain, authorization: authentication.authorization)
+    func signOutMastodonUser(authentication: MastodonAuthentication) async {
+        try? AuthenticationServiceProvider.shared.delete(authentication: authentication)
+        try? await cleanUpAfterDeleting(authentication: authentication)
     }
     
-    func signOutAllUsers() async throws {
+    func signOutAllUsers() async {
         let allAuthentications = authentications
-        try AuthenticationServiceProvider.shared.deleteAllAuthentications()
+        try? AuthenticationServiceProvider.shared.deleteAllAuthentications()
         for auth in allAuthentications {
-            _ = try await APIService.shared.cancelSubscription(domain: auth.domain, authorization: auth.authorization)
+            try? await cleanUpAfterDeleting(authentication: auth)
         }
     }
     
