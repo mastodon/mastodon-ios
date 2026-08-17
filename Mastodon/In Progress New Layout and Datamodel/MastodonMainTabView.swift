@@ -281,6 +281,7 @@ struct MastodonMainTabView: View {
                             presenting: isConfirmingLogOut) { logOutType in
             Button(role: .destructive) {
                 isConfirmingLogOut = nil
+                showAccountSwitcher = false
                 guard let currentUser = authenticationObserver.currentActiveUser else { return }
                 Task {
                     await AuthenticationServiceProvider.shared.signOutMastodonUser(authentication: currentUser.authentication)
@@ -317,6 +318,7 @@ struct MastodonMainTabView: View {
                             presenting: isConfirmingLogOut) { logOutType in
             Button(role: .destructive) {
                 isConfirmingLogOut = nil
+                showAccountSwitcher = false
                 Task {
                     await AuthenticationServiceProvider.shared.signOutAllUsers()
                 }
