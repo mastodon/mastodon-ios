@@ -173,7 +173,6 @@ extension NotificationsScope {
 
 extension MastodonPostMenuAction {
     enum AlertType {
-        case noAlert
         case confirmBoostOfPost(didConfirm: (Bool)->())
         case confirmDeleteOfPost(didConfirm: (Bool)->())
         case confirmUnfollow(username: String, didConfirm: (Bool)->())
@@ -191,9 +190,6 @@ extension MastodonPostMenuAction {
         
         var title: String {
             switch self {
-            case .noAlert:
-                ""
-                
             case .confirmBoostOfPost:
                 L10n.Common.Alerts.BoostAPost.titleBoost
                 
@@ -231,7 +227,7 @@ extension MastodonPostMenuAction {
         
         var messageText: String? {
             switch self {
-            case .noAlert, .confirmUnfollow, .confirmBoostOfPost:
+            case .confirmUnfollow, .confirmBoostOfPost:
                 nil
                 
             case .confirmMute(let username, _):
@@ -260,15 +256,6 @@ extension MastodonPostMenuAction {
                 L10nLookup.MastodonMenuAction.confirmRemoveFollowerMessage(username: username)
             case .error(let error):
                 error.localizedDescription
-            }
-        }
-        
-        var shouldBePresented: Bool {
-            switch self {
-            case .noAlert:
-                return false
-            default:
-                return true
             }
         }
     }
@@ -1524,7 +1511,7 @@ struct TimelineListView: View {
                 MastodonTabViewRouter.current.fetchFilteredNotificationsPolicy(andReloadFeed: true)
             }
         }
-        .alert(navigator.activeAlert.title, isPresented: navigator.alertIsPresented, presenting: navigator.activeAlert) { alert in
+        .alert(navigator.activeAlert?.title ?? "", isPresented: navigator.alertIsPresented, presenting: navigator.activeAlert) { alert in
             alertContents(alert)
         } message: { alert in
             if let messageText = alert.messageText {
@@ -2194,8 +2181,6 @@ struct TimelineListView: View {
     
     @ViewBuilder func alertContents(_ alert: MastodonPostMenuAction.AlertType) -> some View {
         switch alert {
-        case .noAlert:
-            Text("no alert")
         case .confirmBoostOfPost(let didConfirm):
             cancelButton(didConfirm)
             Button {

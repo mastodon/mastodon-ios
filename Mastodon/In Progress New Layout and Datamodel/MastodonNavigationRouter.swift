@@ -49,17 +49,17 @@ enum MastodonNavigationDestination: Identifiable {
     
     // Alerts
     var errorsWaitingToDisplay = [Error]()
-    var activeAlert: MastodonPostMenuAction.AlertType = .noAlert {
+    var activeAlert: MastodonPostMenuAction.AlertType? {
         didSet {
             displayNextErrorIfPossible()
         }
     }
     var alertIsPresented: Binding<Bool> {
         Binding(get: { [weak self] in
-            return self?.activeAlert.shouldBePresented ?? false
+            self?.activeAlert != nil
         }, set: { [weak self] isPresenting in
             if !isPresenting {
-                self?.activeAlert = .noAlert
+                self?.activeAlert = nil
             }
         })
     }
@@ -180,8 +180,12 @@ enum MastodonNavigationDestination: Identifiable {
     }
     
     public func dismissCurrentModal() {
-        guard presentedSheet != nil else { return }
-        presentedSheet = nil
+        if presentedSheet != nil {
+            presentedSheet = nil
+        }
+        if activeAlert != nil {
+            activeAlert = nil
+        }
     }
     
     private func profileScene(accountEntity: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?) -> ProfileType? {
@@ -234,12 +238,9 @@ extension MastodonNavigationRouter {
     
     func displayNextErrorIfPossible() {
         guard let error = errorsWaitingToDisplay.first else { return }
-        switch activeAlert {
-        case .noAlert:
+        if activeAlert == nil {
             activeAlert = .error(error)
             _ = errorsWaitingToDisplay.removeFirst()
-        default:
-            return
         }
     }
 }
