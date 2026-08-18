@@ -64,10 +64,14 @@ struct MastodonMainTabView: View {
                                             icon
                                         }
                                     }
+                                    .customizationID(tab.id)
+                                    .customizationBehavior(tab.customizationBehavior, for: .tabBar, .sidebar)
                                 } else {
                                     Tab(tab.title, systemImage: "person", value: tab) {
                                         view(forTab: tab)
                                     }
+                                    .customizationID(tab.id)
+                                    .customizationBehavior(tab.customizationBehavior, for: .tabBar, .sidebar)
                                 }
                             } header: {
                                 HStack {
