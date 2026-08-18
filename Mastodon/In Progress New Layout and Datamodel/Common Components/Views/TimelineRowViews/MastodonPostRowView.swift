@@ -462,7 +462,8 @@ private struct ActionBar: View {
                             if let actionablePost = viewModel.fullPost?.actionablePost {
                                 switch menuAction {
                                 case .sharePost:
-                                    if let urlString = actionablePost.metaData.url, let url = URL(string: urlString) {
+                                    let urlString = actionablePost.metaData.url ?? actionablePost.metaData.uriForFediverse
+                                    if let url = URL(string: urlString) {
                                         ShareLink(item: url) {
                                             menuActionLabel(menuAction, forPost: actionablePost)
                                         }
