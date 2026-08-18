@@ -126,7 +126,6 @@ extension SceneCoordinator {
         case custom(transitioningDelegate: UIViewControllerTransitioningDelegate)
         case customPush(animated: Bool)
         case alertController(animated: Bool, completion: (() -> Void)? = nil)
-        case activityViewControllerPresent(animated: Bool, completion: (() -> Void)? = nil)
         case formSheet([UISheetPresentationController.Detent]?)
         case none
     }
@@ -154,7 +153,6 @@ extension SceneCoordinator {
         
         // misc
         case alertController(alertController: UIAlertController)
-        case activityViewController(activityViewController: UIActivityViewController, sourceView: UIView?, barButtonItem: UIBarButtonItem?)
 
         var isOnboarding: Bool {
             switch self {
@@ -233,10 +231,6 @@ extension SceneCoordinator {
             sender?.navigationController?.pushViewController(viewController, animated: animated)
 
         case .alertController(let animated, let completion):
-            viewController.modalPresentationCapturesStatusBarAppearance = true
-            presentingViewController.present(viewController, animated: animated, completion: completion)
-
-        case .activityViewControllerPresent(let animated, let completion):
             viewController.modalPresentationCapturesStatusBarAppearance = true
             presentingViewController.present(viewController, animated: animated, completion: completion)
 
@@ -324,10 +318,6 @@ extension SceneCoordinator {
                 )
             }
             viewController = alertController
-        case .activityViewController(let activityViewController, let sourceView, let barButtonItem):
-            activityViewController.popoverPresentationController?.sourceView = sourceView
-            activityViewController.popoverPresentationController?.barButtonItem = barButtonItem
-            viewController = activityViewController
         }
 
         return viewController
