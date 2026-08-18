@@ -11,6 +11,7 @@ enum MastodonMenuAction: Hashable {
     case navigationalAction(NavigationalMenuAction)
     case collectionAction(CollectionMenuAction)
     case miscellaneous(MiscellaneousMenuAction)
+    case share(String)
     
     enum PostMenuAction: String {
         // TODO: migrate from MastodonPostMenuAction to here
@@ -71,7 +72,6 @@ enum MastodonMenuAction: Hashable {
     }
     
     enum NavigationalMenuAction {
-        case share([Any])
         case openInBrowser(URL)
         case myFavorites
         case myBookmarks
@@ -83,8 +83,6 @@ enum MastodonMenuAction: Hashable {
         
         var iconSystemName: String? {
             switch self {
-            case .share:
-                "square.and.arrow.up"
             case .openInBrowser:
                 "safari"
             case .myFavorites:
@@ -159,7 +157,6 @@ extension MastodonMenuAction {
 extension MastodonMenuAction.NavigationalMenuAction: Equatable, Hashable {
     static func == (lhs: MastodonMenuAction.NavigationalMenuAction, rhs: MastodonMenuAction.NavigationalMenuAction) -> Bool {
         switch (lhs, rhs) {
-        case (share, share): true
         case (openInBrowser, openInBrowser): true
         case (myFavorites, myFavorites): true
         case (myBookmarks, myBookmarks): true
@@ -172,7 +169,6 @@ extension MastodonMenuAction.NavigationalMenuAction: Equatable, Hashable {
     
     public func hash(into hasher: inout Hasher) {
         switch self {
-        case .share: hasher.combine("share")
         case .openInBrowser(let url): hasher.combine("openInBrowser-\(url.absoluteString)")
         case .myFavorites: hasher.combine("myFavorites")
         case .myBookmarks: hasher.combine("myBookmarks")
@@ -235,8 +231,6 @@ extension MastodonNavigationRouter {
     
     func labelText(forAction menuAction: MastodonMenuAction.NavigationalMenuAction, domainName: String?) -> String? {
         switch menuAction {
-        case .share:
-            return L10nLookup.MastodonMenuAction.Navigation.share
         case .openInBrowser:
             return L10nLookup.MastodonMenuAction.Navigation.openInBrowser
         case .myFavorites:
@@ -279,8 +273,6 @@ extension MastodonNavigationRouter {
             push(.timeline(.myFollowedHashtags))
         case .openInBrowser(let url):
             assertionFailure("not implemented")
-        case .share(let items):
-            break
         case .collection(let collectionViewModel):
             push(.timeline(.collection(collectionViewModel)))
         case .addToList(let account, let relationshipViewModel):
@@ -315,7 +307,7 @@ extension RelationshipViewModel {
             MastodonMenuAction.miscellaneous(.copyLink)
         ]
         if let profileUrl = account.metadata.profileUrl?.absoluteString {
-            sharingActions.insert(.navigationalAction(.share([profileUrl])), at: 0)
+            sharingActions.insert(.share(profileUrl), at: 0)
         }
     
         if let url = account.metadata.profileUrl {
@@ -394,7 +386,7 @@ extension CollectionViewModel {
         return [
             .init(.sharingActions, items: [
                 .navigationalAction(.collection(self)),
-                .navigationalAction(.share([collection.url]))
+                .share(collection.url)
             ]),
             .init(.blockingOptions, items: [
                 .collectionAction(.reportCollection),

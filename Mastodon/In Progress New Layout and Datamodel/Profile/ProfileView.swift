@@ -955,6 +955,12 @@ struct ProfileActionBar: View {
                             switch menuAction {
                             case .miscellaneous(let miscAction):
                                 viewModel.menuItem(miscAction)
+                            case .share(let urlString):
+                                if let url = URL(string: urlString) {
+                                    ShareLink(item: url) {
+                                        Label(L10nLookup.MastodonMenuAction.Navigation.share, systemImage: "square.and.arrow.up")
+                                    }
+                                }
                             case .navigationalAction(let navAction):
                                 let domainName: String? = {
                                     switch relationshipViewModel.relationship {

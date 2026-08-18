@@ -123,6 +123,12 @@ struct CollectionRowView: View {
                     switch menuAction {
                     case .miscellaneous:
                         EmptyView()
+                    case .share(let urlString):
+                        if let url = URL(string: urlString) {
+                            ShareLink(item: url) {
+                                Label(L10nLookup.MastodonMenuAction.Navigation.share, systemImage: "square.and.arrow.up")
+                            }
+                        }
                     case .navigationalAction(let navAction):
                         let domainName: String? = {
                             guard let relationshipModel else { return nil }
