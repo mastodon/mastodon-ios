@@ -17,7 +17,7 @@ import Combine
     public var notificationsTimelineModelMentions: TimelineListViewModel?
     public var profileModel: ProfileViewModel?
     public var selectedNotificationsTimeline: NotificationsScope = .everything
-    public var searchModel: SearchModel
+    public var searchModel: SearchViewModel
     public var discoveryModel: DiscoveryFeedsViewModel
     public var customTimelineModels = [ MastodonTab : TimelineListViewModel]()
     
@@ -57,7 +57,7 @@ import Combine
     
     private init(authenticatedUser: MastodonAuthenticationBox?) {
         userGUID = authenticatedUser?.globallyUniqueUserIdentifier ?? "NONE"
-        searchModel = SearchModel(authenticationBox: authenticatedUser)
+        searchModel = SearchViewModel(authenticationBox: authenticatedUser)
         discoveryModel = DiscoveryFeedsViewModel()
         if let authenticatedUser {
             updateIsLocalTimelineAvailable(authenticatedUser)

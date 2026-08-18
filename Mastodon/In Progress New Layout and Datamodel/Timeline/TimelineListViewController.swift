@@ -29,7 +29,7 @@ enum TimelineViewType {
     case followers(ofUserId: Mastodon.Entity.Account.ID)
     case accountsFollowed(byUserId: Mastodon.Entity.Account.ID)
     case familiarFollowers(MastodonAccount, TimelineListViewModel)
-    case search(String, scope: SearchScope)
+    case search(SearchQueryModel)
     case profilePosts(tabTitle: String?, userID: String, queryFilter: TimelineQueryFilter)
     case postHistory(MastodonContentPost)
     case thread(root: MastodonContentPost)
@@ -86,8 +86,8 @@ enum TimelineViewType {
             return L10n.Scene.Following.title
         case .familiarFollowers(let account, _):
             return account.displayInfo.fullHandle
-        case .search(let string, _):
-            return string
+        case .search(let searchModel):
+            return searchModel.trimmedSearchString
         case .hashtag(let tag):
             return "#\(tag.name)"
 
@@ -124,8 +124,8 @@ extension TimelineViewType {
             TimelineListViewModel(timeline: .discover(type), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .linkMentions(let url):
             TimelineListViewModel(timeline: .linkMentions(url), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .search(let searchText, let scope):
-            TimelineListViewModel(timeline: .search(searchText, scope), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
+        case .search(let searchModel):
+            TimelineListViewModel(timeline: .search(searchModel), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .profilePosts(_, let user, let queryFilter):
             TimelineListViewModel(timeline: .userPosts(userID: user, queryFilter: queryFilter), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
         case .postHistory(let post):
@@ -861,6 +861,16 @@ enum MastodonTimelineSheet: Identifiable {
     private func _refreshFromTop() async {
         assert(loadingState == .requestedReloadFromTop)
         await forceReload(.userRequestedRefresh)
+    }
+    
+    func reload() async {
+        guard let feedLoader else {
+            resetToUntrackedAfterDelay(from: loadingState)
+            assertionFailure()
+            return
+        }
+        needsReloadOnNextAppear = false
+        feedLoader.requestLoad(.reload)
     }
     
     func forceReload(_ reason: ReloadReason) async {

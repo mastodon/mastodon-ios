@@ -67,6 +67,12 @@ public enum DiscoveryType: Equatable {
     case news
     case forYou
 }
+
+public class SearchQueryModel: Identifiable {
+    public let id = UUID()
+    var trimmedSearchString: String = ""
+    var scope: SearchScope = .all
+}
                                 
 public enum MastodonTimelineType: Equatable {
     // *** WHEN ADDING A CASE, make sure to update the == definition below
@@ -80,7 +86,7 @@ public enum MastodonTimelineType: Equatable {
     case collection(CollectionViewModel)
     case discover(DiscoveryType)
     case linkMentions(String)
-    case search(String, SearchScope)
+    case search(SearchQueryModel)
     case userPosts(userID: String, queryFilter: TimelineQueryFilter)
     case featuredItems(userID: String)
     case followers(ofUserId: String)
@@ -115,8 +121,8 @@ public enum MastodonTimelineType: Equatable {
             return firstType == secondType
         case (.linkMentions(let firstURL), .linkMentions(let secondURL)):
             return firstURL == secondURL
-        case (.search(let firstText, let firstScope), .search(let secondText, let secondScope)):
-            return firstText == secondText && firstScope == secondScope
+        case (.search(let first), .search(let second)):
+            return first.id == second.id
         case (.userPosts(let firstID, _), .userPosts(let secondID, _)):
             return firstID == secondID
         case (.featuredItems(let userIDFirst), .featuredItems(let userIDSecond)):
@@ -804,8 +810,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             newBatch = response.value.map { timelineItem(fromStatus: $0, isPinned: false) }
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
-        case .search(let searchText, let scope):
-            let trimmedSearchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        case .search(let searchModel):
+            let trimmedSearchText = searchModel.trimmedSearchString
             if trimmedSearchText.isEmpty {
                 newBatch = []
                 newBatchBottomLoad = .nothingMoreToLoad
@@ -813,7 +819,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             } else {
                 let query = Mastodon.API.V2.Search.Query(
                     q: trimmedSearchText,
-                    type: scope.searchType,
+                    type: searchModel.scope.searchType,
                     accountID: nil,
                     maxID: nil,
                     minID: nil,

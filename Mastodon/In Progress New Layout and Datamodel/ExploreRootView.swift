@@ -6,36 +6,39 @@ import MastodonCore
 
 struct ExploreRootView: View {
     @Environment(MastodonNavigationRouter.self) var navigationStackNavigator
-    @Environment(SearchModel.self) var searchModel
+    @Environment(SearchViewModel.self) var searchViewModel
+    
+    @State var searchQueryModel = SearchQueryModel()
     
     @State var searchTimelineModel: TimelineListViewModel?
     @State var asyncRefreshModel = AsyncRefreshViewModel()
     
     var body: some View {
-        @Bindable var searchModel = searchModel
+        @Bindable var searchViewModel = searchViewModel
         contents
             .toolbarTitleDisplayMode(.inline)
-            .searchable(text: $searchModel.searchText, isPresented: $searchModel.isSearchActive)
+            .searchable(text: $searchViewModel.searchText, isPresented: $searchViewModel.isSearchActive)
             .navigationDestination(for: MastodonNavigationDestination.self) { destination in
                 navigationStackNavigator.destinationView(destination, sceneCoordinator: nil)
             }
-            .task(id: searchModel.searchText) {
+            .task(id: searchViewModel.searchText) {
                 if searchTimelineModel == nil {
-                    searchTimelineModel = TimelineListViewModel(timeline: .search(searchModel.searchText, .all), navigator: navigationStackNavigator, asyncRefreshViewModel: asyncRefreshModel)
+                    searchTimelineModel = TimelineListViewModel(timeline: .search(searchQueryModel), navigator: navigationStackNavigator, asyncRefreshViewModel: asyncRefreshModel)
                 }
                 do { try await Task.sleep(for: .milliseconds(300)) } catch { return } // wait for a pause in typing before performing the search
-                searchTimelineModel?.setTimeline(.search(searchModel.searchText, .all), navigator: navigationStackNavigator)
+                searchQueryModel.trimmedSearchString = searchViewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+                await searchTimelineModel?.reload()
             }
             .onChange(of: navigationStackNavigator.navigationPath) { oldValue, newValue in
                 // record this as a recent search if appropriate
                 let isNavigatingFromSearchScreen = oldValue.isEmpty
-                let searchIsShowingNewResults = !searchModel.searchText.isEmpty
+                let searchIsShowingNewResults = !searchViewModel.searchText.isEmpty
                 guard isNavigatingFromSearchScreen, searchIsShowingNewResults, let authenticatedUser = AuthenticationObserver.shared.currentActiveUser else { return }
                 switch newValue.first {
                 case .profile(let account, _):
-                    searchModel.didSelectSearchResult(authenticatedUser, account: account, hashtag: nil)
+                    searchViewModel.didSelectSearchResult(authenticatedUser, account: account, hashtag: nil)
                 case .timeline(.hashtag(let tag)):
-                    searchModel.didSelectSearchResult(authenticatedUser, account: nil, hashtag: tag)
+                    searchViewModel.didSelectSearchResult(authenticatedUser, account: nil, hashtag: tag)
                 default:
                     break
                 }
@@ -43,8 +46,8 @@ struct ExploreRootView: View {
     }
     
     @ViewBuilder var contents: some View {
-        if !searchModel.searchText.isEmpty || (searchModel.isSearchActive && !searchModel.searchHistory.isEmpty) {
-            if searchModel.searchText.isEmpty {
+        if !searchViewModel.searchText.isEmpty || (searchViewModel.isSearchActive && !searchViewModel.searchHistory.isEmpty) {
+            if searchViewModel.searchText.isEmpty {
                 searchHistory
             } else {
                 if let searchTimelineModel {
@@ -62,7 +65,7 @@ struct ExploreRootView: View {
             let useableWidth = min(maxFeedContentWidth, useableWidth(fromGeoProxy: geo))
             let contentWidth = contentWidth(forUseableWidth: useableWidth)
             LazyVStack {
-                ForEach(searchModel.searchHistory, id: \.mastodonID) { item in
+                ForEach(searchViewModel.searchHistory, id: \.mastodonID) { item in
                     switch item {
                     case .account(let model):
                         AccountRowView(contentWidth: contentWidth, collectionViewModel: nil)
@@ -90,7 +93,7 @@ struct ExploreRootView: View {
 }
 
 @MainActor
-@Observable class SearchModel {
+@Observable class SearchViewModel {
     var searchText = ""
     var isSearchActive: Bool = false
     var searchHistory: [TimelineItem] = []
