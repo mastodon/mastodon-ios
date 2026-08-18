@@ -367,8 +367,6 @@ enum MastodonTimelineSheet: Identifiable {
     
     private var instanceConfigurationUpdateSubscription: AnyCancellable?
 
-    var hostingViewController: MediaPreviewableViewController?
-    
     var filteredNotificationsViewModel =
         FilteredNotificationsRowView.ViewModel(policy: nil)
     var needsReloadOnNextAppear = false
@@ -2393,10 +2391,6 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
     
     func publishUpdate(_ update: UpdatedElement) {
         FeedCoordinator.shared.publishUpdate(update)
-    }
-    
-    var mediaPreviewableViewController: (any MediaPreviewableViewController)? {
-        return hostingViewController
     }
     
     func vote(poll: MastodonSDK.Mastodon.Entity.Poll, choices: [Int], containingPostID: Mastodon.Entity.Status.ID) async throws -> Mastodon.Entity.Poll {
