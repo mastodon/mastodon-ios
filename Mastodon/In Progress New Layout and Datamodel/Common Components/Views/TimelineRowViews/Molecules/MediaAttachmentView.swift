@@ -790,13 +790,13 @@ class PlayerObserver: ObservableObject {
             queue: .main
         ) { [weak self] _ in
             DispatchQueue.main.async {
-                guard let self else { MediaPreviewVideoViewModel.endAudioSession(); return }
+                guard let self else { AVAudioSessionManager.endAudioSession(); return }
                 if shouldLoop {
                     self.player?.seek(to: .zero)
                     self.player?.play()
                 } else {
                     if !self.respectDeviceSilentSetting {
-                        MediaPreviewVideoViewModel.endAudioSession()
+                        AVAudioSessionManager.endAudioSession()
                     }
                     self.playShouldSeekToStart = true
                 }
@@ -808,7 +808,7 @@ class PlayerObserver: ObservableObject {
         NotificationCenter.default.removeObserver(self)
         self.playerStatusSubscription?.cancel()
         if !respectDeviceSilentSetting {
-            MediaPreviewVideoViewModel.endAudioSession()
+            AVAudioSessionManager.endAudioSession()
         }
         player?.pause()
         if let timeObserverToken {
@@ -822,14 +822,14 @@ class PlayerObserver: ObservableObject {
             playShouldSeekToStart = false
         }
         if !respectDeviceSilentSetting {
-            MediaPreviewVideoViewModel.startAudioSession()
+            AVAudioSessionManager.startAudioSession()
         }
         player?.play()
     }
     
     func didPressPause() {
         if !respectDeviceSilentSetting {
-            MediaPreviewVideoViewModel.endAudioSession()
+            AVAudioSessionManager.endAudioSession()
         }
         player?.pause()
     }
@@ -873,6 +873,36 @@ class PlayerObserver: ObservableObject {
             EmptyView()
         @unknown default:
             EmptyView()
+        }
+    }
+}
+
+enum AVAudioSessionManager {
+    static var activeAudioSessionRequestCounter = 0
+    static func startAudioSession() {
+        Task { @MainActor in
+            activeAudioSessionRequestCounter += 1
+            guard activeAudioSessionRequestCounter == 1 else { return }
+            try? AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers])
+            // https://developer.apple.com/documentation/avfaudio/avaudiosession/setactive(_:options:)
+            //  "If you attempt to activate a session with category record or playAndRecord when another app is already hosting a call, then your session fails with the error AVAudioSessionErrorInsufficientPriority."
+            //  "The session fails to activate if another audio session has higher priority than yours (such as a phone call) and neither audio session allows mixing."
+            // "mixWithOthers: If you set the audio session category to ambient, the session automatically sets this option. If you set this option, your app mixes its audio with audio playing in background apps, such as the Music app."
+            // CONCLUSION: Since we are never attempting to record and we allow mixing with others, activating the session should never fail, so there is no need to handle an error here.
+            try? AVAudioSession.sharedInstance().setActive(true)
+        }
+    }
+    static func endAudioSession() {
+        Task { @MainActor in
+            guard activeAudioSessionRequestCounter != 0 else { return }
+            activeAudioSessionRequestCounter -= 1
+            guard activeAudioSessionRequestCounter == 0 else { return }
+            try? AVAudioSession.sharedInstance().setCategory(.ambient)  // set to ambient to allow mixed (needed for GIFV)
+            // https://developer.apple.com/documentation/avfaudio/avaudiosession/setactive(_:options:)
+            // "Deactivating an audio session with running audio objects stops the objects, makes the session inactive, and returns an AVAudioSessionErrorCodeIsBusy error."
+            // "When your app deactivates a session, the return value is false but the active state changes to deactivate."
+            // CONCLUSION: Deactivating a session always succeeds, even when an error is thrown, so any error thrown here can be ignored.
+            try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
         }
     }
 }
