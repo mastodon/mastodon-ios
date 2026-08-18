@@ -13,7 +13,6 @@ enum MastodonNavigationDestination: Identifiable {
     case donations(DonationFlowDestination)
     case editProfile(profileViewModel: ProfileViewModel)
     case editProfileNavigation(destination: ProfileEditDestinationType)
-    case share(activityItems: [Any])
     case legacy(scene: SceneCoordinator.Scene, transition: SceneCoordinator.Transition)
     
     var id: String { description }
@@ -103,8 +102,6 @@ enum MastodonNavigationDestination: Identifiable {
             } else {
                 Text("no scene coordinator")
             }
-        case .share:
-            EmptyView()  // legacy scenes should be presented using the SceneCoordinator instead
         }
     }
     
@@ -272,8 +269,6 @@ extension MastodonNavigationDestination: Hashable {
             return "settings-\(type)"
         case .donations(let type):
             return "donations-\(type)"
-        case .share:
-            return "share"
         case .legacy(let scene, let transition):
             return "LEGACY-\(scene)-\(transition)"
         }

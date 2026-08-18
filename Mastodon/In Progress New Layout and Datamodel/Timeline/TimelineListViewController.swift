@@ -2621,7 +2621,8 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     navigator.openUrl(url, afterDeconflictionDelay: false, forceInBrowser: true)
                     
                 case .sharePost:
-                    sharePost(actionablePost, navigator: navigator)
+                    assertionFailure("The share option should be rendered by a ShareLink")
+                    break
 
             // MARK: RELATIONSHIP ACTIONS
                     
@@ -2846,21 +2847,6 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             self.clearPendingActions(navigator)
             navigator.didReceiveError(error)
         }
-    }
-    
-    func sharePost(_ actionablePost: MastodonContentPost, navigator: MastodonNavigationRouter) {
-        let activityItems: [Any] = {
-            guard let url = URL(string: actionablePost.metaData.url ?? actionablePost.metaData.uriForFediverse) else { return [] }
-            return [
-                URLActivityItem(url: url)
-            ]
-        }()
-
-        let activityViewController = UIActivityViewController(
-            activityItems: activityItems,
-            applicationActivities: nil
-        )
-        
     }
 }
 
