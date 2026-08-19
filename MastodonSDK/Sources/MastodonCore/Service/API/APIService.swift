@@ -30,6 +30,9 @@ public final class APIService {
         let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Unknown"
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = ["User-Agent" : "mastodon-ios/" + appVersion]
+        // Default resource timeout is 7 days, which leaves zombie tasks after iOS freezes the socket in the background.
+        configuration.timeoutIntervalForRequest = 30
+        configuration.timeoutIntervalForResource = 60
         self.session = URLSession(configuration: configuration)
 
         // setup cache. 10MB RAM + 50MB Disk
