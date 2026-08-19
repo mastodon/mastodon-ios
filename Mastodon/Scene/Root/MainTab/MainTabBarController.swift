@@ -477,13 +477,12 @@ extension MainTabBarController: UITabBarControllerDelegate {
 
             switch (currentTab, previousTab) {
             case (.home, .home):
-                // When home is tapped again, scroll to top
-                (homeTimelineViewController as? TimelineListViewController)?.scrollToTop()
-                break
+                (homeTimelineViewController as? TimelineListViewController)?.scrollToTopAndRefresh()
+            case (.notifications, .notifications):
+                (notificationViewController as? TimelineListViewController)?.scrollToTopAndRefresh()
             case (.search, .search):
                 // When search is tapped again, expand and focus the search bar
                 searchViewController.searchBar.becomeFirstResponder()
-                break
             default:
                 break
             }
