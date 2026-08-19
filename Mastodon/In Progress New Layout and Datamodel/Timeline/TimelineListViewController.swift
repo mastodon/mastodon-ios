@@ -551,7 +551,7 @@ enum MastodonTimelineSheet: Identifiable {
             case .pinnedPosts:
                 // this should always be the very first item in the list, so we don't need to worry about calculating heights above
                 fallthrough
-            case .heading, .collection, .notification, .notificationRequest, .hashtag, .link, .account, .filteredNotificationsInfo, .loadingIndicator, .noItem:
+            case .heading, .collection, .notification, .notificationRequest, .scopedSearchResults, .hashtag, .link, .account, .filteredNotificationsInfo, .loadingIndicator, .noItem:
                 currentDisplaySlice = prefix + newSlice + suffix
                 self.resetToUntrackedAfterDelay(from: loadingState)
             }
@@ -653,7 +653,7 @@ enum MastodonTimelineSheet: Identifiable {
                 
                 let needsPrep: [TimelineItem] = results.allRecords.compactMap { item -> TimelineItem? in
                     switch item {
-                    case .heading, .loadingIndicator, .filteredNotificationsInfo, .notificationRequest, .hashtag, .link, .noItem:
+                    case .heading, .loadingIndicator, .scopedSearchResults, .filteredNotificationsInfo, .notificationRequest, .hashtag, .link, .noItem:
                         return nil
                     case .account:
                         return item
@@ -722,9 +722,10 @@ enum MastodonTimelineSheet: Identifiable {
             // The new set of results may not include the current scroll anchor.  In that case, just show the new items snackbar and wait to do the actual reload (by tapping on the snackbar or doing a pull to refresh).
             let previousFirstItem = self.currentDisplaySlice.first(where: { $0.isRealItem })
             let currentFeedIsEmpty = previousFirstItem == nil
-            
+             
+            let scrollPositionNeedNotOrCannotBePreserved = !self.timeline.canDisplayNewItemsSnackbar || self.scrollAnchorItem == .noItem || currentFeedIsEmpty
             safeToSetNewItemsImmediately = {
-                if self.scrollAnchorItem == .noItem || currentFeedIsEmpty {
+                if scrollPositionNeedNotOrCannotBePreserved {
                     return true
                 } else if items.firstIndex(of: self.scrollAnchorItem) == nil {
                     return false
@@ -735,7 +736,7 @@ enum MastodonTimelineSheet: Identifiable {
             
             newScrollAnchor = nil // leave the scrollAnchor alone
             
-            if self.scrollAnchorItem == .noItem || currentFeedIsEmpty {
+            if scrollPositionNeedNotOrCannotBePreserved {
                 newItemsCount = 0  // will jump to top
             } else {
                 let indexItem = previousFirstItem ?? self.scrollAnchorItem // this will always be the previousFirstItem, because the current feed is not empty
@@ -1061,7 +1062,7 @@ extension TimelineListViewModel {
                 return item.id
             case .collection:
                 return nil
-            case .filteredNotificationsInfo, .notificationRequest, .loadingIndicator, .noItem, .heading:
+            case .filteredNotificationsInfo, .notificationRequest, .loadingIndicator, .scopedSearchResults, .noItem, .heading:
                 return nil
             }
         }
@@ -1133,7 +1134,7 @@ extension TimelineListViewModel {
                 break
             case .collection(let collectionViewModel):
                 processCollectionModel(collectionViewModel)
-            case .heading, .filteredNotificationsInfo, .notificationRequest, .loadingIndicator, .noItem:
+            case .heading, .filteredNotificationsInfo, .notificationRequest, .scopedSearchResults, .loadingIndicator, .noItem:
                 break
             }
         }
@@ -1211,7 +1212,7 @@ extension TimelineListViewModel {
                         break
                     case .collection(let collectionViewModel):
                         updateCollectionModel(collectionViewModel)
-                    case .heading, .filteredNotificationsInfo, .notificationRequest, .loadingIndicator, .noItem:
+                    case .heading, .filteredNotificationsInfo, .notificationRequest, .loadingIndicator, .scopedSearchResults, .noItem:
                         break
                     }
                 }
@@ -1784,7 +1785,14 @@ struct TimelineListView: View {
                         .fontWeight(.semibold)
                         .foregroundStyle(.secondary)
                         .padding(standardPadding)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(width: useableWidth, alignment: .leading)
+                    
+                case .scopedSearchResults(let queryModel):
+                    ScopedSearchResultsRowView(useableWidth: useableWidth, isStandalone: false)
+                        .environment(queryModel)
+                        .onTapGesture {
+                            navigator.push(.timeline(.search(SearchQueryModel(scope: queryModel.scope, trimmedSearchString: queryModel.trimmedSearchString))))
+                        }
                     
                 case .filteredNotificationsInfo(_, let filteredNotificationsViewModel):
                     if let filteredNotificationsViewModel {
@@ -2501,7 +2509,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     feedLoader?.updateCachedResults({ timeline in
                         for item in timeline.items {
                             switch item {
-                            case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .link, .noItem:
+                            case .heading, .loadingIndicator, .filteredNotificationsInfo, .scopedSearchResults, .hashtag, .link, .noItem:
                                 break
                             case .pinnedPosts:
                                 for viewModel in item.postViewModels {
@@ -2522,7 +2530,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     feedLoader?.updateCachedResults({ timeline in
                         for item in timeline.items {
                             switch item {
-                            case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .link, .noItem:
+                            case .heading, .loadingIndicator, .filteredNotificationsInfo, .scopedSearchResults, .hashtag, .link, .noItem:
                                 break
                             case .pinnedPosts:
                                 for viewModel in item.postViewModels {

@@ -68,10 +68,15 @@ public enum DiscoveryType: Equatable {
     case forYou
 }
 
-public class SearchQueryModel: Identifiable {
+@Observable public class SearchQueryModel: Identifiable {
     public let id = UUID()
-    var trimmedSearchString: String = ""
-    var scope: SearchScope = .all
+    var trimmedSearchString: String
+    var scope: SearchScope
+    
+    init(scope: SearchScope = .all, trimmedSearchString: String = "") {
+        self.scope = scope
+        self.trimmedSearchString = trimmedSearchString
+    }
 }
                                 
 public enum MastodonTimelineType: Equatable {
@@ -336,6 +341,7 @@ enum TimelineItem: Identifiable {
     case filteredNotificationsInfo(
         Mastodon.Entity.NotificationPolicy?,
         FilteredNotificationsRowView.ViewModel?)
+    case scopedSearchResults(SearchQueryModel)
     case loadingIndicator
     case noItem
     
@@ -361,6 +367,8 @@ enum TimelineItem: Identifiable {
             return "collection-\(collectionViewModel.id)"
         case .filteredNotificationsInfo:
             return "filteredNotifications"
+        case .scopedSearchResults(let queryModel):
+            return "scopedSearchResults-\(queryModel.scope)-\(queryModel.trimmedSearchString)"
         case .loadingIndicator:
             return "loading..."
         case .noItem:
@@ -390,6 +398,8 @@ enum TimelineItem: Identifiable {
             return collectionViewModel.id
         case .filteredNotificationsInfo:
             return nil
+        case .scopedSearchResults:
+            return nil
         case .loadingIndicator:
             return nil
         case .noItem:
@@ -401,7 +411,7 @@ enum TimelineItem: Identifiable {
         switch self {
         case .pinnedPosts, .post, .notification, .notificationRequest, .hashtag, .link, .account, .collection:
             return true
-        case .heading, .filteredNotificationsInfo, .loadingIndicator, .noItem:
+        case .heading, .filteredNotificationsInfo, .scopedSearchResults, .loadingIndicator, .noItem:
             return false
         }
     }
@@ -506,7 +516,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                             break
                         case .hashtag(let hashtagModel):
                             hashtagModel.incorporateUpdate(update)
-                        case .filteredNotificationsInfo, .loadingIndicator, .noItem, .collection, .heading, .link:
+                        case .filteredNotificationsInfo, .scopedSearchResults, .loadingIndicator, .noItem, .collection, .heading, .link:
                             break
                         }
                     }
@@ -812,6 +822,11 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
         case .search(let searchModel):
             let trimmedSearchText = searchModel.trimmedSearchString
+            
+            func scopedResultsEntry(_ scope: SearchScope) -> TimelineItem {
+                .scopedSearchResults(SearchQueryModel(scope: scope, trimmedSearchString: searchModel.trimmedSearchString))
+            }
+            
             if trimmedSearchText.isEmpty {
                 newBatch = []
                 newBatchBottomLoad = .nothingMoreToLoad
@@ -825,7 +840,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     minID: nil,
                     excludeUnreviewed: nil,
                     resolve: true,
-                    limit: nil,
+                    limit: searchModel.scope == .all ? 3 : nil,
                     offset: 0,
                     following: nil
                 )
@@ -837,7 +852,18 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 let statuses = results.statuses.map { timelineItem(fromStatus: $0, isPinned: false) }
                 let hashtags = results.hashtags.map { timelineItem(fromHashtag: $0) }
                 let accounts = results.accounts.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
-                newBatch = accounts + hashtags + statuses
+                newBatch = {
+                    switch searchModel.scope {
+                    case .all:
+                        let combinedResults =
+                        accounts + [scopedResultsEntry(.people)]
+                        + hashtags + [scopedResultsEntry(.hashtags)]
+                        + statuses + [scopedResultsEntry(.posts)]
+                        return combinedResults
+                    default:
+                        return accounts + hashtags + statuses
+                    }
+                }()
                 newBatchBottomLoad = bottomLoad(fromLink: response.link)
                 newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             }
@@ -1200,7 +1226,7 @@ struct CacheableTimeline: CacheableFeed {
         }
         return items.compactMap { item -> TimelineItem? in
             switch item {
-            case .heading, .loadingIndicator, .filteredNotificationsInfo:
+            case .heading, .loadingIndicator, .filteredNotificationsInfo, .scopedSearchResults:
                 return item
             case .noItem:
                 return nil
@@ -1233,7 +1259,7 @@ struct CacheableTimeline: CacheableFeed {
         if discardOlderIfNoOverlap {
             let oldestIdInNewBatch = newer.last(where: { item in
                 switch item {
-                case .loadingIndicator, .filteredNotificationsInfo, .noItem, .heading: return false
+                case .loadingIndicator, .filteredNotificationsInfo, .scopedSearchResults, .noItem, .heading: return false
                 case .post, .pinnedPosts: return true
                 case .notification, .notificationRequest: return true
                 case .hashtag: return true
@@ -1260,7 +1286,7 @@ struct CacheableTimeline: CacheableFeed {
                         return item.id == oldestIdInNewBatch
                     case .collection:
                         return item.id == oldestIdInNewBatch
-                    case .heading, .loadingIndicator, .filteredNotificationsInfo, .noItem:
+                    case .heading, .loadingIndicator, .filteredNotificationsInfo, .scopedSearchResults, .noItem:
                         return false
                     }
                 })
@@ -1296,7 +1322,7 @@ struct CacheableTimeline: CacheableFeed {
     func byDeleting(postId: Mastodon.Entity.Status.ID) -> CacheableTimeline {
         let newItems = items.compactMap { item -> TimelineItem? in
             switch item {
-            case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .link, .account, .collection:
+            case .heading, .loadingIndicator, .scopedSearchResults, .filteredNotificationsInfo, .hashtag, .link, .account, .collection:
                 return item
             case .post(let postViewModel, _):
                 if postViewModel.fullPost?.actionablePost?.id != postId {
@@ -1522,7 +1548,7 @@ extension TimelineFeedLoader {
         }
         for item in cache.items {
             switch item {
-            case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .link, .account, .noItem:
+            case .heading, .loadingIndicator, .filteredNotificationsInfo, .scopedSearchResults, .hashtag, .link, .account, .noItem:
                 break
             case .post:
                 create(forPostItem: item)

@@ -3,6 +3,7 @@
 import SwiftUI
 import MastodonSDK
 import MastodonCore
+import MastodonAsset
 
 struct ExploreRootView: View {
     @Environment(MastodonNavigationRouter.self) var navigationStackNavigator
@@ -12,6 +13,10 @@ struct ExploreRootView: View {
     
     @State var searchTimelineModel: TimelineListViewModel?
     @State var asyncRefreshModel = AsyncRefreshViewModel()
+    
+    @State var peopleQueryModel = SearchQueryModel(scope: .people)
+    @State var hashtagsQueryModel = SearchQueryModel(scope: .hashtags)
+    @State var postsQueryModel = SearchQueryModel(scope: .posts)
     
     var body: some View {
         @Bindable var searchViewModel = searchViewModel
@@ -25,8 +30,10 @@ struct ExploreRootView: View {
                 if searchTimelineModel == nil {
                     searchTimelineModel = TimelineListViewModel(timeline: .search(searchQueryModel), navigator: navigationStackNavigator, asyncRefreshViewModel: asyncRefreshModel)
                 }
-                do { try await Task.sleep(for: .milliseconds(300)) } catch { return } // wait for a pause in typing before performing the search
-                searchQueryModel.trimmedSearchString = searchViewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+                for queryModel in [searchQueryModel, peopleQueryModel, hashtagsQueryModel, postsQueryModel] {
+                    queryModel.trimmedSearchString = searchViewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+                }
+                guard searchQueryModel.trimmedSearchString.count > 2 else { return }
                 await searchTimelineModel?.reload()
             }
             .onChange(of: navigationStackNavigator.navigationPath) { oldValue, newValue in
@@ -47,12 +54,37 @@ struct ExploreRootView: View {
     
     @ViewBuilder var contents: some View {
         if !searchViewModel.searchText.isEmpty || (searchViewModel.isSearchActive && !searchViewModel.searchHistory.isEmpty) {
-            if searchViewModel.searchText.isEmpty {
-                searchHistory
-            } else {
-                if let searchTimelineModel {
-                    TimelineListView()
-                        .timelineEnvironment(timelineModel: searchTimelineModel, contentConcealModel: .alwaysShow, filter: searchTimelineModel.timeline.filterModel, asyncRefreshModel: asyncRefreshModel)
+            GeometryReader { geo in
+                let useableWidth = min(maxFeedContentWidth, useableWidth(fromGeoProxy: geo))
+                if searchViewModel.searchText.isEmpty {
+                    searchHistory(useableWidth: useableWidth)
+                } else {
+                    if let searchTimelineModel, searchTimelineModel.currentDisplaySlice.contains(where: { $0.isRealItem }) {
+                        TimelineListView()
+                            .timelineEnvironment(timelineModel: searchTimelineModel, contentConcealModel: .alwaysShow, filter: searchTimelineModel.timeline.filterModel, asyncRefreshModel: asyncRefreshModel)
+                    } else {
+                        LazyVStack {
+                            ForEach([SearchScope.people, .hashtags, .posts], id: \.self) { scope in
+                                let rowModel = {
+                                    switch scope {
+                                    case .people:
+                                        peopleQueryModel
+                                    case .hashtags:
+                                        hashtagsQueryModel
+                                    case .posts:
+                                        postsQueryModel
+                                    case .all:
+                                        searchQueryModel
+                                    }
+                                }()
+                                ScopedSearchResultsRowView(useableWidth: useableWidth, isStandalone: true)
+                                    .environment(rowModel)
+                                    .onTapGesture {
+                                        navigationStackNavigator.push(.timeline(.search(SearchQueryModel(scope: scope, trimmedSearchString: searchQueryModel.trimmedSearchString))))
+                                    }
+                            }
+                        }
+                    }
                 }
             }
         } else {
@@ -60,36 +92,32 @@ struct ExploreRootView: View {
         }
     }
     
-    @ViewBuilder var searchHistory: some View {
-        GeometryReader { geo in
-            let useableWidth = min(maxFeedContentWidth, useableWidth(fromGeoProxy: geo))
-            let contentWidth = contentWidth(forUseableWidth: useableWidth)
-            LazyVStack {
-                ForEach(searchViewModel.searchHistory, id: \.mastodonID) { item in
-                    switch item {
-                    case .account(let model):
-                        AccountRowView(contentWidth: contentWidth, collectionViewModel: nil)
-                            .environment(model)
-                            .onTapGesture {
-                                navigationStackNavigator.push(.profile(account: model.account._legacyEntity, relationship: model.myRelationship))
-                            }
-                    case .hashtag(let tagModel):
-                        HashtagRowView()
-                            .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
-                            .frame(width: useableWidth)
-                            .environment(tagModel)
-                            .onTapGesture {
-                                navigationStackNavigator.push(.timeline(.hashtag(tagModel.entity)))
-                            }
-                    default:
-                        Text("Unimplemented search result type")
-                            .foregroundStyle(.red)
-                    }
+    @ViewBuilder func searchHistory(useableWidth: CGFloat) -> some View {
+        let contentWidth = contentWidth(forUseableWidth: useableWidth)
+        LazyVStack {
+            ForEach(searchViewModel.searchHistory, id: \.mastodonID) { item in
+                switch item {
+                case .account(let model):
+                    AccountRowView(contentWidth: contentWidth, collectionViewModel: nil)
+                        .environment(model)
+                        .onTapGesture {
+                            navigationStackNavigator.push(.profile(account: model.account._legacyEntity, relationship: model.myRelationship))
+                        }
+                case .hashtag(let tagModel):
+                    HashtagRowView()
+                        .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
+                        .frame(width: useableWidth)
+                        .environment(tagModel)
+                        .onTapGesture {
+                            navigationStackNavigator.push(.timeline(.hashtag(tagModel.entity)))
+                        }
+                default:
+                    Text("Unimplemented search result type")
+                        .foregroundStyle(.red)
                 }
             }
         }
     }
-    
 }
 
 @MainActor
@@ -152,5 +180,41 @@ public enum SearchScope: CaseIterable {
         case .hashtags:     return .hashtags
         case .posts:        return .statuses
         }
+    }
+}
+
+public struct ScopedSearchResultsRowView: View {
+    let useableWidth: CGFloat
+    let isStandalone: Bool
+    @Environment(SearchQueryModel.self) var queryModel
+    
+    public var body: some View {
+        let text = {
+            switch queryModel.scope {
+            case .hashtags:
+                isStandalone ? "Hashtags matching \"\(queryModel.trimmedSearchString)\"" : "More hashtags matching \"\(queryModel.trimmedSearchString)\""
+            case .people:
+                isStandalone ? "People matching \"\(queryModel.trimmedSearchString)\"" : "More people matching \"\(queryModel.trimmedSearchString)\""
+            case .posts:
+                isStandalone ? "Posts matching \"\(queryModel.trimmedSearchString)\"" : "More posts matching \"\(queryModel.trimmedSearchString)\""
+            case .all:
+                "UNEXPECTED"
+            }
+        }()
+        
+        HStack {
+            Text(text)
+                .fontWeight(.semibold)
+                .foregroundStyle(Asset.Colors.accent.swiftUIColor)
+            if isStandalone {
+                Spacer()
+            }
+            Image(systemName: "chevron.right")
+                .foregroundStyle(.secondary)
+        }
+        .padding()
+        .padding(.bottom, doublePadding)
+        .frame(width: useableWidth, alignment: .trailing)
+        .contentShape(Rectangle())
     }
 }
