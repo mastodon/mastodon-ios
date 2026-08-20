@@ -88,6 +88,12 @@ public class MastodonFeedLoader<PublishedType: Identifiable, CachedType: Cacheab
         allRecords: [], nextBottomLoad: .initializing)
     @Published private(set) var currentError: Error? = nil
     
+    /// Last time `fetchResults` completed and records were published.
+    private(set) var lastSuccessfulFetchAt: Date? = nil
+    
+    /// Bumped to abandon in-flight fetches that iOS froze in the background or that pull-to-refresh superseded.
+    private var loadGeneration: Int = 0
+    
     init(_ cacheManager: (any MastodonFeedCacheManager<CachedType>)) {
         self.cacheManager = cacheManager
         
@@ -102,15 +108,36 @@ public class MastodonFeedLoader<PublishedType: Identifiable, CachedType: Cacheab
             }
     }
     
+    private var fetchStartedAt: Date? = nil
+    
+    var isActivelyFetching: Bool { isFetching }
+    
+    /// URLSession tasks suspended in the background often never complete, so `isFetching` stays true forever.
+    var fetchAppearsStuck: Bool {
+        guard isFetching, let fetchStartedAt else { return false }
+        return Date().timeIntervalSince(fetchStartedAt) > 15
+    }
+    
     private var isFetching: Bool = false {
         didSet {
+            if isFetching {
+                if fetchStartedAt == nil {
+                    fetchStartedAt = Date()
+                }
+            } else {
+                fetchStartedAt = nil
+            }
             if !isFetching, let waitingRequest = nextRequestThatCanBeLoadedNow() {
                 Task {
                     do {
                         try await load(waitingRequest)
                         currentError = nil
                     } catch {
-                        currentError = error
+                        if Self.isCancellation(error) {
+                            currentError = nil
+                        } else {
+                            currentError = error
+                        }
                     }
                 }
             }
@@ -123,6 +150,19 @@ public class MastodonFeedLoader<PublishedType: Identifiable, CachedType: Cacheab
         let nextRequest = loadRequestQueue.removeFirst()
         isFetching = true
         return nextRequest
+    }
+    
+    /// Drop queued work and make any in-flight `load` ignore its result. Call when entering the background so a frozen socket cannot pin `isFetching`.
+    func invalidateInFlightLoad() {
+        loadRequestQueue.removeAll()
+        loadGeneration += 1
+        isFetching = false
+    }
+    
+    private static func isCancellation(_ error: Error) -> Bool {
+        if error is CancellationError { return true }
+        let nsError = error as NSError
+        return nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorCancelled
     }
     
     func setRecords(_ records: MastodonFeedLoaderResult<PublishedType>) {
@@ -173,20 +213,22 @@ extension MastodonFeedLoader {
                     try await load(nextDoableRequest)
                     currentError = nil
                 } catch {
-                    currentError = error
+                    if Self.isCancellation(error) {
+                        currentError = nil
+                    } else {
+                        currentError = error
+                    }
                 }
             }
         }
     }
     
     /// Use only with pull to refresh, in order to properly update the progress spinner.
+    /// Always succeeds: a stuck in-flight fetch is abandoned so the user is never stuck needing a force-quit.
     public var permissionToLoadImmediately: Bool {
-        if isFetching {
-            return false
-        } else {
-            isFetching = true
-            return true
-        }
+        invalidateInFlightLoad()
+        isFetching = true
+        return true
     }
     /// Use only with pull to refresh, in order to properly update the progress spinner.
     public func loadImmediately(_ request: MastodonFeedLoaderRequest) async {
@@ -195,7 +237,11 @@ extension MastodonFeedLoader {
             try await load(request)
             currentError = nil
         } catch {
-            currentError = error
+            if Self.isCancellation(error) {
+                currentError = nil
+            } else {
+                currentError = error
+            }
         }
     }
     
@@ -204,9 +250,16 @@ extension MastodonFeedLoader {
         if request == .reloadForFilterChange, let resetTimeline = resetTimeline() {
             updateAfterInserting(newlyFetchedResults: resetTimeline, at: .replace)
         }
-        defer { isFetching = false }
+        let generation = loadGeneration
+        defer {
+            if generation == loadGeneration {
+                isFetching = false
+            }
+        }
         let unfiltered = try await fetchResults(for: request)
+        guard generation == loadGeneration else { return }
         updateAfterInserting(newlyFetchedResults: unfiltered, at: request.resultsInsertionPoint)
+        lastSuccessfulFetchAt = Date()
     }
     
     func updateAfterInserting(newlyFetchedResults: CachedType, at insertionPoint: MastodonFeedLoaderRequest.InsertLocation) {
