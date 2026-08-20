@@ -31,7 +31,6 @@ public final class APIService {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = ["User-Agent" : "mastodon-ios/" + appVersion]
         // Default resource timeout is 7 days, which leaves zombie tasks after iOS freezes the socket in the background.
-        configuration.timeoutIntervalForRequest = 30
         configuration.timeoutIntervalForResource = 60
         self.session = URLSession(configuration: configuration)
 
