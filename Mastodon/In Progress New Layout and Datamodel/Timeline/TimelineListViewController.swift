@@ -1221,7 +1221,13 @@ enum MastodonTimelineSheet {
     /// REST feeds are not streamed. Refresh when the scene/tab becomes visible, otherwise the user keeps seeing a snapshot from the last successful fetch until force-quit.
     func reloadWhenBecomingVisible() {
         guard feedLoader != nil else { return }
-        guard timeline.canPullToRefresh else { return }
+        switch timeline {
+        case .homeTimeline, .notifications:
+            break
+        default:
+            // `.reload` replaces the whole page. Auto-refreshing bookmarks/hashtags/lists on resume would drop already-paginated older items.
+            return
+        }
         switch loadingState {
         case .initializing:
             return
@@ -1529,8 +1535,6 @@ enum MastodonTimelineSheet {
             loadingState = .requestedReloadFromTop
             if feedLoader.permissionToLoadImmediately {
                 await feedLoader.loadImmediately(.reload)
-            } else {
-                feedLoader.requestLoad(.reload)
             }
         case .activityFilterUpdated, .mediaFilterUpdated:
             loadingState = .initializing
