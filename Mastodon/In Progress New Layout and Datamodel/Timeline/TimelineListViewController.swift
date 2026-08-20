@@ -1,6 +1,7 @@
 // Copyright © 2025 Mastodon gGmbH. All rights reserved.
 
 import SwiftUI
+import UIKit
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
@@ -352,6 +353,7 @@ enum MastodonTimelineSheet: Identifiable {
         case notificationFilterPolicyUpdated
         case userRequestedRefresh
         case notificationCountUpdated
+        case becameVisible
         case asyncRefreshResultsRequested
         case activityFilterUpdated
         case mediaFilterUpdated
@@ -365,6 +367,26 @@ enum MastodonTimelineSheet: Identifiable {
         FilteredNotificationsRowView.ViewModel(policy: nil)
     var needsReloadOnNextAppear = false
     var notificationRequestsAcceptanceDidChange = false
+    /// After a top-of-feed reload, jump the scroll position to the newest items instead of keeping the old anchor (which hides new rows above it).
+    var jumpToTopAfterNextReload = false
+    private var isReloadFromVisibilityScheduled = false
+    private var sceneLifecycleSubscriptions = Set<AnyCancellable>()
+    
+    private var isScrolledNearTop: Bool {
+        guard let anchorIndex = currentDisplaySlice.firstIndex(of: scrollAnchorItem) else {
+            return true
+        }
+        return anchorIndex <= 1
+    }
+    
+    private func topAnchorItem(in items: [TimelineItem]) -> TimelineItem {
+        switch timeline {
+        case .notifications(.everything), .notifications(.mentions):
+            return .filteredNotificationsInfo(filteredNotificationsViewModel.policy, filteredNotificationsViewModel)
+        default:
+            return items.first ?? .noItem
+        }
+    }
     
     // MARK - Sheets
     @ViewBuilder func activeSheetContents(_ activeSheet: MastodonTimelineSheet, navigator: MastodonNavigationRouter) -> some View {
@@ -535,8 +557,62 @@ enum MastodonTimelineSheet: Identifiable {
                 self.authenticatedUser = AuthenticationServiceProvider.shared.currentActiveUser.value
             }
         
+        observeSceneLifecycle()
+        
         Task {
             try await doInitialLoad(navigator: navigator)
+        }
+    }
+    
+    private func observeSceneLifecycle() {
+        NotificationCenter.default.publisher(for: UIScene.didActivateNotification)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.reloadWhenBecomingVisible()
+            }
+            .store(in: &sceneLifecycleSubscriptions)
+        
+        NotificationCenter.default.publisher(for: UIScene.didEnterBackgroundNotification)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.feedLoader?.invalidateInFlightLoad()
+            }
+            .store(in: &sceneLifecycleSubscriptions)
+    }
+    
+    /// REST feeds are not streamed. Refresh when the scene/tab becomes visible, otherwise the user keeps seeing a snapshot from the last successful fetch until force-quit.
+    func reloadWhenBecomingVisible() {
+        guard feedLoader != nil else { return }
+        switch timeline {
+        case .homeTimeline, .notifications:
+            break
+        default:
+            // `.reload` replaces the whole page. Auto-refreshing bookmarks/hashtags/lists on resume would drop already-paginated older items.
+            return
+        }
+        switch loadingState {
+        case .initializing:
+            return
+        default:
+            break
+        }
+        let forceBecauseOfNewNotifications = needsReloadOnNextAppear
+        if !forceBecauseOfNewNotifications,
+           let last = feedLoader?.lastSuccessfulFetchAt,
+           Date().timeIntervalSince(last) < 3 {
+            return
+        }
+        if !forceBecauseOfNewNotifications,
+           (isReloadFromVisibilityScheduled || (feedLoader?.isActivelyFetching == true && feedLoader?.fetchAppearsStuck != true)) {
+            return
+        }
+        needsReloadOnNextAppear = false
+        isReloadFromVisibilityScheduled = true
+        jumpToTopAfterNextReload = isScrolledNearTop
+        loadingState = .requestedReloadFromTop
+        Task {
+            defer { isReloadFromVisibilityScheduled = false }
+            await forceReload(.becameVisible)
         }
     }
     
@@ -622,7 +698,35 @@ enum MastodonTimelineSheet: Identifiable {
             newItemsCount = 0 // ... so there will be no new items above the visible point
             safeToSetNewItemsImmediately = true
             
-        case .requestedReloadFromTop, .requestedPrependedHeightCalculations, .untracked:
+        case .requestedReloadFromTop:
+            let previousFirstItem = self.currentDisplaySlice.first(where: { $0.isRealItem })
+            let currentFeedIsEmpty = previousFirstItem == nil
+            let jumpToTop = jumpToTopAfterNextReload || isScrolledNearTop || currentFeedIsEmpty
+            jumpToTopAfterNextReload = false
+            // Always apply the new page. Holding it in `waitingReplacementItems` until the next pull-to-refresh made Notifications look frozen.
+            safeToSetNewItemsImmediately = true
+            if jumpToTop {
+                newScrollAnchor = topAnchorItem(in: items)
+                newItemsCount = 0
+            } else if let previousFirstItem, let newIndex = items.firstIndex(of: previousFirstItem) {
+                newScrollAnchor = nil
+                newItemsCount = newIndex
+            } else if let newIndex = items.firstIndex(of: self.scrollAnchorItem) {
+                newScrollAnchor = nil
+                newItemsCount = newIndex
+            } else {
+                newScrollAnchor = topAnchorItem(in: items)
+                newItemsCount = 0
+            }
+            
+        case .requestedPrependedHeightCalculations, .untracked:
+            if jumpToTopAfterNextReload {
+                jumpToTopAfterNextReload = false
+                safeToSetNewItemsImmediately = true
+                newScrollAnchor = topAnchorItem(in: items)
+                newItemsCount = 0
+                break
+            }
             // The new set of results may not include the current scroll anchor.  In that case, just show the new items snackbar and wait to do the actual reload (by tapping on the snackbar or doing a pull to refresh).
             let previousFirstItem = self.currentDisplaySlice.first(where: { $0.isRealItem })
             let currentFeedIsEmpty = previousFirstItem == nil
@@ -755,10 +859,13 @@ enum MastodonTimelineSheet: Identifiable {
     
     func refreshFromTop() async {
         assert(loadingState == .requestedReloadFromTop, "Caller must synchronously set loading state before requesting async reload.")
+        jumpToTopAfterNextReload = true
         if let waiting = waitingReplacementItems, !waiting.isEmpty {
             scrollToTop()
-        } else {
-            await _refreshFromTop()
+        }
+        await _refreshFromTop()
+        if let waiting = waitingReplacementItems, !waiting.isEmpty {
+            scrollToTop()
         }
         resetToUntrackedAfterDelay(from: loadingState)
     }
@@ -786,11 +893,19 @@ enum MastodonTimelineSheet: Identifiable {
         }
         needsReloadOnNextAppear = false
         switch reason {
-        case .notificationCountUpdated:
-            MastodonTabViewRouter.current.fetchFilteredNotificationsPolicy(andReloadFeed: true)
+        case .notificationCountUpdated, .becameVisible:
+            if timeline.canDisplayFilteredNotifications {
+                MastodonTabViewRouter.current.fetchFilteredNotificationsPolicy(andReloadFeed: false)
+            }
+            if feedLoader.permissionToLoadImmediately {
+                await feedLoader.loadImmediately(.reload)
+                commitToCache()
+            }
         case .notificationFilterPolicyUpdated:
             loadingState = .requestedReloadFromTop
-            feedLoader.requestLoad(.reload)
+            if feedLoader.permissionToLoadImmediately {
+                await feedLoader.loadImmediately(.reload)
+            }
         case .activityFilterUpdated, .mediaFilterUpdated:
             loadingState = .initializing
             interactiveReloadTriggerModel.reset(triggered: true)
@@ -930,8 +1045,9 @@ extension TimelineListViewModel {
         _ policy: Mastodon.Entity.NotificationPolicy?,
         andReloadFeed reload: Bool
     ) {
-        guard filteredNotificationsViewModel.policy != policy else { return }
-        filteredNotificationsViewModel.policy = policy
+        if filteredNotificationsViewModel.policy != policy {
+            filteredNotificationsViewModel.policy = policy
+        }
         guard reload else { return }
         
         switch loadingState {
@@ -1138,10 +1254,10 @@ extension TimelineListViewModel {
         
         var canReload: Bool {
             switch self {
-            case .untracked:
-                true
-            default:
+            case .initializing, .requestedPrependedHeightCalculations:
                 false
+            default:
+                true
             }
         }
     }
@@ -1401,12 +1517,7 @@ struct TimelineListView: View {
                 // clear the notification dot on the tab icon
                 NotificationService.shared.clearNotificationCountForActiveUser()
             }
-            if viewModel.needsReloadOnNextAppear {
-                viewModel.needsReloadOnNextAppear = false
-                Task {
-                    await viewModel.forceReload(.notificationCountUpdated)
-                }
-            }
+            viewModel.reloadWhenBecomingVisible()
         }
         .onDisappear() {
             viewModel.loadingState = .untracked
@@ -2955,7 +3066,7 @@ struct Snackbar: View {
 extension MastodonTimelineType {
     var canDisplayNewItemsSnackbar: Bool {
         switch self {
-        case .homeTimeline:
+        case .homeTimeline, .notifications:
             true
         default:
             false
