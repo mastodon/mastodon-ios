@@ -243,4 +243,16 @@ import Combine
             notificationsTimelineModelMentions?.updateFilteredNotificationsPolicy(policy?.value, andReloadFeed: reload)
         }
     }
+    
+    // MARK - Overlays
+    var activeOverlayID: UUID? = nil
+    var activeOverlay: MastodonFadeInOverlay? = nil
+    func setActiveOverlay(_ overlay: MastodonFadeInOverlay?, animated: Bool) {
+        activeOverlayID = overlay == nil ? nil : UUID()
+        if animated {
+            withAnimation { activeOverlay = overlay }
+        } else {
+            activeOverlay = overlay
+        }
+    }
 }

@@ -26,7 +26,7 @@ protocol MastodonPostMenuActionHandler {
     func doAction(_ action: MastodonPostMenuAction, forAccount account: MastodonAccount, relationshipViewModel: RelationshipViewModel, navigator: MastodonNavigationRouter) async throws
     func canTranslate(post: MastodonContentPost) -> Bool
     func translation(forContentPostId postId: Mastodon.Entity.Status.ID) -> Mastodon.Entity.Translation?
-    var containerOverlayBinding: Binding<MastodonTimelineFadeInOverlay?> { get }
+    var containerOverlayBinding: Binding<MastodonFadeInOverlay?> { get }
     func vote(poll: Mastodon.Entity.Poll, choices: [Int], containingPostID: Mastodon.Entity.Status.ID) async throws -> Mastodon.Entity.Poll
     func currentRelationship(to account: Mastodon.Entity.Account.ID) -> MastodonAccount.Relationship?
 }

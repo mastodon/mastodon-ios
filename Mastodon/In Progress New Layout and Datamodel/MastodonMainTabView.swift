@@ -137,6 +137,9 @@ struct MastodonMainTabView: View {
                         Color.secondary.opacity(0.8)
                         ProgressView().progressViewStyle(.circular)
                     }
+                } else if let overlay = tabViewRouter.activeOverlay {
+                    overlayContents(overlay)
+                        .id(tabViewRouter.activeOverlayID)
                 }
             }
         } else {
@@ -661,6 +664,72 @@ struct MastodonMainTabView: View {
 
         default:
             return nil
+        }
+    }
+    
+    @ViewBuilder func overlayContents(_ overlay: MastodonFadeInOverlay) -> some View {
+        GeometryReader { geo in
+            ZStack(alignment: .topLeading) {
+                ZStack {
+                    Color.dimmingBackground
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            tabViewRouter.setActiveOverlay(nil, animated: true)
+                        }
+                    
+                    self.overlayView(overlay)
+                }
+                
+                Button {
+                    tabViewRouter.setActiveOverlay(nil, animated: true)
+                } label: {
+                    Image(systemName: "xmark.circle")
+                        .font(.title)
+                        .foregroundStyle(.white)
+                }
+                .padding(standardPadding)
+            }
+        }
+    }
+    
+    @ViewBuilder private func overlayView(_ overlay: MastodonFadeInOverlay) -> some View {
+        
+        switch overlay {
+        case .altText:
+            AltTextOverlay(altTextBinding: Binding<String?>(
+                get: {
+                    switch tabViewRouter.activeOverlay {
+                    case .altText(let string):
+                        return string
+                    default:
+                        return nil
+                    }
+                },
+                set: { newValue in
+                    if let newValue {
+                        tabViewRouter.setActiveOverlay(.altText(newValue), animated: true)
+                    } else {
+                        switch tabViewRouter.activeOverlay {
+                        case .altText:
+                            tabViewRouter.setActiveOverlay(nil, animated: true)
+                        default:
+                            break
+                        }
+                    }
+                }
+            ))
+            
+        case .images(let focusedImage, let galleryViewModel, let pagingViewModel):
+            if let focusedIndex = galleryViewModel.imageAttachments.firstIndex(where: { $0.id == focusedImage }) {
+                FullSizeImageGallery()
+                    .environment(galleryViewModel)
+                    .environment(pagingViewModel)
+                    .environment(ContentConcealViewModel.alwaysShow)
+            }
+        case .video(let attachment, let pagingViewModel):
+            FullSizeVideoOverlayView(attachment: attachment)
+                .environment(pagingViewModel)
+                .environment(ContentConcealViewModel.alwaysShow)
         }
     }
 }

@@ -441,6 +441,7 @@
 				MastodonMainTabView.swift,
 				MastodonNavigationRouter.swift,
 				MastodonTabViewRouter.swift,
+				MastodonTopLevelOverlay.swift,
 				Notifications/InlinePostPreview.swift,
 				Notifications/NotificationInfo.swift,
 				Notifications/NotificationsCacheManager.swift,

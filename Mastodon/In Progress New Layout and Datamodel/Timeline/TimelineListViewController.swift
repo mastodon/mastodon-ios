@@ -261,12 +261,6 @@ extension MastodonPostMenuAction {
     }
 }
 
-enum MastodonTimelineFadeInOverlay {
-    case images(focusedImage: Mastodon.Entity.Attachment.ID, ImageGalleryViewModel, PageableZoomableViewModel)
-    case video(MediaAttachment, PageableZoomableViewModel)
-    case altText(String)
-}
-
 enum MastodonTimelineSheet: Identifiable {
     case postInteractionSettingsEdit(PostInteractionSettingsViewModel)
     case boostOrQuoteDialog(MastodonPostViewModel)
@@ -371,96 +365,6 @@ enum MastodonTimelineSheet: Identifiable {
         FilteredNotificationsRowView.ViewModel(policy: nil)
     var needsReloadOnNextAppear = false
     var notificationRequestsAcceptanceDidChange = false
-    
-    // MARK - Overlays
-    var hasActiveOverlay: Bool {
-        activeOverlay != nil
-    }
-    var activeOverlayID: UUID? = nil
-    var activeOverlay: MastodonTimelineFadeInOverlay? = nil
-    func setActiveOverlay(_ overlay: MastodonTimelineFadeInOverlay?, animated: Bool) {
-        activeOverlayID = overlay == nil ? nil : UUID()
-        if animated {
-            withAnimation { activeOverlay = overlay }
-        } else {
-            activeOverlay = overlay
-        }
-    }
-    
-    private func overlayIncludesDimmingBackground(_ overlay: MastodonTimelineFadeInOverlay) -> Bool {
-        switch overlay {
-        case .altText: true
-        default: false
-        }
-    }
-    
-    @ViewBuilder func overlayContents(_ overlay: MastodonTimelineFadeInOverlay) -> some View {
-        GeometryReader { geo in
-            ZStack(alignment: .topLeading) {
-                ZStack {
-                    if !self.overlayIncludesDimmingBackground(overlay) {
-                        Color.dimmingBackground
-                            .ignoresSafeArea()
-                            .onTapGesture { [weak self] in
-                                self?.setActiveOverlay(nil, animated: true)
-                            }
-                    }
-                    
-                    self.overlayView(overlay)
-                }
-                
-                Button {
-                    self.setActiveOverlay(nil, animated: true)
-                } label: {
-                    Image(systemName: "xmark.circle")
-                        .font(.title)
-                        .foregroundStyle(.white)
-                }
-                .padding(standardPadding)
-            }
-        }
-    }
-    
-    @ViewBuilder private func overlayView(_ overlay: MastodonTimelineFadeInOverlay) -> some View {
-        
-        switch overlay {
-        case .altText:
-            AltTextOverlay(altTextBinding: Binding<String?>(
-                get: {
-                    switch self.activeOverlay {
-                    case .altText(let string):
-                        return string
-                    default:
-                        return nil
-                    }
-                },
-                set: { newValue in
-                    if let newValue {
-                        self.setActiveOverlay(.altText(newValue), animated: true)
-                    } else {
-                        switch self.activeOverlay {
-                        case .altText:
-                            self.setActiveOverlay(nil, animated: true)
-                        default:
-                            break
-                        }
-                    }
-                }
-            ))
-            
-        case .images(let focusedImage, let galleryViewModel, let pagingViewModel):
-            if let focusedIndex = galleryViewModel.imageAttachments.firstIndex(where: { $0.id == focusedImage }) {
-                FullSizeImageGallery()
-                    .environment(galleryViewModel)
-                    .environment(pagingViewModel)
-                    .environment(ContentConcealViewModel.alwaysShow)
-            }
-        case .video(let attachment, let pagingViewModel):
-            FullSizeVideoOverlayView(attachment: attachment)
-                .environment(pagingViewModel)
-                .environment(ContentConcealViewModel.alwaysShow)
-        }
-    }
     
     // MARK - Sheets
     @ViewBuilder func activeSheetContents(_ activeSheet: MastodonTimelineSheet, navigator: MastodonNavigationRouter) -> some View {
@@ -1484,13 +1388,6 @@ struct TimelineListView: View {
                     }
                     .padding(tinySpacing)
                 }
-                
-                // FADE-IN OVERLAYS
-                if let activeOverlay = viewModel.activeOverlay {
-                    viewModel.overlayContents(activeOverlay)
-                        .id(viewModel.activeOverlayID)
-                }
-                   
             } // ZStack(alignment: .bottom)
         } // GeometryReader
         .onAppear() {
@@ -1511,8 +1408,6 @@ struct TimelineListView: View {
                 }
             }
         }
-        .toolbar(viewModel.hasActiveOverlay ? .hidden : .visible, for: .navigationBar)
-        .toolbar(viewModel.hasActiveOverlay ? .hidden : .visible, for: .tabBar)
         .onDisappear() {
             viewModel.loadingState = .untracked
             if viewModel.timeline == .notificationRequests, viewModel.notificationRequestsAcceptanceDidChange {
@@ -2419,10 +2314,10 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         return updatedPoll
     }
     
-    var containerOverlayBinding: Binding<MastodonTimelineFadeInOverlay?> {
-        Binding<MastodonTimelineFadeInOverlay?>(
-            get: { self.activeOverlay },
-            set: { newValue in self.setActiveOverlay(newValue, animated: true) }
+    var containerOverlayBinding: Binding<MastodonFadeInOverlay?> {
+        Binding<MastodonFadeInOverlay?>(
+            get: { MastodonTabViewRouter.current.activeOverlay },
+            set: { newValue in MastodonTabViewRouter.current.setActiveOverlay(newValue, animated: true) }
         )
     }
     
