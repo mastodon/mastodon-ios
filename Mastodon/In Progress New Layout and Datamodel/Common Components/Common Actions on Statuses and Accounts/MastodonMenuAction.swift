@@ -262,7 +262,7 @@ extension MastodonNavigationRouter {
         case .compose(let composeContext):
             guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
             let composeModel = ComposeViewModel(authenticationBox: authBox, composeContext: composeContext, destination: .topLevel)
-            
+            presentSheet(.modalCompose(composeModel, nil), afterDeconflictionDelay: true)
         case .myAccountSettings:
             presentSheet(.settings, afterDeconflictionDelay: true)
         case .myBookmarks:
@@ -272,7 +272,7 @@ extension MastodonNavigationRouter {
         case .myFollowedHashtags:
             push(.timeline(.myFollowedHashtags))
         case .openInBrowser(let url):
-            assertionFailure("not implemented")
+            openUrl(url, afterDeconflictionDelay: false, forceInBrowser: true)
         case .collection(let collectionViewModel):
             push(.timeline(.collection(collectionViewModel)))
         case .addToList(let account, let relationshipViewModel):
