@@ -6,9 +6,36 @@ import MastodonLocalization
 import MastodonUI
 
 enum MastodonFadeInOverlay {
-    case images(focusedImage: Mastodon.Entity.Attachment.ID, ImageGalleryViewModel, PageableZoomableViewModel)
+    case images(ImageGalleryViewModel, PageableZoomableViewModel)
     case video(MediaAttachment, PageableZoomableViewModel)
     case altText(String)
+}
+
+struct MastodonTopLevelOverlay<Content: View> : View {
+    let didRequestDismiss: ()->()
+    @ViewBuilder let content: Content
+    
+    var body: some View {
+        ZStack(alignment: .topLeading) {
+            Color.dimmingBackground
+                .ignoresSafeArea()
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    didRequestDismiss()
+                }
+            
+            content
+            
+            Button() {
+                didRequestDismiss()
+            } label: {
+                Image(systemName: "xmark.circle")
+                    .font(.title)
+                    .foregroundStyle(.white)
+            }
+            .padding(standardPadding)
+        }
+    }
 }
 
 struct FullSizeImageGallery: View {
@@ -44,11 +71,6 @@ struct FullSizeImageGallery: View {
             .padding(.vertical, 80)
             .padding(.horizontal, doublePadding)
             .frame(width: pageableZoomableModel.pagingPageSize.width, height: pageableZoomableModel.pagingPageSize.height, alignment: .topTrailing)
-        }
-        .background() {
-            Color.dimmingBackground
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .ignoresSafeArea()
         }
         .overlay {
             AltTextOverlay(altTextBinding: Binding<String?>(

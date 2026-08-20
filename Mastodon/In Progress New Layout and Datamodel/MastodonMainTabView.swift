@@ -668,27 +668,8 @@ struct MastodonMainTabView: View {
     }
     
     @ViewBuilder func overlayContents(_ overlay: MastodonFadeInOverlay) -> some View {
-        GeometryReader { geo in
-            ZStack(alignment: .topLeading) {
-                ZStack {
-                    Color.dimmingBackground
-                        .ignoresSafeArea()
-                        .onTapGesture {
-                            tabViewRouter.setActiveOverlay(nil, animated: true)
-                        }
-                    
-                    self.overlayView(overlay)
-                }
-                
-                Button {
-                    tabViewRouter.setActiveOverlay(nil, animated: true)
-                } label: {
-                    Image(systemName: "xmark.circle")
-                        .font(.title)
-                        .foregroundStyle(.white)
-                }
-                .padding(standardPadding)
-            }
+        MastodonTopLevelOverlay(didRequestDismiss: { tabViewRouter.setActiveOverlay(nil, animated: true) }) {
+            overlayView(overlay)
         }
     }
     
@@ -719,13 +700,12 @@ struct MastodonMainTabView: View {
                 }
             ))
             
-        case .images(let focusedImage, let galleryViewModel, let pagingViewModel):
-            if let focusedIndex = galleryViewModel.imageAttachments.firstIndex(where: { $0.id == focusedImage }) {
-                FullSizeImageGallery()
-                    .environment(galleryViewModel)
-                    .environment(pagingViewModel)
-                    .environment(ContentConcealViewModel.alwaysShow)
-            }
+        case .images(let galleryViewModel, let pagingViewModel):
+            FullSizeImageGallery()
+                .environment(galleryViewModel)
+                .environment(pagingViewModel)
+                .environment(ContentConcealViewModel.alwaysShow)
+            
         case .video(let attachment, let pagingViewModel):
             FullSizeVideoOverlayView(attachment: attachment)
                 .environment(pagingViewModel)

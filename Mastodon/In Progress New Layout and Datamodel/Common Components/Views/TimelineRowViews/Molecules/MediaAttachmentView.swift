@@ -333,7 +333,7 @@ struct ImageGridView: View {
         viewModel.pagingViewModel.dismiss = {
             containerOverlayBinding?.wrappedValue = nil
         }
-        let overlay = MastodonFadeInOverlay.images(focusedImage: img.id, viewModel, viewModel.pagingViewModel)
+        let overlay = MastodonFadeInOverlay.images(viewModel, viewModel.pagingViewModel)
         containerOverlayBinding?.wrappedValue = overlay
     }
 }
