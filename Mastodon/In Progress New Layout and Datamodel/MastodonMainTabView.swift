@@ -32,22 +32,24 @@ struct MastodonMainTabView: View {
             TabView(selection: $tabViewRouter.selectedTab) {
                 ForEach(tabViewRouter.tabs(forSizeClass: sizeClass), id: \.self) { tab in
                     if let subtabs = subtabsFor(tab) {
-                        TabSection {
-                            ForEach(subtabs, id: \.self) { subtab in
-                                Tab(subtab.title, systemImage: subtab.systemImage, value: subtab) {
-                                    view(forTab: subtab)
+                        if !subtabs.isEmpty {
+                            TabSection {
+                                ForEach(subtabs, id: \.self) { subtab in
+                                    Tab(subtab.title, systemImage: subtab.systemImage, value: subtab) {
+                                        view(forTab: subtab)
+                                    }
+                                    .customizationID(subtab.id)
+                                    .customizationBehavior(subtab.customizationBehavior, for: .tabBar, .sidebar)
+                                    .defaultVisibility(subtab.defaultTabBarVisibility, for: .tabBar)
                                 }
-                                .customizationID(subtab.id)
-                                .customizationBehavior(subtab.customizationBehavior, for: .tabBar, .sidebar)
-                                .defaultVisibility(subtab.defaultTabBarVisibility, for: .tabBar)
+                            } header: {
+                                HStack {
+                                    Image(systemName: tab.systemImage)
+                                    Text(tab.title)
+                                }
                             }
-                        } header: {
-                            HStack {
-                                Image(systemName: tab.systemImage)
-                                Text(tab.title)
-                            }
+                            .defaultVisibility(.hidden, for: .tabBar)
                         }
-                        .defaultVisibility(.hidden, for: .tabBar)
                     } else if tab == .profile {
                         // Profile is a special case because when sidebar is available we are showing the current profile as a navigation tab and settings as an action, but when sidebar is not available (.compact width), we only want to show the profile icon
                         switch sizeClass {
