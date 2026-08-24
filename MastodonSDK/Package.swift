@@ -49,7 +49,6 @@ let package = Package(
         .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.12.0"),
         .package(url: "https://github.com/SDWebImage/SDWebImageSwiftUI.git", from: "3.1.4"),
         .package(url: "https://github.com/NextLevel/NextLevelSessionExporter.git", revision: "1fd5ad50fa415b4b197e9b05c0cdd3cc2ee6731e"),
-        .package(url: "https://github.com/xmartlabs/XLPagerTabStrip.git", from: "9.1.0"),
         .package(url: "https://github.com/mergesort/Bodega.git", from: "2.1.3")
     ],
     targets: [
@@ -124,7 +123,6 @@ let package = Package(
                 .product(name: "NextLevelSessionExporter", package: "NextLevelSessionExporter"),
                 .product(name: "SDWebImage", package: "SDWebImage"),
                 .product(name: "SDWebImageSwiftUI", package: "SDWebImageSwiftUI"),
-                .product(name: "XLPagerTabStrip", package: "XLPagerTabStrip"),
             ]
         ),
         .testTarget(
