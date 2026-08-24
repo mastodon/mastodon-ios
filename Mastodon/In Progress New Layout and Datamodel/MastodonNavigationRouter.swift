@@ -122,6 +122,7 @@ enum MastodonNavigationDestination: Identifiable {
         
         case .contentUrl(let url):
             SafariView(url: url.url)
+                .presentationBackground(.clear)
             
         case .settings:
             if let authBox = AuthenticationObserver.shared.currentActiveUser {
