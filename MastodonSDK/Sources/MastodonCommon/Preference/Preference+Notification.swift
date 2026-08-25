@@ -11,7 +11,7 @@ import MastodonExtension
 
 extension UserDefaults {
     // always use hash value (SHA256) from accessToken as key
-    private static func deriveKey(from accessToken: String, prefix: String) -> String {
+    private static func deriveKey(fromRawAccessToken accessToken: String, prefix: String) -> String {
         let digest = SHA256.hash(data: Data(accessToken.utf8))
         let bytes = [UInt8](digest)
         let hex = bytes.toHexString()
@@ -22,32 +22,34 @@ extension UserDefaults {
     private static let notificationCountKeyPrefix = "notification_count"
     private static let notificationsLastTabIndexKeyPrefix = "last_notification_tab_index"
 
-    public func getNotificationCountWithAccessToken(accessToken: String) -> Int {
+    public func notificationCount(rawAccessToken: String) -> Int {
         let prefix = UserDefaults.notificationCountKeyPrefix
-        let key = UserDefaults.deriveKey(from: accessToken, prefix: prefix)
+        let key = UserDefaults.deriveKey(fromRawAccessToken: rawAccessToken, prefix: prefix)
         return integer(forKey: key)
     }
     
-    public func setNotificationCountWithAccessToken(accessToken: String, value: Int) {
+    public func incrementNotificationCount(rawAccessToken: String) {
         let prefix = UserDefaults.notificationCountKeyPrefix
-        let key = UserDefaults.deriveKey(from: accessToken, prefix: prefix)
-        setValue(value, forKey: key)
+        let key = UserDefaults.deriveKey(fromRawAccessToken: rawAccessToken, prefix: prefix)
+        let currentCount = notificationCount(rawAccessToken: rawAccessToken)
+        setValue(currentCount + 1, forKey: key)
     }
     
-    public func increaseNotificationCount(accessToken: String) {
-        let count = getNotificationCountWithAccessToken(accessToken: accessToken)
-        setNotificationCountWithAccessToken(accessToken: accessToken, value: count + 1)
+    public func setNotificationCount(_ value: Int, rawAccessToken: String) {
+        let prefix = UserDefaults.notificationCountKeyPrefix
+        let key = UserDefaults.deriveKey(fromRawAccessToken: rawAccessToken, prefix: prefix)
+        setValue(value, forKey: key)
     }
 
     @objc public func getLastSelectedNotificationsTabName(accessToken: String) -> String? {
         let prefix = UserDefaults.notificationsLastTabIndexKeyPrefix
-        let key = UserDefaults.deriveKey(from: accessToken, prefix: prefix)
+        let key = UserDefaults.deriveKey(fromRawAccessToken: accessToken, prefix: prefix)
         return object(forKey: key) as? String
     }
     
     @objc public func setLastSelectedNotificationsTabName(accessToken: String, value: String?) {
         let prefix = UserDefaults.notificationsLastTabIndexKeyPrefix
-        let key = UserDefaults.deriveKey(from: accessToken, prefix: prefix)
+        let key = UserDefaults.deriveKey(fromRawAccessToken: accessToken, prefix: prefix)
         setValue(value, forKey: key)
     }
 }
