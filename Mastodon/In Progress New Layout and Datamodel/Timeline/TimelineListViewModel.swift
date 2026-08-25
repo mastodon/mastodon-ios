@@ -15,7 +15,18 @@ import MastodonUI
     private(set) var authenticatedUser: MastodonAuthenticationBox? = AuthenticationServiceProvider.shared.currentActiveUser.value
     private weak var navigator: MastodonNavigationRouter?
     
-    var unreadCount: Int = 0
+    var isCurrentlyOnScreen = false
+    
+    var unseenNewItemsCount: Int = 0 {
+        didSet {
+            if timeline.canDisplayUnreadNotifications
+                && unseenNewItemsCount == 0
+                && isCurrentlyOnScreen {
+                guard let authentication = authenticatedUser?.authentication else { return }
+                UnreadNotificationCounts.shared.setUnreadCount(0, for: authentication)
+            }
+        }
+    }
     private(set) var waitingReplacementItems: [TimelineItem]?
     
     var presentedDonationCampaign: Mastodon.Entity.DonationCampaign?
@@ -70,9 +81,9 @@ import MastodonUI
     }
     
     func updateUnreadCount(scrollAnchor: TimelineItem) {
-        if unreadCount > 0 {
-            if let indexOfNewScrollAnchor = currentDisplaySlice.firstIndex(of: scrollAnchor), indexOfNewScrollAnchor < unreadCount {
-                unreadCount = indexOfNewScrollAnchor
+        if unseenNewItemsCount > 0 {
+            if let indexOfNewScrollAnchor = currentDisplaySlice.firstIndex(of: scrollAnchor), indexOfNewScrollAnchor < unseenNewItemsCount {
+                unseenNewItemsCount = indexOfNewScrollAnchor
             }
         }
     }
@@ -393,7 +404,7 @@ import MastodonUI
             // leave the scrollPosition alone, it should work
             safeToSetNewItemsImmediately = true
             newScrollAnchor = nil
-            newItemsCount = self.unreadCount
+            newItemsCount = self.unseenNewItemsCount
         }
         
         // if this is a thread view, we might need to do the initial scroll to the focused post
@@ -409,7 +420,7 @@ import MastodonUI
         }()
         
         if timeline.canDisplayNewItemsSnackbar {
-            self.unreadCount = newItemsCount
+            self.unseenNewItemsCount = newItemsCount
         }
         
         if safeToSetNewItemsImmediately {
@@ -456,7 +467,13 @@ import MastodonUI
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] _ in
                     if let authBox = self?.authenticatedUser,  UnreadNotificationCounts.shared.unreadCount(for: authBox) > 0 && self?.timeline.canDisplayUnreadNotifications == true {
-                        self?.needsReloadOnNextAppear = true
+                        if self?.isCurrentlyOnScreen == true {
+                            Task {
+                                await self?.forceReload(.notificationCountUpdated)
+                            }
+                        } else {
+                            self?.needsReloadOnNextAppear = true
+                        }
                     }
                 }
         }

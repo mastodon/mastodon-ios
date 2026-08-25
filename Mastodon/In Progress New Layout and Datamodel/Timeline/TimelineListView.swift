@@ -439,8 +439,8 @@ struct TimelineListView: View {
                     
                     // Snackbars at the top right
                     VStack(alignment: .trailing) {
-                        if viewModel.unreadCount > 0 {
-                            Snackbar(barType: .newUnreadItems(viewModel.unreadCount))
+                        if viewModel.unseenNewItemsCount > 0 {
+                            Snackbar(barType: .newUnreadItems(viewModel.unseenNewItemsCount))
                                 .onTapGesture {
                                     viewModel.scrollToTop()
                                 }
@@ -472,15 +472,16 @@ struct TimelineListView: View {
             } // ZStack(alignment: .bottom)
         } // GeometryReader
         .onAppear() {
+            viewModel.isCurrentlyOnScreen = true
             viewModel.clearPendingActions(navigator)
             if viewModel.timeline.canDisplayDonationBanner {
                 Task {
                     await viewModel.askForDonationIfPossible()
                 }
             }
-            if viewModel.timeline.canDisplayUnreadNotifications {
+            if viewModel.timeline.canDisplayUnreadNotifications, let authenticatedUser = viewModel.authenticatedUser {
                 // clear the notification dot on the tab icon
-                NotificationService.shared.clearNotificationCountForActiveUser()
+                NotificationService.shared.clearNotificationCount(for: authenticatedUser)
             }
             if viewModel.needsReloadOnNextAppear {
                 viewModel.needsReloadOnNextAppear = false
@@ -490,6 +491,7 @@ struct TimelineListView: View {
             }
         }
         .onDisappear() {
+            viewModel.isCurrentlyOnScreen = false
             viewModel.loadingState = .untracked
             if viewModel.timeline == .notificationRequests, viewModel.notificationRequestsAcceptanceDidChange {
                 viewModel.notificationRequestsAcceptanceDidChange = false
@@ -1494,7 +1496,7 @@ struct Snackbar: View {
 extension MastodonTimelineType {
     var canDisplayNewItemsSnackbar: Bool {
         switch self {
-        case .homeTimeline:
+        case .homeTimeline, .notifications(scope: .everything), .notifications(scope: .mentions):
             true
         default:
             false

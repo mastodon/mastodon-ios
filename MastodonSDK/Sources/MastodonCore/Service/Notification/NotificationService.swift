@@ -203,10 +203,9 @@ extension NotificationService {
 }
 
 extension NotificationService {
-    public func clearNotificationCountForActiveUser() {
-        if let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
-            UnreadNotificationCounts.shared.setUnreadCount(0, for: authBox.authentication)
-        }
+    public func clearNotificationCount(for authBox: MastodonAuthenticationBox) {
+
+        UnreadNotificationCounts.shared.setUnreadCount(0, for: authBox.authentication)
         
         applicationIconBadgeNeedsUpdate.send()
     }
