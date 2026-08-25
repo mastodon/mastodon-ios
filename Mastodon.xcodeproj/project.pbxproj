@@ -454,7 +454,8 @@
 				Timeline/PrecalculatedRowHeights.swift,
 				Timeline/ThreadedConversationModel.swift,
 				Timeline/TimelineFeedLoader.swift,
-				Timeline/TimelineListViewController.swift,
+				Timeline/TimelineListView.swift,
+				Timeline/TimelineListViewModel.swift,
 			);
 			target = DB427DD125BAA00100D1B89D /* Mastodon */;
 		};
