@@ -20,7 +20,6 @@ extension UserDefaults {
     }
     
     private static let notificationCountKeyPrefix = "notification_count"
-    private static let notificationsLastTabIndexKeyPrefix = "last_notification_tab_index"
 
     public func notificationCount(rawAccessToken: String) -> Int {
         let prefix = UserDefaults.notificationCountKeyPrefix
@@ -35,33 +34,35 @@ extension UserDefaults {
         setValue(currentCount + 1, forKey: key)
     }
     
+    public func summedNotificationCount() -> Int {
+        let prefix = UserDefaults.notificationCountKeyPrefix + "@"
+        return dictionaryRepresentation().keys
+            .filter({ $0.hasPrefix(prefix) })
+            .reduce(0, { previousResult, nextKey in previousResult + integer(forKey: nextKey) })
+    }
+    
     public func setNotificationCount(_ value: Int, rawAccessToken: String) {
         let prefix = UserDefaults.notificationCountKeyPrefix
         let key = UserDefaults.deriveKey(fromRawAccessToken: rawAccessToken, prefix: prefix)
         setValue(value, forKey: key)
     }
-
-    @objc public func getLastSelectedNotificationsTabName(accessToken: String) -> String? {
-        let prefix = UserDefaults.notificationsLastTabIndexKeyPrefix
-        let key = UserDefaults.deriveKey(fromRawAccessToken: accessToken, prefix: prefix)
-        return object(forKey: key) as? String
-    }
     
-    @objc public func setLastSelectedNotificationsTabName(accessToken: String, value: String?) {
-        let prefix = UserDefaults.notificationsLastTabIndexKeyPrefix
-        let key = UserDefaults.deriveKey(fromRawAccessToken: accessToken, prefix: prefix)
-        setValue(value, forKey: key)
-    }
-}
-
-extension UserDefaults {
-    
-    @objc public dynamic var notificationBadgeCount: Int {
-        get {
-            register(defaults: [#function: 0])
-            return integer(forKey: #function)
+    public func pruneNotificationCounts(keepingRawAccessTokens survivingTokens: [String]) {
+        let prefix = UserDefaults.notificationCountKeyPrefix
+        let keysToKeep = Set(survivingTokens.map { UserDefaults.deriveKey(fromRawAccessToken: $0, prefix: prefix)})
+        let countPrefix = prefix + "@"
+        let legacyNotificationsTabPrefix = "last_notification_tab_index@" // this preference was removed in 2026.08
+        for key in dictionaryRepresentation().keys {
+            if key.hasPrefix(legacyNotificationsTabPrefix) {
+                removeObject(forKey: key)
+            } else if key.hasPrefix(countPrefix), !keysToKeep.contains(key) {
+                removeObject(forKey: key)
+            }
         }
-        set { self[#function] = newValue }
     }
-
+    
+    public func removeNotificationCount(forRawAccessToken rawAccessToken: String) {
+        let key = UserDefaults.deriveKey(fromRawAccessToken: rawAccessToken, prefix: UserDefaults.notificationCountKeyPrefix)
+        removeObject(forKey: key)
+    }
 }

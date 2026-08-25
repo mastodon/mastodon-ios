@@ -116,6 +116,7 @@ public class AuthenticationServiceProvider: ObservableObject {
     @MainActor
     private func cleanUpAfterDeleting(authentication: MastodonAuthentication) async throws {
         UserDefaults.standard.removeObject(forKey: authentication.tabCustomizationDefaultsKey)
+        UserDefaults.shared.removeNotificationCount(forRawAccessToken: authentication.userAccessToken)
         PersistenceManager.shared.removeAllCaches(forUser: authentication)
         try? await BodegaPersistence.removeUser(authentication)
         _ = try await APIService.shared.cancelSubscription(domain: authentication.domain, authorization: authentication.authorization)
@@ -201,6 +202,7 @@ public extension AuthenticationServiceProvider {
         }
         self.authentications = keychainAuthentications
         removeUnusedTabCustomizations()
+        UserDefaults.shared.pruneNotificationCounts(keepingRawAccessTokens: keychainAuthentications.map{ $0.userAccessToken })
     }
     
     private func removeUnusedTabCustomizations() {

@@ -104,7 +104,6 @@ public final class NotificationService {
             UnreadNotificationCounts.shared.refreshCounts()
             let count = UnreadNotificationCounts.shared.combinedUnreadCountForAllUsers
             
-            UserDefaults.shared.notificationBadgeCount = count
             UNUserNotificationCenter.current().setBadgeCount(count)
             Task { @MainActor in
                 UIApplication.shared.shortcutItems = try? await self.unreadApplicationShortcutItems()
