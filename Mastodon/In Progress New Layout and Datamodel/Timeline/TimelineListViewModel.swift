@@ -455,7 +455,7 @@ import MastodonUI
             notificationCountUpdateSubscription = NotificationService.shared.unreadNotificationCountDidUpdate
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] _ in
-                    if UserDefaults.shared.notificationBadgeCount > 0 && self?.timeline.canDisplayUnreadNotifications == true {
+                    if let authBox = self?.authenticatedUser,  UnreadNotificationCounts.shared.unreadCount(for: authBox) > 0 && self?.timeline.canDisplayUnreadNotifications == true {
                         self?.needsReloadOnNextAppear = true
                     }
                 }
