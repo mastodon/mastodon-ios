@@ -518,7 +518,8 @@ import MastodonUI
         needsReloadOnNextAppear = false
         switch reason {
         case .notificationCountUpdated:
-            MastodonTabViewRouter.current.fetchFilteredNotificationsPolicy(andReloadFeed: true)
+            loadingState = .requestedReloadFromTop
+            feedLoader.requestLoad(.reload)
         case .notificationFilterPolicyUpdated:
             loadingState = .requestedReloadFromTop
             feedLoader.requestLoad(.reload)
