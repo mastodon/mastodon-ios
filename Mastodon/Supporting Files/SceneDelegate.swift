@@ -15,6 +15,7 @@ import MastodonSDK
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     static private var delegates = [ ObjectIdentifier : SceneDelegate ]()
+    static private var isFetchingAccounts = false
     
     static func assign(delegate: SceneDelegate, to windowScene: UIWindowScene) {
         delegates[ObjectIdentifier(windowScene)] = delegate
@@ -116,6 +117,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 _ = await handler(shortcutItem: shortcutItem)
             }
             savedShortCutItem = nil
+        }
+        
+        // refetch logged in accounts
+        if !SceneDelegate.isFetchingAccounts {
+            SceneDelegate.isFetchingAccounts = true
+            Task {
+                defer { SceneDelegate.isFetchingAccounts = false }
+                await AuthenticationServiceProvider.shared.fetchAccountsIfStale()
+            }
         }
     }
 
