@@ -530,7 +530,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
     
     override func fetchResults(for request: MastodonFeedLoaderRequest) async throws -> CacheableTimeline {
         
-        await AuthenticationServiceProvider.shared.fetchAccounts(onlyIfItHasBeenAwhile: true) // TODO: legacy comments indicated this may not be the best place for this call
+        await AuthenticationServiceProvider.shared.fetchAccountsIfStale() // TODO: legacy comments indicated this may not be the best place for this call
         
         let loadUrl: URL? = {
             switch request {

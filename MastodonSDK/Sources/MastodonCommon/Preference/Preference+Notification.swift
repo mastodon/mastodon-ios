@@ -20,6 +20,17 @@ extension UserDefaults {
     }
     
     private static let notificationCountKeyPrefix = "notification_count"
+    private static let lastSuccessfulAccountFetchPrefix = "last_successful_account_fetch"
+    
+    public func lastSuccessfulAccountFetch(forRawAccessToken rawAccessToken: String) -> Date? {
+        let key = UserDefaults.deriveKey(fromRawAccessToken: rawAccessToken, prefix: UserDefaults.lastSuccessfulAccountFetchPrefix)
+        return object(forKey: key) as? Date
+    }
+    
+    public func setLastSuccessfulAccountFetch(forRawAccessToken rawAccessToken: String) {
+        let key = UserDefaults.deriveKey(fromRawAccessToken: rawAccessToken, prefix: UserDefaults.lastSuccessfulAccountFetchPrefix)
+        set(Date.now, forKey: key)
+    }
 
     public func notificationCount(rawAccessToken: String) -> Int {
         let prefix = UserDefaults.notificationCountKeyPrefix
@@ -47,22 +58,30 @@ extension UserDefaults {
         setValue(value, forKey: key)
     }
     
-    public func pruneNotificationCounts(keepingRawAccessTokens survivingTokens: [String]) {
-        let prefix = UserDefaults.notificationCountKeyPrefix
-        let keysToKeep = Set(survivingTokens.map { UserDefaults.deriveKey(fromRawAccessToken: $0, prefix: prefix)})
-        let countPrefix = prefix + "@"
+    public func prunePerAccountKeys(keepingRawAccessTokens survivingTokens: [String]) {
+        let keysToKeep = Set(survivingTokens.flatMap {
+            [ UserDefaults.deriveKey(fromRawAccessToken: $0, prefix: UserDefaults.notificationCountKeyPrefix),
+                UserDefaults.deriveKey(fromRawAccessToken: $0, prefix: UserDefaults.lastSuccessfulAccountFetchPrefix) ]
+        })
+        let countPrefix = UserDefaults.notificationCountKeyPrefix + "@"
+        let lastFetchPrefix = UserDefaults.lastSuccessfulAccountFetchPrefix + "@"
         let legacyNotificationsTabPrefix = "last_notification_tab_index@" // this preference was removed in 2026.08
         for key in dictionaryRepresentation().keys {
             if key.hasPrefix(legacyNotificationsTabPrefix) {
                 removeObject(forKey: key)
-            } else if key.hasPrefix(countPrefix), !keysToKeep.contains(key) {
+            } else if (key.hasPrefix(countPrefix) || key.hasPrefix(lastFetchPrefix)), !keysToKeep.contains(key) {
                 removeObject(forKey: key)
             }
         }
     }
     
-    public func removeNotificationCount(forRawAccessToken rawAccessToken: String) {
-        let key = UserDefaults.deriveKey(fromRawAccessToken: rawAccessToken, prefix: UserDefaults.notificationCountKeyPrefix)
-        removeObject(forKey: key)
+    public func removeAccountKeys(forRawAccessToken rawAccessToken: String) {
+        let keys = [
+            UserDefaults.deriveKey(fromRawAccessToken: rawAccessToken, prefix: UserDefaults.notificationCountKeyPrefix),
+            UserDefaults.deriveKey(fromRawAccessToken: rawAccessToken, prefix: UserDefaults.lastSuccessfulAccountFetchPrefix)
+        ]
+        for key in keys {
+            removeObject(forKey: key)
+        }
     }
 }
