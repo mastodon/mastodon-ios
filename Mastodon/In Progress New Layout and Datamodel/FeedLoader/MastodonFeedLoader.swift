@@ -180,23 +180,16 @@ extension MastodonFeedLoader {
     }
     
     /// Use only with pull to refresh, in order to properly update the progress spinner.
-    public var permissionToLoadImmediately: Bool {
-        if isFetching {
-            return false
-        } else {
-            isFetching = true
-            return true
-        }
-    }
-    /// Use only with pull to refresh, in order to properly update the progress spinner.
-    public func loadImmediately(_ request: MastodonFeedLoaderRequest) async {
-        guard isFetching else { assertionFailure("request permissionToLoadImmediately before calling loadImmediately"); return }
+    public func loadImmediatelyIfPossible(_ request: MastodonFeedLoaderRequest) async -> Bool {
+        guard !isFetching else { return false }
+        isFetching = true
         do {
             try await load(request)
             currentError = nil
         } catch {
             currentError = error
         }
+        return true
     }
     
     func load(_ request: MastodonFeedLoaderRequest) async throws

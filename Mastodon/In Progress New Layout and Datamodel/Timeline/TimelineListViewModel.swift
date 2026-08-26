@@ -551,8 +551,7 @@ import MastodonUI
             if timeline.canDisplayFilteredNotifications {
                 MastodonTabViewRouter.current.fetchFilteredNotificationsPolicy(andReloadFeed: false)
             }
-            if feedLoader.permissionToLoadImmediately {
-                await feedLoader.loadImmediately(.reload)
+            if await feedLoader.loadImmediatelyIfPossible(.reload) {
                 await feedLoader.clearCache() // reset the cache when user refreshes
                 commitToCache()
             }
