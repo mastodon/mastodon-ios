@@ -106,6 +106,7 @@ struct MastodonMainTabView: View {
                         .customizationID(tab.id)
                         .customizationBehavior(tab.customizationBehavior, for: .tabBar, .sidebar)
                         .defaultVisibility(tab.defaultTabBarVisibility, for: .tabBar)
+                        .badge(notificationBadge(for: tab, authBox: authBox))
                     }
                 }
             }
@@ -163,6 +164,13 @@ struct MastodonMainTabView: View {
                     .hashtag(tag)
             }
         }
+    }
+    
+    private func notificationBadge(for tab: MastodonTabViewRouter.MastodonTab, authBox: MastodonAuthenticationBox) -> Text? {
+        guard tab == .notifications else { return nil }
+        let count = UnreadNotificationCounts.shared.unreadCount(for: authBox)
+        guard count > 0 else { return nil }
+        return Text(count.formatted())
     }
     
     private func loadTabCustomization(_ authBox: MastodonAuthenticationBox?) {
