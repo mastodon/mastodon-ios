@@ -369,19 +369,29 @@ struct MastodonMainTabView: View {
     }
     
     @ViewBuilder private func alternateAccountButtons() -> some View {
-        // List additional logged-in accounts
+        // List additional logged-in accounts, with their unread notification counts if non-zero
         ForEach(AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.filter({ $0.globallyUniqueUserIdentifier != AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier }), id: \.self.globallyUniqueUserIdentifier) { authBox in
             Button {
                 self.switchTo(authBox)
             } label: {
-                Label {
-                    if let handle = authBox.cachedAccount?.acctWithDomain {
-                        Text("@\(handle)")
-                    } else {
-                        Text(authBox.cachedAccount?.displayName ?? "")
+                HStack(alignment: .firstTextBaseline) {
+                    Label {
+                        if let handle = authBox.cachedAccount?.acctWithDomain {
+                            Text("@\(handle)")
+                        } else {
+                            Text(authBox.cachedAccount?.displayName ?? "")
+                        }
+                    } icon: {
+                        avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular) ?? Image(systemName: "app.dashed")
                     }
-                } icon: {
-                    avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular) ?? Image(systemName: "app.dashed")
+                    
+                    let unreadNotificationCount = UnreadNotificationCounts.shared.unreadCount(for: authBox)
+                    Spacer()
+                    if unreadNotificationCount > 0 {
+                        Text(unreadNotificationCount.formatted())
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
                 }
                 .padding(.horizontal)
                 .padding(.vertical, tinySpacing)
