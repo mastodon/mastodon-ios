@@ -15,6 +15,12 @@ import MastodonCore
 import MastodonSDK
 import MastodonLocalization
 
+public enum PublishCompletionStatus {
+    case success
+    case failure(Error)
+    case cancelled
+}
+
 public protocol ComposeContentViewModelDelegate: AnyObject {
     func composeContentViewModel(_ viewModel: ComposeContentViewModel, handleAutoComplete info: ComposeContentViewModel.AutoCompleteInfo) -> Bool
 }
@@ -57,12 +63,12 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published public internal(set) var composeContext: ComposeContext
     let destination: Destination
     weak var delegate: ComposeContentViewModelDelegate?
-    let completion: ((Bool)->())?
+    public var completion: ((PublishCompletionStatus)->())?
     
     @Published var viewLayoutFrame = ViewLayoutFrame()
     
     // author (me)
-    @Published var authenticationBox: MastodonAuthenticationBox
+    @Published public var authenticationBox: MastodonAuthenticationBox
     
     // auto-complete info
     @Published var autoCompleteRetryLayoutTimes = 0
@@ -153,7 +159,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published var isAttachmentButtonEnabled = false
     @Published var isPollButtonEnabled = false
     
-    @Published public private(set) var shouldDismiss = true
+    @Published public private(set) var dismissWithoutConfirmation = true
+    public let requestConfirmToDismiss: Bool
     
     // size limit
     public var sizeLimit: AttachmentViewModel.SizeLimit {
@@ -168,11 +175,13 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         composeContext: ComposeContext,
         destination: Destination,
         initialContent: String,
-        completion: ((Bool)->())?
+        requestConfirmToDismiss: Bool,
+        completion: ((PublishCompletionStatus)->())?
     ) {
         self.authenticationBox = authenticationBox
         self.destination = destination
         self.composeContext = composeContext
+        self.requestConfirmToDismiss = requestConfirmToDismiss
         self.completion = completion
         
         self.customEmojiViewModel = EmojiService.shared.dequeueCustomEmojiViewModel(
@@ -361,7 +370,8 @@ extension ComposeContentViewModel {
         isPublishing = true
     }
     
-    public func donePublishing() {
+    public func donePublishing(_ outcome: PublishCompletionStatus) {
+        completion?(outcome)
         isPublishing = false
     }
     
@@ -566,6 +576,8 @@ extension ComposeContentViewModel {
         )
         .receive(on: DispatchQueue.main)
         .map { contentWarning, content, hasPoll, attachments in
+            if !self.requestConfirmToDismiss { return true }
+            
             let trimmedContent = content.trimmingCharacters(in: .whitespacesAndNewlines)
             let initialContent = self.initialContent.trimmingCharacters(in: .whitespacesAndNewlines)
             let canDiscardContent = trimmedContent.isEmpty || trimmedContent == initialContent
@@ -576,7 +588,7 @@ extension ComposeContentViewModel {
 
             return canDiscardContent && canDiscardPoll && canDiscardAttachments
         }
-        .assign(to: &$shouldDismiss)
+        .assign(to: &$dismissWithoutConfirmation)
     }
 }
 

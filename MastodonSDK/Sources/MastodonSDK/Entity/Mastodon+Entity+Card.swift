@@ -11,7 +11,7 @@ extension Mastodon.Entity {
     /// Card
     ///
     /// - Since: 1.0.0
-    /// - Version: 3.3.0
+    /// - Version: 4.6.0
     /// # Last Update
     ///   2021/1/28
     /// # Reference
@@ -37,6 +37,8 @@ extension Mastodon.Entity {
         public let blurhash: String?
         public let authors: [Mastodon.Entity.Card.Author]?
         public let publishedAt: Date?
+        public let missingAttribution: Bool?  //  True if the linked article claims to be written by the current user without the user having the article’s domain in their attribution_domains). This is used to prompt them to review and add the domain.
+        public let history: [History]? // included if this link was retrieved from the trends/links endpoint
 
         enum CodingKeys: String, CodingKey {
             case url
@@ -55,6 +57,8 @@ extension Mastodon.Entity {
             case blurhash
             case authors
             case publishedAt = "published_at"
+            case missingAttribution = "missing_attribution"
+            case history
         }
     }
 }

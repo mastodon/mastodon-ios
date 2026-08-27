@@ -64,6 +64,19 @@ public enum NotificationsScope: Hashable {
 public enum DiscoveryType: Equatable {
     case posts
     case hashtags
+    case news
+    case forYou
+}
+
+@Observable public class SearchQueryModel: Identifiable {
+    public let id = UUID()
+    var trimmedSearchString: String
+    var scope: SearchScope
+    
+    init(scope: SearchScope = .all, trimmedSearchString: String = "") {
+        self.scope = scope
+        self.trimmedSearchString = trimmedSearchString
+    }
 }
                                 
 public enum MastodonTimelineType: Equatable {
@@ -77,7 +90,8 @@ public enum MastodonTimelineType: Equatable {
     case hashtag(Mastodon.Entity.Tag, includeHeader: Bool)
     case collection(CollectionViewModel)
     case discover(DiscoveryType)
-    case search(String, SearchScope)
+    case linkMentions(String)
+    case search(SearchQueryModel)
     case userPosts(userID: String, queryFilter: TimelineQueryFilter)
     case featuredItems(userID: String)
     case followers(ofUserId: String)
@@ -87,6 +101,7 @@ public enum MastodonTimelineType: Equatable {
     case thread(root: MastodonContentPost)
     case remoteThread(remoteType: RemoteThreadType)
     case notifications(scope: NotificationsScope)
+    case notificationRequests
     case whoFavourited(actionableStatusID: Mastodon.Entity.Status.ID)
     case whoBoosted(actionableStatusID: Mastodon.Entity.Status.ID)
     // *** WHEN ADDING A CASE, make sure to update the == definition below
@@ -109,8 +124,10 @@ public enum MastodonTimelineType: Equatable {
             return firstTag == secondTag && firstHeader == secondHeader
         case (.discover(let firstType), .discover(let secondType)):
             return firstType == secondType
-        case (.search(let firstText, let firstScope), .search(let secondText, let secondScope)):
-            return firstText == secondText && firstScope == secondScope
+        case (.linkMentions(let firstURL), .linkMentions(let secondURL)):
+            return firstURL == secondURL
+        case (.search(let first), .search(let second)):
+            return first.id == second.id
         case (.userPosts(let firstID, _), .userPosts(let secondID, _)):
             return firstID == secondID
         case (.featuredItems(let userIDFirst), .featuredItems(let userIDSecond)):
@@ -136,6 +153,8 @@ public enum MastodonTimelineType: Equatable {
             }
         case (.notifications(let firstScope), .notifications(let secondScope)):
             return firstScope == secondScope
+        case (.notificationRequests, .notificationRequests):
+            return true
         case (.whoFavourited(let actionableStatusIdFirst), .whoFavourited(let actionableStatusIdSecond)):
             return actionableStatusIdFirst == actionableStatusIdSecond
         case (.whoBoosted(let actionableStatusIdFirst), .whoBoosted(let actionableStatusIdSecond)):
@@ -214,7 +233,7 @@ public enum MastodonTimelineType: Equatable {
                 .home
         case .local:
                 .public
-        case .discover:
+        case .discover, .linkMentions:
                 .public
         case .search:
             nil
@@ -234,6 +253,8 @@ public enum MastodonTimelineType: Equatable {
             nil
         case .notifications:
                 .notifications
+        case .notificationRequests:
+            nil
         case .whoFavourited, .whoBoosted:
             nil
         }
@@ -312,12 +333,15 @@ enum TimelineItem: Identifiable {
     case pinnedPosts([TimelineItem])
     case post(MastodonPostViewModel, isPinned: Bool)
     case notification(NotificationRowViewModel)
+    case notificationRequest(NotificationRequestModel)
     case hashtag(HashtagRowViewModel)
+    case link(Mastodon.Entity.Card)
     case account(AccountRowViewModel)
     case collection(CollectionViewModel)
     case filteredNotificationsInfo(
         Mastodon.Entity.NotificationPolicy?,
         FilteredNotificationsRowView.ViewModel?)
+    case scopedSearchResults(SearchQueryModel)
     case loadingIndicator
     case noItem
     
@@ -331,14 +355,20 @@ enum TimelineItem: Identifiable {
             return "post-\(postViewModel.initialDisplayInfo.id)\(isPinned ? "-pinned" : "")"
         case .notification(let groupedNotificationInfo):
             return "notification-\(groupedNotificationInfo.id)"
+        case .notificationRequest(let request):
+            return "notificationRequest-\(request.id)"
         case .hashtag(let tagViewModel):
             return "hashtag-\(tagViewModel.id)"
+        case .link(let link):
+            return "link-\(link.url)"
         case .account(let accountViewModel):
             return "account-\(accountViewModel.id)"
         case .collection(let collectionViewModel):
             return "collection-\(collectionViewModel.id)"
         case .filteredNotificationsInfo:
             return "filteredNotifications"
+        case .scopedSearchResults(let queryModel):
+            return "scopedSearchResults-\(queryModel.scope)-\(queryModel.trimmedSearchString)"
         case .loadingIndicator:
             return "loading..."
         case .noItem:
@@ -356,13 +386,19 @@ enum TimelineItem: Identifiable {
             return postViewModel.initialDisplayInfo.id
         case .notification(let groupedNotificationInfo):
             return groupedNotificationInfo.id
+        case .notificationRequest(let request):
+            return request.id
         case .hashtag(let tagViewModel):
             return tagViewModel.id
+        case .link(let link):
+            return link.url
         case .account(let accountViewModel):
             return accountViewModel.id
         case .collection(let collectionViewModel):
             return collectionViewModel.id
         case .filteredNotificationsInfo:
+            return nil
+        case .scopedSearchResults:
             return nil
         case .loadingIndicator:
             return nil
@@ -373,9 +409,9 @@ enum TimelineItem: Identifiable {
     
     var isRealItem: Bool {
         switch self {
-        case .pinnedPosts, .post, .notification, .hashtag, .account, .collection:
+        case .pinnedPosts, .post, .notification, .notificationRequest, .hashtag, .link, .account, .collection:
             return true
-        case .heading, .filteredNotificationsInfo, .loadingIndicator, .noItem:
+        case .heading, .filteredNotificationsInfo, .scopedSearchResults, .loadingIndicator, .noItem:
             return false
         }
     }
@@ -476,9 +512,11 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                             break // this update is handled by the CentralPostViewModelCache
                         case .notification(let notificationModel):
                             notificationModel.incorporateUpdate(update)
+                        case .notificationRequest:
+                            break
                         case .hashtag(let hashtagModel):
                             hashtagModel.incorporateUpdate(update)
-                        case .filteredNotificationsInfo, .loadingIndicator, .noItem, .collection, .heading:
+                        case .filteredNotificationsInfo, .scopedSearchResults, .loadingIndicator, .noItem, .collection, .heading, .link:
                             break
                         }
                     }
@@ -491,8 +529,6 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
     }
     
     override func fetchResults(for request: MastodonFeedLoaderRequest) async throws -> CacheableTimeline {
-        
-        await AuthenticationServiceProvider.shared.fetchAccounts(onlyIfItHasBeenAwhile: true) // TODO: legacy comments indicated this may not be the best place for this call
         
         let loadUrl: URL? = {
             switch request {
@@ -550,14 +586,14 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             let isPinnedByMe = (post as? MastodonContentPost)?.content.myActions.pinnedByMe
             return TimelineItem.post(viewModel, isPinned: isPinned || (isPinnedByMe == true))
         }
-        func timelineItem(fromAccount accountEntity: Mastodon.Entity.Account) -> TimelineItem {
+        func timelineItem(fromAccount accountEntity: Mastodon.Entity.Account, suggestedBecause: [Mastodon.Entity.V2.SuggestionAccount.SuggestionReason]?) -> TimelineItem {
             let account = MastodonAccount.fromEntity(accountEntity, authenticatedDomain: authenticatedUser.domain)
             let viewModel = {
                 if let existing = accountViewModels[account.id] {
-                    existing.updateAccount(account)
+                    existing.updateAccount(account, suggestionReasons: suggestedBecause)
                     return existing
                 } else {
-                    let model = AccountRowViewModel(account: account)
+                    let model = AccountRowViewModel(account: account, suggestedBecause: suggestedBecause)
                     newAccountModels[account.id] = model
                     return model
                 }
@@ -601,6 +637,9 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             }()
             newHashtagModels[hashtag.uniqueID] = viewModel
             return TimelineItem.hashtag(viewModel)
+        }
+        func timelineItem(fromNewsLink link: Mastodon.Entity.Card) -> TimelineItem {
+            return TimelineItem.link(link)
         }
 
         let newBatch: [TimelineItem]
@@ -687,7 +726,10 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         case .collection(let collectionViewModel):
             let accountIDs = collectionViewModel.collection.items.compactMap { $0.account_id }
             let response = try await APIService.shared.accountsInfo(userIDs: accountIDs, authenticationBox: authenticatedUser)
-            let accounts = response.map { timelineItem(fromAccount: $0) }
+            let accounts: [TimelineItem] = accountIDs.compactMap {
+                guard let account = response[$0] else { return nil }
+                return timelineItem(fromAccount: account, suggestedBecause: nil)
+            }
             newBatch = accounts
             newBatchBottomLoad = .nothingMoreToLoad
             newAsyncRefreshAvailable = nil
@@ -728,31 +770,101 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 newBatch = response.value.map { timelineItem(fromHashtag: $0) }
                 newBatchBottomLoad = bottomLoad(fromLink: response.link)
                 newAsyncRefreshAvailable = response.asyncRefreshAvaliable
+            case .news:
+                let response = try await {
+                    if let loadUrl {
+                        return try await APIService.shared.links(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                    } else {
+                        return try await APIService.shared.trendLinks(
+                            domain: authenticatedUser.domain,
+                            query: .init(offset: nil, limit: nil),
+                            authenticationBox: authenticatedUser
+                        )
+                    }
+                }()
+                newBatch = response.value.map { timelineItem(fromNewsLink: $0) }
+                newBatchBottomLoad = bottomLoad(fromLink: response.link)
+                newAsyncRefreshAvailable = response.asyncRefreshAvaliable
+            case .forYou:
+                let response = try await {
+                    if let loadUrl {
+                        return try await APIService.shared.suggestionAccounts(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                    } else {
+                            return try await APIService.shared.suggestionAccountV2(
+                                query: nil,
+                                authenticationBox: authenticatedUser
+                            )
+                    }
+                }()
+               
+                newBatch = response.value.map { suggestion in
+                    let suggestedBecause = suggestion.sources ?? [suggestion.source].compactMap{$0}
+                    return timelineItem(fromAccount: suggestion.account, suggestedBecause: suggestedBecause.isEmpty ? nil : suggestedBecause)
+                }
+                newBatchBottomLoad = bottomLoad(fromLink: response.link)
+                newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             }
-        case .search(let searchText, let scope):
-            let query = Mastodon.API.V2.Search.Query(
-                q: searchText,
-                type: scope.searchType,
-                accountID: nil,
-                maxID: nil,
-                minID: nil,
-                excludeUnreviewed: nil,
-                resolve: true,
-                limit: nil,
-                offset: 0,
-                following: nil
-            )
-            let response = try await APIService.shared.search(
-                query: query,
-                authenticationBox: authenticatedUser
-            )
-            let results = response.value
-            let statuses = results.statuses.map { timelineItem(fromStatus: $0, isPinned: false) }
-            let hashtags = results.hashtags.map { timelineItem(fromHashtag: $0) }
-            let accounts = results.accounts.map { timelineItem(fromAccount: $0) }
-            newBatch = accounts + hashtags + statuses
+        case .linkMentions(let url):
+            let response = try await {
+                if let loadUrl {
+                    return try await APIService.shared.statuses(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                } else {
+                    return try await APIService.shared.linkMentionsTimeline(
+                        linkUrl: url,
+                        authenticationBox: authenticatedUser
+                    )
+                }
+            }()
+            newBatch = response.value.map { timelineItem(fromStatus: $0, isPinned: false) }
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
+        case .search(let searchModel):
+            let trimmedSearchText = searchModel.trimmedSearchString
+            
+            func scopedResultsEntry(_ scope: SearchScope) -> TimelineItem {
+                .scopedSearchResults(SearchQueryModel(scope: scope, trimmedSearchString: searchModel.trimmedSearchString))
+            }
+            
+            if trimmedSearchText.isEmpty {
+                newBatch = []
+                newBatchBottomLoad = .nothingMoreToLoad
+                newAsyncRefreshAvailable = nil
+            } else {
+                let query = Mastodon.API.V2.Search.Query(
+                    q: trimmedSearchText,
+                    type: searchModel.scope.searchType,
+                    accountID: nil,
+                    maxID: nil,
+                    minID: nil,
+                    excludeUnreviewed: nil,
+                    resolve: true,
+                    limit: searchModel.scope == .all ? 3 : nil,
+                    offset: 0,
+                    following: nil
+                )
+                let response = try await APIService.shared.search(
+                    query: query,
+                    authenticationBox: authenticatedUser
+                )
+                let results = response.value
+                let statuses = results.statuses.map { timelineItem(fromStatus: $0, isPinned: false) }
+                let hashtags = results.hashtags.map { timelineItem(fromHashtag: $0) }
+                let accounts = results.accounts.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
+                newBatch = {
+                    switch searchModel.scope {
+                    case .all:
+                        let combinedResults =
+                        accounts + [scopedResultsEntry(.people)]
+                        + hashtags + [scopedResultsEntry(.hashtags)]
+                        + statuses + [scopedResultsEntry(.posts)]
+                        return combinedResults
+                    default:
+                        return accounts + hashtags + statuses
+                    }
+                }()
+                newBatchBottomLoad = bottomLoad(fromLink: response.link)
+                newAsyncRefreshAvailable = response.asyncRefreshAvaliable
+            }
             
         case .userPosts(let userID, let queryFilter):
             let pinnedPosts = try await APIService.shared.userTimeline(
@@ -807,7 +919,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     return try await APIService.shared.featuredAccounts(userID: userID, maxID: nil, authenticationBox: authenticatedUser)
                 }
             }()
-            let accounts = accountsResponse.value.map { timelineItem(fromAccount: $0) }
+            let accounts = accountsResponse.value.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
             let collections: [TimelineItem] = await {
                 guard UserDefaults.standard.showCollections else { return [] }
                 do {
@@ -834,7 +946,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     return try await APIService.shared.following(userID: userId, maxID: nil, authenticationBox: authenticatedUser)
                 }
             }()
-            newBatch = response.value.map { timelineItem(fromAccount: $0) }
+            newBatch = response.value.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
@@ -846,7 +958,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     return try await APIService.shared.followers(userID: userId, maxID: nil, authenticationBox: authenticatedUser)
                 }
             }()
-            newBatch = response.value.map { timelineItem(fromAccount: $0) }
+            newBatch = response.value.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
@@ -856,7 +968,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             }()
             newBatch = {
                 guard let familiarFollowersList = response.value.first?.accounts else { return [] }
-                return familiarFollowersList.map { timelineItem(fromAccount: $0) }
+                return familiarFollowersList.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
             }()
             newBatchBottomLoad = .nothingMoreToLoad
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
@@ -914,7 +1026,6 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     return try await APIService.shared.hashtags(fromUrl: loadUrl, authenticationBox: authenticatedUser)
                 } else {
                     return try await APIService.shared.getFollowedTags(
-                        domain: authenticatedUser.domain,
                         query: Mastodon.API.Account.FollowedTagsQuery(limit: nil),
                         authenticationBox: authenticatedUser
                     )
@@ -964,7 +1075,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     )
                 }
             }()
-            newBatch = response.value.map { timelineItem(fromAccount: $0) }
+            newBatch = response.value.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
@@ -980,7 +1091,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     )
                 }
             }()
-            newBatch = response.value.map { timelineItem(fromAccount: $0) }
+            newBatch = response.value.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
             newBatchBottomLoad = bottomLoad(fromLink: response.link)
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
@@ -1022,6 +1133,15 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             }
             newBatchBottomLoad = bottomLoad(fromLink: response.1)
             newAsyncRefreshAvailable = response.2
+            
+        case .notificationRequests:
+            let response = try await APIService.shared
+                        .notificationRequests(authenticationBox: authenticatedUser)
+            newBatch = response.value.compactMap { notificationRequest in
+                return TimelineItem.notificationRequest(NotificationRequestModel(notificationRequest, authenticatedUser: authenticatedUser))
+            }
+            newBatchBottomLoad = .nothingMoreToLoad
+            newAsyncRefreshAvailable = nil
         }
         
         let newCache: CacheableTimeline
@@ -1104,7 +1224,7 @@ struct CacheableTimeline: CacheableFeed {
         }
         return items.compactMap { item -> TimelineItem? in
             switch item {
-            case .heading, .loadingIndicator, .filteredNotificationsInfo:
+            case .heading, .loadingIndicator, .filteredNotificationsInfo, .scopedSearchResults:
                 return item
             case .noItem:
                 return nil
@@ -1117,9 +1237,9 @@ struct CacheableTimeline: CacheableFeed {
                 } else {
                     return .pinnedPosts(filteredItems)
                 }
-            case .notification:
+            case .notification, .notificationRequest:
                 return item
-            case .hashtag, .account, .collection:
+            case .hashtag, .link, .account, .collection:
                 return item
             }
         }
@@ -1137,10 +1257,11 @@ struct CacheableTimeline: CacheableFeed {
         if discardOlderIfNoOverlap {
             let oldestIdInNewBatch = newer.last(where: { item in
                 switch item {
-                case .loadingIndicator, .filteredNotificationsInfo, .noItem, .heading: return false
+                case .loadingIndicator, .filteredNotificationsInfo, .scopedSearchResults, .noItem, .heading: return false
                 case .post, .pinnedPosts: return true
-                case .notification: return true
+                case .notification, .notificationRequest: return true
                 case .hashtag: return true
+                case .link: return true
                 case .account: return true
                 case .collection: return true
                 }
@@ -1153,15 +1274,17 @@ struct CacheableTimeline: CacheableFeed {
                         return item.id == oldestIdInNewBatch
                     case .pinnedPosts:
                         return item.id == oldestIdInNewBatch
-                    case .notification:
+                    case .notification, .notificationRequest:
                         return item.id == oldestIdInNewBatch
                     case .hashtag:
+                        return item.id == oldestIdInNewBatch
+                    case .link:
                         return item.id == oldestIdInNewBatch
                     case .account:
                         return item.id == oldestIdInNewBatch
                     case .collection:
                         return item.id == oldestIdInNewBatch
-                    case .heading, .loadingIndicator, .filteredNotificationsInfo, .noItem:
+                    case .heading, .loadingIndicator, .filteredNotificationsInfo, .scopedSearchResults, .noItem:
                         return false
                     }
                 })
@@ -1197,7 +1320,7 @@ struct CacheableTimeline: CacheableFeed {
     func byDeleting(postId: Mastodon.Entity.Status.ID) -> CacheableTimeline {
         let newItems = items.compactMap { item -> TimelineItem? in
             switch item {
-            case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account, .collection:
+            case .heading, .loadingIndicator, .scopedSearchResults, .filteredNotificationsInfo, .hashtag, .link, .account, .collection:
                 return item
             case .post(let postViewModel, _):
                 if postViewModel.fullPost?.actionablePost?.id != postId {
@@ -1219,7 +1342,7 @@ struct CacheableTimeline: CacheableFeed {
                 } else {
                     return .pinnedPosts(undeletedModels)
                 }
-            case .notification:
+            case .notification, .notificationRequest:
                 return item
             case .noItem:
                 return nil
@@ -1351,25 +1474,20 @@ extension TimelineFeedLoader {
         }
     }
     
-    func fetchRelationships(_ batch: [Mastodon.Entity.Account.ID]) async throws -> [MastodonAccount.Relationship] {
-        guard !batch.isEmpty else { return [] }
+    func fetchRelationships(_ batch: [Mastodon.Entity.Account.ID]) async throws -> [String : MastodonAccount.Relationship] {
+        guard !batch.isEmpty else { return [:] }
         
-        let chunkSize = 100
-        var relationships = [Mastodon.Entity.Relationship]()
-        for start in stride(from: 0, to: batch.count, by: chunkSize) { // asking for too many at once can cause an API error
-            let end = min(start + chunkSize, batch.count)
-            let chunk = Array(batch[start..<end])
-            let chunkResults = try await APIService.shared.relationship(forAccountIds: chunk, authenticationBox: authenticatedUser).value
-            relationships.append(contentsOf: chunkResults)
-        }
+        let relationships = try await APIService.shared.relationship(forAccountIds: batch, authenticationBox: authenticatedUser)
         
         let currentTimestamp = Date.now
-        var result = [MastodonAccount.Relationship]()
-        for relationshipEntity in relationships {
-            guard relationshipEntity.id != myAccountID else { continue }
+        var result = [String : MastodonAccount.Relationship]()
+
+        for id in relationships.keys {
+            guard id != myAccountID else { continue }
+            guard let relationshipEntity = relationships[id] else { continue }
             let relationship = MastodonAccount.Relationship.isNotMe(MastodonAccount.RelationshipInfo(relationshipEntity, fetchedAt: currentTimestamp))
-            cachedRelationships[relationshipEntity.id] = relationship
-            result.append(relationship)
+            cachedRelationships[id] = relationship
+            result[id] = relationship
         }
         
         return result
@@ -1395,8 +1513,9 @@ extension TimelineFeedLoader {
         let accounts = try await APIService.shared.accountsInfo(userIDs: accountsToFetch, authenticationBox: authenticatedUser)
         
         accountsCache.removeAll(keepingCapacity: true)
-        for account in accounts {
-            accountsCache[account.id] = MastodonAccount.fromEntity(account, authenticatedDomain: authenticatedUser.domain)
+        for accountID in accounts.keys {
+            guard let accountEntity = accounts[accountID] else { continue }
+            accountsCache[accountID] = MastodonAccount.fromEntity(accountEntity, authenticatedDomain: authenticatedUser.domain)
         }
     }
 }
@@ -1427,7 +1546,7 @@ extension TimelineFeedLoader {
         }
         for item in cache.items {
             switch item {
-            case .heading, .loadingIndicator, .filteredNotificationsInfo, .hashtag, .account, .noItem:
+            case .heading, .loadingIndicator, .filteredNotificationsInfo, .scopedSearchResults, .hashtag, .link, .account, .noItem:
                 break
             case .post:
                 create(forPostItem: item)
@@ -1439,6 +1558,8 @@ extension TimelineFeedLoader {
                 break
             case .notification:
                 // TODO: create conceal models for summarized statuses?
+                break
+            case .notificationRequest:
                 break
             }
         }

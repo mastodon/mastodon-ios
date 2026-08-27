@@ -85,3 +85,23 @@ extension View {
         )
     }
 }
+
+struct SharedBackgroundVisibilityHidden<WrappedContent: ToolbarContent>: ToolbarContent {
+    let content: WrappedContent
+    
+    @ToolbarContentBuilder
+    var body: some ToolbarContent {
+        if #available(iOS 26.0, *) {
+            content
+                .sharedBackgroundVisibility(.hidden)
+        } else {
+            content
+        }
+    }
+}
+
+extension ToolbarContent {
+    func sharedBackgroundVisibilityHidden() -> some ToolbarContent {
+        SharedBackgroundVisibilityHidden(content: self)
+    }
+}

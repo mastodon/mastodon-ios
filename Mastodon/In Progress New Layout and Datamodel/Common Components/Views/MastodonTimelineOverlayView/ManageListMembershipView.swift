@@ -158,14 +158,12 @@ enum ListManagementNavigationDestination: Hashable {
     func createList() async throws -> Mastodon.Entity.List {
         guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { throw APIService.APIError.explicit(.authenticationMissing) }
         
-        let newList = try await Mastodon.API.Lists.createList(
+        let newList = try await APIService.shared.createList(
+            authenticationBox: currentUser,
             listName: listNameFieldEditingViewModel.stringContent,
-            replyPolicy: repliesPolicySelection.apiPolicy,
-            removeFromHome: removePostsFromHomeFeed,
-            session: .shared,
-            domain: currentUser.domain,
-            authorization: currentUser.userAuthorization
-        ).singleOutput().value
+            repliesPolicy: repliesPolicySelection.apiPolicy,
+            removeFromHomeFeed: removePostsFromHomeFeed
+        )
         
         return newList
     }

@@ -8,6 +8,7 @@ import SwiftUI
 @Observable class AccountRowViewModel {
     private(set) var account: MastodonAccount
     private var relationshipViewModel = RelationshipViewModel()
+    private(set) var suggestionReasons: [Mastodon.Entity.V2.SuggestionAccount.SuggestionReason]?
     var actionHandler: MastodonPostMenuActionHandler?
     var relationshipButton: RelationshipButtonType = .updating
     var accountFollowsMe: Bool? {
@@ -20,9 +21,12 @@ import SwiftUI
     }
     nonisolated let id: Mastodon.Entity.Account.ID
     
-    init(account: MastodonAccount) {
+    public var myRelationship: MastodonAccount.Relationship? { relationshipViewModel.relationship }
+    
+    init(account: MastodonAccount, suggestedBecause: [Mastodon.Entity.V2.SuggestionAccount.SuggestionReason]?) {
         self.account = account
         self.id = account.id
+        suggestionReasons = suggestedBecause
     }
     
     func prepareForDisplay(withRelationship relationship: MastodonAccount.Relationship) {
@@ -30,18 +34,17 @@ import SwiftUI
         relationshipButton = relationshipViewModel.button
     }
     
-    func updateAccount(_ updated: MastodonAccount) {
+    func updateAccount(_ updated: MastodonAccount, suggestionReasons: [Mastodon.Entity.V2.SuggestionAccount.SuggestionReason]?) {
         account = updated
+        if let suggestionReasons {
+            self.suggestionReasons = suggestionReasons
+        }
     }
     
     func doRelationshipButtonAction(navigator: MastodonNavigationRouter, isInCollection: Bool) async throws {
         if let action = relationshipViewModel.button.buttonAction(isInCollection: isInCollection).mastodonRelationshipMenuAction {
             try await relationshipViewModel.doMenuAction(action, forAccount: account, navigator: navigator)
         }
-    }
-    
-    func goToProfile(navigator: MastodonNavigationRouter) {
-        navigator.push(.profile(account: account._legacyEntity, relationship: relationshipViewModel.relationship))
     }
 }
 

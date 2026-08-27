@@ -373,11 +373,102 @@ struct NotificationSourceAccounts {
 }
 
 fileprivate let avatarSpacing: CGFloat = 8
+fileprivate let disclosureIndicatorSize = AvatarSize.large
+
+struct NotificationRequestRowView: View {
+    let contentWidth: CGFloat
+    
+    @Environment(NotificationRequestModel.self) var viewModel
+    @Environment(MastodonNavigationRouter.self) var navigator
+    @Environment(TimelineListViewModel.self) var timelineViewModel
+    
+    var body: some View {
+        VStack(alignment: .gutterAlign, spacing: 0) {
+            HStack(alignment: .top, spacing: 0) {
+                // ICON
+                AvatarView(style: .roundedRect, size: .large, avatarSource: .url(viewModel.account.avatarURL))
+                    .onAsyncTap {
+                        navigator.push(.profile(account: viewModel.account._legacyEntity, relationship: nil))
+                    } onError: { error in
+                        navigator.didReceiveError(error)
+                    }
+                
+                Spacer()
+                    .frame(width: spacingBetweenGutterAndContent)
+                
+                HStack(alignment: .top, spacing: 0) {
+                    VStack(alignment: .leading, spacing: standardPadding) {
+                        AccountDisplayNameAndHandle(account: viewModel.account, includeVerifiedLink: true)
+                        HStack {
+                            Button {
+                                viewModel.state = .accepting(true)
+                                Task {
+                                    do {
+                                        try await viewModel.acceptRequest()
+                                        viewModel.state = .accepted(true)
+                                        timelineViewModel.notificationRequestsAcceptanceDidChange = true
+                                    } catch {
+                                        viewModel.state = .undecided
+                                        navigator.didReceiveError(error)
+                                    }
+                                }
+                            } label: {
+                                Label {
+                                    Text(L10n.Scene.Notification.FilteredNotification.accept)
+                                } icon: {
+                                    Image(systemName: "checkmark")
+                                }
+                            }
+                            .disabled(viewModel.state != .undecided)
+                            
+                            Button {
+                                viewModel.state = .accepting(false)
+                                Task {
+                                    do {
+                                        try await viewModel.dismissRequest()
+                                        viewModel.state = .accepted(false)
+                                        timelineViewModel.notificationRequestsAcceptanceDidChange = true
+                                    } catch {
+                                        viewModel.state = .undecided
+                                        navigator.didReceiveError(error)
+                                    }
+                                }
+                            } label: {
+                                Label {
+                                    Text(L10n.Scene.Notification.FilteredNotification.dismiss)
+                                } icon: {
+                                    Image(systemName: "trash")
+                                }
+                            }
+                            .disabled(viewModel.state != .undecided)
+                        }
+                    }
+                    Spacer()
+ 
+                    HStack(alignment: .top, spacing: 0) {
+                        Text(L10nLookup.Scene.Notification.viewNotifications(count: viewModel.notificationCount))
+                            .foregroundStyle(.secondary)
+                        
+                        // DISCLOSURE INDICATOR
+                        Image(systemName: "chevron.forward")
+                            .foregroundStyle(.secondary)
+                            .font(.system(size: 20))
+                            .fontWeight(.light)
+                            .padding(.leading)
+                    }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        navigator.push(.timeline(.notifications(.fromRequest(viewModel.requestEntity))))
+                    }
+                }
+                .frame(width: contentWidth)
+            }
+            .padding(.top)
+        }
+    }
+}
 
 struct FilteredNotificationsRowView: View {
-    
-    let disclosureIndicatorSize = AvatarSize.large
-    
     let contentWidth: CGFloat
     
     @Observable class ViewModel {
@@ -386,7 +477,6 @@ struct FilteredNotificationsRowView: View {
                 update(policy: policy)
             }
         }
-        var isPreparingToNavigate: Bool = false
         var shouldShow: Bool = false
         
         init(policy: Mastodon.Entity.NotificationPolicy?) {
@@ -430,19 +520,12 @@ struct FilteredNotificationsRowView: View {
                         }
                         .font(.subheadline)
                         
-                        // DISCLOSURE INDICATOR (OR SPINNER)
-                        VStack {
-                            Spacer()
-                            if viewModel.isPreparingToNavigate {
-                                ProgressView().progressViewStyle(.circular)
-                            } else {
-                                Image(systemName: "chevron.forward")
-                                    .foregroundStyle(.secondary)
-                                    .font(.system(size: 20))
-                                    .fontWeight(.light)
-                            }
-                            Spacer()
-                        }
+                        // DISCLOSURE INDICATOR
+                        Image(systemName: "chevron.forward")
+                            .foregroundStyle(.secondary)
+                            .font(.system(size: 20))
+                            .fontWeight(.light)
+                            .frame(maxHeight: .infinity, alignment: .center)
                     }
                     .frame(width: contentWidth)
                 }
@@ -593,11 +676,11 @@ struct NotificationRowView: View {
                     ForEach(
                         accountInfo.accounts.prefix(maxAvatarCount), id: \.self.id
                     ) { account in
-                        AvatarView(size: .small, avatarSource: .url(account.avatarURL), goToProfile: { try await viewModel.navigateToProfile(account, navigator: navigator) })
-                            .onTapGesture {
-                                Task {
-                                    try await viewModel.navigateToProfile(account, navigator: navigator)
-                                }
+                        AvatarView(style: .roundedRect, size: .small, avatarSource: .url(account.avatarURL))
+                            .onAsyncTap {
+                                try await viewModel.navigateToProfile(account, navigator: navigator)
+                            } onError: { error in
+                                navigator.didReceiveError(error)
                             }
                     }
                 }

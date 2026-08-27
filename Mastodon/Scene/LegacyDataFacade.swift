@@ -15,7 +15,7 @@ struct LegacyDataSourceFacade {
         let authBox = dependency.authenticationBox
         guard let relationship = try await APIService.shared.relationship(
             forAccounts: [account], authenticationBox: authBox
-        ).value.first else { throw AppError.unexpected() }
+        )[account.id] else { throw AppError.unexpected() }
         
         return try await withCheckedThrowingContinuation { continuation in
             Task { @MainActor in
@@ -192,19 +192,6 @@ struct LegacyDataSourceFacade {
                 self.indexPath = indexPath
             }
         }
-    }
-    
-    static func coordinateToHashtagScene(
-        provider: UIViewController,
-        tag: Mastodon.Entity.Tag
-    ) async {
-        guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
-        guard let coordinator = provider.sceneCoordinator else { return }
-        _ = coordinator.present(
-            scene: .hashtagTimeline(tag),
-            from: provider,
-            transition: .show
-        )
     }
 
     static func responseToUserViewButtonAction(

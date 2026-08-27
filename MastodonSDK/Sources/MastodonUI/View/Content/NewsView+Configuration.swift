@@ -13,7 +13,7 @@ import AlamofireImage
 import FaviconFinder
 
 extension NewsView {
-    public func configure(link: Mastodon.Entity.Link) {
+    public func configure(link: Mastodon.Entity.Card) {
         let faviconPlaceholder = UIImage(systemName: "network")
         providerFaviconImageView.image = faviconPlaceholder
         if let url = URL(string: link.url) {
@@ -34,7 +34,7 @@ extension NewsView {
         
         let configuration = MediaView.Configuration(
             info: .image(info: .init(
-                aspectRadio: CGSize(width: link.width, height: link.height),
+                aspectRadio: CGSize(width: link.width ?? 1, height: link.height ?? 1),
                 assetURL: link.image,
                 altDescription: nil,
                 focus: nil
@@ -60,4 +60,14 @@ extension NewsView {
             })
         }
     }   // end func
+}
+
+extension Mastodon.Entity.Card {
+    /// the sum of recent 2 days
+    public var talkingPeopleCount: Int? {
+        return history?
+            .prefix(2)
+            .compactMap { Int($0.accounts) }
+            .reduce(0, +)
+    }
 }

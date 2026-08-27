@@ -21,7 +21,7 @@ struct ReportResultView: View {
         HStack {
             Spacer()
             ZStack {
-                AvatarView(size: .extraExtraLarge, avatarSource: .url(viewModel.avatarURL), goToProfile: nil)
+                AvatarView(style: .roundedRect, size: .extraExtraLarge, avatarSource: .url(viewModel.avatarURL))
                 Text(L10n.Scene.Report.reported)
                     .font(Font(FontFamily.Staatliches.regular.font(size: 49) as CTFont))
                     .foregroundColor(Color(Asset.Scene.Report.reportBanner.color))

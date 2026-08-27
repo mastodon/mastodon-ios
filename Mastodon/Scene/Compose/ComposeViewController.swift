@@ -32,9 +32,11 @@ final class ComposeViewController: UIViewController {
     
     var disposeBag = Set<AnyCancellable>()
     var viewModel: ComposeViewModel
+    let draftContentModel: ComposeContentViewModel?
 
-    init(viewModel: ComposeViewModel) {
+    init(viewModel: ComposeViewModel, draftContentModel: ComposeContentViewModel?) {
         self.viewModel = viewModel
+        self.draftContentModel = draftContentModel
         super.init(nibName: nil, bundle: nil)
         self.setUpPublishingIndicator()
     }
@@ -79,6 +81,10 @@ final class ComposeViewController: UIViewController {
     }
 
     lazy var composeContentViewModel: ComposeContentViewModel = {
+        
+        if let draftContentModel {
+            return draftContentModel
+        }
 
         let composeContext: ComposeContentViewModel.ComposeContext
         let initialContent: String
@@ -100,7 +106,8 @@ final class ComposeViewController: UIViewController {
             composeContext: composeContext,
             destination: viewModel.destination,
             initialContent: initialContent,
-            completion: viewModel.postPublishCompletion
+            requestConfirmToDismiss: true,
+            completion: nil
         )
         
         switch viewModel.composeContext {
@@ -258,7 +265,7 @@ extension ComposeViewController {
         let alertController = PortraitAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let discardAction = UIAlertAction(title: L10n.Common.Controls.Actions.discard, style: .destructive) { [weak self] _ in
             guard let self = self else { return }
-            self.dismiss(animated: true, completion: { self.viewModel.postPublishCompletion?(false) })
+            self.dismiss(animated: true, completion: { self.finish(withOutcome: .cancelled) })
         }
         alertController.addAction(discardAction)
         let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
@@ -286,11 +293,13 @@ extension ComposeViewController {
     }
 
     @objc private func cancelBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        guard composeContentViewModel.shouldDismiss else {
+        guard composeContentViewModel.dismissWithoutConfirmation else {
             showDismissConfirmAlertController()
             return
         }
-        dismiss(animated: true, completion: { self.viewModel.postPublishCompletion?(false) })
+        dismiss(animated: true, completion: {
+            self.finish(withOutcome: .cancelled)
+        })
     }
     
     @objc private func publishBarButtonItemPressed(_ sender: UIBarButtonItem) {
@@ -364,15 +373,15 @@ extension ComposeViewController {
                     case .success:
                         self?.publishProgressView.progress = 100
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                            self?.dismiss(animated: true, completion: { self?.viewModel.postPublishCompletion?(true)
-                                self?.composeContentViewModel.donePublishing()
+                            self?.dismiss(animated: true, completion: {
+                                self?.finish(withOutcome: .success)
                             })
                         }
                     case .failure(let error):
                         UIView.animate(withDuration: 0.25) {
                             self?.publishProgressView.alpha = 0
                         }
-                        self?.composeContentViewModel.donePublishing()
+                        self?.finish(withOutcome: .failure(error))
                         let alertController = UIAlertController.standardAlert(of: error)
                         self?.present(alertController, animated: true)
                         // HomeTimelineViewController is also listening and will post the alert if this view has been dismissed
@@ -387,7 +396,7 @@ extension ComposeViewController {
                 authenticationBox: viewModel.authenticationBox
             )
         } catch {
-            composeContentViewModel.donePublishing()
+            finish(withOutcome: .failure(error))
             let alertController = UIAlertController.standardAlert(of: error)
             present(alertController, animated: true)
             return
@@ -442,15 +451,15 @@ extension ComposeViewController {
                     case .success:
                         self?.editPublishProgressView.progress = 100
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                            self?.dismiss(animated: true, completion: { self?.viewModel.postPublishCompletion?(true)
-                                self?.composeContentViewModel.donePublishing()
+                            self?.dismiss(animated: true, completion: {
+                                self?.finish(withOutcome: .success)
                             })
                         }
                     case .failure(let error):
                         UIView.animate(withDuration: 0.25) {
                             self?.editPublishProgressView.alpha = 0
                         }
-                        self?.composeContentViewModel.donePublishing()
+                        self?.finish(withOutcome: .failure(error))
                         let alertController = UIAlertController.standardAlert(of: error)
                         self?.present(alertController, animated: true)
                         // HomeTimelineViewController is also listening and will post the alert if this view has been dismissed
@@ -464,11 +473,16 @@ extension ComposeViewController {
                 authenticationBox: viewModel.authenticationBox
             )
         } catch {
-            composeContentViewModel.donePublishing()
+            finish(withOutcome: .failure(error))
             let alertController = UIAlertController.standardAlert(of: error)
             present(alertController, animated: true)
             return
         }
+    }
+    
+    private func finish(withOutcome outcome: PublishCompletionStatus) {
+        viewModel.postPublishCompletion?(outcome)
+        composeContentViewModel.donePublishing(outcome)
     }
 }
 
@@ -513,7 +527,7 @@ extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
     }
     
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
-        return composeContentViewModel.shouldDismiss
+        return composeContentViewModel.dismissWithoutConfirmation
     }
     
     func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {

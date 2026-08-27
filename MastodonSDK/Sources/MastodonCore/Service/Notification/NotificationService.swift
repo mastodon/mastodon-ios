@@ -98,15 +98,12 @@ public final class NotificationService {
             applicationIconBadgeNeedsUpdate
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] mastodonAuthenticationBoxes, _ in
+        .sink { [weak self] _, _ in
             guard let self = self else { return }
             
-            var count = 0
-            for authenticationBox in mastodonAuthenticationBoxes {
-                count += UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: authenticationBox.userAuthorization.accessToken)
-            }
+            UnreadNotificationCounts.shared.refreshCounts()
+            let count = UnreadNotificationCounts.shared.combinedUnreadCountForAllUsers
             
-            UserDefaults.shared.notificationBadgeCount = count
             UNUserNotificationCenter.current().setBadgeCount(count)
             Task { @MainActor in
                 UIApplication.shared.shortcutItems = try? await self.unreadApplicationShortcutItems()
@@ -146,7 +143,7 @@ extension NotificationService {
         for authBox in AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes {
             guard let account = authBox.authentication.cachedAccount() else { continue }
             let accessToken = authBox.authentication.userAccessToken
-            let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: accessToken)
+            let count = UnreadNotificationCounts.shared.unreadCount(for: authBox)
             guard count > 0 else { continue }
 
             let title = "@\(account.acctWithDomain)"
@@ -206,10 +203,9 @@ extension NotificationService {
 }
 
 extension NotificationService {
-    public func clearNotificationCountForActiveUser() {
-        if let accessToken = AuthenticationServiceProvider.shared.currentActiveUser.value?.userAuthorization.accessToken {
-            UserDefaults.shared.setNotificationCountWithAccessToken(accessToken: accessToken, value: 0)
-        }
+    public func clearNotificationCount(for authBox: MastodonAuthenticationBox) {
+
+        UnreadNotificationCounts.shared.setUnreadCount(0, for: authBox.authentication)
         
         applicationIconBadgeNeedsUpdate.send()
     }

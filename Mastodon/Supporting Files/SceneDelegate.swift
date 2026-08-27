@@ -15,6 +15,7 @@ import MastodonSDK
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     static private var delegates = [ ObjectIdentifier : SceneDelegate ]()
+    static private var isFetchingAccounts = false
     
     static func assign(delegate: SceneDelegate, to windowScene: UIWindowScene) {
         delegates[ObjectIdentifier(windowScene)] = delegate
@@ -117,6 +118,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
             savedShortCutItem = nil
         }
+        
+        // refetch logged in accounts
+        if !SceneDelegate.isFetchingAccounts {
+            SceneDelegate.isFetchingAccounts = true
+            Task {
+                defer { SceneDelegate.isFetchingAccounts = false }
+                await AuthenticationServiceProvider.shared.fetchAccountsIfStale()
+            }
+        }
     }
 
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
@@ -155,40 +165,44 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         switch (profile, statusID) {
-            case (profile, nil):
-                Task {
-                    guard let me = authenticationBox.cachedAccount else { return }
-
-                    guard let account = try await APIService.shared.search(
-                        query: .init(q: incomingURL.absoluteString, type: .accounts, resolve: true),
-                        authenticationBox: authenticationBox
-                    ).value.accounts.first else { return }
-
-                    guard let relationship = try await APIService.shared.relationship(
-                        forAccounts: [account],
-                        authenticationBox: authenticationBox
-                    ).value.first else { return }
-
-                    let profileType: ProfileType = me == account ? .me(me) : .notMe(me: me, displayAccount: account, relationship: relationship)
-                    _ = self.coordinator?.present(
-                        scene: .profile(profileType),
-                        from: nil,
-                        transition: .show
-                    )
-                }
-
-            case (profile, statusID):
-                Task {
-                    guard let statusOnMyInstance = try await APIService.shared.search(query: .init(q: incomingURL.absoluteString, resolve: true), authenticationBox: authenticationBox).value.statuses.first else { return }
-
-                    coordinator?.present(scene: .threadRemote(.status(statusOnMyInstance.id)), from: nil, transition: .show)
-                }
-
-            case (_, _):
-                break
-                // do nothing
+        case (nil, nil):
+            break
+        case (.some, nil):
+            Task {
+                guard let me = authenticationBox.cachedAccount else { return }
+                
+                guard let account = try await APIService.shared.search(
+                    query: .init(q: incomingURL.absoluteString, type: .accounts, resolve: true),
+                    authenticationBox: authenticationBox
+                ).value.accounts.first else { return }
+                
+                try await showProfile(myAccount: me, displayAccount: account, authenticationBox: authenticationBox)
+            }
+            
+        case (_, .some):
+            Task {
+                guard let statusOnMyInstance = try await APIService.shared.search(query: .init(q: incomingURL.absoluteString, resolve: true), authenticationBox: authenticationBox).value.statuses.first else { return }
+                try await showRemoteStatusThread(localStatusId: statusOnMyInstance.id)
+            }
         }
 
+    }
+    
+    func showProfile(myAccount me: Mastodon.Entity.Account, displayAccount: Mastodon.Entity.Account, authenticationBox: MastodonAuthenticationBox) async throws {
+        if me == displayAccount {
+            MastodonTabViewRouter.current.selectedTab = .profile
+        } else {
+            let relationshipEntity = try? await APIService.shared.relationship(
+                forAccounts: [displayAccount],
+                authenticationBox: authenticationBox
+            )[displayAccount.id]
+            let relationshipInfo = relationshipEntity != nil ? MastodonAccount.RelationshipInfo(relationshipEntity!, fetchedAt: .now) : nil
+            MastodonTabViewRouter.current.show(.profile(account: displayAccount, relationship: .isNotMe(relationshipInfo)), in: .home)
+        }
+    }
+    
+    func showRemoteStatusThread(localStatusId: Mastodon.Entity.Status.ID) async throws {
+        MastodonTabViewRouter.current.show(.timeline(.remoteThread(root: .status(localStatusId))), in: .home)
     }
 }
 
@@ -229,11 +243,8 @@ extension SceneDelegate {
             showComposeViewController()
 
         case "org.joinmastodon.app.search":
-            coordinator?.switchToTabBar(tab: .search)
+            coordinator?.switchToTabBar(tab: .explore)
 
-            if let searchViewController = coordinator?.tabBarController.topMost as? SearchViewController {
-                searchViewController.searchBarTapPublisher.send("")
-            }
 
         default:
             assertionFailure()
@@ -251,17 +262,11 @@ extension SceneDelegate {
     }
     
     private func showComposeViewController() {
-        if coordinator?.tabBarController.topMost is ComposeViewController {
-        } else {
-            if let authenticationBox = coordinator?.authenticationBox {
-                let composeViewModel = ComposeViewModel(
-                    authenticationBox: authenticationBox,
-                    composeContext: .composeStatus(quoting: nil),
-                    destination: .topLevel
-                )
-                _ = coordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
-            }
-        }
+        guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
+        let currentTab = MastodonTabViewRouter.current.selectedTab
+        let currentNavigator = MastodonTabViewRouter.current.navigationRouter(forTab: currentTab)
+        currentNavigator.dismissCurrentModal()
+        currentNavigator.presentSheet(.modalCompose(.init(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel), nil), afterDeconflictionDelay: true)
     }
     
     private func handleUrl(context: UIOpenURLContext) {
@@ -295,17 +300,7 @@ extension SceneDelegate {
                         authenticationBox: authenticationBox
                     ).value.accounts.first else { return }
                     
-                    guard let relationship = try await APIService.shared.relationship(
-                        forAccounts: [account],
-                        authenticationBox: authenticationBox
-                    ).value.first else { return }
-                    
-                    let profileType: ProfileType = me == account ? .me(me) : .notMe(me: me, displayAccount: account, relationship: relationship)
-                    self.coordinator?.present(
-                        scene: .profile(profileType),
-                        from: nil,
-                        transition: .show
-                    )
+                    try await showProfile(myAccount: me, displayAccount: account, authenticationBox: authenticationBox)
                 } catch {
                     // fail silently
                 }
@@ -314,21 +309,17 @@ extension SceneDelegate {
             let components = url.pathComponents
             guard
                 components.count == 2,
-                components[0] == "/",
-                let authenticationBox = coordinator?.authenticationBox
+                components[0] == "/"
             else { return }
             let statusId = components[1]
-            // View post from user
-            coordinator?.present(scene: .threadRemote(.status(statusId)), from: nil, transition: .show)
+            Task {
+                try await showRemoteStatusThread(localStatusId: statusId)
+            }
         case "search":
             let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
-            guard
-                let authenticationBox = coordinator?.authenticationBox,
-                let searchQuery = queryItems?.first(where: { $0.name == "query" })?.value
-            else { return }
-            
-            let viewModel = SearchDetailViewModel(authenticationBox: authenticationBox, initialSearchText: searchQuery)
-            coordinator?.present(scene: .searchDetail(viewModel: viewModel), from: nil, transition: .show)
+            guard let searchQuery = queryItems?.first(where: { $0.name == "query" })?.value else { return }
+            MastodonTabViewRouter.current.openSearch(searchQuery)
+
         default:
             var openableUrl: URL?
             if let host = url.host(percentEncoded: false) {

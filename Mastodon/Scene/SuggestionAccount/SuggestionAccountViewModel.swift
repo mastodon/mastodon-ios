@@ -22,7 +22,7 @@ final class SuggestionAccountViewModel: NSObject {
     // input
     let authenticationBox: MastodonAuthenticationBox
     @Published var accounts: [Mastodon.Entity.V2.SuggestionAccount]
-    var relationships: [Mastodon.Entity.Relationship]
+    var relationships: [String: Mastodon.Entity.Relationship]
 
     var viewWillAppear = PassthroughSubject<Void, Never>()
 
@@ -35,7 +35,7 @@ final class SuggestionAccountViewModel: NSObject {
         self.authenticationBox = authenticationBox
 
         accounts = []
-        relationships = []
+        relationships = [:]
 
         super.init()
 
@@ -60,12 +60,12 @@ final class SuggestionAccountViewModel: NSObject {
                 let relationships = try await APIService.shared.relationship(
                     forAccounts: accounts,
                     authenticationBox: authenticationBox
-                ).value
+                )
 
                 self.relationships = relationships
                 self.accounts = suggestedAccounts
             } catch {
-                self.relationships = []
+                self.relationships = [:]
                 self.accounts = []
             }
         }
@@ -91,7 +91,7 @@ final class SuggestionAccountViewModel: NSObject {
                 let accounts = suggestedAccounts.compactMap { $0.account }
 
                 let accountsWithRelationship: [(account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?)] = accounts.compactMap { account in
-                    guard let relationship = self.relationships.first(where: {$0.id == account.id }) else { return (account: account, relationship: nil)}
+                    guard let relationship = self.relationships[account.id] else { return (account: account, relationship: nil)}
 
                     return (account: account, relationship: relationship)
                 }

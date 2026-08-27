@@ -42,7 +42,8 @@ struct BoostOrQuoteDialog: View {
                     if let buttonTitle = quoteButtonInfo.title {
                         Button {
                             guard let composeViewModel = viewModel.composeViewModelQuotingThisPost else { return }
-                            navigator.presentModal(.legacy(scene: .compose(viewModel: composeViewModel), transition: .modal(animated: true, completion: nil)))
+                            navigator.dismissCurrentModal()
+                            navigator.presentSheet(.modalCompose(composeViewModel, nil), afterDeconflictionDelay: true)
                         } label: {
                             VStack {
                                 Text(buttonTitle)

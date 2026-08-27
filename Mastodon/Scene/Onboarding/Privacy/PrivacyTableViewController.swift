@@ -12,6 +12,7 @@ import MastodonSDK
 import MastodonLocalization
 import MastodonAsset
 import Combine
+import SafariServices
 
 enum PolicyRow {
     case iosAppPrivacy
@@ -149,7 +150,13 @@ extension PolicyTableViewController: UITableViewDelegate {
         let row = row(at: indexPath)
         guard let url = row.url else { return }
 
-        _ = coordinator.present(scene: .safari(url: url), from: self, transition: .safariPresent(animated: true))
+        if UserDefaults.shared.preferredUsingDefaultBrowser {
+            UIApplication.shared.open(url)
+        } else {
+            let safariVC = SFSafariViewController(url: url)
+            safariVC.modalPresentationCapturesStatusBarAppearance = true
+            present(safariVC, animated: true)
+        }
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

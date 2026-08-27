@@ -9,6 +9,10 @@ import Foundation
 import Combine
 import MastodonSDK
 
+extension Notification.Name {
+    public static let followedTagsDidChange = Notification.Name(rawValue: "org.joinmastodon.app.followed-tags-changed")
+}
+
 extension APIService {
     
     public func getTagInformation(
@@ -42,6 +46,8 @@ extension APIService {
             authorization: authorization
         ).singleOutput()
         
+        NotificationCenter.default.post(name: .followedTagsDidChange, object: nil)
+        
         return response
     }
     
@@ -58,6 +64,8 @@ extension APIService {
             tagId: tag,
             authorization: authorization
         ).singleOutput()
+        
+        NotificationCenter.default.post(name: .followedTagsDidChange, object: nil)
 
         return response
     }

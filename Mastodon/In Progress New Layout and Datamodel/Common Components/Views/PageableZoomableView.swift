@@ -172,7 +172,7 @@ import MastodonSDK
         let additionallyScaledDifferenceFromCenter = anchorDifferenceFromCenter * additionalScale // zooming expanded (or contracted) this distance
         let newCenter = anchorLocationInScaledContentView - additionallyScaledDifferenceFromCenter  // add that scaled distance to the anchor location
         let offsetCausedByAdditionalScale = newCenter - scaledContentViewCenter // how much did the center shift from itself due to the scale?
-        let descaledOffsetCausedByAdditionalScale = CGPoint(x: offsetCausedByAdditionalScale.dx / (currentScale * additionalScale), y: offsetCausedByAdditionalScale.dy / (currentScale * additionalScale))
+        let descaledOffsetCausedByAdditionalScale = CGPoint(x: offsetCausedByAdditionalScale.x / (currentScale * additionalScale), y: offsetCausedByAdditionalScale.y / (currentScale * additionalScale))
         let currentOffset = internalOffsets[focusedPageIndex]
         let combinedOffset = CGSize(width: currentOffset.width + descaledOffsetCausedByAdditionalScale.x, height: currentOffset.height + descaledOffsetCausedByAdditionalScale.y)
         return combinedOffset
@@ -193,7 +193,7 @@ import MastodonSDK
         let contentViewSize = focusedContentSize(scale: currentScale)
         let contentViewCenter = CGPoint(x: contentViewSize.width / 2.0, y: contentViewSize.height / 2.0)
         let currentOffset = internalOffsets[focusedPageIndex] // not scaled
-        let actualAnchorOffset = CGSize(width: gestureViewDiffAnchorToCenter.dx - currentOffset.width, height: gestureViewDiffAnchorToCenter.dy - currentOffset.height)
+        let actualAnchorOffset = CGSize(width: gestureViewDiffAnchorToCenter.x - currentOffset.width, height: gestureViewDiffAnchorToCenter.y - currentOffset.height)
         let anchorLocationInScaledContentView = CGPoint(x: contentViewCenter.x + actualAnchorOffset.width, y: contentViewCenter.y + actualAnchorOffset.height)
         return anchorLocationInScaledContentView
     }
@@ -466,5 +466,19 @@ extension CGSize {
     
     static func -(lhs: CGSize, rhs: CGSize) -> CGSize {
         CGSize(width: lhs.width - rhs.width, height: lhs.height - rhs.height)
+    }
+}
+
+extension CGPoint {
+    static func +(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
+        CGPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
+    }
+    
+    static func -(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
+        CGPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
+    }
+    
+    static func *(lhs: CGPoint, rhs: CGFloat) -> CGPoint {
+        CGPoint(x: lhs.x * rhs, y: lhs.y * rhs)
     }
 }

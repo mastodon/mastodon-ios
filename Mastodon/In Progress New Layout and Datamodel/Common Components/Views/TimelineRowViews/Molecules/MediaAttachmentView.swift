@@ -188,7 +188,7 @@ enum MediaAttachment {
 struct MediaAttachmentView: View {
     @Environment(MastodonNavigationRouter.self) var navigator
     let mediaAttachment: MediaAttachment
-    let containerOverlayBinding: Binding<MastodonTimelineFadeInOverlay?>?
+    let containerOverlayBinding: Binding<MastodonFadeInOverlay?>?
     @StateObject var playerObserver = PlayerObserver()
     
     var body: some View {
@@ -211,7 +211,7 @@ struct MediaAttachmentView: View {
             }
         case .openInBrowser(let url):
             Button {
-                navigator.presentModal(.legacy(scene: .safari(url: url), transition: .safariPresent(animated: true, completion: nil)))
+                navigator.openUrl(url, afterDeconflictionDelay: true, forceInBrowser: true)
             } label: {
                 HStack {
                     VStack(alignment: .leading) {
@@ -285,7 +285,7 @@ struct ConcealableMediaAttachmentView<Content: View>: View {
 struct ImageGridView: View {
     @Environment(ImageGalleryViewModel.self) private var viewModel
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
-    let containerOverlayBinding: Binding<MastodonTimelineFadeInOverlay?>?
+    let containerOverlayBinding: Binding<MastodonFadeInOverlay?>?
     
     var body: some View {
         // The images
@@ -297,11 +297,7 @@ struct ImageGridView: View {
                         .clipped()
                         .accessibilityLabel(viewModel.altTextTranslations?[img.id] ?? img.basicData.altText ?? "")
                         .onTapGesture {
-                            viewModel.pagingViewModel.focusedPageIndex = viewModel.imageAttachments.firstIndex(where: { $0.id == img.id }) ?? 0
-                            viewModel.pagingViewModel.dismiss = {
-                                containerOverlayBinding?.wrappedValue = nil
-                            }
-                            containerOverlayBinding?.wrappedValue = .images(focusedImage: img.id, viewModel, viewModel.pagingViewModel)
+                           presentGallery(forImageAttachment: img)
                         }
                     if let altText = viewModel.altTextTranslations?[img.id] ?? img.basicData.altText {
                         AltTextButton(drawBorder: false, altText: altText, displayAltText: Binding<String?>(
@@ -330,6 +326,15 @@ struct ImageGridView: View {
         .frame(maxHeight: useRestrictedHeight ? maxHeightForHiddenMedia : nil)
         .cornerRadius(CornerRadius.standard)
         .animation(.easeInOut, value: contentConcealViewModel.currentMode.isShowingMedia)
+    }
+    
+    func presentGallery(forImageAttachment img: MastodonImageAttachment) {
+        viewModel.pagingViewModel.focusedPageIndex = viewModel.imageAttachments.firstIndex(where: { $0.id == img.id }) ?? 0
+        viewModel.pagingViewModel.dismiss = {
+            containerOverlayBinding?.wrappedValue = nil
+        }
+        let overlay = MastodonFadeInOverlay.images(viewModel, viewModel.pagingViewModel)
+        containerOverlayBinding?.wrappedValue = overlay
     }
 }
 
@@ -594,9 +599,9 @@ struct VideoPlayerView: View {
     let originalSize: CGSize
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
     @ObservedObject var playerObserver: PlayerObserver
-    let containerOverlay: Binding<MastodonTimelineFadeInOverlay?>?
+    let containerOverlay: Binding<MastodonFadeInOverlay?>?
     
-    init?(playerObserver: PlayerObserver, media: MediaAttachment, originalSize: CGSize, containerOverlayBinding: Binding<MastodonTimelineFadeInOverlay?>?) {
+    init?(playerObserver: PlayerObserver, media: MediaAttachment, originalSize: CGSize, containerOverlayBinding: Binding<MastodonFadeInOverlay?>?) {
         switch media {
         case .video, .gifv:
             break
@@ -646,9 +651,10 @@ struct VideoPlayerView: View {
         .overlay {
             Button {
                 playerObserver.didPressPause()
-                containerOverlay?.wrappedValue = .video(media, PageableZoomableViewModel(pageCount: 1, focusedPage: 0, dismiss: {
+                let overlay = MastodonFadeInOverlay.video(media, PageableZoomableViewModel(pageCount: 1, focusedPage: 0, dismiss: {
                     containerOverlay?.wrappedValue = nil
                 }))
+                containerOverlay?.wrappedValue = overlay
             } label: {
                 Rectangle().fill(.clear)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -790,13 +796,13 @@ class PlayerObserver: ObservableObject {
             queue: .main
         ) { [weak self] _ in
             DispatchQueue.main.async {
-                guard let self else { MediaPreviewVideoViewModel.endAudioSession(); return }
+                guard let self else { AVAudioSessionManager.endAudioSession(); return }
                 if shouldLoop {
                     self.player?.seek(to: .zero)
                     self.player?.play()
                 } else {
                     if !self.respectDeviceSilentSetting {
-                        MediaPreviewVideoViewModel.endAudioSession()
+                        AVAudioSessionManager.endAudioSession()
                     }
                     self.playShouldSeekToStart = true
                 }
@@ -808,7 +814,7 @@ class PlayerObserver: ObservableObject {
         NotificationCenter.default.removeObserver(self)
         self.playerStatusSubscription?.cancel()
         if !respectDeviceSilentSetting {
-            MediaPreviewVideoViewModel.endAudioSession()
+            AVAudioSessionManager.endAudioSession()
         }
         player?.pause()
         if let timeObserverToken {
@@ -822,14 +828,14 @@ class PlayerObserver: ObservableObject {
             playShouldSeekToStart = false
         }
         if !respectDeviceSilentSetting {
-            MediaPreviewVideoViewModel.startAudioSession()
+            AVAudioSessionManager.startAudioSession()
         }
         player?.play()
     }
     
     func didPressPause() {
         if !respectDeviceSilentSetting {
-            MediaPreviewVideoViewModel.endAudioSession()
+            AVAudioSessionManager.endAudioSession()
         }
         player?.pause()
     }
@@ -873,6 +879,36 @@ class PlayerObserver: ObservableObject {
             EmptyView()
         @unknown default:
             EmptyView()
+        }
+    }
+}
+
+enum AVAudioSessionManager {
+    static var activeAudioSessionRequestCounter = 0
+    static func startAudioSession() {
+        Task { @MainActor in
+            activeAudioSessionRequestCounter += 1
+            guard activeAudioSessionRequestCounter == 1 else { return }
+            try? AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers])
+            // https://developer.apple.com/documentation/avfaudio/avaudiosession/setactive(_:options:)
+            //  "If you attempt to activate a session with category record or playAndRecord when another app is already hosting a call, then your session fails with the error AVAudioSessionErrorInsufficientPriority."
+            //  "The session fails to activate if another audio session has higher priority than yours (such as a phone call) and neither audio session allows mixing."
+            // "mixWithOthers: If you set the audio session category to ambient, the session automatically sets this option. If you set this option, your app mixes its audio with audio playing in background apps, such as the Music app."
+            // CONCLUSION: Since we are never attempting to record and we allow mixing with others, activating the session should never fail, so there is no need to handle an error here.
+            try? AVAudioSession.sharedInstance().setActive(true)
+        }
+    }
+    static func endAudioSession() {
+        Task { @MainActor in
+            guard activeAudioSessionRequestCounter != 0 else { return }
+            activeAudioSessionRequestCounter -= 1
+            guard activeAudioSessionRequestCounter == 0 else { return }
+            try? AVAudioSession.sharedInstance().setCategory(.ambient)  // set to ambient to allow mixed (needed for GIFV)
+            // https://developer.apple.com/documentation/avfaudio/avaudiosession/setactive(_:options:)
+            // "Deactivating an audio session with running audio objects stops the objects, makes the session inactive, and returns an AVAudioSessionErrorCodeIsBusy error."
+            // "When your app deactivates a session, the return value is false but the active state changes to deactivate."
+            // CONCLUSION: Deactivating a session always succeeds, even when an error is thrown, so any error thrown here can be ignored.
+            try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
         }
     }
 }

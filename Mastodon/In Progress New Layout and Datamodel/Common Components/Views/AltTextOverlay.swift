@@ -14,7 +14,8 @@ struct AltTextOverlay: View {
         if let altText = altTextBinding.wrappedValue {
             GeometryReader { geo in
                 ZStack {
-                    Color.dimmingBackground
+                    Color.clear
+                        .contentShape(Rectangle())
                         .gesture(dismissGesture(forViewHeight: geo.size.height))
                         .onDisappear() {
                             offset = .zero

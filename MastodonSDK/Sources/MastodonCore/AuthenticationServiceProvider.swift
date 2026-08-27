@@ -10,8 +10,6 @@ import os.log
 @MainActor
 public class AuthenticationServiceProvider: ObservableObject {
     
-    private(set) var lastFetchOfAllAccounts: Date?
-    
     private let logger = Logger(subsystem: "AuthenticationServiceProvider", category: "Authentication")
 
     public static let shared = AuthenticationServiceProvider()
@@ -101,9 +99,25 @@ public class AuthenticationServiceProvider: ObservableObject {
     }
     
     @MainActor
-    func delete(authentication: MastodonAuthentication) throws {
+    private func delete(authentication: MastodonAuthentication) throws {
         try Self.keychain.remove(authentication.persistenceIdentifier)
         authentications.removeAll(where: { $0 == authentication })
+    }
+    
+    @MainActor
+    private func deleteAllAuthentications() throws {
+        let allAuthentications = authentications
+        try Self.keychain.removeAll()
+        authentications.removeAll()
+    }
+    
+    @MainActor
+    private func cleanUpAfterDeleting(authentication: MastodonAuthentication) async throws {
+        UserDefaults.standard.removeObject(forKey: authentication.tabCustomizationDefaultsKey)
+        UserDefaults.shared.removeAccountKeys(forRawAccessToken: authentication.userAccessToken)
+        PersistenceManager.shared.removeAllCaches(forUser: authentication)
+        try? await BodegaPersistence.removeUser(authentication)
+        _ = try await APIService.shared.cancelSubscription(domain: authentication.domain, authorization: authentication.authorization)
     }
     
     public func activateExistingUser(_ userID: String, inDomain domain: String) -> Bool {
@@ -141,9 +155,17 @@ public extension AuthenticationServiceProvider {
         authentications.first(where: { $0.userAccessToken == userAccessToken })
     }
     
-    func signOutMastodonUser(authentication: MastodonAuthentication) async throws {
-        try AuthenticationServiceProvider.shared.delete(authentication: authentication)
-        _ = try await APIService.shared.cancelSubscription(domain: authentication.domain, authorization: authentication.authorization)
+    func signOutMastodonUser(authentication: MastodonAuthentication) async {
+        try? AuthenticationServiceProvider.shared.delete(authentication: authentication)
+        try? await cleanUpAfterDeleting(authentication: authentication)
+    }
+    
+    func signOutAllUsers() async {
+        let allAuthentications = authentications
+        try? AuthenticationServiceProvider.shared.deleteAllAuthentications()
+        for auth in allAuthentications {
+            try? await cleanUpAfterDeleting(authentication: auth)
+        }
     }
     
     @MainActor
@@ -177,6 +199,19 @@ public extension AuthenticationServiceProvider {
             keychainAuthentications = []
         }
         self.authentications = keychainAuthentications
+        removeUnusedTabCustomizations()
+        UserDefaults.shared.prunePerAccountKeys(keepingRawAccessTokens: keychainAuthentications.map{ $0.userAccessToken })
+    }
+    
+    private func removeUnusedTabCustomizations() {
+        let validTabCustomizationKeys = self.authentications.map { $0.tabCustomizationDefaultsKey }
+        let defaults = UserDefaults.standard
+        for key in defaults.dictionaryRepresentation().keys
+            .filter({ isUserDefaultsTabCustomizationKey($0) }) {
+            if !validTabCustomizationKeys.contains(key) {
+                defaults.removeObject(forKey: key)
+            }
+        }
     }
     
     func updateAccountCreatedAt(_ newCreatedAt: Date, forAuthentication outdated: MastodonAuthentication) {
@@ -188,30 +223,28 @@ public extension AuthenticationServiceProvider {
         }
     }
 
-    func fetchAccounts(onlyIfItHasBeenAwhile: Bool) async {
-        // FIXME: This is a dirty hack to make the performance-stuff work.
-        // Problem is, that we don't persist the user on disk anymore. So we have to fetch
-        // it when we need it to display on the home timeline.
-        // We need this (also) for the Account-list, but it might be the wrong place. App Startup might be more appropriate
-        
+    func fetchAccountsIfStale() async {
         let minTimeBetweenAutomaticAccountFetches = TimeInterval( 60 * 60 * 24) // one day
-        let itHasBeenAwhile: Bool
-        
-        if let lastFetch = lastFetchOfAllAccounts {
-            itHasBeenAwhile = lastFetch.distance(to: Date.now) > minTimeBetweenAutomaticAccountFetches
-        } else {
-            itHasBeenAwhile = true
-        }
-        
-        guard itHasBeenAwhile else { return }
-        
-        lastFetchOfAllAccounts = Date.now
-        
+        var someUpdated = false
         for authentication in authentications {
-            guard let _ = try? await APIService.shared.accountInfo(MastodonAuthenticationBox(authentication: authentication)) else { continue }
+            let itHasBeenAwhile: Bool
+            if let lastFetch = UserDefaults.shared.lastSuccessfulAccountFetch(forRawAccessToken: authentication.userAccessToken) {
+                itHasBeenAwhile = lastFetch.distance(to: Date.now) > minTimeBetweenAutomaticAccountFetches
+            } else {
+                itHasBeenAwhile = true
+            }
+            
+            guard itHasBeenAwhile else { continue }
+            
+            if let _ = try? await APIService.shared.accountInfo(MastodonAuthenticationBox(authentication: authentication)) {
+                someUpdated = true
+                UserDefaults.shared.setLastSuccessfulAccountFetch(forRawAccessToken: authentication.userAccessToken)
+            }
         }
-
-        NotificationCenter.default.post(name: .userFetched, object: nil)
+       
+        if someUpdated {
+            NotificationCenter.default.post(name: .userFetched, object: nil)
+        }
     }
 }
 

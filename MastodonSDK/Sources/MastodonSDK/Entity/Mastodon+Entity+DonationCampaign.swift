@@ -164,5 +164,8 @@ extension Mastodon.Entity {
             UserDefaults.standard.removeObject(forKey: contributedCampaignsKey)
             UserDefaults.standard.removeObject(forKey: dismissedCampaignsKey)
         }
+        static public func hasHistory() -> Bool {
+            return UserDefaults.standard.array(forKey: contributedCampaignsKey)?.isEmpty == false || UserDefaults.standard.array(forKey: dismissedCampaignsKey)?.isEmpty == false
+        }
     }
 }

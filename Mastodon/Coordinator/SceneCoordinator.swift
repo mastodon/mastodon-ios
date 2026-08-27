@@ -12,6 +12,7 @@ import MastodonCore
 import MastodonAsset
 import MastodonLocalization
 import MBProgressHUD
+import SwiftUI
 
 @MainActor
 final public class SceneCoordinator {
@@ -31,8 +32,6 @@ final public class SceneCoordinator {
     
     let id = UUID().uuidString
     
-    private(set) weak var tabBarController: MainTabBarController!
-    private(set) weak var splitViewController: RootSplitViewController?
     private(set) weak var rootViewController: UIViewController?
 
     private(set) var secondaryStackHashValues = Set<Int>()
@@ -72,22 +71,6 @@ final public class SceneCoordinator {
                             // redirect to notifications tab
                             self.switchToTabBar(tab: .notifications)
 
-                            // Note:
-                            // show (push) on phone and pad
-                            let from: UIViewController? = {
-                                if let splitViewController = self.splitViewController {
-                                    if splitViewController.compactMainTabBarViewController.topMost?.view.window != nil {
-                                        // compact
-                                        return splitViewController.compactMainTabBarViewController.topMost
-                                    } else {
-                                        // expand
-                                        return splitViewController.contentSplitViewController.mainTabBarController.topMost
-                                    }
-                                } else {
-                                    return self.tabBarController.topMost
-                                }
-                            }()
-
                             // show notification related content
                             guard let type = Mastodon.Entity.NotificationType(rawValue: pushNotification.notificationType) else { return }
                             guard let me = authenticationBox.cachedAccount else { return }
@@ -100,23 +83,22 @@ final public class SceneCoordinator {
                                     authenticationBox: authenticationBox
                                 ).value.account
 
-                                let relationship = try await APIService.shared.relationship(forAccounts: [account], authenticationBox: authenticationBox).value.first
+                                let relationshipEntity = try await APIService.shared.relationship(forAccounts: [account], authenticationBox: authenticationBox)[account.id]
 
-                                let profileType: ProfileType = me == account ? .me(me) : .notMe(me: me, displayAccount: account, relationship: relationship)
-                                _ = self.present(
-                                    scene: .profile(profileType),
-                                    from: from,
-                                    transition: .show
-                                )
+                                let relationship: MastodonAccount.Relationship? = {
+                                    guard let relationshipEntity else { return nil }
+                                    if me == account {
+                                        return .isMe
+                                    } else {
+                                        return .isNotMe(MastodonAccount.RelationshipInfo(relationshipEntity, fetchedAt: .now))
+                                    }
+                                }()
+                                MastodonTabViewRouter.current.show(.profile(account: account, relationship: relationship), in: .notifications)
                             case .followRequest:
                                 // do nothing
                                 break
                             case .mention, .reblog, .favourite, .poll, .status:
-                                _ = self.present(
-                                    scene: .threadRemote(.notification(notificationID)),
-                                    from: from,
-                                    transition: .show
-                                )
+                                MastodonTabViewRouter.current.show(.timeline(.remoteThread(root: .notification(notificationID))), in: .notifications)
                             case .moderationWarning:
                                 break
                             default:
@@ -143,9 +125,7 @@ extension SceneCoordinator {
         case popover(sourceView: UIView)
         case custom(transitioningDelegate: UIViewControllerTransitioningDelegate)
         case customPush(animated: Bool)
-        case safariPresent(animated: Bool, completion: (() -> Void)? = nil)
         case alertController(animated: Bool, completion: (() -> Void)? = nil)
-        case activityViewControllerPresent(animated: Bool, completion: (() -> Void)? = nil)
         case formSheet([UISheetPresentationController.Detent]?)
         case none
     }
@@ -159,43 +139,7 @@ extension SceneCoordinator {
         case mastodonServerRules(viewModel: MastodonServerRulesView.ViewModel)
         case mastodonConfirmEmail(viewModel: MastodonConfirmEmailViewModel)
         case mastodonResendEmail(viewModel: MastodonResendEmailViewModel)
-        case mastodonWebView(viewModel: WebViewModel)
         case mastodonLogin(authenticationViewModel: AuthenticationViewModel, suggestedDomain: String?)
-
-        // search
-        case searchDetail(viewModel: SearchDetailViewModel)
-        case searchResult(viewModel: SearchResultViewModel)
-
-        // compose
-        case compose(viewModel: ComposeViewModel)
-        case editStatus(viewModel: ComposeViewModel)
-        
-        // thread
-        case thread(Mastodon.Entity.Status, authenticatedUserDomain: String)
-        case threadRemote(RemoteThreadType)
-        
-        // Hashtag Timeline
-        case hashtagTimeline(Mastodon.Entity.Tag)
-
-        // profile
-        case accountList(viewModel: AccountListViewModel)
-        case profile(ProfileType)
-        case myFavorites
-        case followers(ofUserId: Mastodon.Entity.Account.ID)
-        case followedBy(userId: Mastodon.Entity.Account.ID)
-        case familiarFollowers(Mastodon.Entity.Account, MastodonAuthenticationBox)
-        case whoBoosted(actionableStatusID: Mastodon.Entity.Status.ID)
-        case whoFavourited(actionableStatusID: Mastodon.Entity.Status.ID)
-        case myBookmarks
-        case myFollowedTags
-
-        // setting
-        case settings
-
-        // Notifications
-        case notificationPolicy(viewModel: NotificationPolicyViewModel)
-        case notificationRequests(viewModel: NotificationRequestsViewModel)
-        case accountNotificationTimeline(request: Mastodon.Entity.NotificationRequest)
 
         // report
         case report(viewModel: ReportViewModel)
@@ -208,9 +152,7 @@ extension SceneCoordinator {
         case suggestionAccount(viewModel: SuggestionAccountViewModel)
         
         // misc
-        case safari(url: URL)
         case alertController(alertController: UIAlertController)
-        case activityViewController(activityViewController: UIActivityViewController, sourceView: UIView?, barButtonItem: UIBarButtonItem?)
 
         var isOnboarding: Bool {
             switch self {
@@ -233,34 +175,10 @@ extension SceneCoordinator {
     
     @MainActor
     func setup() {
-        let rootViewController: UIViewController
-
-        switch UIDevice.current.userInterfaceIdiom {
-            case .phone:
-                let viewController = MainTabBarController(authenticationBox: authenticationBox)
-                self.splitViewController = nil
-                self.tabBarController = viewController
-                rootViewController = viewController
-            default:
-                let splitViewController = RootSplitViewController(authenticationBox: authenticationBox)
-                self.splitViewController = splitViewController
-                self.tabBarController = splitViewController.contentSplitViewController.mainTabBarController
-                rootViewController = splitViewController
-        }
         
-        // this feels wrong
-        sceneDelegate.window?.rootViewController = rootViewController                   // base: main
-        self.rootViewController = rootViewController
-
-        if authenticationBox == nil {                                                        // entry #1: welcome
-            DispatchQueue.main.async {
-                _ = self.present(
-                    scene: .welcome,
-                    from: rootViewController, // self.sceneDelegate.window?.rootViewController,
-                    transition: .modal(animated: true, completion: nil)
-                )
-            }
-        }
+        let mainTabView = UIHostingController(rootView: MastodonMainTabView().environment(\.sceneCoordinator, self))
+        sceneDelegate.window?.rootViewController = mainTabView
+        self.rootViewController = mainTabView
     }
 
     @MainActor
@@ -269,18 +187,8 @@ extension SceneCoordinator {
         guard let viewController = get(scene: scene, from: sender) else {
             return nil
         }
-        guard var presentingViewController = sender ?? sceneDelegate.window?.rootViewController?.topMost else {
+        guard let presentingViewController = sender ?? sceneDelegate.window?.rootViewController?.topMost else {
             return nil
-        }
-        // adapt for child controller
-        if let navigationControllerVisibleViewController = presentingViewController.navigationController?.visibleViewController {
-            navigationControllerVisibleViewController.navigationItem.backBarButtonItem = nil
-        }
-        
-        if let mainTabBarController = presentingViewController as? MainTabBarController,
-           let navigationController = mainTabBarController.selectedViewController as? UINavigationController,
-           let topViewController = navigationController.topViewController {
-            presentingViewController = topViewController
         }
 
         switch transition {
@@ -310,31 +218,19 @@ extension SceneCoordinator {
         case .popover(let sourceView):
             viewController.modalPresentationStyle = .popover
             viewController.popoverPresentationController?.sourceView = sourceView
-            (splitViewController ?? presentingViewController)?.present(viewController, animated: true, completion: nil)
+            presentingViewController.present(viewController, animated: true, completion: nil)
         case .custom(let transitioningDelegate):
             viewController.modalPresentationStyle = .custom
             viewController.transitioningDelegate = transitioningDelegate
             viewController.modalPresentationCapturesStatusBarAppearance = true
-            (splitViewController ?? presentingViewController)?.present(viewController, animated: true, completion: nil)
+            presentingViewController.present(viewController, animated: true, completion: nil)
 
         case .customPush(let animated):
             // set delegate in view controller
             assert(sender?.navigationController?.delegate != nil)
             sender?.navigationController?.pushViewController(viewController, animated: animated)
 
-        case .safariPresent(let animated, let completion):
-            if UserDefaults.shared.preferredUsingDefaultBrowser, case let .safari(url) = scene {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                viewController.modalPresentationCapturesStatusBarAppearance = true
-                presentingViewController.present(viewController, animated: animated, completion: completion)
-            }
-
         case .alertController(let animated, let completion):
-            viewController.modalPresentationCapturesStatusBarAppearance = true
-            presentingViewController.present(viewController, animated: animated, completion: completion)
-
-        case .activityViewControllerPresent(let animated, let completion):
             viewController.modalPresentationCapturesStatusBarAppearance = true
             presentingViewController.present(viewController, animated: animated, completion: completion)
 
@@ -349,22 +245,15 @@ extension SceneCoordinator {
         return viewController
     }
 
-    func switchToTabBar(tab: Tab) {
-        splitViewController?.contentSplitViewController.currentSupplementaryTab = tab
-        
-        splitViewController?.compactMainTabBarViewController.selectedIndex = tab.rawValue
-        splitViewController?.compactMainTabBarViewController.currentTab = tab
-        
-        tabBarController.selectedIndex = tab.rawValue
-        tabBarController.currentTab = tab
+    func switchToTabBar(tab: MastodonTabViewRouter.MastodonTab) {
+        MastodonTabViewRouter.current.selectedTab = tab
     }
 }
 
-private extension SceneCoordinator {
+extension SceneCoordinator {
     
     func get(scene: Scene, from sender: UIViewController? = nil) -> UIViewController? {
         let viewController: UIViewController?
-        let navigator = MastodonNavigationRouter(navigationType: .uiKit(nil))
         switch scene {
         case .welcome:
             let _viewController = WelcomeViewController()
@@ -395,75 +284,7 @@ private extension SceneCoordinator {
             let _viewController = MastodonResendEmailViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
-        case .mastodonWebView(let viewModel):
-            let _viewController = WebViewController(viewModel)
-            viewController = _viewController
-        case .searchDetail(let viewModel):
-            let _viewController = SearchDetailViewController(authenticationBox: viewModel.authenticationBox)
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .searchResult(let viewModel):
-            viewController = TimelineListViewController(.search(viewModel.searchText, scope: viewModel.searchScope), navigator: navigator)
-        case .compose(let viewModel):
-            let _viewController = ComposeViewController(viewModel: viewModel)
-            viewController = _viewController
-        case .thread(let rootRecord, let domain):
-            guard let rootPost = GenericMastodonPost.fromStatus(rootRecord, authenticatedDomain: domain) as? MastodonContentPost else { return nil }
-            viewController = TimelineListViewController(.thread(root: rootPost), navigator: navigator)
-        case .threadRemote(let entityType):
-            viewController = TimelineListViewController(.remoteThread(root: entityType), navigator: navigator)
-        case .hashtagTimeline(let tag):
-            let _viewController = TimelineListViewController(.hashtag(tag), navigator: navigator)
-            viewController = _viewController
-        case .accountList(let viewModel):
-            let accountListViewController = AccountListViewController()
-            accountListViewController.viewModel = viewModel
-            viewController = accountListViewController
-        case .profile(let profileType):
-            let _viewController: UIViewController =  {
-                let needsNavigationStack = !(sender is UINavigationController) &&  sender?.navigationController == nil
-                let controller = ProfileHostingViewController(navigationRouter: navigator)
-                let account = MastodonAccount.fromEntity(profileType.accountToDisplay, authenticatedDomain: AuthenticationServiceProvider.shared.currentActiveUser.value?.domain ?? "")
-                if account.globallyUniqueUserIdentifier == AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier {
-                    controller.viewModel.set(account: account, relationship: .isMe, navigator: navigator)
-                } else {
-                    controller.viewModel.set(account: account, relationship: .isNotMe(nil), navigator: navigator)
-                    
-                    Task {
-                        let relationshipFetchID = profileType.accountToDisplay.id
-                        if let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
-                            Task {
-                                guard let relationship = try await APIService.shared.relationship(forAccountIds: [relationshipFetchID], authenticationBox: authBox).value.first else { return }
-                                controller.viewModel.set(account: account, relationship: .isNotMe(MastodonAccount.RelationshipInfo(relationship, fetchedAt: .now)), navigator: navigator)
-                            }
-                        }
-                    }
-                }
-                return controller
-            }()
-            viewController = _viewController
-        case .myBookmarks:
-            viewController = TimelineListViewController(.myBookmarks, navigator: navigator)
-        case .myFollowedTags:
-            viewController = TimelineListViewController(.myFollowedHashtags, navigator: navigator)
-        case .myFavorites:
-            viewController = TimelineListViewController(.myFavorites, navigator: navigator)
-        case .followers(let followedId):
-            let followerListViewController = TimelineListViewController(.followers(ofUserId: followedId), navigator: navigator)
-            viewController = followerListViewController
-        case .followedBy(let userId):
-            let followingListViewController = TimelineListViewController(.accountsFollowed(byUserId: userId), navigator: navigator)
-            viewController = followingListViewController
-        case .familiarFollowers(let accountEntity, let authBox):
-            let account = MastodonAccount.fromEntity(accountEntity, authenticatedDomain: authBox.domain)
-            let viewModel = TimelineListViewModel(timeline: .familiarFollowers(account.userID), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
-            viewController = TimelineListViewController(.familiarFollowers(account, viewModel), navigator: navigator)
-        case .whoBoosted(let statusID):
-            let _viewController = TimelineListViewController(.whoBoosted(actionableStatusID: statusID), navigator: navigator)
-            viewController = _viewController
-        case .whoFavourited(let statusID):
-            let _viewController = TimelineListViewController(.whoFavourited(actionableStatusID: statusID), navigator: navigator)
-            viewController = _viewController
+       
         case .report(let viewModel):
             viewController = ReportViewController(viewModel: viewModel)
         case .reportServerRules(let viewModel):
@@ -487,15 +308,6 @@ private extension SceneCoordinator {
             _viewController.viewModel = viewModel
             viewController = _viewController
 
-        case .safari(let url):
-            guard let scheme = url.scheme?.lowercased(),
-                  scheme == "http" || scheme == "https" else {
-                return nil
-            }
-            let _viewController = SFSafariViewController(url: url)
-            _viewController.preferredBarTintColor = SystemTheme.navigationBarBackgroundColor
-            _viewController.preferredControlTintColor = Asset.Colors.Brand.blurple.color
-            viewController = _viewController
 
         case .alertController(let alertController):
             if let popoverPresentationController = alertController.popoverPresentationController {
@@ -506,37 +318,6 @@ private extension SceneCoordinator {
                 )
             }
             viewController = alertController
-        case .activityViewController(let activityViewController, let sourceView, let barButtonItem):
-            activityViewController.popoverPresentationController?.sourceView = sourceView
-            activityViewController.popoverPresentationController?.barButtonItem = barButtonItem
-            viewController = activityViewController
-        case .settings:
-            guard let presentedOn = sender, let authenticationBox = self.authenticationBox
-            else { return nil }
-            
-            let accountName = authenticationBox.authentication.username
-            
-            let settingsCoordinator = SettingsCoordinator(presentedOn: presentedOn,
-                                                          accountName: accountName,
-                                                          appContext: AppContext.shared,
-                                                          authenticationBox: authenticationBox,
-                                                          sceneCoordinator: self
-            )
-            settingsCoordinator.delegate = self
-            settingsCoordinator.start()
-
-            viewController = settingsCoordinator.navigationController
-            childCoordinator = settingsCoordinator
-
-        case .editStatus(let viewModel):
-            let composeViewController = ComposeViewController(viewModel: viewModel)
-            viewController = composeViewController
-        case .notificationRequests(let viewModel):
-            viewController = NotificationRequestsTableViewController(viewModel: viewModel)
-        case .notificationPolicy(let viewModel):
-            viewController = NotificationPolicyViewController(viewModel)
-        case .accountNotificationTimeline(let request):
-            viewController = TimelineListViewController(.notifications(.fromRequest(request)), navigator: navigator)
         }
 
         return viewController
@@ -580,82 +361,6 @@ public extension SceneCoordinator {
 extension SceneCoordinator: MastodonLoginViewControllerDelegate {
     func backButtonPressed(_ viewController: MastodonLoginViewController) {
         viewController.navigationController?.popViewController(animated: true)
-    }
-}
-
-//MARK: - SettingsCoordinatorDelegate
-extension SceneCoordinator: SettingsCoordinatorDelegate {
-    func logout(_ user: MastodonAuthentication, presentingFrom viewController: UIViewController) {
-
-        let preferredStyle: UIAlertController.Style
-
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            preferredStyle = .actionSheet
-        } else {
-            preferredStyle = .alert
-        }
-
-        let alertController = UIAlertController(
-            title: L10n.Common.Alerts.SignOut.title,
-            message: L10n.Common.Alerts.SignOut.message,
-            preferredStyle: preferredStyle
-        )
-
-        let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
-        let signOutAction = UIAlertAction(title: L10n.Common.Alerts.SignOut.confirm, style: .destructive) { [weak self] _ in
-            guard let self else { return }
-
-            NotificationService.shared.clearNotificationCountForActiveUser()
-
-            Task { @MainActor in
-                try await AuthenticationServiceProvider.shared.signOutMastodonUser(
-                    authentication: user
-                )
-                self.setup()
-                PersistenceManager.shared.removeAllCaches(forUser: user)
-                try await BodegaPersistence.removeUser(user)
-            }
-
-        }
-
-        alertController.addAction(cancelAction)
-        alertController.addAction(signOutAction)
-
-        (viewController.navigationController ?? viewController).present(alertController, animated: true)
-    }
-
-    @MainActor
-    func openGithubURL(_ settingsCoordinator: SettingsCoordinator) {
-        guard let githubURL = URL(string: "https://github.com/mastodon/mastodon-ios") else { return }
-
-        _ = present(
-            scene: .safari(url: githubURL),
-            from: settingsCoordinator.navigationController,
-            transition: .safariPresent(animated: true)
-        )
-    }
-
-    @MainActor
-    func openPrivacyURL(_ settingsCoordinator: SettingsCoordinator) {
-        guard let privacyURL = URL(string: "https://joinmastodon.org/ios/privacy") else { return }
-        _ = present(scene: .safari(url: privacyURL),
-                    from: settingsCoordinator.navigationController,
-                    transition: .safariPresent(animated: true))
-
-    }
-
-    func openProfileSettingsURL(_ settingsCoordinator: SettingsCoordinator) {
-        guard let authenticationBox else { return }
-
-        let domain = authenticationBox.domain
-        let profileSettingsURL = Mastodon.API.profileSettingsURL(domain: domain)
-
-        let authenticationController = MastodonAuthenticationController(authenticateURL: profileSettingsURL)
-
-        authenticationController.authenticationSession?.presentationContextProvider = settingsCoordinator
-        authenticationController.authenticationSession?.start()
-
-        self.mastodonAuthenticationController = authenticationController
     }
 }
 

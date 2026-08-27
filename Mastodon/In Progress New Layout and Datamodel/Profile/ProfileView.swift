@@ -10,35 +10,6 @@ import MastodonSDK
 import MastodonUI
 import Combine
 
-class ProfileHostingViewController: UIHostingController<AnyView> {
-    let wrapInSwiftUINavigationStack: Bool
-    let viewModel = ProfileViewModel()
-    let nestedScrollViewModel = NestedScrollInteractionViewModel()
-    let navigationRouter: MastodonNavigationRouter
-    
-    init(navigationRouter: MastodonNavigationRouter) {
-        self.wrapInSwiftUINavigationStack = {
-            switch navigationRouter.navigationType {
-            case .uiKit:
-                return false
-            case .swiftUI:
-                return true
-            }
-        }()
-        self.navigationRouter = navigationRouter
-        let root = ProfileView(wrapInSwiftUINavigationStack: wrapInSwiftUINavigationStack)
-            .profileEnvironment(viewModel, nestedScroll: nestedScrollViewModel)
-            .environment(navigationRouter)
-        super.init(rootView: AnyView(root))
-        title = nil
-        navigationRouter.navigationType = .uiKit(self)
-    }
-    
-    @MainActor @preconcurrency required dynamic init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 extension View {
     func profileEnvironment(_ viewModel: ProfileViewModel,
                             nestedScroll: NestedScrollInteractionViewModel) -> some View {
@@ -76,7 +47,7 @@ struct ProfileView: View {
             NavigationStack(path: $navigationRouter.navigationPath){
                 content
                     .navigationDestination(for: MastodonNavigationDestination.self) { destination in
-                        navigationRouter.destinationView(destination)
+                        navigationRouter.destinationView(destination, sceneCoordinator: nil)
                     }
                     .onChange(of: navigationRouter.navigationPath) { oldValue, newValue in
                         if newValue.isEmpty {
@@ -374,7 +345,7 @@ struct ProfileAvatarAndBannerView: View {
                 }
                 
                 ZStack { // for avatar edit button
-                    AvatarView(size: .extraLarge, avatarSource: avatarSource, goToProfile: nil)
+                    AvatarView(style: .roundedRect, size: .extraLarge, avatarSource: avatarSource)
                         .padding(.horizontal, doublePadding)
                     switch profileViewModel.editingStatus {
                     case .editing:
@@ -984,6 +955,12 @@ struct ProfileActionBar: View {
                             switch menuAction {
                             case .miscellaneous(let miscAction):
                                 viewModel.menuItem(miscAction)
+                            case .share(let urlString):
+                                if let url = URL(string: urlString) {
+                                    ShareLink(item: url) {
+                                        Label(L10nLookup.MastodonMenuAction.Navigation.share, systemImage: "square.and.arrow.up")
+                                    }
+                                }
                             case .navigationalAction(let navAction):
                                 let domainName: String? = {
                                     switch relationshipViewModel.relationship {
@@ -1363,7 +1340,7 @@ struct FamiliarFollowersElement: View {
         HStack {
         HStack(spacing: -8) {
             ForEach(familiarFollowers.firstFew.prefix(maxAvatarCount), id: \.id) { follower in
-                AvatarView(size: .small, borderStyle: .both, avatarSource: .url(follower.avatarURL), goToProfile: nil)
+                AvatarView(style: .roundedRect, size: .small, borderStyle: .both, avatarSource: .url(follower.avatarURL))
             }
         }
             MastodonContentView.timelinePost(html: htmlDisplayString, emojis: familiarFollowers.firstFew.prefix(2).flatMap{ $0.displayInfo.emojis }, isInlinePreview: true)

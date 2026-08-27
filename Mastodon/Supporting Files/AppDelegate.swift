@@ -90,7 +90,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         }
         
         let accessToken = pushNotification.accessToken
-        UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)
+        
+        UnreadNotificationCounts.shared.incrementUnreadCount(rawAccessToken: accessToken)
         NotificationService.shared.applicationIconBadgeNeedsUpdate.send()
         
         NotificationService.shared.handle(pushNotification: pushNotification)

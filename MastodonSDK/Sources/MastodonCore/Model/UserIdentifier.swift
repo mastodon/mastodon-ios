@@ -13,9 +13,18 @@ public protocol UserIdentifier {
     var userID: Mastodon.Entity.Account.ID { get }
 }
 
+fileprivate let tabCustomizationPrefix = "tabCustomization-"
+func isUserDefaultsTabCustomizationKey(_ key: String) -> Bool {
+    return key.hasPrefix(tabCustomizationPrefix)
+}
+
 public extension UserIdentifier {
     var globallyUniqueUserIdentifier: String {
         "\(userID)@\(domain)"
+    }
+    
+    var tabCustomizationDefaultsKey: String {
+        "\(tabCustomizationPrefix)\(globallyUniqueUserIdentifier)"
     }
 }
 

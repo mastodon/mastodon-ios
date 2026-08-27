@@ -24,6 +24,9 @@ extension Mastodon.API.Timeline {
         return Mastodon.API.endpointURL(domain: domain)
             .appendingPathComponent("timelines/list/\(id)")
     }
+    static func linkMentionsTimelineEndpointURL(domain: String) -> URL {
+        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("timelines/link")
+    }
     
     /// View public timeline statuses
     ///
@@ -142,6 +145,23 @@ extension Mastodon.API.Timeline {
         RateLimitViewModel.shared.didMakeRequest("get list timeline for list \(id)")
         let (data, response) = try await session.data(for: request)
         
+        let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)
+        return Mastodon.Response.Content(value: value, response: response)
+    }
+    
+    public static func linkMentions(
+        session: URLSession,
+        domain: String,
+        query: LinkMentionsTimelineQuery,
+        authorization: Mastodon.API.OAuth.Authorization?
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Status]> {
+        let request = Mastodon.API.get(
+            url: linkMentionsTimelineEndpointURL(domain: domain),
+            query: query,
+            authorization: authorization
+        )
+        RateLimitViewModel.shared.didMakeRequest("get link mentions timeline")
+        let (data, response) = try await session.data(for: request)
         let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)
         return Mastodon.Response.Content(value: value, response: response)
     }
@@ -268,4 +288,35 @@ extension Mastodon.API.Timeline {
         }
     }
     
+    public struct LinkMentionsTimelineQuery: Codable, TimelineQuery, GetQuery {
+        public let url: String
+        public let maxID: Mastodon.Entity.Status.ID?
+        public let sinceID: Mastodon.Entity.Status.ID?
+        public let minID: Mastodon.Entity.Status.ID?
+        public let limit: Int?
+        
+        public init(
+            url: String,
+            maxID: Mastodon.Entity.Status.ID? = nil,
+            sinceID: Mastodon.Entity.Status.ID? = nil,
+            minID: Mastodon.Entity.Status.ID? = nil,
+            limit: Int? = nil
+        ) {
+            self.url = url
+            self.maxID = maxID
+            self.sinceID = sinceID
+            self.minID = minID
+            self.limit = limit
+        }
+        
+        var queryItems: [URLQueryItem]? {
+            var items: [URLQueryItem] = []
+            items.append(URLQueryItem(name: "url", value: url))
+            maxID.flatMap { items.append(URLQueryItem(name: "max_id", value: $0)) }
+            sinceID.flatMap { items.append(URLQueryItem(name: "since_id", value: $0)) }
+            minID.flatMap { items.append(URLQueryItem(name: "min_id", value: $0)) }
+            limit.flatMap { items.append(URLQueryItem(name: "limit", value: String($0))) }
+            return items
+        }
+    }
 }

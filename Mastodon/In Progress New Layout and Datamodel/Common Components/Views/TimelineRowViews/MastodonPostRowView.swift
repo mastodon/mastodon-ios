@@ -63,14 +63,15 @@ struct MastodonPostRowView: View {
             HStack(alignment: .top, spacing: spacingBetweenGutterAndContent) {
                 // MARK: Avatar
                 VStack(spacing: 0) {
-                    AvatarView(size: .large, avatarSource: .url(author?.avatarURL ?? viewModel.initialDisplayInfo.actionableAuthorStaticAvatar), goToProfile: {
-                        switch viewModel.displayType {
-                        case .editHistory:
-                            break
-                        case .standard:
-                            goToProfile(author)
+                    AvatarView(style: .roundedRect, size: .large, avatarSource: .url(author?.avatarURL ?? viewModel.initialDisplayInfo.actionableAuthorStaticAvatar))
+                        .onAsyncTap {
+                            if let author {
+                                navigator.push(.profile(account: author._legacyEntity, relationship: viewModel.myRelationshipToAuthor))
+                            }
+                        } onError: { error in
+                            navigator.didReceiveError(error)
                         }
-                    })
+
                     if let threadedContext, threadedContext.drawsLineBelow {
                         let lowerThreadDecorationHeight: CGFloat? = {
                             if let precalculatedHeight {
@@ -243,7 +244,7 @@ struct MastodonPostRowView: View {
                     Button(fullTitle) {
                         if isEnabled {
                             guard let composeViewModel = viewModel.composeViewModelQuotingThisPost else { return }
-                            navigator.presentModal(.legacy(scene: .compose(viewModel: composeViewModel), transition: .modal(animated: true, completion: nil)))
+                            navigator.presentSheet(.modalCompose(composeViewModel, nil), afterDeconflictionDelay: false)
                         }
                     }
                 }
@@ -459,11 +460,21 @@ private struct ActionBar: View {
                     ForEach(submenus(forRelationshipToAuthor: relationship, isQuotingMe: viewModel.isQuotingMe, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { submenu in
                         ForEach(submenu.items, id: \.self) { menuAction in
                             if let actionablePost = viewModel.fullPost?.actionablePost {
-                                Button(role: menuAction.isDestructive ? .destructive : nil) {
-                                    actionHandler?.doAction(menuAction, forPost: viewModel, navigator: navigator)
-                                }
-                                label: {
-                                    Label(menuAction.labelText(username: actionablePost.metaData.author.displayInfo.displayName, postLanguage: actionablePost.content.language), systemImage: menuAction.iconSystemName)
+                                switch menuAction {
+                                case .sharePost:
+                                    let urlString = actionablePost.metaData.url ?? actionablePost.metaData.uriForFediverse
+                                    if let url = URL(string: urlString) {
+                                        ShareLink(item: url) {
+                                            menuActionLabel(menuAction, forPost: actionablePost)
+                                        }
+                                    }
+                                default:
+                                    Button(role: menuAction.isDestructive ? .destructive : nil) {
+                                        actionHandler?.doAction(menuAction, forPost: viewModel, navigator: navigator)
+                                    }
+                                    label: {
+                                        menuActionLabel(menuAction, forPost: actionablePost)
+                                    }
                                 }
                             }
                         }
@@ -477,6 +488,10 @@ private struct ActionBar: View {
                     .frame(minWidth: 45, minHeight: 45)
                     .contentShape(Rectangle())
             }
+        }
+        
+        @ViewBuilder func menuActionLabel(_ menuAction: MastodonPostMenuAction, forPost actionablePost: MastodonContentPost) -> some View {
+            Label(menuAction.labelText(username: actionablePost.metaData.author.displayInfo.displayName, postLanguage: actionablePost.content.language), systemImage: menuAction.iconSystemName)
         }
         
         func submenus(forRelationshipToAuthor relationship: MastodonAccount.Relationship, isQuotingMe: Bool,  isShowingTranslation: Bool?) -> [MastodonPostMenuAction.Submenu] {

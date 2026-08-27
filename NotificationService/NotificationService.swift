@@ -56,10 +56,9 @@ class NotificationService: UNNotificationServiceExtension {
             bestAttemptContent.userInfo["plaintext"] = plaintextData
             
             let accessToken = notification.accessToken
-            UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)
+            UserDefaults.shared.incrementNotificationCount(rawAccessToken: accessToken)
             
-            UserDefaults.shared.notificationBadgeCount += 1
-            bestAttemptContent.badge = NSNumber(integerLiteral: UserDefaults.shared.notificationBadgeCount)
+            bestAttemptContent.badge = NSNumber(integerLiteral: UserDefaults.shared.summedNotificationCount())
             
             if let urlString = notification.icon, let url = URL(string: urlString) {
                 let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("notification-attachments")

@@ -30,14 +30,26 @@ extension APIService {
         return account
     }
     
-    public func accountsInfo(userIDs: [String], authenticationBox: MastodonAuthenticationBox) async throws -> [Mastodon.Entity.Account] {
-        let accounts = try await Mastodon.API.Account.accountsInfo(
-            session: session,
-            domain: authenticationBox.domain,
-            userIDs: userIDs,
-            authorization: authenticationBox.userAuthorization
-        ).singleOutput().value
-        return accounts
+    public func accountsInfo(userIDs: [String], authenticationBox: MastodonAuthenticationBox) async throws -> [Mastodon.Entity.Account.ID : Mastodon.Entity.Account] {
+        let dedupedIds = Array(Set(userIDs))
+        let chunkSize = 40
+        var accountsDict = [String : Mastodon.Entity.Account]()
+        for start in stride(from: 0, to: dedupedIds.count, by: chunkSize) { // asking for too many at once can cause an API error
+            let end = min(start + chunkSize, dedupedIds.count)
+            let chunk = Array(dedupedIds[start..<end])
+            
+            let accounts = try await Mastodon.API.Account.accountsInfo(
+                session: session,
+                domain: authenticationBox.domain,
+                userIDs: chunk,
+                authorization: authenticationBox.userAuthorization
+            ).singleOutput().value
+            
+            for account in accounts {
+                accountsDict[account.id] = account
+            }
+        }
+        return accountsDict
     }
 }
 
@@ -145,7 +157,6 @@ extension APIService {
 extension APIService {
     @discardableResult
     public func getFollowedTags(
-        domain: String,
         query: Mastodon.API.Account.FollowedTagsQuery,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Tag]> {
@@ -160,6 +171,20 @@ extension APIService {
         ).singleOutput()
 
         return followedTags
+    }
+    
+    public func getLists(authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.List]> {
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
+        
+        let lists = try await Mastodon.API.Lists.getLists(
+            session: session,
+            domain: domain,
+            authorization: authorization
+        ).singleOutput()
+        
+        return lists
     }
 }
 

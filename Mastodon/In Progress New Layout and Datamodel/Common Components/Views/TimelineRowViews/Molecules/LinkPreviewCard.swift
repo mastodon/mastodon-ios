@@ -65,7 +65,7 @@ struct LinkPreviewCard: View {
         .accessibilityLabel(L10n.Common.Controls.Status.linkA11YLabel)
         .onTapGesture {
             guard let url = URL(string: cardEntity.url) else { return }
-            navigator.presentModal(.legacy(scene: .safari(url: url), transition: .safariPresent(animated: true, completion: nil)))
+            navigator.openUrl(url, afterDeconflictionDelay: false)
         }
     }
     
@@ -197,7 +197,7 @@ struct LinkPreviewCard: View {
                     navigator.push(.profile(account: account, relationship: nil))
                 } label: {
                     HStack(spacing: tinySpacing) {
-                        AvatarView(size: .tiny, avatarSource: .url(account.avatarURL), goToProfile: nil)
+                        AvatarView(style: .roundedRect, size: .tiny, avatarSource: .url(account.avatarURL))
                         MastodonContentView.header(html: account.displayNameWithFallback, emojis: account.emojis, style: .linkPreviewCardAuthorButton)
                             .lineLimit(1)
                     }

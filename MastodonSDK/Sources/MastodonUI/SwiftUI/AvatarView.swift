@@ -29,8 +29,12 @@ public struct AvatarView: View {
     var sizeExtraSmall = AvatarSize.extraSmall
     var sizeTiny = AvatarSize.tiny
     
-    @State var isNavigating: Bool = false
     @Environment(\.displayScale) var displayScale
+    
+    public enum AvatarStyle {
+        case roundedRect
+        case circular
+    }
     
     public enum Size {
         case extraExtraLarge
@@ -69,16 +73,16 @@ public struct AvatarView: View {
         case local(Image)
     }
     
+    let avatarStyle: AvatarStyle
     let size: Size
     let borderStyle: BorderStyle?
     let avatarSource: AvatarSource?
-    let goToProfile: (() async throws -> ())?
     
-    public init(size: Size, borderStyle: BorderStyle? = nil, avatarSource: AvatarSource?, goToProfile: (() async throws -> ())?) {
+    public init(style: AvatarStyle, size: Size, borderStyle: BorderStyle? = nil, avatarSource: AvatarSource?) {
+        self.avatarStyle = style
         self.size = size
         self.borderStyle = borderStyle
         self.avatarSource = avatarSource
-        self.goToProfile = goToProfile
     }
     
     private var viewDimension: CGFloat {
@@ -92,59 +96,36 @@ public struct AvatarView: View {
         }
     }
     
-    var avatarShape: RoundedRectangle {
-        size.shape
+    var avatarShape: AnyShape {
+        switch avatarStyle {
+        case .roundedRect:
+            return AnyShape(size.shape)
+        case .circular:
+                return AnyShape(Circle())
+        }
     }
     
     public var body: some View {
-        ZStack {
-            avatarImageOrPlaceholder
-                .background() {
-                    avatarShape.fill(.background) // in case the avatar has an alpha channel
-                }
-                .overlay {
-                    switch borderStyle {
-                    case .backgroundMatching:
-                        avatarShape.stroke(.background, lineWidth: 2)
-                    case .separator:
-                        avatarShape.stroke(.separator, lineWidth: 1 / displayScale)
-                    case .both:
-                        ZStack {
-                            avatarShape
-                                .stroke(.background, lineWidth: 2)
-                            avatarShape
-                                .inset(by: 1)
-                                .strokeBorder(.separator, lineWidth: 1 / displayScale)
-                        }
-                    case .none:
-                        switch size {
-                        case .extraLarge:
-                            avatarShape.stroke(.background, lineWidth: 2)
-                        default:
-                            avatarShape.stroke(.separator, lineWidth: 1 / displayScale)
-                        }
-                    }
-                }
-            
-            if isNavigating {
-                ProgressView()
-                    .progressViewStyle(.circular)
-                    .frame(width: 30)
-            }
-        }
-        .frame(width: viewDimension, height: viewDimension)
-        .onTapGesture {
-            if let goToProfile, !isNavigating {
-                Task {
-                    do {
-                        isNavigating = true
-                        try await goToProfile()
-                    } catch {
-                    }
-                    isNavigating = false
+        avatarImageOrPlaceholder
+            .background() {
+                // in case the avatar has an alpha channel
+                switch avatarStyle {
+                case .roundedRect:
+                    background(size.shape)
+                case .circular:
+                    background(Circle())
                 }
             }
-        }
+            .overlay {
+                switch avatarStyle {
+                case .roundedRect:
+                    overlay(size.shape)
+                case .circular:
+                    overlay(Circle())
+                }
+                
+            }
+            .frame(width: viewDimension, height: viewDimension)
     }
     
     @ViewBuilder var avatarImageOrPlaceholder: some View {
@@ -160,16 +141,22 @@ public struct AvatarView: View {
                                 .clipShape(avatarShape)
                         },
                         placeholder: {
-                            avatarShape
-                                .foregroundStyle(
-                                    Color(UIColor.secondarySystemFill))
+                            switch avatarStyle {
+                            case .roundedRect:
+                                placeholder(size.shape)
+                            case .circular:
+                                placeholder(Circle())
+                            }
                         }
                     )
                   
                 } else {
-                    avatarShape
-                        .foregroundStyle(
-                            Color(UIColor.secondarySystemFill))
+                    switch avatarStyle {
+                    case .roundedRect:
+                        placeholder(size.shape)
+                    case .circular:
+                        placeholder(Circle())
+                    }
                 }
             case .local(let image):
                 image.resizable()
@@ -178,4 +165,39 @@ public struct AvatarView: View {
             }
         }
     }
+    
+    @ViewBuilder func background<S: InsettableShape>(_ shape: S) -> some View {
+        shape.fill(.background)
+    }
+    
+    @ViewBuilder func overlay<S: InsettableShape>(_ shape: S) -> some View {
+        switch borderStyle {
+        case .backgroundMatching:
+            shape.stroke(.background, lineWidth: 2)
+        case .separator:
+            shape.stroke(.separator, lineWidth: 1 / displayScale)
+        case .both:
+            ZStack {
+                shape
+                    .stroke(.background, lineWidth: 2)
+                shape
+                    .inset(by: 1)
+                    .strokeBorder(.separator, lineWidth: 1 / displayScale)
+            }
+        case .none:
+            switch size {
+            case .extraLarge:
+                shape.stroke(.background, lineWidth: 2)
+            default:
+                shape.stroke(.separator, lineWidth: 1 / displayScale)
+            }
+        }
+    }
+    
+    @ViewBuilder func placeholder<S: InsettableShape>(_ shape: S) -> some View {
+        shape
+            .foregroundStyle(
+                Color(UIColor.secondarySystemFill))
+    }
 }
+

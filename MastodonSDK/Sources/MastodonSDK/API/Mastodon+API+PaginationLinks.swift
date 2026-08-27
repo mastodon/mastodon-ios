@@ -63,6 +63,42 @@ extension Mastodon.API.Timeline {
             .eraseToAnyPublisher()
     }
     
+    public static func links(
+        session: URLSession,
+        url: URL,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Card]>, Error>  {
+        let request = Mastodon.API.get(
+            fromPrecompiledUrl: url,
+            authorization: authorization
+        )
+        RateLimitViewModel.shared.didMakeRequest("fetch links from precompiled url")
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Card].self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    public static func suggestionAccounts(
+        session: URLSession,
+        url: URL,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.V2.SuggestionAccount]>, Error> {
+        let request = Mastodon.API.get(
+            fromPrecompiledUrl: url,
+            authorization: authorization
+        )
+        RateLimitViewModel.shared.didMakeRequest("fetch suggested accounts from precompiled url")
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.V2.SuggestionAccount].self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
     public static func groupedNotifications(
         session: URLSession,
         url: URL,
@@ -76,6 +112,24 @@ extension Mastodon.API.Timeline {
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.GroupedNotificationsResults.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    public static func notificationRequests(
+        session: URLSession,
+        url: URL,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.NotificationRequest]>, Error> {
+        let request = Mastodon.API.get(
+            fromPrecompiledUrl: url,
+            authorization: authorization
+        )
+        RateLimitViewModel.shared.didMakeRequest("fetch notification requests from precompiled url")
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.NotificationRequest].self, from: data, response: response)
                 return Mastodon.Response.Content(value: value, response: response)
             }
             .eraseToAnyPublisher()

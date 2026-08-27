@@ -77,6 +77,39 @@ public struct L10nLookup {
         }
     }
     
+    public struct ConfirmationDialog {
+        public struct LogOut {
+            public struct ActiveAccount {
+                public static var message: String {
+                    let result = tr("Localizable-ConfirmationDialogs", "ConfirmationDialog.LogOut.ActiveAccount.message")
+                    return result
+                }
+                public static var title: String {
+                    let result = tr("Localizable-ConfirmationDialogs", "ConfirmationDialog.LogOut.ActiveAccount.title")
+                    return result
+                }
+                public static var buttonText: String {
+                    let result = tr("Localizable-ConfirmationDialogs", "ConfirmationDialog.LogOut.ActiveAccount.buttonText")
+                    return result
+                }
+            }
+            public struct AllAccounts {
+                public static var message: String {
+                    let result = tr("Localizable-ConfirmationDialogs", "ConfirmationDialog.LogOut.AllAccounts.message")
+                    return result
+                }
+                public static var title: String {
+                    let result = tr("Localizable-ConfirmationDialogs", "ConfirmationDialog.LogOut.AllAccounts.title")
+                    return result
+                }
+                public static var buttonText: String {
+                    let result = tr("Localizable-ConfirmationDialogs", "ConfirmationDialog.LogOut.AllAccounts.buttonText")
+                    return result
+                }
+            }
+        }
+    }
+    
     public struct Scene {
         public struct Settings {
             public struct Overview {
@@ -941,6 +974,13 @@ public extension L10nLookup.Scene {
             let result = tr("Localizable-Collections", "Scene.Collections.confirmRemoveFromCollectionMessage")
             return result
         }()
+    }
+}
+
+public extension L10nLookup.Scene.Notification {
+    static func viewNotifications(count: Int) -> String {
+        let result = tr("Localizable-Notifications", "Scene.NotificationRequests.viewCountNotfications", count)
+        return result
     }
 }
 

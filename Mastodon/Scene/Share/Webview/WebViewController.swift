@@ -83,7 +83,7 @@ class NotifyingWebViewController: WebViewController, WKNavigationDelegate {
         }
     }
     
-    func dealloc() {
+    deinit {
         navigationEventsContinuation.finish()
     }
 }

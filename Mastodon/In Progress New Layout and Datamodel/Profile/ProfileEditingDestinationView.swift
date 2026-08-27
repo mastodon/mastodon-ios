@@ -472,7 +472,7 @@ struct FeaturedHashtagsEditor: View {
     
     @ViewBuilder var addHashtagButton: some View {
         actionButton(text: L10nLookup.Scene.EditProfile.FeaturedHashtags.add, isDestructive: false, includeBackground: false) {
-            navigator.presentModal(.editProfileNavigation(destination: .addHashtag(profileViewModel: profileViewModel)))
+            navigator.presentSheet(.profileEditingSheet(.addHashtag(profileViewModel: profileViewModel)), afterDeconflictionDelay: false)
         }
     }
     
@@ -705,7 +705,7 @@ struct CustomProfileFieldsEditor: View {
                 .fontWeight(.bold)
                 .foregroundStyle(Asset.Colors.accent.swiftUIColor))
             .onTapGesture {
-                navigator.presentModal(.editProfileNavigation(destination: .verifiedLinkInstructions(profileViewModel: profileViewModel)))
+                navigator.presentSheet(.profileEditingSheet(.verifiedLinkInstructions(profileViewModel: profileViewModel)), afterDeconflictionDelay: false)
             }
         }
     }

@@ -8,6 +8,7 @@ import MastodonAsset
 import MastodonSDK
 import MastodonCore
 import Kanna // for stripping the html from the account bio
+import WebKit
 
 class ProfileEditHostingViewController: UIHostingController<AnyView> {
     private let viewModel: ProfileViewModel
@@ -148,14 +149,9 @@ struct ProfileEditingView: View {
                 .listStyle(.insetGrouped)
             }
             .frame(maxWidth: .infinity)
-            .sheet(isPresented: $navigationRouter.isPresentingProfileEditSheet) {
-                switch navigationRouter.presentedSheet {
-                case .profileEditingSheet(let type):
-                    ProfileEditingDestinationView(destinationType: type)
-                        .profileEditingDestinationEnvironment(type)
-                        .environment(navigationRouter)
-                case .timelineSheet, .none:
-                    EmptyView()
+            .sheet(isPresented: $navigationRouter.isPresentingSheet) {
+                if let sheet = navigationRouter.presentedSheet {
+                    navigationRouter.sheetContents(sheet)
                 }
             }
         }
@@ -176,7 +172,7 @@ struct ProfileEditingView: View {
     
     func navigate(to editDestination: ProfileEditDestinationType) {
         if editDestination.expectsModalPresentation {
-            navigator.presentModal(.editProfileNavigation(destination: editDestination))
+            navigator.presentSheet(.profileEditingSheet(editDestination), afterDeconflictionDelay: false)
         } else {
             navigator.push(.editProfileNavigation(destination: editDestination))
         }

@@ -177,7 +177,7 @@ struct PrecalculatedHeight {
             return true
         } else {
             // fix non-ascii character URL link can not open issue
-            navigator.presentModal(.legacy(scene: .safari(url: url), transition: .safariPresent(animated: true, completion: nil)))
+            navigator.openUrl(url, afterDeconflictionDelay: true)
             return true
         }
     }
@@ -227,9 +227,19 @@ extension MastodonPostViewModel {
 
 extension MastodonPostViewModel {
     @ViewBuilder func accessibilityActionButton(_ action: MastodonPostMenuAction, actionHandler: MastodonPostMenuActionHandler?, navigator: MastodonNavigationRouter) -> some View {
-        Button(action.labelText(username: fullPost?.initialDisplayInfo().actionableAuthorDisplayName, postLanguage: (fullPost?.actionablePost as? MastodonContentPost)?.content.language)) { [weak self] in
-            guard let self else { return }
-            actionHandler?.doAction(action, forPost: self, navigator: navigator)
+        let actionLabel = action.labelText(username: fullPost?.initialDisplayInfo().actionableAuthorDisplayName, postLanguage: (fullPost?.actionablePost as? MastodonContentPost)?.content.language)
+        switch action {
+        case .sharePost:
+            if let urlString = fullPost?.actionablePost?.metaData.url ?? fullPost?.actionablePost?.metaData.uriForFediverse, let url = URL(string: urlString) {
+                ShareLink(item: url) {
+                    Text(actionLabel)
+                }
+            }
+        default:
+            Button(actionLabel) { [weak self] in
+                guard let self else { return }
+                actionHandler?.doAction(action, forPost: self, navigator: navigator)
+            }
         }
     }
     
