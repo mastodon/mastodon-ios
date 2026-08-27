@@ -51,7 +51,7 @@ extension MastodonSDKTests {
         guard !domain.isEmpty, !accessToken.isEmpty else { return }
         
         let query = Mastodon.API.Timeline.HomeTimelineQuery()
-        let authorization = Mastodon.API.OAuth.Authorization(accessToken: accessToken)
+        let authorization = Mastodon.API.OAuth.Authorization(accessToken: accessToken, domain: domain)
         let theExpectation = expectation(description: "Fetch Home Timeline")
         Mastodon.API.Timeline.home(session: session, domain: domain, query: query, authorization: authorization)
             .receive(on: DispatchQueue.main)

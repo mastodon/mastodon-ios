@@ -379,7 +379,7 @@ extension AuthenticationViewModel {
         info: AuthenticateInfo,
         userToken: Mastodon.Entity.Token
     ) -> AnyPublisher<(Mastodon.Entity.Account, MastodonAuthenticationBox), Error> {
-        let authorization = Mastodon.API.OAuth.Authorization(accessToken: userToken.accessToken)
+        let authorization = Mastodon.API.OAuth.Authorization(accessToken: userToken.accessToken, domain: info.domain)
         return APIService.shared.verifyAndActivateUser(
             domain: info.domain,
             clientID: info.clientID,
@@ -392,7 +392,7 @@ extension AuthenticationViewModel {
         info: AuthenticateInfo,
         userToken: Mastodon.Entity.Token
     ) async throws -> MastodonAuthenticationBox {
-        let authorization = Mastodon.API.OAuth.Authorization(accessToken: userToken.accessToken)
+        let authorization = Mastodon.API.OAuth.Authorization(accessToken: userToken.accessToken, domain: info.domain)
         
         let (_, authBox) = try await APIService.shared.verifyAndActivateUser(
             domain: info.domain,

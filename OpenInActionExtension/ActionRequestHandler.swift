@@ -89,13 +89,9 @@ private extension ActionRequestHandler {
                         "openURL": "mastodon://status/\(foundStatus.id)"
                     ])
                 } else if let foundHashtag = value.hashtags.first {
-                    Task { [weak self] in
-                        await self?.continueWithSearch(foundHashtag.name)
-                    }
+                    self?.continueWithSearch(foundHashtag.name)
                 } else {
-                    Task { [weak self] in
-                        await self?.continueWithSearch(url)
-                    }
+                    self?.doneWithInvalidLink()
                 }
             }
             .store(in: &cancellables)
@@ -105,40 +101,14 @@ private extension ActionRequestHandler {
 
 // Fallback to In-App Search
 private extension ActionRequestHandler {
-    func continueWithSearch(_ query: String) async {
-        guard
-            let url = URL(string: query),
-            let host = url.host,
-            let activeAuthenticationBox = await AuthenticationServiceProvider.shared.currentActiveUser.value
-
-        else {
-            return doneWithInvalidLink()
+    func continueWithSearch(_ query: String) {
+        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            doneWithInvalidLink()
+            return
         }
-        
-        Mastodon.API
-            .Instance
-            .instance(
-                session: .shared,
-                authorization: activeAuthenticationBox.userAuthorization,
-                domain: host
-            )
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-                // no-op
-            } receiveValue: { [weak self] response in
-                guard response.value.version != nil else {
-                    self?.doneWithInvalidLink()
-                    return
-                }
-                guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-                    self?.doneWithInvalidLink()
-                    return
-                }
-                self?.doneWithResults(
-                    ["openURL": "mastodon://search?query=\(query)"]
-                )
-            }
-            .store(in: &cancellables)
+        doneWithResults(
+            ["openURL": "mastodon://search?query=\(query)"]
+        )
     }
 }
 

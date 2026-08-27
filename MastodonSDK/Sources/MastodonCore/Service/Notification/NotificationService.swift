@@ -243,7 +243,7 @@ extension NotificationService {
         do {
             _ = try await APIService.shared.cancelSubscription(
                 domain: domain,
-                authorization: .init(accessToken: userAccessToken)
+                authorization: .init(accessToken: userAccessToken, domain: domain)
             )
         } catch {
         }

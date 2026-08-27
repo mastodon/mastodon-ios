@@ -14,13 +14,20 @@ extension Mastodon.API.OAuth {
 
     public struct Authorization {
         public private(set) var accessToken: String
+        public let domain: String
         
-        public init(accessToken: String) {
+        public init(accessToken: String, domain: String) {
             self.accessToken = accessToken
+            self.domain = domain
         }
         
         public mutating func update(accessToken: String) {
             self.accessToken = accessToken
+        }
+        
+        public func isForUrl(_ url: URL) -> Bool {
+            guard let host = url.host() else { return false }
+            return host.caseInsensitiveCompare(domain) == .orderedSame
         }
     }
 
