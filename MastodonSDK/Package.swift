@@ -58,9 +58,6 @@ let package = Package(
             name: "CoreDataStack",
             dependencies: [
                 "MastodonCommon",
-            ],
-            exclude: [
-                "Template/Stencil"
             ]
         ),
         .target(

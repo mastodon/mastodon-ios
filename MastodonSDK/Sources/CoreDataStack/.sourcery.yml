@@ -1,6 +1,0 @@
-sources:
-  - .
-templates:
-  - ./Template
-output:
-  Generated

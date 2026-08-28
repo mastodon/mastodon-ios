@@ -39,10 +39,7 @@
 		DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD725BAA00100D1B89D /* SceneDelegate.swift */; };
 		DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDB25BAA00100D1B89D /* Main.storyboard */; };
 		DB427DE225BAA00100D1B89D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB427DE025BAA00100D1B89D /* LaunchScreen.storyboard */; };
-		DB6746ED278F45F0008A6B94 /* AutoGenerateProtocolRelayDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6746EC278F45F0008A6B94 /* AutoGenerateProtocolRelayDelegate.swift */; };
-		DB6746F0278F463B008A6B94 /* AutoGenerateProtocolDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6746EF278F463B008A6B94 /* AutoGenerateProtocolDelegate.swift */; };
 		DB68A05D25E9055900CFDF14 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DB68A05C25E9055900CFDF14 /* Settings.bundle */; };
-		DB697DD1278F4871004EF2F7 /* AutoGenerateTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB697DD0278F4871004EF2F7 /* AutoGenerateTableViewDelegate.swift */; };
 		DB8FABC726AEC7B2008E5AF4 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB8FAB9E26AEC3A2008E5AF4 /* Intents.framework */; };
 		DB8FABCA26AEC7B2008E5AF4 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8FABC926AEC7B2008E5AF4 /* IntentHandler.swift */; };
 		DB8FABCE26AEC7B2008E5AF4 /* MastodonIntent.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DB8FABC626AEC7B2008E5AF4 /* MastodonIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -261,10 +258,7 @@
 		DB519B14281BCBC400F0C99D /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = it; path = it.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB519B15281BCC2F00F0C99D /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Intents.strings; sourceTree = "<group>"; };
 		DB519B17281BCC2F00F0C99D /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tr; path = tr.lproj/Intents.stringsdict; sourceTree = "<group>"; };
-		DB6746EC278F45F0008A6B94 /* AutoGenerateProtocolRelayDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoGenerateProtocolRelayDelegate.swift; sourceTree = "<group>"; };
-		DB6746EF278F463B008A6B94 /* AutoGenerateProtocolDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoGenerateProtocolDelegate.swift; sourceTree = "<group>"; };
 		DB68A05C25E9055900CFDF14 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		DB697DD0278F4871004EF2F7 /* AutoGenerateTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoGenerateTableViewDelegate.swift; sourceTree = "<group>"; };
 		DB89BA1025C10FF5008580ED /* Mastodon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mastodon.entitlements; sourceTree = "<group>"; };
 		DB8D8E3128196FA0009FD90F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Intents.strings; sourceTree = "<group>"; };
 		DB8D8E3328196FA0009FD90F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = sv; path = sv.lproj/Intents.stringsdict; sourceTree = "<group>"; };
@@ -667,21 +661,10 @@
 				042245EA2F085B4800B0AFEC /* Helper */,
 				042245F02F085B4A00B0AFEC /* Preference */,
 				042246152F085B4D00B0AFEC /* Protocol */,
-				DB6746EE278F45F3008A6B94 /* Template */,
 				DB3D0FF825BAA6B200EAA174 /* Resources */,
 				DB3D0FF725BAA68500EAA174 /* Supporting Files */,
 			);
 			path = Mastodon;
-			sourceTree = "<group>";
-		};
-		DB6746EE278F45F3008A6B94 /* Template */ = {
-			isa = PBXGroup;
-			children = (
-				DB6746EC278F45F0008A6B94 /* AutoGenerateProtocolRelayDelegate.swift */,
-				DB6746EF278F463B008A6B94 /* AutoGenerateProtocolDelegate.swift */,
-				DB697DD0278F4871004EF2F7 /* AutoGenerateTableViewDelegate.swift */,
-			);
-			path = Template;
 			sourceTree = "<group>";
 		};
 		DB8FABC826AEC7B2008E5AF4 /* MastodonIntent */ = {
@@ -760,8 +743,6 @@
 				DB89BA0825C10FD0008580ED /* Embed Frameworks */,
 				DBF8AE1B263293E400C9C23C /* Embed Foundation Extensions */,
 				DB3D100425BAA71500EAA174 /* Run SwiftGen */,
-				DB025B8E278D6448002F581E /* Run Sourcery: Core Data */,
-				DB697DD2278F48D5004EF2F7 /* Run Sourcery */,
 			);
 			buildRules = (
 			);
@@ -1108,24 +1089,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		DB025B8E278D6448002F581E /* Run Sourcery: Core Data */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run Sourcery: Core Data";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [[ -f \"sourcery\" ]]; then\n  \"sourcery\" --config ./MastodonSDK/Sources/CoreDataStack\nelse\n  echo \"warning: Sourcery is not installed. Run 'brew install sourcery' to install it.\"\nfi\n";
-		};
 		DB3D100425BAA71500EAA174 /* Run SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -1143,24 +1106,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"swiftgen\" ]]; then\n  \"swiftgen\" \nelse\n  echo \"warning: SwiftGen is not installed. Run 'brew install swiftgen' to install it.\"\nfi\n";
-		};
-		DB697DD2278F48D5004EF2F7 /* Run Sourcery */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run Sourcery";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [[ -f \"sourcery\" ]]; then\n  \"sourcery\" --config ./Mastodon\nelse\n  echo \"warning: Sourcery is not installed. Run 'brew install sourcery' to install it.\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1186,13 +1131,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB6746ED278F45F0008A6B94 /* AutoGenerateProtocolRelayDelegate.swift in Sources */,
 				DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */,
-				DB697DD1278F4871004EF2F7 /* AutoGenerateTableViewDelegate.swift in Sources */,
 				2AB5011C299243FB00346092 /* WidgetExtension.intentdefinition in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
 				DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */,
-				DB6746F0278F463B008A6B94 /* AutoGenerateProtocolDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

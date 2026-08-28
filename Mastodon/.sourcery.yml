@@ -1,7 +1,0 @@
-sources:
-  - .
-  - ../MastodonSDK/Sources
-templates:
-  - ./Template
-output:
-  Generated

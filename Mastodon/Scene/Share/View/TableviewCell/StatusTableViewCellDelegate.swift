@@ -10,20 +10,13 @@ import MetaTextKit
 import MastodonUI
 import MastodonSDK
 
-// sourcery: protocolName = "StatusViewDelegate"
-// sourcery: replaceOf = "statusView(statusView"
-// sourcery: replaceWith = "delegate?.tableViewCell(self, statusView: statusView"
-protocol StatusViewContainerTableViewCell: UITableViewCell, AutoGenerateProtocolRelayDelegate {
+protocol StatusViewContainerTableViewCell: UITableViewCell {
     var delegate: StatusTableViewCellDelegate? { get }
     var statusView: StatusView { get }
 }
 
 // MARK: - AutoGenerateProtocolDelegate
-// sourcery: protocolName = "StatusViewDelegate"
-// sourcery: replaceOf = "statusView(_"
-// sourcery: replaceWith = "func tableViewCell(_ cell: UITableViewCell,"
-protocol StatusTableViewCellDelegate: AnyObject, AutoGenerateProtocolDelegate {
-    // sourcery:inline:StatusTableViewCellDelegate.AutoGenerateProtocolDelegate
+protocol StatusTableViewCellDelegate: AnyObject {
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, headerDidPressed header: UIView)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, contentSensitiveeToggleButtonDidPressed button: UIButton)
@@ -42,14 +35,12 @@ protocol StatusTableViewCellDelegate: AnyObject, AutoGenerateProtocolDelegate {
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, cardControl: StatusCardControl, didTapProfile account: Mastodon.Entity.Account)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, cardControlMenu: StatusCardControl) -> [LabeledAction]?
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, accessibilityActivate: Void)
-    // sourcery:end
 }
 
 
 // MARK: - AutoGenerateProtocolDelegate
 // Protocol Extension
 extension StatusViewDelegate where Self: StatusViewContainerTableViewCell {
-    // sourcery:inline:StatusViewContainerTableViewCell.AutoGenerateProtocolRelayDelegate
     func statusView(_ statusView: StatusView, headerDidPressed header: UIView) {
         delegate?.tableViewCell(self, statusView: statusView, headerDidPressed: header)
     }
@@ -121,5 +112,4 @@ extension StatusViewDelegate where Self: StatusViewContainerTableViewCell {
     func statusView(_ statusView: StatusView, accessibilityActivate: Void) {
         delegate?.tableViewCell(self, statusView: statusView, accessibilityActivate: accessibilityActivate)
     }
-    // sourcery:end
 }

@@ -10,16 +10,15 @@ Install the latest version of Xcode from the App Store or Apple Developer Downlo
 
 This guide may not suit your machine and actual setup procedure may change in the future. Please file an issue or open a Pull Request if there are any problems.
 
-### Swiftgen and Sourcery
+### Swiftgen
 
-This app uses [SwiftGen](https://github.com/SwiftGen/SwiftGen) and [Sourcery](https://github.com/krzysztofzablocki/Sourcery) for Code Generation.
+This app uses [SwiftGen](https://github.com/SwiftGen/SwiftGen) for Code Generation.
 
 > [!NOTE]
-> Both tools are optional. Using the following command will install them system wide:
+> The tool is optional. Using the following command will install it system wide:
 
 ```zsh
 brew install swiftgen
-brew install sourcery
 ```
 
 ```zsh
