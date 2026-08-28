@@ -905,66 +905,6 @@ extension Mastodon.Entity.Status {
     }
 }
 
-extension Mastodon.Entity.Status {
-    public struct ViewModel {
-        public let content: GenericMastodonPost.PostContent?
-        public let createdAt: Date
-        public let visibility: Mastodon.Entity.Status.Visibility?
-        public let isReplyToMe: Bool
-        public let isPinnedByMe: Bool
-        public let accountDisplayName: String?
-        public let accountFullName: String?
-        public let accountAvatarUrl: URL?
-        public var needsUserAttribution: Bool {
-            return accountDisplayName != nil || accountFullName != nil
-        }
-        public let attachmentInfo: AttachmentSummaryInfo?
-        public let navigateToStatus: () -> Void
-    }
-
-    public func viewModel(
-        myAccountID: String, myDomain: String, navigateToStatus: @escaping () -> Void
-    ) -> ViewModel {
-        let content: GenericMastodonPost.PostContent?
-        if let post = GenericMastodonPost.fromStatus(self, authenticatedDomain: myDomain) as? MastodonContentPost {
-            content = post.content
-        } else {
-            content = nil
-        }
-        
-        let createdAt = self.createdAt
-        let accountFullName =
-            account.domain == myDomain ? account.acct : account.acctWithDomain
-        let attachmentInfo = mediaAttachments?.reduce(
-            nil,
-            {
-                (
-                    partialResult: AttachmentSummaryInfo?,
-                    attachment: Mastodon.Entity.Attachment
-                ) in
-                if let partialResult = partialResult {
-                    return partialResult.adding(attachment: attachment)
-                } else {
-                    return AttachmentSummaryInfo(attachment)
-                }
-            })
-
-        let pollInfo: AttachmentSummaryInfo? = poll != nil ? .poll : nil
-
-        return ViewModel(
-            content: content,
-            createdAt: createdAt,
-            visibility: visibility,
-            isReplyToMe: inReplyToAccountID == myAccountID,
-            isPinnedByMe: false,
-            accountDisplayName: account.displayName,
-            accountFullName: accountFullName,
-            accountAvatarUrl: account.avatarImageURL(),
-            attachmentInfo: attachmentInfo ?? pollInfo,
-            navigateToStatus: navigateToStatus)
-    }
-}
-
 struct RelationshipButtonStyle: ButtonStyle {
     private let action: RelationshipButtonType.RelationshipAction
     private let isLarge: Bool
