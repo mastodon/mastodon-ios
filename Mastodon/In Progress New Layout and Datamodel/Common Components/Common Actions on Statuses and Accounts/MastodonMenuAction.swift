@@ -894,7 +894,7 @@ extension MastodonAccount {
     @MainActor
     func reportViewModel(withStatus status: MastodonStatus?, relationship: MastodonAccount.Relationship) -> ReportViewModel? {
         guard let legacyRelationship = relationship.info?._legacyEntity, let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return nil }
-        return ReportViewModel(context: AppContext.shared, authenticationBox: authBox, account: _legacyEntity, relationship: legacyRelationship, status: status, collection: nil, contentDisplayMode: .neverConceal)
+        return ReportViewModel(context: AppContext.shared, authenticationBox: authBox, account: _legacyEntity, relationship: legacyRelationship, status: status, collection: nil)
     }
 }
 
@@ -902,6 +902,6 @@ extension MastodonAccount {
     @MainActor
     func reportViewModel(withCollection collection: Mastodon.Entity.Collection, relationship: MastodonAccount.Relationship) -> ReportViewModel? {
         guard let legacyRelationship = relationship.info?._legacyEntity, let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return nil }
-        return ReportViewModel(context: AppContext.shared, authenticationBox: authBox, account: _legacyEntity, relationship: legacyRelationship, status: nil, collection: collection, contentDisplayMode: .neverConceal)
+        return ReportViewModel(context: AppContext.shared, authenticationBox: authBox, account: _legacyEntity, relationship: legacyRelationship, status: nil, collection: collection)
     }
 }

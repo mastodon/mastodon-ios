@@ -1199,8 +1199,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                         account: accountToReport,
                         relationship: relationship,
                         status: statusEntity == nil ? nil : MastodonStatus(entity: statusEntity!, showDespiteContentWarning: true),
-                        collection: nil,
-                        contentDisplayMode: .neverConceal
+                        collection: nil
                     )
                     navigator.presentSheet(.report(reportViewModel), afterDeconflictionDelay: true)
                     
