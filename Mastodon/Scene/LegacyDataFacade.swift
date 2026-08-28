@@ -193,20 +193,4 @@ struct LegacyDataSourceFacade {
             }
         }
     }
-
-    static func responseToUserViewButtonAction(
-        dependency: UIViewController & AuthContextProvider,
-        account: Mastodon.Entity.Account,
-        buttonState: UserView.ButtonState
-    ) async throws -> Mastodon.Entity.Relationship? {
-        switch buttonState {
-        case .follow, .request, .unfollow, .blocked, .pending:
-            return try await LegacyDataSourceFacade.responseToUserFollowAction(
-                dependency: dependency,
-                account: account
-            )
-        case .none, .loading:
-            return nil
-        }
-    }
 }
