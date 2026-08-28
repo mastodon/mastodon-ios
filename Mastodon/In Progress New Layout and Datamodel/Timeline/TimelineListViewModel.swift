@@ -1101,7 +1101,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                         composeContext: .editStatus(status: statusEntityToEdit, statusSource: statusSourceToEdit, quoting: {
                             if let quotedPostViewModel = postViewModel.fullQuotedPostViewModel {
                                 AnyView(
-                                    EmbeddedPostView(layoutWidth: 200, isSummary: false, actionHandler: nil)
+                                    EmbeddedPostView(layoutWidth: 200, isSummary: false, actionHandler: nil, linkHandler: nil)
                                         .environment(quotedPostViewModel)
                                         .environment(TimestampUpdater.timestamper(withInterval: 30))
                                         .environment(ContentConcealViewModel.alwaysShow)

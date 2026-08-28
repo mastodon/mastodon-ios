@@ -319,3 +319,15 @@ struct ContentURL {
         self.url = url
     }
 }
+
+@MainActor
+protocol ContentLinkHandler {
+    func openUrl(_ url: URL, afterDeconflictionDelay: Bool, forceInBrowser: Bool)
+    func showAccount(_ account: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?)
+}
+
+extension MastodonNavigationRouter: ContentLinkHandler {
+    func showAccount(_ account: MastodonSDK.Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?) {
+        push(.profile(account: account, relationship: relationship))
+    }
+}

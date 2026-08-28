@@ -611,7 +611,7 @@ struct NotificationRowView: View {
             
             // OPTIONAL INLINE POST VIEW
             if let postViewModel = viewModel.inlinePostViewModel {
-                EmbeddedPostView(layoutWidth: contentWidth, isSummary: true, actionHandler: actionHandler)
+                EmbeddedPostView(layoutWidth: contentWidth, isSummary: true, actionHandler: actionHandler, linkHandler: navigator)
                     .environment(postViewModel)
                     .environment(viewModel.contentConcealViewModel ?? .alwaysShow)
                     .onTapGesture {

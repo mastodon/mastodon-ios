@@ -216,7 +216,7 @@ extension MastodonPostViewModel {
         guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value, let quotedPost = fullPost?.actionablePost else { return nil }
         return ComposeViewModel(authenticationBox: currentUser, composeContext: .composeStatus(quoting: (quotedPost._legacyEntity, {
             AnyView(
-                EmbeddedPostView(layoutWidth: 200, isSummary: false, actionHandler: nil)
+                EmbeddedPostView(layoutWidth: 200, isSummary: false, actionHandler: nil, linkHandler: nil)
                     .environment(self)
                     .environment(TimestampUpdater.timestamper(withInterval: 30))
                     .environment(ContentConcealViewModel.alwaysShow)

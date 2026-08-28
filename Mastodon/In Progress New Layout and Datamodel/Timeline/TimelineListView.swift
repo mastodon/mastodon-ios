@@ -857,7 +857,7 @@ struct TimelineListView: View {
                     
                 case .link(let link):
                     VStack(alignment: .trailing) {
-                        LinkPreviewCard(cardEntity: link, fittingWidth: useableWidth)
+                        LinkPreviewCard(cardEntity: link, fittingWidth: useableWidth, linkHandler: navigator)
                         HStack {
                             Text(L10n.Plural.peopleTalking(link.talkingPeopleCount ?? 0))
                                 .onTapGesture {

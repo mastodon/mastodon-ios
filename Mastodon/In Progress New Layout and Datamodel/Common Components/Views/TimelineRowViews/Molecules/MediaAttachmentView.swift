@@ -186,9 +186,9 @@ enum MediaAttachment {
 }
 
 struct MediaAttachmentView: View {
-    @Environment(MastodonNavigationRouter.self) var navigator
     let mediaAttachment: MediaAttachment
     let containerOverlayBinding: Binding<MastodonFadeInOverlay?>?
+    let linkHandler: ContentLinkHandler?
     @StateObject var playerObserver = PlayerObserver()
     
     var body: some View {
@@ -211,7 +211,7 @@ struct MediaAttachmentView: View {
             }
         case .openInBrowser(let url):
             Button {
-                navigator.openUrl(url, afterDeconflictionDelay: true, forceInBrowser: true)
+                linkHandler?.openUrl(url, afterDeconflictionDelay: true, forceInBrowser: true)
             } label: {
                 HStack {
                     VStack(alignment: .leading) {

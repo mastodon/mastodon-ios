@@ -134,8 +134,9 @@ struct MastodonPostRowView: View {
                             case .media(let array):
                                 MediaAttachmentView(
                                     mediaAttachment: MediaAttachment(array, altTextTranslations: viewModel.altTextTranslations),
-                                                    containerOverlayBinding:
-                                    actionHandler?.containerOverlayBinding)
+                                    containerOverlayBinding:
+                                        actionHandler?.containerOverlayBinding,
+                                    linkHandler: navigator)
                                 .frame(width: contentWidth)
                             case .pollOptions(let pollEdit):
                                 let options = pollEdit.options.enumerated().map { (index, option) in
@@ -148,7 +149,7 @@ struct MastodonPostRowView: View {
                                     .frame(width: contentWidth)
                             case .linkPreviewCard(let card):
                                 if viewModel.collectionViewModel == nil { // do not show both a link preview and a collection preview
-                                    LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth)
+                                    LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth, linkHandler: navigator)
                                         .frame(width: contentWidth)
                                 }
                             }
@@ -159,7 +160,7 @@ struct MastodonPostRowView: View {
                             if let filterContext, quotedPostViewModel.initialDisplayInfo.filterOutInContexts.contains(filterContext) {
                                 QuotedPostHiddenByFilterView()
                             } else {
-                                EmbeddedPostView(layoutWidth: contentWidth, isSummary: false, actionHandler: actionHandler)
+                                EmbeddedPostView(layoutWidth: contentWidth, isSummary: false, actionHandler: actionHandler, linkHandler: navigator)
                                     .environment(quotedPostViewModel)
                                     .environment(contentConcealModel.nestedContentConcealModel ?? .alwaysShow)
                                     .onTapGesture {

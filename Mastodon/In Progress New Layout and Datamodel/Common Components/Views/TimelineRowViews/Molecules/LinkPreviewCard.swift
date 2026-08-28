@@ -9,7 +9,6 @@ import MastodonCore
 import SDWebImageSwiftUI
 
 struct LinkPreviewCard: View {
-    @Environment(MastodonNavigationRouter.self) private var navigator
     
     private let compactPreviewHeight: CGFloat = 96
     
@@ -21,6 +20,7 @@ struct LinkPreviewCard: View {
     
     let cardEntity: Mastodon.Entity.Card
     let fittingWidth: CGFloat
+    let linkHandler: ContentLinkHandler?
     
     @State var blurhash: UIImage?
     @State var couldShowImage = true
@@ -65,7 +65,7 @@ struct LinkPreviewCard: View {
         .accessibilityLabel(L10n.Common.Controls.Status.linkA11YLabel)
         .onTapGesture {
             guard let url = URL(string: cardEntity.url) else { return }
-            navigator.openUrl(url, afterDeconflictionDelay: false)
+            linkHandler?.openUrl(url, afterDeconflictionDelay: false, forceInBrowser: false)
         }
     }
     
@@ -194,7 +194,7 @@ struct LinkPreviewCard: View {
                     .foregroundStyle(.secondary)
                 
                 Button { // author account button
-                    navigator.push(.profile(account: account, relationship: nil))
+                    linkHandler?.showAccount(account, relationship: nil)
                 } label: {
                     HStack(spacing: tinySpacing) {
                         AvatarView(style: .roundedRect, size: .tiny, avatarSource: .url(account.avatarURL))

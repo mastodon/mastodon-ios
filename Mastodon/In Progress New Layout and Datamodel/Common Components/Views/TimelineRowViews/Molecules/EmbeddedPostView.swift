@@ -12,13 +12,14 @@ struct EmbeddedPostView: View {
     let layoutWidth: CGFloat
     let isSummary: Bool
     let actionHandler: MastodonPostMenuActionHandler?
+    let linkHandler: ContentLinkHandler?
     
     var body: some View {
         if viewModel.fullPost != nil {
             if !contentConcealViewModel.currentMode.isShowingContent {
                 EmbeddedPostContentConcealedView()
             } else {
-                EmbeddedPostContentDisplayedView(layoutWidth: layoutWidth, isSummary: isSummary, actionHandler: actionHandler) // TODO: add blur content option for blur filters and hide-media-only CWs
+                EmbeddedPostContentDisplayedView(layoutWidth: layoutWidth, isSummary: isSummary, actionHandler: actionHandler, linkHandler: linkHandler) // TODO: add blur content option for blur filters and hide-media-only CWs
             }
         }
     }
@@ -192,6 +193,7 @@ struct EmbeddedPostContentDisplayedView: View {
     let layoutWidth: CGFloat
     let isSummary: Bool
     let actionHandler: MastodonPostMenuActionHandler?
+    let linkHandler: ContentLinkHandler?
     
     let padding: CGFloat = 12
     
@@ -228,7 +230,8 @@ struct EmbeddedPostContentDisplayedView: View {
                             MediaAttachmentView(
                                 mediaAttachment: MediaAttachment(array,
                                                                  altTextTranslations: viewModel.altTextTranslations),
-                                containerOverlayBinding: actionHandler.containerOverlayBinding)
+                                containerOverlayBinding: actionHandler.containerOverlayBinding,
+                                linkHandler: linkHandler)
                             .frame(width: contentWidth)
                         case .pollOptions(let poll):
                             EmptyView()
@@ -237,7 +240,7 @@ struct EmbeddedPostContentDisplayedView: View {
                             PollView(viewModel: PollViewModel(pollEntity: poll, emojis: emojis, optionTranslations: viewModel.isShowingTranslation == true ? viewModel.pollOptionTranslations : nil, containingPostID: viewModel.initialDisplayInfo.actionablePostID, actionHandler: actionHandler), contentWidth: contentWidth)
                                 .frame(width: contentWidth)
                         case .linkPreviewCard(let card):
-                            LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth)
+                            LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth, linkHandler: linkHandler)
                             .frame(width: contentWidth)
                         }
                     }
