@@ -147,9 +147,6 @@ extension SceneCoordinator {
         case reportStatus(viewModel: ReportStatusViewModel)
         case reportSupplementary(viewModel: ReportSupplementaryViewModel)
         case reportResult(viewModel: ReportResultViewModel)
-
-        // suggestion account
-        case suggestionAccount(viewModel: SuggestionAccountViewModel)
         
         // misc
         case alertController(alertController: UIAlertController)
@@ -303,11 +300,6 @@ extension SceneCoordinator {
             let _viewController = ReportResultViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
-        case .suggestionAccount(let viewModel):
-            let _viewController = SuggestionAccountViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-
 
         case .alertController(let alertController):
             if let popoverPresentationController = alertController.popoverPresentationController {
