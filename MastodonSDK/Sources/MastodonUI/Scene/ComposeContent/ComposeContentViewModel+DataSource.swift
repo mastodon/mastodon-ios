@@ -8,7 +8,7 @@
 import UIKit
 import MastodonCore
 import MastodonSDK
-import UIHostingConfigurationBackport
+import SwiftUI
 
 extension ComposeContentViewModel {
     
@@ -40,10 +40,11 @@ extension ComposeContentViewModel {
     }
 
     private func setupTableViewCell(tableView: UITableView) {        
-        composeContentTableViewCell.contentConfiguration = UIHostingConfigurationBackport {
+        composeContentTableViewCell.contentConfiguration = UIHostingConfiguration {
             ComposeContentView(viewModel: self)
                 .environment(self.interactionSettingsModel)
         }
+        .margins(.all, 0)
         
         $contentCellFrame
             .map { $0.height }
