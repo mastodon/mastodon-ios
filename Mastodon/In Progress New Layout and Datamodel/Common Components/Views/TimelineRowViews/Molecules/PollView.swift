@@ -190,6 +190,7 @@ struct PollView: View {
             .clipShape(RoundedRectangle(cornerRadius: CornerRadius.standard))
         }
         .disabled(viewModel.viewingResults)
+        .allowsHitTesting(viewModel.canInteract)
         .buttonStyle(.borderless)
     }
     
@@ -317,10 +318,11 @@ struct PollView: View {
                 return .voted
             }
         case .selecting(let selectionState), .error(let selectionState, _):
+            guard viewModel.canInteract else { return nil }
             return viewModel.viewingResults ? nil : .vote(enabled: selectionState.hasSomethingSelected)
-        case .submittingVote(let selectionState):
+        case .submittingVote:
             return .submitting
-        case .didVote(let selectionState):
+        case .didVote:
             return .voted
         }
     }
@@ -331,11 +333,11 @@ struct PollView: View {
             return nil
         case .pollClosed:
             return nil
-        case .selecting(let selectionState), .submittingVote(let selectionState):
+        case .selecting, .submittingVote:
             return viewModel.viewingResults ? .hideResults : .showResults
-        case .didVote(let selectionState):
+        case .didVote:
             return nil
-        case .error(let selectionState, let error):
+        case .error(let selectionState, _):
             return .vote(enabled: selectionState.hasSomethingSelected)
         }
     }
@@ -384,6 +386,7 @@ class PollViewModel: ObservableObject {
     private let containingPostID: Mastodon.Entity.Status.ID
     private let optionTranslations: [String]?
     private let actionHandler: MastodonPostMenuActionHandler?
+    var canInteract: Bool { actionHandler != nil }
     
     init(pollEntity: Mastodon.Entity.Poll, emojis: [Mastodon.Entity.Emoji]?, optionTranslations: [String]?, containingPostID: Mastodon.Entity.Status.ID, actionHandler: MastodonPostMenuActionHandler?) {
         entity = pollEntity
@@ -400,9 +403,9 @@ class PollViewModel: ObservableObject {
     }
     
     func submitVote() {
+        guard let actionHandler else { return }
         if case let .selecting(selectionState) = votingState, !selectionState.selectedIndexes.isEmpty {
             votingState = .submittingVote(selectionState)
-            guard let actionHandler else { return }
             Task { @MainActor in
                 do {
                     let updatedPoll = try await actionHandler.vote(poll: entity, choices: selectionState.selectedIndexes, containingPostID: containingPostID)

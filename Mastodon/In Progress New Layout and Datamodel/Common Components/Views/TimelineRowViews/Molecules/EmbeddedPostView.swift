@@ -210,7 +210,7 @@ struct EmbeddedPostContentDisplayedView: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .accessibilityElement(children: .combine)
                 }
-                if let attachmentInfo = viewModel.fullPost?.actionablePost?.content.attachment, let actionHandler {
+                if let attachmentInfo = viewModel.fullPost?.actionablePost?.content.attachment {
                     if isSummary {
                         if let iconName = attachmentInfo.iconName, let labelText = attachmentInfo.labelText {
                             HStack {
@@ -230,10 +230,10 @@ struct EmbeddedPostContentDisplayedView: View {
                             MediaAttachmentView(
                                 mediaAttachment: MediaAttachment(array,
                                                                  altTextTranslations: viewModel.altTextTranslations),
-                                containerOverlayBinding: actionHandler.containerOverlayBinding,
+                                containerOverlayBinding: actionHandler?.containerOverlayBinding,
                                 linkHandler: linkHandler)
                             .frame(width: contentWidth)
-                        case .pollOptions(let poll):
+                        case .pollOptions:
                             EmptyView()
                         case .poll(let poll):
                             let emojis = viewModel.fullPost?.actionablePost?.content.htmlWithEntities?.emojis
