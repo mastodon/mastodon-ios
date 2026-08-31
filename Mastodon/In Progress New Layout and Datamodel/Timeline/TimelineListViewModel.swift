@@ -667,7 +667,7 @@ extension TimelineListViewModel {
     func calculateHeight(_ model: MastodonPostViewModel, isPinned: Bool) async {
         guard let currentUseableWidth else { return }
         let contentWidth = contentWidth(forUseableWidth: currentUseableWidth)
-        let height = await ViewMeasurer.shared.calculateHeight(for: model, isPinned: isPinned, contentConcealModel: contentConcealModel(forActionablePost: model.initialDisplayInfo.actionablePostID), filterContext: timeline.filterContext, threadedContext: threadedConversationModel?.context(for: model.initialDisplayInfo.id), contentWidth: contentWidth, totalWidth: currentUseableWidth)
+        let height = await ViewMeasurer.shared.calculateHeight(for: model, isPinned: isPinned, contentConcealModel: contentConcealModel(forActionablePost: model.initialDisplayInfo.actionablePostID), filterContext: timeline.filterContext, threadedContext: threadedConversationModel?.context(for: model.initialDisplayInfo.id), contentWidth: contentWidth, totalWidth: currentUseableWidth, actionHandler: self)
         model.precalculatedHeights.insert(height, at: 0)
     }
     
