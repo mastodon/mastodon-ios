@@ -25,10 +25,10 @@ struct AuthorHeaderView: View {
             }
             switch postViewModel.displayType {
             case .editHistory:
-                VisibilityAndTimestampWithUserHandle(referenceDate: nil, visibility: postViewModel.fullPost?.actionablePost?.metaData.privacyLevel ?? postViewModel.initialDisplayInfo.actionableVisibility, handle: authorHandle)
+                VisibilityAndTimestampWithUserHandle(referenceDate: nil, visibility: postViewModel.actionablePostVisibility, handle: authorHandle)
                     .frame(maxWidth: .infinity, alignment: .leading)
             case .standard:
-                VisibilityAndTimestampWithUserHandle(referenceDate: postedDate, visibility: postViewModel.fullPost?.actionablePost?.metaData.privacyLevel ?? postViewModel.initialDisplayInfo.actionableVisibility, handle: authorHandle)
+                VisibilityAndTimestampWithUserHandle(referenceDate: postViewModel.actionableCreatedAt, visibility: postViewModel.actionablePostVisibility, handle: authorHandle)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
@@ -54,14 +54,6 @@ struct AuthorHeaderView: View {
         } else {
             return postViewModel.initialDisplayInfo.actionableAuthorHandle
         }
-    }
-    
-    var visibility: GenericMastodonPost.PrivacyLevel? {
-        return postViewModel.fullPost?.actionablePost?.metaData.privacyLevel ?? postViewModel.initialDisplayInfo.actionableVisibility
-    }
-    
-    var postedDate: Date {
-        return postViewModel.fullPost?.actionablePost?.metaData.createdAt ?? postViewModel.initialDisplayInfo.actionableCreatedAt
     }
 }
 

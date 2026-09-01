@@ -107,8 +107,9 @@ struct MastodonPostRowView: View {
                     contentConcealLozenge
                         .frame(width: contentWidth)
                         .fixedSize(horizontal: false, vertical: true)
-                    
-                    MastodonPostContentStackView(contentWidth: contentWidth, actionHandler: actionHandler, navigator: navigator, filterContext: filterContext)
+                    if contentConcealModel.currentMode.isShowingContent {
+                        MastodonPostContentStackView(contentWidth: contentWidth, actionHandler: actionHandler, navigator: navigator, filterContext: filterContext)
+                    }
                     
 #if DEBUG && false
                     VStack {
@@ -358,80 +359,78 @@ struct MastodonPostContentStackView: View {
     }
     
     var body: some View {
-        if contentConcealModel.currentMode.isShowingContent {
-            if viewModel.isShowingTranslation == true, let translatablePost = viewModel.fullPost?.actionablePost, let translation = actionHandler?.translation(forContentPostId: translatablePost.id) {
-                // MARK: Translation info line
-                TranslationInfoView(translationInfo: translation, showOriginal: {
-                    if let actionHandler, let navigator { actionHandler.doAction(.showOriginalLanguage, forPost: viewModel, navigator: navigator)
-                    }
-                })
-                .frame(width: contentWidth, alignment: .leading)
-            }
-            
-            // MARK: Text content
-            viewModel.textContentView(isInlinePreview: false, actionHandler: actionHandler)
-                .frame(width: contentWidth, alignment: .leading)
-                .environment(\.openURL, OpenURLAction { url in
-                    return linkTapPolicy.openUrlResult(url)
-                })
-                .accessibilityElement(children: .combine)
-            
-            // MARK: Media attachment
-            if let attachment = viewModel.fullPost?.actionablePost?.content.attachment {
-                switch attachment {
-                case .media(let array):
-                    MediaAttachmentView(
-                        mediaAttachment: MediaAttachment(array, altTextTranslations: viewModel.altTextTranslations),
-                        containerOverlayBinding:
-                            actionHandler?.containerOverlayBinding,
-                        linkTapPolicy: linkTapPolicy)
+        if viewModel.isShowingTranslation == true, let translatablePost = viewModel.fullPost?.actionablePost, let translation = actionHandler?.translation(forContentPostId: translatablePost.id) {
+            // MARK: Translation info line
+            TranslationInfoView(translationInfo: translation, showOriginal: {
+                if let actionHandler, let navigator { actionHandler.doAction(.showOriginalLanguage, forPost: viewModel, navigator: navigator)
+                }
+            })
+            .frame(width: contentWidth, alignment: .leading)
+        }
+        
+        // MARK: Text content
+        viewModel.textContentView(isInlinePreview: false, actionHandler: actionHandler)
+            .frame(width: contentWidth, alignment: .leading)
+            .environment(\.openURL, OpenURLAction { url in
+                return linkTapPolicy.openUrlResult(url)
+            })
+            .accessibilityElement(children: .combine)
+        
+        // MARK: Media attachment
+        if let attachment = viewModel.fullPost?.actionablePost?.content.attachment {
+            switch attachment {
+            case .media(let array):
+                MediaAttachmentView(
+                    mediaAttachment: MediaAttachment(array, altTextTranslations: viewModel.altTextTranslations),
+                    containerOverlayBinding:
+                        actionHandler?.containerOverlayBinding,
+                    linkTapPolicy: linkTapPolicy)
+                .frame(width: contentWidth)
+            case .pollOptions(let pollEdit):
+                let options = pollEdit.options.enumerated().map { (index, option) in
+                    PollViewModel.Option(index: index, text: option.title, emojis: (viewModel.fullPost as? MastodonContentPost)?.content.htmlWithEntities?.emojis ?? [])
+                }
+                PollOptionsView(options: options, contentWidth: contentWidth)
+            case .poll(let poll):
+                let emojis = viewModel.fullPost?.actionablePost?.content.htmlWithEntities?.emojis
+                PollView(viewModel: PollViewModel(pollEntity: poll, emojis: emojis, optionTranslations: viewModel.isShowingTranslation == true ? viewModel.pollOptionTranslations : nil, containingPostID: viewModel.initialDisplayInfo.actionablePostID, actionHandler: actionHandler), contentWidth: contentWidth)
                     .frame(width: contentWidth)
-                case .pollOptions(let pollEdit):
-                    let options = pollEdit.options.enumerated().map { (index, option) in
-                        PollViewModel.Option(index: index, text: option.title, emojis: (viewModel.fullPost as? MastodonContentPost)?.content.htmlWithEntities?.emojis ?? [])
-                    }
-                    PollOptionsView(options: options, contentWidth: contentWidth)
-                case .poll(let poll):
-                    let emojis = viewModel.fullPost?.actionablePost?.content.htmlWithEntities?.emojis
-                    PollView(viewModel: PollViewModel(pollEntity: poll, emojis: emojis, optionTranslations: viewModel.isShowingTranslation == true ? viewModel.pollOptionTranslations : nil, containingPostID: viewModel.initialDisplayInfo.actionablePostID, actionHandler: actionHandler), contentWidth: contentWidth)
+            case .linkPreviewCard(let card):
+                if viewModel.collectionViewModel == nil { // do not show both a link preview and a collection preview
+                    LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth, accountLinkHandler: navigator, linkTapPolicy: linkTapPolicy)
                         .frame(width: contentWidth)
-                case .linkPreviewCard(let card):
-                    if viewModel.collectionViewModel == nil { // do not show both a link preview and a collection preview
-                        LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth, accountLinkHandler: navigator, linkTapPolicy: linkTapPolicy)
-                            .frame(width: contentWidth)
-                    }
                 }
             }
-            
-            // MARK: Quoted post
-            if let quotedPostViewModel = viewModel.fullQuotedPostViewModel {
-                if let filterContext, quotedPostViewModel.initialDisplayInfo.filterOutInContexts.contains(filterContext) {
-                    QuotedPostHiddenByFilterView()
-                } else {
-                    EmbeddedPostView(layoutWidth: contentWidth, isSummary: false, actionHandler: actionHandler, accountLinkHandler: navigator, linkTapPolicy: linkTapPolicy(forQuotedPost: quotedPostViewModel))
-                        .environment(quotedPostViewModel)
-                        .environment(contentConcealModel.nestedContentConcealModel ?? .alwaysShow)
-                        .onTapGesture {
-                            if let navigator {
-                                quotedPostViewModel.openThreadView(navigator: navigator)
-                            }
-                        }
-                        .allowsHitTesting(navigator != nil)
-                }
-            } else if let quotePlaceholder = viewModel.placeholderQuotedPost {
-                QuotedPostPlaceholderView()
-                    .environment(QuotedPostPlaceholderViewModel(quotePlaceholder, authorName: nil))  // TODO: include author name if possible (will have to fetch from server)
-            }
-            
-            // MARK: Tagged collections
-            if let collectionViewModel = viewModel.collectionViewModel {
-                EmbeddedCollectionView(layoutWidth: contentWidth, isSummary: true, actionHandler: actionHandler)
-                    .environment(collectionViewModel)
+        }
+        
+        // MARK: Quoted post
+        if let quotedPostViewModel = viewModel.fullQuotedPostViewModel {
+            if let filterContext, quotedPostViewModel.initialDisplayInfo.filterOutInContexts.contains(filterContext) {
+                QuotedPostHiddenByFilterView()
+            } else {
+                EmbeddedPostView(layoutWidth: contentWidth, isSummary: false, actionHandler: actionHandler, accountLinkHandler: navigator, linkTapPolicy: linkTapPolicy(forQuotedPost: quotedPostViewModel))
+                    .environment(quotedPostViewModel)
+                    .environment(contentConcealModel.nestedContentConcealModel ?? .alwaysShow)
                     .onTapGesture {
-                        navigator?.push(.timeline(.collection(collectionViewModel)))
+                        if let navigator {
+                            quotedPostViewModel.openThreadView(navigator: navigator)
+                        }
                     }
                     .allowsHitTesting(navigator != nil)
             }
+        } else if let quotePlaceholder = viewModel.placeholderQuotedPost {
+            QuotedPostPlaceholderView()
+                .environment(QuotedPostPlaceholderViewModel(quotePlaceholder, authorName: nil))  // TODO: include author name if possible (will have to fetch from server)
+        }
+        
+        // MARK: Tagged collections
+        if let collectionViewModel = viewModel.collectionViewModel {
+            EmbeddedCollectionView(layoutWidth: contentWidth, isSummary: true, actionHandler: actionHandler)
+                .environment(collectionViewModel)
+                .onTapGesture {
+                    navigator?.push(.timeline(.collection(collectionViewModel)))
+                }
+                .allowsHitTesting(navigator != nil)
         }
     }
 }

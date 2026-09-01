@@ -365,3 +365,13 @@ extension MastodonPostViewModel: FeedCoordinatorUpdatable {
         }
     }
 }
+
+extension MastodonPostViewModel {
+    var actionablePostVisibility: GenericMastodonPost.PrivacyLevel? {
+        return fullPost?.actionablePost?.metaData.privacyLevel ?? initialDisplayInfo.actionableVisibility
+    }
+    
+    var actionableCreatedAt: Date {
+        return fullPost?.actionablePost?.metaData.createdAt ?? initialDisplayInfo.actionableCreatedAt
+    }
+}
