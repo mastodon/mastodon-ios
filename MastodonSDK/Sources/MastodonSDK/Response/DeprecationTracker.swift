@@ -8,7 +8,7 @@ import UIKit
 
     public static let shared = DeprecationTracker()
 
-    private var alreadyReported = Set<String>()
+    private var alreadyReported = Set(["/api/v1/instance"])
 
     private init() {}
     
