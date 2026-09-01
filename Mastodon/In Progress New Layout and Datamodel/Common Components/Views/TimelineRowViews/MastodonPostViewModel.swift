@@ -157,14 +157,14 @@ struct PrecalculatedHeight {
         navigator.push(.timeline(.thread(root: actionablePost)))
     }
     
-    func openURL(_ url: URL, navigator: MastodonNavigationRouter) -> Bool {
+    func openURLResult(_ url: URL, navigator: MastodonNavigationRouter) -> LinkTapPolicy.OpenUrlResult {
         if let mention = fullPost?.actionablePost?.content.htmlWithEntities?.mentions.first(where: { $0.url == url.absoluteString }) {
             goToProfile(mention, navigator: navigator)
-            return true
+            return .handled
         } else if let hashtag = fullPost?.actionablePost?.content.htmlWithEntities?.tags.first(where: { $0.name.lowercased() == url.lastPathComponent.lowercased() && url.pathComponents.contains("tags") }) {
-            guard AuthenticationServiceProvider.shared.currentActiveUser.value != nil else { return false }
+            guard AuthenticationServiceProvider.shared.currentActiveUser.value != nil else { return .needsSystemOpen(url) }
             navigator.push(.timeline(.hashtag(hashtag)))
-            return true
+            return .handled
         } else if let collection = fullPost?.actionablePost?.content.htmlWithEntities?.collections.first(where: { $0.id == url.lastPathComponent && url.pathComponents.contains("collections") }) {
             let collectionModel = {
                 if self.collectionViewModel?.collection.id == collection.id {
@@ -174,11 +174,10 @@ struct PrecalculatedHeight {
                 }
             }()
             navigator.push(.timeline(.collection(collectionModel)))
-            return true
+            return .handled
         } else {
             // fix non-ascii character URL link can not open issue
-            navigator.openUrl(url, afterDeconflictionDelay: true)
-            return true
+            return navigator.openUrl(url, afterDeconflictionDelay: true)
         }
     }
     
@@ -216,7 +215,7 @@ extension MastodonPostViewModel {
         guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value, let quotedPost = fullPost?.actionablePost else { return nil }
         return ComposeViewModel(authenticationBox: currentUser, composeContext: .composeStatus(quoting: (quotedPost._legacyEntity, {
             AnyView(
-                EmbeddedPostView(layoutWidth: 200, isSummary: false, actionHandler: nil, linkHandler: nil)
+                EmbeddedPostView(layoutWidth: 200, isSummary: false, actionHandler: nil, accountLinkHandler: nil, linkTapPolicy: .forceSystemBrowserRegardlessOfUserPreference)
                     .environment(self)
                     .environment(TimestampUpdater.timestamper(withInterval: 30))
                     .environment(ContentConcealViewModel.alwaysShow)

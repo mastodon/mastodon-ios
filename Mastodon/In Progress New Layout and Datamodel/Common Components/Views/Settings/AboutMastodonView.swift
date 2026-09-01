@@ -18,14 +18,16 @@ struct AboutMastodonView: View {
                 NavigationRow(label: L10n.Scene.Settings.AboutMastodon.moreSettings, sublabel: nil)
                     .onTapGesture {
                         let url = Mastodon.API.profileSettingsURL(domain: authBox.domain)
-                        navigator.openUrl(url, afterDeconflictionDelay: false)
+                        let result = navigator.openUrl(url, afterDeconflictionDelay: false)
+                        result.completeIfNeeded()
                     }
                 
                 // Contribute to Mastodon
                 NavigationRow(label: L10n.Scene.Settings.AboutMastodon.contributeToMastodon, sublabel: nil)
                     .onTapGesture {
                         if let url = URL(string: "https://github.com/mastodon/mastodon-ios") {
-                            navigator.openUrl(url, afterDeconflictionDelay: false)
+                            let result = navigator.openUrl(url, afterDeconflictionDelay: false)
+                            result.completeIfNeeded()
                         }
                     }
                 
@@ -33,7 +35,8 @@ struct AboutMastodonView: View {
                 NavigationRow(label: L10n.Scene.Settings.AboutMastodon.privacyPolicy, sublabel: nil)
                     .onTapGesture {
                         if let url = authBox.authentication.privacyPolicyURL {
-                            navigator.openUrl(url, afterDeconflictionDelay: false)
+                            let result = navigator.openUrl(url, afterDeconflictionDelay: false)
+                            result.completeIfNeeded()
                         }
                     }
             }

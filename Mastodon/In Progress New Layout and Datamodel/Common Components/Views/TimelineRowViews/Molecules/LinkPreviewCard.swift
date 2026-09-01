@@ -20,7 +20,8 @@ struct LinkPreviewCard: View {
     
     let cardEntity: Mastodon.Entity.Card
     let fittingWidth: CGFloat
-    let linkHandler: ContentLinkHandler?
+    let accountLinkHandler: AccountLinkHandler?
+    let linkTapPolicy: LinkTapPolicy
     
     @State var blurhash: UIImage?
     @State var couldShowImage = true
@@ -65,7 +66,8 @@ struct LinkPreviewCard: View {
         .accessibilityLabel(L10n.Common.Controls.Status.linkA11YLabel)
         .onTapGesture {
             guard let url = URL(string: cardEntity.url) else { return }
-            linkHandler?.openUrl(url, afterDeconflictionDelay: false, forceInBrowser: false)
+            let result = linkTapPolicy.openUrl(url)
+            result.completeIfNeeded()
         }
     }
     
@@ -194,7 +196,7 @@ struct LinkPreviewCard: View {
                     .foregroundStyle(.secondary)
                 
                 Button { // author account button
-                    linkHandler?.showAccount(account, relationship: nil)
+                    accountLinkHandler?.showAccount(account, relationship: nil)
                 } label: {
                     HStack(spacing: tinySpacing) {
                         AvatarView(style: .roundedRect, size: .tiny, avatarSource: .url(account.avatarURL))

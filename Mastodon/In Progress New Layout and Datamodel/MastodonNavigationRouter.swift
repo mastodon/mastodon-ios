@@ -142,15 +142,15 @@ enum MastodonNavigationDestination: Identifiable {
     }
     
     func push(_ destination: MastodonNavigationDestination) {
-            switch destination {
-            case .legacy(let scene, let transition):
-                navigationPath.append(destination)
-            case .editProfile(let profileViewModel):
-                profileViewModel.editingStatus = .editing(hasChanges: false)
-                fallthrough
-            default:
-                navigationPath.append(destination)
-            }
+        switch destination {
+        case .legacy(let scene, let transition):
+            navigationPath.append(destination)
+        case .editProfile(let profileViewModel):
+            profileViewModel.editingStatus = .editing(hasChanges: false)
+            fallthrough
+        default:
+            navigationPath.append(destination)
+        }
     }
     
     func pop() {
@@ -169,11 +169,12 @@ enum MastodonNavigationDestination: Identifiable {
         }
     }
     
-    public func openUrl(_ url: URL, afterDeconflictionDelay: Bool, forceInBrowser: Bool = false) {
+    public func openUrl(_ url: URL, afterDeconflictionDelay: Bool, forceInBrowser: Bool = false) -> LinkTapPolicy.OpenUrlResult {
         if forceInBrowser || UserDefaults.shared.preferredUsingDefaultBrowser {
-            UIApplication.shared.open(url)
+            return .needsSystemOpen(url)
         } else {
             presentSheet(.contentUrl(ContentURL(url: url)), afterDeconflictionDelay: afterDeconflictionDelay)
+            return .handled
         }
     }
     
@@ -321,13 +322,63 @@ struct ContentURL {
 }
 
 @MainActor
-protocol ContentLinkHandler {
-    func openUrl(_ url: URL, afterDeconflictionDelay: Bool, forceInBrowser: Bool)
+protocol AccountLinkHandler {
     func showAccount(_ account: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?)
 }
 
-extension MastodonNavigationRouter: ContentLinkHandler {
+extension MastodonNavigationRouter: AccountLinkHandler {
     func showAccount(_ account: MastodonSDK.Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?) {
         push(.profile(account: account, relationship: relationship))
+    }
+}
+
+enum LinkTapPolicy {
+    case inert
+    case navigate(MastodonNavigationRouter, MastodonPostViewModel?)
+    case forceSystemBrowserRegardlessOfUserPreference
+    
+    @MainActor
+    func openUrlResult(_ url: URL) -> OpenURLAction.Result {
+        let result = openUrl(url)
+        switch result {
+        case .discarded:
+            return .discarded
+        case .handled:
+            return .handled
+        case .needsSystemOpen(let returnedUrl):
+            return .systemAction(returnedUrl)
+        }
+    }
+    
+    @MainActor
+    func openUrl(_ url: URL) -> OpenUrlResult {
+        switch self {
+        case .inert:
+            return .discarded
+        case .forceSystemBrowserRegardlessOfUserPreference:
+            return .needsSystemOpen(url)
+        case .navigate(let navigator, let viewModel):
+            if let viewModel {
+                return viewModel.openURLResult(url, navigator: navigator)
+            } else {
+                return navigator.openUrl(url, afterDeconflictionDelay: true)
+            }
+        }
+    }
+    
+    enum OpenUrlResult {
+        case discarded
+        case handled
+        case needsSystemOpen(URL)
+        
+        @MainActor
+        func completeIfNeeded() {
+            switch self {
+            case .needsSystemOpen(let url):
+                UIApplication.shared.open(url)
+            default:
+                break
+            }
+        }
     }
 }

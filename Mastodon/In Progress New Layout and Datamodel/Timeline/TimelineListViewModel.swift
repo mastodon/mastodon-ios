@@ -1101,7 +1101,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                         composeContext: .editStatus(status: statusEntityToEdit, statusSource: statusSourceToEdit, quoting: {
                             if let quotedPostViewModel = postViewModel.fullQuotedPostViewModel {
                                 AnyView(
-                                    EmbeddedPostView(layoutWidth: 200, isSummary: false, actionHandler: nil, linkHandler: nil)
+                                    EmbeddedPostView(layoutWidth: 200, isSummary: false, actionHandler: nil, accountLinkHandler: nil, linkTapPolicy: .forceSystemBrowserRegardlessOfUserPreference)
                                         .environment(quotedPostViewModel)
                                         .environment(TimestampUpdater.timestamper(withInterval: 30))
                                         .environment(ContentConcealViewModel.alwaysShow)
@@ -1170,7 +1170,8 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                     
                 case .openPostInBrowser:
                     guard let urlString = actionablePost.metaData.url, let url = URL(string: urlString) else { throw PostActionFailure.noActionablePostId }
-                    navigator.openUrl(url, afterDeconflictionDelay: false, forceInBrowser: true)
+                    let result = navigator.openUrl(url, afterDeconflictionDelay: false, forceInBrowser: true)
+                    result.completeIfNeeded()
                     
                 case .sharePost:
                     assertionFailure("The share option should be rendered by a ShareLink")

@@ -12,14 +12,15 @@ struct EmbeddedPostView: View {
     let layoutWidth: CGFloat
     let isSummary: Bool
     let actionHandler: MastodonPostMenuActionHandler?
-    let linkHandler: ContentLinkHandler?
+    let accountLinkHandler: AccountLinkHandler?
+    let linkTapPolicy: LinkTapPolicy
     
     var body: some View {
         if viewModel.fullPost != nil {
             if !contentConcealViewModel.currentMode.isShowingContent {
                 EmbeddedPostContentConcealedView()
             } else {
-                EmbeddedPostContentDisplayedView(layoutWidth: layoutWidth, isSummary: isSummary, actionHandler: actionHandler, linkHandler: linkHandler) // TODO: add blur content option for blur filters and hide-media-only CWs
+                EmbeddedPostContentDisplayedView(layoutWidth: layoutWidth, isSummary: isSummary, actionHandler: actionHandler, accountLinkHandler: accountLinkHandler, linkTapPolicy: linkTapPolicy) // TODO: add blur content option for blur filters and hide-media-only CWs
             }
         }
     }
@@ -193,7 +194,8 @@ struct EmbeddedPostContentDisplayedView: View {
     let layoutWidth: CGFloat
     let isSummary: Bool
     let actionHandler: MastodonPostMenuActionHandler?
-    let linkHandler: ContentLinkHandler?
+    let accountLinkHandler: AccountLinkHandler?
+    let linkTapPolicy: LinkTapPolicy
     
     let padding: CGFloat = 12
     
@@ -231,7 +233,7 @@ struct EmbeddedPostContentDisplayedView: View {
                                 mediaAttachment: MediaAttachment(array,
                                                                  altTextTranslations: viewModel.altTextTranslations),
                                 containerOverlayBinding: actionHandler?.containerOverlayBinding,
-                                linkHandler: linkHandler)
+                                linkTapPolicy: linkTapPolicy)
                             .frame(width: contentWidth)
                         case .pollOptions:
                             EmptyView()
@@ -240,7 +242,7 @@ struct EmbeddedPostContentDisplayedView: View {
                             PollView(viewModel: PollViewModel(pollEntity: poll, emojis: emojis, optionTranslations: viewModel.isShowingTranslation == true ? viewModel.pollOptionTranslations : nil, containingPostID: viewModel.initialDisplayInfo.actionablePostID, actionHandler: actionHandler), contentWidth: contentWidth)
                                 .frame(width: contentWidth)
                         case .linkPreviewCard(let card):
-                            LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth, linkHandler: linkHandler)
+                            LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth, accountLinkHandler: accountLinkHandler, linkTapPolicy: linkTapPolicy)
                             .frame(width: contentWidth)
                         }
                     }
@@ -252,6 +254,7 @@ struct EmbeddedPostContentDisplayedView: View {
             }
             Spacer(minLength: 0) // This pushes the VStack all the way to the left.
         }
+        .environment(\.openURL, OpenURLAction { linkTapPolicy.openUrlResult($0) })
         .fixedSize(horizontal: false, vertical: true)
         .padding(padding)
         .frame(maxWidth: .infinity)

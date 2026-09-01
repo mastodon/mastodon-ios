@@ -272,7 +272,8 @@ extension MastodonNavigationRouter {
         case .myFollowedHashtags:
             push(.timeline(.myFollowedHashtags))
         case .openInBrowser(let url):
-            openUrl(url, afterDeconflictionDelay: false, forceInBrowser: true)
+            let result = openUrl(url, afterDeconflictionDelay: false, forceInBrowser: true)
+            result.completeIfNeeded()
         case .collection(let collectionViewModel):
             push(.timeline(.collection(collectionViewModel)))
         case .addToList(let account, let relationshipViewModel):
