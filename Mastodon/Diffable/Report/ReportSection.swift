@@ -15,21 +15,24 @@ import MastodonAsset
 import MastodonCore
 import MastodonUI
 import MastodonLocalization
+import SwiftUI
 
-enum ReportSection: Equatable, Hashable {
+enum ReportSection: Equatable, Hashable, Sendable {
     case main
 }
 
 extension ReportSection {
     
-    struct Configuration {
-        let authenticationBox: MastodonAuthenticationBox
+    struct StatusRowSupport {
+        let postViewModel: @MainActor (MastodonStatus) -> MastodonPostViewModel?
+        let canChangeSelection: @MainActor (MastodonStatus) -> Bool
+        let isSelected: @MainActor (MastodonStatus) -> Binding<Bool> // for now the binding is never actually exercised, because the tableview is handling the selection
     }
     
+    @MainActor
     static func diffableDataSource(
         tableView: UITableView,
-        context: AppContext,
-        configuration: Configuration
+        statusRowSupport: StatusRowSupport?
     ) -> UITableViewDiffableDataSource<ReportSection, ReportItem> {
         
         tableView.register(ReportHeadlineTableViewCell.self, forCellReuseIdentifier: String(describing: ReportHeadlineTableViewCell.self))
@@ -46,11 +49,13 @@ extension ReportSection {
                 return cell
             case .status(let status):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReportStatusTableViewCell.self), for: indexPath) as! ReportStatusTableViewCell
-                configure(
-                    tableView: tableView,
-                    cell: cell,
-                    viewModel: .init(value: status),
-                    configuration: configuration
+                guard let statusRowSupport = statusRowSupport else { return cell }
+                guard let postViewModel = statusRowSupport.postViewModel(status) else { return cell }
+                cell.configure(
+                    postViewModel: postViewModel,
+                    layoutWidth: tableView.bounds.inset(by: tableView.safeAreaInsets).width,
+                    canChangeSelection: statusRowSupport.canChangeSelection(status),
+                    isSelected: statusRowSupport.isSelected(status)
                 )
                 return cell
             case .comment(let commentContext):
@@ -77,27 +82,4 @@ extension ReportSection {
             }
         }
     }
-}
-
-extension ReportSection {
-    
-    static func configure(
-        tableView: UITableView,
-        cell: ReportStatusTableViewCell,
-        viewModel: ReportStatusTableViewCell.ViewModel,
-        configuration: Configuration
-    ) {
-        StatusSection.setupStatusPollDataSource(
-            authenticationBox: configuration.authenticationBox,
-            statusView: cell.statusView
-        )
-        
-        cell.statusView.viewModel.authenticationBox = configuration.authenticationBox
-        
-        cell.configure(
-            tableView: tableView,
-            viewModel: viewModel
-        )
-    }
-    
 }

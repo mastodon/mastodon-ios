@@ -17,13 +17,14 @@ extension ReportStatusViewModel {
         secondaryLabelText: L10n.Scene.Report.StepThree.step3Of4
     )
     
+    @MainActor
     func setupDiffableDataSource(
         tableView: UITableView
     ) {
         diffableDataSource = ReportSection.diffableDataSource(
             tableView: tableView,
-            context: context,
-            configuration: ReportSection.Configuration(authenticationBox: authenticationBox)
+            statusRowSupport: ReportSection.StatusRowSupport(postViewModel: { [weak self] in self?.postViewModel($0) },
+                                                             canChangeSelection: { [weak self] in self?.canDeselect($0) ?? false }, isSelected: { [weak self] in self?.isSelected($0) ?? .constant(false) })
         )
 
         var snapshot = NSDiffableDataSourceSnapshot<ReportSection, ReportItem>()

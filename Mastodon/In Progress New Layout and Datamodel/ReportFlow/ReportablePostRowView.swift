@@ -6,10 +6,12 @@ import MastodonAsset
 
 struct ReportablePostRowView: View {
     @Environment(MastodonPostViewModel.self) private var viewModel
-    @ScaledMetric private var checkBoxSize: CGFloat = 30
-    @State var isSelected: Bool = true
     
     let layoutWidth: CGFloat
+    let canChangeSelection: Bool
+    @Binding var isSelected: Bool
+    
+    @ScaledMetric private var checkBoxSize: CGFloat = 30
     let postPadding: CGFloat = standardPadding
     let spacingToCheckbox: CGFloat = standardPadding
     
@@ -20,25 +22,50 @@ struct ReportablePostRowView: View {
                 VisibilityAndTimestamp(referenceDate: viewModel.actionableCreatedAt, visibility: viewModel.actionablePostVisibility)
                 MastodonPostContentStackView(contentWidth: contentWidth, actionHandler: nil, navigator: nil, filterContext: nil)
                     .environment(ContentConcealViewModel.alwaysShow)
+                    .allowsHitTesting(false)
             }
             .padding(postPadding)
             .background() {
-                MastodonSecondaryBackground(fillInDarkModeOnly: true)
+                MastodonSelectionBackground(isSelected: isSelected)
             }
             Image(systemName: isSelected ? "checkmark.square.fill" : "square")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: checkBoxSize, height: checkBoxSize)
-                .foregroundStyle(isSelected ? Asset.Colors.accent.swiftUIColor : .secondary)
+                .foregroundStyle(checkboxColor)
         }
+    }
+    
+    var checkboxColor: Color {
+        isSelected && canChangeSelection ? Asset.Colors.accent.swiftUIColor : .secondary
     }
 }
 
 #if DEBUG
-#Preview("Reportable post row") {
-    ReportablePostRowView(layoutWidth: 300)
+#Preview("Unselected post row") {
+    ReportablePostRowView(layoutWidth: 300,
+                          canChangeSelection: true,
+                          isSelected: .constant(false))
         .environment(PostPreviewModel.basicPost.postViewModel())
         .environment(TimestampUpdater.timestamper(withInterval: 60))
         .padding()
+}
+
+#Preview("Selected post row") {
+    ReportablePostRowView(layoutWidth: 300,
+                          canChangeSelection: true,
+                          isSelected: .constant(true))
+    .environment(PostPreviewModel.basicPost.postViewModel())
+    .environment(TimestampUpdater.timestamper(withInterval: 60))
+    .padding()
+}
+
+#Preview("Selected locked post row") {
+    ReportablePostRowView(layoutWidth: 300,
+                          canChangeSelection: false,
+                          isSelected: .constant(true))
+    .environment(PostPreviewModel.basicPost.postViewModel())
+    .environment(TimestampUpdater.timestamper(withInterval: 60))
+    .padding()
 }
 #endif

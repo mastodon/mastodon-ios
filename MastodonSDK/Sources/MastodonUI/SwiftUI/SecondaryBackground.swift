@@ -1,6 +1,7 @@
 // Copyright © 2025 Mastodon gGmbH. All rights reserved.
 
 import SwiftUI
+import MastodonAsset
 
 public struct MastodonSecondaryBackground: View {
     @Environment(\.colorScheme) private var colorScheme
@@ -23,6 +24,39 @@ public struct MastodonSecondaryBackground: View {
             return .clear
         } else {
             return Color(UIColor.secondarySystemBackground)
+        }
+    }
+}
+
+public struct MastodonSelectionBackground: View {
+    @Environment(\.colorScheme) private var colorScheme
+    public let isSelected: Bool
+    
+    public init(isSelected: Bool) {
+        self.isSelected = isSelected
+    }
+    
+    public var body: some View {
+        RoundedRectangle(cornerRadius: 8)
+            .fill(
+                AnyShapeStyle(fillColor)
+            )
+            .stroke(isSelected ? Asset.Colors.accent.swiftUIColor : .secondary)
+    }
+    
+    var fillColor: Color {
+        if isSelected {
+            switch colorScheme {
+            case .dark:
+                return Color(UIColor.secondarySystemBackground)
+            case .light:
+                return Color(UIColor.systemBackground)
+
+            @unknown default:
+                return Color(UIColor.systemBackground)
+            }
+        } else {
+            return .clear
         }
     }
 }

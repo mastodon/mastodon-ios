@@ -17,13 +17,13 @@ extension ReportSupplementaryViewModel {
         secondaryLabelText: L10n.Scene.Report.StepFour.step4Of4
     )
     
+    @MainActor
     func setupDiffableDataSource(
         tableView: UITableView
     ) {
         diffableDataSource = ReportSection.diffableDataSource(
             tableView: tableView,
-            context: context,
-            configuration: ReportSection.Configuration(authenticationBox: authenticationBox)
+            statusRowSupport: nil
         )
 
         var snapshot = NSDiffableDataSourceSnapshot<ReportSection, ReportItem>()

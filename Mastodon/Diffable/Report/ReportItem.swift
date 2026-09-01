@@ -9,7 +9,7 @@ import Foundation
 import CoreDataStack // needed until ReportStatusViewController is replaced
 import MastodonSDK
 
-enum ReportItem: Hashable {
+enum ReportItem: Hashable, Sendable {
     case header(context: HeaderContext)
     case status(record: MastodonStatus)
     case comment(context: CommentContext)

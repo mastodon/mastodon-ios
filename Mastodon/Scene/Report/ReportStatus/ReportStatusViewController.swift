@@ -160,7 +160,7 @@ extension ReportStatusViewController: UITableViewDelegate {
         }
         
         // disallow deselect initial selection
-        guard record != viewModel.status else { return nil }
+        guard viewModel.canDeselect(record) else { return nil }
         
         return indexPath
     }
