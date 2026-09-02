@@ -24,7 +24,6 @@ extension ComposeContentViewModel {
 
 extension ComposeContentViewModel {
     enum Section: CaseIterable {
-        case replyTo
         case status
     }
     
@@ -62,21 +61,6 @@ extension ComposeContentViewModel {
                 }
             }
             .store(in: &disposeBag)
-        
-        if case .reply(let status) = destination {
-            let cell = composeReplyToTableViewCell
-            // bind frame publisher
-            cell.$framePublisher
-                .receive(on: DispatchQueue.main)
-                .assign(to: \.replyToCellFrame, on: self)
-                .store(in: &cell.disposeBag)
-
-            // set initial width
-            cell.statusView.frame.size.width = tableView.frame.width
-
-            // configure status
-            cell.statusView.configure(status: status, contentDisplayMode: .neverConceal)
-        }
     }
 }
 
@@ -87,23 +71,11 @@ extension ComposeContentViewModel: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch Section.allCases[section] {
-        case .replyTo:
-            switch destination {
-            case .reply:        return 1
-            default:            return 0
-            }
-        case .status:           return 1
-        }
+        return 1
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch Section.allCases[indexPath.section] {
-        case .replyTo:
-            return composeReplyToTableViewCell
-        case .status:
-            return composeContentTableViewCell
-        }
+        return composeContentTableViewCell
     }
 }
 

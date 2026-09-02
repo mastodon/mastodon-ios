@@ -56,7 +56,6 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     var disposeBag = Set<AnyCancellable>()
     
     // tableViewCell
-    let composeReplyToTableViewCell = ComposeReplyToTableViewCell()
     let composeContentTableViewCell = ComposeContentTableViewCell()
     
     // input
