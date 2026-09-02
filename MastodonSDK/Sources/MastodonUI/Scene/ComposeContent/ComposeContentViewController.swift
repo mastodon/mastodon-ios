@@ -208,24 +208,6 @@ extension ComposeContentViewController {
         })
         .store(in: &disposeBag)
         
-        // setup snap behavior
-        Publishers.CombineLatest(
-            viewModel.$replyToCellFrame,
-            viewModel.$scrollViewState
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] replyToCellFrame, scrollViewState in
-            guard let self = self else { return }
-            guard replyToCellFrame != .zero else { return }
-            switch scrollViewState {
-            case .fold:
-                self.tableView.contentInset.top = -replyToCellFrame.height
-            case .expand:
-                self.tableView.contentInset.top = 0
-            }
-        }
-        .store(in: &disposeBag)
-        
         // bind auto-complete
         viewModel.$autoCompleteInfo
             .receive(on: DispatchQueue.main)
@@ -245,7 +227,6 @@ extension ComposeContentViewController {
                 self.autoCompleteViewController.view.isHidden = info == nil
                 guard let info = info else { return }
                 let symbolBoundingRectInContainer = textView.convert(info.symbolBoundingRect, to: self.autoCompleteViewController.chevronView)
-                print(info.symbolBoundingRect)
                 self.autoCompleteViewController.view.frame.origin.y = info.textBoundingRect.maxY + self.viewModel.contentTextViewFrame.minY
                 self.autoCompleteViewController.viewModel.symbolBoundingRect.value = symbolBoundingRectInContainer
                 self.autoCompleteViewController.viewModel.inputText.value = String(info.inputText)
@@ -382,55 +363,6 @@ extension ComposeContentViewController {
         let imagePicker = PHPickerViewController(configuration: configuration)
         imagePicker.delegate = self
         return imagePicker
-    }
-}
-
-// MARK: - UIScrollViewDelegate
-extension ComposeContentViewController {
-    public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        guard scrollView === tableView else { return }
-
-        let replyToCellFrame = viewModel.replyToCellFrame
-        guard replyToCellFrame != .zero else { return }
-
-        // try to find some patterns:
-        // print("""
-        // repliedToCellFrame: \(viewModel.repliedToCellFrame.value.height)
-        // scrollView.contentOffset.y: \(scrollView.contentOffset.y)
-        // scrollView.contentSize.height: \(scrollView.contentSize.height)
-        // scrollView.frame: \(scrollView.frame)
-        // scrollView.adjustedContentInset.top: \(scrollView.adjustedContentInset.top)
-        // scrollView.adjustedContentInset.bottom: \(scrollView.adjustedContentInset.bottom)
-        // """)
-
-        switch viewModel.scrollViewState {
-        case .fold:
-            guard velocity.y < 0 else { return }
-            let offsetY = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
-            if offsetY < -44 {
-                tableView.contentInset.top = 0
-                targetContentOffset.pointee = CGPoint(x: 0, y: -scrollView.adjustedContentInset.top)
-                viewModel.scrollViewState = .expand
-            }
-
-        case .expand:
-            guard velocity.y > 0 else { return }
-            // check if top across
-            let topOffset = (scrollView.contentOffset.y + scrollView.adjustedContentInset.top) - replyToCellFrame.height
-
-            // check if bottom bounce
-            let bottomOffsetY = scrollView.contentOffset.y + (scrollView.frame.height - scrollView.adjustedContentInset.bottom)
-            let bottomOffset = bottomOffsetY - scrollView.contentSize.height
-
-            if topOffset > 44 {
-                // do not interrupt user scrolling
-                viewModel.scrollViewState = .fold
-            } else if bottomOffset > 44 {
-                tableView.contentInset.top = -replyToCellFrame.height
-                targetContentOffset.pointee = CGPoint(x: 0, y: -replyToCellFrame.height)
-                viewModel.scrollViewState = .fold
-            }
-        }
     }
 }
 

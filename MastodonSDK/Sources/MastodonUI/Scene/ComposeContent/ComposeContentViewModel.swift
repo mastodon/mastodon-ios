@@ -147,10 +147,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published public private(set) var recentLanguages: [String]
 
     // UI & UX
-    @Published var replyToCellFrame: CGRect = .zero
     @Published var contentCellFrame: CGRect = .zero
     @Published var contentTextViewFrame: CGRect = .zero
-    @Published var scrollViewState: ScrollViewState = .fold
     
     @Published var characterCount: Int = 0
     
@@ -595,11 +593,6 @@ extension ComposeContentViewModel {
     public enum Destination {
         case topLevel
         case reply(parent: MastodonStatus)
-    }
-    
-    public enum ScrollViewState {
-        case fold       // snap to input
-        case expand     // snap to reply
     }
 }
 

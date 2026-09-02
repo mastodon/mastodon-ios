@@ -7,15 +7,8 @@
 
 import Foundation
 import CoreGraphics
-import CoreDataStack // Needed until StatusView is gone
+import CoreDataStack // Needed until MastodonAttachment is gone
 import MastodonSDK
-
-extension Mastodon.Entity.Status {
-    public var mastodonVisibility: MastodonVisibility {
-        let rawValue = visibility?.rawValue ?? ""
-        return MastodonVisibility(rawValue: rawValue) ?? ._other(rawValue)
-    }
-}
 
 extension Mastodon.Entity.Status {
     public var mastodonAttachments: [MastodonAttachment] {

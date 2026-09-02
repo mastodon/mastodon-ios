@@ -151,11 +151,6 @@ public extension Mastodon.Entity.Status {
     var asMastodonStatus: MastodonStatus {
         .fromEntity(self)
     }
-    
-    var mastodonVisibility: MastodonVisibility? {
-        guard let visibility = visibility?.rawValue else { return nil }
-        return MastodonVisibility(rawValue: visibility)
-    }
 }
 
 public extension MastodonStatus {
