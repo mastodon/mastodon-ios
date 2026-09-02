@@ -92,7 +92,14 @@ struct VisibilityAndTimestamp: View {
         .font(.footnote)
         .frame(height: actionSuperheaderHeight)
         .foregroundColor(.secondary)
-        .accessibilityLabel(referenceDate.localizedAbbreviatedSlowedTimeAgoSinceNow)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(a11yLabel)
+    }
+    
+    var a11yLabel: String {
+        let publishedTimeAgo = referenceDate.localizedAbbreviatedSlowedTimeAgoSinceNow
+        guard let visibility, visibilityIconName != nil else { return publishedTimeAgo }
+        return "\(visibility.a11yLabel), \(publishedTimeAgo)"
     }
     
     var visibilityIconName: String? {

@@ -33,7 +33,18 @@ struct ReportablePostRowView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: checkBoxSize, height: checkBoxSize)
                 .foregroundStyle(checkboxColor)
+                .accessibilityHidden(true)
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityAddTraits(accessibilityTraits)
+    }
+    
+    var accessibilityTraits: AccessibilityTraits {
+        var traits: AccessibilityTraits = isSelected ? .isSelected : []
+        if canChangeSelection {
+            let _ = traits.insert(.isButton)
+        }
+        return traits
     }
     
     var checkboxColor: Color {
