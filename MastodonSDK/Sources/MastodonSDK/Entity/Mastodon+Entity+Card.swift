@@ -111,3 +111,13 @@ extension Mastodon.Entity.Card: Hashable {
         hasher.combine(url)
     }
 }
+
+extension Mastodon.Entity.Card {
+    /// the sum of recent 2 days
+    public var talkingPeopleCount: Int? {
+        return history?
+            .prefix(2)
+            .compactMap { Int($0.accounts) }
+            .reduce(0, +)
+    }
+}
