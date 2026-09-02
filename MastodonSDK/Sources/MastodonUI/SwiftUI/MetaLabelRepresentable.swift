@@ -7,7 +7,6 @@
 
 import UIKit
 import SwiftUI
-import MastodonCore
 import MetaTextKit
 
 public struct MetaLabelRepresentable: UIViewRepresentable {
@@ -34,14 +33,3 @@ public struct MetaLabelRepresentable: UIViewRepresentable {
     }
     
 }
-
-#if DEBUG
-struct MetaLabelRepresentable_Preview: PreviewProvider {
-    static var previews: some View {
-        MetaLabelRepresentable(
-            textStyle: .statusUsername,
-            metaContent: PlaintextMetaContent(string: "Name")
-        )
-    }
-}
-#endif
