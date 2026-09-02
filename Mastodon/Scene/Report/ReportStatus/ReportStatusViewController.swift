@@ -20,6 +20,7 @@ protocol ReportStatusViewControllerDelegate: AnyObject {
 class ReportStatusViewController: UIViewController, ReportViewControllerAppearance {
     var disposeBag = Set<AnyCancellable>()
     private var observations = Set<NSKeyValueObservation>()
+    private var lastLayoutWidth: CGFloat = 0
         
     var viewModel: ReportStatusViewModel!
     
@@ -107,6 +108,25 @@ extension ReportStatusViewController {
         viewModel.stateMachine.enter(ReportStatusViewModel.State.Loading.self)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let layoutWidth = tableView.bounds.inset(by: tableView.safeAreaInsets).width
+        guard layoutWidth > 0, abs(layoutWidth - lastLayoutWidth) > 1 else { return }
+        lastLayoutWidth = layoutWidth
+        
+        guard let datasource = viewModel.diffableDataSource else { return }
+        var snapshot = datasource.snapshot()
+        let statusRows = snapshot.itemIdentifiers.filter {
+            switch $0 {
+            case .status: true
+            default: false
+            }
+        }
+        guard !statusRows.isEmpty else { return }
+        snapshot.reconfigureItems(statusRows)
+        datasource.apply(snapshot, animatingDifferences: false)
+    }
 }
 
 extension ReportStatusViewController {
