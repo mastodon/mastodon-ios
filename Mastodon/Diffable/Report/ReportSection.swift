@@ -6,15 +6,10 @@
 //
 
 import Combine
-import CoreData // needed until ReportStatusViewController is gone
-import CoreDataStack // needed until ReportStatusViewController is gone
 import Foundation
 import MastodonSDK
 import UIKit
-import MastodonAsset
-import MastodonCore
 import MastodonUI
-import MastodonLocalization
 import SwiftUI
 
 enum ReportSection: Equatable, Hashable, Sendable {
