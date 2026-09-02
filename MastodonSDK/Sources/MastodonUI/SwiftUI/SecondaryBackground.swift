@@ -41,7 +41,7 @@ public struct MastodonSelectionBackground: View {
             .fill(
                 AnyShapeStyle(fillColor)
             )
-            .stroke(isSelected ? Asset.Colors.accent.swiftUIColor : .secondary)
+            .stroke(isSelected ? AnyShapeStyle(Asset.Colors.accent.swiftUIColor) : AnyShapeStyle(.separator))
     }
     
     var fillColor: Color {
