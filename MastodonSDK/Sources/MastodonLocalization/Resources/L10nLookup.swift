@@ -818,6 +818,25 @@ public extension L10nLookup {
             }
         }
     }
+    
+    struct CommonAlerts {
+        public struct AuthorizationInvalid {
+            public static let title: String = {
+                tr("Localizable-CommonAlerts", "CommonAlerts.AuthorizationInvalid.title")
+            }()
+            public static func message(domainName: String, username: String) -> String {
+                return tr("Localizable-CommonAlerts", "CommonAlerts.AuthorizationInvalid.message", domainName, username)
+            }
+            public static let logBackIn: String = {
+                let result = tr("Localizable-CommonAlerts", "CommonAlerts.AuthorizationInvalid.logBackIn")
+                return result
+            }()
+            public static let stayLoggedOut: String = {
+                let result = tr("Localizable-CommonAlerts", "CommonAlerts.AuthorizationInvalid.stayLoggedOut")
+                return result
+            }()
+        }
+    }
 }
 
 public extension L10nLookup.Scene {

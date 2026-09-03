@@ -187,6 +187,7 @@ extension MastodonPostMenuAction {
         case confirmFollowBeforeAddingToList(username: String, didConfirm: (Bool)->())
         case confirmRemoveFollower(username: String, didConfirm: (Bool)->())
         case error(Error)
+        case authorizationInvalid(username: String?, authBox: MastodonAuthenticationBox)
         
         var title: String {
             switch self {
@@ -222,6 +223,9 @@ extension MastodonPostMenuAction {
                 L10nLookup.MastodonMenuAction.confirmRemoveFollowerTitle
             case .error:
                 L10n.Common.Alerts.genericError
+                
+            case .authorizationInvalid:
+                L10nLookup.CommonAlerts.AuthorizationInvalid.title
             }
         }
         
@@ -256,6 +260,9 @@ extension MastodonPostMenuAction {
                 L10nLookup.MastodonMenuAction.confirmRemoveFollowerMessage(username: username)
             case .error(let error):
                 error.localizedDescription
+                
+            case .authorizationInvalid(let username, let authBox):
+                L10nLookup.CommonAlerts.AuthorizationInvalid.message(domainName: authBox.domain, username: username ?? "")
             }
         }
     }
@@ -1281,6 +1288,19 @@ struct TimelineListView: View {
                 didConfirm(true)
             } label: {
                 Text(L10nLookup.MastodonMenuAction.removeFollower)
+            }
+            
+        case .authorizationInvalid(_, let authBox):
+            Button(role: .destructive) {
+                AuthenticationServiceProvider.shared.completeTokenRevocation(authBox: authBox, completion: nil)
+            } label: {
+                Text(L10nLookup.CommonAlerts.AuthorizationInvalid.stayLoggedOut)
+            }
+            Button(role: .cancel) {
+                AuthenticationServiceProvider.shared.completeTokenRevocation(authBox: authBox) {
+                }
+            } label: {
+                Text(L10nLookup.CommonAlerts.AuthorizationInvalid.logBackIn)
             }
         }
     }

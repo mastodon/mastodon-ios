@@ -15,6 +15,8 @@ public class AuthenticationServiceProvider: ObservableObject {
     public static let shared = AuthenticationServiceProvider()
     private static let keychain = Keychain(service: "org.joinmastodon.app.authentications", accessGroup: AppName.groupID)
     private let userDefaults: UserDefaults = .shared
+    
+    @MainActor private var accountsGoingThroughForcedSignOut = Set<String>()
 
     var disposeBag = Set<AnyCancellable>()
     
@@ -109,6 +111,25 @@ public class AuthenticationServiceProvider: ObservableObject {
         let allAuthentications = authentications
         try Self.keychain.removeAll()
         authentications.removeAll()
+    }
+    
+    @MainActor
+    public func prepareToHandleTokenRevocation(authBox: MastodonAuthenticationBox) -> Bool {
+        let key = authBox.globallyUniqueUserIdentifier
+        guard !accountsGoingThroughForcedSignOut.contains(key) else { return false }
+        accountsGoingThroughForcedSignOut.insert(key)
+        return true
+    }
+    
+    @MainActor
+    public func completeTokenRevocation(authBox: MastodonAuthenticationBox, completion: (()->())?) {
+        let key = authBox.globallyUniqueUserIdentifier
+        guard accountsGoingThroughForcedSignOut.contains(key) else { return }
+        Task {
+            await signOutMastodonUser(authentication: authBox.authentication)
+            accountsGoingThroughForcedSignOut.remove(key)
+            completion?()
+        }
     }
     
     @MainActor

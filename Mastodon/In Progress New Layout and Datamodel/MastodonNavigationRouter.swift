@@ -29,6 +29,7 @@ enum MastodonNavigationDestination: Identifiable {
 @MainActor
 @Observable class MastodonNavigationRouter {
     var navigationPath: [MastodonNavigationDestination] = []
+    let authenticationBox = AuthenticationObserver.shared.currentActiveUser
     
     let uuid = UUID()
     
@@ -229,6 +230,7 @@ enum MastodonNavigationDestination: Identifiable {
 
 extension MastodonNavigationRouter {
     func didReceiveError(_ error: Error) {
+        guard !checkForRevokedAuthentication(error) else { return }
         if errorsWaitingToDisplay.count < 3 {
             errorsWaitingToDisplay.append(error)
         }
@@ -241,6 +243,15 @@ extension MastodonNavigationRouter {
             activeAlert = .error(error)
             _ = errorsWaitingToDisplay.removeFirst()
         }
+    }
+    
+    func checkForRevokedAuthentication(_ error: Error) -> Bool {
+        guard let authenticationBox, (error as? Mastodon.API.Error)?.httpResponseStatus == .unauthorized else { return false }
+        let handle = authenticationBox.cachedAccount?.handle
+        if AuthenticationServiceProvider.shared.prepareToHandleTokenRevocation(authBox: authenticationBox) {
+            self.activeAlert = .authorizationInvalid(username: handle, authBox: authenticationBox)
+        }
+        return true
     }
 }
 

@@ -1,0 +1,53 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "CommonAlerts.AuthorizationInvalid.logBackIn" : {
+      "comment" : "Button title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log Back In"
+          }
+        }
+      }
+    },
+    "CommonAlerts.AuthorizationInvalid.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You will have to log in to %1$(domainName)@ again to continue using this app with this account (@%2$(username)@)."
+          }
+        }
+      }
+    },
+    "CommonAlerts.AuthorizationInvalid.stayLoggedOut" : {
+      "comment" : "Button title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stay Logged Out"
+          }
+        }
+      }
+    },
+    "CommonAlerts.AuthorizationInvalid.title" : {
+      "comment" : "title of alert shown when API returns “unauthorized” because the app authorization has been revoked or expired",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authorization No Longer Valid"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.2"
+}
