@@ -173,9 +173,8 @@ extension WelcomeViewController {
             _ = self.sceneCoordinator?.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(joinServer: { [weak self] server in try await self?.authenticationViewModel.joinServer(server) }, displayError: { [weak self] error in self?.displayError(error) })), from: self, transition: .show)
         case .confirmingEmail(let viewModel):
             _ = self.sceneCoordinator?.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
-        case .authenticatedUser(let authBox):
-            self.sceneCoordinator?.setup()
-            break
+        case .authenticatedUser:
+            dismiss(animated: true)
         case .authenticatingUser:
             break
         }

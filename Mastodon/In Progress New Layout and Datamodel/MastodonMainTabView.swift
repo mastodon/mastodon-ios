@@ -39,9 +39,14 @@ struct MastodonMainTabView: View {
                     .tabViewStyle(.sidebarAdaptable)
                     .tabViewCustomization($tabCustomization)
                     .onChange(of: authenticationObserver.currentActiveUser, initial: true) { _, newValue in
-                        guard MastodonTabViewRouter.current.userGUID != newValue?.globallyUniqueUserIdentifier else { return }
-                        let newRouter = MastodonTabViewRouter.changeAuthenticatedUser(newValue)
-                        tabViewRouter = newRouter
+                        guard tabViewRouter.userGUID != newValue?.globallyUniqueUserIdentifier else { return }
+                        if MastodonTabViewRouter.current.userGUID == newValue?.globallyUniqueUserIdentifier {
+                            // only reachable if allowing multiple scenes (currently not allowed)
+                            tabViewRouter = MastodonTabViewRouter.current
+                        } else {
+                            let newRouter = MastodonTabViewRouter.changeAuthenticatedUser(newValue)
+                            tabViewRouter = newRouter
+                        }
                     }
                     .onChange(of: authenticationObserver.currentActiveUser?.globallyUniqueUserIdentifier, initial: true) { _, _ in
                         loadTabCustomization(authenticationObserver.currentActiveUser)
