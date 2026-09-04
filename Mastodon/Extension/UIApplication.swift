@@ -22,13 +22,4 @@ extension UIApplication {
 
         return version == build ? "v\(version)" : "v\(version) (\(build))"
     }
-    
-    func getKeyWindow() -> UIWindow? {
-        return UIApplication
-            .shared
-            .connectedScenes
-            .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
-            .first { $0.isKeyWindow }
-    }
-
 }
