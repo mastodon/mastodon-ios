@@ -120,7 +120,8 @@ enum MastodonNavigationDestination: Identifiable {
             
         case .welcome:
             LegacyWelcomeFlowWrapper()
-        
+                .interactiveDismissDisabled()
+            
         case .contentUrl(let url):
             SafariView(url: url.url)
                 .presentationBackground(.clear)
