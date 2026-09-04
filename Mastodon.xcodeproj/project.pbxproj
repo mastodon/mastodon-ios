@@ -444,6 +444,7 @@
 				Profile/ProfileEditingView.swift,
 				Profile/ProfileView.swift,
 				Profile/ProfileViewModel.swift,
+				ReauthorizeLogin.swift,
 				ReportFlow/ReportablePostRowView.swift,
 				Timeline/CentralPostViewModelCache.swift,
 				Timeline/PrecalculatedRowHeights.swift,

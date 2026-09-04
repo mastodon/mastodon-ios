@@ -1298,6 +1298,7 @@ struct TimelineListView: View {
             }
             Button(role: .cancel) {
                 AuthenticationServiceProvider.shared.completeTokenRevocation(authBox: authBox) {
+                    authenticationObserver.requestReauthorization(authBox.domain)
                 }
             } label: {
                 Text(L10nLookup.CommonAlerts.AuthorizationInvalid.logBackIn)
