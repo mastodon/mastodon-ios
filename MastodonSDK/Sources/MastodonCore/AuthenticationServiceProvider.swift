@@ -103,7 +103,7 @@ public class AuthenticationServiceProvider: ObservableObject {
     @MainActor
     private func delete(authentication: MastodonAuthentication) throws {
         try Self.keychain.remove(authentication.persistenceIdentifier)
-        authentications.removeAll(where: { $0 == authentication })
+        authentications.removeAll(where: { $0.domain == authentication.domain && $0.userID == authentication.userID })
     }
     
     @MainActor
