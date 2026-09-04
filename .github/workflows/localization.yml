@@ -1,0 +1,30 @@
+name: Update localization files
+
+on:
+  push:
+    branches:
+    - l10n_develop
+    - auto-update-l10n
+
+permissions:
+  contents: write
+
+jobs:
+  l10n:
+    name: Update localization files
+    runs-on: macOS-12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup
+        env:
+          NotificationEndpointDebug: ${{ secrets.NotificationEndpointDebug }}
+          NotificationEndpointRelease: ${{ secrets.NotificationEndpointRelease }}
+        run: exec ./.github/scripts/setup.sh
+      - name: Update localization files
+        run: exec ./update_localization.sh
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Auto-update generated files"
+          commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
