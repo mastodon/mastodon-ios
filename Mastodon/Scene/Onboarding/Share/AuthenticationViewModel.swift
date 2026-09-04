@@ -356,8 +356,7 @@ extension AuthenticationViewModel {
                     let authBox = try await AuthenticationViewModel.verifyAndActivateAuthentication(
                         info: info,
                         userToken: token
-                    ) // See Github issue #1432, would be better to pass along the instance configuration here rather than losing it
-                    AuthenticationServiceProvider.shared.activateAuthentication(authBox)
+                    )
                     self.stateStreamContinuation.yield(.authenticatedUser(authBox))
                     self.stateStreamContinuation.finish()
                 }
@@ -373,19 +372,6 @@ extension AuthenticationViewModel {
                 }
             }
         }
-    }
-    
-    static func verifyAndActivateAuthentication(
-        info: AuthenticateInfo,
-        userToken: Mastodon.Entity.Token
-    ) -> AnyPublisher<(Mastodon.Entity.Account, MastodonAuthenticationBox), Error> {
-        let authorization = Mastodon.API.OAuth.Authorization(accessToken: userToken.accessToken, domain: info.domain)
-        return APIService.shared.verifyAndActivateUser(
-            domain: info.domain,
-            clientID: info.clientID,
-            clientSecret: info.clientSecret,
-            authorization: authorization
-        )
     }
     
     static func verifyAndActivateAuthentication(

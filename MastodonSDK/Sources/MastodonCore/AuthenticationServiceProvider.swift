@@ -35,9 +35,9 @@ public class AuthenticationServiceProvider: ObservableObject {
         currentActiveUser
             .throttle(for: 3, scheduler: DispatchQueue.main, latest: true)
             .sink { authBox in
-                guard let domain = authBox?.domain else { return }
+                guard let authBox else { return }
                 Task {
-                    await InstanceService.shared.updateInstance(domain: domain)
+                    let _ = await InstanceService.shared.updateInstance(authBox: authBox)
                 }
             }
             .store(in: &disposeBag)

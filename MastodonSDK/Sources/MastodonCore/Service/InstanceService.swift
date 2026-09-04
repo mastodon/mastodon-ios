@@ -18,20 +18,24 @@ public final class InstanceService {
 
 extension InstanceService {
     
+    /// This fetches the instance and applies it to any already-known accounts on that domain, but returns the instance so that the caller can apply it if needed (in the fresh login case, the update step won't have found anything to update)
     @MainActor
-    func updateInstance(domain: String) async {
+    func updateInstance(authBox: MastodonAuthenticationBox) async -> MastodonAuthentication.InstanceConfiguration? {
         let apiService = APIService.shared
-        guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value, authBox.domain == domain else { return }
         
-        if let instanceV2 = try? await apiService.instanceV2(domain: domain, authenticationBox: authBox).singleOutput() {
-            self.updateInstanceV2(domain: domain, response: instanceV2)
-            if let translationResponse = try? await apiService.translationLanguages(domain: domain, authenticationBox: authBox).singleOutput() {
-                updateTranslationLanguages(domain: domain, response: translationResponse)
+        if let instanceV2 = try? await apiService.instanceV2(domain: authBox.domain, authenticationBox: authBox).singleOutput() {
+            self.updateInstanceV2(domain: authBox.domain, response: instanceV2)
+            if let translationResponse = try? await apiService.translationLanguages(domain: authBox.domain, authenticationBox: authBox).singleOutput() {
+                updateTranslationLanguages(domain: authBox.domain, response: translationResponse)
+                return .fromEndpointV2(instanceV2.value, translationResponse.value)
+            } else {
+                return .fromEndpointV2(instanceV2.value, [:])
             }
-        } else if let response = try? await apiService.instance(domain: domain, authenticationBox: authBox)
+        } else if let response = try? await apiService.instance(domain: authBox.domain, authenticationBox: authBox)
             .singleOutput() {
-            self.updateInstance(domain: domain, response: response)
+            return self.updateInstance(domain: authBox.domain, response: response)
         }
+        return nil
     }
 
     @MainActor
@@ -41,9 +45,10 @@ extension InstanceService {
     }
     
     @MainActor
-    private func updateInstance(domain: String, response: Mastodon.Response.Content<Mastodon.Entity.Instance>) {
+    private func updateInstance(domain: String, response: Mastodon.Response.Content<Mastodon.Entity.Instance>) -> MastodonAuthentication.InstanceConfiguration {
         AuthenticationServiceProvider.shared
             .updating(instanceV1: response.value, for: domain)
+        return .fromEndpointV1(response.value)
     }
     
     @MainActor

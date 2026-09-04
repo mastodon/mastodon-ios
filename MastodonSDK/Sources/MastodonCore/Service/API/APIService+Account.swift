@@ -56,10 +56,10 @@ extension APIService {
 extension APIService {
     
     private func saveAndActivateVerifiedUser(account: Mastodon.Entity.Account,
-                           domain: String,
-                           clientID: String,
-                           clientSecret: String,
-                           authorization: Mastodon.API.OAuth.Authorization) -> MastodonAuthenticationBox {
+                                             domain: String,
+                                             clientID: String,
+                                             clientSecret: String,
+                                             authorization: Mastodon.API.OAuth.Authorization) async -> MastodonAuthenticationBox {
         let authentication = MastodonAuthentication.createFrom(domain: domain,
                                                                userID: account.id,
                                                                username: account.username,
@@ -68,29 +68,13 @@ extension APIService {
                                                                clientID: clientID,
                                                                clientSecret: clientSecret,
                                                                accountCreatedAt: account.createdAt)
-        
-        let authBox = MastodonAuthenticationBox(authentication: authentication)
         PersistenceManager.shared.cacheAccount(account, forUserID: authentication.userIdentifier())
-        AuthenticationServiceProvider.shared.activateAuthentication(authBox)
-        return authBox
-    }
-    
-    public func verifyAndActivateUser(
-        domain: String,
-        clientID: String,
-        clientSecret: String,
-        authorization: Mastodon.API.OAuth.Authorization
-    ) -> AnyPublisher<(Mastodon.Entity.Account, MastodonAuthenticationBox), Error> {
-        return Mastodon.API.Account.verifyCredentials(
-            session: session,
-            domain: domain,
-            authorization: authorization
-        ).tryMap { response -> (Mastodon.Entity.Account, MastodonAuthenticationBox) in
-            let account = response.value
-            let authBox = self.saveAndActivateVerifiedUser(account: account, domain: domain, clientID: clientID, clientSecret: clientSecret, authorization: authorization)
-            return (account, authBox)
-        }
-        .eraseToAnyPublisher()
+        let authBox = MastodonAuthenticationBox(authentication: authentication)
+        let instance = await InstanceService.shared.updateInstance(authBox: authBox)
+        let authenticationWithInstance = authentication.copy(instanceConfiguration: instance)
+        let authBoxWithInstance = MastodonAuthenticationBox(authentication: authenticationWithInstance)
+        AuthenticationServiceProvider.shared.activateAuthentication(authBoxWithInstance)
+        return authBoxWithInstance
     }
     
     public func verifyAndActivateUser(
@@ -104,7 +88,7 @@ extension APIService {
             domain: domain,
             authorization: authorization
         )
-        let authBox = self.saveAndActivateVerifiedUser(account: account, domain: domain, clientID: clientID, clientSecret: clientSecret, authorization: authorization)
+        let authBox = await self.saveAndActivateVerifiedUser(account: account, domain: domain, clientID: clientID, clientSecret: clientSecret, authorization: authorization)
         return (account, authBox)
     }
     

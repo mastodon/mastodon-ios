@@ -159,10 +159,7 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
         accountCreatedAt: Date
     ) -> Self {
         let now = Date()
-        Task {
-            await InstanceService.shared.updateInstance(domain: domain)
-        }
-        return MastodonAuthentication(
+        let authentication = MastodonAuthentication(
             identifier: .init(),
             domain: domain,
             username: username,
@@ -177,6 +174,7 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
             instanceConfiguration: nil,
             accountCreatedAt: accountCreatedAt
         )
+        return authentication
     }
     
     func copy(

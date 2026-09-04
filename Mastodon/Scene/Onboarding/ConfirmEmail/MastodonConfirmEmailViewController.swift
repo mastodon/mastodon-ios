@@ -95,41 +95,20 @@ extension MastodonConfirmEmailViewController {
         
         self.viewModel.timestampUpdatePublisher
             .sink { [weak self] _ in
-                guard let self = self else { return }
-                AuthenticationViewModel.verifyAndActivateAuthentication(info: self.viewModel.authenticateInfo, userToken: self.viewModel.userToken)
-                    .receive(on: DispatchQueue.main)
-                    .sink { completion in
-                        switch completion {
-                        case .failure(_):
-                                break
-                        case .finished:
-                            // upload avatar and set display name in the background
-                            Just(self.viewModel.userToken.accessToken)
-                                .asyncMap { token in
-                                    let domain = self.viewModel.authenticateInfo.domain
-                                    let _ = try await APIService.shared.accountUpdateCredentials(
-                                        domain: domain,
-                                        query: self.viewModel.updateCredentialQuery,
-                                        authorization: Mastodon.API.OAuth.Authorization(accessToken: token, domain: domain)
-                                    )
-                                }
-                                .retry(3)
-                                .sink { completion in
-                                    switch completion {
-                                    case .failure(_):
-                                            break
-                                        case .finished:
-                                            break
-                                    }
-                                } receiveValue: { _ in
-                                    // do nothing
-                                }
-                                .store(in: &AppContext.shared.disposeBag)    // execute in the background
-                        }   // end switch
-                    } receiveValue: { _ in
-                        self.dismiss(animated: true, completion: nil)
+                guard let self else { return }
+                Task { @MainActor in
+                    guard (try? await AuthenticationViewModel.verifyAndActivateAuthentication(info: self.viewModel.authenticateInfo, userToken: self.viewModel.userToken)) != nil else { return /* email confirmation not completed yet */ }
+                    let domain = self.viewModel.authenticateInfo.domain
+                    Task {
+                        // in the background, set display name already chosen during set up
+                        let _ = try? await APIService.shared.accountUpdateCredentials(
+                            domain: domain,
+                            query: self.viewModel.updateCredentialQuery,
+                            authorization: Mastodon.API.OAuth.Authorization(accessToken: self.viewModel.userToken.accessToken, domain: domain)
+                        )
                     }
-                    .store(in: &self.disposeBag)
+                    self.dismiss(animated: true, completion: nil) // dismiss this view
+                }
             }
             .store(in: &self.disposeBag)
         
