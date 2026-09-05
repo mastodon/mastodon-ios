@@ -216,8 +216,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This account hasn't featured anything yet."
+            "state" : "translated",
+            "value" : "Deze account heeft nog niets uitgelicht."
           }
         },
         "pl" : {
@@ -527,8 +527,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(username)@ hasn't featured anything yet."
+            "state" : "translated",
+            "value" : "%1$(username)@ heeft nog niets uitgelicht."
           }
         },
         "pl" : {

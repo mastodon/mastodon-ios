@@ -13,8 +13,8 @@
         },
         "ar" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Mastodon"
+            "state" : "translated",
+            "value" : "ماستودون"
           }
         },
         "be" : {
@@ -324,7 +324,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "مَنشُورٌ جَديد"
+            "value" : "منشورٌ جديد"
           }
         },
         "be" : {
@@ -635,7 +635,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يُستخدم لالتقاط الصورة عِندَ نشر الحالات"
+            "value" : "تُستخدَم لالتقاط الصور لنشرها كحالات"
           }
         },
         "be" : {
@@ -946,7 +946,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يُستخدم لحِفظ الصورة في مكتبة الصور"
+            "value" : "تُستخدَم لحفظ الصورة في مكتبة الصور"
           }
         },
         "be" : {
@@ -988,7 +988,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wird verwendet, um Foto in der Fotomediathek zu speichern"
+            "value" : "Wird verwendet, um Foto in der Foto-Bibliothek zu speichern"
           }
         },
         "el" : {
@@ -1256,7 +1256,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "البحث"
+            "value" : "ابحث"
           }
         },
         "be" : {
