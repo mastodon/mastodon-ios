@@ -157,13 +157,16 @@ extension Mastodon.API.Subscriptions {
     public struct QuerySubscription: Codable {
         let endpoint: String
         let keys: Keys
+        let standard: Bool // if true, requests the standard aes128gcm web push, if available. if false, requests the aesgcm draft.
         
         public init(
             endpoint: String,
-            keys: Keys
+            keys: Keys,
+            standard: Bool
         ) {
             self.endpoint = endpoint
             self.keys = keys
+            self.standard = standard
         }
         
         public struct Keys: Codable {

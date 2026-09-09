@@ -30,20 +30,23 @@ class NotificationService: UNNotificationServiceExtension {
                 return
             }
             let payload = encodedPayload.decode85()
-            
-            guard let encodedPublicKey = bestAttemptContent.userInfo["k"] as? String,
-                  let publicKey = NotificationService.publicKey(encodedPublicKey: encodedPublicKey) else {
-                contentHandler(bestAttemptContent)
-                return
-            }
-            
-            guard let encodedSalt = bestAttemptContent.userInfo["s"] as? String else {
-                contentHandler(bestAttemptContent)
-                return
-            }
-            let salt = encodedSalt.decode85()
 
-            guard let plaintextData = NotificationService.decrypt(payload: payload, salt: salt, auth: auth, privateKey: privateKey, publicKey: publicKey),
+            let plaintextData: Data?
+            if let encodedPublicKey = bestAttemptContent.userInfo["k"] as? String,
+               let encodedSalt = bestAttemptContent.userInfo["s"] as? String {
+                // the format is aesgcm, legacy draft format
+                if let publicKey = NotificationService.publicKey(encodedPublicKey: encodedPublicKey) {
+                    let salt = encodedSalt.decode85()
+                    plaintextData = NotificationService.decryptLegacyAESGCM(payload: payload, salt: salt, auth: auth, privateKey: privateKey, publicKey: publicKey)
+                } else {
+                    plaintextData = nil
+                }
+            } else {
+                // the format is aes128gcm, standard format
+                plaintextData = NotificationService.decryptAES128GCM(body: payload, auth: auth, privateKey: privateKey)
+            }
+
+            guard let plaintextData = plaintextData,
                   let notification = try? JSONDecoder().decode(MastodonPushNotification.self, from: plaintextData) else {
                 contentHandler(bestAttemptContent)
                 return

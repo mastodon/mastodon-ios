@@ -447,7 +447,8 @@ extension NotificationService {
                 keys: Mastodon.API.Subscriptions.QuerySubscription.Keys(
                     p256dh: p256dh,
                     auth: auth
-                )
+                ),
+                standard: true // opt in to standard aes128gcm web push, if available
             ),
             data: queryData
         )

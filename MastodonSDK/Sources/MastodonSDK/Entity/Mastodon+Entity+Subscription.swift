@@ -21,12 +21,14 @@ extension Mastodon.Entity {
         // Base
         public let id: String
         public let endpoint: String
+        public let useStandardWebPush: Bool?
         public let alerts: Alerts
         public let serverKey: String
         
         enum CodingKeys: String, CodingKey {
             case id
             case endpoint
+            case useStandardWebPush = "standard"
             case serverKey = "server_key"
             case alerts
         }
@@ -59,6 +61,7 @@ extension Mastodon.Entity {
             self.id = id ?? ""
             
             endpoint = try container.decode(String.self, forKey: .endpoint)
+            useStandardWebPush = try container.decodeIfPresent(Bool.self, forKey: .useStandardWebPush)
             alerts = try container.decode(Alerts.self, forKey: .alerts)
             serverKey = try container.decode(String.self, forKey: .serverKey)
         }
