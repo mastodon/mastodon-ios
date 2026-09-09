@@ -53,63 +53,58 @@ final public class SceneCoordinator {
                 [weak self] pushNotification in
                 guard let self else { return }
                 Task { @MainActor in
-                    guard let currentActiveAuthenticationBox = self.authenticationBox else { return }
                     let accessToken = pushNotification.accessToken     // use raw accessToken value without normalize
-                    if currentActiveAuthenticationBox.userAuthorization.accessToken == accessToken {
-                        // do nothing if notification for current account
-                        return
-                    } else {
-                        // switch to notification's account
-                        do {
-                            guard let authenticationBox = AuthenticationServiceProvider.shared.activateExistingUserToken(accessToken) else {
-                                return
-                            }
-
-                            try await Task.sleep(nanoseconds: .nanosPerUnit * 1)
-
-                            // redirect to notifications tab
-                            self.switchToTabBar(tab: .notifications)
-
-                            // show notification related content
-                            guard let type = Mastodon.Entity.NotificationType(rawValue: pushNotification.notificationType) else { return }
-                            guard let me = authenticationBox.cachedAccount else { return }
+                    guard let authBox = {
+                        if self.authenticationBox?.userAuthorization.accessToken != accessToken
+                        { AuthenticationServiceProvider.shared.activateExistingUserToken(accessToken)
+                        } else {
+                            self.authenticationBox
+                        }
+                    }() else { return }
+                    
+                    let destination: MastodonNavigationDestination? = await {
+                        guard let type = Mastodon.Entity.NotificationType(rawValue: pushNotification.notificationType) else { return nil }
+                        switch type {
+                        case .follow:
                             let notificationID = String(pushNotification.notificationID)
-
-                            switch type {
-                            case .follow:
+                            do {
                                 let account = try await APIService.shared.notification(
                                     notificationID: notificationID,
-                                    authenticationBox: authenticationBox
+                                    authenticationBox: authBox
                                 ).value.account
-
-                                let relationshipEntity = try await APIService.shared.relationship(forAccounts: [account], authenticationBox: authenticationBox)[account.id]
-
+                                
+                                let relationshipEntity = try await APIService.shared.relationship(forAccounts: [account], authenticationBox: authBox)[account.id]
+                                
                                 let relationship: MastodonAccount.Relationship? = {
                                     guard let relationshipEntity else { return nil }
-                                    if me == account {
-                                        return .isMe
-                                    } else {
-                                        return .isNotMe(MastodonAccount.RelationshipInfo(relationshipEntity, fetchedAt: .now))
-                                    }
+                                    return .isNotMe(MastodonAccount.RelationshipInfo(relationshipEntity, fetchedAt: .now))
                                 }()
-                                MastodonTabViewRouter.current.show(.profile(account: account, relationship: relationship), in: .notifications)
-                            case .followRequest:
-                                // do nothing
-                                break
-                            case .mention, .reblog, .favourite, .poll, .status:
-                                MastodonTabViewRouter.current.show(.timeline(.remoteThread(root: .notification(notificationID))), in: .notifications)
-                            case .moderationWarning:
-                                break
-                            default:
-                                assertionFailure()
-                                break
+                                
+                                return .profile(account: account, relationship: relationship)
+                            } catch {
+                                return nil
                             }
 
-                        } catch {
-                            assertionFailure(error.localizedDescription)
-                            return
+                            
+                        case .followRequest:
+                            return nil
+                            
+                        case .mention, .reblog, .favourite, .poll, .status:
+                            let notificationID = String(pushNotification.notificationID)
+                            return .timeline(.remoteThread(root: .notification(notificationID)))
+                            
+                        case .moderationWarning:
+                            return nil
+                            
+                        default:
+                            assertionFailure()
+                            return nil
                         }
-                    }
+                        
+                    }()
+                    
+                    let tabReveal = PendingTabRevealManager.TabReveal(userGUID: authBox.globallyUniqueUserIdentifier, tab: .notifications, destination: destination)
+                    PendingTabRevealManager.shared.request(tabReveal)
                 }   // end Task
             })
             .store(in: &disposeBag)

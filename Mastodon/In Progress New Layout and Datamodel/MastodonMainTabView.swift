@@ -24,6 +24,7 @@ struct MastodonMainTabView: View {
     @State private var authenticationObserver = AuthenticationObserver.shared
     @State private var tabViewRouter = MastodonTabViewRouter.current
     @State private var avatarIconRenderer = AvatarIconRenderer.shared
+    @State private var pendingTabRevealManager = PendingTabRevealManager.shared
     @State private var showAccountSwitcher = false
     @State private var isSwitchingAccounts = false
    
@@ -50,6 +51,15 @@ struct MastodonMainTabView: View {
                     }
                     .onChange(of: authenticationObserver.currentActiveUser?.globallyUniqueUserIdentifier, initial: true) { _, _ in
                         loadTabCustomization(authenticationObserver.currentActiveUser)
+                    }
+                    .onChange(of: pendingTabRevealManager.pending, initial: true) { _, newValue in
+                        guard let pendingTabReveal = newValue, pendingTabReveal.userGUID == tabViewRouter.userGUID else { return }
+                        pendingTabRevealManager.clearPending()
+                        if let destination = pendingTabReveal.destination {
+                            tabViewRouter.show(destination, in: pendingTabReveal.tab)
+                        } else {
+                            tabViewRouter.selectedTab = pendingTabReveal.tab
+                        }
                     }
                     .onChange(of: tabCustomization) { _, newValue in
                         saveTabCustomization(newValue, forAuthBox: authBox)
@@ -1086,4 +1096,20 @@ struct SafariView: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: SFSafariViewController, context: Context) {
         // nothing to do?
     }
+}
+
+@MainActor
+@Observable final class PendingTabRevealManager {
+    static let shared = PendingTabRevealManager()
+    private init() {}
+    
+    struct TabReveal: Equatable {
+        let userGUID: String
+        let tab: MastodonTabViewRouter.MastodonTab
+        let destination: MastodonNavigationDestination?
+    }
+    
+    private(set) var pending: TabReveal?
+    func request(_ tabReveal: TabReveal) { pending = tabReveal }
+    func clearPending() { pending = nil }
 }
