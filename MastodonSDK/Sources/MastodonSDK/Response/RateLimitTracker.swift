@@ -2,39 +2,61 @@
 
 import SwiftUI
 
+@MainActor
 @Observable public class RateLimitViewModel {
     private(set) var currentState: Mastodon.Response.RateLimit?
     
     private var clockUpdateTimer: Timer?
     
-    private init() {}
+    nonisolated private init() {}
     
-    public static let shared = RateLimitViewModel()
-    public private(set) var previousRequests = [String]()
+    nonisolated public static let shared = RateLimitViewModel()
+    private var previousRequests = [(String, Date)]()
     
-    public func didMakeRequest(_ debugName: String) {
+    public func previousRequestsReport() -> String {
+        previousRequests
+            .sorted { $0.1 < $1.1 }
+            .map { (Mastodon.API.httpHeaderDateFormatter.string(from: $0.1) + ": " + $0.0) }
+            .joined(separator: "\n")
+    }
+    
+    nonisolated public func didMakeRequest(_ debugName: String) {
         guard UserDefaults.standard.showRateLimitTracker else { return }
-        previousRequests.append(Mastodon.API.httpHeaderDateFormatter.string(from: .now) + ": " + debugName)
+        let timestamp = Date.now
+        Task { @MainActor in
+            self.recordRequest(debugName, timestamp)
+        }
+    }
+    
+    private func recordRequest(_ debugName: String, _ timestamp: Date) {
+        previousRequests.append((debugName, timestamp))
         let limit = currentState?.limit ?? 300
-        if previousRequests.count > currentState?.limit ?? 300 {
+        if previousRequests.count > limit {
             previousRequests = Array(previousRequests.suffix(limit))
         }
     }
     
-    func didReceiveRateLimit(_ rateLimit: Mastodon.Response.RateLimit) {
+    nonisolated func didReceiveRateLimit(_ rateLimit: Mastodon.Response.RateLimit) {
+        guard UserDefaults.standard.showRateLimitTracker else { return }
+        Task { @MainActor in
+            self.recordReceivedRateLimit(rateLimit)
+        }
+    }
+    
+    private func recordReceivedRateLimit(_ rateLimit: Mastodon.Response.RateLimit) {
         currentState = rateLimit
         timeRemainingLabel = formatTimeRemaining(untilResetTime: rateLimit.reset)
-       
+        
         if clockUpdateTimer == nil && UserDefaults.standard.showRateLimitTracker {
-            DispatchQueue.main.async {
-                self.clockUpdateTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] timer in
+            self.clockUpdateTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] timer in
+                MainActor.assumeIsolated {
                     self?.timeRemainingLabel = self?.formatTimeRemaining(untilResetTime: self?.currentState?.reset)
                     if !UserDefaults.standard.showRateLimitTracker {
                         timer.invalidate()
                         self?.clockUpdateTimer = nil
                     }
-                })
-            }
+                }
+            })
         }
     }
     
