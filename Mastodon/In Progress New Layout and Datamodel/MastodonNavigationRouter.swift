@@ -248,6 +248,13 @@ extension MastodonNavigationRouter {
     
     func checkForRevokedAuthentication(_ error: Error) -> Bool {
         guard let authenticationBox, (error as? Mastodon.API.Error)?.httpResponseStatus == .unauthorized else { return false }
+        
+        let tokenIsStillLive = AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.contains {
+            $0.authentication.userAccessToken == authenticationBox.authentication.userAccessToken
+        }
+        
+        guard tokenIsStillLive else { return true }
+        
         let handle = authenticationBox.cachedAccount?.handle
         if AuthenticationServiceProvider.shared.prepareToHandleTokenRevocation(authBox: authenticationBox) {
             self.activeAlert = .authorizationInvalid(username: handle, authBox: authenticationBox)

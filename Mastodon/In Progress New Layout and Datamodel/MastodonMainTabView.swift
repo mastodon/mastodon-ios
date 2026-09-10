@@ -27,6 +27,7 @@ struct MastodonMainTabView: View {
     @State private var pendingTabRevealManager = PendingTabRevealManager.shared
     @State private var showAccountSwitcher = false
     @State private var isSwitchingAccounts = false
+    @State private var welcomeFlowIsOnScreen = false
    
     @State private var tabCustomization = TabViewCustomization()
     
@@ -39,19 +40,6 @@ struct MastodonMainTabView: View {
                     .environment(tabViewRouter)
                     .tabViewStyle(.sidebarAdaptable)
                     .tabViewCustomization($tabCustomization)
-                    .onChange(of: authenticationObserver.currentActiveUser, initial: true) { _, newValue in
-                        guard tabViewRouter.userGUID != newValue?.globallyUniqueUserIdentifier else { return }
-                        if MastodonTabViewRouter.current.userGUID == newValue?.globallyUniqueUserIdentifier {
-                            // only reachable if allowing multiple scenes (currently not allowed)
-                            tabViewRouter = MastodonTabViewRouter.current
-                        } else {
-                            let newRouter = MastodonTabViewRouter.changeAuthenticatedUser(newValue)
-                            tabViewRouter = newRouter
-                        }
-                    }
-                    .onChange(of: authenticationObserver.currentActiveUser?.globallyUniqueUserIdentifier, initial: true) { _, _ in
-                        loadTabCustomization(authenticationObserver.currentActiveUser)
-                    }
                     .onChange(of: pendingTabRevealManager.pending, initial: true) { _, newValue in
                         guard let pendingTabReveal = newValue, pendingTabReveal.userGUID == tabViewRouter.userGUID else { return }
                         pendingTabRevealManager.clearPending()
@@ -86,30 +74,68 @@ struct MastodonMainTabView: View {
             } else {
                 LegacyWelcomeFlowWrapper()
                     .ignoresSafeArea()
+                    .onAppear() { welcomeFlowIsOnScreen = true }
+                    .onDisappear() { welcomeFlowIsOnScreen = false }
             }
         }
-        .onChange(of: authenticationObserver.pendingReauthorizationDomain) { _, newValue in
-            guard let domain = newValue else { return }
-            authenticationObserver.clearPendingReauthorization()
-            Task {
-                do {
-                    try await ReauthorizeLogin.launchReauthorization(withDomain: domain, session: webAuthenticationSession)
-                } catch let error as ASWebAuthenticationSessionError {
-                    switch error.code {
-                    case .canceledLogin:
-                        // user cancelled, nothing to do
-                        break
-                    default:
-#if DEBUG
-                        print("Error reauthenticating: \(error.localizedDescription)")
-#endif
-                        break
-                    }
-                } catch {
+        .onChange(of: authenticationObserver.currentActiveUser, initial: true) { _, newValue in
+            guard tabViewRouter.userGUID != newValue?.globallyUniqueUserIdentifier else { return }
+            if MastodonTabViewRouter.current.userGUID == newValue?.globallyUniqueUserIdentifier {
+                // only reachable if allowing multiple scenes (currently not allowed)
+                tabViewRouter = MastodonTabViewRouter.current
+            } else {
+                let newRouter = MastodonTabViewRouter.changeAuthenticatedUser(newValue)
+                tabViewRouter = newRouter
+            }
+        }
+        .onChange(of: authenticationObserver.currentActiveUser?.globallyUniqueUserIdentifier, initial: true) { _, _ in
+            loadTabCustomization(authenticationObserver.currentActiveUser)
+        }
+        .onChange(of: reauthenticationNowReady) { _, newValue in
+            guard let newValue else { return }
+            reauthenticate(newValue)
+        }
+    }
+    
+    private var reauthenticationNowReady: AuthenticationObserver.PendingReauthorization? {
+        guard let pending = authenticationObserver.pendingReauthorization else {
+            return nil
+        }
+        if authenticationObserver.currentActiveUser == nil {
+            if welcomeFlowIsOnScreen {
+                // the welcome view is on screen, but we have a domain to go to already, so we'll present the log in window immediately and skip the manual lookup process
+                return pending
+            } else {
+                return nil // not yet ready
+            }
+        }
+        if pending.userGUID == tabViewRouter.userGUID {
+            // the removal of the invalid authentication hasn't made it through to the UI yet, but presumably is about to (which would break the authentication window presentation).
+            return nil
+        }
+        return pending
+    }
+    
+    private func reauthenticate(_ pendingReauth: AuthenticationObserver.PendingReauthorization) {
+        authenticationObserver.clearPendingReauthorization()
+        Task {
+            do {
+                try await ReauthorizeLogin.launchReauthorization(withDomain: pendingReauth.domain, session: webAuthenticationSession)
+            } catch let error as ASWebAuthenticationSessionError {
+                switch error.code {
+                case .canceledLogin:
+                    // user cancelled, nothing to do
+                    break
+                default:
 #if DEBUG
                     print("Error reauthenticating: \(error.localizedDescription)")
 #endif
+                    break
                 }
+            } catch {
+#if DEBUG
+                print("Error reauthenticating: \(error.localizedDescription)")
+#endif
             }
         }
     }
@@ -966,7 +992,12 @@ extension MastodonTabViewRouter.MastodonTab {
     
     private(set) var currentActiveUser: MastodonAuthenticationBox?
     private(set) var allLoggedInUsers = [MastodonAuthenticationBox]()
-    private(set) var pendingReauthorizationDomain: String?
+    
+    struct PendingReauthorization: Equatable {
+        let domain: String
+        let userGUID: String
+    }
+    private(set) var pendingReauthorization: PendingReauthorization?
     
     private var subscriptions = Set<AnyCancellable>()
     
@@ -978,12 +1009,12 @@ extension MastodonTabViewRouter.MastodonTab {
         authenticationServiceProvider.$mastodonAuthenticationBoxes.assign(to: \.allLoggedInUsers, on: self).store(in: &subscriptions)
     }
     
-    func requestReauthorization(_ domain: String) {
-        pendingReauthorizationDomain = domain
+    func requestReauthorization(domain: String, userGUID: String) {
+        pendingReauthorization = PendingReauthorization(domain: domain, userGUID: userGUID)
     }
     
     func clearPendingReauthorization() {
-        pendingReauthorizationDomain = nil
+        pendingReauthorization = nil
     }
 }
 
