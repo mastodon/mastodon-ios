@@ -231,35 +231,24 @@ enum MastodonNavigationDestination: Identifiable {
 
 extension MastodonNavigationRouter {
     func didReceiveError(_ error: Error) {
-        guard !checkForRevokedAuthentication(error) else { return }
+        if let authenticationBox, AuthenticationServiceProvider.shared.isHandledAsUnauthorizedAccountError(error, authBox: authenticationBox) {
+            return
+        }
+        
         if errorsWaitingToDisplay.count < 3 {
             errorsWaitingToDisplay.append(error)
         }
+        
         displayNextErrorIfPossible()
     }
     
     func displayNextErrorIfPossible() {
         guard let error = errorsWaitingToDisplay.first else { return }
+        guard !AuthenticationObserver.shared.invalidAuthenticationFlowInProgress else { return }
         if activeAlert == nil {
             activeAlert = .error(error)
             _ = errorsWaitingToDisplay.removeFirst()
         }
-    }
-    
-    func checkForRevokedAuthentication(_ error: Error) -> Bool {
-        guard let authenticationBox, (error as? Mastodon.API.Error)?.httpResponseStatus == .unauthorized else { return false }
-        
-        let tokenIsStillLive = AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.contains {
-            $0.authentication.userAccessToken == authenticationBox.authentication.userAccessToken
-        }
-        
-        guard tokenIsStillLive else { return true }
-        
-        let handle = authenticationBox.cachedAccount?.handle
-        if AuthenticationServiceProvider.shared.prepareToHandleTokenRevocation(authBox: authenticationBox) {
-            self.activeAlert = .authorizationInvalid(username: handle, authBox: authenticationBox)
-        }
-        return true
     }
 }
 

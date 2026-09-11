@@ -78,6 +78,35 @@ struct MastodonMainTabView: View {
                     .onDisappear() { welcomeFlowIsOnScreen = false }
             }
         }
+        .alert(L10nLookup.CommonAlerts.AuthorizationInvalid.title,
+            isPresented: Binding(
+                get: { invalidAuthenticationToPresent != nil },
+                set: { _ in }
+            ),
+            presenting: invalidAuthenticationToPresent)
+        { invalidBox in
+            
+            // Stay Logged Out
+            Button(role: .destructive) {
+                authenticationObserver.resolveInvalidAuthentication(invalidBox, logBackIn: false)
+            } label: {
+                Text(L10nLookup.CommonAlerts.AuthorizationInvalid.stayLoggedOut)
+            }
+            
+            // Log Back In
+            Button(role: .cancel) {
+                authenticationObserver.resolveInvalidAuthentication(invalidBox, logBackIn: true)
+            } label: {
+                Text(L10nLookup.CommonAlerts.AuthorizationInvalid.logBackIn)
+            }
+        } message: { invalidBox in
+            Text(L10nLookup.CommonAlerts.AuthorizationInvalid.message(domainName: invalidBox.domain, username: invalidBox.cachedAccount?.acctWithDomain ?? ""))
+        }
+        .onChange(of: authenticationObserver.invalidAuthenticationFlowInProgress) { _, inProgress in
+            if !inProgress {
+                tabViewRouter.navigationRouterForCurrentTab().displayNextErrorIfPossible()
+            }
+        }
         .onChange(of: authenticationObserver.currentActiveUser, initial: true) { _, newValue in
             guard tabViewRouter.userGUID != newValue?.globallyUniqueUserIdentifier else { return }
             if MastodonTabViewRouter.current.userGUID == newValue?.globallyUniqueUserIdentifier {
@@ -116,9 +145,18 @@ struct MastodonMainTabView: View {
         return pending
     }
     
+    private var invalidAuthenticationToPresent: MastodonAuthenticationBox? {
+        guard let nextInvalid = authenticationObserver.invalidAuthentications.first else { return nil }
+        guard authenticationObserver.invalidAuthenticationFlowPhase == nil, !isSwitchingAccounts, !showAccountSwitcher, isConfirmingLogOut == nil else { return nil }
+        let currentNavigator = tabViewRouter.navigationRouterForCurrentTab()
+        guard currentNavigator.presentedSheet == nil, currentNavigator.activeAlert == nil else { return nil }
+        return nextInvalid
+    }
+    
     private func reauthenticate(_ pendingReauth: AuthenticationObserver.PendingReauthorization) {
-        authenticationObserver.clearPendingReauthorization()
+        authenticationObserver.beginReauthorization()
         Task {
+            defer { authenticationObserver.endReauthorization() }
             do {
                 try await ReauthorizeLogin.launchReauthorization(withDomain: pendingReauth.domain, session: webAuthenticationSession)
             } catch let error as ASWebAuthenticationSessionError {
@@ -997,7 +1035,27 @@ extension MastodonTabViewRouter.MastodonTab {
         let domain: String
         let userGUID: String
     }
-    private(set) var pendingReauthorization: PendingReauthorization?
+    enum InvalidAuthenticationFlowPhase: Equatable {
+        case removingAuthentication
+        case awaitingReauthorization(PendingReauthorization)
+        case reauthorizing
+        
+    }
+    private(set) var invalidAuthenticationFlowPhase: InvalidAuthenticationFlowPhase?
+    private(set) var invalidAuthentications = [MastodonAuthenticationBox]()
+    var pendingReauthorization: PendingReauthorization? {
+        switch invalidAuthenticationFlowPhase {
+        case .awaitingReauthorization(let pendingReauthorization):
+            return pendingReauthorization
+        default:
+            return nil
+        }
+    }
+
+    var invalidAuthenticationFlowInProgress: Bool {
+        !invalidAuthentications.isEmpty ||
+        invalidAuthenticationFlowPhase != nil
+    }
     
     private var subscriptions = Set<AnyCancellable>()
     
@@ -1007,14 +1065,23 @@ extension MastodonTabViewRouter.MastodonTab {
         allLoggedInUsers = authenticationServiceProvider.mastodonAuthenticationBoxes
         authenticationServiceProvider.currentActiveUser.assign(to: \.currentActiveUser, on: self).store(in: &subscriptions)
         authenticationServiceProvider.$mastodonAuthenticationBoxes.assign(to: \.allLoggedInUsers, on: self).store(in: &subscriptions)
+        authenticationServiceProvider.$invalidAuthentications.assign(to: \.invalidAuthentications, on: self).store(in: &subscriptions)
     }
     
-    func requestReauthorization(domain: String, userGUID: String) {
-        pendingReauthorization = PendingReauthorization(domain: domain, userGUID: userGUID)
+    func resolveInvalidAuthentication(_ authBox: MastodonAuthenticationBox, logBackIn: Bool) {
+        assert(invalidAuthenticationFlowPhase == nil)
+        invalidAuthenticationFlowPhase = .removingAuthentication
+        AuthenticationServiceProvider.shared.completeTokenRevocation(authBox: authBox) {
+            self.invalidAuthenticationFlowPhase = logBackIn ? .awaitingReauthorization(PendingReauthorization(domain: authBox.domain, userGUID: authBox.globallyUniqueUserIdentifier)) : nil
+        }
     }
     
-    func clearPendingReauthorization() {
-        pendingReauthorization = nil
+    func beginReauthorization() {
+        invalidAuthenticationFlowPhase = .reauthorizing
+    }
+    
+    func endReauthorization() {
+        invalidAuthenticationFlowPhase = nil
     }
 }
 

@@ -16,7 +16,7 @@ public class AuthenticationServiceProvider: ObservableObject {
     private static let keychain = Keychain(service: "org.joinmastodon.app.authentications", accessGroup: AppName.groupID)
     private let userDefaults: UserDefaults = .shared
     
-    @MainActor private var accountsGoingThroughForcedSignOut = Set<String>()
+    @Published public private(set) var invalidAuthentications: [MastodonAuthenticationBox] = []
 
     var disposeBag = Set<AnyCancellable>()
     
@@ -64,6 +64,12 @@ public class AuthenticationServiceProvider: ObservableObject {
             }
             mastodonAuthenticationBoxes = boxes
             persist(authentications)
+            
+            let liveTokens = authentications.map { $0.userAccessToken }
+            let invalidatedAuthenticationsStillLive = invalidAuthentications.filter { liveTokens.contains($0.authentication.userAccessToken) }
+            if invalidatedAuthenticationsStillLive.count != invalidAuthentications.count {
+                invalidAuthentications = invalidatedAuthenticationsStillLive
+            }
         }
     }
 
@@ -114,20 +120,24 @@ public class AuthenticationServiceProvider: ObservableObject {
     }
     
     @MainActor
-    public func prepareToHandleTokenRevocation(authBox: MastodonAuthenticationBox) -> Bool {
-        let key = authBox.globallyUniqueUserIdentifier
-        guard !accountsGoingThroughForcedSignOut.contains(key) else { return false }
-        accountsGoingThroughForcedSignOut.insert(key)
+    
+    public func isHandledAsUnauthorizedAccountError(_ error: Error, authBox: MastodonAuthenticationBox) -> Bool {
+        guard (error as? Mastodon.API.Error)?.httpResponseStatus == .unauthorized else { return false }
+        
+        let thisToken = authBox.authentication.userAccessToken
+        guard authentications.contains(where: { $0.userAccessToken == thisToken }) else { return true } // this invalid authentication has already been removed
+        
+        let alreadyHandled = invalidAuthentications.contains { $0.authentication.userAccessToken == thisToken }
+        if !alreadyHandled {
+            invalidAuthentications.append(authBox)
+        }
         return true
     }
     
-    @MainActor
     public func completeTokenRevocation(authBox: MastodonAuthenticationBox, completion: (()->())?) {
-        let key = authBox.globallyUniqueUserIdentifier
-        guard accountsGoingThroughForcedSignOut.contains(key) else { return }
+        invalidAuthentications.removeAll { $0.authentication.userAccessToken == authBox.authentication.userAccessToken }
         Task {
             await signOutMastodonUser(authentication: authBox.authentication)
-            accountsGoingThroughForcedSignOut.remove(key)
             completion?()
         }
     }
@@ -257,9 +267,14 @@ public extension AuthenticationServiceProvider {
             
             guard itHasBeenAwhile else { continue }
             
-            if let _ = try? await APIService.shared.accountInfo(MastodonAuthenticationBox(authentication: authentication)) {
+            let authBox = MastodonAuthenticationBox(authentication: authentication)
+            
+            do {
+                let _ = try await APIService.shared.accountInfo(authBox)
                 someUpdated = true
                 UserDefaults.shared.setLastSuccessfulAccountFetch(forRawAccessToken: authentication.userAccessToken)
+            } catch {
+                let _ = isHandledAsUnauthorizedAccountError(error, authBox: authBox)
             }
         }
        
