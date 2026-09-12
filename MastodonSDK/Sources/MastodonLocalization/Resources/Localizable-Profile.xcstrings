@@ -9323,8 +9323,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. pronouns, external links, etc."
+            "state" : "translated",
+            "value" : "Наприклад, займенники, зовнішні посилання тощо."
           }
         },
         "vi" : {
@@ -15502,8 +15502,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies"
+            "state" : "translated",
+            "value" : "Включая ответы"
           }
         },
         "si" : {
@@ -15813,8 +15813,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Shows your posts containing media"
+            "state" : "translated",
+            "value" : "Показывает ваши посты, содержащие медиа"
           }
         },
         "si" : {
@@ -16124,8 +16124,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "'Media' tab"
+            "state" : "translated",
+            "value" : "Вкладка 'Медиа'"
           }
         },
         "si" : {
@@ -16166,8 +16166,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "'Media' tab"
+            "state" : "translated",
+            "value" : "Вкладка 'Медіа'"
           }
         },
         "vi" : {
@@ -16435,8 +16435,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add your website as a custom field"
+            "state" : "translated",
+            "value" : "Создайте новое поле профиля со ссылкой на ваш сайт"
           }
         },
         "si" : {
@@ -16746,8 +16746,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification."
+            "state" : "translated",
+            "value" : "Если в вашем профиле уже есть дополнительное поле со ссылкой на ваш сайт, вам нужно будет удалить его и добавить заново, чтобы запустить верификацию."
           }
         },
         "si" : {
@@ -16788,8 +16788,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification."
+            "state" : "translated",
+            "value" : "Якщо ви вже додали свій вебсайт як спеціальне поле, вам потрібно буде видалити та повторно додати його, щоб запустити перевірку."
           }
         },
         "vi" : {
@@ -17058,8 +17058,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy code"
+            "state" : "translated",
+            "value" : "Скопировать код"
           }
         },
         "si" : {
@@ -17369,8 +17369,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy the HTML code below"
+            "state" : "translated",
+            "value" : "Скопируйте HTML код ниже"
           }
         },
         "si" : {
@@ -17411,8 +17411,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy the HTML code below"
+            "state" : "translated",
+            "value" : "Скопіюйте HTML-код нижче"
           }
         },
         "vi" : {
@@ -17680,8 +17680,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Adding the code to your header allows the <a> element to remain invisible. The rel=\\\"me\\\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it."
+            "state" : "translated",
+            "value" : "Добавление кода в заголовок позволяет элементу <a> оставаться невидимым. Атрибут rel=\\\"me\\\" предотвращает имперсацию веб-сайтов с контентом, созданным пользователем, поэтому важно сохранить его."
           }
         },
         "si" : {
@@ -17991,8 +17991,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:"
+            "state" : "translated",
+            "value" : "Чтобы развеять сомнения в подлинности профиля, вы можете верифицировать ссылки на ваш сайт. Делается это так:"
           }
         },
         "si" : {
@@ -18302,8 +18302,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Paste the code into the header HTML of your website"
+            "state" : "translated",
+            "value" : "Вставьте код в заголовок HTML вашего сайта"
           }
         },
         "si" : {
@@ -18614,8 +18614,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Automated account"
+            "state" : "translated",
+            "value" : "Учётная запись бота"
           }
         },
         "si" : {
@@ -18926,8 +18926,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy handle"
+            "state" : "translated",
+            "value" : "Копировать адрес"
           }
         },
         "si" : {
@@ -18968,8 +18968,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy handle"
+            "state" : "translated",
+            "value" : "Скопіювати ідентифікатор"
           }
         },
         "vi" : {
@@ -19238,8 +19238,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Accounts"
+            "state" : "translated",
+            "value" : "Аккаунты"
           }
         },
         "si" : {
@@ -19550,8 +19550,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Collections"
+            "state" : "translated",
+            "value" : "Подборки"
           }
         },
         "si" : {
@@ -19862,8 +19862,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Follows you"
+            "state" : "translated",
+            "value" : "Подписан(а) на вас"
           }
         },
         "si" : {
@@ -20173,8 +20173,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add a personal note"
+            "state" : "translated",
+            "value" : "Добавить заметку для себя"
           }
         },
         "si" : {
@@ -20795,8 +20795,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal note"
+            "state" : "translated",
+            "value" : "Заметка для себя"
           }
         },
         "si" : {
@@ -21106,8 +21106,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal notes are only visible to you."
+            "state" : "translated",
+            "value" : "Эта заметка будет видна только вам."
           }
         },
         "si" : {
@@ -21417,8 +21417,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal note (visible only to you)"
+            "state" : "translated",
+            "value" : "Заметка для себя (никто, кроме вас, её не видит)"
           }
         },
         "si" : {
@@ -21728,8 +21728,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(username)@ requested to follow you"
+            "state" : "translated",
+            "value" : "%1$(username)@ запрашивает подписку"
           }
         },
         "si" : {
@@ -22039,8 +22039,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This account has been hidden by your moderators."
+            "state" : "translated",
+            "value" : "Этот профиль был скрыт модераторами сервера."
           }
         },
         "si" : {
@@ -22350,8 +22350,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This account has been hidden by the moderators of %1$(domainName)@."
+            "state" : "translated",
+            "value" : "Этот профиль был скрыт модераторами сервера %1$(domainName)@."
           }
         },
         "si" : {
@@ -22661,8 +22661,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Account suspended"
+            "state" : "translated",
+            "value" : "Учетная запись заблокирована"
           }
         },
         "si" : {

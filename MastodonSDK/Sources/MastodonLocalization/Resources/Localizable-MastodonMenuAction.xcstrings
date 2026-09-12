@@ -4666,8 +4666,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add to list…"
+            "state" : "translated",
+            "value" : "添加到列表…"
           }
         },
         "zh-Hant" : {
@@ -6226,8 +6226,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Followed hashtags"
+            "state" : "translated",
+            "value" : "已关注话题"
           }
         },
         "zh-Hant" : {
@@ -6850,8 +6850,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Open in browser"
+            "state" : "translated",
+            "value" : "在浏览器中打开"
           }
         },
         "zh-Hant" : {
@@ -7162,8 +7162,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Privately mention"
+            "state" : "translated",
+            "value" : "私下提及"
           }
         },
         "zh-Hant" : {
@@ -7186,8 +7186,8 @@
         },
         "ar" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Quote"
+            "state" : "translated",
+            "value" : "اقتبس"
           }
         },
         "be" : {
@@ -7786,8 +7786,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Share…"
+            "state" : "translated",
+            "value" : "分享…"
           }
         },
         "zh-Hant" : {
@@ -8098,8 +8098,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "View collection"
+            "state" : "translated",
+            "value" : "查看收藏列表"
           }
         },
         "zh-Hant" : {
@@ -8710,8 +8710,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Show boosts"
+            "state" : "translated",
+            "value" : "Показати просування"
           }
         },
         "vi" : {
