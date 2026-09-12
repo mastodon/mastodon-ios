@@ -65,14 +65,11 @@ struct SendPost: AppIntent, CustomIntentMigratedAppIntent, PredictableIntent {
             throw SendPostError.noAccount
         }
 
-        // Narrow down to the accounts the user picked. A single logged-in account is
-        // an unambiguous choice, so take it rather than prompting for it.
+        // Narrow down to the accounts the user picked.
         let availableIdentifiers = Set(availableAccounts.map(\.id))
         let chosenAccounts: [AccountAppEntity]
         if let accounts, !accounts.isEmpty {
             chosenAccounts = accounts.filter { availableIdentifiers.contains($0.id) }
-        } else if availableAccounts.count == 1 {
-            chosenAccounts = availableAccounts
         } else {
             chosenAccounts = []
         }
