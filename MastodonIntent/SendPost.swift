@@ -60,20 +60,39 @@ struct SendPost: AppIntent, CustomIntentMigratedAppIntent, PredictableIntent {
 
         let statusVisibility = (visibility ?? .public).statusVisibility
 
-        // Either the accounts the user picked, or the active account as a fallback.
-        let authenticationBoxes: [MastodonAuthenticationBox]
-        if let accounts, !accounts.isEmpty {
-            let identifiers = Set(accounts.compactMap { UUID(uuidString: $0.id) })
-            authenticationBoxes = AuthenticationServiceProvider.shared
-                .mastodonAuthenticationBoxes
-                .filter { identifiers.contains($0.authentication.identifier) }
-            guard !authenticationBoxes.isEmpty else {
-                throw SendPostError.accountsUnavailable
-            }
-        } else if let activeUser = AuthenticationServiceProvider.shared.currentActiveUser.value {
-            authenticationBoxes = [activeUser]
-        } else {
+        let availableAccounts = AccountAppEntity.loadFromCache()
+        guard !availableAccounts.isEmpty else {
             throw SendPostError.noAccount
+        }
+
+        // Narrow down to the accounts the user picked. A single logged-in account is
+        // an unambiguous choice, so take it rather than prompting for it.
+        let availableIdentifiers = Set(availableAccounts.map(\.id))
+        let chosenAccounts: [AccountAppEntity]
+        if let accounts, !accounts.isEmpty {
+            chosenAccounts = accounts.filter { availableIdentifiers.contains($0.id) }
+        } else if availableAccounts.count == 1 {
+            chosenAccounts = availableAccounts
+        } else {
+            chosenAccounts = []
+        }
+
+        // Nothing usable left: either the shortcut named accounts that are no longer
+        // logged in, or it named none at all. Hand the user the current list to pick
+        // from — like needsValueError, this restarts perform() with the new value.
+        guard !chosenAccounts.isEmpty else {
+            throw $accounts.needsDisambiguationError(
+                among: availableAccounts,
+                dialog: .accountsParameterDisambiguationIntro(count: availableAccounts.count)
+            )
+        }
+
+        let identifiers = Set(chosenAccounts.compactMap { UUID(uuidString: $0.id) })
+        let authenticationBoxes = AuthenticationServiceProvider.shared
+            .mastodonAuthenticationBoxes
+            .filter { identifiers.contains($0.authentication.identifier) }
+        guard !authenticationBoxes.isEmpty else {
+            throw SendPostError.accountsUnavailable
         }
 
         let api = APIService.isolatedService()
@@ -154,8 +173,8 @@ fileprivate extension IntentDialog {
     static var contentParameterPrompt: Self {
         "What content to post?"
     }
-    static func accountsParameterDisambiguationIntro(count: Int, accounts: AccountAppEntity) -> Self {
-        "There are \(count) options matching ‘\(accounts)’."
+    static func accountsParameterDisambiguationIntro(count: Int) -> Self {
+        "Which of your \(count) accounts should post this?"
     }
     static func accountsParameterConfirmation(accounts: AccountAppEntity) -> Self {
         "Just to confirm, you wanted ‘\(accounts)’?"
