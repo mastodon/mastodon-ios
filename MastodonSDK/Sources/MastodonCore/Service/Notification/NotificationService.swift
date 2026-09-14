@@ -117,15 +117,25 @@ public final class NotificationService {
 }
 
 extension NotificationService {
-    private func requestNotificationPermissionAndUpdateSubscriptions() async throws {
+    private func requestNotificationPermissionAndPerform(_ updateOperation: UpdateOperation) async throws {
         let center = UNUserNotificationCenter.current()
         let granted = try await center.requestAuthorization(options: [.alert, .sound, .badge])
-        guard isNotificationPermissionGranted.value != granted else { return }
-        isNotificationPermissionGranted.value = granted
+        if case .allAccounts = updateOperation {
+            guard isNotificationPermissionGranted.value != granted else { return }
+            isNotificationPermissionGranted.value = granted
+        }
         switch (granted, registrationStatus.value) {
         case (true, .registrationTokenReceived), (true, .errorUpdatingSubscriptions), (true, .subscriptionsUpdated):
             guard let token = registrationStatus.value.deviceToken else { return }
-            try await updatePushNotificationSubscriptions(deviceToken: token)
+            switch updateOperation {
+            case .allAccounts:
+                try await updatePushNotificationSubscriptions(deviceToken: token)
+            case .singleAccount(let authBox):
+                try await updatePushNotificationSubscription(for: authBox, deviceToken: token)
+#if DEBUG
+                print("successful register of push notifications for \(String(describing: authBox.cachedAccount?.displayNameWithFallback))")
+#endif
+            }
         case (true, .errorRegisteringWithAPNS):
             UIApplication.shared.registerForRemoteNotifications()
         case (true, .registering):
@@ -285,11 +295,15 @@ extension NotificationService {
         NotificationService.isMigratingSettings = false
         var result = [ (MastodonAuthenticationBox, PushNotificationsSubscription.PushNotificationsSettings) ]()
         for authBox in AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes {
-            let subscriptionInfo = await BodegaPersistence.PushNotifications.activeSubscription(for: authBox)
-            guard let subscription = subscriptionInfo?.pending ?? subscriptionInfo?.current else { continue }
+            let subscription = await registrableSubscriptionSettings(for: authBox)
             result.append((authBox, subscription))
         }
         return result
+    }
+    
+    private func registrableSubscriptionSettings(for authBox: MastodonAuthenticationBox) async -> PushNotificationsSubscription.PushNotificationsSettings {
+        let subscriptionInfo = await BodegaPersistence.PushNotifications.activeSubscription(for: authBox)
+        return subscriptionInfo?.pending ?? subscriptionInfo?.current ?? .defaultSettings
     }
     
     private func migrateSettingsIfNeeded() async throws {
@@ -366,10 +380,8 @@ extension NotificationService {
         }
     }
     
-    private func updatePushNotificationSubscription(for userAuthBox: MastodonAuthenticationBox) async throws {
-        guard let deviceToken = registrationStatus.value.deviceToken else { throw APIService.APIError.explicit(.authenticationMissing) }
-        guard let subscriptionInfo = await BodegaPersistence.PushNotifications.activeSubscription(for: userAuthBox) else { return }
-        guard let subscription = subscriptionInfo.pending ?? subscriptionInfo.current else { return }
+    private func updatePushNotificationSubscription(for userAuthBox: MastodonAuthenticationBox, deviceToken: Data) async throws {
+        let subscription = await registrableSubscriptionSettings(for: userAuthBox)
         let queryData = Mastodon.API.Subscriptions.QueryData(policy: subscription.pushNotificationsFrom, alerts: subscription.alerts)
         let query = NotificationService.createSubscribeQuery(
             deviceToken: deviceToken,
@@ -394,19 +406,11 @@ extension NotificationService {
         guard currentUpdateInProgress == nil else { return }
         guard !subscriptionUpdateQueue.isEmpty else { return }
         currentUpdateInProgress = subscriptionUpdateQueue.removeFirst()
-        switch currentUpdateInProgress {
-        case .allAccounts:
+        if let update = currentUpdateInProgress {
             Task {
-                try? await requestNotificationPermissionAndUpdateSubscriptions()
+                try? await requestNotificationPermissionAndPerform(update)
                 currentUpdateInProgress = nil
             }
-        case .singleAccount(let userAuthBox):
-            Task {
-                try? await updatePushNotificationSubscription(for: userAuthBox)
-                currentUpdateInProgress = nil
-            }
-        case nil:
-            break
         }
     }
 }

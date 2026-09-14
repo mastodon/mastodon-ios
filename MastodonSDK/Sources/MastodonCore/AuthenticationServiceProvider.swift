@@ -175,6 +175,7 @@ public class AuthenticationServiceProvider: ObservableObject {
         } else {
             authentications.insert(authenticationBox.authentication, at: 0)
             _ = activateExistingUser(authenticationBox.userID, inDomain: authenticationBox.domain)
+            NotificationService.shared.requestUpdate(.singleAccount(authenticationBox))
         }
         
     }

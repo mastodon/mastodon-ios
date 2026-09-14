@@ -45,9 +45,6 @@ import MastodonLocalization
         if let updatedSettings {
             return updatedSettings
         }
-        if originalSettings?.current == nil && originalSettings?.pending == nil {
-            return .defaultSettings
-        }
         return nil
     }
     
