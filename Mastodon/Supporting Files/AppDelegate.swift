@@ -88,10 +88,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             completionHandler([])
             return
         }
-        
-        let accessToken = pushNotification.accessToken
-        
-        UnreadNotificationCounts.shared.incrementUnreadCount(rawAccessToken: accessToken)
+
         NotificationService.shared.applicationIconBadgeNeedsUpdate.send()
         
         NotificationService.shared.handle(pushNotification: pushNotification)

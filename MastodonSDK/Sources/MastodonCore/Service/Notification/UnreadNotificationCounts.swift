@@ -33,11 +33,6 @@ import Combine
         refreshCounts()
     }
     
-    public func incrementUnreadCount(rawAccessToken: String) {
-        UserDefaults.shared.incrementNotificationCount(rawAccessToken: rawAccessToken)
-        refreshCounts()
-    }
-    
     public var combinedUnreadCountForAllUsers: Int {
         countsByUser.values.reduce(0, +)
     }
