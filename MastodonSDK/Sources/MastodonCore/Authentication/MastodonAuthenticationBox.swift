@@ -31,6 +31,12 @@ public struct MastodonAuthenticationBox: UserIdentifier {
     public var cachedAccount: Mastodon.Entity.Account? {
         return authentication.cachedAccount()
     }
+    
+    @MainActor
+    public var hasAdminPermissions: Bool {
+        guard let permissions = cachedAccount?.role?.rolePermissions() else { return false }
+        return permissions.contains(.administrator) || permissions.contains(.manageReports) || permissions.contains(.manageUsers)
+    }
 }
 
 extension MastodonAuthenticationBox: Hashable {

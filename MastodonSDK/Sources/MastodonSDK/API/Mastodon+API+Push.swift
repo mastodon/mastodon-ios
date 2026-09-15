@@ -192,21 +192,7 @@ extension Mastodon.API.Subscriptions {
             self.alerts = alerts
         }
         
-        public struct Alerts: Codable {
-            let favourite: Bool?
-            let follow: Bool?
-            let reblog: Bool?
-            let mention: Bool?
-            let poll: Bool?
-
-            public init(favourite: Bool?, follow: Bool?, reblog: Bool?, mention: Bool?, poll: Bool?) {
-                self.favourite = favourite
-                self.follow = follow
-                self.reblog = reblog
-                self.mention = mention
-                self.poll = poll
-            }
-        }
+        public typealias Alerts = Mastodon.Entity.Subscription.Alerts
         
         public enum Policy: RawRepresentable, Codable {
             case all

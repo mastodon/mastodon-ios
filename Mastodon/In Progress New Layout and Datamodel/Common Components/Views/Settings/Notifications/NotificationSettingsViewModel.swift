@@ -49,55 +49,15 @@ import MastodonLocalization
     }
     
     func selectPolicy(_ newPolicy: Mastodon.API.Subscriptions.QueryData.Policy) {
-        guard let currentSettings = displaySettings else { assertionFailure(); return }
-        updatedSettings = PushNotificationsSubscription.PushNotificationsSettings(pushNotificationsFrom: newPolicy, mentions: currentSettings.mentions, boosts: currentSettings.boosts, favorites: currentSettings.favorites, newFollowers: currentSettings.newFollowers, followRequests: currentSettings.followRequests, polls: currentSettings.polls)
+        guard var displayedSettings = displaySettings else { assertionFailure(); return }
+        displayedSettings.pushNotificationsFrom = newPolicy
+        updatedSettings = displayedSettings
     }
     
     func updatePushNotifications(forType notificationAlert: NotificationAlert, newValue: Bool) {
-        guard let currentSettings = displaySettings else { assertionFailure(); return }
-        let currentMentions = currentSettings.mentions ?? true
-        let currentBoosts = currentSettings.boosts ?? true
-        let currentFavorites = currentSettings.favorites ?? true
-        let currentNewFollowers = currentSettings.newFollowers ?? true
-
-        switch notificationAlert {
-        case .mentionsAndReplies:
-            updatedSettings = PushNotificationsSubscription.PushNotificationsSettings(
-                pushNotificationsFrom: currentSettings.pushNotificationsFrom,
-                mentions: newValue,
-                boosts: currentBoosts,
-                favorites: currentFavorites,
-                newFollowers: currentNewFollowers,
-                followRequests: currentSettings.followRequests,
-                polls: currentSettings.polls)
-        case .boosts:
-            updatedSettings = PushNotificationsSubscription.PushNotificationsSettings(
-                pushNotificationsFrom: currentSettings.pushNotificationsFrom,
-                mentions: currentMentions,
-                boosts: newValue,
-                favorites: currentFavorites,
-                newFollowers: currentNewFollowers,
-                followRequests: currentSettings.followRequests,
-                polls: currentSettings.polls)
-        case .favorites:
-            updatedSettings = PushNotificationsSubscription.PushNotificationsSettings(
-                pushNotificationsFrom: currentSettings.pushNotificationsFrom,
-                mentions: currentMentions,
-                boosts: currentBoosts,
-                favorites: newValue,
-                newFollowers: currentNewFollowers,
-                followRequests: currentSettings.followRequests,
-                polls: currentSettings.polls)
-        case .newFollowers:
-            updatedSettings = PushNotificationsSubscription.PushNotificationsSettings(
-                pushNotificationsFrom: currentSettings.pushNotificationsFrom,
-                mentions: currentMentions,
-                boosts: currentBoosts,
-                favorites: currentFavorites,
-                newFollowers: newValue,
-                followRequests: currentSettings.followRequests,
-                polls: currentSettings.polls)
-        }
+        guard var displayedSettings = displaySettings else { assertionFailure(); return }
+        displayedSettings[keyPath: notificationAlert.settingsKeyPath] = newValue
+        updatedSettings = displayedSettings
     }
     
     func receiveFromBinding(_ receiveFrom: NotificationPolicy) -> Binding<Bool> {
@@ -200,6 +160,15 @@ enum NotificationAlert: Hashable, CaseIterable {
             return L10n.Scene.Settings.Notifications.Alert.favorites
         case .newFollowers:
             return L10n.Scene.Settings.Notifications.Alert.newFollowers
+        }
+    }
+    
+    var settingsKeyPath: WritableKeyPath<PushNotificationsSubscription.PushNotificationsSettings, Bool?> {
+        switch self {
+        case .mentionsAndReplies: \.mentions
+        case .boosts: \.boosts
+        case .favorites: \.favorites
+        case .newFollowers: \.newFollowers
         }
     }
 }

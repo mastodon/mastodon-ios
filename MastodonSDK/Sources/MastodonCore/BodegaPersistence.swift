@@ -99,19 +99,30 @@ public actor BodegaPersistence {
         }
         
         public static func didRegisterSubscription(_ subscription: Mastodon.Entity.Subscription, receiveFrom: Mastodon.API.Subscriptions.QueryData.Policy, for authBox: UserIdentifier) async throws {
-            let newSettings = PushNotificationsSubscription.PushNotificationsSettings(pushNotificationsFrom: receiveFrom, mentions: subscription.alerts.mention, boosts: subscription.alerts.reblog, favorites: subscription.alerts.favourite, newFollowers: subscription.alerts.follow, followRequests: subscription.alerts.followRequest, polls: subscription.alerts.poll)
+            let alerts = subscription.alerts
+            let newSettings = PushNotificationsSubscription.PushNotificationsSettings(
+                pushNotificationsFrom: receiveFrom,
+                mentions: alerts.mention,
+                newPosts: alerts.status,
+                boosts: alerts.reblog,
+                newFollowers: alerts.follow,
+                followRequests: alerts.followRequest,
+                favorites: alerts.favourite,
+                polls: alerts.poll,
+                edits: alerts.update,
+                adminSignUps: alerts.adminSignUp,
+                adminReports: alerts.adminReport,
+                quotes: alerts.quote,
+                editsToQuotedPosts: alerts.quotedUpdate
+            )
             
             let pendingSettings = await activeSubscription(for: authBox)?.pending
+            let adminFilter = await BodegaPersistence.Notifications.currentPreferences(for: authBox)
 
             let isEquivalentToPending: Bool = {
                 guard let pendingSettings else { return true }
                 return pendingSettings.pushNotificationsFrom == receiveFrom &&
-                (pendingSettings.mentions == nil || pendingSettings.mentions == newSettings.mentions) &&
-                (pendingSettings.boosts == nil || pendingSettings.boosts == newSettings.boosts) &&
-                (pendingSettings.favorites == nil || pendingSettings.favorites == newSettings.favorites) &&
-                (pendingSettings.newFollowers == nil || pendingSettings.newFollowers == newSettings.newFollowers) &&
-                (pendingSettings.followRequests == nil || pendingSettings.newFollowers == newSettings.followRequests) &&
-                (pendingSettings.polls == nil || pendingSettings.polls == newSettings.polls)
+                pendingSettings.alerts(applying: adminFilter) == newSettings.alerts(applying: adminFilter)
             }()
             try await updateSubscription(PushNotificationsSubscription(current: newSettings, pending: isEquivalentToPending ? nil : pendingSettings), for: authBox)
         }
@@ -281,12 +292,15 @@ public struct AdminNotificationFilterSettings: Codable, Equatable {
     public let forReports: Mastodon.Entity.NotificationPolicy.NotificationFilterAction
     public let forSignups: Mastodon.Entity.NotificationPolicy.NotificationFilterAction
     
+    public var showsReports: Bool { forReports == .accept }
+    public var showsSignUps: Bool { forSignups == .accept }
+    
     public var excludedNotificationTypes: [Mastodon.Entity.NotificationType]? {
         var excluded = [Mastodon.Entity.NotificationType]()
-        if forReports != .accept {
+        if !showsReports {
             excluded.append(.adminReport)
         }
-        if forSignups != .accept {
+        if !showsSignUps {
             excluded.append(.adminSignUp)
         }
         return excluded.isEmpty ? nil : excluded

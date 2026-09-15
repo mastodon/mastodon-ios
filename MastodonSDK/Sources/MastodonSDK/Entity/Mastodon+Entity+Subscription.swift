@@ -33,21 +33,61 @@ extension Mastodon.Entity {
             case alerts
         }
         
-        public struct Alerts: Codable {
+        public struct Alerts: Codable, Equatable {
+            public let mention: Bool?
+            public let status: Bool?
+            public let reblog: Bool?
             public let follow: Bool?
             public let followRequest: Bool?
             public let favourite: Bool?
-            public let reblog: Bool?
-            public let mention: Bool?
             public let poll: Bool?
+            public let update: Bool?
+            public let adminSignUp: Bool?
+            public let adminReport: Bool?
+            public let quote: Bool?
+            public let quotedUpdate: Bool?
             
             enum CodingKeys: String, CodingKey {
+                case mention
+                case status
+                case reblog
                 case follow
                 case followRequest = "follow_request"
                 case favourite
-                case reblog
-                case mention
                 case poll
+                case update
+                case adminSignUp = "admin.sign_up"
+                case adminReport = "admin.report"
+                case quote
+                case quotedUpdate = "quoted_update"
+            }
+            
+            public init(
+                mention: Bool?,
+                status: Bool?,
+                reblog: Bool?,
+                follow: Bool?,
+                followRequest: Bool?,
+                favourite: Bool?,
+                poll: Bool?,
+                update: Bool?,
+                adminSignUp: Bool?,
+                adminReport: Bool?,
+                quote: Bool?,
+                quotedUpdate: Bool?
+            ) {
+                self.mention = mention
+                self.status = status
+                self.reblog = reblog
+                self.follow = follow
+                self.followRequest = followRequest
+                self.favourite = favourite
+                self.poll = poll
+                self.update = update
+                self.adminSignUp = adminSignUp
+                self.adminReport = adminReport
+                self.quote = quote
+                self.quotedUpdate = quotedUpdate
             }
         }
         

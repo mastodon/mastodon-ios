@@ -316,13 +316,20 @@ extension NotificationService {
                 guard let legacySubscription = legacySetting.activeSubscription else { continue }
                 
                 let receiveFrom = legacySubscription.notificationPolicy
-                let newSubscription = PushNotificationsSubscription.PushNotificationsSettings(pushNotificationsFrom: receiveFrom ?? .all,
-                                                                                              mentions: legacySubscription.alert.mention,
-                                                                                              boosts: legacySubscription.alert.reblog,
-                                                                                              favorites: legacySubscription.alert.favourite,
-                                                                                              newFollowers: legacySubscription.alert.follow,
-                                                                                              followRequests: legacySubscription.alert.followRequest,
-                                                                                              polls: legacySubscription.alert.poll)
+                let newSubscription = PushNotificationsSubscription.PushNotificationsSettings(
+                    pushNotificationsFrom: receiveFrom ?? .all,
+                    mentions: legacySubscription.alert.mention,
+                    newPosts: nil,
+                    boosts: legacySubscription.alert.reblog,
+                    newFollowers: legacySubscription.alert.follow,
+                    followRequests: legacySubscription.alert.followRequest,
+                    favorites: legacySubscription.alert.favourite,
+                    polls: legacySubscription.alert.poll,
+                    edits: nil,
+                    adminSignUps: nil,
+                    adminReports: nil,
+                    quotes: nil,
+                    editsToQuotedPosts: nil)
                 try await BodegaPersistence.PushNotifications.savePendingSubscriptionSettings(newSubscription, for: userAuthBox)
             }
         }
@@ -339,9 +346,10 @@ extension NotificationService {
         let subscriptions = try await currentPushNotificationSubscriptions()
         for (userAuthBox, subscription) in subscriptions {
             do {
+                let adminNotificationsFilter = await BodegaPersistence.Notifications.currentPreferences(for: userAuthBox)
                 let queryData = Mastodon.API.Subscriptions.QueryData(
                     policy: subscription.pushNotificationsFrom,
-                    alerts: subscription.alerts
+                    alerts: subscription.alerts(applying: adminNotificationsFilter)
                 )
                 let query = NotificationService.createSubscribeQuery(
                     deviceToken: deviceToken,
@@ -382,7 +390,8 @@ extension NotificationService {
     
     private func updatePushNotificationSubscription(for userAuthBox: MastodonAuthenticationBox, deviceToken: Data) async throws {
         let subscription = await registrableSubscriptionSettings(for: userAuthBox)
-        let queryData = Mastodon.API.Subscriptions.QueryData(policy: subscription.pushNotificationsFrom, alerts: subscription.alerts)
+        let adminNotificationsFilter = await BodegaPersistence.Notifications.currentPreferences(for: userAuthBox)
+        let queryData = Mastodon.API.Subscriptions.QueryData(policy: subscription.pushNotificationsFrom, alerts: subscription.alerts(applying: adminNotificationsFilter))
         let query = NotificationService.createSubscribeQuery(
             deviceToken: deviceToken,
             queryData: queryData,
@@ -472,35 +481,83 @@ public struct PushNotificationsSubscription: Codable {
     }
     
     public struct PushNotificationsSettings: Codable {
-        // NOTE: adding items here requires updating the equivalency logic in BodegaPersistence.didRegisterSubscription()
-        public let pushNotificationsFrom: Mastodon.API.Subscriptions.QueryData.Policy
-        public let mentions: Bool?
-        public let boosts: Bool?
-        public let favorites: Bool?
-        public let newFollowers: Bool?
-        public let followRequests: Bool?
-        public let polls: Bool?
+        public var pushNotificationsFrom: Mastodon.API.Subscriptions.QueryData.Policy
+        public var mentions: Bool?
+        public var newPosts: Bool?
+        public var boosts: Bool?
+        public var newFollowers: Bool?
+        public var followRequests: Bool?
+        public var favorites: Bool?
+        public var polls: Bool?
+        public var edits: Bool?
+        public var adminSignUps: Bool?
+        public var adminReports: Bool?
+        public var quotes: Bool?
+        public var editsToQuotedPosts: Bool?
         
-        public init(pushNotificationsFrom: Mastodon.API.Subscriptions.QueryData.Policy, mentions: Bool?, boosts: Bool?, favorites: Bool?, newFollowers: Bool?, followRequests: Bool?, polls: Bool?) {
+        public init(
+            pushNotificationsFrom: Mastodon.API.Subscriptions.QueryData.Policy,
+            mentions: Bool?,
+            newPosts: Bool?,
+            boosts: Bool?,
+            newFollowers: Bool?,
+            followRequests: Bool?,
+            favorites: Bool?,
+            polls: Bool?,
+            edits: Bool?,
+            adminSignUps: Bool?,
+            adminReports: Bool?,
+            quotes: Bool?,
+            editsToQuotedPosts: Bool?
+        ) {
             self.pushNotificationsFrom = pushNotificationsFrom
             self.mentions = mentions
+            self.newPosts = newPosts
             self.boosts = boosts
-            self.favorites = favorites
             self.newFollowers = newFollowers
             self.followRequests = followRequests
+            self.favorites = favorites
             self.polls = polls
+            self.edits = edits
+            self.adminSignUps = adminSignUps
+            self.adminReports = adminReports
+            self.quotes = quotes
+            self.editsToQuotedPosts = editsToQuotedPosts
         }
         
-        public static let defaultSettings = PushNotificationsSubscription.PushNotificationsSettings(pushNotificationsFrom: .all, mentions: true, boosts: true, favorites: true, newFollowers: true, followRequests: true, polls: true)
+        public static let defaultSettings = PushNotificationsSubscription.PushNotificationsSettings(
+            pushNotificationsFrom: .all,
+            mentions: true,
+            newPosts: true,
+            boosts: true,
+            newFollowers: true,
+            followRequests: true,
+            favorites: true,
+            polls: true,
+            edits: true,
+            adminSignUps: false,
+            adminReports: false,
+            quotes: true,
+            editsToQuotedPosts: true
+        )
         
-        public var alerts: Mastodon.API.Subscriptions.QueryData.Alerts {
+        public func alerts(applying adminFilter: AdminNotificationFilterSettings?) -> Mastodon.API.Subscriptions.QueryData.Alerts {
             Mastodon.API.Subscriptions.QueryData.Alerts(
-                favourite: favorites,
-                follow: newFollowers,
-                reblog: boosts,
-                mention: mentions,
-                poll: polls
-            )
+                mention: mentions ?? true,
+                status: newPosts ?? true,
+                reblog: boosts ?? true,
+                follow: newFollowers ?? true,
+                followRequest: followRequests ?? true,
+                favourite: favorites ?? true,
+                poll: polls ?? true,
+                update: edits ?? true,
+                
+                // admin types should not be pushed if they will not be shown in the Notifications tab
+                adminSignUp: adminSignUps == true && (adminFilter?.showsSignUps ?? true),
+                adminReport: adminReports == true && (adminFilter?.showsReports ?? true),
+                
+                quote: quotes ?? true,
+                quotedUpdate: editsToQuotedPosts ?? true)
         }
     }
 }
