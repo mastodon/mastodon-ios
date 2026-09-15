@@ -78,21 +78,32 @@ extension AppDelegate {
 // MARK: - UNUserNotificationCenterDelegate
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
-    // notification present in the foreground
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
+        // Notification received for presentation while the app is in the foreground
+        
         guard let pushNotification = AppDelegate.mastodonPushNotification(from: notification) else {
             completionHandler([])
             return
         }
 
         NotificationService.shared.applicationIconBadgeNeedsUpdate.send()
-        
         NotificationService.shared.handle(pushNotification: pushNotification)
-        completionHandler([.sound])
+        
+        let authService = AuthenticationServiceProvider.shared
+        if pushNotification.accessToken == authService.currentActiveUser.value?.authentication.userAccessToken {
+            // the current active account - play a sound; the badge on the notifications tab will also be a visible indicator
+            completionHandler([.sound])
+        } else if authService.getAuthentication(matching: pushNotification.accessToken) != nil {
+            // not-currently-active account - play a sound and show a banner, since the only visible indication of the notification will be hidden inside the account switcher
+            completionHandler([.sound, .banner])
+        } else {
+            // notification for an unknown account, likely a push notification subscription that didn't get cleaned up on logout
+            completionHandler([])
+        }
     }
 
     // notification present in the background (or resume from background)
