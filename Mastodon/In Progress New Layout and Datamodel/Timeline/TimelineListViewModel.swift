@@ -22,8 +22,8 @@ import MastodonUI
             if timeline.canDisplayUnreadNotifications
                 && unseenNewItemsCount == 0
                 && isCurrentlyOnScreen {
-                guard let authentication = authenticatedUser?.authentication else { return }
-                UnreadNotificationCounts.shared.setUnreadCount(0, for: authentication)
+                guard let authBox = authenticatedUser else { return }
+                NotificationService.shared.clearNotificationCount(for: authBox)
             }
         }
     }
