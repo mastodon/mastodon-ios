@@ -34,11 +34,34 @@ struct NotificationSettingsView: View {
             
             Section {
                 // Individual notification type settings
-                ForEach(NotificationAlert.allCases, id: \.self) { notificationType in
+                ForEach(viewModel.availableNotificationTypes, id: \.self) { notificationType in
                     ToggleRow(label: notificationType.title, isOn: viewModel.notificationTypeToggleBinding(notificationType))
                 }
+            } header: {
+                Text(L10nLookup.Scene.Settings.Notifications.getNotifiedWhen)
             }
             .disabled(!viewModel.isNotificationPermissionGranted || viewModel.isLoading)
+            
+            if !viewModel.availableAdminNotificationTypes.isEmpty {
+                Section {
+                    ForEach(viewModel.availableAdminNotificationTypes, id: \.self) { notificationType in
+                        let isHiddenInNotificationsTab = viewModel.isFilteredOutInNotificationsTab(notificationType)
+                        VStack(alignment: .leading) {
+                            ToggleRow(label: notificationType.title, isOn: viewModel.notificationTypeToggleBinding(notificationType))
+                                .disabled(isHiddenInNotificationsTab)
+                            if isHiddenInNotificationsTab {
+                                Text(L10nLookup.Scene.Settings.Notifications.adminNotificationsHidden)
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+                } header: {
+                    Text(L10n.Scene.Notification.AdminFilter.title)
+                }
+                .disabled(!viewModel.isNotificationPermissionGranted || viewModel.isLoading)
+            }
+            
         }
         .navigationTitle(title)
         .task {

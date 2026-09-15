@@ -11,6 +11,7 @@ import MastodonLocalization
 @Observable class NotificationSettingsViewModel {
 
     private(set) var originalSettings: PushNotificationsSubscription?
+    private(set) var adminNotificationFilterSettings: AdminNotificationFilterSettings?
     var updatedSettings: PushNotificationsSubscription.PushNotificationsSettings?
     private(set) var isLoading: Bool
     private(set) var isNotificationPermissionGranted: Bool = false
@@ -31,6 +32,7 @@ import MastodonLocalization
         
         Task {
             self.originalSettings = await BodegaPersistence.PushNotifications.activeSubscription(for: authBox)
+            self.adminNotificationFilterSettings = await BodegaPersistence.Notifications.currentPreferences(for: authBox)
             isLoading = false
         }
     }
@@ -38,6 +40,28 @@ import MastodonLocalization
     var displaySettings: PushNotificationsSubscription.PushNotificationsSettings? {
         guard !isLoading else { return nil }
         return updatedSettings ?? originalSettings?.pending ?? originalSettings?.current ?? .defaultSettings
+    }
+    
+    var availableNotificationTypes: [NotificationAlert] {
+        let quotesAvailable = authBox.authentication.instanceConfiguration?.isAvailable(.quotePosts) ?? false
+        return NotificationAlert.allCases.filter { alert in
+            !alert.isAdminOnly && (quotesAvailable || !alert.requiresQuotePostFeature)
+        }
+    }
+    
+    var availableAdminNotificationTypes: [NotificationAlert] {
+        guard authBox.hasAdminPermissions else { return [] }
+        return NotificationAlert.allCases.filter { $0.isAdminOnly }
+    }
+    
+    func isFilteredOutInNotificationsTab(_ type: NotificationAlert) -> Bool {
+        switch type {
+        case .adminReports:
+            !(adminNotificationFilterSettings?.showsReports ?? true)
+        case .adminSignUps:
+            !(adminNotificationFilterSettings?.showsSignUps ?? true)
+        default: false
+        }
     }
     
     var settingsToRegister: PushNotificationsSubscription.PushNotificationsSettings? {
@@ -76,13 +100,8 @@ import MastodonLocalization
     func notificationTypeToggleBinding(_ notificationType: NotificationAlert) -> Binding<Bool> {
         Binding<Bool> (
             get: {
-                guard let displaySettings = self.displaySettings else { return true }
-                switch notificationType {
-                case .mentionsAndReplies: return displaySettings.mentions ?? true
-                case .boosts: return displaySettings.boosts ?? true
-                case .favorites: return displaySettings.favorites ?? true
-                case .newFollowers: return displaySettings.newFollowers ?? true
-                }
+                guard let displaySettings = self.displaySettings else { return false }
+                return displaySettings.alerts(applying: self.adminNotificationFilterSettings)[keyPath: notificationType.alertsKeyPath] ?? false
             },
             set: { newValue in
                 self.updatePushNotifications(forType: notificationType, newValue: newValue)
@@ -144,22 +163,46 @@ enum NotificationPolicy: Hashable, CaseIterable {
 }
 
 enum NotificationAlert: Hashable, CaseIterable {
-    case mentionsAndReplies
+    case newFollowers
+    case followRequests
     case boosts
     case favorites
-    case newFollowers
+    case mentionsAndReplies
+    case quotes
+    case polls
+    case newPosts
+    case edits
+    case editsToQuotedPosts
+    case adminReports
+    case adminSignUps
     
     var title: String {
         switch self {
             
         case .mentionsAndReplies:
-            return L10n.Scene.Settings.Notifications.Alert.mentionsAndReplies
+            L10nLookup.Scene.Settings.Notifications.PushNotificationTypes.mentionsAndReplies
         case .boosts:
-            return L10n.Scene.Settings.Notifications.Alert.boosts
+            L10nLookup.Scene.Settings.Notifications.PushNotificationTypes.boosts
         case .favorites:
-            return L10n.Scene.Settings.Notifications.Alert.favorites
+            L10nLookup.Scene.Settings.Notifications.PushNotificationTypes.favourites
         case .newFollowers:
-            return L10n.Scene.Settings.Notifications.Alert.newFollowers
+            L10nLookup.Scene.Settings.Notifications.PushNotificationTypes.newFollowers
+        case .followRequests:
+            L10nLookup.Scene.Settings.Notifications.PushNotificationTypes.followRequests
+        case .quotes:
+            L10nLookup.Scene.Settings.Notifications.PushNotificationTypes.quotes
+        case .polls:
+            L10nLookup.Scene.Settings.Notifications.PushNotificationTypes.polls
+        case .newPosts:
+            L10nLookup.Scene.Settings.Notifications.PushNotificationTypes.newPosts
+        case .edits:
+            L10nLookup.Scene.Settings.Notifications.PushNotificationTypes.edits
+        case .editsToQuotedPosts:
+            L10nLookup.Scene.Settings.Notifications.PushNotificationTypes.editsToQuotedPosts
+        case .adminReports:
+            L10n.Scene.Notification.AdminFilter.Reports.title
+        case .adminSignUps:
+            L10n.Scene.Notification.AdminFilter.Signups.title
         }
     }
     
@@ -169,6 +212,45 @@ enum NotificationAlert: Hashable, CaseIterable {
         case .boosts: \.boosts
         case .favorites: \.favorites
         case .newFollowers: \.newFollowers
+        case .followRequests: \.followRequests
+        case .quotes: \.quotes
+        case .polls: \.polls
+        case .newPosts: \.newPosts
+        case .edits: \.edits
+        case .editsToQuotedPosts: \.editsToQuotedPosts
+        case .adminReports: \.adminReports
+        case .adminSignUps: \.adminSignUps
+        }
+    }
+    
+    var alertsKeyPath: KeyPath<Mastodon.API.Subscriptions.QueryData.Alerts, Bool?> {
+        switch self {
+        case .newFollowers: \.follow
+        case .followRequests: \.followRequest
+        case .boosts: \.reblog
+        case .favorites: \.favourite
+        case .mentionsAndReplies: \.mention
+        case .quotes: \.quote
+        case .polls: \.poll
+        case .newPosts: \.status
+        case .edits: \.update
+        case .editsToQuotedPosts: \.quotedUpdate
+        case .adminReports: \.adminReport
+        case .adminSignUps: \.adminSignUp
+        }
+    }
+    
+    var isAdminOnly: Bool {
+        switch self {
+        case .adminReports, .adminSignUps: return true
+        default: return false
+        }
+    }
+    
+    var requiresQuotePostFeature: Bool {
+        switch self {
+        case .quotes, .editsToQuotedPosts: return true
+        default: return false
         }
     }
 }

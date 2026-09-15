@@ -1936,16 +1936,6 @@ public enum L10n {
       public enum Notifications {
         /// Notifications
         public static let title = L10n.tr("Localizable", "Scene.Settings.Notifications.Title", fallback: "Notifications")
-        public enum Alert {
-          /// Boosts
-          public static let boosts = L10n.tr("Localizable", "Scene.Settings.Notifications.Alert.Boosts", fallback: "Boosts")
-          /// Favorites
-          public static let favorites = L10n.tr("Localizable", "Scene.Settings.Notifications.Alert.Favorites", fallback: "Favorites")
-          /// Mentions & Replies
-          public static let mentionsAndReplies = L10n.tr("Localizable", "Scene.Settings.Notifications.Alert.MentionsAndReplies", fallback: "Mentions & Replies")
-          /// New Followers
-          public static let newFollowers = L10n.tr("Localizable", "Scene.Settings.Notifications.Alert.NewFollowers", fallback: "New Followers")
-        }
         public enum Disabled {
           /// Go to Notification Settings
           public static let goToSettings = L10n.tr("Localizable", "Scene.Settings.Notifications.Disabled.GoToSettings", fallback: "Go to Notification Settings")

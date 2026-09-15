@@ -12,6 +12,140 @@
           }
         }
       }
+    },
+    "Scene.Settings.Notifications.adminNotificationsHidden" : {
+      "comment" : "Explanation under a disabled toggle",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have filtered this notification out of your Notifications tab"
+          }
+        }
+      }
+    },
+    "Scene.Settings.Notifications.getNotifiedWhen" : {
+      "comment" : "Header for list of push notification events",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get a push notification when…"
+          }
+        }
+      }
+    },
+    "Scene.Settings.Notifications.PushNotificationTypes.boosts" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Someone boosted your post"
+          }
+        }
+      }
+    },
+    "Scene.Settings.Notifications.PushNotificationTypes.edits" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A post you interacted with has been edited"
+          }
+        }
+      }
+    },
+    "Scene.Settings.Notifications.PushNotificationTypes.editsToQuotedPosts" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A post you quoted has been edited"
+          }
+        }
+      }
+    },
+    "Scene.Settings.Notifications.PushNotificationTypes.favourites" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Someone favourited your post"
+          }
+        }
+      }
+    },
+    "Scene.Settings.Notifications.PushNotificationTypes.followRequests" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Someone requested to follow you"
+          }
+        }
+      }
+    },
+    "Scene.Settings.Notifications.PushNotificationTypes.mentionsAndReplies" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Someone mentioned you"
+          }
+        }
+      }
+    },
+    "Scene.Settings.Notifications.PushNotificationTypes.newFollowers" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Someone followed you"
+          }
+        }
+      }
+    },
+    "Scene.Settings.Notifications.PushNotificationTypes.newPosts" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Someone you’ve asked to be notified about has posted"
+          }
+        }
+      }
+    },
+    "Scene.Settings.Notifications.PushNotificationTypes.polls" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A poll you created or voted in has ended"
+          }
+        }
+      }
+    },
+    "Scene.Settings.Notifications.PushNotificationTypes.quotes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Someone quoted you"
+          }
+        }
+      }
     }
   },
   "version" : "1.2"

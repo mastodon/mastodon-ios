@@ -123,6 +123,59 @@ public struct L10nLookup {
                     return result
                 }
             }
+            
+            public struct Notifications {
+                public static var getNotifiedWhen: String {
+                    tr("Localizable-Notifications", "Scene.Settings.Notifications.getNotifiedWhen")
+                }
+                
+                public static var adminNotificationsHidden: String {
+                    tr("Localizable-Notifications", "Scene.Settings.Notifications.adminNotificationsHidden")
+                }
+                
+                public struct PushNotificationTypes {
+                    
+                    public static var boosts: String {
+                        tr("Localizable-Notifications", "Scene.Settings.Notifications.PushNotificationTypes.boosts")
+                    }
+                    
+                    public static var favourites: String {
+                        tr("Localizable-Notifications", "Scene.Settings.Notifications.PushNotificationTypes.favourites")
+                    }
+                    
+                    public static var mentionsAndReplies: String {
+                        tr("Localizable-Notifications", "Scene.Settings.Notifications.PushNotificationTypes.mentionsAndReplies")
+                    }
+                    
+                    public static var newFollowers: String {
+                        tr("Localizable-Notifications", "Scene.Settings.Notifications.PushNotificationTypes.newFollowers")
+                    }
+                    
+                    public static var followRequests: String {
+                        tr("Localizable-Notifications", "Scene.Settings.Notifications.PushNotificationTypes.followRequests")
+                    }
+                    
+                    public static var polls: String {
+                        tr("Localizable-Notifications", "Scene.Settings.Notifications.PushNotificationTypes.polls")
+                    }
+                    
+                    public static var newPosts: String {
+                        tr("Localizable-Notifications", "Scene.Settings.Notifications.PushNotificationTypes.newPosts")
+                    }
+                    
+                    public static var edits: String {
+                        tr("Localizable-Notifications", "Scene.Settings.Notifications.PushNotificationTypes.edits")
+                    }
+                    
+                    public static var quotes: String {
+                        tr("Localizable-Notifications", "Scene.Settings.Notifications.PushNotificationTypes.quotes")
+                    }
+                    
+                    public static var editsToQuotedPosts: String {
+                        tr("Localizable-Notifications", "Scene.Settings.Notifications.PushNotificationTypes.editsToQuotedPosts")
+                    }
+                }
+            }
         }
         
         public struct Notification {
