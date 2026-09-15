@@ -407,6 +407,7 @@ class NotificationPolicyViewModel: ObservableObject {
             do {
                 try await BodegaPersistence.Notifications.updatePreferences(
                     adminFilterSettings, for: authenticationBox)
+                NotificationService.shared.requestUpdate(.singleAccount(authenticationBox)) // if admin notifications have been filtered out here, no push notifications for them should be sent
             } catch {}
         }
 
