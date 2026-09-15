@@ -65,7 +65,7 @@ final public class SceneCoordinator {
                     let destination: MastodonNavigationDestination? = await {
                         guard let type = Mastodon.Entity.NotificationType(rawValue: pushNotification.notificationType) else { return nil }
                         switch type {
-                        case .follow:
+                        case .follow, .adminSignUp:
                             let notificationID = String(pushNotification.notificationID)
                             do {
                                 let account = try await APIService.shared.notification(
@@ -86,15 +86,12 @@ final public class SceneCoordinator {
                             }
 
                             
-                        case .followRequest:
+                        case .followRequest, .adminReport, .moderationWarning:
                             return nil
                             
-                        case .mention, .reblog, .favourite, .poll, .status:
+                        case .mention, .reblog, .favourite, .poll, .status, .quote, .quotedUpdate, .update:
                             let notificationID = String(pushNotification.notificationID)
                             return .timeline(.remoteThread(root: .notification(notificationID)))
-                            
-                        case .moderationWarning:
-                            return nil
                             
                         default:
                             assertionFailure()
