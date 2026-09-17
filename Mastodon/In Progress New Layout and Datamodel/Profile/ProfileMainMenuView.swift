@@ -5,7 +5,6 @@ import MastodonLocalization
 
 struct ProfileMainMenuView: View {
     @Environment(MastodonNavigationRouter.self) private var navigator
-    @Environment(MastodonTabViewRouter.self) private var tabViewRouter
     @Environment(ProfileViewModel.self) private var myProfileViewModel: ProfileViewModel?
     @Environment(AuthenticationObserver.self) private var authenticationObserver
     @State private var avatarIconRenderer = AvatarIconRenderer.shared
@@ -160,8 +159,7 @@ struct ProfileMainMenuView: View {
         
         // Offer adding another account
         Button {
-            tabViewRouter.selectedTab = .home
-            tabViewRouter.navigationRouter(forTab: .home).presentSheet(.welcome, afterDeconflictionDelay: true)
+            navigator.presentSheet(.welcome, afterDeconflictionDelay: false)
         } label: {
             Label {
                 Text(L10n.Scene.AccountList.addAccount)
