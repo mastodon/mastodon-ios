@@ -12,10 +12,10 @@ import Combine
     public private(set) static var current = MastodonTabViewRouter(authenticatedUser: nil)
     
     let userGUID: String
+    private let authenticationBox: MastodonAuthenticationBox?
     public var homeTimelineModel: TimelineListViewModel?
     public var notificationsTimelineModelEverything: TimelineListViewModel?
     public var notificationsTimelineModelMentions: TimelineListViewModel?
-    public var profileModel: ProfileViewModel?
     public var selectedNotificationsTimeline: NotificationsScope = .everything
     public var searchModel: SearchViewModel
     public var discoveryModel: DiscoveryFeedsViewModel
@@ -26,6 +26,17 @@ import Combine
     public var followedHashtags: [Mastodon.Entity.Tag] = []
     
     private var _combineSubscriptions = Set<AnyCancellable>()
+    
+    @ObservationIgnored private var _myProfileViewModel: ProfileViewModel?
+    
+    public var myProfileViewModel: ProfileViewModel? {
+        if let _myProfileViewModel { return _myProfileViewModel }
+        guard let authenticationBox, let account = authenticationBox.cachedAccount else { return nil }
+        let model = ProfileViewModel()
+        model.set(account: MastodonAccount.fromEntity(account, authenticatedDomain: authenticationBox.domain), relationship: .isMe, navigator: navigationRouter(forTab: .profile))
+        _myProfileViewModel = model
+        return model
+    }
     
     private var _currentDraftContentViewModel: ComposeContentViewModel?
     
@@ -57,6 +68,7 @@ import Combine
     
     private init(authenticatedUser: MastodonAuthenticationBox?) {
         userGUID = authenticatedUser?.globallyUniqueUserIdentifier ?? "NONE"
+        authenticationBox = authenticatedUser
         searchModel = SearchViewModel(authenticationBox: authenticatedUser)
         discoveryModel = DiscoveryFeedsViewModel()
         if let authenticatedUser {

@@ -442,6 +442,7 @@
 				Profile/NestedScrollViews.swift,
 				Profile/ProfileEditingDestinationView.swift,
 				Profile/ProfileEditingView.swift,
+				Profile/ProfileMainMenuView.swift,
 				Profile/ProfileView.swift,
 				Profile/ProfileViewModel.swift,
 				ReauthorizeLogin.swift,

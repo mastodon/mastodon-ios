@@ -25,8 +25,6 @@ struct MastodonMainTabView: View {
     @State private var tabViewRouter = MastodonTabViewRouter.current
     @State private var avatarIconRenderer = AvatarIconRenderer.shared
     @State private var pendingTabRevealManager = PendingTabRevealManager.shared
-    @State private var showAccountSwitcher = false
-    @State private var isSwitchingAccounts = false
     @State private var welcomeFlowIsOnScreen = false
    
     @State private var tabCustomization = TabViewCustomization()
@@ -55,13 +53,8 @@ struct MastodonMainTabView: View {
                     .onChange(of: displayScale, initial: true) { _, newValue in
                         AvatarIconRenderer.shared.displayScale = newValue
                     }
-                    .onReceive(AuthenticationServiceProvider.shared.updateActiveUserAccountPublisher) { _ in
-                        // make sure the profile view has correct contents
-                        guard let account = authBox.cachedAccount else { return }
-                        tabViewRouter.profileModel?.set(account: MastodonAccount.fromEntity(account, authenticatedDomain: authBox.domain), relationship: .isMe, navigator: tabViewRouter.navigationRouter(forTab: .profile))
-                    }
                     .overlay {
-                        if isSwitchingAccounts {
+                        if authenticationObserver.isSwitchingAccounts {
                             ZStack {
                                 Color.secondary.opacity(0.8)
                                 ProgressView().progressViewStyle(.circular)
@@ -147,7 +140,7 @@ struct MastodonMainTabView: View {
     
     private var invalidAuthenticationToPresent: MastodonAuthenticationBox? {
         guard let nextInvalid = authenticationObserver.invalidAuthentications.first else { return nil }
-        guard authenticationObserver.invalidAuthenticationFlowPhase == nil, !isSwitchingAccounts, !showAccountSwitcher, isConfirmingLogOut == nil else { return nil }
+        guard authenticationObserver.invalidAuthenticationFlowPhase == nil, !authenticationObserver.isSwitchingAccounts else { return nil }
         let currentNavigator = tabViewRouter.navigationRouterForCurrentTab()
         guard currentNavigator.presentedSheet == nil, currentNavigator.activeAlert == nil else { return nil }
         return nextInvalid
@@ -229,14 +222,6 @@ struct MastodonMainTabView: View {
                             HStack {
                                 Image(systemName: tab.systemImage)
                                 Text(tab.title)
-                            }
-                        }
-                        .sectionActions {
-                            settingsButton
-                            logOutActiveUserButton
-                            alternateAccountButtons()
-                            if AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.count > 1 {
-                                logOutAllUsersButton
                             }
                         }
                         
@@ -350,10 +335,9 @@ struct MastodonMainTabView: View {
             
         case .profile:
             @Bindable var navigationStackNavigator = tabViewRouter.navigationRouter(forTab: tab)
-            let profileModel = profileViewModel()
             NavigationStack(path: $navigationStackNavigator.navigationPath) {
-                ProfileView(wrapInSwiftUINavigationStack: false)
-                    .profileEnvironment(profileModel, nestedScroll: NestedScrollInteractionViewModel())
+                ProfileMainMenuView()
+                    .environment(tabViewRouter.myProfileViewModel)
                     .navigationDestination(for: MastodonNavigationDestination.self) { destination in
                         navigationStackNavigator.destinationView(destination, sceneCoordinator: sceneCoordinator)
                     }
@@ -369,97 +353,7 @@ struct MastodonMainTabView: View {
         }
     }
     
-    @ViewBuilder private var settingsButton: some View {
-        Button {
-            let currentTabNavigator = self.tabViewRouter.navigationRouter(forTab: self.tabViewRouter.selectedTab)
-            let needsDismiss = showAccountSwitcher || currentTabNavigator.presentedSheet != nil
-            if needsDismiss {
-                showAccountSwitcher = false
-                currentTabNavigator.dismissCurrentModal()
-            }
-            currentTabNavigator.presentSheet(.settings, afterDeconflictionDelay: needsDismiss)
-        } label: {
-            Label {
-                Text(L10n.Common.Controls.Actions.settings)
-            } icon: {
-                Image(systemName: "gear")
-            }
-        }
-    }
     
-    @State private var isConfirmingLogOut: LogOutConfirmationType?
-    @ViewBuilder private var logOutActiveUserButton: some View {
-        Button(role: .destructive) {
-            isConfirmingLogOut = .logOutActiveAccount
-        } label: {
-            Label(L10n.Scene.AccountList.logout, systemImage: "rectangle.portrait.and.arrow.forward")
-        }
-        .disabled(isConfirmingLogOut != nil)
-        .confirmationDialog(isConfirmingLogOut?.title ?? "",
-                            isPresented:
-                                Binding<Bool>(
-                                    get: { isConfirmingLogOut == .logOutActiveAccount },
-                                    set: { newValue in
-                                        if !newValue {
-                                            isConfirmingLogOut = nil
-                                        }
-                                    }),
-                            presenting: isConfirmingLogOut) { logOutType in
-            Button(role: .destructive) {
-                isConfirmingLogOut = nil
-                showAccountSwitcher = false
-                guard let currentUser = authenticationObserver.currentActiveUser else { return }
-                Task {
-                    await AuthenticationServiceProvider.shared.signOutMastodonUser(authentication: currentUser.authentication)
-                }
-            } label: {
-                Text(logOutType.buttonText)
-            }
-            Button(role: .cancel) {
-                isConfirmingLogOut = nil
-            } label: {
-                Text(L10n.Common.Controls.Actions.cancel)
-            }
-        } message: { logOutType in
-            Text(logOutType.message)
-        }
-
-    }
-    
-    @ViewBuilder private var logOutAllUsersButton: some View {
-        Button(role: .destructive) {
-            isConfirmingLogOut = .logOutAllAccounts
-        } label: {
-            Label(L10n.Scene.AccountList.logoutAllAccounts, systemImage: "rectangle.portrait.and.arrow.forward")
-        }
-        .disabled(isConfirmingLogOut != nil)
-        .confirmationDialog(isConfirmingLogOut?.title ?? "",
-                            isPresented:
-                                Binding<Bool>(
-                                    get: { isConfirmingLogOut == .logOutAllAccounts },
-                                    set: { newValue in
-                                        if !newValue { isConfirmingLogOut = nil
-                                        }}),
-                            titleVisibility: .visible,
-                            presenting: isConfirmingLogOut) { logOutType in
-            Button(role: .destructive) {
-                isConfirmingLogOut = nil
-                showAccountSwitcher = false
-                Task {
-                    await AuthenticationServiceProvider.shared.signOutAllUsers()
-                }
-            } label: {
-                Text(logOutType.buttonText)
-            }
-            Button(role: .cancel) {
-              isConfirmingLogOut = nil
-            } label: {
-                Text(L10n.Common.Controls.Actions.cancel)
-            }
-        } message: { logOutType in
-            Text(logOutType.message)
-        }
-    }
     
     @ViewBuilder private func modalComposeButton(forTab tab: MastodonTabViewRouter.MastodonTab) -> some View {
         let navigator = tabViewRouter.navigationRouter(forTab: tab)
@@ -474,96 +368,6 @@ struct MastodonMainTabView: View {
                         Circle()
                             .fill(Asset.Colors.accent.swiftUIColor)
                     }
-            }
-            .padding()
-        }
-    }
-    
-    @ViewBuilder private func alternateAccountButtons() -> some View {
-        // List additional logged-in accounts, with their unread notification counts if non-zero
-        ForEach(AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.filter({ $0.globallyUniqueUserIdentifier != AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier }), id: \.self.globallyUniqueUserIdentifier) { authBox in
-            Button {
-                self.switchTo(authBox)
-            } label: {
-                HStack(alignment: .firstTextBaseline) {
-                    Label {
-                        if let handle = authBox.cachedAccount?.acctWithDomain {
-                            Text("@\(handle)")
-                        } else {
-                            Text(authBox.cachedAccount?.displayName ?? "")
-                        }
-                    } icon: {
-                        avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular) ?? Image(systemName: "app.dashed")
-                    }
-                    
-                    let unreadNotificationCount = UnreadNotificationCounts.shared.unreadCount(for: authBox)
-                    Spacer()
-                    if unreadNotificationCount > 0 {
-                        Text(unreadNotificationCount.formatted())
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                    }
-                }
-                .padding(.horizontal)
-                .padding(.vertical, tinySpacing)
-            }
-        }
-        
-        // Offer adding another account
-        Button {
-            let needsDismissCurrent = showAccountSwitcher
-            if needsDismissCurrent {
-                // must dismiss or the new modal presentation will not happen
-                showAccountSwitcher = false
-            }
-            let needsTabSwitch = tabViewRouter.selectedTab != .home
-            if needsTabSwitch {
-                tabViewRouter.selectedTab = .home
-            }
-            tabViewRouter.navigationRouter(forTab: .home).presentSheet(.welcome, afterDeconflictionDelay: needsDismissCurrent || needsTabSwitch)
-        } label: {
-            Label {
-                Text(L10n.Scene.AccountList.addAccount)
-            } icon: {
-                Image(systemName: "plus")
-            }
-            .padding(.horizontal)
-            .padding(.vertical, tinySpacing)
-        }
-    }
-    
-    @ViewBuilder private func accountSwitcherView() -> some View {
-        ScrollView {
-            LazyVStack(alignment: .leading) {
-                if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value, let currentAuthAccount = currentAuthBox.cachedAccount, let icon = avatarIconRenderer.prerenderedAccountAvatar(currentAuthBox.globallyUniqueUserIdentifier, style: .circular) {
-                    Button {
-                        tabViewRouter.selectedTab = .profile
-                        showAccountSwitcher = false
-                    } label: {
-                        let handle = currentAuthAccount.acctWithDomain
-                        VStack {
-                            icon
-                            Text("@\(handle)")
-                                .font(.headline)
-                                .fontWeight(.semibold)
-                        }
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                }
-                settingsButton
-                    .padding(.horizontal)
-                logOutActiveUserButton
-                    .padding(.horizontal)
-                    .padding(.vertical, tinySpacing)
-                Divider()
-                alternateAccountButtons()
-                if AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.count > 1 {
-                    Divider()
-                    logOutAllUsersButton
-                        .padding(.horizontal)
-                        .padding(.vertical, tinySpacing)
-                }
             }
             .padding()
         }
@@ -610,19 +414,6 @@ struct MastodonMainTabView: View {
         }
     }
     
-    func profileViewModel() -> ProfileViewModel {
-        if let model = tabViewRouter.profileModel {
-            return model
-        } else {
-            let model = ProfileViewModel()
-            if let authBox = authenticationObserver.currentActiveUser, let account = authBox.cachedAccount {
-                model.set(account: MastodonAccount.fromEntity(account, authenticatedDomain: authBox.domain), relationship: .isMe, navigator: tabViewRouter.navigationRouter(forTab: .profile))
-            }
-            tabViewRouter.profileModel = model
-            return model
-        }
-    }
-    
     private func notificationsTimelineViewModel(scope: NotificationsScope) -> TimelineListViewModel {
         func newModel() -> TimelineListViewModel {
             let new = TimelineListViewModel(timeline: .notifications(scope: scope), navigator: tabViewRouter.navigationRouter(forTab: .notifications), asyncRefreshViewModel: AsyncRefreshViewModel())
@@ -647,18 +438,6 @@ struct MastodonMainTabView: View {
         case .fromRequest:
             assertionFailure()
             return newModel()
-        }
-    }
-    
-    private func switchTo(_ authBox: MastodonAuthenticationBox) {
-        isSwitchingAccounts = true
-        let needsDismiss = showAccountSwitcher
-        if needsDismiss {
-            showAccountSwitcher = false
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) { // this delay gives the modals time to dismiss, making the transition feel less abrupt
-            AuthenticationServiceProvider.shared.activateAuthentication(authBox)
-            self.isSwitchingAccounts = false
         }
     }
     
@@ -705,19 +484,7 @@ struct MastodonMainTabView: View {
                     .navigationTitle(includeTimelineSwitcherMenu ? currentHomeFeedName ?? "" : "")
                     .toolbarTitleDisplayMode(.inline)
                     .toolbar {
-                        if tab == .home, let authBox = authenticationObserver.currentActiveUser {
-                            ToolbarItem(placement: .topBarLeading) {
-                                Button {
-                                    showAccountSwitcher = true
-                                } label: {
-                                    avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular)
-                                }
-                                .popover(isPresented: $showAccountSwitcher) {
-                                    accountSwitcherView()
-                                }
-                            }
-                            .sharedBackgroundVisibilityHidden()
-                            
+                        if tab == .home {
                             if sizeClass != .compact {
                                 ToolbarItem(placement: .topBarTrailing) {
                                     modalComposeButton(forTab: tab)
@@ -1025,6 +792,7 @@ extension MastodonTabViewRouter.MastodonTab {
 @Observable class AuthenticationObserver {
     static let shared = AuthenticationObserver()
     
+    private(set) var isSwitchingAccounts = false
     private(set) var currentActiveUser: MastodonAuthenticationBox?
     private(set) var allLoggedInUsers = [MastodonAuthenticationBox]()
     
@@ -1079,6 +847,18 @@ extension MastodonTabViewRouter.MastodonTab {
     
     func endReauthorization() {
         invalidAuthenticationFlowPhase = nil
+    }
+    
+    func switchTo(_ authBox: MastodonAuthenticationBox) {
+        guard !isSwitchingAccounts,
+                !invalidAuthenticationFlowInProgress,
+                authBox.globallyUniqueUserIdentifier != currentActiveUser?.globallyUniqueUserIdentifier
+        else { return }
+        isSwitchingAccounts = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
+            AuthenticationServiceProvider.shared.activateAuthentication(authBox)
+            self.isSwitchingAccounts = false
+        }
     }
 }
 

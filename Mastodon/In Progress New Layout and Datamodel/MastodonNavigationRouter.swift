@@ -8,6 +8,7 @@ import MastodonUI
 
 enum MastodonNavigationDestination: Identifiable {
     case timeline(TimelineViewType)
+    case myProfile(ProfileViewModel)
     case profile(account: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?)
     case settings(SettingsDestinationType)
     case donations(DonationFlowDestination)
@@ -79,6 +80,9 @@ enum MastodonNavigationDestination: Identifiable {
 
         case .profile(let account, let relationship):
             let viewModel = profileViewModel(account, relationship: relationship)
+            ProfileView(wrapInSwiftUINavigationStack: false)
+                .profileEnvironment(viewModel, nestedScroll: NestedScrollInteractionViewModel())
+        case .myProfile(let viewModel):
             ProfileView(wrapInSwiftUINavigationStack: false)
                 .profileEnvironment(viewModel, nestedScroll: NestedScrollInteractionViewModel())
         case .editProfile(let profileViewModel):
@@ -271,6 +275,8 @@ extension MastodonNavigationDestination: Hashable {
                 return isMyAccount ? "isMe" : "notMe"
             }()
             return "profile(\(account.acctWithDomain)-\(isMeString))"
+        case .myProfile:
+            return "myProfile"
         case .editProfile:
             return "editProfile"
         case .editProfileNavigation(let destination):

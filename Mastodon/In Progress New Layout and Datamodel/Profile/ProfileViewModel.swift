@@ -26,7 +26,7 @@ import MastodonLocalization
         let domain: String
         let isMyDomain: Bool
     }
-    var navigator: MastodonNavigationRouter?
+    weak var navigator: MastodonNavigationRouter?
     var account: MastodonAccount?
     var familiarFollowersViewModel: TimelineListViewModel?
     var pagesToShow: [ProfilePage] = []
