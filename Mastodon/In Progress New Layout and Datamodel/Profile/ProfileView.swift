@@ -24,7 +24,6 @@ struct ProfileView: View {
     @Environment(MastodonNavigationRouter.self) private var navigator
     @Environment(ProfileViewModel.self) var viewModel
     @Environment(NestedScrollInteractionViewModel.self) var nestedScrollViewModel
-    let wrapInSwiftNavigationStack: Bool
     
     @State var isPresentingActivityFilter: Bool = false
     @State var embeddedActionBarHasCaughtUpToFloatingActionBar: Bool = false
@@ -36,33 +35,7 @@ struct ProfileView: View {
         case pages
     }
     
-    init(wrapInSwiftUINavigationStack: Bool) {
-        self.wrapInSwiftNavigationStack = wrapInSwiftUINavigationStack
-    }
-    
     var body: some View {
-        @Bindable var navigationRouter = navigator
-        
-        if wrapInSwiftNavigationStack {
-            NavigationStack(path: $navigationRouter.navigationPath){
-                content
-                    .navigationDestination(for: MastodonNavigationDestination.self) { destination in
-                        navigationRouter.destinationView(destination, sceneCoordinator: nil)
-                    }
-                    .onChange(of: navigationRouter.navigationPath) { oldValue, newValue in
-                        if newValue.isEmpty {
-                            viewModel.editingStatus = .notEditing
-                            viewModel.resetEditingViewModel()
-                        }
-                    }
-            }
-            
-        } else {
-            content
-        }
-    }
-    
-    @ViewBuilder var content: some View {
         GeometryReader { geo in
             let fullWidth = min(maxFeedContentWidth, geo.size.width)
             let headerContentWidth = max(0, min(maxFeedContentWidth, geo.size.width - doublePadding * 2))

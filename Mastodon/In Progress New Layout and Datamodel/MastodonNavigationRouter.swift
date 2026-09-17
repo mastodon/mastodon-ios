@@ -81,10 +81,10 @@ enum MastodonNavigationDestination: Identifiable {
 
         case .profile(let account, let relationship):
             let viewModel = profileViewModel(account, relationship: relationship)
-            ProfileView(wrapInSwiftUINavigationStack: false)
+            ProfileView()
                 .profileEnvironment(viewModel, nestedScroll: NestedScrollInteractionViewModel())
         case .myProfile(let viewModel):
-            ProfileView(wrapInSwiftUINavigationStack: false)
+            ProfileView()
                 .profileEnvironment(viewModel, nestedScroll: NestedScrollInteractionViewModel())
         case .editProfile(let profileViewModel):
             ProfileEditingView()
