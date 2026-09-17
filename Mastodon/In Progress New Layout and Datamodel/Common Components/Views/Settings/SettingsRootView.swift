@@ -102,6 +102,7 @@ struct SettingsNavigationView: View {
                     }
                 }
         }
+        .modifier(NavigatorPresentations(navigator: navigator))
         .environment(navigator)
     }
 }
