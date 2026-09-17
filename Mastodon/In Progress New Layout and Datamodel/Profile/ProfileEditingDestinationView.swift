@@ -42,6 +42,15 @@ struct ProfileEditingDestinationView: View {
     
     let destinationType: ProfileEditDestinationType
     
+    private var safeToSwipeToDismiss: Bool {
+        switch editingViewModel.editingStatus?.saveButton {
+        case .canSave, .saveInProgress:
+            false
+        case .noButton, .none:
+            true
+        }
+    }
+    
     var body: some View {
         if destinationType.expectsModalPresentation {
             NavigationStack() {
@@ -86,6 +95,7 @@ struct ProfileEditingDestinationView: View {
                         }
                     }
             }
+            .interactiveDismissDisabled(!safeToSwipeToDismiss)
         } else {
             contents
                 .padding(destinationType.doNotPad ? 0 : doublePadding)
@@ -300,6 +310,7 @@ extension ProfileViewModel {
             assert(profileViewModel.uuid == uuid)
             break
         }
+        checkForEditingChanges(andCommit: false)
     }
 }
 

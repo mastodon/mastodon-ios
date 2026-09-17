@@ -321,7 +321,7 @@ class ProfileEditingViewModel {
         let customFieldEditChanged = {
             guard let fieldEditingState else { return false }
             let labelHasChanges = fieldEditingState.labelEditingModel.stringContent != fieldEditingState.labelEditingModel.originalStringContent
-            let valueHasChanges = fieldEditingState.valueEditingModel.stringContent != fieldEditingState.labelEditingModel.originalStringContent
+            let valueHasChanges = fieldEditingState.valueEditingModel.stringContent != fieldEditingState.valueEditingModel.originalStringContent
             return labelHasChanges || valueHasChanges
         }()
         
