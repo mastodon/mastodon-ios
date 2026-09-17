@@ -132,8 +132,6 @@ struct ProfileEditingView: View {
     @Environment(ProfileEditingViewModel.self) var editingViewModel
     
     var body: some View {
-        @Bindable var navigationRouter = navigator
-
         GeometryReader { geo in
             VStack(spacing: 0) {
                 ProfileAvatarAndBannerView(maxWidth: geo.size.width)
@@ -149,11 +147,6 @@ struct ProfileEditingView: View {
                 .listStyle(.insetGrouped)
             }
             .frame(maxWidth: .infinity)
-            .sheet(isPresented: $navigationRouter.isPresentingSheet) {
-                if let sheet = navigationRouter.presentedSheet {
-                    navigationRouter.sheetContents(sheet)
-                }
-            }
         }
     }
     

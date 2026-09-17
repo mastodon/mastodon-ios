@@ -262,18 +262,18 @@ extension MastodonPostMenuAction {
 }
 
 enum MastodonTimelineSheet: Identifiable {
-    case postInteractionSettingsEdit(PostInteractionSettingsViewModel)
-    case boostOrQuoteDialog(MastodonPostViewModel)
-    case manageListMembership(MastodonAccount)
+    case postInteractionSettingsEdit(PostInteractionSettingsViewModel, owner: TimelineListViewModel)
+    case boostOrQuoteDialog(MastodonPostViewModel, actionHandler: MastodonPostMenuActionHandler?)
+    case manageListMembership(MyListsManagementViewModel)
     
     var id: String {
         switch self {
-        case .postInteractionSettingsEdit(let viewModel):
+        case .postInteractionSettingsEdit:
             return "post-interaction-settings-edit"
-        case .boostOrQuoteDialog(let viewModel):
+        case .boostOrQuoteDialog(let viewModel, _):
             return "boost-or-quote-\(viewModel.initialDisplayInfo.id)"
-        case .manageListMembership(let account):
-            return "manage-list-membership-\(account.id)"
+        case .manageListMembership(let viewModel):
+            return "manage-list-membership-\(ObjectIdentifier(viewModel))"
         }
     }
 }
@@ -313,7 +313,6 @@ struct TimelineListView: View {
     @State var _pendingGeometryUpdates = false
     
     var body: some View {
-        @Bindable var navigator = navigator
         GeometryReader { geo in
             ZStack(alignment: .bottom) { // to show donation banner, and snackbar, and fade-in overlays
                 if viewModel.feedIsEmpty {
@@ -495,23 +494,6 @@ struct TimelineListView: View {
             if viewModel.timeline == .notificationRequests, viewModel.notificationRequestsAcceptanceDidChange {
                 viewModel.notificationRequestsAcceptanceDidChange = false
                 MastodonTabViewRouter.current.fetchFilteredNotificationsPolicy(andReloadFeed: true)
-            }
-        }
-        .alert(navigator.activeAlert?.title ?? "", isPresented: navigator.alertIsPresented, presenting: navigator.activeAlert) { alert in
-            alertContents(alert)
-        } message: { alert in
-            if let messageText = alert.messageText {
-                Text(messageText)
-            }
-        }
-        .sheet(isPresented: $navigator.isPresentingSheet) {
-            if let presentedSheet = navigator.presentedSheet {
-                switch presentedSheet {
-                case .timelineSheet(let sheet):
-                    viewModel.activeSheetContents(sheet, navigator: navigator)
-                default:
-                    navigator.sheetContents(presentedSheet)
-                }
             }
         }
         .environment(TimestampUpdater.timestamper(withInterval: 30))
@@ -1169,128 +1151,6 @@ struct TimelineListView: View {
                 .fill(isPrivate ?  Asset.Colors.accent.swiftUIColor : .clear)
                 .padding(EdgeInsets(top: 1, leading: 0, bottom: 1, trailing: 0))
                 .opacity(0.1)
-        }
-    }
-    
-    @ViewBuilder func alertContents(_ alert: MastodonPostMenuAction.AlertType) -> some View {
-        switch alert {
-        case .confirmBoostOfPost(let didConfirm):
-            cancelButton(didConfirm)
-            Button {
-                didConfirm(true)
-            } label: {
-                Text(L10n.Common.Alerts.BoostAPost.boost)
-            }
-            
-            
-        case .confirmRemoveQuote(_, let didConfirm):
-            cancelButton(didConfirm)
-            Button(role: .destructive) {
-                didConfirm(true)
-            } label: {
-                Text(L10n.Common.Controls.Actions.remove)
-            }
-            
-        case .confirmRemoveMeFromCollection(_, let didConfirm):
-            cancelButton(didConfirm)
-            Button(role: .destructive) {
-                didConfirm(true)
-            } label: {
-                Text(L10nLookup.Scene.Collections.removeMe)
-            }
-            
-        case .confirmDeleteOfPost(let didConfirm):
-            cancelButton(didConfirm)
-            Button(role: .destructive) {
-                didConfirm(true)
-            } label: {
-                Text(L10n.Common.Controls.Actions.delete)
-            }
-            
-        case .confirmUnfollow(_, let didConfirm):
-            cancelButton(didConfirm)
-            Button(role: .destructive) {
-                didConfirm(true)
-            } label: {
-                Text(L10n.Common.Alerts.UnfollowUser.unfollow)
-            }
-            
-        case .confirmMute(username: let username, didConfirm: let didConfirm):
-            cancelButton(didConfirm)
-            Button(role: .destructive) {
-                didConfirm(true)
-            } label: {
-                Text(L10n.Common.Controls.Friendship.muteUser(username))
-            }
-        case .confirmUnmute(username: let username, didConfirm: let didConfirm):
-            cancelButton(didConfirm)
-            Button {
-                didConfirm(true)
-            } label: {
-                Text(L10n.Common.Controls.Friendship.unmuteUser(username))
-            }
-            
-        case .confirmBlock(username: let username, didConfirm: let didConfirm):
-            cancelButton(didConfirm)
-            Button(role: .destructive) {
-                didConfirm(true)
-            } label: {
-                Text(L10n.Common.Controls.Friendship.blockUser(username))
-            }
-        case .confirmUnblock(username: let username, didConfirm: let didConfirm):
-            cancelButton(didConfirm)
-            Button {
-                didConfirm(true)
-            } label: {
-                Text(L10n.Common.Controls.Friendship.unblockUser(username))
-            }
-        case .confirmDomainBlock(let account, let didConfirm):
-            cancelButton(didConfirm)
-            Button {
-                didConfirm(true)
-            } label: {
-                Text(L10n.Common.Alerts.BlockDomain.blockEntireDomain)
-            }
-            
-        case .error:
-            if UserDefaults.standard.showRateLimitTracker {
-                Button("Copy recent requests") {
-                    UIPasteboard.general.string = RateLimitViewModel.shared.previousRequestsReport()
-                }
-            }
-            Button(L10n.Common.Controls.Actions.ok) {
-            }
-        case .confirmUnhideFeatureTabBeforeFeaturing(_, let didConfirm):
-            cancelButton(didConfirm)
-            Button {
-                didConfirm(true)
-            } label: {
-                Text(L10nLookup.MastodonMenuAction.confirmShowFeaturedTabButton)
-            }
-        case .confirmFollowBeforeAddingToList(_, let didConfirm):
-            cancelButton(didConfirm)
-            Button {
-                didConfirm(true)
-            } label: {
-                Text(L10nLookup.MastodonMenuAction.confirmFollowButton)
-            }
-        case .confirmRemoveFollower(_, let didConfirm):
-            cancelButton(didConfirm)
-            Button {
-                didConfirm(true)
-            } label: {
-                Text(L10nLookup.MastodonMenuAction.removeFollower)
-            }
-        }
-    }
-    
-    @ViewBuilder func cancelButton(_ didConfirm: @escaping (Bool)->()) -> some View {
-        Button(role: .cancel) {
-            viewModel.clearPendingActions(navigator)
-            didConfirm(false)
-        }
-        label: {
-            Text(L10n.Common.Controls.Actions.cancel)
         }
     }
 }

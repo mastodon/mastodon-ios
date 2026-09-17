@@ -280,7 +280,8 @@ extension MastodonNavigationRouter {
             if let relationshipViewModel {
                 await relationshipViewModel.doFollowAndManageListMembership(account, navigator: self)
             } else {
-                presentedSheet = .timelineSheet(.manageListMembership(account))
+                let viewModel = MyListsManagementViewModel(account)
+                presentedSheet = .timelineSheet(.manageListMembership(viewModel))
             }
         }
     }

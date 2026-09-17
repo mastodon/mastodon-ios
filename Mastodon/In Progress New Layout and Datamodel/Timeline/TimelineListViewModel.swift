@@ -108,42 +108,6 @@ import MastodonUI
     var needsReloadOnNextAppear = false
     var notificationRequestsAcceptanceDidChange = false
     
-    // MARK - Sheets
-    @ViewBuilder func activeSheetContents(_ activeSheet: MastodonTimelineSheet, navigator: MastodonNavigationRouter) -> some View {
-        switch activeSheet {
-        case .postInteractionSettingsEdit(let editModel):
-            PostInteractionSettingsView(closeAndSave: { [weak self] save in
-                if save {
-                    Task {
-                        do {
-                            try await self?.commitCurrentQuotePolicyEdit(navigator: navigator)
-                            self?.clearPendingActions(navigator)
-                        } catch {
-                            self?.clearPendingActions(navigator)
-                            navigator.didReceiveError(error)
-                        }
-                    }
-                } else {
-                    self?.clearPendingActions(navigator)
-                }
-            })
-            .environment(editModel)
-            .presentationDetents([.fraction(0.5), .medium, .large])
-            .presentationDragIndicator(.hidden)
-            .interactiveDismissDisabled(true)
-        case .boostOrQuoteDialog(let postViewModel):
-            BoostOrQuoteDialog(actionHandler: self)
-                .environment(postViewModel)
-                .environment(navigator)
-                .presentationDetents([.fraction(0.3), .medium, .large])
-        case .manageListMembership(let account):
-            let viewModel = MyListsManagementViewModel(account)
-            ManageListMembershipView()
-                .environment(viewModel)
-                .environment(navigator)
-        }
-    }
-    
     // MARK - Feed Contents
     func setCurrentDisplaySlice(_ newSlice: ArraySlice<TimelineItem>, newScrollAnchor: TimelineItem?, mayNeedHeightCalculations: Bool, addLoadingIndicator: Bool) {
         
@@ -1132,7 +1096,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                                         quotability: actionablePost._legacyEntity.specifiedQuotePolicyOrNobody
                                     ),
                             contentIncludesQuote: postViewModel.fullQuotedPostViewModel != nil || postViewModel.placeholderQuotedPost != nil
-                        )
+                        ), owner: self
                     )
                     navigator.presentedSheet = .timelineSheet(activeSheet)
                     
@@ -1218,7 +1182,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
     
     func commitCurrentQuotePolicyEdit(navigator: MastodonNavigationRouter) async throws {
         guard let (action, post) = isPerformingPostAction, action == .changeQuotePolicy, let authBox = AuthenticationServiceProvider.shared.currentActiveUser
-            .value, case let .timelineSheet(.postInteractionSettingsEdit(editModel)) = navigator.presentedSheet else { throw PostActionFailure.unsupportedAction }
+            .value, case let .timelineSheet(.postInteractionSettingsEdit(editModel, _)) = navigator.presentedSheet else { throw PostActionFailure.unsupportedAction }
         Task {
             do {
                 let updated = try await APIService.shared.updateQuotePolicy(forStatus: post.id, to: editModel.interactionSettings.quotability, authenticationBox: authBox)
@@ -1270,10 +1234,13 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
     
     func doRemoveQuote(from quotingPost: MastodonContentPost, askFirst: Bool, navigator: MastodonNavigationRouter) async throws {
         if askFirst {
-            navigator.activeAlert = .confirmRemoveQuote(username: quotingPost.initialDisplayInfo().actionableAuthorDisplayName, didConfirm: { confirmed in
-                guard confirmed else { return }
+            navigator.activeAlert = .confirmRemoveQuote(username: quotingPost.initialDisplayInfo().actionableAuthorDisplayName, didConfirm: { [weak self] confirmed in
+                guard confirmed else {
+                    self?.clearPendingActions(navigator)
+                    return
+                }
                 Task {
-                    await self.commitRemoveQuote(from: quotingPost, navigator: navigator)
+                    await self?.commitRemoveQuote(from: quotingPost, navigator: navigator)
                 }
             })
         } else {
@@ -1349,7 +1316,10 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
             
             if askFirst {
                 navigator.activeAlert = .confirmBoostOfPost(didConfirm: { [weak self] confirmed in
-                    guard confirmed else { return }
+                    guard confirmed else {
+                        self?.clearPendingActions(navigator)
+                        return
+                    }
                     Task {
                         await self?.boost(actionablePostId, askFirst: false, navigator: navigator)
                     }
@@ -1384,7 +1354,10 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
         do {
             if askFirst {
                 navigator.activeAlert = .confirmDeleteOfPost(didConfirm: { [weak self] confirmed in
-                    guard confirmed else { return }
+                    guard confirmed else {
+                        self?.clearPendingActions(navigator)
+                        return
+                    }
                     Task {
                         await self?.deletePost(postID, askFirst: false, navigator: navigator)
                     }

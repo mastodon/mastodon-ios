@@ -293,6 +293,7 @@ struct MastodonMainTabView: View {
             NavigationStack(path: $navigationStackNavigator.navigationPath) {
                 ExploreRootView()
             }
+            .modifier(NavigatorPresentations(navigator: navigationStackNavigator))
             .environment(navigationStackNavigator)
             .environment(tabViewRouter.searchModel)
             .environment(tabViewRouter.discoveryModel)
@@ -331,6 +332,7 @@ struct MastodonMainTabView: View {
                         navigationStackNavigator.destinationView(destination, sceneCoordinator: sceneCoordinator)
                     }
             }
+            .modifier(NavigatorPresentations(navigator: navigationStackNavigator))
             .environment(navigationStackNavigator)
             
         case .profile:
@@ -342,6 +344,7 @@ struct MastodonMainTabView: View {
                         navigationStackNavigator.destinationView(destination, sceneCoordinator: sceneCoordinator)
                     }
             }
+            .modifier(NavigatorPresentations(navigator: navigationStackNavigator))
             .environment(navigationStackNavigator)
             
         case .localFeed, .list, .hashtag:
@@ -504,6 +507,7 @@ struct MastodonMainTabView: View {
                         navigationStackNavigator.destinationView(destination, sceneCoordinator: sceneCoordinator)
                     }
             }
+            .modifier(NavigatorPresentations(navigator: navigationStackNavigator))
             .environment(navigationStackNavigator)
             .overlay(alignment: .bottomTrailing) {
                 if sizeClass == .compact {

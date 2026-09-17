@@ -4,6 +4,7 @@ import SwiftUI
 import WebKit
 import MastodonSDK
 import MastodonCore
+import MastodonLocalization
 import MastodonUI
 
 enum MastodonNavigationDestination: Identifiable {
@@ -112,8 +113,38 @@ enum MastodonNavigationDestination: Identifiable {
     
     @ViewBuilder func sheetContents(_ sheet: MastodonSheet) -> some View {
         switch sheet {
-        case .timelineSheet:
-            Text("Timeline must create timeline sheets itself")
+        case .timelineSheet(let activeSheet):
+            switch activeSheet {
+            case .postInteractionSettingsEdit(let editModel, let owner):
+                PostInteractionSettingsView(closeAndSave: { save in
+                    if save {
+                        Task {
+                            do {
+                                try await owner.commitCurrentQuotePolicyEdit(navigator: self)
+                                owner.clearPendingActions(self)
+                            } catch {
+                                owner.clearPendingActions(self)
+                                self.didReceiveError(error)
+                            }
+                        }
+                    } else {
+                        owner.clearPendingActions(self)
+                    }
+                })
+                .environment(editModel)
+                .presentationDetents([.fraction(0.5), .medium, .large])
+                .presentationDragIndicator(.hidden)
+                .interactiveDismissDisabled(true)
+            case .boostOrQuoteDialog(let postViewModel, let actionHandler):
+                BoostOrQuoteDialog(actionHandler: actionHandler)
+                    .environment(postViewModel)
+                    .environment(self)
+                    .presentationDetents([.fraction(0.3), .medium, .large])
+            case .manageListMembership(let viewModel):
+                ManageListMembershipView()
+                    .environment(viewModel)
+                    .environment(self)
+            }
         
         case .modalCompose(let model, let contentModel):
             let authBox = model.authenticationBox
@@ -149,7 +180,7 @@ enum MastodonNavigationDestination: Identifiable {
     
     func push(_ destination: MastodonNavigationDestination) {
         switch destination {
-        case .legacy(let scene, let transition):
+        case .legacy:
             navigationPath.append(destination)
         case .editProfile(let profileViewModel):
             profileViewModel.editingStatus = .editing(hasChanges: false)
@@ -252,6 +283,129 @@ extension MastodonNavigationRouter {
         if activeAlert == nil {
             activeAlert = .error(error)
             _ = errorsWaitingToDisplay.removeFirst()
+        }
+    }
+}
+
+extension MastodonNavigationRouter {
+    @ViewBuilder func alertContents(_ alert: MastodonPostMenuAction.AlertType) -> some View {
+        switch alert {
+        case .confirmBoostOfPost(let didConfirm):
+            cancelButton(didConfirm)
+            Button {
+                didConfirm(true)
+            } label: {
+                Text(L10n.Common.Alerts.BoostAPost.boost)
+            }
+            
+            
+        case .confirmRemoveQuote(_, let didConfirm):
+            cancelButton(didConfirm)
+            Button(role: .destructive) {
+                didConfirm(true)
+            } label: {
+                Text(L10n.Common.Controls.Actions.remove)
+            }
+            
+        case .confirmRemoveMeFromCollection(_, let didConfirm):
+            cancelButton(didConfirm)
+            Button(role: .destructive) {
+                didConfirm(true)
+            } label: {
+                Text(L10nLookup.Scene.Collections.removeMe)
+            }
+            
+        case .confirmDeleteOfPost(let didConfirm):
+            cancelButton(didConfirm)
+            Button(role: .destructive) {
+                didConfirm(true)
+            } label: {
+                Text(L10n.Common.Controls.Actions.delete)
+            }
+            
+        case .confirmUnfollow(_, let didConfirm):
+            cancelButton(didConfirm)
+            Button(role: .destructive) {
+                didConfirm(true)
+            } label: {
+                Text(L10n.Common.Alerts.UnfollowUser.unfollow)
+            }
+            
+        case .confirmMute(username: let username, didConfirm: let didConfirm):
+            cancelButton(didConfirm)
+            Button(role: .destructive) {
+                didConfirm(true)
+            } label: {
+                Text(L10n.Common.Controls.Friendship.muteUser(username))
+            }
+        case .confirmUnmute(username: let username, didConfirm: let didConfirm):
+            cancelButton(didConfirm)
+            Button {
+                didConfirm(true)
+            } label: {
+                Text(L10n.Common.Controls.Friendship.unmuteUser(username))
+            }
+            
+        case .confirmBlock(username: let username, didConfirm: let didConfirm):
+            cancelButton(didConfirm)
+            Button(role: .destructive) {
+                didConfirm(true)
+            } label: {
+                Text(L10n.Common.Controls.Friendship.blockUser(username))
+            }
+        case .confirmUnblock(username: let username, didConfirm: let didConfirm):
+            cancelButton(didConfirm)
+            Button {
+                didConfirm(true)
+            } label: {
+                Text(L10n.Common.Controls.Friendship.unblockUser(username))
+            }
+        case .confirmDomainBlock(_, let didConfirm):
+            cancelButton(didConfirm)
+            Button {
+                didConfirm(true)
+            } label: {
+                Text(L10n.Common.Alerts.BlockDomain.blockEntireDomain)
+            }
+            
+        case .error:
+            if UserDefaults.standard.showRateLimitTracker {
+                Button("Copy recent requests") {
+                    UIPasteboard.general.string = RateLimitViewModel.shared.previousRequestsReport()
+                }
+            }
+            Button(L10n.Common.Controls.Actions.ok) {
+            }
+        case .confirmUnhideFeatureTabBeforeFeaturing(_, let didConfirm):
+            cancelButton(didConfirm)
+            Button {
+                didConfirm(true)
+            } label: {
+                Text(L10nLookup.MastodonMenuAction.confirmShowFeaturedTabButton)
+            }
+        case .confirmFollowBeforeAddingToList(_, let didConfirm):
+            cancelButton(didConfirm)
+            Button {
+                didConfirm(true)
+            } label: {
+                Text(L10nLookup.MastodonMenuAction.confirmFollowButton)
+            }
+        case .confirmRemoveFollower(_, let didConfirm):
+            cancelButton(didConfirm)
+            Button {
+                didConfirm(true)
+            } label: {
+                Text(L10nLookup.MastodonMenuAction.removeFollower)
+            }
+        }
+    }
+    
+    @ViewBuilder func cancelButton(_ didConfirm: @escaping (Bool)->()) -> some View {
+        Button(role: .cancel) {
+            didConfirm(false)
+        }
+        label: {
+            Text(L10n.Common.Controls.Actions.cancel)
         }
     }
 }
@@ -394,5 +548,25 @@ enum LinkTapPolicy {
                 break
             }
         }
+    }
+}
+
+struct NavigatorPresentations: ViewModifier {
+    @Bindable var navigator: MastodonNavigationRouter
+    
+    func body(content: Content) -> some View {
+        content
+            .sheet(isPresented: $navigator.isPresentingSheet) {
+                if let sheet = navigator.presentedSheet {
+                    navigator.sheetContents(sheet)
+                }
+            }
+            .alert(navigator.activeAlert?.title ?? "", isPresented: navigator.alertIsPresented, presenting: navigator.activeAlert) { alert in
+                navigator.alertContents(alert)
+            } message: { alert in
+                if let messageText = alert.messageText {
+                    Text(messageText)
+                }
+            }
     }
 }

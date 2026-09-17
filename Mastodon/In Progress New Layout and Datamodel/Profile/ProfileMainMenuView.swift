@@ -11,7 +11,6 @@ struct ProfileMainMenuView: View {
     @State private var avatarIconRenderer = AvatarIconRenderer.shared
     
     var body: some View {
-        @Bindable var navigator = navigator
         ScrollView {
             LazyVStack(alignment: .leading) {
                 profileButtons
@@ -24,11 +23,6 @@ struct ProfileMainMenuView: View {
                     .padding(.vertical, tinySpacing)
             }
             .padding()
-        }
-        .sheet(isPresented: $navigator.isPresentingSheet) {
-            if let presentedSheet = navigator.presentedSheet {
-                navigator.sheetContents(presentedSheet)
-            }
         }
     }
 

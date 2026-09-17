@@ -563,7 +563,7 @@ private struct ActionBar: View {
             StatefulCountedActionButton(type: .boost, layoutSize: layout, showCountLabel: showCountLabel, actionState: .init(count: metrics.boostCount, isSelected: state), doAction: {
                 guard actionablePost.isBoostable else { return }
                 if instanceCanQuotePosts {
-                    navigator.presentedSheet = .timelineSheet(.boostOrQuoteDialog(viewModel))
+                    navigator.presentedSheet = .timelineSheet(.boostOrQuoteDialog(viewModel, actionHandler: actionHandler))
                 } else {
                     if iHaveBoosted {
                         actionHandler?.doAction(.unboost, forPost: viewModel, navigator: navigator)
