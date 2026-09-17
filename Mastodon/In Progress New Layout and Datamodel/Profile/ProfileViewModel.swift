@@ -95,16 +95,7 @@ import MastodonLocalization
     
     public func set(account: MastodonAccount, relationship: MastodonAccount.Relationship, navigator: MastodonNavigationRouter) {
         self.navigator = navigator
-        self.account = account
-        self.contentDisplayStatus = {
-            if account.displayInfo.isSuspended {
-                return .hideAlways
-            } else if account.displayInfo.isLimitedByModerators {
-                return .hideUntilRequestedToShow
-            } else {
-                return .showAlways
-            }
-        }()
+        updateAccount(account)
         
         self.editingViewModel.setAccount(account, textContentDidChange: { self.checkForEditingChanges(andCommit: false) } )
        
@@ -123,6 +114,44 @@ import MastodonLocalization
             }
         }
         
+        switch relationship {
+        case .isMe:
+            self.editingStatus = .notEditing
+        case .isNotMe:
+            self.editingStatus = .cannotEdit
+        }
+      
+        Task {
+            let handle = account.handle
+            let handleComponents = handle.split(separator: "@").map { String($0) }
+            if handleComponents.count > 1 {
+                // server is included
+                self.handleDetails = .init(username: handleComponents.first ?? "", domain: handleComponents.last ?? "", isMyDomain: false)
+            } else {
+                // this account is on my server
+                if let myDomain = AuthenticationServiceProvider.shared.currentActiveUser.value?.domain {
+                    self.handleDetails = .init(username: handleComponents.first ?? "", domain: myDomain, isMyDomain: true)
+                }
+            }
+        }
+    }
+    
+    public func updateAccount(_ account: MastodonAccount) {
+        self.account = account
+        self.contentDisplayStatus = {
+            if account.displayInfo.isSuspended {
+                return .hideAlways
+            } else if account.displayInfo.isLimitedByModerators {
+                return .hideUntilRequestedToShow
+            } else {
+                return .showAlways
+            }
+        }()
+        updateProfilePages(for: account)
+    }
+    
+    private func updateProfilePages(for account: MastodonAccount) {
+        guard let navigator else { return }
         if account.metadata.showsMediaTab {
             if mediaViewModel == nil {
                 mediaViewAsyncRefresh = AsyncRefreshViewModel()
@@ -144,34 +173,11 @@ import MastodonLocalization
         } else {
             self.featuredItemsViewModel = nil
         }
-        
-        switch relationship {
-        case .isMe:
-            self.editingStatus = .notEditing
-        case .isNotMe:
-            self.editingStatus = .cannotEdit
-        }
-        
+
         pagesToShow = pagesToShow(forAccount: account)
-        
-        Task {
-            let handle = account.handle
-            let handleComponents = handle.split(separator: "@").map { String($0) }
-            if handleComponents.count > 1 {
-                // server is included
-                self.handleDetails = .init(username: handleComponents.first ?? "", domain: handleComponents.last ?? "", isMyDomain: false)
-            } else {
-                // this account is on my server
-                if let myDomain = AuthenticationServiceProvider.shared.currentActiveUser.value?.domain {
-                    self.handleDetails = .init(username: handleComponents.first ?? "", domain: myDomain, isMyDomain: true)
-                }
-            }
+        if !pagesToShow.contains(selectedPage) {
+            selectedPage = .activity
         }
-    }
-    
-    public func resetEditingViewModel() {
-        guard let account else { return }
-        editingViewModel.setAccount(account, textContentDidChange: { self.checkForEditingChanges(andCommit: false) })
     }
     
     public func updateMediaFilter() {
@@ -559,7 +565,7 @@ extension ProfileViewModel {
                 authorization: authorization
             )
             let updatedAccount = MastodonAccount.fromEntity(response.value, authenticatedDomain: domain)
-            account = updatedAccount
+            updateAccount(updatedAccount)
             editingViewModel.setAccount(updatedAccount, textContentDidChange: { self.checkForEditingChanges(andCommit: false) })
             editingStatus = .pushingChanges(success: true)
             checkForEditingChanges(andCommit: false)
@@ -571,13 +577,13 @@ extension ProfileViewModel {
     
     func commitTabSettingsChanges() async throws {
         guard editingViewModel.showTabDisplayPreferences else { return }  // older servers don't know about these settings
-        guard let navigator, let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { throw APIService.APIError.explicit(.authenticationMissing) }
+        guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { throw APIService.APIError.explicit(.authenticationMissing) }
 
         let updatedProfile = try await APIService.shared.updateTabDisplaySettings(showFeaturedTab: editingViewModel.featuredTabVisibilitySetting == .showFeaturedTab, showMediaTab: editingViewModel.mediaTabVisibilitySetting == .showMediaTab, showMediaReplies: editingViewModel.mediaTabRepliesSetting == .includeMyRepliesToOthers, authenticationBox: authBox)
         guard let updatedAccount = account?.byUpdatingProfileSettings(updatedProfile) else { return }
         PersistenceManager.shared.cacheAccount(updatedAccount._legacyEntity, forUserID: authBox.authentication.userIdentifier())
-        set(account: updatedAccount, relationship: .isMe, navigator: navigator)
-        editingViewModel.setAccount(updatedAccount, textContentDidChange: { self.checkForEditingChanges(andCommit: false) })
+        updateAccount(updatedAccount)
+        editingViewModel.updateMetaData(account: updatedAccount)
     }
 }
 
