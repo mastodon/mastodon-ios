@@ -428,7 +428,7 @@ extension MastodonNavigationDestination: Hashable {
     var description: String {
         switch self {
         case .timeline(let type):
-            return "timeline(\(type))"
+            return "timeline(\(type.id))"
         case .existingTimeline(let model, let title):
             return "existingTimeline-\(title ?? "untitled")(\(ObjectIdentifier(model)))"
         case .profile(let account, let relationship):

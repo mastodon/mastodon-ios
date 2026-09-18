@@ -79,8 +79,7 @@ public enum DiscoveryType: Equatable {
     }
 }
                                 
-public enum MastodonTimelineType: Equatable {
-    // *** WHEN ADDING A CASE, make sure to update the == definition below
+public enum MastodonTimelineType: Identifiable, Equatable {
     case homeTimeline
     case myBookmarks
     case myFavorites
@@ -104,67 +103,40 @@ public enum MastodonTimelineType: Equatable {
     case notificationRequests
     case whoFavourited(actionableStatusID: Mastodon.Entity.Status.ID)
     case whoBoosted(actionableStatusID: Mastodon.Entity.Status.ID)
-    // *** WHEN ADDING A CASE, make sure to update the == definition below
+    
+    public var id: String { // NOTE that this is relied on for equality
+        switch self {
+        case .homeTimeline: "home"
+        case .myBookmarks: "bookmarks"
+        case .myFavorites: "favorites"
+        case .myFollowedHashtags: "hashtags"
+        case .local: "local"
+        case .list(let listID): "list-\(listID)"
+        case .hashtag(let tag, let includeHeader): "hashtag-\(tag.name)-\(includeHeader)"
+        case .collection(let viewModel): "collection-\(viewModel.id)"
+        case .discover(let type): "discover-\(type)"
+        case .linkMentions(let url): "linkMentions-\(url)"
+        case .search(let model): "search-\(model.id)"
+        case .userPosts(userID: let userID, _): "userPosts-\(userID)"
+        case .featuredItems(let userID): "featured-\(userID)"
+        case .followers(let ofUserId): "followersOf-\(ofUserId)"
+        case .accountsFollowed(let byUserId): "followedBy-\(byUserId)"
+        case .familiarFollowers(let accountID): "familiarFollowers-\(accountID)"
+        case .postHistory(let post): "postHistory-\(post.id)"
+        case .thread(let root): "thread-\(root.id)"
+        case .remoteThread(.status(let id)): "remoteThread-status_\(id)"
+        case .remoteThread(.notification(let id)): "remoteThread-notification_\(id)"
+        case .notifications(.everything): "notifications-everything"
+        case .notifications(.mentions): "notifications-mentions"
+        case .notifications(.fromRequest(let request)): "notifications-request_\(request.id)"
+        case .notificationRequests: "notificationRequests"
+        case .whoFavourited(let actionableStatusID): "who-favorited-\(actionableStatusID)"
+        case .whoBoosted(let actionableStatusID): "who-boosted-\(actionableStatusID)"
+        }
+    }
 
     public static func == (lhs: MastodonTimelineType, rhs: MastodonTimelineType) -> Bool {
-        switch (lhs, rhs) {
-        case (.homeTimeline, .homeTimeline):
-            return true
-        case (.myBookmarks, .myBookmarks):
-            return true
-        case (.myFavorites, .myFavorites):
-            return true
-        case (.myFollowedHashtags, .myFollowedHashtags):
-            return true
-        case (.local, .local):
-            return true
-        case (.list(let first), .list(let second)):
-            return first == second
-        case (.hashtag(let firstTag, let firstHeader), .hashtag(let secondTag, let secondHeader)):
-            return firstTag == secondTag && firstHeader == secondHeader
-        case (.discover(let firstType), .discover(let secondType)):
-            return firstType == secondType
-        case (.linkMentions(let firstURL), .linkMentions(let secondURL)):
-            return firstURL == secondURL
-        case (.search(let first), .search(let second)):
-            return first.id == second.id
-        case (.userPosts(let firstID, _), .userPosts(let secondID, _)):
-            return firstID == secondID
-        case (.featuredItems(let userIDFirst), .featuredItems(let userIDSecond)):
-            return userIDFirst == userIDSecond
-        case (.followers(let ofUserIdFirst), .followers(let ofUserIdSecond)):
-            return ofUserIdFirst == ofUserIdSecond
-        case (.accountsFollowed(let byUserIdFirst), .accountsFollowed(let byUserIdSecond)):
-            return byUserIdFirst == byUserIdSecond
-        case (.familiarFollowers(let accountIdFirst), .familiarFollowers(let accountIdSecond)):
-            return accountIdFirst == accountIdSecond
-        case (.postHistory(let first), .postHistory(let second)):
-            return first.id == second.id
-        case (.thread(let first), .thread(let second)):
-            return first.id == second.id
-        case (.remoteThread(let remoteTypeFirst), .remoteThread(let remoteTypeSecond)):
-            switch (remoteTypeFirst, remoteTypeSecond) {
-            case (.status(let first), .status(let second)):
-                return first == second
-            case (.notification(let first), .notification(let second)):
-                return first == second
-            default:
-                return false
-            }
-        case (.notifications(let firstScope), .notifications(let secondScope)):
-            return firstScope == secondScope
-        case (.notificationRequests, .notificationRequests):
-            return true
-        case (.whoFavourited(let actionableStatusIdFirst), .whoFavourited(let actionableStatusIdSecond)):
-            return actionableStatusIdFirst == actionableStatusIdSecond
-        case (.whoBoosted(let actionableStatusIdFirst), .whoBoosted(let actionableStatusIdSecond)):
-            return actionableStatusIdFirst == actionableStatusIdSecond
-        case (.collection(let collectionViewModelFirst), .collection(let collectionViewModelSecond)):
-            return collectionViewModelFirst.id == collectionViewModelSecond.id
-            
-        default:
-            return false
-        }
+        lhs.id == rhs.id
     }
     
     public var isHistoryDisplay: Bool {
