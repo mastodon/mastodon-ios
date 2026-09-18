@@ -93,6 +93,7 @@ public enum MastodonTimelineType: Identifiable, Equatable {
     case search(SearchQueryModel)
     case userPosts(userID: String, queryFilter: TimelineQueryFilter)
     case featuredItems(userID: String)
+    case collections(curatedByUserID: String)
     case followers(ofUserId: String)
     case accountsFollowed(byUserId: String)
     case familiarFollowers(Mastodon.Entity.Account.ID)
@@ -118,7 +119,8 @@ public enum MastodonTimelineType: Identifiable, Equatable {
         case .linkMentions(let url): "linkMentions-\(url)"
         case .search(let model): "search-\(model.id)"
         case .userPosts(userID: let userID, _): "userPosts-\(userID)"
-        case .featuredItems(let userID): "featured-\(userID)"
+        case .featuredItems(let userID): "featured-by_\(userID)"
+        case .collections(let curatedByUserID): "collections-curatedBy_\(curatedByUserID)"
         case .followers(let ofUserId): "followersOf-\(ofUserId)"
         case .accountsFollowed(let byUserId): "followedBy-\(byUserId)"
         case .familiarFollowers(let accountID): "familiarFollowers-\(accountID)"
@@ -199,7 +201,7 @@ public enum MastodonTimelineType: Identifiable, Equatable {
                 .home
         case .hashtag:
                 .public
-        case .collection:
+        case .collection, .collections:
             nil
         case .list:
                 .home
@@ -585,17 +587,17 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         func timelineItem(fromCollection collection: Mastodon.Entity.Collection, partialAccounts: [Mastodon.Entity.PartialAccountWithAvatar]) -> TimelineItem {
           
             let viewModel = {
-                if let existing = collectionViewModels[collection.accountId] {
+                if let existing = collectionViewModels[collection.id] {
                     existing.updateCollection(collection)
                     updateCollectionModel(existing, withAuthorAccountID: collection.accountId, partialAccounts: partialAccounts)
                     return existing
                 } else {
                     let model = CollectionViewModel(collection: collection)
                     updateCollectionModel(model, withAuthorAccountID: collection.accountId, partialAccounts: partialAccounts)
-                    newCollectionModels[collection.id] = model
                     return model
                 }
             }()
+            newCollectionModels[collection.id] = viewModel
             return TimelineItem.collection(viewModel)
         }
         func timelineItem(fromHashtag hashtag: Mastodon.Entity.Tag) -> TimelineItem {
@@ -612,6 +614,15 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         }
         func timelineItem(fromNewsLink link: Mastodon.Entity.Card) -> TimelineItem {
             return TimelineItem.link(link)
+        }
+        
+        func collections(curatedBy userID: String) async throws -> [TimelineItem] {
+            guard authenticatedUser.authentication.instanceConfiguration?.isAvailable(.collections) == true else { return [] }
+            let response = try await APIService.shared.collections(accountID: userID, authenticationBox: authenticatedUser)
+            let partialAccounts = response.value.partialAccounts ?? []
+            return response.value.collections.map { collection in
+                timelineItem(fromCollection: collection, partialAccounts: partialAccounts)
+            }
         }
 
         let newBatch: [TimelineItem]
@@ -892,21 +903,15 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }()
             let accounts = accountsResponse.value.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
-            let collections: [TimelineItem] = await {
-                guard UserDefaults.standard.showCollections else { return [] }
-                do {
-                    let response = try await APIService.shared.collections(accountID: userID, authenticationBox: authenticatedUser)
-                    let partialAccounts = response.value.partialAccounts ?? []
-                    return response.value.collections.map { collection in
-                        timelineItem(fromCollection: collection, partialAccounts: partialAccounts)
-                    }
-                } catch {
-                    return []
-                }
-            }()
+            let usersCollections: [TimelineItem] = (try? await collections(curatedBy: userID)) ?? []
             newBatch = {
-                return (accounts.isEmpty ? [] : ([.heading(L10nLookup.Scene.Profile.FeaturedTab.accountsHeading)] + accounts)) + (collections.isEmpty ? [] : ([.heading(L10nLookup.Scene.Profile.FeaturedTab.collectionsHeading)] + collections))
+                return (accounts.isEmpty ? [] : ([.heading(L10nLookup.Scene.Profile.FeaturedTab.accountsHeading)] + accounts)) + (usersCollections.isEmpty ? [] : ([.heading(L10nLookup.Scene.Profile.FeaturedTab.collectionsHeading)] + usersCollections))
             }()
+            newBatchBottomLoad = .nothingMoreToLoad
+            newAsyncRefreshAvailable = nil
+            
+        case .collections(let curatedByUserID):
+            newBatch = try await collections(curatedBy: curatedByUserID)
             newBatchBottomLoad = .nothingMoreToLoad
             newAsyncRefreshAvailable = nil
             

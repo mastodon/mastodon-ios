@@ -449,7 +449,7 @@ import MastodonUI
             switch timeline {
             case .homeTimeline, .list, .featuredItems, .followers, .accountsFollowed, .familiarFollowers, .collection:
                 self?.needsReloadOnNextAppear = true
-            case .myBookmarks, .myFavorites, .myFollowedHashtags, .local, .hashtag, .linkMentions, .discover, .search, .userPosts, .postHistory, .thread, .remoteThread, .notifications, .notificationRequests, .whoFavourited, .whoBoosted:
+            case .myBookmarks, .myFavorites, .myFollowedHashtags, .local, .hashtag, .linkMentions, .discover, .search, .userPosts, .postHistory, .thread, .remoteThread, .notifications, .notificationRequests, .whoFavourited, .whoBoosted, .collections:
                 return
             }
         }

@@ -362,7 +362,7 @@ struct TimelineListView: View {
         switch timeline {
         case .homeTimeline:
             return nil
-        case .featuredItems(userID: let userID):
+        case .featuredItems(userID: let userID), .collections(let userID):
             guard viewModel.currentRelationship(to: userID)?.isMe != true else {
                 if AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.collections) == true {
                     return L10nLookup.Timeline.EmptyState.showcaseYourFavoriteAccounts
@@ -416,6 +416,13 @@ struct TimelineListView: View {
     
     private func emptyStateSecondaryMessage(_ timeline: MastodonTimelineType) -> String? {
         switch timeline {
+        case .collections(let curatedByUserID):
+            guard viewModel.currentRelationship(to: curatedByUserID)?.isMe == true else { return nil }
+            if viewModel.authenticatedUser?.authentication.instanceConfiguration?.isAvailable(.collections) == true {
+                return L10nLookup.Scene.Collections.collectionsExplainerShort
+            } else {
+                return L10nLookup.Scene.Collections.collectionsExplainerLong
+            }
         case .featuredItems(userID: let userID):
             if viewModel.currentRelationship(to: userID)?.isMe == true {
                 if AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.collections) == true {
@@ -536,6 +543,8 @@ struct TimelineListView: View {
         case .whoBoosted:
             EmptyView()
         case .collection:
+            EmptyView()
+        case .collections:
             EmptyView()
         }
     }
@@ -1439,6 +1448,9 @@ extension MastodonTimelineType {
             
         case .myFavorites:
             return L10n.Scene.Favorite.title
+            
+        case .collections:
+            return L10nLookup.Scene.Profile.FeaturedTab.collectionsHeading
             
         case .collection(let collectionViewModel):
             return nil // this will be collectionViewModel.collection.name, but until we require iOS26, cannot be displayed as title+subtitle, so will be displayed in a header section

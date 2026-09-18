@@ -43,7 +43,10 @@ struct ProfileMainMenuView: View {
     
     // MARK: Content buttons
     @ViewBuilder private var contentButtons: some View {
-        // Collections
+        if let myUserID = authenticationObserver.currentActiveUser?.userID, authenticationObserver.currentActiveUser?.authentication.instanceConfiguration?.isAvailable(.collections) == true {
+            // Collections
+            timelineRow(.collections(curatedByUserID: myUserID), image: Image(systemName: "circle.grid.2x2"))
+        }
         // Favourited Posts
         timelineRow(.myFavorites, image: Image(systemName: "heart"))
         // Saved Posts
