@@ -641,8 +641,8 @@ struct MastodonMainTabView: View {
     public private(set) var accountAvatarsCircularCropped = [ String : Image ]()
     
     private var accountAvatarImages = [ String : UIImage ]()
-    private var renderQueue = [String]()
-    private var currentRender: (String, Task<Void, Never>)?
+    @ObservationIgnored private var renderQueue = [String]()
+    @ObservationIgnored private var currentRender: (String, Task<Void, Never>)?
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
