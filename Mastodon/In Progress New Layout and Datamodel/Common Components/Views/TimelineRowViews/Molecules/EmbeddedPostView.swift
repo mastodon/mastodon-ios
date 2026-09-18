@@ -199,6 +199,10 @@ struct EmbeddedPostContentDisplayedView: View {
     
     let padding: CGFloat = 12
     
+    var avatarSize: AvatarSize {
+        isSummary ? .tiny : .small
+    }
+    
     var body: some View {
         let contentWidth = max(0, layoutWidth - padding * 2)
         HStack(spacing: 0) {
@@ -219,7 +223,7 @@ struct EmbeddedPostContentDisplayedView: View {
                                 Image(systemName: iconName)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .frame(width: AvatarSize.tiny)
+                                    .frame(width: avatarSize.rawValue)
                                 Text(labelText)
                             }
                             .foregroundStyle(.secondary)
@@ -284,7 +288,7 @@ struct EmbeddedPostContentDisplayedView: View {
                                 Color(UIColor.secondarySystemFill))
                     }
                 )
-                .frame(width: isSummary ? AvatarSize.tiny : AvatarSize.small, height: isSummary ? AvatarSize.tiny : AvatarSize.small)
+                .frame(width: avatarSize.rawValue, height: avatarSize.rawValue)
                 .accessibilityHidden(true)
             }
             VStack() {

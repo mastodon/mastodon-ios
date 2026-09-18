@@ -19,7 +19,9 @@ struct MastodonPostRowView: View {
     let threadedContext: ThreadedConversationModel.ThreadContext?
     let filterContext: Mastodon.Entity.FilterContext?
     
-    let distanceFromAvatarLeadingEdgeToContentLeadingEdge: CGFloat = spacingBetweenGutterAndContent + AvatarSize.large
+    let avatarSize = AvatarSize.large
+    
+    var distanceFromAvatarLeadingEdgeToContentLeadingEdge: CGFloat { spacingBetweenGutterAndContent + avatarSize.rawValue }
     
     var body: some View {
         let actionablePost = viewModel.fullPost?.actionablePost
@@ -33,7 +35,7 @@ struct MastodonPostRowView: View {
                     if threadedContext.drawsLineAbove {
                         HStack(spacing: 0) {
                             threadingDecoration(withSpacerAtTop: false, withSpacerAtBottom: !threadedContext.isContiguous)
-                                .frame(width: AvatarSize.large)
+                                .frame(width: avatarSize.rawValue)
                             Spacer()
                                 .frame(width: spacingBetweenGutterAndContent)
                         }
@@ -75,13 +77,13 @@ struct MastodonPostRowView: View {
                     if let threadedContext, threadedContext.drawsLineBelow {
                         let lowerThreadDecorationHeight: CGFloat? = {
                             if let precalculatedHeight {
-                                return precalculatedHeight - standardPadding - AvatarSize.large
+                                return precalculatedHeight - standardPadding - avatarSize.rawValue
                             } else {
                                 return nil
                             }
                         }()
                         threadingDecoration(withSpacerAtTop: !threadedContext.isContiguous, withSpacerAtBottom: false)
-                            .frame(width: AvatarSize.large, height: lowerThreadDecorationHeight)
+                            .frame(width: avatarSize.rawValue, height: lowerThreadDecorationHeight)
                     }
                 }
                 .accessibilityHidden(true)

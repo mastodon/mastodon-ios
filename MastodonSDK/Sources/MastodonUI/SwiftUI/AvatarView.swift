@@ -3,13 +3,30 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-public struct AvatarSize {
-    public static var extraExtraLarge: CGFloat = 106
-    public static var extraLarge: CGFloat = 80
-    public static var large: CGFloat = 44
-    public static var small: CGFloat = 32
-    public static var extraSmall: CGFloat = 24
-    public static var tiny: CGFloat = 16
+public enum AvatarSize: CGFloat {
+    case extraExtraLarge = 106
+    case extraLarge = 80
+    case large = 44
+    case small = 32
+    case extraSmall = 24
+    case tiny = 16
+    
+    public var roundedRectShape: RoundedRectangle {
+        switch self {
+        case .extraExtraLarge:
+            RoundedRectangle(cornerRadius: CornerRadius.extraExtraLarge)
+        case .extraLarge:
+            RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
+        case .large:
+            RoundedRectangle(cornerRadius: CornerRadius.standard)
+        case .small:
+            RoundedRectangle(cornerRadius: CornerRadius.standard)
+        case .extraSmall:
+            RoundedRectangle(cornerRadius: CornerRadius.small)
+        case .tiny:
+            RoundedRectangle(cornerRadius: CornerRadius.tiny)
+        }
+    }
 }
 
 public struct CornerRadius {
@@ -22,44 +39,11 @@ public struct CornerRadius {
 }
 
 public struct AvatarView: View {
-    var sizeExtraExtraLarge = AvatarSize.extraExtraLarge
-    var sizeExtraLarge = AvatarSize.extraLarge
-    var sizeLarge = AvatarSize.large
-    var sizeSmall = AvatarSize.small
-    var sizeExtraSmall = AvatarSize.extraSmall
-    var sizeTiny = AvatarSize.tiny
-    
     @Environment(\.displayScale) var displayScale
     
     public enum AvatarStyle {
         case roundedRect
         case circular
-    }
-    
-    public enum Size {
-        case extraExtraLarge
-        case extraLarge
-        case large
-        case small
-        case extraSmall
-        case tiny
-        
-        public var shape: RoundedRectangle {
-            switch self {
-            case .extraExtraLarge:
-                RoundedRectangle(cornerRadius: CornerRadius.extraExtraLarge)
-            case .extraLarge:
-                RoundedRectangle(cornerRadius: CornerRadius.extraLarge)
-            case .large:
-                RoundedRectangle(cornerRadius: CornerRadius.standard)
-            case .small:
-                RoundedRectangle(cornerRadius: CornerRadius.standard)
-            case .extraSmall:
-                RoundedRectangle(cornerRadius: CornerRadius.small)
-            case .tiny:
-                RoundedRectangle(cornerRadius: CornerRadius.tiny)
-            }
-        }
     }
     
     public enum BorderStyle {
@@ -74,32 +58,21 @@ public struct AvatarView: View {
     }
     
     let avatarStyle: AvatarStyle
-    let size: Size
+    let size: AvatarSize
     let borderStyle: BorderStyle?
     let avatarSource: AvatarSource?
     
-    public init(style: AvatarStyle, size: Size, borderStyle: BorderStyle? = nil, avatarSource: AvatarSource?) {
+    public init(style: AvatarStyle, size: AvatarSize, borderStyle: BorderStyle? = nil, avatarSource: AvatarSource?) {
         self.avatarStyle = style
         self.size = size
         self.borderStyle = borderStyle
         self.avatarSource = avatarSource
     }
     
-    private var viewDimension: CGFloat {
-        switch size {
-        case .extraExtraLarge: sizeExtraExtraLarge
-        case .extraLarge: sizeExtraLarge
-        case .large: sizeLarge
-        case .small: sizeSmall
-        case .extraSmall: sizeExtraSmall
-        case .tiny: sizeTiny
-        }
-    }
-    
     var avatarShape: AnyShape {
         switch avatarStyle {
         case .roundedRect:
-            return AnyShape(size.shape)
+            return AnyShape(size.roundedRectShape)
         case .circular:
                 return AnyShape(Circle())
         }
@@ -111,7 +84,7 @@ public struct AvatarView: View {
                 // in case the avatar has an alpha channel
                 switch avatarStyle {
                 case .roundedRect:
-                    background(size.shape)
+                    background(size.roundedRectShape)
                 case .circular:
                     background(Circle())
                 }
@@ -119,13 +92,13 @@ public struct AvatarView: View {
             .overlay {
                 switch avatarStyle {
                 case .roundedRect:
-                    overlay(size.shape)
+                    overlay(size.roundedRectShape)
                 case .circular:
                     overlay(Circle())
                 }
                 
             }
-            .frame(width: viewDimension, height: viewDimension)
+            .frame(width: size.rawValue, height: size.rawValue)
     }
     
     @ViewBuilder var avatarImageOrPlaceholder: some View {
@@ -143,7 +116,7 @@ public struct AvatarView: View {
                         placeholder: {
                             switch avatarStyle {
                             case .roundedRect:
-                                placeholder(size.shape)
+                                placeholder(size.roundedRectShape)
                             case .circular:
                                 placeholder(Circle())
                             }
@@ -153,7 +126,7 @@ public struct AvatarView: View {
                 } else {
                     switch avatarStyle {
                     case .roundedRect:
-                        placeholder(size.shape)
+                        placeholder(size.roundedRectShape)
                     case .circular:
                         placeholder(Circle())
                     }

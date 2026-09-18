@@ -13,7 +13,6 @@ struct CollectionRowView: View {
     let contentWidth: CGFloat
     let includeMenu: Bool
     
-    let avatarViewSize = AvatarView.Size.extraSmall
     let avatarSize = AvatarSize.extraSmall
     
     var body: some View {
@@ -24,14 +23,14 @@ struct CollectionRowView: View {
                     avatarsView
                         .blur(radius: viewModel.collection.sensitive == true ? 3 : 0)
                     if viewModel.collection.sensitive == true {
-                        avatarViewSize.shape
+                        avatarSize.roundedRectShape
                             .fill(Color(uiColor: .systemBackground))
-                            .frame(width: avatarSize, height: avatarSize)
+                            .frame(width: avatarSize.rawValue, height: avatarSize.rawValue)
                         Image(systemName: "eye.slash")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .padding(3)
-                            .frame(width: avatarSize)
+                            .frame(width: avatarSize.rawValue)
                     }
                 }
                 
@@ -80,13 +79,13 @@ struct CollectionRowView: View {
     @ViewBuilder func avatar(atIndex index: Int) -> some View {
         if index < viewModel.accountAvatarUrls.count {
             let url = viewModel.accountAvatarUrls[index]
-            AvatarView(style: .roundedRect, size: avatarViewSize, avatarSource: .url(url))
-                .frame(width: avatarSize, height: avatarSize)
+            AvatarView(style: .roundedRect, size: avatarSize, avatarSource: .url(url))
+                .frame(width: avatarSize.rawValue, height: avatarSize.rawValue)
                 .accessibilityHidden(true)
         } else {
-            avatarViewSize.shape
+            avatarSize.roundedRectShape
                 .fill(.secondary)
-                .frame(width: avatarSize, height: avatarSize)
+                .frame(width: avatarSize.rawValue, height: avatarSize.rawValue)
         }
     }
 }

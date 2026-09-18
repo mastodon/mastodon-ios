@@ -292,6 +292,7 @@ struct ProfileAvatarAndBannerView: View {
     
     @State var isAnsweringFollowRequest = false
     
+    let avatarSize = AvatarSize.extraLarge
     let maxWidth: CGFloat
     
     var body: some View {
@@ -318,12 +319,12 @@ struct ProfileAvatarAndBannerView: View {
                 }
                 
                 ZStack { // for avatar edit button
-                    AvatarView(style: .roundedRect, size: .extraLarge, avatarSource: avatarSource)
+                    AvatarView(style: .roundedRect, size: avatarSize, avatarSource: avatarSource)
                         .padding(.horizontal, doublePadding)
                     switch profileViewModel.editingStatus {
                     case .editing:
                         // if the user has already chosen a new image, let them see it unobscured, but tapping the avatar will still bring up the photo picker
-                        let buttonSize = AvatarSize.extraLarge + (avatarEditButtonSize / 2.0)
+                        let buttonSize = avatarSize.rawValue + (avatarEditButtonSize / 2.0)
                         avatarEditButton(showButton: editingViewModel.avatarConfirmedCroppedImage == nil)
                             .frame(maxWidth: buttonSize, maxHeight: buttonSize)
                     case .cannotEdit, .notEditing, .pushingChanges:

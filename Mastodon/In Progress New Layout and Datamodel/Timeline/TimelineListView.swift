@@ -278,13 +278,13 @@ enum MastodonTimelineSheet: Identifiable {
     }
 }
 
-var avatarSize = AvatarSize.large
+fileprivate let avatarSize = AvatarSize.large
 func useableWidth(fromGeoProxy geo: GeometryProxy) -> CGFloat {
     return geo.size.width - geo.safeAreaInsets.leading - geo.safeAreaInsets.trailing
 }
 
 func contentWidth(forUseableWidth useableWidth: CGFloat) -> CGFloat {
-    return max(1, useableWidth - (standardPadding /*left margin*/ + spacingBetweenGutterAndContent /*avatar trailing to content leading*/ + doublePadding /*right margin*/) - avatarSize)
+    return max(1, useableWidth - (standardPadding /*left margin*/ + spacingBetweenGutterAndContent /*avatar trailing to content leading*/ + doublePadding /*right margin*/) - avatarSize.rawValue)
 }
 
 extension View {
@@ -967,7 +967,7 @@ struct TimelineListView: View {
                 ZStack(alignment: .topTrailing) {
                     HStack {
                         Spacer()
-                            .frame(width: AvatarSize.large + spacingBetweenGutterAndContent)
+                            .frame(width: avatarSize.rawValue + spacingBetweenGutterAndContent)
                         Rectangle()
                             .fill(isScrollAnchor ? .yellow.opacity(0.2) : .clear)
                             .frame(width: spacingBetweenGutterAndContent)

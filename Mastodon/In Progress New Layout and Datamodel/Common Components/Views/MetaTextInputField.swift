@@ -451,12 +451,13 @@ public struct CharacterLimit {
 
 struct AutoCompleteCard: View {
     let item: AutoCompleteItem
+    let avatarSize = AvatarSize.small
     
     var body: some View {
         HStack {
             switch item {
             case .account(let account):
-                AvatarView(style: .roundedRect, size: .small, avatarSource: .url(account.avatarImageURL()))
+                AvatarView(style: .roundedRect, size: avatarSize, avatarSource: .url(account.avatarImageURL()))
                 Text("@\(account.acct)")
                     .foregroundColor(Asset.Colors.accent.swiftUIColor)
                     .font(.subheadline)
@@ -483,7 +484,7 @@ struct AutoCompleteCard: View {
                         EmptyView()
                     }
                 )
-                .frame(width: AvatarSize.small, height: AvatarSize.small)
+                .frame(width: avatarSize.rawValue, height: avatarSize.rawValue)
                 Text(":\(emoji.shortcode):")
                     .foregroundStyle(.secondary)
                     .font(.footnote)

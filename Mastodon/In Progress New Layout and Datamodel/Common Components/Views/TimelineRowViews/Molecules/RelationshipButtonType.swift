@@ -201,7 +201,7 @@ enum RelationshipButtonType {
             Button() {
                 // nothing to do
             } label: {
-                lightwieghtImageView("exclamationmark.triangle", size: AvatarSize.tiny)
+                lightwieghtImageView("exclamationmark.triangle", size: AvatarSize.tiny.rawValue)
             }
             .buttonStyle(RelationshipButtonStyle(self, isLarge: false, isOpaque: isOpaque, isInCollection: isInCollection))
         default:
@@ -228,7 +228,7 @@ enum RelationshipButtonType {
                 
             } label: {
                 lightwieghtImageView(
-                    "exclamationmark.triangle", size: AvatarSize.tiny)
+                    "exclamationmark.triangle", size: AvatarSize.tiny.rawValue)
             }
             .buttonStyle(RelationshipButtonStyle(self, isLarge: true, isOpaque: isOpaque, isInCollection: isInCollection))
         default:

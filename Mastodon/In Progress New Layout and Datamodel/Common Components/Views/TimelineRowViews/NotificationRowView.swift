@@ -9,6 +9,9 @@ import MastodonUI
 import MetaTextKit
 import SwiftUI
 
+fileprivate let mainAvatarSize = AvatarSize.large
+fileprivate let stackedAvatarSize = AvatarSize.small
+
 enum AuthorName {
     case me
     case other(named: String, emojis: [MastodonContent.Shortcode : String ])
@@ -262,7 +265,7 @@ struct NotificationIconView: View {
                 .foregroundStyle(color)
         }
         .font(.system(size: 25))
-        .frame(width: AvatarSize.large, alignment: .center)
+        .frame(width: mainAvatarSize.rawValue, alignment: .center)
         .fontWeight(.semibold)
     }
 }
@@ -373,7 +376,7 @@ struct NotificationSourceAccounts {
 }
 
 fileprivate let avatarSpacing: CGFloat = 8
-fileprivate let disclosureIndicatorSize = AvatarSize.large
+fileprivate let disclosureIndicatorSize = mainAvatarSize.rawValue
 
 struct NotificationRequestRowView: View {
     let contentWidth: CGFloat
@@ -386,7 +389,7 @@ struct NotificationRequestRowView: View {
         VStack(alignment: .gutterAlign, spacing: 0) {
             HStack(alignment: .top, spacing: 0) {
                 // ICON
-                AvatarView(style: .roundedRect, size: .large, avatarSource: .url(viewModel.account.avatarURL))
+                AvatarView(style: .roundedRect, size: mainAvatarSize, avatarSource: .url(viewModel.account.avatarURL))
                     .onAsyncTap {
                         navigator.push(.profile(account: viewModel.account._legacyEntity, relationship: nil))
                     } onError: { error in
@@ -676,7 +679,7 @@ struct NotificationRowView: View {
                     ForEach(
                         accountInfo.accounts.prefix(maxAvatarCount), id: \.self.id
                     ) { account in
-                        AvatarView(style: .roundedRect, size: .small, avatarSource: .url(account.avatarURL))
+                        AvatarView(style: .roundedRect, size: stackedAvatarSize, avatarSource: .url(account.avatarURL))
                             .onAsyncTap {
                                 try await viewModel.navigateToProfile(account, navigator: navigator)
                             } onError: { error in
@@ -691,7 +694,7 @@ struct NotificationRowView: View {
                             .foregroundStyle(.secondary)
                             .fontWeight(.light)
                     }
-                    .frame(width: 0.75 * AvatarSize.small)
+                    .frame(width: 0.75 * stackedAvatarSize.rawValue)
                 }
                 Spacer().frame(minWidth: 0, maxWidth: .infinity)
                 avatarRowTrailingElement(
@@ -699,7 +702,7 @@ struct NotificationRowView: View {
                 .accessibilityHidden(true)
             }
         }
-        .frame(height: AvatarSize.small)  // this keeps GeometryReader from causing inconsistent visual spacing in the VStack
+        .frame(height: stackedAvatarSize.rawValue)  // this keeps GeometryReader from causing inconsistent visual spacing in the VStack
     }
     
     @ViewBuilder
@@ -736,7 +739,7 @@ struct NotificationRowView: View {
                         Button(action: {
                             viewModel.doAvatarRowButtonAction(false, navigator: navigator)
                         }) {
-                            lightwieghtImageView("xmark.circle", size: AvatarSize.small)
+                            lightwieghtImageView("xmark.circle", size: stackedAvatarSize.rawValue)
                         }
                         .buttonStyle(
                             ImageButton(
@@ -746,7 +749,7 @@ struct NotificationRowView: View {
                             viewModel.doAvatarRowButtonAction(true, navigator: navigator)
                         }) {
                             lightwieghtImageView(
-                                "checkmark.circle", size: AvatarSize.small)
+                                "checkmark.circle", size: stackedAvatarSize.rawValue)
                         }
                         .buttonStyle(
                             ImageButton(
@@ -754,10 +757,10 @@ struct NotificationRowView: View {
                     }
                 case .iHaveAnsweredTheirRequestToFollowMe(let didAccept):
                     if didAccept {
-                        lightwieghtImageView("checkmark", size: AvatarSize.small)
+                        lightwieghtImageView("checkmark", size: stackedAvatarSize.rawValue)
                             .accessibilityLabel(L10n.Scene.Notification.FollowRequest.accepted)
                     } else {
-                        lightwieghtImageView("xmark", size: AvatarSize.small)
+                        lightwieghtImageView("xmark", size: stackedAvatarSize.rawValue)
                             .accessibilityLabel(L10n.Scene.Notification.FollowRequest.rejected)
                     }
                 }
@@ -771,7 +774,7 @@ let baseActionSuperheaderHeight: CGFloat = 20
         fittingWidth: CGFloat, totalAvatarCount: Int, totalActorCount: Int
     ) -> Int {
         let maxAvatarCount = Int(
-            floor(fittingWidth / (AvatarSize.small + avatarSpacing)))
+            floor(fittingWidth / (stackedAvatarSize.rawValue + avatarSpacing)))
         if maxAvatarCount < totalActorCount {
             return max(0, maxAvatarCount - 1)
         } else {
