@@ -52,7 +52,7 @@ struct HashtagWidgetView: View {
                         .foregroundColor(.secondary)
                 }
                 HStack(spacing: 0) {
-                    Image(systemName: "star")
+                    Image(systemName: "heart")
                         .foregroundColor(.secondary)
                     Text("\(entry.hashtag.favoriteCount)")
                         .font(.caption)

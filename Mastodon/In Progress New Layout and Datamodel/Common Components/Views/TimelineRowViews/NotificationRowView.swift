@@ -85,7 +85,7 @@ extension GroupedNotificationType {
     var iconColor: Color {
         switch self {
         case .favourite:
-            return .orange
+            return Asset.Colors.accent.swiftUIColor
         case .reblog:
             return .green
         case .quote:

@@ -86,7 +86,7 @@ enum MastodonMenuAction: Hashable {
             case .openInBrowser:
                 "safari"
             case .myFavorites:
-                "star"
+                "heart"
             case .myBookmarks:
                 "bookmark"
             case .myFollowedHashtags:

@@ -1,7 +1,5 @@
 // Copyright © 2025 Mastodon gGmbH. All rights reserved.
 
-import SwiftUI
-
 enum PostAction {
     case reply
     case boost
@@ -15,22 +13,9 @@ enum PostAction {
         case .boost:
             return "arrow.2.squarepath"
         case .favourite:
-            return filled ? "star.fill" : "star"
+            return filled ? "heart.fill" : "heart"
         case .bookmark:
             return filled ? "bookmark.fill" : "bookmark"
-        }
-    }
-    
-    var selectedColor: Color? {
-        switch self {
-        case .reply:
-            return nil
-        case .boost:
-            return .green
-        case .favourite:
-            return .yellow
-        case .bookmark:
-            return .red
         }
     }
 }

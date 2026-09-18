@@ -31,9 +31,9 @@ struct ProfileMainMenuView: View {
     @ViewBuilder private var profileButtons: some View {
         if let currentActiveUser = authenticationObserver.currentActiveUser, let myProfileViewModel {
             // View Profile
-            navigationRow("View Profile", icon: .avatar(currentActiveUser.cachedAccount?.avatarURL), navigatingTo: .myProfile(myProfileViewModel))
+            navigationRow(L10nLookup.Scene.Profile.MainMenu.viewProfile, icon: .avatar(currentActiveUser.cachedAccount?.avatarURL), navigatingTo: .myProfile(myProfileViewModel))
             // Edit Profile
-            navigationRow("Edit Profile", icon: .image(Image(systemName: "person")), navigatingTo: .editProfile(profileViewModel: myProfileViewModel))
+            navigationRow(L10nLookup.Scene.EditProfile.title, icon: .image(Image(systemName: "person")), navigatingTo: .editProfile(profileViewModel: myProfileViewModel))
         }
         // Settings
         menuRow(L10n.Common.Controls.Actions.settings, icon: .image(Image(systemName: "gear"))) {

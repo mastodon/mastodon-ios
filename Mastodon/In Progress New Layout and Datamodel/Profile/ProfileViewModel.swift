@@ -73,7 +73,7 @@ import MastodonLocalization
             let settings = UIBarButtonItem(image: .init(systemName: "gearshape"), style: .plain, target: self, action: nil)
             let hashtags = UIBarButtonItem(image: .init(systemName: "number"), style: .plain, target: self, action: nil)
             let bookmarks = UIBarButtonItem(image: .init(systemName: "bookmark"), style: .plain, target: self, action: nil)
-            let favourites = UIBarButtonItem(image: .init(systemName: "star"), style: .plain, target: self, action: nil)
+            let favourites = UIBarButtonItem(image: .init(systemName: "heart"), style: .plain, target: self, action: nil)
             let share = UIBarButtonItem(image: .init(systemName: "square.and.arrow.up"), style: .plain, target: self, action: nil)
             return [hashtags, bookmarks, favourites, share, settings]
         case .isNotMe:

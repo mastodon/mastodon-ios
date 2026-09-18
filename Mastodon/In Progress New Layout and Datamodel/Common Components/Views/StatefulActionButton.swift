@@ -1,6 +1,7 @@
 // Copyright © 2025 Mastodon gGmbH. All rights reserved.
 
 import SwiftUI
+import MastodonAsset
 
 enum AsyncBool {
     case unknown
@@ -35,7 +36,7 @@ struct StatefulCountedActionButton: View {
     let actionState: ActionState
     let doAction: (()->())?
     
-    private let iconFont: Font = .body
+    private let iconFont: SwiftUI.Font = .body
     
     var body: some View {
         Button {
@@ -109,12 +110,7 @@ struct StatefulCountedActionButton: View {
     }
     private var color: Color {
         if actionState.isSelected == .isTrue {
-            switch type {
-            case .reply: return .secondary
-            case .boost: return .green
-            case .favourite: return .yellow
-            case .bookmark: return .red
-            }
+            return Asset.Colors.accent.swiftUIColor
         } else {
             return .secondary
         }
