@@ -17,147 +17,6 @@ func debugScroll(_ message: String) {
 #endif
 }
 
-enum TimelineViewType {
-    case home
-    case notifications(NotificationsScope)
-    case notificationRequests
-    case discover(DiscoveryType)
-    case linkMentions(String)
-    case myBookmarks
-    case myFavorites
-    case myFollowedHashtags
-    case followers(ofUserId: Mastodon.Entity.Account.ID)
-    case accountsFollowed(byUserId: Mastodon.Entity.Account.ID)
-    case familiarFollowers(MastodonAccount, TimelineListViewModel)
-    case search(SearchQueryModel)
-    case profilePosts(tabTitle: String?, userID: String, queryFilter: TimelineQueryFilter)
-    case postHistory(MastodonContentPost)
-    case thread(root: MastodonContentPost)
-    case remoteThread(root: RemoteThreadType)
-    case hashtag(Mastodon.Entity.Tag)
-    case collection(CollectionViewModel)
-    case whoFavourited(actionableStatusID: Mastodon.Entity.Status.ID)
-    case whoBoosted(actionableStatusID: Mastodon.Entity.Status.ID)
-    
-    var tabTitle: String? {
-        switch self {
-        case .profilePosts(let tabTitle, _, _):
-            return tabTitle
-        default:
-            return nil
-        }
-    }
-    
-    var navigationTitle: String? {
-        switch self {
-        case .home:
-            return nil
-        case .notifications:
-            return nil
-        case .linkMentions:
-            return nil
-        case .notificationRequests:
-            return L10n.Scene.Notification.FilteredNotification.title
-        case .postHistory:
-            return L10n.Common.Controls.Status.EditHistory.title
-        case .thread(let focusedPost):
-            let authorHandle = focusedPost.initialDisplayInfo().actionableAuthorHandle
-            return L10n.Scene.Thread.title("@\(authorHandle)")
-        case .discover, .profilePosts, .remoteThread:
-            return nil
-        case .myBookmarks:
-            return L10n.Scene.Bookmark.title
-            
-        case .myFavorites:
-            return L10n.Scene.Favorite.title
-            
-        case .collection(let collectionViewModel):
-            return nil // this will be collectionViewModel.collection.name, but until we require iOS26, cannot be displayed as title+subtitle, so will be displayed in a header section
-            
-        case .whoFavourited:
-            return L10n.Scene.FavoritedBy.title
-            
-        case .whoBoosted:
-            return L10n.Scene.RebloggedBy.title
-            
-        case .followers:
-            return L10n.Scene.Follower.title
-        case .accountsFollowed:
-            return L10n.Scene.Following.title
-        case .familiarFollowers(let account, _):
-            return account.displayInfo.fullHandle
-        case .search(let searchModel):
-            return searchModel.trimmedSearchString
-        case .hashtag(let tag):
-            return "#\(tag.name)"
-
-        case .myFollowedHashtags:
-            return L10n.Scene.FollowedTags.title
-        }
-    }
-    
-    @MainActor var contentConcealModel: ContentConcealViewModel {
-        switch self {
-        case .collection(let viewModel):
-            if viewModel.collection.sensitive == true {
-                return ContentConcealViewModel(initialHideContent: true)
-            } else {
-                return ContentConcealViewModel.alwaysShow
-            }
-        default:
-            return ContentConcealViewModel.alwaysShow
-        }
-    }
-}
-
-extension TimelineViewType {
-    @MainActor
-    func timelineViewModel(asyncRefreshViewModel: AsyncRefreshViewModel, navigator: MastodonNavigationRouter) -> TimelineListViewModel {
-        switch self {
-        case .home:
-            TimelineListViewModel(timeline: .homeTimeline, navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .notifications(let scope):
-            TimelineListViewModel(timeline: .notifications(scope: scope), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .notificationRequests:
-            TimelineListViewModel(timeline: .notificationRequests, navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .discover(let type):
-            TimelineListViewModel(timeline: .discover(type), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .linkMentions(let url):
-            TimelineListViewModel(timeline: .linkMentions(url), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .search(let searchModel):
-            TimelineListViewModel(timeline: .search(searchModel), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .profilePosts(_, let user, let queryFilter):
-            TimelineListViewModel(timeline: .userPosts(userID: user, queryFilter: queryFilter), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .postHistory(let post):
-            TimelineListViewModel(timeline: .postHistory(post), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .thread(let root):
-            TimelineListViewModel(timeline: .thread(root: root), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .remoteThread(let remoteThreadType):
-            TimelineListViewModel(timeline: .remoteThread(remoteType: remoteThreadType), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .followers(let followedAccount):
-            TimelineListViewModel(timeline: .followers(ofUserId: followedAccount), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .accountsFollowed(let followingAccount):
-            TimelineListViewModel(timeline: .accountsFollowed(byUserId: followingAccount), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .familiarFollowers(_, let premadeViewModel):
-            premadeViewModel
-        case .myFollowedHashtags:
-            TimelineListViewModel(timeline: .myFollowedHashtags, navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .myBookmarks:
-            TimelineListViewModel(timeline: .myBookmarks, navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .myFavorites:
-            TimelineListViewModel(timeline: .myFavorites, navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .hashtag(let tag):
-            TimelineListViewModel(timeline: .hashtag(tag, includeHeader: true), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .collection(let collectionViewModel):
-            TimelineListViewModel(timeline: .collection(collectionViewModel), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .whoFavourited(let statusID):
-            TimelineListViewModel(timeline: .whoFavourited(actionableStatusID: statusID), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        case .whoBoosted(let statusID):
-            TimelineListViewModel(timeline: .whoBoosted(actionableStatusID: statusID), navigator: navigator, asyncRefreshViewModel: asyncRefreshViewModel)
-        }
-    }
-}
-
 extension NotificationsScope {
     var pickerLabel: String {
         switch self {
@@ -832,7 +691,7 @@ struct TimelineListView: View {
                             .frame(width: useableWidth)
                             .environment(tagViewModel)
                             .onTapGesture {
-                                navigator.push(.timeline(.hashtag(tagViewModel.entity)))
+                                navigator.push(.timeline(.hashtag(tagViewModel.entity, includeHeader: true)))
                             }
                     }
                     
@@ -1557,3 +1416,68 @@ struct BoostsAndRepliesFilterButton: View {
     }
 }
 
+extension MastodonTimelineType {
+    var navigationTitle: String? {
+        switch self {
+        case .homeTimeline:
+            return nil
+        case .notifications:
+            return nil
+        case .linkMentions:
+            return nil
+        case .notificationRequests:
+            return L10n.Scene.Notification.FilteredNotification.title
+        case .postHistory:
+            return L10n.Common.Controls.Status.EditHistory.title
+        case .thread(let focusedPost):
+            let authorHandle = focusedPost.initialDisplayInfo().actionableAuthorHandle
+            return L10n.Scene.Thread.title("@\(authorHandle)")
+        case .discover, .userPosts, .remoteThread:
+            return nil
+        case .myBookmarks:
+            return L10n.Scene.Bookmark.title
+            
+        case .myFavorites:
+            return L10n.Scene.Favorite.title
+            
+        case .collection(let collectionViewModel):
+            return nil // this will be collectionViewModel.collection.name, but until we require iOS26, cannot be displayed as title+subtitle, so will be displayed in a header section
+            
+        case .whoFavourited:
+            return L10n.Scene.FavoritedBy.title
+            
+        case .whoBoosted:
+            return L10n.Scene.RebloggedBy.title
+            
+        case .followers:
+            return L10n.Scene.Follower.title
+        case .accountsFollowed:
+            return L10n.Scene.Following.title
+        case .familiarFollowers:
+            return nil
+        case .search(let searchModel):
+            return searchModel.trimmedSearchString
+        case .hashtag(let tag, _):
+            return "#\(tag.name)"
+            
+        case .local, .list, .featuredItems:
+            return nil
+            
+        case .myFollowedHashtags:
+            return L10n.Scene.FollowedTags.title
+        }
+    }
+    
+    @MainActor var contentConcealModel: ContentConcealViewModel {
+        switch self {
+        case .collection(let viewModel):
+            if viewModel.collection.sensitive == true {
+                return ContentConcealViewModel(initialHideContent: true)
+            } else {
+                return ContentConcealViewModel.alwaysShow
+            }
+        default:
+            return ContentConcealViewModel.alwaysShow
+        }
+    }
+}

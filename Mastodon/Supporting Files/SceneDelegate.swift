@@ -202,7 +202,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func showRemoteStatusThread(localStatusId: Mastodon.Entity.Status.ID) async throws {
-        MastodonTabViewRouter.current.show(.timeline(.remoteThread(root: .status(localStatusId))), in: .home)
+        MastodonTabViewRouter.current.show(.timeline(.remoteThread(remoteType: .status(localStatusId))), in: .home)
     }
 }
 

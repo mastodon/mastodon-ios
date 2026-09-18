@@ -44,7 +44,7 @@ struct ExploreRootView: View {
                 switch newValue.first {
                 case .profile(let account, _):
                     searchViewModel.didSelectSearchResult(authenticatedUser, account: account, hashtag: nil)
-                case .timeline(.hashtag(let tag)):
+                case .timeline(.hashtag(let tag, _)):
                     searchViewModel.didSelectSearchResult(authenticatedUser, account: nil, hashtag: tag)
                 default:
                     break
@@ -109,7 +109,7 @@ struct ExploreRootView: View {
                         .frame(width: useableWidth)
                         .environment(tagModel)
                         .onTapGesture {
-                            navigationStackNavigator.push(.timeline(.hashtag(tagModel.entity)))
+                            navigationStackNavigator.push(.timeline(.hashtag(tagModel.entity, includeHeader: true)))
                         }
                 default:
                     Text("Unimplemented search result type")

@@ -461,7 +461,7 @@ struct NotificationRequestRowView: View {
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        navigator.push(.timeline(.notifications(.fromRequest(viewModel.requestEntity))))
+                        navigator.push(.timeline(.notifications(scope: .fromRequest(viewModel.requestEntity))))
                     }
                 }
                 .frame(width: contentWidth)

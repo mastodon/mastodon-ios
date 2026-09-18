@@ -547,7 +547,7 @@ struct ProfileInfoView: View {
                             FamiliarFollowersElement(familiarFollowers: familiarFollowers)
                                 .onTapGesture {
                                     if let account = viewModel.account {
-                                        navigationRouter.push(.timeline(.familiarFollowers(account, familiarFollowersViewModel)))
+                                        navigationRouter.push(.existingTimeline(familiarFollowersViewModel, title: account.displayInfo.fullHandle))
                                     }
                                 }
                         }

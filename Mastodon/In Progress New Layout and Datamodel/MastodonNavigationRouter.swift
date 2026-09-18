@@ -8,7 +8,8 @@ import MastodonLocalization
 import MastodonUI
 
 enum MastodonNavigationDestination: Identifiable {
-    case timeline(TimelineViewType)
+    case timeline(MastodonTimelineType)
+    case existingTimeline(TimelineListViewModel, title: String?)
     case myProfile(ProfileViewModel)
     case profile(account: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?)
     case settings(SettingsDestinationType)
@@ -71,7 +72,7 @@ enum MastodonNavigationDestination: Identifiable {
         switch destination {
         case .timeline(let timelineType):
             let asyncRefreshModel = AsyncRefreshViewModel()
-            let timelineViewModel = timelineType.timelineViewModel(asyncRefreshViewModel: asyncRefreshModel, navigator: self)
+            let timelineViewModel = TimelineListViewModel(timeline: timelineType, navigator: self, asyncRefreshViewModel: asyncRefreshModel)
             TimelineListView()
                 .timelineEnvironment(timelineModel: timelineViewModel,
                                      contentConcealModel: timelineType.contentConcealModel,
@@ -79,6 +80,11 @@ enum MastodonNavigationDestination: Identifiable {
                                      asyncRefreshModel: asyncRefreshModel)
                 .navigationTitle(timelineType.navigationTitle ?? "")
 
+        case .existingTimeline(let model, title: let title):
+            TimelineListView()
+                .timelineEnvironment(timelineModel: model, contentConcealModel: model.timeline.contentConcealModel, filter: model.timelineQueryFilter, asyncRefreshModel: model.asyncRefreshViewModel)
+                .navigationTitle(title ?? model.timeline.navigationTitle ?? "")
+            
         case .profile(let account, let relationship):
             let viewModel = profileViewModel(account, relationship: relationship)
             ProfileView()
@@ -423,6 +429,8 @@ extension MastodonNavigationDestination: Hashable {
         switch self {
         case .timeline(let type):
             return "timeline(\(type))"
+        case .existingTimeline(let model, let title):
+            return "existingTimeline-\(title ?? "untitled")(\(ObjectIdentifier(model)))"
         case .profile(let account, let relationship):
             let isMeString = {
                 guard let isMyAccount = relationship?.refersToSameAccount(as: .isMe) else { return "ME_UNKNOWN" }

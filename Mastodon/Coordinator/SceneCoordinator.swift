@@ -91,7 +91,7 @@ final public class SceneCoordinator {
                             
                         case .mention, .reblog, .favourite, .poll, .status, .quote, .quotedUpdate, .update:
                             let notificationID = String(pushNotification.notificationID)
-                            return .timeline(.remoteThread(root: .notification(notificationID)))
+                            return .timeline(.remoteThread(remoteType: .notification(notificationID)))
                             
                         default:
                             assertionFailure()

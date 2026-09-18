@@ -163,7 +163,7 @@ struct PrecalculatedHeight {
             return .handled
         } else if let hashtag = fullPost?.actionablePost?.content.htmlWithEntities?.tags.first(where: { $0.name.lowercased() == url.lastPathComponent.lowercased() && url.pathComponents.contains("tags") }) {
             guard AuthenticationServiceProvider.shared.currentActiveUser.value != nil else { return .needsSystemOpen(url) }
-            navigator.push(.timeline(.hashtag(hashtag)))
+            navigator.push(.timeline(.hashtag(hashtag, includeHeader: true)))
             return .handled
         } else if let collection = fullPost?.actionablePost?.content.htmlWithEntities?.collections.first(where: { $0.id == url.lastPathComponent && url.pathComponents.contains("collections") }) {
             let collectionModel = {

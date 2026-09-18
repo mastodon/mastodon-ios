@@ -162,7 +162,7 @@ struct ProfileMainMenuView: View {
         menuRow(title, icon: icon, role: nil) { navigator.push(destination) }
     }
     
-    @ViewBuilder private func timelineRow(_ timelineType: TimelineViewType, image: Image) -> some View {
+    @ViewBuilder private func timelineRow(_ timelineType: MastodonTimelineType, image: Image) -> some View {
         navigationRow(timelineType.navigationTitle ?? "", icon: .image(image), navigatingTo: .timeline(timelineType))
     }
 }
