@@ -66,7 +66,7 @@ extension Mastodon.API.Collections {
         return Mastodon.Response.Content(value: value, response: response)
     }
     
-    /// Get a single collection
+/*    /// Get a single collection
     ///
     /// - Since: 4.6.0
     /// - Version: 4.6.0
@@ -78,25 +78,26 @@ extension Mastodon.API.Collections {
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
     ///   - authorization: User token
-    /// - Returns: `AnyPublisher` contains `[Mastodon.Entity.Collection]` nested in the response
-    public static func getCollection(
-        session: URLSession,
-        domain: String,
-        collectionID: Mastodon.Entity.Collection.ID,
-        authorization: Mastodon.API.OAuth.Authorization,
-        useBetaEndpoint: Bool
-    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Collection> {
-        let request = Mastodon.API.get(
-            url: collectionsEndpointURL(domain: domain, useBetaEndpoint: useBetaEndpoint),
-            authorization: authorization
-        )
-        RateLimitViewModel.shared.didMakeRequest("collection \(collectionID)")
-        let (data, response) = try await session.data(for: request)
-        let value = try Mastodon.API.decode(
-            type: Mastodon.Entity.Collection.self, from: data,
-            response: response)
-        return Mastodon.Response.Content(value: value, response: response)
-    }
+    /// - Returns: `AnyPublisher` contains `Mastodon.Entity.Collection` nested in the response
+ */
+//    public static func getCollection(
+//        session: URLSession,
+//        domain: String,
+//        collectionID: Mastodon.Entity.Collection.ID,
+//        authorization: Mastodon.API.OAuth.Authorization,
+//        useBetaEndpoint: Bool
+//    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Collection> { // see the documentation - this does not simply return a collection, but an object with a "collection" entry and an "accounts" entry that contains a list of the accounts in the collection, as well as the owner of the collection
+//        let request = Mastodon.API.get(
+//            url: collectionsEndpointURL(domain: domain, useBetaEndpoint: useBetaEndpoint).appendingPathComponent(collectionID),
+//            authorization: authorization
+//        )
+//        RateLimitViewModel.shared.didMakeRequest("collection \(collectionID)")
+//        let (data, response) = try await session.data(for: request)
+//        let value = try Mastodon.API.decode(
+//            type: Mastodon.Entity.Collection.self, from: data,
+//            response: response)
+//        return Mastodon.Response.Content(value: value, response: response)
+//    }
     
     public static func removeFromCollection(
         session: URLSession,
