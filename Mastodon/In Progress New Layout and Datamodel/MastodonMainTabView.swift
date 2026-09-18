@@ -226,9 +226,20 @@ struct MastodonMainTabView: View {
                         }
                         
                     case .compact, .none:
-                        Tab(tab.title, systemImage: tab.systemImage, value: tab) {
+                        Tab(value: tab) {
                             view(forTab: tab)
+                        } label: {
+                            Label {
+                                Text(tab.title)
+                            } icon: {
+                                if let avatar = avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular) {
+                                    avatar
+                                } else {
+                                    Image(systemName: tab.systemImage)
+                                }
+                            }
                         }
+                       
                     @unknown default:
                         Tab(tab.title, systemImage: tab.systemImage, value: tab) {
                             view(forTab: tab)
@@ -620,6 +631,7 @@ struct MastodonMainTabView: View {
         didSet {
             if oldValue != displayScale {
                 accountAvatarIconsRendered.removeAll(keepingCapacity: true)
+                accountAvatarsCircularCropped.removeAll(keepingCapacity: true)
                 currentRender?.1.cancel()
                 currentRender = nil
             }
@@ -724,7 +736,7 @@ struct MastodonMainTabView: View {
                 let circRenderer = ImageRenderer(content: circularAvatarView)
                 circRenderer.scale = displayScale
                 guard let rendered = circRenderer.uiImage else { return }
-                accountAvatarsCircularCropped[nextRenderGUID] = Image(uiImage: rendered)
+                accountAvatarsCircularCropped[nextRenderGUID] = Image(uiImage: rendered.withRenderingMode(.alwaysOriginal))
             })
         }
     }
