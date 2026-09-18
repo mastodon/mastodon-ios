@@ -2,76 +2,42 @@
 import SwiftUI
 import MastodonCore
 import MastodonLocalization
+import MastodonUI
 
 struct ProfileMainMenuView: View {
     @Environment(MastodonNavigationRouter.self) private var navigator
     @Environment(ProfileViewModel.self) private var myProfileViewModel: ProfileViewModel?
     @Environment(AuthenticationObserver.self) private var authenticationObserver
-    @State private var avatarIconRenderer = AvatarIconRenderer.shared
     
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading) {
                 profileButtons
                 Divider()
-                alternateAccountButtons
+                contentButtons
                 Divider()
-                
+                relationshipButtons
+                Divider()
+                alternateAccountButtons
+                addAccountButton
+                Divider()
                 logOutActiveUserButton
-                    .padding(.horizontal)
-                    .padding(.vertical, tinySpacing)
             }
             .padding()
         }
     }
-
+    
     // MARK: Profile buttons
     @ViewBuilder private var profileButtons: some View {
-        viewProfileButton
-            .padding(.horizontal)
-        editProfileButton
-            .padding(.horizontal)
-        settingsButton
-            .padding(.horizontal)
-    }
-    
-    @ViewBuilder private var viewProfileButton: some View {
         if let currentActiveUser = authenticationObserver.currentActiveUser, let myProfileViewModel {
-            Button {
-                navigator.push(.myProfile(myProfileViewModel))
-            } label: {
-                Label {
-                    Text("View Profile") // TODO: L10n
-                } icon: {
-                    avatarIconRenderer.prerenderedAccountAvatar(currentActiveUser.globallyUniqueUserIdentifier, style: .circular)
-                }
-            }
+            // View Profile
+            navigationRow("View Profile", icon: .avatar(currentActiveUser.cachedAccount?.avatarURL), navigatingTo: .myProfile(myProfileViewModel))
+            // Edit Profile
+            navigationRow("Edit Profile", icon: .image(Image(systemName: "person")), navigatingTo: .editProfile(profileViewModel: myProfileViewModel))
         }
-    }
-    
-    @ViewBuilder private var editProfileButton: some View {
-        if let myProfileViewModel {
-            Button {
-                navigator.push(.editProfile(profileViewModel: myProfileViewModel))
-            } label: {
-                Label {
-                    Text("Edit Profile")
-                } icon: {
-                    Image(systemName: "person")
-                }
-            }
-        }
-    }
-    
-    @ViewBuilder private var settingsButton: some View {
-        Button {
+        // Settings
+        menuRow(L10n.Common.Controls.Actions.settings, icon: .image(Image(systemName: "gear"))) {
             navigator.presentSheet(.settings, afterDeconflictionDelay: false)
-        } label: {
-            Label {
-                Text(L10n.Common.Controls.Actions.settings)
-            } icon: {
-                Image(systemName: "gear")
-            }
         }
     }
     
@@ -79,22 +45,26 @@ struct ProfileMainMenuView: View {
     @ViewBuilder private var contentButtons: some View {
         // Collections
         // Favourited Posts
+        timelineRow(.myFavorites, image: Image(systemName: "heart"))
         // Saved Posts
+        timelineRow(.myBookmarks, image: Image(systemName: "bookmark"))
     }
     
     // MARK: Relationship buttons
     @ViewBuilder private var relationshipButtons: some View {
-        // Followers
-        // Following
-        // Blocked Accounts
+        if let currentAcct = authenticationObserver.currentActiveUser?.cachedAccount {
+            // Followers
+            timelineRow(.followers(ofUserId: currentAcct.id), image: Image(systemName: "person.wave.2"))
+            // Following
+            timelineRow(.accountsFollowed(byUserId: currentAcct.id), image: Image(systemName: "person.2"))
+            // Blocked Accounts
+        }
     }
     
     @State private var isConfirmingLogOut: LogOutConfirmationType?
     @ViewBuilder private var logOutActiveUserButton: some View {
-        Button(role: .destructive) {
+        menuRow(L10n.Scene.AccountList.logout, icon: .image(Image(systemName: "rectangle.portrait.and.arrow.forward")), role: .destructive) {
             isConfirmingLogOut = .logOutActiveAccount
-        } label: {
-            Label(L10n.Scene.AccountList.logout, systemImage: "rectangle.portrait.and.arrow.forward")
         }
         .disabled(isConfirmingLogOut != nil)
         .confirmationDialog(isConfirmingLogOut?.title ?? "",
@@ -124,50 +94,75 @@ struct ProfileMainMenuView: View {
         } message: { logOutType in
             Text(logOutType.message)
         }
-        
     }
     
     @ViewBuilder private var alternateAccountButtons: some View {
         // List additional logged-in accounts, with their unread notification counts if non-zero
         ForEach(authenticationObserver.allLoggedInUsers.filter({ $0.globallyUniqueUserIdentifier != authenticationObserver.currentActiveUser?.globallyUniqueUserIdentifier }), id: \.self.globallyUniqueUserIdentifier) { authBox in
-            Button {
+            
+            let account = authBox.cachedAccount
+            menuRow(account.map{ "@\($0.acctWithDomain)" } ?? "", icon: .avatar(account?.avatarURL)) {
                 authenticationObserver.switchTo(authBox)
-            } label: {
-                HStack(alignment: .firstTextBaseline) {
-                    Label {
-                        if let handle = authBox.cachedAccount?.acctWithDomain {
-                            Text("@\(handle)")
-                        } else {
-                            Text(authBox.cachedAccount?.displayName ?? "")
-                        }
-                    } icon: {
-                        avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular) ?? Image(systemName: "app.dashed")
-                    }
-                    
-                    let unreadNotificationCount = UnreadNotificationCounts.shared.unreadCount(for: authBox)
-                    Spacer()
-                    if unreadNotificationCount > 0 {
-                        Text(unreadNotificationCount.formatted())
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                    }
+            } accessory: {
+                let unreadNotificationCount = UnreadNotificationCounts.shared.unreadCount(for: authBox)
+                if unreadNotificationCount > 0 {
+                    Text(unreadNotificationCount.formatted())
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
                 }
-                .padding(.horizontal)
-                .padding(.vertical, tinySpacing)
             }
         }
-        
-        // Offer adding another account
-        Button {
+    }
+    
+    @ViewBuilder private var addAccountButton: some View {
+        menuRow(L10n.Scene.AccountList.addAccount, icon: .image(Image(systemName: "plus"))) {
             navigator.presentSheet(.welcome, afterDeconflictionDelay: false)
-        } label: {
-            Label {
-                Text(L10n.Scene.AccountList.addAccount)
-            } icon: {
-                Image(systemName: "plus")
-            }
-            .padding(.horizontal)
-            .padding(.vertical, tinySpacing)
         }
+    }
+    
+    private enum MenuRowIcon {
+        case image(Image)
+        case avatar(URL?)
+    }
+    private let avatarSize = AvatarSize.small
+    private var iconSlotSize: CGFloat { avatarSize.rawValue }
+    private var iconImageSize: CGFloat { iconSlotSize * 0.75 }
+    @ViewBuilder private func rowIcon(_ icon: MenuRowIcon) -> some View {
+        switch icon {
+        case .image(let image):
+            image
+                .resizable()
+                .scaledToFit()
+                .frame(width: iconImageSize, height: iconImageSize)
+        case .avatar(let url):
+            AvatarView(style: .circular, size: avatarSize, avatarSource: .url(url))
+        }
+    }
+    
+    @ViewBuilder private func menuRow<Accessory: View>(_ title: String, icon: MenuRowIcon, role: ButtonRole? = nil, action: @escaping () -> Void, @ViewBuilder accessory: () -> Accessory = { EmptyView() }) -> some View {
+        Button(role: role, action: action) {
+            HStack(alignment: .firstTextBaseline) {
+                Label {
+                    Text(title)
+                        .font(.title3)
+                } icon: {
+                    rowIcon(icon)
+                        .frame(width: iconSlotSize, height: iconSlotSize)
+                }
+                Spacer()
+                accessory()
+            }
+            .contentShape(Rectangle())
+        }
+        .padding(.horizontal)
+        .padding(.vertical, tinySpacing)
+    }
+    
+    @ViewBuilder private func navigationRow(_ title: String, icon: MenuRowIcon, navigatingTo destination: MastodonNavigationDestination) -> some View {
+        menuRow(title, icon: icon, role: nil) { navigator.push(destination) }
+    }
+    
+    @ViewBuilder private func timelineRow(_ timelineType: TimelineViewType, image: Image) -> some View {
+        navigationRow(timelineType.navigationTitle ?? "", icon: .image(image), navigatingTo: .timeline(timelineType))
     }
 }
