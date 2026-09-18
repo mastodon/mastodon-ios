@@ -1456,7 +1456,7 @@ extension MastodonTimelineType {
             return L10n.Scene.Favorite.title
             
         case .myBlockedAccounts:
-            return "Blocked Accounts" // TODO: localization
+            return L10nLookup.Scene.Profile.MainMenu.blockedAccounts
             
         case .collections:
             return L10nLookup.Scene.Profile.FeaturedTab.collectionsHeading

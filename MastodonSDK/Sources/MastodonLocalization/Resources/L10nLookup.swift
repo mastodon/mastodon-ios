@@ -387,6 +387,15 @@ public extension L10nLookup.Common.Controls.RelationshipAction {
 
 // These translations are in the Localizable-Profile.xcstrings file
 public extension L10nLookup.Scene.Profile {
+    struct MainMenu {
+        public static let viewProfile: String = {
+            return tr("Localizable-Profile", "Scene.Profile.MainMenu.viewProfile")
+        }()
+        public static let blockedAccounts: String = {
+            return tr("Localizable-Profile", "Scene.Profile.MainMenu.blockedAccounts")
+        }()
+    }
+    
     struct PersonalNote {
         public static let explainerText: String = {
             let result = tr("Localizable-Profile", "Scene.Profile.PersonalNote.explainerText")
