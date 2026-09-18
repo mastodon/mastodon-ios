@@ -384,13 +384,17 @@ extension RelationshipViewModel {
 }
 
 extension CollectionViewModel {
+    var isMyCollection: Bool {
+        collection.accountId == AuthenticationServiceProvider.shared.currentActiveUser.value?.userID
+    }
+    
     func collectionRowMenuActions() -> [MastodonMenuAction.Submenu] {
         return [
             .init(.sharingActions, items: [
                 .navigationalAction(.collection(self)),
                 .share(collection.url)
             ]),
-            .init(.blockingOptions, items: [
+            .init(.blockingOptions, items: isMyCollection ? nil : [
                 .collectionAction(.reportCollection),
                 .relationshipAction(.blockUser)
             ])
@@ -408,7 +412,7 @@ extension CollectionViewModel {
         }()
         return [
             navigations,
-            .init(.blockingOptions, items: [
+            .init(.blockingOptions, items: isMyCollection ? nil : [
                 .collectionAction(.reportCollection),
                 .relationshipAction(.blockUser)
             ])
