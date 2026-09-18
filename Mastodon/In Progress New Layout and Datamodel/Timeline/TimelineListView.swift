@@ -409,6 +409,8 @@ struct TimelineListView: View {
             fallthrough
         case .collection:
             fallthrough
+        case .myBlockedAccounts:
+            fallthrough
         case .whoBoosted:
             return L10nLookup.Timeline.EmptyState.nothingToSeeHere
         }
@@ -477,6 +479,8 @@ struct TimelineListView: View {
             fallthrough
         case .collection:
             fallthrough
+        case .myBlockedAccounts:
+            fallthrough
         case .whoBoosted:
             return nil
         }
@@ -541,6 +545,8 @@ struct TimelineListView: View {
         case .whoFavourited:
             EmptyView()
         case .whoBoosted:
+            EmptyView()
+        case .myBlockedAccounts:
             EmptyView()
         case .collection:
             EmptyView()
@@ -1448,6 +1454,9 @@ extension MastodonTimelineType {
             
         case .myFavorites:
             return L10n.Scene.Favorite.title
+            
+        case .myBlockedAccounts:
+            return "Blocked Accounts" // TODO: localization
             
         case .collections:
             return L10nLookup.Scene.Profile.FeaturedTab.collectionsHeading

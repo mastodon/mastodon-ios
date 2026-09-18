@@ -84,6 +84,7 @@ public enum MastodonTimelineType: Identifiable, Equatable {
     case myBookmarks
     case myFavorites
     case myFollowedHashtags
+    case myBlockedAccounts
     case local
     case list(String)
     case hashtag(Mastodon.Entity.Tag, includeHeader: Bool)
@@ -111,6 +112,7 @@ public enum MastodonTimelineType: Identifiable, Equatable {
         case .myBookmarks: "bookmarks"
         case .myFavorites: "favorites"
         case .myFollowedHashtags: "hashtags"
+        case .myBlockedAccounts: "blockedAccounts"
         case .local: "local"
         case .list(let listID): "list-\(listID)"
         case .hashtag(let tag, let includeHeader): "hashtag-\(tag.name)-\(includeHeader)"
@@ -213,7 +215,7 @@ public enum MastodonTimelineType: Identifiable, Equatable {
             nil
         case .userPosts, .featuredItems:
                 .account
-        case .accountsFollowed, .followers, .familiarFollowers:
+        case .accountsFollowed, .followers, .familiarFollowers, .myBlockedAccounts:
             nil
         case .thread, .remoteThread:
                 .account
@@ -933,6 +935,18 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                     return try await APIService.shared.accounts(fromUrl: loadUrl, authenticationBox: authenticatedUser)
                 } else {
                     return try await APIService.shared.followers(userID: userId, maxID: nil, authenticationBox: authenticatedUser)
+                }
+            }()
+            newBatch = response.value.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }
+            newBatchBottomLoad = bottomLoad(fromLink: response.link)
+            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
+            
+        case .myBlockedAccounts:
+            let response = try await {
+                if let loadUrl {
+                    return try await APIService.shared.accounts(fromUrl: loadUrl, authenticationBox: authenticatedUser)
+                } else {
+                    return try await APIService.shared.getBlocked(authenticationBox: authenticatedUser)
                 }
             }()
             newBatch = response.value.map { timelineItem(fromAccount: $0, suggestedBecause: nil) }

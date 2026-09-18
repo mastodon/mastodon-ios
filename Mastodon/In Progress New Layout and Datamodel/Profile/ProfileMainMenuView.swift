@@ -61,6 +61,7 @@ struct ProfileMainMenuView: View {
             // Following
             timelineRow(.accountsFollowed(byUserId: currentAcct.id), image: Image(systemName: "person.2"))
             // Blocked Accounts
+            timelineRow(.myBlockedAccounts, image: Image(systemName: "circle.slash"))
         }
     }
     
