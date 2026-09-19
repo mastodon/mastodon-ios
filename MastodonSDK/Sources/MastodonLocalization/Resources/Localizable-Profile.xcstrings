@@ -185,16 +185,16 @@
             "value" : "Accept"
           }
         },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bipejirîne"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "수락"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bipejirîne"
           }
         },
         "lt" : {
@@ -497,13 +497,13 @@
             "value" : "Reject"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reject"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reject"
@@ -809,13 +809,13 @@
             "value" : "Sken-d akken yebɣu yili"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show anyway"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show anyway"
@@ -1121,13 +1121,13 @@
             "value" : "Rnu urti"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add field"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add field"
@@ -1432,13 +1432,13 @@
             "value" : "Tip: Try to keep the label and value short (under 25 characters for each is best)."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tip: Try to keep the label and value short (under 25 characters for each is best)."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tip: Try to keep the label and value short (under 25 characters for each is best)."
@@ -1743,13 +1743,13 @@
             "value" : "Are you sure you want to delete this custom field? This action can’t be undone."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Are you sure you want to delete this custom field? This action can’t be undone."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Are you sure you want to delete this custom field? This action can’t be undone."
@@ -2054,13 +2054,13 @@
             "value" : "Delete custom field?"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete custom field?"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete custom field?"
@@ -2366,13 +2366,13 @@
             "value" : "Kkes urti"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete field"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete field"
@@ -2678,16 +2678,16 @@
             "value" : "Tabzimt"
           }
         },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nîşan"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "라벨"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nîşan"
           }
         },
         "lt" : {
@@ -2989,13 +2989,13 @@
             "value" : "Amedya “Asmel-iw Web”"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "E.g. “Personal website”"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "E.g. “Personal website”"
@@ -3300,13 +3300,13 @@
             "value" : "Add your pronouns, external links, or anything else you’d like to share."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add your pronouns, external links, or anything else you’d like to share."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add your pronouns, external links, or anything else you’d like to share."
@@ -3611,13 +3611,13 @@
             "value" : "Max %1$(limit)lld fields reached"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Max %1$(limit)lld fields reached"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Max %1$(limit)lld fields reached"
@@ -3922,13 +3922,13 @@
             "value" : "Max %1$(limit)lld fields reached (%2$(domainName)@)"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Max %1$(limit)lld fields reached (%2$(domainName)@)"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Max %1$(limit)lld fields reached (%2$(domainName)@)"
@@ -4234,13 +4234,13 @@
             "value" : "Reorder fields"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reorder fields"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reorder fields"
@@ -4546,13 +4546,13 @@
             "value" : "Reorder/delete fields"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reorder/delete fields"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reorder/delete fields"
@@ -4858,13 +4858,13 @@
             "value" : "Azal"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Value"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Value"
@@ -5169,13 +5169,13 @@
             "value" : "E.g. “example.me”"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "E.g. “example.me”"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "E.g. “example.me”"
@@ -5480,13 +5480,13 @@
             "value" : "Tip: Add credibility to your Mastodon account by verifying links to websites you own."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tip: Add credibility to your Mastodon account by verifying links to websites you own."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tip: Add credibility to your Mastodon account by verifying links to websites you own."
@@ -5792,13 +5792,13 @@
             "value" : "Rnu ahacṭag"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add hashtag"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add hashtag"
@@ -6104,13 +6104,13 @@
             "value" : "Rnu wayeḍ"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add another"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add another"
@@ -6416,13 +6416,13 @@
             "value" : "#%1$(tagName)@ is now featured on your profile page. Do you want to add another?"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "#%1$(tagName)@ is now featured on your profile page. Do you want to add another?"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "#%1$(tagName)@ is now featured on your profile page. Do you want to add another?"
@@ -6728,13 +6728,13 @@
             "value" : "#%1$(tagName)@ featured!"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "#%1$(tagName)@ featured!"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "#%1$(tagName)@ featured!"
@@ -7040,13 +7040,13 @@
             "value" : "Anef-as"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Keep"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Keep"
@@ -7352,16 +7352,16 @@
             "value" : "Kkes"
           }
         },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rake"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "삭제"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rake"
           }
         },
         "lt" : {
@@ -7664,13 +7664,13 @@
             "value" : "Remove #%1$(hashtagName)@ ?"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove #%1$(hashtagName)@ ?"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove #%1$(hashtagName)@ ?"
@@ -7975,13 +7975,13 @@
             "value" : "Used in %(postCount)lld posts"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Used in %(postCount)lld posts"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Used in %(postCount)lld posts"
@@ -8286,13 +8286,13 @@
             "value" : "Rnu tameddurt"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add a bio"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add a bio"
@@ -8597,13 +8597,13 @@
             "value" : "Tameddurt"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Bio"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Bio"
@@ -8908,13 +8908,13 @@
             "value" : "Urtiyen udmawanen"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Custom fields"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Custom fields"
@@ -9219,13 +9219,13 @@
             "value" : "E.g. pronouns, external links, etc."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "E.g. pronouns, external links, etc."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "E.g. pronouns, external links, etc."
@@ -9323,8 +9323,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "E.g. pronouns, external links, etc."
+            "state" : "translated",
+            "value" : "Наприклад, займенники, зовнішні посилання тощо."
           }
         },
         "vi" : {
@@ -9530,13 +9530,13 @@
             "value" : "Isem ara d-yettwaskanen"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Display name"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Display name"
@@ -9841,13 +9841,13 @@
             "value" : "Featured hashtags"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Featured hashtags"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Featured hashtags"
@@ -10152,13 +10152,13 @@
             "value" : "Allow users to filter your timeline by topic"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Allow users to filter your timeline by topic"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Allow users to filter your timeline by topic"
@@ -10463,13 +10463,13 @@
             "value" : "Profile tab settings"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Profile tab settings"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Profile tab settings"
@@ -10774,13 +10774,13 @@
             "value" : "Rnu tameddurt"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add bio"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add bio"
@@ -11085,13 +11085,13 @@
             "value" : "Rnu urti"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add field"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add field"
@@ -11396,13 +11396,13 @@
             "value" : "Rnu ahacṭag"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add hashtag"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add hashtag"
@@ -11707,13 +11707,13 @@
             "value" : "Describe yourself and/or this account."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Describe yourself and/or this account."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Describe yourself and/or this account."
@@ -12018,13 +12018,13 @@
             "value" : "Urtiyen udmawanen"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Custom fields"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Custom fields"
@@ -12329,13 +12329,13 @@
             "value" : "Edit bio"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit bio"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit bio"
@@ -12640,13 +12640,13 @@
             "value" : "Edit display name"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit display name"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit display name"
@@ -12951,13 +12951,13 @@
             "value" : "Edit field"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit field"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit field"
@@ -13262,13 +13262,13 @@
             "value" : "Featured hashtags"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Featured hashtags"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Featured hashtags"
@@ -13573,13 +13573,13 @@
             "value" : "Profile tab settings"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Profile tab settings"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Profile tab settings"
@@ -13884,13 +13884,13 @@
             "value" : "Reorder fields"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reorder fields"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reorder fields"
@@ -14195,13 +14195,13 @@
             "value" : "How to add a verified link"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "How to add a verified link"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "How to add a verified link"
@@ -14506,13 +14506,13 @@
             "value" : "A space to showcase other accounts"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "A space to showcase other accounts"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "A space to showcase other accounts"
@@ -14817,13 +14817,13 @@
             "value" : "'Featured' tab"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "'Featured' tab"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "'Featured' tab"
@@ -15128,13 +15128,13 @@
             "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "These settings customize what users see on your server and in the official apps, but they may not apply to users on other servers or 3rd party apps."
@@ -15440,13 +15440,13 @@
             "value" : "Include replies"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Include replies"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Include replies"
@@ -15502,8 +15502,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies"
+            "state" : "translated",
+            "value" : "Включая ответы"
           }
         },
         "si" : {
@@ -15751,13 +15751,13 @@
             "value" : "Shows your posts containing media"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Shows your posts containing media"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Shows your posts containing media"
@@ -15813,8 +15813,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Shows your posts containing media"
+            "state" : "translated",
+            "value" : "Показывает ваши посты, содержащие медиа"
           }
         },
         "si" : {
@@ -16062,13 +16062,13 @@
             "value" : "'Media' tab"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "'Media' tab"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "'Media' tab"
@@ -16124,8 +16124,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "'Media' tab"
+            "state" : "translated",
+            "value" : "Вкладка 'Медиа'"
           }
         },
         "si" : {
@@ -16166,8 +16166,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "'Media' tab"
+            "state" : "translated",
+            "value" : "Вкладка 'Медіа'"
           }
         },
         "vi" : {
@@ -16373,13 +16373,13 @@
             "value" : "Add your website as a custom field"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add your website as a custom field"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add your website as a custom field"
@@ -16435,8 +16435,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add your website as a custom field"
+            "state" : "translated",
+            "value" : "Создайте новое поле профиля со ссылкой на ваш сайт"
           }
         },
         "si" : {
@@ -16684,13 +16684,13 @@
             "value" : "If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification."
@@ -16746,8 +16746,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification."
+            "state" : "translated",
+            "value" : "Если в вашем профиле уже есть дополнительное поле со ссылкой на ваш сайт, вам нужно будет удалить его и добавить заново, чтобы запустить верификацию."
           }
         },
         "si" : {
@@ -16788,8 +16788,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you’ve already added your website as a custom field, you’ll need to delete and re-add it to trigger verification."
+            "state" : "translated",
+            "value" : "Якщо ви вже додали свій вебсайт як спеціальне поле, вам потрібно буде видалити та повторно додати його, щоб запустити перевірку."
           }
         },
         "vi" : {
@@ -16996,13 +16996,13 @@
             "value" : "Copy code"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copy code"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copy code"
@@ -17058,8 +17058,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy code"
+            "state" : "translated",
+            "value" : "Скопировать код"
           }
         },
         "si" : {
@@ -17307,13 +17307,13 @@
             "value" : "Copy the HTML code below"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copy the HTML code below"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copy the HTML code below"
@@ -17369,8 +17369,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy the HTML code below"
+            "state" : "translated",
+            "value" : "Скопируйте HTML код ниже"
           }
         },
         "si" : {
@@ -17411,8 +17411,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy the HTML code below"
+            "state" : "translated",
+            "value" : "Скопіюйте HTML-код нижче"
           }
         },
         "vi" : {
@@ -17618,13 +17618,13 @@
             "value" : "Adding the code to your header allows the <a> element to remain invisible. The rel=\\\"me\\\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Adding the code to your header allows the <a> element to remain invisible. The rel=\\\"me\\\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Adding the code to your header allows the <a> element to remain invisible. The rel=\\\"me\\\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it."
@@ -17680,8 +17680,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Adding the code to your header allows the <a> element to remain invisible. The rel=\\\"me\\\" attribute prevents impersonation on websites with user-generated content – so it’s important to keep it."
+            "state" : "translated",
+            "value" : "Добавление кода в заголовок позволяет элементу <a> оставаться невидимым. Атрибут rel=\\\"me\\\" предотвращает имперсацию веб-сайтов с контентом, созданным пользователем, поэтому важно сохранить его."
           }
         },
         "si" : {
@@ -17929,13 +17929,13 @@
             "value" : "Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:"
@@ -17991,8 +17991,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add credibility to your Mastodon profile by verifying links to personal websites. Here’s how it works:"
+            "state" : "translated",
+            "value" : "Чтобы развеять сомнения в подлинности профиля, вы можете верифицировать ссылки на ваш сайт. Делается это так:"
           }
         },
         "si" : {
@@ -18240,13 +18240,13 @@
             "value" : "Paste the code into the header HTML of your website"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Paste the code into the header HTML of your website"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Paste the code into the header HTML of your website"
@@ -18302,8 +18302,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Paste the code into the header HTML of your website"
+            "state" : "translated",
+            "value" : "Вставьте код в заголовок HTML вашего сайта"
           }
         },
         "si" : {
@@ -18552,13 +18552,13 @@
             "value" : "Amiḍan awurman"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Automated account"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Automated account"
@@ -18614,8 +18614,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Automated account"
+            "state" : "translated",
+            "value" : "Учётная запись бота"
           }
         },
         "si" : {
@@ -18864,13 +18864,13 @@
             "value" : "Nɣel asulay"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copy handle"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copy handle"
@@ -18926,8 +18926,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy handle"
+            "state" : "translated",
+            "value" : "Копировать адрес"
           }
         },
         "si" : {
@@ -18968,8 +18968,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copy handle"
+            "state" : "translated",
+            "value" : "Скопіювати ідентифікатор"
           }
         },
         "vi" : {
@@ -19176,13 +19176,13 @@
             "value" : "Accounts"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Accounts"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Accounts"
@@ -19238,8 +19238,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Accounts"
+            "state" : "translated",
+            "value" : "Аккаунты"
           }
         },
         "si" : {
@@ -19488,13 +19488,13 @@
             "value" : "Collections"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Collections"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Collections"
@@ -19550,8 +19550,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Collections"
+            "state" : "translated",
+            "value" : "Подборки"
           }
         },
         "si" : {
@@ -19800,13 +19800,13 @@
             "value" : "Yeṭṭafaṛ-ik·em-id"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Follows you"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Follows you"
@@ -19862,8 +19862,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Follows you"
+            "state" : "translated",
+            "value" : "Подписан(а) на вас"
           }
         },
         "si" : {
@@ -19932,9 +19932,309 @@
       "comment" : "a menu option that opens a list of the accounts you have blocked; also used as the page title",
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuentas bloqueadas"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account bloccati"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocked Accounts"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Blocked Accounts"
           }
         }
@@ -19944,9 +20244,309 @@
       "comment" : "a menu option that opens your profile",
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "View Profile"
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir perfil"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visualizza il profilo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View Profile"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "View Profile"
           }
         }
@@ -20135,13 +20735,13 @@
             "value" : "Rnu tazmilt tudmawant"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add a personal note"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add a personal note"
@@ -20197,8 +20797,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add a personal note"
+            "state" : "translated",
+            "value" : "Добавить заметку для себя"
           }
         },
         "si" : {
@@ -20446,13 +21046,13 @@
             "value" : "Edit personal note"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit personal note"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit personal note"
@@ -20757,13 +21357,13 @@
             "value" : "Tazmilt tudmawant"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal note"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal note"
@@ -20819,8 +21419,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal note"
+            "state" : "translated",
+            "value" : "Заметка для себя"
           }
         },
         "si" : {
@@ -21068,13 +21668,13 @@
             "value" : "Personal notes are only visible to you."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal notes are only visible to you."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal notes are only visible to you."
@@ -21130,8 +21730,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal notes are only visible to you."
+            "state" : "translated",
+            "value" : "Эта заметка будет видна только вам."
           }
         },
         "si" : {
@@ -21379,13 +21979,13 @@
             "value" : "Personal note (visible only to you)"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal note (visible only to you)"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal note (visible only to you)"
@@ -21441,8 +22041,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Personal note (visible only to you)"
+            "state" : "translated",
+            "value" : "Заметка для себя (никто, кроме вас, её не видит)"
           }
         },
         "si" : {
@@ -21690,13 +22290,13 @@
             "value" : "%1$(username)@ requested to follow you"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$(username)@ requested to follow you"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$(username)@ requested to follow you"
@@ -21752,8 +22352,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(username)@ requested to follow you"
+            "state" : "translated",
+            "value" : "%1$(username)@ запрашивает подписку"
           }
         },
         "si" : {
@@ -22001,13 +22601,13 @@
             "value" : "This account has been hidden by your moderators."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This account has been hidden by your moderators."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This account has been hidden by your moderators."
@@ -22063,8 +22663,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This account has been hidden by your moderators."
+            "state" : "translated",
+            "value" : "Этот профиль был скрыт модераторами сервера."
           }
         },
         "si" : {
@@ -22312,13 +22912,13 @@
             "value" : "This account has been hidden by the moderators of %1$(domainName)@."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This account has been hidden by the moderators of %1$(domainName)@."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This account has been hidden by the moderators of %1$(domainName)@."
@@ -22374,8 +22974,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This account has been hidden by the moderators of %1$(domainName)@."
+            "state" : "translated",
+            "value" : "Этот профиль был скрыт модераторами сервера %1$(domainName)@."
           }
         },
         "si" : {
@@ -22623,13 +23223,13 @@
             "value" : "Account suspended"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Account suspended"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Account suspended"
@@ -22685,8 +23285,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Account suspended"
+            "state" : "translated",
+            "value" : "Учетная запись заблокирована"
           }
         },
         "si" : {
