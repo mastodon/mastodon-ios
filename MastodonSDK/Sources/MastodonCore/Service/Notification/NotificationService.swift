@@ -197,14 +197,7 @@ extension NotificationService {
     public func handle(
         pushNotification: MastodonPushNotification
     ) {
-        defer {
-            unreadNotificationCountDidUpdate.send()
-        }
-
         Task {
-            // trigger notification timeline update
-            try? await fetchLatestNotifications(pushNotification: pushNotification)
-            
             // cancel sign-out account push notification subscription 
             try? await cancelSubscriptionForDetachedAccount(pushNotification: pushNotification)
         }   // end Task
@@ -222,18 +215,6 @@ extension NotificationService {
 }
 
 extension NotificationService {
-    private func fetchLatestNotifications(
-        pushNotification: MastodonPushNotification
-    ) async throws {
-        guard let authenticationBox = authenticationBox(for: pushNotification) else { return }
-        
-        _ = try await APIService.shared.notifications(
-            olderThan: nil,
-            scope: .everything,
-            authenticationBox: authenticationBox
-        )
-    }
-    
     private func cancelSubscriptionForDetachedAccount(
         pushNotification: MastodonPushNotification
     ) async throws {
@@ -272,11 +253,6 @@ extension NotificationService {
             let domain = setting.domain
             
             return domain
-        }
-    }
-    
-    private func authenticationBox(for pushNotification: MastodonPushNotification) -> MastodonAuthenticationBox? {
-        return AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.first { $0.authentication.userAccessToken == pushNotification.accessToken
         }
     }
     
