@@ -93,6 +93,7 @@ import MastodonUI
     enum ReloadReason {
         case notificationFilterPolicyUpdated
         case userRequestedRefresh
+        case feedRelationshipsChanged // follow/unfollow, block/unblock, mute/unmute
         case notificationCountUpdated
         case asyncRefreshResultsRequested
         case activityFilterUpdated
@@ -105,7 +106,7 @@ import MastodonUI
     
     var filteredNotificationsViewModel =
     FilteredNotificationsRowView.ViewModel(policy: nil)
-    var needsReloadOnNextAppear = false
+    var needsReloadOnNextAppear: ReloadReason?
     var notificationRequestsAcceptanceDidChange = false
     
     // MARK - Feed Contents
@@ -332,8 +333,8 @@ import MastodonUI
             // The new set of results may not include the current scroll anchor.  In that case, just show the new items snackbar and wait to do the actual reload (by tapping on the snackbar or doing a pull to refresh).
             let previousFirstItem = self.currentDisplaySlice.first(where: { $0.isRealItem })
             let currentFeedIsEmpty = previousFirstItem == nil
-            
-            let scrollPositionNeedNotOrCannotBePreserved = !self.timeline.canDisplayNewItemsSnackbar || self.scrollAnchorItem == .noItem || currentFeedIsEmpty
+            let scrollAnchorIsRealItem = self.scrollAnchorItem.isRealItem
+            let scrollPositionNeedNotOrCannotBePreserved = !self.timeline.canDisplayNewItemsSnackbar || !scrollAnchorIsRealItem || currentFeedIsEmpty
             safeToSetNewItemsImmediately = {
                 if scrollPositionNeedNotOrCannotBePreserved {
                     return true
@@ -351,7 +352,12 @@ import MastodonUI
             } else {
                 let indexItem = previousFirstItem ?? self.scrollAnchorItem // this will always be the previousFirstItem, because the current feed is not empty
                 if let newIndexOfPreviousFirstItem = items.firstIndex(of: indexItem) {
-                    newItemsCount = newIndexOfPreviousFirstItem
+                    if self.waitingReplacementItems == nil {
+                        // there may already be some unseen items at the top of the screen
+                        newItemsCount = newIndexOfPreviousFirstItem + self.unseenNewItemsCount
+                    } else {
+                        newItemsCount = newIndexOfPreviousFirstItem
+                    }
                 } else if let newIndexOfScrollAnchor = items.firstIndex(of: self.scrollAnchorItem) {
                     // we may be missing an edge case here, where the first item in the old feed got deleted, but there is still overlap with the new feed.  in that case, this may overestimate the number of truly new items, but at least they will be items above the scrollAnchor
                     newItemsCount = newIndexOfScrollAnchor
@@ -387,8 +393,10 @@ import MastodonUI
             self.unseenNewItemsCount = newItemsCount
         }
         
+        self.resetToUntrackedAfterDelay(from: loadingState)
+        
         if safeToSetNewItemsImmediately {
-            self.resetToUntrackedAfterDelay(from: loadingState)
+            self.waitingReplacementItems = nil // any waiting items are being superseded by these new items
             self.setCurrentDisplaySlice(items.prefix(items.count), newScrollAnchor: initialThreadAnchorItem ?? newScrollAnchor, mayNeedHeightCalculations: true, addLoadingIndicator: canLoadOlder)
         } else {
             self.waitingReplacementItems = items
@@ -436,7 +444,7 @@ import MastodonUI
                                 await self?.forceReload(.notificationCountUpdated)
                             }
                         } else {
-                            self?.needsReloadOnNextAppear = true
+                            self?.needsReloadOnNextAppear = .notificationCountUpdated
                         }
                     }
                 }
@@ -448,7 +456,7 @@ import MastodonUI
             guard let timeline = self?.timeline else { return }
             switch timeline {
             case .homeTimeline, .list, .featuredItems, .followers, .accountsFollowed, .familiarFollowers, .collection, .myBlockedAccounts:
-                self?.needsReloadOnNextAppear = true
+                self?.needsReloadOnNextAppear = .feedRelationshipsChanged
             case .myBookmarks, .myFavorites, .myFollowedHashtags, .local, .hashtag, .linkMentions, .discover, .search, .userPosts, .postHistory, .thread, .remoteThread, .notifications, .notificationRequests, .whoFavourited, .whoBoosted, .collections:
                 return
             }
@@ -486,7 +494,7 @@ import MastodonUI
             assertionFailure()
             return
         }
-        needsReloadOnNextAppear = false
+        needsReloadOnNextAppear = nil
         feedLoader.requestLoad(.reload)
     }
     
@@ -496,11 +504,14 @@ import MastodonUI
             assertionFailure()
             return
         }
-        needsReloadOnNextAppear = false
+        needsReloadOnNextAppear = nil
         switch reason {
-        case .notificationCountUpdated:
+        case .feedRelationshipsChanged:
             loadingState = .requestedReloadFromTop
             feedLoader.requestLoad(.reload)
+        case .notificationCountUpdated:
+            loadingState = .requestedReloadFromTop
+            feedLoader.requestLoad(.newer)
         case .notificationFilterPolicyUpdated:
             loadingState = .requestedReloadFromTop
             feedLoader.requestLoad(.reload)

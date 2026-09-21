@@ -340,10 +340,10 @@ struct TimelineListView: View {
                 // clear the notification dot on the tab icon
                 NotificationService.shared.clearNotificationCount(for: authenticatedUser)
             }
-            if viewModel.needsReloadOnNextAppear {
-                viewModel.needsReloadOnNextAppear = false
+            if let reloadReason = viewModel.needsReloadOnNextAppear {
+                viewModel.needsReloadOnNextAppear = nil
                 Task {
-                    await viewModel.forceReload(.notificationCountUpdated)
+                    await viewModel.forceReload(reloadReason)
                 }
             }
         }
