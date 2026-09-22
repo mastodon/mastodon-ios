@@ -9,7 +9,7 @@ import Combine
 @MainActor
 @Observable class MastodonTabViewRouter {
     
-    public private(set) static var current = MastodonTabViewRouter(authenticatedUser: nil)
+    public private(set) static var current = MastodonTabViewRouter(authenticatedUser: AuthenticationServiceProvider.shared.currentActiveUser.value)
     
     let userGUID: String
     private let authenticationBox: MastodonAuthenticationBox?
