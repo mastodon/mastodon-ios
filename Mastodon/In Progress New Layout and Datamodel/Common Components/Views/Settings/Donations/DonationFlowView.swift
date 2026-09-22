@@ -2,13 +2,15 @@
 
 import SwiftUI
 import MastodonSDK
+import MastodonCore
 
 struct DonationFlowView: View {
     @State var viewModel: DonationViewModel
-    @State var navigator = MastodonNavigationRouter()
+    @State var navigator: MastodonNavigationRouter
     
-    init(campaign: Mastodon.Entity.DonationCampaign?, presentationSource: Mastodon.Entity.DonationCampaign.DonationCampaignRequestSource) {
+    init(authenticationBox: MastodonAuthenticationBox, campaign: Mastodon.Entity.DonationCampaign?, presentationSource: Mastodon.Entity.DonationCampaign.DonationCampaignRequestSource) {
         viewModel = DonationViewModel(campaign: campaign, presentationSource: presentationSource)
+        navigator = MastodonNavigationRouter(authenticationBox: authenticationBox)
     }
     
     var body: some View {

@@ -43,8 +43,13 @@ struct SettingsNavigationView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var generalSettingsViewModel = GeneralSettingsViewModel()
     @State private var viewModels = SettingsModels()
-    @State private var navigator = MastodonNavigationRouter()
-    @State var authBox: MastodonAuthenticationBox
+    @State private var navigator: MastodonNavigationRouter
+    @State private var authBox: MastodonAuthenticationBox
+    
+    init(authenticationBox: MastodonAuthenticationBox) {
+        self.authBox = authenticationBox
+        navigator = MastodonNavigationRouter(authenticationBox: authenticationBox)
+    }
     
     var body: some View {
         @Bindable var navigator = navigator

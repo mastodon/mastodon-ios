@@ -12,7 +12,7 @@ import MastodonUI
 @MainActor
 @Observable class TimelineListViewModel {
     
-    private(set) var authenticatedUser: MastodonAuthenticationBox? = AuthenticationServiceProvider.shared.currentActiveUser.value
+    private(set) var authenticatedUser: MastodonAuthenticationBox?
     private weak var navigator: MastodonNavigationRouter?
     
     var isCurrentlyOnScreen = false
@@ -229,12 +229,13 @@ import MastodonUI
         self._asyncRefreshViewModel = asyncRefreshViewModel
         self._timeline = timeline
         self.navigator = navigator
+        self.authenticatedUser = navigator.authenticationBox
         
         self.instanceConfigurationUpdateSubscription = AuthenticationServiceProvider.shared.instanceConfigurationUpdates
             .receive(on: DispatchQueue.main)
             .sink{ [weak self] updatedDomain in
                 guard let self, self.authenticatedUser?.domain == updatedDomain else { return }
-                self.authenticatedUser = AuthenticationServiceProvider.shared.currentActiveUser.value
+                self.authenticatedUser = AuthenticationServiceProvider.shared.mastodonAuthenticationBoxes.first { $0.globallyUniqueUserIdentifier == self.authenticatedUser?.globallyUniqueUserIdentifier } ?? self.authenticatedUser
             }
         
         Task {

@@ -213,7 +213,7 @@ import Combine
         if let existing = navigationRouters[tab] {
             return existing
         }
-        let freshRouter = MastodonNavigationRouter()
+        let freshRouter = MastodonNavigationRouter(authenticationBox: authenticationBox)
         navigationRouters[tab] = freshRouter
         return freshRouter
     }

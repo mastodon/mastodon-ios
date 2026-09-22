@@ -32,7 +32,11 @@ enum MastodonNavigationDestination: Identifiable {
 @MainActor
 @Observable class MastodonNavigationRouter {
     var navigationPath: [MastodonNavigationDestination] = []
-    let authenticationBox = AuthenticationObserver.shared.currentActiveUser
+    let authenticationBox: MastodonAuthenticationBox?
+    
+    init(authenticationBox: MastodonAuthenticationBox?) {
+        self.authenticationBox = authenticationBox
+    }
     
     let uuid = UUID()
     
@@ -168,8 +172,8 @@ enum MastodonNavigationDestination: Identifiable {
                 .presentationBackground(.clear)
             
         case .settings:
-            if let authBox = AuthenticationObserver.shared.currentActiveUser {
-                SettingsNavigationView(authBox: authBox)
+            if let authenticationBox {
+                SettingsNavigationView(authenticationBox: authenticationBox)
             }
             
         case .profileEditingSheet(let profileEditType):
@@ -180,7 +184,9 @@ enum MastodonNavigationDestination: Identifiable {
             NotificationPolicyView(viewModel: viewModel)
             
         case .makeDonation:
-            DonationFlowView(campaign: nil, presentationSource: .menu)
+            if let authenticationBox {
+                DonationFlowView(authenticationBox: authenticationBox, campaign: nil, presentationSource: .menu)
+            }
         }
     }
     
