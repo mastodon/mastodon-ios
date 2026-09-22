@@ -315,6 +315,7 @@ struct MastodonMainTabView: View {
                 let timelineModel = notificationsTimelineViewModel(scope: tabViewRouter.selectedNotificationsTimeline)
                 TimelineListView()
                     .timelineEnvironment(timelineModel: timelineModel, contentConcealModel: .alwaysShow, filter: timelineModel.timelineQueryFilter, asyncRefreshModel: timelineModel.asyncRefreshViewModel)
+                    .id(tabViewRouter.selectedNotificationsTimeline) // this identity ensures that the view models can be correctly informed of onAppear/onDisappear when the selected notifications timeline changes, which allows badging and refreshing to work correctly when new push notifications arrive
                     .toolbarTitleDisplayMode(.inline)
                     .toolbar {
                             // picker as the center item
