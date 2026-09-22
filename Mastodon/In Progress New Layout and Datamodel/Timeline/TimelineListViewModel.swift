@@ -428,8 +428,9 @@ import MastodonUI
         
         feedLoaderErrorSubscription = feedLoader?.$currentError
             .receive(on: DispatchQueue.main)
-            .sink { error in
+            .sink { [weak self] error in
                 guard let error else { return }
+                self?.loadDidFail()
                 navigator.didReceiveError(error)
             }
         feedLoader?.doFirstLoad()
@@ -877,6 +878,19 @@ extension TimelineListViewModel {
             guard currentState == self.loadingState else { return }
             self.loadingState = .untracked
             debugScroll("did reset to untracked")
+        }
+    }
+    
+    private func loadDidFail() {
+        // without this, the loading state gets stuck if a load is requested but no records are ever published
+        switch loadingState {
+        case .initializing, .requestedReloadFromBottom:
+            interactiveReloadTriggerModel.reset(triggered: false)
+            resetToUntrackedAfterDelay(from: loadingState)
+        case .requestedReloadFromTop, .requestedAsyncRefreshResults:
+            resetToUntrackedAfterDelay(from: loadingState)
+        case .requestedPrependedHeightCalculations, .untracked:
+            break
         }
     }
 }
