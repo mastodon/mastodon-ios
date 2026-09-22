@@ -17,6 +17,8 @@ import MastodonUI
     
     var isCurrentlyOnScreen = false
     
+    private var lastPushNotificationCount = 0
+    
     var unseenNewItemsCount: Int = 0 {
         didSet {
             if timeline.canDisplayUnreadNotifications
@@ -440,17 +442,23 @@ import MastodonUI
         feedLoader?.doFirstLoad()
         
         if timeline.canDisplayUnreadNotifications {
+            lastPushNotificationCount = UnreadNotificationCounts.shared.unreadCount(for: authenticatedUser) // prevents an unnecessary immediate reload on launch
             notificationCountUpdateSubscription = NotificationService.shared.unreadNotificationCountDidUpdate
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] _ in
-                    if let authBox = self?.authenticatedUser,  UnreadNotificationCounts.shared.unreadCount(for: authBox) > 0 && self?.timeline.canDisplayUnreadNotifications == true {
-                        if self?.isCurrentlyOnScreen == true {
-                            Task {
-                                await self?.forceReload(.notificationCountUpdated)
-                            }
-                        } else {
-                            self?.needsReloadOnNextAppear = .notificationCountUpdated
+                    guard let self, let authBox = self.authenticatedUser else { return }
+                    let updatedNotificationCount = UnreadNotificationCounts.shared.unreadCount(for: authBox)
+                    let notificationCountHasIncreased = updatedNotificationCount > self.lastPushNotificationCount
+                    self.lastPushNotificationCount = updatedNotificationCount
+                    
+                    guard notificationCountHasIncreased else { return }
+                    
+                    if self.isCurrentlyOnScreen {
+                        Task {
+                            await self.forceReload(.notificationCountUpdated)
                         }
+                    } else {
+                        self.needsReloadOnNextAppear = .notificationCountUpdated
                     }
                 }
         }
