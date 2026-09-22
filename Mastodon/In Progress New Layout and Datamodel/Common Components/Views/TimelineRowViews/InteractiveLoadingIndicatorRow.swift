@@ -1,6 +1,7 @@
 // Copyright © 2025 Mastodon gGmbH. All rights reserved.
 
 import SwiftUI
+import MastodonCore
 
 @MainActor
 @Observable class InteractiveLoadingTriggerModel {
@@ -62,16 +63,16 @@ import SwiftUI
     func reset(triggered: Bool) {
         if triggered {
             triggerState = .triggered(.defaultSpecs(triggered: true))
-            visiblePercent = 1
+            progressTowardsTrigger = 1
         } else {
             triggerState = .progressing(.defaultSpecs(triggered: false))
-            visiblePercent = 0
+            progressTowardsTrigger = 0
         }
     }
     
-    private(set) var visiblePercent: Double = 0 {
+    private(set) var progressTowardsTrigger: Double = 0 {
         didSet {
-            let progress = max(0, min(visiblePercent, 1))
+            let progress = max(0, min(progressTowardsTrigger, 1))
             
             switch triggerState {
             case .progressing:
@@ -86,6 +87,7 @@ import SwiftUI
                 )
                 if steppedProgress == 1 {
                     if onTrigger?() == true {
+                        FeedbackGenerator.shared.generate(.impact(.light))
                         triggerState = .triggered(.defaultSpecs(triggered: true))
                     } else {
                         reset(triggered: false)
@@ -99,23 +101,24 @@ import SwiftUI
         }
     }
     
-    func visiblePercent(withScrollGeometry scrollGeometry: ScrollGeometry) -> Double {
-        let animationDistance: CGFloat = 300
-        let animationStartingOffset: CGFloat = scrollGeometry.contentSize.height - animationDistance
-        let animationDistanceVisible: CGFloat = (scrollGeometry.contentOffset.y + scrollGeometry.containerSize.height) - animationStartingOffset
-        if animationDistanceVisible >= animationDistance {
+    func progressTowardsTrigger(withScrollGeometry scrollGeometry: ScrollGeometry) -> Double {
+        let pullDistanceToTrigger: CGFloat = 60
+        let offsetWhenRestingAtTopOfContent = -scrollGeometry.contentInsets.top
+        let offsetWhenRestingAtBottomOfContent = scrollGeometry.contentSize.height + scrollGeometry.contentInsets.bottom - scrollGeometry.containerSize.height
+        let restingEndOffset = max(offsetWhenRestingAtTopOfContent /*this will win for content that is shorter than the screen*/, offsetWhenRestingAtBottomOfContent)
+        let overscroll = scrollGeometry.contentOffset.y - restingEndOffset
+        if overscroll >= pullDistanceToTrigger {
             return 1
-        } else if animationDistanceVisible <= 0 {
+        } else if overscroll <= 0 {
             return 0
         } else {
-            let clamped =  min(1, animationDistanceVisible / animationDistance)
-            return floor(clamped * 100) / 100
+            return floor((overscroll / pullDistanceToTrigger) * 100) / 100
         }
     }
     
-    func updateVisiblePercent(_ newVisiblePercent: Double) {
-        if newVisiblePercent != visiblePercent {
-            visiblePercent = newVisiblePercent
+    func updateProgressTowardsTrigger(_ newProgress: Double) {
+        if newProgress != progressTowardsTrigger {
+            progressTowardsTrigger = newProgress
         }
     }
     

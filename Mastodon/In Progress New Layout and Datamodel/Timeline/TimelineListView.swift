@@ -241,12 +241,12 @@ struct TimelineListView: View {
                             }
                         })
                         .onScrollGeometryChange(for: Double.self) { scrollGeometry in
-                            let result = viewModel.interactiveReloadTriggerModel.visiblePercent(withScrollGeometry: scrollGeometry)
+                            let result = viewModel.interactiveReloadTriggerModel.progressTowardsTrigger(withScrollGeometry: scrollGeometry)
                             return result
                         } action: { oldPercent, newPercent in
                             guard viewModel.currentDisplaySlice.last == .loadingIndicator else { return }
                             if oldPercent != newPercent {
-                                viewModel.interactiveReloadTriggerModel.updateVisiblePercent(newPercent)
+                                viewModel.interactiveReloadTriggerModel.updateProgressTowardsTrigger(newPercent)
                             }
                         }
                         .scrollPosition(id: viewModel.scrollAnchorItemBinding, anchor: .top)

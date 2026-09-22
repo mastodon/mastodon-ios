@@ -113,12 +113,7 @@ import MastodonUI
     func setCurrentDisplaySlice(_ newSlice: ArraySlice<TimelineItem>, newScrollAnchor: TimelineItem?, mayNeedHeightCalculations: Bool, addLoadingIndicator: Bool) {
         
         defer {
-            switch loadingState {
-            case .initializing:
-                break
-            default:
-                interactiveReloadTriggerModel.reset(triggered: false)
-            }
+            interactiveReloadTriggerModel.reset(triggered: false)
             
             switch timeline {
             case .familiarFollowers:
@@ -260,6 +255,14 @@ import MastodonUI
                 
                 if self?.feedIsEmpty == true {
                     self?.feedIsEmpty = false
+                }
+                
+                guard results.nextBottomLoad != .initializing else {
+                    // show the spinner and stay in .initializing until a real result arrives
+                    DispatchQueue.main.async {
+                        self?.currentDisplaySlice = [.loadingIndicator] // set directly to avoid turning off the spinner
+                    }
+                    return
                 }
                 
                 let needsPrep: [TimelineItem] = results.allRecords.compactMap { item -> TimelineItem? in
