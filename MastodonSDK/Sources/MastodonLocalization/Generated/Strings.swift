@@ -330,8 +330,6 @@ public enum L10n {
           public static let composeNewPost = L10n.tr("Localizable", "Common.Controls.Keyboard.Common.ComposeNewPost", fallback: "Compose New Post")
           /// Open Settings
           public static let openSettings = L10n.tr("Localizable", "Common.Controls.Keyboard.Common.OpenSettings", fallback: "Open Settings")
-          /// Show Favorites
-          public static let showFavorites = L10n.tr("Localizable", "Common.Controls.Keyboard.Common.ShowFavorites", fallback: "Show Favorites")
           /// Switch to %@
           public static func switchToTab(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Keyboard.Common.SwitchToTab", String(describing: p1), fallback: "Switch to %@")
@@ -360,8 +358,6 @@ public enum L10n {
           public static let replyStatus = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ReplyStatus", fallback: "Reply to Post")
           /// Toggle Content Warning
           public static let toggleContentWarning = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ToggleContentWarning", fallback: "Toggle Content Warning")
-          /// Toggle Favorite on Post
-          public static let toggleFavorite = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ToggleFavorite", fallback: "Toggle Favorite on Post")
           /// Toggle Boost on Post
           public static let toggleReblog = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ToggleReblog", fallback: "Toggle Boost on Post")
         }
@@ -422,8 +418,8 @@ public enum L10n {
         public enum Actions {
           /// Copy Link
           public static let copyLink = L10n.tr("Localizable", "Common.Controls.Status.Actions.CopyLink", fallback: "Copy Link")
-          /// Favorite
-          public static let favorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Favorite", fallback: "Favorite")
+          /// Like
+          public static let favorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Favorite", fallback: "Like")
           /// Hide
           public static let hide = L10n.tr("Localizable", "Common.Controls.Status.Actions.Hide", fallback: "Hide")
           /// Menu
@@ -444,8 +440,8 @@ public enum L10n {
           public static let showVideoPlayer = L10n.tr("Localizable", "Common.Controls.Status.Actions.ShowVideoPlayer", fallback: "Show video player")
           /// Tap then hold to show menu
           public static let tapThenHoldToShowMenu = L10n.tr("Localizable", "Common.Controls.Status.Actions.TapThenHoldToShowMenu", fallback: "Tap then hold to show menu")
-          /// Unfavorite
-          public static let unfavorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unfavorite", fallback: "Unfavorite")
+          /// Unlike
+          public static let unfavorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unfavorite", fallback: "Unlike")
           /// Undo boost
           public static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unreblog", fallback: "Undo boost")
           public enum A11YLabels {
@@ -464,8 +460,6 @@ public enum L10n {
           }
           /// Edit History
           public static let editHistoryTitle = L10n.tr("Localizable", "Common.Controls.Status.Buttons.EditHistoryTitle", fallback: "Edit History")
-          /// Favorites
-          public static let favoritesTitle = L10n.tr("Localizable", "Common.Controls.Status.Buttons.FavoritesTitle", fallback: "Favorites")
           /// Boosts
           public static let reblogsTitle = L10n.tr("Localizable", "Common.Controls.Status.Buttons.ReblogsTitle", fallback: "Boosts")
         }
@@ -981,12 +975,12 @@ public enum L10n {
       public static let title = L10n.tr("Localizable", "Scene.Familiarfollowers.Title", fallback: "Followers you familiar")
     }
     public enum Favorite {
-      /// Favorites
-      public static let title = L10n.tr("Localizable", "Scene.Favorite.Title", fallback: "Favorites")
+      /// Likes
+      public static let title = L10n.tr("Localizable", "Scene.Favorite.Title", fallback: "Likes")
     }
     public enum FavoritedBy {
-      /// Favorited By
-      public static let title = L10n.tr("Localizable", "Scene.FavoritedBy.Title", fallback: "Favorited By")
+      /// Liked By
+      public static let title = L10n.tr("Localizable", "Scene.FavoritedBy.Title", fallback: "Liked By")
     }
     public enum FollowedTags {
       /// Followed Tags
@@ -1122,9 +1116,9 @@ public enum L10n {
         public static func singleNameEditedAPostYouQuoted(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SingleNameEditedAPostYouQuoted", String(describing: p1), fallback: "%@ edited a post you quoted")
         }
-        /// %@ favorited:
+        /// %@ liked:
         public static func singleNameFavourited(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SingleNameFavourited", String(describing: p1), fallback: "%@ favorited:")
+          return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SingleNameFavourited", String(describing: p1), fallback: "%@ liked:")
         }
         /// %@ followed you
         public static func singleNameFollowedYou(_ p1: Any) -> String {
@@ -1170,8 +1164,6 @@ public enum L10n {
         public static let boost = L10n.tr("Localizable", "Scene.Notification.Headers.Boost", fallback: "Boost")
         /// Edit
         public static let edit = L10n.tr("Localizable", "Scene.Notification.Headers.Edit", fallback: "Edit")
-        /// Favorite
-        public static let favourite = L10n.tr("Localizable", "Scene.Notification.Headers.Favourite", fallback: "Favorite")
         /// Follow
         public static let follow = L10n.tr("Localizable", "Scene.Notification.Headers.Follow", fallback: "Follow")
         /// Follow request
