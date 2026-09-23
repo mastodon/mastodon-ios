@@ -185,13 +185,13 @@
             "value" : "Add personal note"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add personal note"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add personal note"
@@ -497,13 +497,13 @@
             "value" : "Block domain %1$(domainName)@"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Block domain %1$(domainName)@"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Block domain %1$(domainName)@"
@@ -808,13 +808,13 @@
             "value" : "You must follow %1$(username)@  before adding them to a list."
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You must follow %1$(username)@  before adding them to a list."
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You must follow %1$(username)@  before adding them to a list."
@@ -1120,13 +1120,13 @@
             "value" : "Follow %1$(username)@ ?"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Follow %1$(username)@ ?"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Follow %1$(username)@ ?"
@@ -1432,16 +1432,16 @@
             "value" : "Ḍfeṛ"
           }
         },
-        "kmr-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bişopîne"
-          }
-        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "팔로우"
+          }
+        },
+        "ku-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bişopîne"
           }
         },
         "lt" : {
@@ -1743,13 +1743,13 @@
             "value" : "%(username)@ will stop following you. Are you sure you want to proceed?"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%(username)@ will stop following you. Are you sure you want to proceed?"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%(username)@ will stop following you. Are you sure you want to proceed?"
@@ -2055,13 +2055,13 @@
             "value" : "Remove follower?"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove follower?"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove follower?"
@@ -2367,13 +2367,13 @@
             "value" : "Show Featured tab"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show Featured tab"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show Featured tab"
@@ -2679,13 +2679,13 @@
             "value" : "Show featured tab?"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show featured tab?"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show featured tab?"
@@ -2990,13 +2990,13 @@
             "value" : "You have hidden your featured tab from other users. Would you like to show it and feature %1$(item)@ ?"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You have hidden your featured tab from other users. Would you like to show it and feature %1$(item)@ ?"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You have hidden your featured tab from other users. Would you like to show it and feature %1$(item)@ ?"
@@ -3302,13 +3302,13 @@
             "value" : "Edit personal note"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit personal note"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit personal note"
@@ -3614,13 +3614,13 @@
             "value" : "Feature on my profile"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Feature on my profile"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Feature on my profile"
@@ -3926,13 +3926,13 @@
             "value" : "Ffer izuzar"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Hide boosts"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Hide boosts"
@@ -4238,13 +4238,13 @@
             "value" : "Account settings"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Account settings"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Account settings"
@@ -4550,13 +4550,13 @@
             "value" : "Add to list…"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add to list…"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add to list…"
@@ -4862,16 +4862,16 @@
             "value" : "Ticraḍ"
           }
         },
-        "kmr-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Şûnpel"
-          }
-        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "북마크"
+          }
+        },
+        "ku-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şûnpel"
           }
         },
         "lt" : {
@@ -5174,16 +5174,16 @@
             "value" : "Sudes"
           }
         },
-        "kmr-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Binivîsîne"
-          }
-        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "작성"
+          }
+        },
+        "ku-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Binivîsîne"
           }
         },
         "lt" : {
@@ -5486,16 +5486,16 @@
             "value" : "Ẓreg"
           }
         },
-        "kmr-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Serrast bike"
-          }
-        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "수정"
+          }
+        },
+        "ku-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serrast bike"
           }
         },
         "lt" : {
@@ -5615,7 +5615,7 @@
       }
     },
     "Common.Controls.Actions.Navigation.favorites" : {
-      "comment" : "menu option to open your favorites",
+      "comment" : "menu option to open the list of posts you have liked",
       "extractionState" : "manual",
       "localizations" : {
         "an" : {
@@ -5626,19 +5626,19 @@
         },
         "ar" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "المفضلة"
           }
         },
         "be" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Абраныя"
           }
         },
         "ca" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Favorits"
           }
         },
@@ -5650,38 +5650,38 @@
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Oblíbení"
           }
         },
         "cy" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Ffefryn"
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Favoritter"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Gefällt"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Αγαπημένα"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Favorites"
+            "value" : "Likes"
           }
         },
         "en-US" : {
@@ -5692,55 +5692,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Favoritos"
           }
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Favoritos"
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Lemmikud"
           }
         },
         "eu" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Gogokoak"
           }
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Suosikit"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Favoris"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Ceanáin"
           }
         },
         "gd" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Annsachdan"
           }
         },
         "gl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Favoritas"
           }
         },
@@ -5758,13 +5758,13 @@
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Kedvelések"
           }
         },
         "hy" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Հաւանածներ"
           }
         },
@@ -5776,38 +5776,38 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Eftirlæti"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Preferiti"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "お気に入り"
           }
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Imenyafen"
-          }
-        },
-        "kmr-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hezkirî"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "즐겨찾기"
+          }
+        },
+        "ku-TR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Hezkirî"
           }
         },
         "lt" : {
@@ -5830,25 +5830,25 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Favorieten"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Ulubione"
           }
         },
         "pt" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Favoritos"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Favoritos"
           }
         },
@@ -5860,7 +5860,7 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Избранное"
           }
         },
@@ -5872,55 +5872,55 @@
         },
         "sl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Priljubljeni"
           }
         },
         "sq" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Të parapëlqyer"
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Favoriter"
           }
         },
         "th" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "รายการโปรด"
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Favoriler"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Улюблені"
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Lượt thích"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "喜欢"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "最愛"
           }
         }
@@ -6110,13 +6110,13 @@
             "value" : "Followed hashtags"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Followed hashtags"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Followed hashtags"
@@ -6422,16 +6422,16 @@
             "value" : "Tabdart"
           }
         },
-        "kmr-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Qalkirin"
-          }
-        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "멘션"
+          }
+        },
+        "ku-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qalkirin"
           }
         },
         "lt" : {
@@ -6734,13 +6734,13 @@
             "value" : "Open in browser"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Open in browser"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Open in browser"
@@ -7046,13 +7046,13 @@
             "value" : "Privately mention"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Privately mention"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Privately mention"
@@ -7358,13 +7358,13 @@
             "value" : "Tanebdurt"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Quote"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Quote"
@@ -7670,13 +7670,13 @@
             "value" : "Share…"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Share…"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Share…"
@@ -7982,13 +7982,13 @@
             "value" : "View collection"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "View collection"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "View collection"
@@ -8294,13 +8294,13 @@
             "value" : "Kkes aneḍfar"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove follower"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove follower"
@@ -8606,13 +8606,13 @@
             "value" : "Sken-d izuzar"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show boosts"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show boosts"
@@ -8918,13 +8918,13 @@
             "value" : "Stop featuring on my profile"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Stop featuring on my profile"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Stop featuring on my profile"
@@ -9230,13 +9230,13 @@
             "value" : "Unblock domain %1$(domainName)@"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Unblock domain %1$(domainName)@"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Unblock domain %1$(domainName)@"
@@ -9541,13 +9541,13 @@
             "value" : "They can see that they're blocked."
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "They can see that they're blocked."
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "They can see that they're blocked."
@@ -9852,13 +9852,13 @@
             "value" : "They can't see your content and you won't see theirs."
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "They can't see your content and you won't see theirs."
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "They can't see your content and you won't see theirs."
@@ -10163,13 +10163,13 @@
             "value" : "You won't see posts from others that mention them."
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You won't see posts from others that mention them."
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You won't see posts from others that mention them."
@@ -10474,13 +10474,13 @@
             "value" : "You can't mention, follow, or quote each other."
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You can't mention, follow, or quote each other."
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You can't mention, follow, or quote each other."
@@ -10785,13 +10785,13 @@
             "value" : "Neither of you can add each other to collections. You'll be automatically removed from each others' existing collections, if applicable."
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Neither of you can add each other to collections. You'll be automatically removed from each others' existing collections, if applicable."
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Neither of you can add each other to collections. You'll be automatically removed from each others' existing collections, if applicable."
