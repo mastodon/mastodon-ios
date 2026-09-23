@@ -145,7 +145,7 @@ struct AboutInstanceView: View {
                                 Button {
                                     navigator.push(.profile(account: admin, relationship: nil))
                                 } label: {
-                                    AvatarView(style: .roundedRect, size: .large, avatarSource: .url(admin.avatarURL))
+                                    AvatarView(style: .circular, size: .large, avatarSource: .url(admin.avatarURL))
                                     AccountDisplayNameAndHandle(account: adminAccount, includeVerifiedLink: true)
                                 }
                                 .buttonStyle(.plain)

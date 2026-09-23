@@ -65,7 +65,7 @@ struct MastodonPostRowView: View {
             HStack(alignment: .top, spacing: spacingBetweenGutterAndContent) {
                 // MARK: Avatar
                 VStack(spacing: 0) {
-                    AvatarView(style: .roundedRect, size: .large, avatarSource: .url(author?.avatarURL ?? viewModel.initialDisplayInfo.actionableAuthorStaticAvatar))
+                    AvatarView(style: .circular, size: .large, avatarSource: .url(author?.avatarURL ?? viewModel.initialDisplayInfo.actionableAuthorStaticAvatar))
                         .onAsyncTap {
                             if let author {
                                 navigator.push(.profile(account: author._legacyEntity, relationship: viewModel.myRelationshipToAuthor))

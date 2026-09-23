@@ -23,7 +23,7 @@ struct CollectionRowView: View {
                     avatarsView
                         .blur(radius: viewModel.collection.sensitive == true ? 3 : 0)
                     if viewModel.collection.sensitive == true {
-                        avatarSize.roundedRectShape
+                        Circle()
                             .fill(Color(uiColor: .systemBackground))
                             .frame(width: avatarSize.rawValue, height: avatarSize.rawValue)
                         Image(systemName: "eye.slash")
@@ -79,11 +79,11 @@ struct CollectionRowView: View {
     @ViewBuilder func avatar(atIndex index: Int) -> some View {
         if index < viewModel.accountAvatarUrls.count {
             let url = viewModel.accountAvatarUrls[index]
-            AvatarView(style: .roundedRect, size: avatarSize, avatarSource: .url(url))
+            AvatarView(style: .circular, size: avatarSize, avatarSource: .url(url))
                 .frame(width: avatarSize.rawValue, height: avatarSize.rawValue)
                 .accessibilityHidden(true)
         } else {
-            avatarSize.roundedRectShape
+            Circle()
                 .fill(.secondary)
                 .frame(width: avatarSize.rawValue, height: avatarSize.rawValue)
         }

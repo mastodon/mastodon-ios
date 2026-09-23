@@ -118,13 +118,13 @@ struct PhotoCropperView: View {
             ZStack {
                 Color.dimmingBackground
                     .ignoresSafeArea()
-                RoundedRectangle(cornerRadius: cropSize.width * 0.2)
+                Circle()
                     .frame(width: cropSize.width, height: cropSize.height)
                     .blendMode(.destinationOut)
             }
             .compositingGroup()
             
-            RoundedRectangle(cornerRadius: cropSize.width * 0.2)
+            Circle()
                 .stroke(.white, style: StrokeStyle(lineWidth: 1, lineCap: .round, dash: [8, 12]))
                 .frame(width: cropSize.width, height: cropSize.height)
         }

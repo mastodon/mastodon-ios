@@ -457,7 +457,7 @@ struct AutoCompleteCard: View {
         HStack {
             switch item {
             case .account(let account):
-                AvatarView(style: .roundedRect, size: avatarSize, avatarSource: .url(account.avatarImageURL()))
+                AvatarView(style: .circular, size: avatarSize, avatarSource: .url(account.avatarImageURL()))
                 Text("@\(account.acct)")
                     .foregroundColor(Asset.Colors.accent.swiftUIColor)
                     .font(.subheadline)

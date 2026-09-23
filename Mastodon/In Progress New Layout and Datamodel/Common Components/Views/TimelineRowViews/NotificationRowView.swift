@@ -389,7 +389,7 @@ struct NotificationRequestRowView: View {
         VStack(alignment: .gutterAlign, spacing: 0) {
             HStack(alignment: .top, spacing: 0) {
                 // ICON
-                AvatarView(style: .roundedRect, size: mainAvatarSize, avatarSource: .url(viewModel.account.avatarURL))
+                AvatarView(style: .circular, size: mainAvatarSize, avatarSource: .url(viewModel.account.avatarURL))
                     .onAsyncTap {
                         navigator.push(.profile(account: viewModel.account._legacyEntity, relationship: nil))
                     } onError: { error in
@@ -679,7 +679,7 @@ struct NotificationRowView: View {
                     ForEach(
                         accountInfo.accounts.prefix(maxAvatarCount), id: \.self.id
                     ) { account in
-                        AvatarView(style: .roundedRect, size: stackedAvatarSize, avatarSource: .url(account.avatarURL))
+                        AvatarView(style: .circular, size: stackedAvatarSize, avatarSource: .url(account.avatarURL))
                             .onAsyncTap {
                                 try await viewModel.navigateToProfile(account, navigator: navigator)
                             } onError: { error in

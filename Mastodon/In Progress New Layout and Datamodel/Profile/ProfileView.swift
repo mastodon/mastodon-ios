@@ -319,7 +319,7 @@ struct ProfileAvatarAndBannerView: View {
                 }
                 
                 ZStack { // for avatar edit button
-                    AvatarView(style: .roundedRect, size: avatarSize, avatarSource: avatarSource)
+                    AvatarView(style: .circular, size: avatarSize, avatarSource: avatarSource)
                         .padding(.horizontal, doublePadding)
                     switch profileViewModel.editingStatus {
                     case .editing:
@@ -1314,7 +1314,7 @@ struct FamiliarFollowersElement: View {
         HStack {
         HStack(spacing: -8) {
             ForEach(familiarFollowers.firstFew.prefix(maxAvatarCount), id: \.id) { follower in
-                AvatarView(style: .roundedRect, size: .small, borderStyle: .both, avatarSource: .url(follower.avatarURL))
+                AvatarView(style: .circular, size: .small, borderStyle: .both, avatarSource: .url(follower.avatarURL))
             }
         }
             MastodonContentView.timelinePost(html: htmlDisplayString, emojis: familiarFollowers.firstFew.prefix(2).flatMap{ $0.displayInfo.emojis }, isInlinePreview: true)
