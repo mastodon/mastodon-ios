@@ -15,7 +15,6 @@
 - [MetaTextKit](https://github.com/TwidereProject/MetaTextKit)
 - [Nuke-FLAnimatedImage-Plugin](https://github.com/kean/Nuke-FLAnimatedImage-Plugin)
 - [Nuke](https://github.com/kean/Nuke)
-- [Pageboy](https://github.com/uias/Pageboy#the-basics)
 - [SDWebImage](https://github.com/SDWebImage/SDWebImage)
 - [swift-collections](https://github.com/apple/swift-collections)
 - [swift-nio](https://github.com/apple/swift-nio)
