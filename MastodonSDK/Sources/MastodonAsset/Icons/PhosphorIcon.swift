@@ -30,10 +30,18 @@
 import SwiftUI
 
 public enum PhosphorIcon: String, CaseIterable, Sendable {
+    case arrowsClockwise = "arrows-clockwise"
+    case bell
     case bookmarkSimple = "bookmark-simple"
+    case chatCircle = "chat-circle"
+    case chatCircleDots = "chat-circle-dots"
     case circlesFour = "circles-four"
+    case dotsThree = "dots-three"
     case gear
     case heart
+    case house
+    case magnifyingGlass = "magnifying-glass"
+    case penNib = "pen-nib"
     case prohibit
     case signOut = "sign-out"
     case user
