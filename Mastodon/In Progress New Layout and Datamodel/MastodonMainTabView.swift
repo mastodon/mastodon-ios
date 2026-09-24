@@ -178,16 +178,16 @@ struct MastodonMainTabView: View {
                     if !subtabs.isEmpty {
                         TabSection {
                             ForEach(subtabs, id: \.self) { subtab in
-                                Tab(subtab.title, systemImage: subtab.systemImage, value: subtab) {
+                                Tab(value: subtab) {
                                     view(forTab: subtab)
-                                }
+                                } label: { subtab.label }
                                 .customizationID(subtab.id)
                                 .customizationBehavior(subtab.customizationBehavior, for: .tabBar, .sidebar)
                                 .defaultVisibility(subtab.defaultTabBarVisibility, for: .tabBar)
                             }
                         } header: {
                             HStack {
-                                Image(systemName: tab.systemImage)
+                                tab.icon
                                 Text(tab.title)
                             }
                         }
@@ -212,15 +212,15 @@ struct MastodonMainTabView: View {
                                 .customizationID(tab.id)
                                 .customizationBehavior(tab.customizationBehavior, for: .tabBar, .sidebar)
                             } else {
-                                Tab(tab.title, systemImage: "person", value: tab) {
+                                Tab(value: tab) {
                                     view(forTab: tab)
-                                }
+                                } label: { tab.label }
                                 .customizationID(tab.id)
                                 .customizationBehavior(tab.customizationBehavior, for: .tabBar, .sidebar)
                             }
                         } header: {
                             HStack {
-                                Image(systemName: tab.systemImage)
+                                tab.icon
                                 Text(tab.title)
                             }
                         }
@@ -235,20 +235,20 @@ struct MastodonMainTabView: View {
                                 if let avatar = avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular) {
                                     avatar
                                 } else {
-                                    Image(systemName: tab.systemImage)
+                                    tab.icon
                                 }
                             }
                         }
                        
                     @unknown default:
-                        Tab(tab.title, systemImage: tab.systemImage, value: tab) {
+                        Tab(value: tab) {
                             view(forTab: tab)
-                        }
+                        } label: { tab.label }
                     }
                 } else {
-                    Tab(tab.title, systemImage: tab.systemImage, value: tab) {
+                    Tab(value: tab) {
                         view(forTab: tab)
-                    }
+                    } label: { tab.label }
                     .customizationID(tab.id)
                     .customizationBehavior(tab.customizationBehavior, for: .tabBar, .sidebar)
                     .defaultVisibility(tab.defaultTabBarVisibility, for: .tabBar)
@@ -775,23 +775,27 @@ extension MastodonTabViewRouter.MastodonTab {
         }
     }
     
-    var systemImage: String {
+    var icon: Image {
         switch self {
         case .home:
-            "house"
+            Image(phosphor: .house)
         case .explore:
-            "binoculars"
+            Image(phosphor: .magnifyingGlass)
         case .notifications:
-            "bell"
+            Image(phosphor: .bell)
         case .profile:
-            "person"
+            Image(phosphor: .user)
         case .localFeed:
-            "building.2"
+            Image(systemName: "building.2")
         case .lists, .list:
-            "list.star"
+            Image(systemName: "list.star")
         case .hashtags, .hashtag:
-            "number"
+            Image(systemName: "number")
         }
+    }
+    
+    var label: Label<Text, Image> {
+        Label { Text(title) } icon: { icon }
     }
     
     var customizationBehavior: TabCustomizationBehavior {
