@@ -370,21 +370,29 @@ struct MastodonMainTabView: View {
     
     
     
-    @ViewBuilder private func modalComposeButton(forTab tab: MastodonTabViewRouter.MastodonTab) -> some View {
+    @ViewBuilder private func modalComposeButton(forTab tab: MastodonTabViewRouter.MastodonTab, diameter: CGFloat) -> some View {
+        let iconSize = diameter * 0.6
         let navigator = tabViewRouter.navigationRouter(forTab: tab)
         if let authBox = AuthenticationObserver.shared.currentActiveUser {
             Button {
                 navigator.presentSheet(.modalCompose(.init(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel), tabViewRouter.currentDraftContentViewModel(authBox: authBox)), afterDeconflictionDelay: false)
             } label: {
-                Image(systemName: "square.and.pencil")
+                Image(phosphor: .penNib)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: iconSize, height: iconSize)
+                    .visualEffect({ content, geo in
+                        content.offset(x: geo.size.width * 0.04, y: -geo.size.height * 0.04) // compensate for the visual weight of the icon, otherwise it looks off-center
+                    })
                     .foregroundStyle(.white)
-                    .padding(standardPadding)
+                    .frame(width: diameter, height: diameter)
                     .background {
                         Circle()
                             .fill(Asset.Colors.accent.swiftUIColor)
                     }
             }
             .padding()
+            .accessibilityLabel(L10nLookup.MastodonMenuAction.Navigation.compose)
         }
     }
 
@@ -502,7 +510,7 @@ struct MastodonMainTabView: View {
                         if tab == .home {
                             if sizeClass != .compact {
                                 ToolbarItem(placement: .topBarTrailing) {
-                                    modalComposeButton(forTab: tab)
+                                    modalComposeButton(forTab: tab, diameter: 40)
                                 }
                                 .sharedBackgroundVisibilityHidden()
                             }
@@ -523,7 +531,7 @@ struct MastodonMainTabView: View {
             .environment(navigationStackNavigator)
             .overlay(alignment: .bottomTrailing) {
                 if sizeClass == .compact {
-                    modalComposeButton(forTab: tab)
+                    modalComposeButton(forTab: tab, diameter: 50)
                 }
             }
         } else {
