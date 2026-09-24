@@ -1,5 +1,6 @@
 // Copyright © 2026 Mastodon gGmbH. All rights reserved.
 import SwiftUI
+import MastodonAsset
 import MastodonCore
 import MastodonLocalization
 import MastodonUI
@@ -33,10 +34,10 @@ struct ProfileMainMenuView: View {
             // View Profile
             navigationRow(L10nLookup.Scene.Profile.MainMenu.viewProfile, icon: .avatar(currentActiveUser.cachedAccount?.avatarURL), navigatingTo: .myProfile(myProfileViewModel))
             // Edit Profile
-            navigationRow(L10nLookup.Scene.EditProfile.title, icon: .image(Image(systemName: "person")), navigatingTo: .editProfile(profileViewModel: myProfileViewModel))
+            navigationRow(L10nLookup.Scene.EditProfile.title, icon: .image(Image(phosphor: .user)), navigatingTo: .editProfile(profileViewModel: myProfileViewModel))
         }
         // Settings
-        menuRow(L10n.Common.Controls.Actions.settings, icon: .image(Image(systemName: "gear"))) {
+        menuRow(L10n.Common.Controls.Actions.settings, icon: .image(Image(phosphor: .gear))) {
             navigator.presentSheet(.settings, afterDeconflictionDelay: false)
         }
     }
@@ -45,29 +46,29 @@ struct ProfileMainMenuView: View {
     @ViewBuilder private var contentButtons: some View {
         if let myUserID = authenticationObserver.currentActiveUser?.userID, authenticationObserver.currentActiveUser?.authentication.instanceConfiguration?.isAvailable(.collections) == true {
             // Collections
-            timelineRow(.collections(curatedByUserID: myUserID), image: Image(systemName: "circle.grid.2x2"))
+            timelineRow(.collections(curatedByUserID: myUserID), image: Image(phosphor: .circlesFour))
         }
         // Favourited Posts
-        timelineRow(.myFavorites, image: Image(systemName: "heart"))
+        timelineRow(.myFavorites, image: Image(phosphor: .heart))
         // Saved Posts
-        timelineRow(.myBookmarks, image: Image(systemName: "bookmark"))
+        timelineRow(.myBookmarks, image: Image(phosphor: .bookmarkSimple))
     }
     
     // MARK: Relationship buttons
     @ViewBuilder private var relationshipButtons: some View {
         if let currentAcct = authenticationObserver.currentActiveUser?.cachedAccount {
             // Followers
-            timelineRow(.followers(ofUserId: currentAcct.id), image: Image(systemName: "person.wave.2"))
+            timelineRow(.followers(ofUserId: currentAcct.id), image: Image(phosphor: .usersThree))
             // Following
-            timelineRow(.accountsFollowed(byUserId: currentAcct.id), image: Image(systemName: "person.2"))
+            timelineRow(.accountsFollowed(byUserId: currentAcct.id), image: Image(phosphor: .usersFour))
             // Blocked Accounts
-            timelineRow(.myBlockedAccounts, image: Image(systemName: "circle.slash"))
+            timelineRow(.myBlockedAccounts, image: Image(phosphor: .prohibit))
         }
     }
     
     @State private var isConfirmingLogOut: LogOutConfirmationType?
     @ViewBuilder private var logOutActiveUserButton: some View {
-        menuRow(L10n.Scene.AccountList.logout, icon: .image(Image(systemName: "rectangle.portrait.and.arrow.forward")), role: .destructive) {
+        menuRow(L10n.Scene.AccountList.logout, icon: .image(Image(phosphor: .signOut)), role: .destructive) {
             isConfirmingLogOut = .logOutActiveAccount
         }
         .disabled(isConfirmingLogOut != nil)
@@ -119,7 +120,7 @@ struct ProfileMainMenuView: View {
     }
     
     @ViewBuilder private var addAccountButton: some View {
-        menuRow(L10n.Scene.AccountList.addAccount, icon: .image(Image(systemName: "plus"))) {
+        menuRow(L10n.Scene.AccountList.addAccount, icon: .image(Image(phosphor: .userPlus))) {
             navigator.presentSheet(.welcome, afterDeconflictionDelay: false)
         }
     }
