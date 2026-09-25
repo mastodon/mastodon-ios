@@ -367,7 +367,7 @@ enum MastodonPostMenuAction: String {
     
     static func postA11yMenuItemsOtherThanReply(forPostBy relationship: MastodonAccount.Relationship, myActions: MastodonContentPost.PostActions?, isShowingTranslation: Bool?) -> [MastodonPostMenuAction] {
         
-        let actionBarActions: [MastodonPostMenuAction] = [myActions?.boosted == true ? .unboost : .boost, myActions?.favorited == true ? .unfavourite : .favourite, myActions?.bookmarked == true ? .bookmark : .unbookmark]
+        let actionBarActions: [MastodonPostMenuAction] = [myActions?.boosted == true ? .unboost : .boost, myActions?.favorited == true ? .unfavourite : .favourite, myActions?.bookmarked == true ? .unbookmark : .bookmark]
         
         let editActions: [MastodonPostMenuAction] =  {
             switch relationship {
