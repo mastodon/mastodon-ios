@@ -511,10 +511,13 @@ struct MastodonMainTabView: View {
                             }
                             
                             if includeTimelineSwitcherMenu {
-                                ToolbarTitleMenu() {
-                                    homeTimelineFeedPickerContents
-                                }
-                                
+                                ToolbarItem(placement: .topBarLeading) {
+                                    Menu {
+                                        homeTimelineFeedPickerContents
+                                    } label: {
+                                        Label(L10nLookup.Timeline.FeedMenu.buttonA11yLabel, phosphor: .list)
+                                    }
+                                }  
                             }
                         }
                     }

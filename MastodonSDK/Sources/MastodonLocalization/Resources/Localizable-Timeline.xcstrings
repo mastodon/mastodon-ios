@@ -184,13 +184,13 @@
             "value" : "This account hasn't featured anything yet."
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This account hasn't featured anything yet."
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This account hasn't featured anything yet."
@@ -495,13 +495,13 @@
             "value" : "%1$(username)@ hasn't featured anything yet."
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$(username)@ hasn't featured anything yet."
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$(username)@ hasn't featured anything yet."
@@ -806,13 +806,13 @@
             "value" : "Ulac acu ara twaliḍ da"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Nothing to see here"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Nothing to see here"
@@ -1117,13 +1117,13 @@
             "value" : "Showcase your favorite accounts"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Showcase your favorite accounts"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Showcase your favorite accounts"
@@ -1428,13 +1428,13 @@
             "value" : "Some notifications have been filtered."
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Some notifications have been filtered."
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Some notifications have been filtered."
@@ -1552,6 +1552,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已過濾某些推播通知。"
+          }
+        }
+      }
+    },
+    "Scene.Timeline.FeedMenu.buttonA11yLabel" : {
+      "comment" : "VoiceOver label for the button that opens the timeline feed switching menu",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose feed"
           }
         }
       }
