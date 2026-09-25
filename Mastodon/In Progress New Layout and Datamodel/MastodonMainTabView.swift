@@ -202,12 +202,7 @@ struct MastodonMainTabView: View {
                                 Tab(value: tab) {
                                     view(forTab: tab)
                                 } label: {
-                                    Label {
-                                        let handle = currentAuthAccount.acctWithDomain
-                                        Text("@\(handle)")
-                                    } icon: {
-                                        icon
-                                    }
+                                    Label("@\(currentAuthAccount.acctWithDomain)", icon: icon)
                                 }
                                 .customizationID(tab.id)
                                 .customizationBehavior(tab.customizationBehavior, for: .tabBar, .sidebar)
@@ -795,7 +790,7 @@ extension MastodonTabViewRouter.MastodonTab {
     }
     
     var label: Label<Text, Image> {
-        Label { Text(title) } icon: { icon }
+        Label(title, icon: icon)
     }
     
     var customizationBehavior: TabCustomizationBehavior {
