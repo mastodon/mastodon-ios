@@ -158,54 +158,54 @@ enum MastodonPostMenuAction: String {
         }
     }
     
-    var iconSystemName: String {
+    var icon: Image {
         switch self {
         case .reply:
-            PostAction.reply.systemIconName(filled: false)
+            PostAction.reply.icon(filled: false)
         case .boost:
-            PostAction.boost.systemIconName(filled: false)
+            PostAction.boost.icon(filled: false)
         case .unboost:
-            PostAction.boost.systemIconName(filled: true)
+            PostAction.boost.icon(filled: true)
         case .favourite:
-            PostAction.favourite.systemIconName(filled: false)
+            PostAction.favourite.icon(filled: false)
         case .unfavourite:
-            PostAction.favourite.systemIconName(filled: true)
+            PostAction.favourite.icon(filled: true)
         case .bookmark:
-            PostAction.bookmark.systemIconName(filled: false)
+            PostAction.bookmark.icon(filled: false)
         case .unbookmark:
-            PostAction.bookmark.systemIconName(filled: true)
+            PostAction.bookmark.icon(filled: true)
         case .translatePost, .showOriginalLanguage:
-            "character.book.closed"
+            Image(systemName: "character.book.closed")
         case .reportPost:
-            "flag"
+            Image(systemName: "flag")
         case .follow:
-            "person.badge.plus"
+            Image(systemName: "person.badge.plus")
         case .unfollow:
-            "person.badge.minus"
+            Image(systemName: "person.badge.minus")
         case .mute:
-            "speaker.slash"
+            Image(systemName: "speaker.slash")
         case .unmute:
-            "speaker.wave.2"
+            Image(systemName: "speaker.wave.2")
         case .removeQuote:
-            "exclamationmark.bubble"
+            Image(systemName: "exclamationmark.bubble")
         case .blockUser:
-            "hand.raised.slash"
+            Image(systemName: "hand.raised.slash")
         case .unblockUser:
-            "hand.raised"
+            Image(systemName: "hand.raised")
         case .sharePost:
-            "square.and.arrow.up"
+            Image(systemName: "square.and.arrow.up")
         case .copyOriginalText, .copyTranslatedText:
-            "document.on.document"
+            Image(systemName: "document.on.document")
         case .deletePost:
-            "minus.circle"
+            Image(systemName: "minus.circle")
         case .editPost:
-            "pencil"
+            Image(systemName: "pencil")
         case .changeQuotePolicy:
-            "quote.opening"
+            Image(systemName: "quote.opening")
         case .copyLinkToPost:
-            "link"
+            Image(systemName: "link")
         case .openPostInBrowser:
-            "safari"
+            Image(systemName: "safari")
         }
     }
     

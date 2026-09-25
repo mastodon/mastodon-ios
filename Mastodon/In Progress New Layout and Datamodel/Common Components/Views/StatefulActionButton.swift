@@ -77,7 +77,7 @@ struct StatefulCountedActionButton: View {
             // The actual image to display
             switch actionState.isSelected {
             case .isFalse, .isTrue:
-                Image(systemName: iconName)
+                type.icon(filled: actionState.isSelected.isTrue)
             case .fetching, .settingToFalse, .settingToTrue:
                 ProgressView()
                     .progressViewStyle(.circular)
@@ -101,9 +101,6 @@ struct StatefulCountedActionButton: View {
         .font(layoutSize == .adaptive ? .footnote : Font.system(size: 13))
     }
     
-    private var iconName: String {
-        return type.systemIconName(filled: actionState.isSelected == .isTrue)
-    }
     private var countLabel: String? {
         guard let count = actionState.count, count > 0 else { return nil }
         return count.formatted(.number.notation(.compactName))

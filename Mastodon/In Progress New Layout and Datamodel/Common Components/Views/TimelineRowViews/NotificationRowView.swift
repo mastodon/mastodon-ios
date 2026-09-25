@@ -29,7 +29,7 @@ enum AuthorName {
 extension GroupedNotificationType {
     
     enum MainIconStyle {
-        case icon(name: String, color: Color)
+        case icon(Image, color: Color)
         case avatar
     }
     
@@ -38,47 +38,47 @@ extension GroupedNotificationType {
         case .mention, .status, .quote:
             return .avatar
         default:
-            if let iconName = iconSystemName {
-                return .icon(name: iconName, color: iconColor)
+            if let icon {
+                return .icon(icon, color: iconColor)
             }
         }
         return nil
     }
 
-    var iconSystemName: String? {
+    var icon: Image? {
         switch self {
         case .favourite:
-            return PostAction.favourite.systemIconName(filled: true)
+            PostAction.favourite.icon(filled: true)
         case .reblog:
-            return PostAction.boost.systemIconName(filled: false)
+            PostAction.boost.icon(filled: false)
         case .quote:
-            return "quote.opening"
+            Image(systemName: "quote.opening")
         case .follow:
-            return "person.fill.badge.plus"
+            Image(systemName: "person.fill.badge.plus")
         case .addedToCollection, .collectionUpdated:
-            return "square.grid.2x2.fill"
+            Image(systemName: "square.grid.2x2.fill")
         case .poll:
-            return "chart.bar.yaxis"
+            Image(systemName: "chart.bar.yaxis")
         case .adminReport:
-            return "flag.fill"
+            Image(systemName: "flag.fill")
         case .severedRelationships:
-            return "person.badge.minus"
+            Image(systemName: "person.badge.minus")
         case .moderationWarning:
-            return "exclamationmark.shield.fill"
+            Image(systemName: "exclamationmark.shield.fill")
         case .needsImplementation:
-            return "circlebadge.fill"
+            Image(systemName: "circlebadge.fill")
         case ._other:
-            return "questionmark.square.dashed"
+            Image(systemName: "questionmark.square.dashed")
         case .mention:
-            return nil  // should show avatar
+            nil  // should show avatar
         case .status:
-            return nil  // should show avatar
+            nil  // should show avatar
         case .followRequest:
-            return "person.fill.badge.plus"
+            Image(systemName: "person.fill.badge.plus")
         case .update, .quotedUpdate:
-            return "pencil"
+            Image(systemName: "pencil")
         case .adminSignUp:
-            return "person.fill.badge.plus"
+            Image(systemName: "person.fill.badge.plus")
         }
     }
 
@@ -256,12 +256,12 @@ extension Mastodon.Entity.RelationshipSeveranceEvent {
 }
 
 struct NotificationIconView: View {
-    let systemName: String
+    let image: Image
     let color: Color
     
     var body: some View {
         HStack {
-            Image(systemName: systemName)
+            image
                 .foregroundStyle(color)
         }
         .font(.system(size: 25))
@@ -504,7 +504,7 @@ struct FilteredNotificationsRowView: View {
             VStack(alignment: .gutterAlign, spacing: 0) {
                 HStack(alignment: .top, spacing: 0) {
                     // ICON
-                    NotificationIconView(systemName: "archivebox", color: .secondary)
+                    NotificationIconView(image: Image(systemName: "archivebox"), color: .secondary)
                     
                     Spacer()
                         .frame(width: spacingBetweenGutterAndContent)
@@ -549,7 +549,7 @@ struct NotificationRowView: View {
         VStack(alignment: .gutterAlign, spacing: 0) {
             HStack(alignment: .top, spacing: 0) {
                 // ICON
-                NotificationIconView(systemName: viewModel.iconName, color: viewModel.iconColor)
+                NotificationIconView(image: viewModel.icon, color: viewModel.iconColor)
                 
                 Spacer()
                     .frame(width: spacingBetweenGutterAndContent)

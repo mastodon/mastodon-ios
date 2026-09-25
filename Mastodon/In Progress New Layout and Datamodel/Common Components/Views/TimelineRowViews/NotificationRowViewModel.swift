@@ -71,14 +71,14 @@ nonisolated struct MastodonNotificationInfo {
     private var iconStyle: GroupedNotificationType.MainIconStyle? {
         return notification.type.mainIconStyle
     }
-    public var iconName: String {
+    public var icon: Image {
         switch iconStyle {
-        case .icon(let name, _):
-            return name
+        case .icon(let icon, _):
+            return icon
         case .avatar:
-            return "person.fill.viewfinder"
+            return Image(systemName: "person.fill.viewfinder")
         case nil:
-            return "questionmark.square.dashed"
+            return Image(systemName: "questionmark.square.dashed")
         }
     }
     public var iconColor: Color {

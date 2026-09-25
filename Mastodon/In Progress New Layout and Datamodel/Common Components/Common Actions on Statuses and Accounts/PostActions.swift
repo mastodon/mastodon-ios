@@ -1,21 +1,24 @@
 // Copyright © 2025 Mastodon gGmbH. All rights reserved.
 
+import SwiftUI
+import MastodonAsset
+
 enum PostAction {
     case reply
     case boost
     case favourite
     case bookmark
     
-    func systemIconName(filled: Bool) -> String {
+    func icon(filled: Bool) -> Image {
         switch self {
         case .reply:
-            return "arrow.turn.up.left"
+            Image(phosphor: .chatCircle) // no filled variant
         case .boost:
-            return "arrow.2.squarepath"
+            Image(phosphor: .arrowsClockwise, filled: filled)
         case .favourite:
-            return filled ? "heart.fill" : "heart"
+            Image(phosphor: .heart, filled: filled)
         case .bookmark:
-            return filled ? "bookmark.fill" : "bookmark"
+            Image(phosphor: .bookmarkSimple, filled: filled)
         }
     }
 }

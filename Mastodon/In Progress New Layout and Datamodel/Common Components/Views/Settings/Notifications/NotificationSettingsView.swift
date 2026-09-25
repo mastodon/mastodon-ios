@@ -95,7 +95,7 @@ struct NotificationSettingsView: View {
 struct NotificationsDisabledMessageRow: View {
     var body: some View {
         HStack(alignment: .top, spacing: spacingBetweenGutterAndContent) {
-            NotificationIconView(systemName: "app.badge.fill", color: Asset.Colors.accent.swiftUIColor)
+            NotificationIconView(image: Image(systemName: "app.badge.fill"), color: Asset.Colors.accent.swiftUIColor)
 
             VStack(alignment: .leading, spacing: standardPadding) {
                 Text(L10n.Scene.Settings.Notifications.Disabled.notificationHint)

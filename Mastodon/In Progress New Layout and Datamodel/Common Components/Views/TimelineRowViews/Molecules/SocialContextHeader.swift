@@ -20,16 +20,16 @@ enum SocialContextHeader {
         }
     }
     
-    var iconName: String {
+    @ViewBuilder var icon: some View {
         switch self {
         case .mention:
-            return "at"
+            Image(systemName: "at")
         case .reply:
-            return PostAction.reply.systemIconName(filled: false)
+            PostAction.reply.icon(filled: false)
         case .boosted:
-            return PostAction.boost.systemIconName(filled: false)
+            PostAction.boost.icon(filled: false)
         case .quoted:
-            return "quote.opening"
+            Image(systemName: "quote.opening")
         }
     }
     
@@ -91,7 +91,7 @@ let socialContextHeaderHeight: CGFloat = 20
 extension SocialContextHeader: View {
     var body: some View {
         HStack(alignment: .firstTextBaseline, spacing: spacingBetweenGutterAndContent) {
-            Image(systemName: iconName)
+            icon
                 .font(.footnote)
                 .bold()
                 .foregroundStyle(color)

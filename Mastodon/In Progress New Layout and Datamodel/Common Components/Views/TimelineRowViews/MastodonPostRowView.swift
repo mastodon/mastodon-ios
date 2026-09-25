@@ -519,7 +519,11 @@ private struct ActionBar: View {
         }
         
         @ViewBuilder func menuActionLabel(_ menuAction: MastodonPostMenuAction, forPost actionablePost: MastodonContentPost) -> some View {
-            Label(menuAction.labelText(username: actionablePost.metaData.author.displayInfo.displayName, postLanguage: actionablePost.content.language), systemImage: menuAction.iconSystemName)
+            Label {
+                Text(menuAction.labelText(username: actionablePost.metaData.author.displayInfo.displayName, postLanguage: actionablePost.content.language))
+            } icon: {
+                menuAction.icon
+            }
         }
         
         func submenus(forRelationshipToAuthor relationship: MastodonAccount.Relationship, isQuotingMe: Bool,  isShowingTranslation: Bool?) -> [MastodonPostMenuAction.Submenu] {
