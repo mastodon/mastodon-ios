@@ -41,6 +41,7 @@ public enum PhosphorIcon: String, CaseIterable, Sendable {
     case gear
     case heart
     case house
+    case list
     case magnifyingGlass = "magnifying-glass"
     case penNib = "pen-nib"
     case prohibit
