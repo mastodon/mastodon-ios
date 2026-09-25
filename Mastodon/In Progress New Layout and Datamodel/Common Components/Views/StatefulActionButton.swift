@@ -48,7 +48,9 @@ struct StatefulCountedActionButton: View {
         } label: {
             HStack(spacing: 4) {
                 imageComponent
-                countLabelComponent
+                if actionState.count != nil || reserveCountLayoutSpace {
+                    countLabelComponent
+                }
             }
         }
         .sensoryFeedback({ () -> SensoryFeedback in
@@ -69,6 +71,13 @@ struct StatefulCountedActionButton: View {
         .fontWeight(actionState.isSelected == .isTrue ? .semibold : .regular)
         .foregroundStyle(color)
         .contentShape(Rectangle())
+    }
+    
+    private var reserveCountLayoutSpace: Bool {
+        switch type {
+        case .bookmark: false
+        default: true
+        }
     }
     
     @ViewBuilder var imageComponent: some View {

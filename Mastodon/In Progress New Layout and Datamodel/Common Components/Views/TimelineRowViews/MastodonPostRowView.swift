@@ -442,31 +442,32 @@ private struct ActionBar: View {
     @Environment(MastodonPostViewModel.self) private var viewModel
     let instanceCanQuotePosts: Bool
     let actionHandler: MastodonPostMenuActionHandler?
-
+    
+    private let intraGroupButtonSpacing: CGFloat = 12
+    private let minGroupSpacing: CGFloat = 24
+    
     var body: some View {
-        ViewThatFits {
-            HStack() {
-                if let actionablePost = viewModel.fullPost?.actionablePost {
-                    ForEach([PostAction.reply, .boost, .favourite, .bookmark], id: \.self) { action in
-                        actionButton(forPost: actionablePost, action: action, layout: .adaptive)
-                        Spacer()
-                    }
-                    ActionBarMenuButton(instanceCanQuotePosts: instanceCanQuotePosts, actionHandler: actionHandler)
+        if let actionablePost = viewModel.fullPost?.actionablePost {
+            ViewThatFits {
+                row(forPost: actionablePost, layout: .adaptive)
+                row(forPost: actionablePost, layout: .forceSmall)
+            }
+        }
+    }
+    
+    @ViewBuilder private func row(forPost actionablePost: MastodonContentPost, layout: StatefulCountedActionButton.LayoutSize) -> some View {
+        HStack(spacing: 0) {
+            HStack(spacing: intraGroupButtonSpacing) {
+                ForEach([PostAction.reply, .boost, .favourite], id: \.self) { action in
+                    actionButton(forPost: actionablePost, action: action, layout: layout)
                 }
             }
             
-            HStack() {
-                if let actionablePost = viewModel.fullPost?.actionablePost {
-                    actionButton(forPost: actionablePost, action: .reply, layout: .forceSmall)
-                    Spacer()
-                    actionButton(forPost: actionablePost, action: .boost, layout: .forceSmall)
-                    Spacer()
-                    actionButton(forPost: actionablePost, action: .favourite, layout: .forceSmall)
-                    Spacer()
-                    actionButton(forPost: actionablePost, action: .bookmark, layout: .forceSmall)
-                    Spacer()
-                    ActionBarMenuButton(instanceCanQuotePosts: instanceCanQuotePosts, actionHandler: actionHandler)
-                }
+            Spacer(minLength: minGroupSpacing)
+            
+            HStack(spacing: intraGroupButtonSpacing) {
+                actionButton(forPost: actionablePost, action: .bookmark, layout: layout)
+                ActionBarMenuButton(instanceCanQuotePosts: instanceCanQuotePosts, actionHandler: actionHandler)
             }
         }
     }
@@ -505,7 +506,7 @@ private struct ActionBar: View {
                     }
                 }
             } label: {
-                Label("", systemImage: "ellipsis")
+                Image(phosphor: .dotsThree)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .frame(minWidth: 45, minHeight: 45)
