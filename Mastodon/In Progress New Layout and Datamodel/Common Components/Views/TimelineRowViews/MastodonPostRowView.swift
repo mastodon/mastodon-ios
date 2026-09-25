@@ -442,11 +442,6 @@ private struct ActionBar: View {
     @Environment(MastodonPostViewModel.self) private var viewModel
     let instanceCanQuotePosts: Bool
     let actionHandler: MastodonPostMenuActionHandler?
-    
-    var anyButtonHasNonZeroCount: Bool {
-        guard let metrics = viewModel.fullPost?.actionablePost?.content.metrics else { return false }
-        return metrics.boostCount + metrics.favoriteCount + metrics.replyCount > 0
-    }
 
     var body: some View {
         ViewThatFits {
@@ -548,10 +543,10 @@ private struct ActionBar: View {
         let metrics = actionablePost.content.metrics
         let myActions = actionablePost.content.myActions
         let overrideState = overrideState(for: action, of: actionablePost)
-        let showCountLabel = anyButtonHasNonZeroCount
+
         switch action {
         case .reply:
-            StatefulCountedActionButton(type: .reply, layoutSize: layout, showCountLabel: showCountLabel, actionState: .init(count: metrics.replyCount, isSelected: .isFalse), doAction: {
+            StatefulCountedActionButton(type: .reply, layoutSize: layout, actionState: .init(count: metrics.replyCount, isSelected: .isFalse), doAction: {
                 actionHandler?.doAction(.reply, forPost: viewModel, navigator: navigator)
             })
         case .boost:
@@ -566,7 +561,7 @@ private struct ActionBar: View {
                     return false
                 }
             }()
-            StatefulCountedActionButton(type: .boost, layoutSize: layout, showCountLabel: showCountLabel, actionState: .init(count: metrics.boostCount, isSelected: state), doAction: {
+            StatefulCountedActionButton(type: .boost, layoutSize: layout, actionState: .init(count: metrics.boostCount, isSelected: state), doAction: {
                 guard actionablePost.isBoostable else { return }
                 if instanceCanQuotePosts {
                     navigator.presentedSheet = .timelineSheet(.boostOrQuoteDialog(viewModel, actionHandler: actionHandler))
@@ -581,7 +576,7 @@ private struct ActionBar: View {
             .opacity(actionablePost.isBoostable ? 1.0 : 0.3)
         case .favourite:
             let state = overrideState ?? AsyncBool.fromBool(myActions.favorited)
-            StatefulCountedActionButton(type: .favourite, layoutSize: layout, showCountLabel: showCountLabel, actionState: .init(count: metrics.favoriteCount, isSelected: state), doAction: {
+            StatefulCountedActionButton(type: .favourite, layoutSize: layout, actionState: .init(count: metrics.favoriteCount, isSelected: state), doAction: {
                 switch state {
                 case .isFalse:
                     actionHandler?.doAction(.favourite, forPost: viewModel, navigator: navigator)
@@ -593,7 +588,7 @@ private struct ActionBar: View {
             })
         case .bookmark:
             let state = overrideState ?? AsyncBool.fromBool(myActions.bookmarked)
-            StatefulCountedActionButton(type: .bookmark, layoutSize: layout, showCountLabel: showCountLabel, actionState: .init(count: nil, isSelected: state), doAction: {
+            StatefulCountedActionButton(type: .bookmark, layoutSize: layout, actionState: .init(count: nil, isSelected: state), doAction: {
                 switch state {
                 case .isFalse:
                     actionHandler?.doAction(.bookmark, forPost: viewModel, navigator: navigator)

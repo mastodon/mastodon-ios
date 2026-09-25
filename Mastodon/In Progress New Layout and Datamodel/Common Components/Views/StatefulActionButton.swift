@@ -32,7 +32,6 @@ struct StatefulCountedActionButton: View {
     }
     let type: PostAction
     let layoutSize: LayoutSize
-    let showCountLabel: Bool
     let actionState: ActionState
     let doAction: (()->())?
     
