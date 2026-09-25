@@ -538,32 +538,41 @@ struct MastodonMainTabView: View {
     }
     
     @ViewBuilder var homeTimelineFeedPickerContents: some View {
-        let homeTabNavigator = tabViewRouter.navigationRouter(forTab: .home)
-        Button(L10n.Scene.HomeTimeline.TimelineMenu.following) {
-            tabViewRouter.homeTimelineModel?.setTimeline(.homeTimeline, navigator: homeTabNavigator)
-        }
-        if tabViewRouter.isLocalTimelineAvailable {
-            Button(L10n.Scene.HomeTimeline.TimelineMenu.localCommunity) {
-                tabViewRouter.homeTimelineModel?.setTimeline(.local, navigator: homeTabNavigator)
+        Section {
+            feedMenuItem(L10n.Common.Controls.Tabs.home, timeline: .homeTimeline, icon: Image(phosphor: .house))
+            if tabViewRouter.isLocalTimelineAvailable {
+                feedMenuItem(L10n.Scene.HomeTimeline.TimelineMenu.localCommunity, timeline: .local)
             }
         }
         if !tabViewRouter.lists.isEmpty {
-            Menu(L10n.Scene.HomeTimeline.TimelineMenu.Lists.title) {
-                ForEach(tabViewRouter.lists, id: \.self.id) { list in
-                    Button(list.title) {
-                        tabViewRouter.homeTimelineModel?.setTimeline(.list(list.id), navigator: homeTabNavigator)
+            Section {
+                Menu(L10nLookup.Timeline.FeedMenu.customFeeds) {
+                    ForEach(tabViewRouter.lists, id: \.self.id) { list in
+                        feedMenuItem(list.title, timeline: .list(list.id), icon: Image(phosphor: .rssSimple))
                     }
                 }
             }
         }
         if !tabViewRouter.followedHashtags.isEmpty {
-            Menu(L10n.Scene.HomeTimeline.TimelineMenu.Hashtags.title) {
-                ForEach(tabViewRouter.followedHashtags, id: \.self.name) { hashtag in
-                    Button("#\(hashtag.name)") {
-                        tabViewRouter.homeTimelineModel?.setTimeline(.hashtag(hashtag, includeHeader: false), navigator: homeTabNavigator)
+            Section {
+                Menu(L10n.Scene.HomeTimeline.TimelineMenu.Hashtags.title) {
+                    ForEach(tabViewRouter.followedHashtags, id: \.self.name) { hashtag in
+                        feedMenuItem("#\(hashtag.name)", timeline: .hashtag(hashtag, includeHeader: false))
                     }
                 }
             }
+        }
+    }
+    
+    @ViewBuilder func feedMenuItem(_ title: String, timeline: MastodonTimelineType, icon: Image? = nil) -> some View {
+        let isSelected = Binding(
+            get: { tabViewRouter.homeTimelineModel?.timeline == timeline },
+            set: { _ in tabViewRouter.homeTimelineModel?.setTimeline(timeline, navigator: tabViewRouter.navigationRouter(forTab: .home)) }
+        )
+        if let icon {
+            Toggle(isOn: isSelected) { Label(title, icon: icon) }
+        } else {
+            Toggle(title, isOn: isSelected)
         }
     }
     
@@ -571,7 +580,7 @@ struct MastodonMainTabView: View {
         guard let timeline = tabViewRouter.homeTimelineModel?.timeline else { return nil }
         switch timeline {
         case .homeTimeline:
-            return L10n.Scene.HomeTimeline.TimelineMenu.following
+            return L10n.Common.Controls.Tabs.home
         case .local:
             return L10n.Scene.HomeTimeline.TimelineMenu.localCommunity
         case .list(let listID):

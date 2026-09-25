@@ -1567,6 +1567,18 @@
           }
         }
       }
+    },
+    "Scene.Timeline.FeedMenu.customFeeds" : {
+      "comment" : "menu section title for your lists in the feed switching menu",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom Feeds"
+          }
+        }
+      }
     }
   },
   "version" : "1.2"

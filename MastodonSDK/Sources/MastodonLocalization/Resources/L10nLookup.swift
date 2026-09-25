@@ -985,6 +985,9 @@ public extension L10nLookup {
             public static let buttonA11yLabel: String = {
                 tr("Localizable-Timeline", "Scene.Timeline.FeedMenu.buttonA11yLabel")
             }()
+            public static let customFeeds: String = {
+                tr("Localizable-Timeline", "Scene.Timeline.FeedMenu.customFeeds")
+            }()
         }
     }
 }
