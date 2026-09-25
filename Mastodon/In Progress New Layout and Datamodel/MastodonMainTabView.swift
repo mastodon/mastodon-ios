@@ -292,7 +292,7 @@ struct MastodonMainTabView: View {
     @ViewBuilder private func view(forTab tab: MastodonTabViewRouter.MastodonTab) -> some View {
         switch tab {
         case .home:
-            timelineNavigationStack(forTab: tab, includeTimelineSwitcherMenu: sizeClass == .compact)
+            timelineNavigationStack(forTab: tab, rootModifier: HomeTimelineChrome())
              
         case .explore:
             @Bindable var navigationStackNavigator = tabViewRouter.navigationRouter(forTab: .explore)
@@ -355,39 +355,11 @@ struct MastodonMainTabView: View {
             .environment(navigationStackNavigator)
             
         case .localFeed, .list, .hashtag:
-            timelineNavigationStack(forTab: tab, includeTimelineSwitcherMenu: false) // these are only created as their own tabs in .regular size class, where the timeline switcher never appears
+            timelineNavigationStack(forTab: tab, rootModifier: EmptyModifier())
             
         case .lists, .hashtags:
             // these should never be called upon to actually produce a view, they are only used as sidebar sections for the actual views
             EmptyView()
-        }
-    }
-    
-    
-    
-    @ViewBuilder private func modalComposeButton(forTab tab: MastodonTabViewRouter.MastodonTab, diameter: CGFloat) -> some View {
-        let iconSize = diameter * 0.6
-        let navigator = tabViewRouter.navigationRouter(forTab: tab)
-        if let authBox = AuthenticationObserver.shared.currentActiveUser {
-            Button {
-                navigator.presentSheet(.modalCompose(.init(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel), tabViewRouter.currentDraftContentViewModel(authBox: authBox)), afterDeconflictionDelay: false)
-            } label: {
-                Image(phosphor: .penNib)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: iconSize, height: iconSize)
-                    .visualEffect({ content, geo in
-                        content.offset(x: geo.size.width * 0.04, y: -geo.size.height * 0.04) // compensate for the visual weight of the icon, otherwise it looks off-center
-                    })
-                    .foregroundStyle(.white)
-                    .frame(width: diameter, height: diameter)
-                    .background {
-                        Circle()
-                            .fill(Asset.Colors.accent.swiftUIColor)
-                    }
-            }
-            .padding()
-            .accessibilityLabel(L10nLookup.MastodonMenuAction.Navigation.compose)
         }
     }
 
@@ -493,103 +465,22 @@ struct MastodonMainTabView: View {
         }
     }
     
-    @ViewBuilder func timelineNavigationStack(forTab tab: MastodonTabViewRouter.MastodonTab, includeTimelineSwitcherMenu: Bool) -> some View {
+    @ViewBuilder func timelineNavigationStack(forTab tab: MastodonTabViewRouter.MastodonTab, rootModifier: some ViewModifier) -> some View {
         @Bindable var navigationStackNavigator = tabViewRouter.navigationRouter(forTab: tab)
         if let timelineModel = timelineViewModel(forTab: tab) {
             NavigationStack(path: $navigationStackNavigator.navigationPath) {
                 TimelineListView()
                     .timelineEnvironment(timelineModel: timelineModel, contentConcealModel: .alwaysShow, filter: timelineModel.timelineQueryFilter, asyncRefreshModel: timelineModel.asyncRefreshViewModel)
-                    .navigationTitle(includeTimelineSwitcherMenu ? currentHomeFeedName ?? "" : "")
                     .toolbarTitleDisplayMode(.inline)
-                    .toolbar {
-                        if tab == .home {
-                            if sizeClass != .compact {
-                                ToolbarItem(placement: .topBarTrailing) {
-                                    modalComposeButton(forTab: tab, diameter: 40)
-                                }
-                                .sharedBackgroundVisibilityHidden()
-                            }
-                            
-                            if includeTimelineSwitcherMenu {
-                                ToolbarItem(placement: .topBarLeading) {
-                                    Menu {
-                                        homeTimelineFeedPickerContents
-                                    } label: {
-                                        Label(L10nLookup.Timeline.FeedMenu.buttonA11yLabel, phosphor: .list)
-                                    }
-                                }  
-                            }
-                        }
-                    }
+                    .modifier(rootModifier)
                     .navigationDestination(for: MastodonNavigationDestination.self) { destination in
                         navigationStackNavigator.destinationView(destination, sceneCoordinator: sceneCoordinator)
                     }
             }
             .modifier(NavigatorPresentations(navigator: navigationStackNavigator))
             .environment(navigationStackNavigator)
-            .overlay(alignment: .bottomTrailing) {
-                if sizeClass == .compact {
-                    modalComposeButton(forTab: tab, diameter: 50)
-                }
-            }
         } else {
             EmptyView()
-        }
-    }
-    
-    @ViewBuilder var homeTimelineFeedPickerContents: some View {
-        Section {
-            feedMenuItem(L10n.Common.Controls.Tabs.home, timeline: .homeTimeline, icon: Image(phosphor: .house))
-            if tabViewRouter.isLocalTimelineAvailable {
-                feedMenuItem(L10n.Scene.HomeTimeline.TimelineMenu.localCommunity, timeline: .local)
-            }
-        }
-        if !tabViewRouter.lists.isEmpty {
-            Section {
-                Menu(L10nLookup.Timeline.FeedMenu.customFeeds) {
-                    ForEach(tabViewRouter.lists, id: \.self.id) { list in
-                        feedMenuItem(list.title, timeline: .list(list.id), icon: Image(phosphor: .rssSimple))
-                    }
-                }
-            }
-        }
-        if !tabViewRouter.followedHashtags.isEmpty {
-            Section {
-                Menu(L10n.Scene.HomeTimeline.TimelineMenu.Hashtags.title) {
-                    ForEach(tabViewRouter.followedHashtags, id: \.self.name) { hashtag in
-                        feedMenuItem("#\(hashtag.name)", timeline: .hashtag(hashtag, includeHeader: false))
-                    }
-                }
-            }
-        }
-    }
-    
-    @ViewBuilder func feedMenuItem(_ title: String, timeline: MastodonTimelineType, icon: Image? = nil) -> some View {
-        let isSelected = Binding(
-            get: { tabViewRouter.homeTimelineModel?.timeline == timeline },
-            set: { _ in tabViewRouter.homeTimelineModel?.setTimeline(timeline, navigator: tabViewRouter.navigationRouter(forTab: .home)) }
-        )
-        if let icon {
-            Toggle(isOn: isSelected) { Label(title, icon: icon) }
-        } else {
-            Toggle(title, isOn: isSelected)
-        }
-    }
-    
-    var currentHomeFeedName: String? {
-        guard let timeline = tabViewRouter.homeTimelineModel?.timeline else { return nil }
-        switch timeline {
-        case .homeTimeline:
-            return L10n.Common.Controls.Tabs.home
-        case .local:
-            return L10n.Scene.HomeTimeline.TimelineMenu.localCommunity
-        case .list(let listID):
-            return tabViewRouter.lists.first(where: { $0.id == listID })?.title
-        case .hashtag(let hashtag, _):
-            return "#\(hashtag.name)"
-
-        default:
-            return nil
         }
     }
     

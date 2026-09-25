@@ -448,6 +448,7 @@
 				ReauthorizeLogin.swift,
 				ReportFlow/ReportablePostRowView.swift,
 				Timeline/CentralPostViewModelCache.swift,
+				Timeline/HomeTimelineChrome.swift,
 				Timeline/PrecalculatedRowHeights.swift,
 				Timeline/ThreadedConversationModel.swift,
 				Timeline/TimelineFeedLoader.swift,
