@@ -4,7 +4,8 @@
 //
 //  Created by Shannon Hughes on 9/24/26.
 //
-// This file uses Phosphor icons (https://phosphoricons.com), converted to .symbolsets and added to our Assets.xcassets in the Phosphor folder. Names match Phosphor at the time of conversion, except that "-fill" versions follow Apple's ".fill" convention so that standard system components can find them (such as for TabBar in compact width). To use fill variants directly, use .symbolVariant(.fill).
+// This file uses Phosphor icons (https://phosphoricons.com), converted to .symbolsets and added to our Assets.xcassets in the Phosphor folder. Names match Phosphor at the time of conversion, except that "-fill" versions follow Apple's ".fill" convention so that standard system components can find them (such as for TabBar in compact width).
+// Note: The filled version of arrowsClockwise is our own design, for stronger visual emphasis.
 // Phosphor icons are used under the MIT license:
 //                        
 // Copyright (c) 2023 Phosphor Icons
@@ -30,7 +31,7 @@
 import SwiftUI
 
 public enum PhosphorIcon: String, CaseIterable, Sendable {
-    case arrowsClockwise = "arrows-clockwise"
+    case arrowsClockwise = "arrows-clockwise" // the filled version of arrowsClockwise is our own design, for stronger visual emphasis
     case bell
     case bookmarkSimple = "bookmark-simple"
     case chatCircle = "chat-circle"
@@ -53,7 +54,11 @@ public enum PhosphorIcon: String, CaseIterable, Sendable {
 }
 
 public extension Image {
-    init(phosphor icon: PhosphorIcon) {
-        self.init(icon.assetName, bundle: MastodonAsset.bundle)
+    init(phosphor icon: PhosphorIcon, filled: Bool = false) {
+        if filled {
+            self.init(icon.assetName + ".fill", bundle: MastodonAsset.bundle)
+        } else {
+            self.init(icon.assetName, bundle: MastodonAsset.bundle)
+        }
     }
 }
