@@ -2117,8 +2117,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "state" : "translated",
+            "value" : "Не удалось создать список: %1$(errorDescription)@ "
           }
         },
         "si" : {
@@ -2429,8 +2429,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "List name"
+            "state" : "translated",
+            "value" : "Название списка"
           }
         },
         "si" : {
@@ -2741,8 +2741,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Any followed user"
+            "state" : "translated",
+            "value" : "Все пользователи, на которых вы подписаны"
           }
         },
         "si" : {
@@ -3053,8 +3053,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Members of the list"
+            "state" : "translated",
+            "value" : "Другие пользователи в списке"
           }
         },
         "si" : {
