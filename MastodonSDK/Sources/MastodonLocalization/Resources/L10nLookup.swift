@@ -949,6 +949,9 @@ public extension L10nLookup.Scene {
             let result = tr("Localizable-Lists", "Scene.Lists.createNewList")
             return result
         }()
+        public static func addAccountToList(_ accountName: String) -> String {
+            return tr("Localizable-Lists", "Scene.Lists.addAccountToList", accountName)
+        }
         public static let createList: String = {
             let result = tr("Localizable-Lists", "Scene.Lists.createList")
             return result

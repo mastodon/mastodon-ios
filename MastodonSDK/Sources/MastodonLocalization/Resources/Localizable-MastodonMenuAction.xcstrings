@@ -642,7 +642,7 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Вам трэба падпісацца на %1$(username)@ перад тым, як дадаваць яго (яе) ў спіс."
           }
         },
@@ -672,26 +672,26 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Du skal følge %1$(username)@, før du kan føje vedkommende til en liste."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Du musst %1$(username)@ folgen, um das Profil einer Liste hinzufügen zu können."
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Πρέπει να ακολουθήσεις τον/την %1$(username)@ πριν τους προσθέσεις σε μια λίστα."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "en-US" : {
@@ -708,13 +708,13 @@
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Tenés que seguir a %1$(username)@ antes de agregar su cuenta a una lista."
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Enne, kui saad ta loendisse lisada, pead jälgima kasutajat %1$(username)@."
           }
         },
@@ -732,13 +732,13 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Vous devez suivre %1$(username)@ pour l'ajouter à une liste."
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Caithfidh tú %1$(username)@ a leanúint roimh iad a chur le liosta."
           }
         },
@@ -786,13 +786,13 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Þú þarft að fylgjast með %1$(username)@  áður en þú getur bætt viðko0mandi á lista."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Devi seguire %1$(username)@ prima di aggiungerlo/a a una lista."
           }
         },
@@ -840,7 +840,7 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Je moet %1$(username)@ volgen voordat je deze kunt toevoegen aan een lijst."
           }
         },
@@ -906,19 +906,19 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%1$(username)@ kullanıcısını bir listeye eklemeden önce onu takip etmelisiniz."
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Ви повинні стежити за %1$(username)@ перед додаванням їх до списку."
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Bạn phải theo dõi %1$(username)@  trước khi thêm họ vào danh sách."
           }
         },
@@ -930,7 +930,7 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "您必須先跟隨 %1$(username)@  以將他們加入至列表。"
           }
         }
@@ -4384,7 +4384,7 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Дадаць у спіс…"
           }
         },
@@ -4414,13 +4414,13 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Føj til liste…"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Zur Liste hinzufügen …"
           }
         },
@@ -4433,7 +4433,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "en-US" : {
@@ -4450,13 +4450,13 @@
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agregar a lista…"
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Lisa loendisse…"
           }
         },
@@ -4474,13 +4474,13 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Ajouter à la liste…"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Cuir leis an liosta…"
           }
         },
@@ -4528,13 +4528,13 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Bæta á lista…"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Aggiungi alla lista…"
           }
         },
@@ -4582,7 +4582,7 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Voeg toe aan lijst…"
           }
         },
@@ -4648,19 +4648,19 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Listeye ekle…"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Додати до списку…"
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Thêm vào danh sách…"
           }
         },
@@ -4672,7 +4672,7 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "新增至列表..."
           }
         }

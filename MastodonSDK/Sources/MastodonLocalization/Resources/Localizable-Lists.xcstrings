@@ -1,6 +1,18 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Scene.Lists.addAccountToList" : {
+      "comment" : "page title when choosing lists to add this account to",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add %1$(accountName)@"
+          }
+        }
+      }
+    },
     "Scene.Lists.create" : {
       "comment" : "confirmation button text",
       "extractionState" : "manual",
@@ -185,13 +197,13 @@
             "value" : "Snulfu-d"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create"
@@ -331,7 +343,7 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Стварыць спіс"
           }
         },
@@ -361,26 +373,26 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Opret liste"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Liste erstellen"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Δημιουργία λίστας"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "en-US" : {
@@ -397,13 +409,13 @@
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Crear lista"
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Koosta loend"
           }
         },
@@ -421,13 +433,13 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Créer une liste"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Cruthaigh liosta"
           }
         },
@@ -475,13 +487,13 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Búa til lista"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Crea una lista"
           }
         },
@@ -493,17 +505,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Snulfu-d tabdart"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create list"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create list"
@@ -529,7 +541,7 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Lijst aanmaken"
           }
         },
@@ -595,19 +607,19 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Liste oluştur"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Створити список"
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Tạo danh sách"
           }
         },
@@ -619,7 +631,7 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "新增列表"
           }
         }
@@ -643,7 +655,7 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Стварыць новы спіс…"
           }
         },
@@ -673,26 +685,26 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Opret ny liste…"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Neue Liste erstellen …"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Δημιουργία νέας λίστας…"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "en-US" : {
@@ -709,13 +721,13 @@
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Crear nueva lista…"
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Koosta uus loend…"
           }
         },
@@ -733,13 +745,13 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Créer une nouvelle liste…"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Cruthaigh liosta nua…"
           }
         },
@@ -787,13 +799,13 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Búa til nýjan lista…"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Crea una nuova lista…"
           }
         },
@@ -805,17 +817,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Snulfu-d tabdart tamaynut…"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create new list…"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create new list…"
@@ -841,7 +853,7 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Maak nieuwe lijst aan…"
           }
         },
@@ -907,19 +919,19 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Yeni liste oluştur…"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Створити новий список…"
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Tạo danh sách mới…"
           }
         },
@@ -931,7 +943,7 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "新增列表..."
           }
         }
@@ -954,7 +966,7 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Калі ў гэтым спісе нехта ёсць, схавайце яго ў сваёй Галоўнай стужцы, каб не бачыць яго допісы двойчы."
           }
         },
@@ -984,26 +996,26 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Hvis nogen står på denne liste, kan du skjule dem i dit hjem-feed, så du ikke ser deres opslag to gange."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Profile, die sich auf dieser Liste befinden, werden nicht im Feed deiner Startseite angezeigt, damit deren Beiträge nicht doppelt erscheinen."
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Αν κάποιος είναι σε αυτή τη λίστα, απόκρυψέ τον από την Αρχική ροή σου για να αποφύγεις να βλέπεις τις αναρτήσεις του δύο φορές."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "en-US" : {
@@ -1020,13 +1032,13 @@
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Si alguien está en esta lista, ocultá esa cuenta en tu línea temporal principal para evitar que aparezcan sus mensajes dos veces."
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Kui keegi on selles loendis, peida ta jälgimiste ajajoonelt, vältimaks tema postituste kaks korda nägemist."
           }
         },
@@ -1044,13 +1056,13 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Si quelqu'un est dans cette liste, les cacher dans votre fil d'actualité pour éviter de voir leurs messages deux fois."
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Má tá duine ar an liosta seo, cuir i bhfolach iad i do fhotha Baile ionas nach bhfeicfidh tú a bpoist faoi dhó."
           }
         },
@@ -1098,13 +1110,13 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Ef einhver er á þessum lista, geturðu falið viðkomandi í heimastreyminu þínu til að komast hjá því að sjá færslurnar þeirra í tvígang."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Se qualcuno è presente in questo elenco, nascondilo nel tuo feed Home per evitare di visualizzare i suoi post due volte."
           }
         },
@@ -1120,13 +1132,13 @@
             "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
@@ -1218,19 +1230,19 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Eğer bu listede bir hesap bulunuyorsa, gönderilerini iki kez görmemek için ana sayfa akışınızda o hesabı gizleyin."
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Якщо хтось є у цьому списку, сховайте їх на своїй домашній сторінці, щоб не бачити їхні дописи двічі."
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Nếu ai đó có trong danh sách này, ẩn họ trong bảng tin Trang chủ để tránh thấy tút của họ hiện trùng lặp."
           }
         },
@@ -1242,7 +1254,7 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "如果某個帳號於此列表中，將自您的首頁時間軸中隱藏此帳號，避免重複見到他們的嘟文。"
           }
         }
@@ -1432,13 +1444,13 @@
             "value" : "Hide members in Home feed"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Hide members in Home feed"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Hide members in Home feed"
@@ -1578,7 +1590,7 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Уключыць адказы ад карыстальнікаў са спіса"
           }
         },
@@ -1608,26 +1620,26 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Medtag svar fra listemedlemmer til"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Antworten von Listenmitgliedern einbeziehen an …"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Συμπερίληψη απαντήσεων από τα μέλη της λίστας προς"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "en-US" : {
@@ -1644,13 +1656,13 @@
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Incluir las respuestas de los miembros de la lista a"
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Kaasa ka loendi liikmete vastused"
           }
         },
@@ -1668,13 +1680,13 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Inclure les réponses des membres de la liste"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Cuir san áireamh freagraí ó bhaill an liosta go"
           }
         },
@@ -1722,13 +1734,13 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Hafa með svör frá meðlimum lista til"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Includi le risposte dai membri della lista a"
           }
         },
@@ -1744,13 +1756,13 @@
             "value" : "Include replies from list members to"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Include replies from list members to"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Include replies from list members to"
@@ -1842,19 +1854,19 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Şu liste için liste üyelerinin yanıtlarını dahil et:"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Включати відповіді зі списку учасників до"
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Bao gồm lượt trả lời từ những tài khoản trong danh sách"
           }
         },
@@ -1866,7 +1878,7 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "包含來自列表成員的回覆至"
           }
         }
@@ -1889,7 +1901,7 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Немагчыма стварыць спіс: %1$(errorDescription)@ "
           }
         },
@@ -1919,26 +1931,26 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Kunne ikke oprette liste: %1$(errorDescription)@ "
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Liste konnte nicht erstellt werden: %1$(errorDescription)@ "
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Αδυναμία δημιουργίας λίστας: %1$(errorDescription)@ "
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "en-US" : {
@@ -1955,13 +1967,13 @@
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "No se pudo crear la lista: %1$(errorDescription)@ "
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Loendi koostamine ei õnnestunud: %1$(errorDescription)@ "
           }
         },
@@ -1979,13 +1991,13 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Impossible de créer la liste : %1$(errorDescription)@ "
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Níorbh fhéidir liosta a chruthú: %1$(errorDescription)@ "
           }
         },
@@ -2033,13 +2045,13 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Tókst ekki að útbúa lista: %1$(errorDescription)@ "
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Impossibile creare la lista: %1$(errorDescription)@ "
           }
         },
@@ -2055,13 +2067,13 @@
             "value" : "Could not create list: %1$(errorDescription)@ "
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Could not create list: %1$(errorDescription)@ "
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Could not create list: %1$(errorDescription)@ "
@@ -2087,7 +2099,7 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Lijst kon niet worden aangemaakt: %1$(errorDescription)@"
           }
         },
@@ -2153,19 +2165,19 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Liste oluşturulamadı: %1$(errorDescription)@ "
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Не вдалося створити список: %1$(errorDescription)@ "
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Không thể tạo danh sách: %1$(errorDescription)@ "
           }
         },
@@ -2177,7 +2189,7 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "無法新增列表：%1$(errorDescription)@ "
           }
         }
@@ -2201,7 +2213,7 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Назва спіса"
           }
         },
@@ -2231,26 +2243,26 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Listenavn"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Titel der Liste"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Όνομα λίστας"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "en-US" : {
@@ -2267,13 +2279,13 @@
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Nombre de la lista"
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Loendi nimi"
           }
         },
@@ -2291,13 +2303,13 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Nom de la liste"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Ainm an liosta"
           }
         },
@@ -2345,13 +2357,13 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Heiti lista"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Nome della lista"
           }
         },
@@ -2363,17 +2375,17 @@
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Isem n tebdart"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "List name"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "List name"
@@ -2399,7 +2411,7 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Naam lijst"
           }
         },
@@ -2465,19 +2477,19 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Liste adı"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Назва списку"
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Tên danh sách"
           }
         },
@@ -2489,7 +2501,7 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "列表名稱"
           }
         }
@@ -2679,13 +2691,13 @@
             "value" : "Any followed user"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Any followed user"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Any followed user"
@@ -2825,7 +2837,7 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Удзельнікі гэтага спісу"
           }
         },
@@ -2855,26 +2867,26 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Listemedlemmer"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Mitglieder der Liste"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Μέλη της λίστας"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "en-US" : {
@@ -2891,13 +2903,13 @@
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Miembros de la lista"
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Loendi liikmetelt"
           }
         },
@@ -2915,13 +2927,13 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Aux membres de la liste"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Baill an liosta"
           }
         },
@@ -2969,13 +2981,13 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Meðlima listans"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Membri della lista"
           }
         },
@@ -2991,13 +3003,13 @@
             "value" : "Members of the list"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Members of the list"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Members of the list"
@@ -3023,7 +3035,7 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Leden van de lijst"
           }
         },
@@ -3089,19 +3101,19 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Listenin üyeleri"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Учасники списку"
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Tài khoản trong danh sách"
           }
         },
@@ -3113,7 +3125,7 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "列表成員"
           }
         }
@@ -3303,16 +3315,16 @@
             "value" : "Ula yiwen"
           }
         },
-        "kmr-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ne yek"
-          }
-        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "알림 받지않기"
+          }
+        },
+        "ku-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ne yek"
           }
         },
         "lt" : {

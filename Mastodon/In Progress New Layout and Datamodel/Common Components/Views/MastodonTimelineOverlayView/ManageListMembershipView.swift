@@ -18,7 +18,7 @@ struct ManageListMembershipView: View {
             VStack {
                 Spacer()
                     .frame(height: doublePadding)
-                Text("Add \(listsViewModel.accountToAddOrRemove.displayInfo.fullHandle) to lists")
+                Text(L10nLookup.Scene.Lists.addAccountToList(listsViewModel.accountToAddOrRemove.displayInfo.fullHandle))
                     .font(.title3)
                     .fontWeight(.semibold)
                     .padding(doublePadding)
