@@ -663,17 +663,17 @@ extension MastodonTabViewRouter.MastodonTab {
         case .localFeed:
             L10n.Scene.HomeTimeline.TimelineMenu.localCommunity
         case .lists:
-            L10n.Scene.HomeTimeline.TimelineMenu.Lists.title
+            L10nLookup.Timeline.FeedMenu.customFeeds
         case .hashtags:
             L10n.Scene.HomeTimeline.TimelineMenu.Hashtags.title
         case .list(let list):
             list.title
         case .hashtag(let hashtag):
-            hashtag.name
+            "#\(hashtag.name)"
         }
     }
     
-    var icon: Image {
+    var icon: Image? {
         switch self {
         case .home:
             Image(phosphor: .house)
@@ -686,14 +686,20 @@ extension MastodonTabViewRouter.MastodonTab {
         case .localFeed:
             Image(systemName: "building.2")
         case .lists, .list:
-            Image(systemName: "list.star")
-        case .hashtags, .hashtag:
+            Image(phosphor: .rssSimple)
+        case .hashtags:
             Image(systemName: "number")
+        case .hashtag:
+            nil
         }
     }
     
-    var label: Label<Text, Image> {
-        Label(title, icon: icon)
+    @ViewBuilder var label: some View {
+        if let icon {
+            Label(title, icon: icon)
+        } else {
+            Text(title)
+        }
     }
     
     var customizationBehavior: TabCustomizationBehavior {
