@@ -16,7 +16,6 @@ extension EnvironmentValues {
 }
 
 struct MastodonMainTabView: View {
-    @Environment(\.horizontalSizeClass) private var sizeClass
     @Environment(\.displayScale) private var displayScale
     @Environment(\.sceneCoordinator) private var sceneCoordinator
     @Environment(\.webAuthenticationSession) private var webAuthenticationSession
@@ -173,13 +172,14 @@ struct MastodonMainTabView: View {
     
     @ViewBuilder private func loggedInTabs(_ authBox: MastodonAuthenticationBox) -> some View {
         TabView(selection: $tabViewRouter.selectedTab) {
-            ForEach(tabViewRouter.tabs(forSizeClass: sizeClass), id: \.self) { tab in
+            ForEach(tabViewRouter.tabs, id: \.self) { tab in
                 if let subtabs = subtabsFor(tab) {
                     if !subtabs.isEmpty {
                         TabSection {
                             ForEach(subtabs, id: \.self) { subtab in
                                 Tab(value: subtab) {
                                     view(forTab: subtab)
+                                        .modifier(TabBarPlacementReporter())
                                 } label: { subtab.label }
                                 .customizationID(subtab.id)
                                 .customizationBehavior(subtab.customizationBehavior, for: .tabBar, .sidebar)
@@ -192,10 +192,12 @@ struct MastodonMainTabView: View {
                             }
                         }
                         .defaultVisibility(.hidden, for: .tabBar)
+                        .hidden(tab.hideFromBottomBar && !tabViewRouter.currentTabBarPlacement.isSidebarAvailable)
                     }
                 } else {
                     Tab(value: tab) {
                         view(forTab: tab)
+                            .modifier(TabBarPlacementReporter())
                     } label: {
                         if tab == .profile, let avatar = avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular) {
                             Label(tab.title, icon: avatar)
@@ -206,6 +208,7 @@ struct MastodonMainTabView: View {
                     .customizationID(tab.id)
                     .customizationBehavior(tab.customizationBehavior, for: .tabBar, .sidebar)
                     .defaultVisibility(tab.defaultTabBarVisibility, for: .tabBar)
+                    .hidden(tab.hideFromBottomBar && !tabViewRouter.currentTabBarPlacement.isSidebarAvailable)
                     .badge(notificationBadge(for: tab, authBox: authBox))
                 }
             }
@@ -676,6 +679,14 @@ extension MastodonTabViewRouter.MastodonTab {
                 .visible
         case .localFeed, .lists, .hashtags, .list, .hashtag:
                 .hidden
+        }
+    }
+    var hideFromBottomBar: Bool {
+        switch self {
+        case .localFeed, .lists, .hashtags, .list, .hashtag:
+                true
+        case .home, .explore, .notifications, .profile:
+                false
         }
     }
 }

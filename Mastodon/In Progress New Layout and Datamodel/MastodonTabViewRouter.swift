@@ -190,16 +190,11 @@ import Combine
     
     private var navigationRouters = [ MastodonTab : MastodonNavigationRouter]()
     
-    func tabs(forSizeClass sizeClass: UserInterfaceSizeClass?) -> [MastodonTab] {
-        switch sizeClass {
-        case .regular:
-            return [.home, isLocalTimelineAvailable ? .localFeed : nil, .explore, .notifications, .profile, .lists, .hashtags]
-                .compactMap { $0 }
-        case .none, .compact:
-            fallthrough
-        @unknown default:
-            return [.home, .explore, .notifications, .profile]
-        }
+    var currentTabBarPlacement: TabBarPlacement?
+    
+    var tabs: [MastodonTab] {
+        return [.home, isLocalTimelineAvailable ? .localFeed : nil, .explore, .notifications, .profile, .lists, .hashtags]
+            .compactMap { $0 }
     }
     
     public func show(_ destination: MastodonNavigationDestination, in tab: MastodonTab) {
@@ -266,5 +261,34 @@ import Combine
         } else {
             activeOverlay = overlay
         }
+    }
+}
+
+extension Optional where Wrapped == TabBarPlacement {
+    var isSidebarAvailable: Bool {
+        switch self {
+        case .sidebar, .topBar:
+            return true
+        case .bottomBar:
+            return false
+        case .ornament, .pageIndicator:
+            return false
+        default:
+            return false
+        }
+    }
+}
+
+struct TabBarPlacementReporter: ViewModifier {
+    @Environment(MastodonTabViewRouter.self) private var tabViewRouter
+    @Environment(\.tabBarPlacement) private var tabBarPlacement
+    
+    func body(content: Content) -> some View {
+        content
+            .onChange(of: tabBarPlacement, initial: true) { _, placement in
+                if tabViewRouter.currentTabBarPlacement != placement {
+                    tabViewRouter.currentTabBarPlacement = placement
+                }                
+            }
     }
 }
