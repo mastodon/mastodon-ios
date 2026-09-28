@@ -317,7 +317,7 @@ struct MastodonMainTabView: View {
             .environment(navigationStackNavigator)
             
         case .localFeed, .list, .hashtag:
-            timelineNavigationStack(forTab: tab, rootModifier: EmptyModifier())
+            timelineNavigationStack(forTab: tab, rootModifier: NavigationTitle(title: tab.title))
             
         case .lists, .hashtags:
             // these should never be called upon to actually produce a view, they are only used as sidebar sections for the actual views
