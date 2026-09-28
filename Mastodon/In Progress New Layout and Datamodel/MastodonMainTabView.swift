@@ -193,57 +193,16 @@ struct MastodonMainTabView: View {
                         }
                         .defaultVisibility(.hidden, for: .tabBar)
                     }
-                } else if tab == .profile {
-                    // Profile is a special case because when sidebar is available we are showing the current profile as a navigation tab and settings as an action, but when sidebar is not available (.compact width), we only want to show the profile icon
-                    switch sizeClass {
-                    case .regular:
-                        TabSection {
-                            if let currentAuthBox = AuthenticationServiceProvider.shared.currentActiveUser.value, let currentAuthAccount = currentAuthBox.cachedAccount, let icon = avatarIconRenderer.prerenderedAccountAvatar(currentAuthBox.globallyUniqueUserIdentifier, style: .circular) {
-                                Tab(value: tab) {
-                                    view(forTab: tab)
-                                } label: {
-                                    Label("@\(currentAuthAccount.acctWithDomain)", icon: icon)
-                                }
-                                .customizationID(tab.id)
-                                .customizationBehavior(tab.customizationBehavior, for: .tabBar, .sidebar)
-                            } else {
-                                Tab(value: tab) {
-                                    view(forTab: tab)
-                                } label: { tab.label }
-                                .customizationID(tab.id)
-                                .customizationBehavior(tab.customizationBehavior, for: .tabBar, .sidebar)
-                            }
-                        } header: {
-                            HStack {
-                                tab.icon
-                                Text(tab.title)
-                            }
-                        }
-                        
-                    case .compact, .none:
-                        Tab(value: tab) {
-                            view(forTab: tab)
-                        } label: {
-                            Label {
-                                Text(tab.title)
-                            } icon: {
-                                if let avatar = avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular) {
-                                    avatar
-                                } else {
-                                    tab.icon
-                                }
-                            }
-                        }
-                       
-                    @unknown default:
-                        Tab(value: tab) {
-                            view(forTab: tab)
-                        } label: { tab.label }
-                    }
                 } else {
                     Tab(value: tab) {
                         view(forTab: tab)
-                    } label: { tab.label }
+                    } label: {
+                        if tab == .profile, let avatar = avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular) {
+                            Label(tab.title, icon: avatar)
+                        } else {
+                            tab.label
+                        }
+                    }
                     .customizationID(tab.id)
                     .customizationBehavior(tab.customizationBehavior, for: .tabBar, .sidebar)
                     .defaultVisibility(tab.defaultTabBarVisibility, for: .tabBar)
