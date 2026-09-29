@@ -7,13 +7,12 @@ import MastodonLocalization
 struct HomeTimelineChrome: ViewModifier {
     @Environment(MastodonTabViewRouter.self) private var tabViewRouter
     @Environment(MastodonNavigationRouter.self) private var navigationRouter
-    @Environment(\.tabBarPlacement) private var tabBarPlacement
     
     func body(content: Content) -> some View {
         content
             .navigationTitle(currentHomeFeedName ?? "")
             .toolbar {
-                if !tabBarPlacement.isSidebarAvailable {
+                if !tabViewRouter.currentTabBarPlacement.isSidebarAvailable {
                     ToolbarItem(placement: .topBarLeading) {
                         Menu {
                             homeTimelineFeedPickerContents
@@ -23,7 +22,7 @@ struct HomeTimelineChrome: ViewModifier {
                     }
                 }
 
-                if tabBarPlacement.isSidebarAvailable {
+                if tabViewRouter.currentTabBarPlacement.isSidebarAvailable {
                     ToolbarItem(placement: .topBarTrailing) {
                         modalComposeButton(diameter: 40)
                     }
@@ -31,7 +30,7 @@ struct HomeTimelineChrome: ViewModifier {
                 }
             }
             .overlay(alignment: .bottomTrailing) {
-                if !tabBarPlacement.isSidebarAvailable {
+                if !tabViewRouter.currentTabBarPlacement.isSidebarAvailable {
                     modalComposeButton(diameter: 50)
                 }
             }

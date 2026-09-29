@@ -179,7 +179,7 @@ struct MastodonMainTabView: View {
                             ForEach(subtabs, id: \.self) { subtab in
                                 Tab(value: subtab) {
                                     view(forTab: subtab)
-                                        .modifier(TabBarPlacementReporter())
+                                        .modifier(TabBarPlacementReporter(reportingFromTab: subtab))
                                 } label: { subtab.label }
                                 .customizationID(subtab.id)
                                 .customizationBehavior(subtab.customizationBehavior, for: .tabBar, .sidebar)
@@ -197,7 +197,7 @@ struct MastodonMainTabView: View {
                 } else {
                     Tab(value: tab) {
                         view(forTab: tab)
-                            .modifier(TabBarPlacementReporter())
+                            .modifier(TabBarPlacementReporter(reportingFromTab: tab))
                     } label: {
                         if tab == .profile, let avatar = avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular) {
                             Label(tab.title, icon: avatar)
@@ -324,47 +324,6 @@ struct MastodonMainTabView: View {
             EmptyView()
         }
     }
-
-    private func timelineViewModel(forTab tab: MastodonTabViewRouter.MastodonTab) -> TimelineListViewModel? {
-        switch tab {
-        case .home:
-            if let model = tabViewRouter.homeTimelineModel {
-                return model
-            } else {
-                let model = TimelineListViewModel(timeline: .homeTimeline, navigator: tabViewRouter.navigationRouter(forTab: .home), asyncRefreshViewModel: AsyncRefreshViewModel())
-                tabViewRouter.homeTimelineModel = model
-                return model
-            }
-            
-        case .localFeed:
-            if let model = tabViewRouter.customTimelineModels[tab] {
-                return model
-            } else {
-                let model = TimelineListViewModel(timeline: .local, navigator: tabViewRouter.navigationRouter(forTab: tab), asyncRefreshViewModel: AsyncRefreshViewModel())
-                tabViewRouter.customTimelineModels[tab] = model
-                return model
-            }
-            
-        case .list(let list):
-            if let model = tabViewRouter.customTimelineModels[tab] {
-                return model
-            } else {
-                let model = TimelineListViewModel(timeline: .list(list.id), navigator: tabViewRouter.navigationRouter(forTab: tab), asyncRefreshViewModel: AsyncRefreshViewModel())
-                tabViewRouter.customTimelineModels[tab] = model
-                return model
-            }
-        case .hashtag(let hashtag):
-            if let model = tabViewRouter.customTimelineModels[tab] {
-                return model
-            } else {
-                let model = TimelineListViewModel(timeline: .hashtag(hashtag, includeHeader: false), navigator: tabViewRouter.navigationRouter(forTab: tab), asyncRefreshViewModel: AsyncRefreshViewModel())
-                tabViewRouter.customTimelineModels[tab] = model
-                return model
-            }
-        default:
-            return nil
-        }
-    }
     
     private func notificationsTimelineViewModel(scope: NotificationsScope) -> TimelineListViewModel {
         func newModel() -> TimelineListViewModel {
@@ -429,7 +388,7 @@ struct MastodonMainTabView: View {
     
     @ViewBuilder func timelineNavigationStack(forTab tab: MastodonTabViewRouter.MastodonTab, rootModifier: some ViewModifier) -> some View {
         @Bindable var navigationStackNavigator = tabViewRouter.navigationRouter(forTab: tab)
-        if let timelineModel = timelineViewModel(forTab: tab) {
+        if let timelineModel = tabViewRouter.timelineViewModel(forTab: tab) {
             NavigationStack(path: $navigationStackNavigator.navigationPath) {
                 TimelineListView()
                     .timelineEnvironment(timelineModel: timelineModel, contentConcealModel: .alwaysShow, filter: timelineModel.timelineQueryFilter, asyncRefreshModel: timelineModel.asyncRefreshViewModel)

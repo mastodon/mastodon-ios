@@ -183,14 +183,27 @@ import Combine
             }
         }
         
-        
+        var homeTabAlternateTimeline: MastodonTimelineType? {
+            switch self {
+            case .home:
+                return nil
+            case .localFeed:
+                return .local
+            case .list(let list):
+                return .list(list.id)
+            case .hashtag(let hashtag):
+                return .hashtag(hashtag, includeHeader: false)
+            case .explore, .notifications, .profile, .lists, .hashtags:
+                return nil
+            }
+        }
     }
     
     var selectedTab: MastodonTab = .home
     
     private var navigationRouters = [ MastodonTab : MastodonNavigationRouter]()
     
-    var currentTabBarPlacement: TabBarPlacement?
+    private(set) var currentTabBarPlacement: TabBarPlacement?
     
     var tabs: [MastodonTab] {
         return [.home, isLocalTimelineAvailable ? .localFeed : nil, .explore, .notifications, .profile, .lists, .hashtags]
@@ -251,6 +264,50 @@ import Combine
         }
     }
     
+    func didObserveTabBarPlacement(_ placement: TabBarPlacement?, inTab tab: MastodonTab) {
+        guard tab == selectedTab else { return } // unselected tabs still report values, but they are often incorrect
+        guard placement != currentTabBarPlacement else { return }
+        currentTabBarPlacement = placement
+        if placement.isSidebarAvailable {
+            moveHomeFeedToSidebar()
+        } else {
+            moveSidebarFeedToHome()
+        }
+    }
+    
+    private func moveHomeFeedToSidebar() {
+        // when a sidebar is available, the home tab doesn't show the feed switcher, so the extra feeds have to be shown in the sidebar as their own tabs
+        guard let homeTimelineModel, homeTimelineModel.timeline != .homeTimeline else { return }
+        if selectedTab == .home, let feedTab = sidebarTab(showing: homeTimelineModel.timeline) {
+            selectedTab = feedTab
+        }
+        let navigator = navigationRouter(forTab: .home)
+        navigator.popToRoot()
+        homeTimelineModel.setTimeline(.homeTimeline, navigator: navigator)
+    }
+    
+    private func sidebarTab(showing timeline: MastodonTimelineType) -> MastodonTab? {
+        switch timeline {
+        case .local:
+            return isLocalTimelineAvailable ? .localFeed : nil
+        case .list(let listID):
+            return lists.first(where: { $0.id == listID }).map { .list($0) }
+        case .hashtag(let tag, _):
+            return followedHashtags.first(where: { $0.name == tag.name }).map { .hashtag($0) }
+        default:
+            return nil
+        }
+    }
+    
+    private func moveSidebarFeedToHome() {
+        // all feeds have their own tabs in the sidebar (or when the sidebar is available via the top bar), but when the tab bar is the bottom bar, those feeds are all shown in the home tab and accessed via the switcher menu.
+        guard let timeline = selectedTab.homeTabAlternateTimeline else { return }
+        let navigator = navigationRouter(forTab: .home)
+        navigator.popToRoot() // TODO: hold onto the navigation path per timeline, so that context is not lost?
+        timelineViewModel(forTab: .home)?.setTimeline(timeline, navigator: navigator)
+        selectedTab = .home
+    }
+    
     // MARK - Overlays
     var activeOverlayID: UUID? = nil
     var activeOverlay: MastodonFadeInOverlay? = nil
@@ -260,6 +317,33 @@ import Combine
             withAnimation { activeOverlay = overlay }
         } else {
             activeOverlay = overlay
+        }
+    }
+    
+    func timelineViewModel(forTab tab: MastodonTabViewRouter.MastodonTab) -> TimelineListViewModel? {
+        switch tab {
+        case .home:
+            if let model = homeTimelineModel {
+                return model
+            } else {
+                let model = TimelineListViewModel(timeline: .homeTimeline, navigator: navigationRouter(forTab: .home), asyncRefreshViewModel: AsyncRefreshViewModel())
+                homeTimelineModel = model
+                return model
+            }
+            
+        case .localFeed, .list, .hashtag:
+            if let model = customTimelineModels[tab] {
+                return model
+            } else if let timeline = tab.homeTabAlternateTimeline {
+                let model = TimelineListViewModel(timeline: timeline, navigator: navigationRouter(forTab: tab), asyncRefreshViewModel: AsyncRefreshViewModel())
+                customTimelineModels[tab] = model
+                return model
+            } else {
+                return nil
+            }
+            
+        default:
+            return nil
         }
     }
 }
@@ -280,15 +364,14 @@ extension Optional where Wrapped == TabBarPlacement {
 }
 
 struct TabBarPlacementReporter: ViewModifier {
+    let reportingFromTab: MastodonTabViewRouter.MastodonTab
     @Environment(MastodonTabViewRouter.self) private var tabViewRouter
     @Environment(\.tabBarPlacement) private var tabBarPlacement
     
     func body(content: Content) -> some View {
         content
             .onChange(of: tabBarPlacement, initial: true) { _, placement in
-                if tabViewRouter.currentTabBarPlacement != placement {
-                    tabViewRouter.currentTabBarPlacement = placement
-                }                
+                tabViewRouter.didObserveTabBarPlacement(placement, inTab: reportingFromTab)
             }
     }
 }
