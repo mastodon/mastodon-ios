@@ -165,6 +165,12 @@ extension MastodonPickServerViewController {
             .store(in: &disposeBag)
         
         onboardingNextView.nextButton.addTarget(self, action: #selector(MastodonPickServerViewController.next(_:)), for: .touchUpInside)
+        
+        viewModel.selectedServer
+            .sink { [weak self] server in
+                self?.onboardingNextView.canProceed = server != nil
+            }
+            .store(in: &disposeBag)
 
         viewModel.allLanguages
             .receive(on: DispatchQueue.main)
@@ -202,17 +208,7 @@ extension MastodonPickServerViewController {
 extension MastodonPickServerViewController {
 
     @objc private func next(_ sender: UIButton) {
-
-        let server: Mastodon.Entity.Server
-
-        if let selectedServer = viewModel.selectedServer.value {
-            server = selectedServer
-        } else if let randomServer = viewModel.chooseRandomServer() {
-            server = randomServer
-        } else {
-            return
-        }
-
+        guard let server = viewModel.selectedServer.value else { return }
         Task {
             await tryToJoin(server: server)
         }

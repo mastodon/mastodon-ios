@@ -32,15 +32,6 @@ final class OnboardingNextView: UIView {
         return button
     }()
 
-    let explanationLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textColor = .secondaryLabel
-        label.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
-        label.text = L10n.Scene.ServerPicker.noServerSelectedHint
-        return label
-    }()
-
     lazy var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .medium)
         indicator.color = .white
@@ -48,6 +39,9 @@ final class OnboardingNextView: UIView {
         return indicator
     }()
     private var isLoading: Bool = false
+    var canProceed: Bool = true {
+        didSet { updateNextButtonState() }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -62,7 +56,6 @@ final class OnboardingNextView: UIView {
     private func _init() {
         container.translatesAutoresizingMaskIntoConstraints = false
         container.addArrangedSubview(nextButton)
-        container.addArrangedSubview(explanationLabel)
 
         addSubview(container)
 
@@ -72,8 +65,7 @@ final class OnboardingNextView: UIView {
             trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: 16),
             safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: 16),
 
-            nextButton.widthAnchor.constraint(equalTo: container.widthAnchor),
-            explanationLabel.widthAnchor.constraint(equalTo: container.widthAnchor),
+            nextButton.widthAnchor.constraint(equalTo: container.widthAnchor)
         ])
         
         NSLayoutConstraint.activate([
@@ -83,9 +75,9 @@ final class OnboardingNextView: UIView {
 
     func showLoading() {
         guard isLoading == false else { return }
-        nextButton.isEnabled = false
         isLoading = true
         nextButton.setTitle("", for: .disabled)
+        updateNextButtonState()
 
         nextButton.addSubview(activityIndicator)
         NSLayoutConstraint.activate([
@@ -101,8 +93,13 @@ final class OnboardingNextView: UIView {
         if activityIndicator.superview == nextButton {
             activityIndicator.removeFromSuperview()
         }
-        nextButton.isEnabled = true
+        updateNextButtonState()
         nextButton.setTitle(L10n.Common.Controls.Actions.next, for: .disabled)
+    }
+    
+    private func updateNextButtonState() {
+        nextButton.isEnabled = canProceed && !isLoading
+        nextButton.alpha = nextButton.isEnabled ? 1 : 0.5
     }
 }
 

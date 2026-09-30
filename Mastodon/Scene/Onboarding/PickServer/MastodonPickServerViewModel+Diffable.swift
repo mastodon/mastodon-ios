@@ -105,6 +105,13 @@ extension MastodonPickServerViewModel {
             
             diffableDataSource.defaultRowAnimation = .fade
             diffableDataSource.apply(snapshot, animatingDifferences: true, completion: nil)
+            
+            if let selectedDomain = self.selectedServer.value?.domain, !serverItems.contains(where: { item in
+                guard case let .server(server, _) = item else { return false }
+                return server.domain == selectedDomain
+            }) {
+                self.selectedServer.send(nil) // the selected server is no longer in the visible list, so don't leave it as the server that will be registered with if you tap "Next" without selecting something else
+            }
         })
         .store(in: &disposeBag)
     }
