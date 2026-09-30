@@ -383,10 +383,10 @@ extension AuthenticationViewModel {
                         // the server gives us a code before the email has been confirmed
                         self.isAuthenticating.value = false
                         let viewModel = MastodonConfirmEmailViewModel(
-                            email: "your email address",
+                            email: nil,
                             authenticateInfo: info,
                             userToken: token,
-                            updateCredentialQuery: Mastodon.API.Account.UpdateCredentialQuery(displayName: nil, avatar: nil)
+                            updateCredentialQuery: nil
                         )
                         self.stateStreamContinuation.yield(.confirmingEmail(viewModel))
                         return

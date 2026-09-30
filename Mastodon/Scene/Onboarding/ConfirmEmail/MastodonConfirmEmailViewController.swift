@@ -68,7 +68,11 @@ extension MastodonConfirmEmailViewController {
         configureMargin()
         registerForTraitChanges([UITraitHorizontalSizeClass.self], action: #selector(configureMargin))
 
-        subtitleLabel.text = L10n.Scene.ConfirmEmail.tapTheLinkWeEmailedToYouToVerifyYourAccount(viewModel.email)
+        if let email = viewModel.email {
+            subtitleLabel.text = L10n.Scene.ConfirmEmail.tapTheLinkWeEmailedToYouToVerifyYourAccount(email)
+        } else {
+            subtitleLabel.text = L10n.Scene.ConfirmEmail.tapTheLinkWeEmailedToYou
+        }
 
         resendEmailButton.addTarget(self, action: #selector(MastodonConfirmEmailViewController.resendButtonPressed(_:)), for: .touchUpInside)
 
@@ -99,13 +103,15 @@ extension MastodonConfirmEmailViewController {
                 Task { @MainActor in
                     guard (try? await AuthenticationViewModel.verifyAndActivateAuthentication(info: self.viewModel.authenticateInfo, userToken: self.viewModel.userToken)) != nil else { return /* email confirmation not completed yet */ }
                     let domain = self.viewModel.authenticateInfo.domain
-                    Task {
-                        // in the background, set display name already chosen during set up
-                        let _ = try? await APIService.shared.accountUpdateCredentials(
-                            domain: domain,
-                            query: self.viewModel.updateCredentialQuery,
-                            authorization: Mastodon.API.OAuth.Authorization(accessToken: self.viewModel.userToken.accessToken, domain: domain)
-                        )
+                    if let updateCredentialQuery = self.viewModel.updateCredentialQuery {
+                        Task {
+                            // in the background, set display name already chosen during set up
+                            let _ = try? await APIService.shared.accountUpdateCredentials(
+                                domain: domain,
+                                query: updateCredentialQuery,
+                                authorization: Mastodon.API.OAuth.Authorization(accessToken: self.viewModel.userToken.accessToken, domain: domain)
+                            )
+                        }
                     }
                     self.dismiss(animated: true, completion: nil) // dismiss this view
                 }

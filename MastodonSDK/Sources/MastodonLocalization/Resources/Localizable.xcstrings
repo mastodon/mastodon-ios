@@ -145152,6 +145152,17 @@
         }
       }
     },
+    "Scene.ConfirmEmail.TapTheLinkWeEmailedToYou" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap the link we sent you to verify your account. We’ll wait right here."
+          }
+        }
+      }
+    },
     "Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount" : {
       "extractionState" : "migrated",
       "localizations" : {

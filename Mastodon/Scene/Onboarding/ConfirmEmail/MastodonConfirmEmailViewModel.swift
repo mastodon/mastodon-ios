@@ -11,10 +11,10 @@ import MastodonSDK
 
 final class MastodonConfirmEmailViewModel {
     // input
-    var email: String
+    var email: String?  // nil for web sign ups
     let authenticateInfo: AuthenticationViewModel.AuthenticateInfo
     let userToken: Mastodon.Entity.Token
-    let updateCredentialQuery: Mastodon.API.Account.UpdateCredentialQuery
+    let updateCredentialQuery: Mastodon.API.Account.UpdateCredentialQuery?
 
     let timestampUpdatePublisher = Timer.publish(every: 4.0, on: .main, in: .common)
         .autoconnect()
@@ -22,10 +22,10 @@ final class MastodonConfirmEmailViewModel {
         .eraseToAnyPublisher()
 
     init(
-        email: String,
+        email: String?,
         authenticateInfo: AuthenticationViewModel.AuthenticateInfo,
         userToken: Mastodon.Entity.Token,
-        updateCredentialQuery: Mastodon.API.Account.UpdateCredentialQuery
+        updateCredentialQuery: Mastodon.API.Account.UpdateCredentialQuery?
     ) {
         self.email = email
         self.authenticateInfo = authenticateInfo

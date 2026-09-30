@@ -887,6 +887,11 @@ public enum L10n {
       }
     }
     public enum ConfirmEmail {
+        /// Tap the link we sent you to verify your account. We'll wait right here.
+        public static let tapTheLinkWeEmailedToYou: String = {
+            return L10n.tr("Localizable", "Scene.ConfirmEmail.TapTheLinkWeEmailedToYou", fallback: "Tap the link we sent you to verify your account. We'll wait right here.")
+        }()
+        
       /// Tap the link we sent you to verify %@. We’ll wait right here.
       public static func tapTheLinkWeEmailedToYouToVerifyYourAccount(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount", String(describing: p1), fallback: "Tap the link we sent you to verify %@. We’ll wait right here.")

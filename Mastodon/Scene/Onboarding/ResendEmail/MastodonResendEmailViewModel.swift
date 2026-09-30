@@ -13,11 +13,11 @@ final class MastodonResendEmailViewModel {
     
     // input
     let resendEmailURL: URL
-    let email: String
+    let email: String?
     
     private var navigationDelegateShim: MastodonResendEmailViewModelNavigationDelegateShim?
     
-    init(resendEmailURL: URL, email: String) {
+    init(resendEmailURL: URL, email: String?) {
         self.resendEmailURL = resendEmailURL
         self.email = email
     }
