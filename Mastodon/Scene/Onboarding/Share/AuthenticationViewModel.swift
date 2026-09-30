@@ -97,7 +97,7 @@ extension AuthenticationViewModel {
         stateStreamContinuation.yield(.pickingServer)
     }
     
-    public func joinServer(_ server: Mastodon.Entity.Server) async throws {
+    public func joinServer(_ server: Mastodon.Entity.Server, presentationContextProvider: ASWebAuthenticationPresentationContextProviding) async throws {
         
         stateStreamContinuation.yield(.joiningServer(server))
         
@@ -113,6 +113,11 @@ extension AuthenticationViewModel {
         
         guard instance.isOpenToNewRegistrations ?? true else {
             throw AuthenticationViewModel.AuthenticationError.registrationClosed
+        }
+        guard !instance.supportsWebSignUp else {
+            // the server will show its own rules and privacy policy
+            try await signUpOnWeb(domain: server.domain, presentationContextProvider: presentationContextProvider)
+            return
         }
         let application = try await APIService.shared.createApplication(domain: server.domain)
         
@@ -157,6 +162,16 @@ extension AuthenticationViewModel {
         } else {
             doStartRegistration()
         }
+    }
+    
+    private func signUpOnWeb(domain: String, presentationContextProvider: ASWebAuthenticationPresentationContextProviding) async throws {
+        let application = try await APIService.shared.createApplication(domain: domain)
+        guard let authenticateInfo = AuthenticateInfo(domain: domain, application: application) else { throw APIService.APIError.explicit(.badResponse) }
+        authenticationController = MastodonAuthenticationController(authenticateURL: authenticateInfo.signUpURL)
+        guard let authenticationController else { return }
+        authenticationController.authenticationSession?.presentationContextProvider = presentationContextProvider
+        authenticate(info: authenticateInfo, pinCodePublisher: authenticationController.resultStream, isSignUp: true)
+        authenticationController.authenticationSession?.start()
     }
     
     public func registerNewUser(info: MastodonRegisterViewModel, instance: Mastodon.Entity.Server, hasAgreedToRules: Bool, locale: String?) async {
@@ -321,6 +336,11 @@ extension AuthenticationViewModel {
         let authorizeURL: URL
         let redirectURI: String
         
+        var signUpURL: URL {
+            let query = Mastodon.API.OAuth.AuthorizeQuery(clientID: clientID, redirectURI: redirectURI, prompt: "create")
+            return Mastodon.API.OAuth.authorizeURL(domain: domain, query: query)
+        }
+        
         init?(
             domain: String,
             application: Mastodon.Entity.Application,
@@ -340,7 +360,7 @@ extension AuthenticationViewModel {
         }
     }
     
-    private func authenticate(info: AuthenticateInfo, pinCodePublisher: AsyncThrowingStream<String, Error>) {
+    private func authenticate(info: AuthenticateInfo, pinCodePublisher: AsyncThrowingStream<String, Error>, isSignUp: Bool = false) {
         Task {
             do {
                 for try await code in pinCodePublisher {
@@ -353,19 +373,32 @@ extension AuthenticationViewModel {
                             redirectURI: info.redirectURI,
                             code: code
                         )
-                    let authBox = try await AuthenticationViewModel.verifyAndActivateAuthentication(
-                        info: info,
-                        userToken: token
-                    )
+                    let authBox: MastodonAuthenticationBox
+                    do {
+                        authBox = try await AuthenticationViewModel.verifyAndActivateAuthentication(
+                            info: info,
+                            userToken: token
+                        )
+                    } catch let error as Mastodon.API.Error where isSignUp && error.httpResponseStatus == .forbidden {
+                        // the server gives us a code before the email has been confirmed
+                        self.isAuthenticating.value = false
+                        let viewModel = MastodonConfirmEmailViewModel(
+                            email: "your email address",
+                            authenticateInfo: info,
+                            userToken: token,
+                            updateCredentialQuery: Mastodon.API.Account.UpdateCredentialQuery(displayName: nil, avatar: nil)
+                        )
+                        self.stateStreamContinuation.yield(.confirmingEmail(viewModel))
+                        return
+                    }
+                    
                     self.stateStreamContinuation.yield(.authenticatedUser(authBox))
                     self.stateStreamContinuation.finish()
                 }
             } catch let error {
                 self.isAuthenticating.value = false
                 if let error = error as? ASWebAuthenticationSessionError {
-                    if error.errorCode == ASWebAuthenticationSessionError.canceledLogin.rawValue {
-                        return
-                    }
+                    if error.errorCode == ASWebAuthenticationSessionError.canceledLogin.rawValue { return }
                 } else {
                     self.error.value = error
                     stateStreamContinuation.yield(.error(error))

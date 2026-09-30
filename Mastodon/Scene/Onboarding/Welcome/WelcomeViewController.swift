@@ -5,6 +5,7 @@
 //  Created by BradGao on 2021/2/20.
 //
 
+import AuthenticationServices
 import UIKit
 import Combine
 import MastodonAsset
@@ -170,7 +171,9 @@ extension WelcomeViewController {
         case .showingPrivacyPolicy(let viewModel):
             _ = self.sceneCoordinator?.present(scene: .mastodonPrivacyPolicies(viewModel: viewModel), from: self, transition: .show)
         case .pickingServer:
-            _ = self.sceneCoordinator?.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(joinServer: { [weak self] server in try await self?.authenticationViewModel.joinServer(server) }, displayError: { [weak self] error in self?.displayError(error) })), from: self, transition: .show)
+            _ = self.sceneCoordinator?.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(joinServer: { [weak self] server in
+                guard let self else { return }
+                try await self.authenticationViewModel.joinServer(server, presentationContextProvider: self) }, displayError: { [weak self] error in self?.displayError(error) })), from: self, transition: .show)
         case .confirmingEmail(let viewModel):
             _ = self.sceneCoordinator?.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
         case .authenticatedUser:
@@ -325,7 +328,7 @@ extension WelcomeViewController {
     private func joinServer(_ server: Mastodon.Entity.Server) {
         Task {
             do {
-                try await authenticationViewModel.joinServer(server)
+                try await authenticationViewModel.joinServer(server, presentationContextProvider: self)
             } catch let error {
                 displayError(error)
             }
@@ -342,7 +345,7 @@ extension WelcomeViewController {
         
         Task {
             do {
-                try await authenticationViewModel.joinServer(server)
+                try await authenticationViewModel.joinServer(server, presentationContextProvider: self)
                 // reset the button after successful completion (which is not completion of the full sign in process, only the first step of reaching the server and getting the rules)
                 configureJoinDefaultServerButton(server.domain, isLoading: false)
             } catch {
@@ -464,6 +467,18 @@ extension WelcomeViewController {
 
 // MARK: - OnboardingViewControllerAppearance
 extension WelcomeViewController: OnboardingViewControllerAppearance {}
+
+// MARK: - ASWebAuthenticationPresentationContextProviding
+extension WelcomeViewController: ASWebAuthenticationPresentationContextProviding {
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        if let window = navigationController?.view.window ?? view.window {
+            return window
+        }
+        
+        assertionFailure()
+        return ASPresentationAnchor()
+    }
+}
 
 // MARK: - UIAdaptivePresentationControllerDelegate
 extension WelcomeViewController: UIAdaptivePresentationControllerDelegate {

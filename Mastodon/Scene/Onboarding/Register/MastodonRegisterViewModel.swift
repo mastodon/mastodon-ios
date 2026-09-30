@@ -515,6 +515,7 @@ protocol RegistrationInstance {
     var rules: [Mastodon.Entity.Instance.Rule]? { get }
     var termsOfService: URL? { get }
     var privacyPolicy: URL? { get }
+    var supportsWebSignUp: Bool { get }
 }
 
 extension Mastodon.Entity.Instance: RegistrationInstance {
@@ -534,6 +535,8 @@ extension Mastodon.Entity.Instance: RegistrationInstance {
     var privacyPolicy: URL? {
         return URL(string: "https://\(uri)/privacy-policy")
     }
+    
+    var supportsWebSignUp: Bool { return false }
 }
 
 extension Mastodon.Entity.V2.Instance: RegistrationInstance {
@@ -561,4 +564,6 @@ extension Mastodon.Entity.V2.Instance: RegistrationInstance {
             return URL(string: "https://\(domain)/privacy-policy")
         }
     }
+    
+    var supportsWebSignUp: Bool { return registrations?.oauthRegistration ?? false }
 }

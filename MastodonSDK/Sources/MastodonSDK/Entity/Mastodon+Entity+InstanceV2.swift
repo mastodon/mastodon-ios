@@ -117,12 +117,14 @@ extension Mastodon.Entity.V2.Instance {
         public let minAge: Int?
         public let approvalRequired: Bool?
         public let reasonRequired: Bool?
+        public let oauthRegistration: Bool? // register new accounts with /oauth/authorize?prompt=create in a webview
         
         enum CodingKeys: String, CodingKey {
             case enabled
             case minAge = "min_age"
             case approvalRequired = "approval_required"
             case reasonRequired = "reason_required"
+            case oauthRegistration = "oauth"
         }
     }
 }

@@ -164,19 +164,22 @@ extension Mastodon.API.OAuth {
         public let clientID: String
         public let redirectURI: String
         public let scope: String?
+        public let prompt: String?
         
         public init(
             forceLogin: String? = nil,
             responseType: String = "code",
             clientID: String,
             redirectURI: String,
-            scope: String? = "read write follow push"
+            scope: String? = "read write follow push",
+            prompt: String? = nil
         ) {
             self.forceLogin = forceLogin
             self.responseType = responseType
             self.clientID = clientID
             self.redirectURI = redirectURI
             self.scope = scope
+            self.prompt = prompt
         }
         
         var queryItems: [URLQueryItem]? {
@@ -186,6 +189,7 @@ extension Mastodon.API.OAuth {
             items.append(URLQueryItem(name: "client_id", value: clientID))
             items.append(URLQueryItem(name: "redirect_uri", value: redirectURI))
             scope.flatMap { items.append(URLQueryItem(name: "scope", value: $0)) }
+            prompt.flatMap { items.append(URLQueryItem(name: "prompt", value: $0)) }
             guard !items.isEmpty else { return nil }
             return items
         }
