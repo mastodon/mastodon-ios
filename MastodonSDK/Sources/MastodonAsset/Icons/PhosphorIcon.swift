@@ -47,6 +47,7 @@ public enum PhosphorIcon: String, CaseIterable, Sendable {
     case prohibit
     case rssSimple = "rss-simple"
     case signOut = "sign-out"
+    case slidersHorizontal = "sliders-horizontal"
     case user
     case userPlus = "user-plus"
     case usersFour = "users-four"
