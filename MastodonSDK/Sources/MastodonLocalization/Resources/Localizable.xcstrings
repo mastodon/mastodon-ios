@@ -142975,6 +142975,17 @@
         }
       }
     },
+    "Scene.ConfirmEmail.DontReceiveEmail.ChangeEmail" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change Email Address"
+          }
+        }
+      }
+    },
     "Scene.ConfirmEmail.DontReceiveEmail.Description" : {
       "extractionState" : "migrated",
       "localizations" : {

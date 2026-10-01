@@ -125,9 +125,10 @@ extension APIService {
     
     public func resendConfirmationEmail(
         domain: String,
+        email: String? = nil,
         authorization: Mastodon.API.OAuth.Authorization
     ) async throws {
-        try await Mastodon.API.Account.resendConfirmationEmail(session: session, domain: domain, authorization: authorization)
+        try await Mastodon.API.Account.resendConfirmationEmail(session: session, domain: domain, email: email, authorization: authorization)
     }
     
     public func accountLookup(

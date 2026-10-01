@@ -190,20 +190,28 @@ extension MastodonConfirmEmailViewController {
             let viewModel = MastodonResendEmailViewModel(resendEmailURL: url, email: email)
             _ = self.sceneCoordinator?.present(scene: .mastodonResendEmail(viewModel: viewModel), from: self, transition: .modal(animated: true, completion: nil))
         }
+        let changeEmailAddressAction = UIAlertAction(title: L10n.Scene.ConfirmEmail.DontReceiveEmail.changeEmail, style: .default) { _ in
+            self.askForCorrectedEmail()
+        }
         let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default) { _ in
         }
         alertController.addAction(resendAction)
+        alertController.addAction(changeEmailAddressAction)
         alertController.addAction(okAction)
         _ = self.sceneCoordinator?.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }
     
-    private func resendConfirmationEmail() {
+    private func resendConfirmationEmail(changingEmailTo updatedEmail: String? = nil) {
         let domain = viewModel.authenticateInfo.domain
         let authorization = Mastodon.API.OAuth.Authorization(accessToken: viewModel.userToken.accessToken, domain: domain)
         Task { @MainActor in
             let alertController: UIAlertController
             do {
-                try await APIService.shared.resendConfirmationEmail(domain: domain, authorization: authorization)
+                try await APIService.shared.resendConfirmationEmail(domain: domain, email: updatedEmail, authorization: authorization)
+                if let updatedEmail {
+                    self.viewModel.email = updatedEmail
+                    self.subtitleLabel.text = L10n.Scene.ConfirmEmail.tapTheLinkWeEmailedToYouToVerifyYourAccount(updatedEmail)
+                }
                 alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.OpenEmailApp.title, message: L10n.Scene.ConfirmEmail.OpenEmailApp.description, preferredStyle: .alert)
             } catch {
                 alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
@@ -211,6 +219,31 @@ extension MastodonConfirmEmailViewController {
             alertController.addAction(UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default))
             _ = self.sceneCoordinator?.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
         }
+    }
+    
+    private func askForCorrectedEmail() {
+        let alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.DontReceiveEmail.changeEmail, message: nil, preferredStyle: .alert)
+        let sendAction = UIAlertAction(title: L10n.Scene.ConfirmEmail.DontReceiveEmail.resendEmail, style: .default) { [weak self, weak alertController] _ in
+            guard let email = alertController?.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines), !email.isEmpty else { return }
+            self?.resendConfirmationEmail(changingEmailTo: email)
+        }
+        sendAction.isEnabled = viewModel.email?.isEmpty == false
+        alertController.addTextField { [weak self] textField in
+            textField.placeholder = L10n.Scene.Register.Input.Email.placeholder
+            textField.text = self?.viewModel.email
+            textField.keyboardType = .emailAddress
+            textField.textContentType = .emailAddress
+            textField.autocapitalizationType = .none
+            textField.autocorrectionType = .no
+            textField.addAction(
+                UIAction {  [weak sendAction, weak textField] _ in
+                    sendAction?.isEnabled = !((textField?.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "").isEmpty)
+                }, for: .editingChanged)
+        }
+        alertController.addAction(UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel))
+        alertController.addAction(sendAction)
+        alertController.preferredAction = sendAction
+        _ = self.sceneCoordinator?.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }
 }
 

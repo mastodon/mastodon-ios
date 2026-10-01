@@ -919,6 +919,8 @@ public enum L10n {
         public static let resendEmail = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.ResendEmail", fallback: "Resend Email")
         /// Check your Email
         public static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.Title", fallback: "Check your Email")
+        /// Change Email Address
+        public static let changeEmail = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.ChangeEmail", fallback: "Change Email Address")
       }
       public enum OpenEmailApp {
         /// We just sent you an email. Check your junk folder if you haven’t.
