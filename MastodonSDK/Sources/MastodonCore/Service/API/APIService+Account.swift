@@ -123,6 +123,13 @@ extension APIService {
         )
     }
     
+    public func resendConfirmationEmail(
+        domain: String,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) async throws {
+        try await Mastodon.API.Account.resendConfirmationEmail(session: session, domain: domain, authorization: authorization)
+    }
+    
     public func accountLookup(
         domain: String,
         query: Mastodon.API.Account.AccountLookupQuery,

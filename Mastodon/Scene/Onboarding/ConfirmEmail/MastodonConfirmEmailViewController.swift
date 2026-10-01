@@ -182,8 +182,12 @@ extension MastodonConfirmEmailViewController {
     @objc private func resendButtonPressed(_ sender: UIButton) {
         let alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.DontReceiveEmail.title, message: L10n.Scene.ConfirmEmail.DontReceiveEmail.description, preferredStyle: .alert)
         let resendAction = UIAlertAction(title: L10n.Scene.ConfirmEmail.DontReceiveEmail.resendEmail, style: .default) { _ in
+            guard let email = self.viewModel.email else {
+                self.resendConfirmationEmail()
+                return
+            }
             let url = Mastodon.API.resendEmailURL(domain: self.viewModel.authenticateInfo.domain)
-            let viewModel = MastodonResendEmailViewModel(resendEmailURL: url, email: self.viewModel.email)
+            let viewModel = MastodonResendEmailViewModel(resendEmailURL: url, email: email)
             _ = self.sceneCoordinator?.present(scene: .mastodonResendEmail(viewModel: viewModel), from: self, transition: .modal(animated: true, completion: nil))
         }
         let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default) { _ in
@@ -191,6 +195,22 @@ extension MastodonConfirmEmailViewController {
         alertController.addAction(resendAction)
         alertController.addAction(okAction)
         _ = self.sceneCoordinator?.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+    }
+    
+    private func resendConfirmationEmail() {
+        let domain = viewModel.authenticateInfo.domain
+        let authorization = Mastodon.API.OAuth.Authorization(accessToken: viewModel.userToken.accessToken, domain: domain)
+        Task { @MainActor in
+            let alertController: UIAlertController
+            do {
+                try await APIService.shared.resendConfirmationEmail(domain: domain, authorization: authorization)
+                alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.OpenEmailApp.title, message: L10n.Scene.ConfirmEmail.OpenEmailApp.description, preferredStyle: .alert)
+            } catch {
+                alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
+            }
+            alertController.addAction(UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default))
+            _ = self.sceneCoordinator?.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+        }
     }
 }
 
