@@ -291,6 +291,10 @@ public struct L10nLookup {
                     let result = tr("Localizable", "Scene.Profile.ActivityFilter.showRepliesToggleLabel")
                     return result
                 }()
+                public static let showQuotesToggleLabel: String = {
+                    let result = tr("Localizable", "Scene.Profile.ActivityFilter.showQuotesToggleLabel")
+                    return result
+                }()
             }
             
             public struct HandleExplainerView {
