@@ -336,71 +336,11 @@ enum MastodonPostMenuAction: String {
         return submenus
     }
     
-    static func authorA11yMenuItems(forPostBy relationship: MastodonAccount.Relationship, isQuotingMe: Bool, isShowingTranslation: Bool?) -> [MastodonPostMenuAction] {
-        
-        let relationshipActions: [MastodonPostMenuAction]
-        let defensiveActions: [MastodonPostMenuAction]
-        
-        switch relationship {
-        case .isMe:
-            relationshipActions = []
-            defensiveActions = isQuotingMe ? [ .removeQuote ] : []
-        case .isNotMe(let info):
-            if let info {
-                relationshipActions = [
-                    (info.iFollowThem || info.iHaveRequestedToFollowThem) ? .unfollow : .follow,
-                    info.iAmMutingThem ? .unmute : .mute
-                ]
-                defensiveActions = [
-                    isQuotingMe ? .removeQuote : nil,
-                    info.iAmBlockingThem ? .unblockUser : .blockUser,
-                    .reportPost
-                ].compactMap { $0 }
-            } else {
-                relationshipActions = []
-                defensiveActions = []
-            }
-        }
-        
-        return relationshipActions + defensiveActions
-    }
-    
-    static func postA11yMenuItemsOtherThanReply(forPostBy relationship: MastodonAccount.Relationship, myActions: MastodonContentPost.PostActions?, isShowingTranslation: Bool?) -> [MastodonPostMenuAction] {
-        
-        let actionBarActions: [MastodonPostMenuAction] = [myActions?.boosted == true ? .unboost : .boost, myActions?.favorited == true ? .unfavourite : .favourite, myActions?.bookmarked == true ? .unbookmark : .bookmark]
-        
-        let editActions: [MastodonPostMenuAction] =  {
-            switch relationship {
-            case .isMe:
-                [ MastodonPostMenuAction.editPost, .changeQuotePolicy ]
-            case .isNotMe:
-                []
-            }
-        }()
-        
-        let deleteAction: [MastodonPostMenuAction] = {
-            switch relationship {
-            case .isMe:
-                [.deletePost]
-            case .isNotMe:
-                []
-            }
-        }()
-        
-        let translateAction: [MastodonPostMenuAction] =  {
-            guard let isShowingTranslation else { return [] }
-            return  [isShowingTranslation ? .showOriginalLanguage : .translatePost]
-        }()
-        
-        let postActions = [MastodonPostMenuAction.sharePost, .copyLinkToPost, .openPostInBrowser]
-        
-        let actions: [MastodonPostMenuAction] =
-            (actionBarActions +
-            editActions +
-            deleteAction +
-            translateAction +
-            postActions).compactMap { $0 }
-        return actions
+    static func actionBarA11yMenuItems(myActions: MastodonContentPost.PostActions?) -> [MastodonPostMenuAction] {
+        [ myActions?.boosted == true ? .unboost : .boost,
+          myActions?.favorited == true ? .unfavourite : .favourite,
+          myActions?.bookmarked == true ? .unbookmark : .bookmark
+        ]
     }
 }
 

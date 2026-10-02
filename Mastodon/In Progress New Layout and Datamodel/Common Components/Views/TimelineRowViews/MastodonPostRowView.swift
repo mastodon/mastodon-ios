@@ -162,9 +162,6 @@ struct MastodonPostRowView: View {
                         goToProfile(author)
                     }
                 }
-                ForEach(MastodonPostMenuAction.authorA11yMenuItems(forPostBy: relationshipToAuthor, isQuotingMe: viewModel.isQuotingMe, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { action in
-                    viewModel.accessibilityActionButton(action, actionHandler: actionHandler, navigator: navigator)
-                }
                 
                 // REPLY
                 viewModel.accessibilityActionButton(.reply, actionHandler: actionHandler, navigator: navigator)
@@ -181,8 +178,13 @@ struct MastodonPostRowView: View {
                     }
                 }
                 
-                // POST ACTIONS
-                ForEach(MastodonPostMenuAction.postA11yMenuItemsOtherThanReply(forPostBy: relationshipToAuthor, myActions: viewModel.fullPost?.actionablePost?.content.myActions, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { action in
+                // ACTION BAR
+                ForEach(MastodonPostMenuAction.actionBarA11yMenuItems(myActions: viewModel.fullPost?.actionablePost?.content.myActions), id: \.self.id) { action in
+                    viewModel.accessibilityActionButton(action, actionHandler: actionHandler, navigator: navigator)
+                }
+                
+                // OVERFLOW "..." MENU
+                ForEach(MastodonPostMenuAction.menuItems(forPostBy: relationshipToAuthor, isQuotingMe: viewModel.isQuotingMe, isShowingTranslation: viewModel.isShowingTranslation).flatMap(\.items), id: \.self.id) { action in
                     viewModel.accessibilityActionButton(action, actionHandler: actionHandler, navigator: navigator)
                 }
             }
