@@ -21,6 +21,9 @@ public extension Notification.Name {
         itemsImmediatelyBefore maxID: Mastodon.Entity.Status.ID? = nil,
         limit: Int = onceRequestStatusMaxCount,
         local: Bool? = nil,
+        excludeReplies: Bool? = nil,
+        excludeReblogs: Bool? = nil,
+        excludeQuotes: Bool? = nil,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Status]> {
         let domain = authenticationBox.domain
@@ -30,7 +33,10 @@ public extension Notification.Name {
             sinceID: sinceID,
             minID: minID,
             limit: limit,
-            local: local
+            local: local,
+            excludeReplies: excludeReplies,
+            excludeReblogs: excludeReblogs,
+            excludeQuotes: excludeQuotes
         )
 
         let response = try await Mastodon.API.Timeline.home(

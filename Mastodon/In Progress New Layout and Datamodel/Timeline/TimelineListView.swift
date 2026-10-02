@@ -1403,31 +1403,56 @@ struct BoostsAndRepliesFilterButton: View {
                 set: { isPresented in viewModel.isPresentingActivityFilter = isPresented }
             ),
                      arrowEdge: .top) {
-                VStack {
-                    Toggle(L10nLookup.Scene.Profile.ActivityFilter.showRepliesToggleLabel,
-                           isOn: Binding<Bool>(
-                            get: { viewModel.includeReplies },
-                            set: { newValue in viewModel.includeReplies = newValue }
-                           )
-                    )
-                    .tint(Asset.Colors.accent.swiftUIColor)
-                    Toggle(L10nLookup.Scene.Profile.ActivityFilter.showBoostsToggleLabel,
-                           isOn: Binding<Bool>(
-                            get: { viewModel.includeBoosts },
-                            set: { newValue in viewModel.includeBoosts = newValue }
-                           )
-                    )
-                    .tint(Asset.Colors.accent.swiftUIColor)
-                    Spacer()
-                        .frame(maxHeight: .infinity)
-                }
-                .padding(doublePadding * 2)
-                .presentationDetents([.fraction(0.25)])
+                ActivityFilterToggles(showQuotesToggle: false)
+                    .environment(viewModel)
             }
             
             Spacer()
                 .frame(maxWidth: .infinity)
         }
+    }
+}
+
+struct ActivityFilterToggleRows: View {
+    @Environment(TimelineListViewModel.self) var viewModel
+    let showQuotesToggle: Bool
+    
+    var body: some View {
+        Toggle(L10nLookup.Scene.Profile.ActivityFilter.showBoostsToggleLabel,
+               isOn: Binding<Bool>(
+                get: { viewModel.includeBoosts },
+                set: { newValue in viewModel.includeBoosts = newValue }
+               )
+        )
+        if showQuotesToggle {
+            Toggle(L10nLookup.Scene.Profile.ActivityFilter.showQuotesToggleLabel,
+                   isOn: Binding<Bool>(
+                    get: { viewModel.includeQuotes },
+                    set: { newValue in viewModel.includeQuotes = newValue }
+                   )
+            )
+        }
+        Toggle(L10nLookup.Scene.Profile.ActivityFilter.showRepliesToggleLabel,
+               isOn: Binding<Bool>(
+                get: { viewModel.includeReplies },
+                set: { newValue in viewModel.includeReplies = newValue }
+               )
+        )
+    }
+}
+
+struct ActivityFilterToggles: View {
+    let showQuotesToggle: Bool
+
+    var body: some View {
+        VStack {
+            ActivityFilterToggleRows(showQuotesToggle: showQuotesToggle)
+            Spacer()
+                .frame(maxHeight: .infinity)
+        }
+        .tint(Asset.Colors.accent.swiftUIColor)
+        .padding(doublePadding * 2)
+        .presentationDetents([.fraction(0.25)])
     }
 }
 

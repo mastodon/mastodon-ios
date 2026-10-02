@@ -21,7 +21,9 @@ public actor BodegaPersistence {
     private static let pushNotificationsPreferenceStore = ObjectStorage<PushNotificationsSubscription>(storage:  SQLiteStorageEngine(directory: .documents(appendingPath: "PushNotifications"))!)
     
     private static let recentLanguagesStore = ObjectStorage<[String]>(storage: SQLiteStorageEngine(directory: .documents(appendingPath: "RecentLanguages"))!)
-        
+
+    private static let homeFeedFilterStore = ObjectStorage<HomeFeedFilterSettings>(storage: SQLiteStorageEngine(directory: .documents(appendingPath: "HomeFeedFilters"))!)
+    
 //    private static var timelineCacheRequests = [(UserIdentifier, [TimelineItem])]()
 //    private static var currentlyCaching: (UserIdentifier, [TimelineItem])?
 
@@ -68,6 +70,7 @@ public actor BodegaPersistence {
 //        try await clearCachedTimeline(forUser: userID)
         try await pushNotificationsPreferenceStore.removeObject(forKey: cacheKey)
         try await recentLanguagesStore.removeObject(forKey: cacheKey)
+        try await homeFeedFilterStore.removeObject(forKey: cacheKey)
         if let _currentUserTimelineStore, _currentUserTimelineStore.0 == userID.globallyUniqueUserIdentifier {
             self._currentUserTimelineStore = nil
             Task {
@@ -139,6 +142,16 @@ public actor BodegaPersistence {
         
         public static func updateRecentLanguages(_ languages: [String], for userID: UserIdentifier) async throws {
             return try await recentLanguagesStore.store(languages, forKey: CacheKey(userID.globallyUniqueUserIdentifier))
+        }
+    }
+    
+    public struct HomeFeedFilter {
+        public static func savedSettings(for userID: UserIdentifier) async -> HomeFeedFilterSettings? {
+            return await homeFeedFilterStore.object(forKey: CacheKey(userID.globallyUniqueUserIdentifier))
+        }
+        
+        public static func saveSettings(_ settings: HomeFeedFilterSettings, for userID: UserIdentifier) async throws {
+            try await homeFeedFilterStore.store(settings, forKey: CacheKey(userID.globallyUniqueUserIdentifier))
         }
     }
     
@@ -309,5 +322,17 @@ public struct AdminNotificationFilterSettings: Codable, Equatable {
     public init(forReports: Mastodon.Entity.NotificationPolicy.NotificationFilterAction, forSignups: Mastodon.Entity.NotificationPolicy.NotificationFilterAction) {
         self.forReports = forReports
         self.forSignups = forSignups
+    }
+}
+
+public struct HomeFeedFilterSettings: Codable, Sendable {
+    public let excludeReplies: Bool
+    public let excludeReblogs: Bool
+    public let excludeQuotes: Bool
+    
+    public init(excludeReplies: Bool, excludeReblogs: Bool, excludeQuotes: Bool) {
+        self.excludeReplies = excludeReplies
+        self.excludeReblogs = excludeReblogs
+        self.excludeQuotes = excludeQuotes
     }
 }

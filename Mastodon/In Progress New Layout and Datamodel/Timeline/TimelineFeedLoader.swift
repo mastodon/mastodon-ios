@@ -244,12 +244,14 @@ public class TimelineQueryFilter {
     enum TimelineFilterType {
         case mediaOnly
         case userPosts(FeaturedHashtagsModel)
+        case homeTimeline(MastodonAuthenticationBox)
         case unfilterable
     }
     
     let filterType: TimelineFilterType
     var excludeReplies: Bool?
     var excludeReblogs: Bool?
+    var excludeQuotes: Bool?
     let onlyMedia: Bool?
     var selectedHashtag: Mastodon.Entity.FeaturedTag?
     
@@ -258,24 +260,49 @@ public class TimelineQueryFilter {
         case .mediaOnly:
             excludeReblogs = nil
             excludeReplies = nil
+            excludeQuotes = nil
             onlyMedia = true
         case .userPosts:
             excludeReblogs = false
             excludeReplies = true
+            excludeQuotes = nil
+            onlyMedia = nil
+        case .homeTimeline:
+            excludeReblogs = false
+            excludeReplies = false
+            excludeQuotes = false
             onlyMedia = nil
         case .unfilterable:
             excludeReblogs = nil
             excludeReplies = nil
+            excludeQuotes = nil
             onlyMedia = nil
         }
         self.filterType = type
+    }
+    
+    func loadSavedSettings() async {
+        guard case .homeTimeline(let authBox) = filterType,
+        let saved = await BodegaPersistence.HomeFeedFilter.savedSettings(for: authBox)
+        else { return }
+        excludeReplies = saved.excludeReplies
+        excludeReblogs = saved.excludeReblogs
+        excludeQuotes = saved.excludeQuotes
+    }
+    
+    func saveIfPersistent() {
+        guard case .homeTimeline(let authBox) = filterType else { return }
+        let currentSettings = HomeFeedFilterSettings(excludeReplies: excludeReplies ?? false, excludeReblogs: excludeReblogs ?? false, excludeQuotes: excludeQuotes ?? false)
+        Task {
+            try? await BodegaPersistence.HomeFeedFilter.saveSettings(currentSettings, for: authBox)
+        }
     }
     
     var showBoostsAndRepliesFilterButton: Bool {
         switch filterType {
         case .userPosts:
             return true
-        case .mediaOnly, .unfilterable:
+        case .homeTimeline, .mediaOnly, .unfilterable:
             return false
         }
     }
@@ -284,7 +311,7 @@ public class TimelineQueryFilter {
         switch filterType {
         case .userPosts(let model):
             return model
-        case .mediaOnly, .unfilterable:
+        case .homeTimeline, .mediaOnly, .unfilterable:
             return nil
         }
     }
@@ -436,6 +463,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
 #endif
     
     private let authenticatedUser: MastodonAuthenticationBox
+    private let homeQueryFilter: TimelineQueryFilter?
     
     private var cachedRelationships = [Mastodon.Entity.Account.ID : MastodonAccount.Relationship]()
     private var accountsCache = [Mastodon.Entity.Account.ID : MastodonAccount]()
@@ -454,8 +482,9 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
     var threadedConversationModel: ThreadedConversationModel?
     let asyncRefreshViewModel: AsyncRefreshViewModel?
     
-    init(currentUser: MastodonAuthenticationBox, timeline: MastodonTimelineType, asyncRefreshViewModel: AsyncRefreshViewModel?) {
+    init(currentUser: MastodonAuthenticationBox, timeline: MastodonTimelineType, homeQueryFilter: TimelineQueryFilter?, asyncRefreshViewModel: AsyncRefreshViewModel?) {
         self.timeline = timeline
+        self.homeQueryFilter = homeQueryFilter
         self.asyncRefreshViewModel = asyncRefreshViewModel
         authenticatedUser = currentUser
         myAccountID = authenticatedUser.cachedAccount?.id
@@ -643,7 +672,11 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 if let loadUrl {
                     return try await APIService.shared.statuses(fromUrl: loadUrl, authenticationBox: authenticatedUser)
                 } else {
-                    return try await APIService.shared.homeTimeline(authenticationBox: authenticatedUser)
+                    return try await APIService.shared.homeTimeline(
+                        excludeReplies: homeQueryFilter?.excludeReplies,
+                        excludeReblogs: homeQueryFilter?.excludeReblogs,
+                        excludeQuotes: homeQueryFilter?.excludeQuotes,
+                        authenticationBox: authenticatedUser)
                 }
             }()
             let result = response.value
@@ -865,7 +898,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 case .mediaOnly:
                     let noMedia = pinnedPost.mediaAttachments?.isEmpty ?? true
                     return !noMedia
-                case .userPosts, .unfilterable:
+                case .userPosts, .unfilterable, .homeTimeline:
                     return true
                 }
             }.filter { pinnedPost in

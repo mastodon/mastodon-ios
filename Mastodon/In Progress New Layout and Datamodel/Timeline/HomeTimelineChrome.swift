@@ -22,6 +22,12 @@ struct HomeTimelineChrome: ViewModifier {
                     }
                 }
 
+                if tabViewRouter.isHomeTimelineFilterAvailable, let homeTimelineModel = tabViewRouter.homeTimelineModel, homeTimelineModel.timeline == .homeTimeline {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        HomeFeedFilterButton()
+                            .environment(homeTimelineModel)
+                    }
+                }
                 if tabViewRouter.currentTabBarPlacement.isSidebarAvailable {
                     ToolbarItem(placement: .topBarTrailing) {
                         modalComposeButton(diameter: 40)
@@ -115,6 +121,25 @@ struct HomeTimelineChrome: ViewModifier {
             }
             .padding()
             .accessibilityLabel(L10nLookup.MastodonMenuAction.Navigation.compose)
+        }
+    }
+}
+
+struct HomeFeedFilterButton: View {
+    @Environment(TimelineListViewModel.self) var viewModel
+    
+    var body: some View {
+        Button {
+            viewModel.isPresentingActivityFilter = !viewModel.isPresentingActivityFilter
+        } label: {
+            Label("", phosphor: .slidersHorizontal)
+        }
+        .popover(isPresented: Binding<Bool>(
+            get: { viewModel.isPresentingActivityFilter },
+            set: { isPresented in viewModel.isPresentingActivityFilter = isPresented }
+        )) {
+            ActivityFilterToggles(showQuotesToggle: true)
+                .environment(viewModel)
         }
     }
 }

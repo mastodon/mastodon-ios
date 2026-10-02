@@ -224,19 +224,28 @@ extension Mastodon.API.Timeline {
         public let minID: Mastodon.Entity.Status.ID?
         public let limit: Int?
         public let local: Bool?
+        public let excludeReplies: Bool?
+        public let excludeReblogs: Bool?
+        public let excludeQuotes: Bool?
     
         public init(
             maxID: Mastodon.Entity.Status.ID? = nil,
             sinceID: Mastodon.Entity.Status.ID? = nil,
             minID: Mastodon.Entity.Status.ID? = nil,
             limit: Int? = nil,
-            local: Bool? = nil
+            local: Bool? = nil,
+            excludeReplies: Bool? = nil,
+            excludeReblogs: Bool? = nil,
+            excludeQuotes: Bool? = nil
         ) {
             self.maxID = maxID
             self.sinceID = sinceID
             self.minID = minID
             self.limit = limit
             self.local = local
+            self.excludeReplies = excludeReplies
+            self.excludeReblogs = excludeReblogs
+            self.excludeQuotes = excludeQuotes
         }
         
         var queryItems: [URLQueryItem]? {
@@ -246,6 +255,9 @@ extension Mastodon.API.Timeline {
             minID.flatMap { items.append(URLQueryItem(name: "min_id", value: $0)) }
             limit.flatMap { items.append(URLQueryItem(name: "limit", value: String($0))) }
             local.flatMap { items.append(URLQueryItem(name: "local", value: $0.queryItemValue)) }
+            if excludeReplies == true { items.append(URLQueryItem(name: "exclude_replies", value: true.queryItemValue)) }
+            if excludeReblogs == true { items.append(URLQueryItem(name: "exclude_reblogs", value: true.queryItemValue)) }
+            if excludeQuotes == true { items.append(URLQueryItem(name: "exclude_quotes", value: true.queryItemValue)) }
             guard !items.isEmpty else { return nil }
             return items
         }

@@ -14,6 +14,7 @@ import MastodonUI
     
     private(set) var authenticatedUser: MastodonAuthenticationBox?
     private weak var navigator: MastodonNavigationRouter?
+    private let homeQueryFilter: TimelineQueryFilter?
     
     var isCurrentlyOnScreen = false
     
@@ -232,6 +233,12 @@ import MastodonUI
         self._timeline = timeline
         self.navigator = navigator
         self.authenticatedUser = navigator.authenticationBox
+
+        if timeline == .homeTimeline, let authBox = navigator.authenticationBox {
+            self.homeQueryFilter = TimelineQueryFilter(.homeTimeline(authBox))
+        } else {
+            self.homeQueryFilter = nil
+        }
         
         self.instanceConfigurationUpdateSubscription = AuthenticationServiceProvider.shared.instanceConfigurationUpdates
             .receive(on: DispatchQueue.main)
@@ -241,6 +248,7 @@ import MastodonUI
             }
         
         Task {
+            await homeQueryFilter?.loadSavedSettings()
             try await doInitialLoad(navigator: navigator)
         }
     }
@@ -428,7 +436,7 @@ import MastodonUI
         }
         
         clearPendingActions(nil)
-        feedLoader = TimelineFeedLoader(currentUser: authenticatedUser, timeline: timeline, asyncRefreshViewModel: _asyncRefreshViewModel)
+        feedLoader = TimelineFeedLoader(currentUser: authenticatedUser, timeline: timeline, homeQueryFilter: homeQueryFilter, asyncRefreshViewModel: _asyncRefreshViewModel)
         
         setUpFeedLoaderResultsSubscription()
         
@@ -573,6 +581,8 @@ extension TimelineListViewModel {
         switch timeline {
         case .userPosts(_, let queryFilter):
             queryFilter
+        case .homeTimeline:
+            homeQueryFilter ?? TimelineQueryFilter(.unfilterable)
         default:
             TimelineQueryFilter(.unfilterable)
         }
@@ -586,6 +596,7 @@ extension TimelineListViewModel {
             let updatedValue = !newValue
             if timelineQueryFilter?.excludeReblogs != updatedValue {
                 timelineQueryFilter?.excludeReblogs = updatedValue
+                timelineQueryFilter?.saveIfPersistent()
                 Task {
                     await forceReload(.activityFilterUpdated)
                 }
@@ -601,6 +612,23 @@ extension TimelineListViewModel {
             let updatedValue = !newValue
             if timelineQueryFilter?.excludeReplies != updatedValue {
                 timelineQueryFilter?.excludeReplies = updatedValue
+                timelineQueryFilter?.saveIfPersistent()
+                Task {
+                    await forceReload(.activityFilterUpdated)
+                }
+            }
+        }
+    }
+    
+    var includeQuotes: Bool {
+        get {
+            !(timelineQueryFilter?.excludeQuotes ?? false)
+        }
+        set {
+            let updatedValue = !newValue
+            if timelineQueryFilter?.excludeQuotes != updatedValue {
+                timelineQueryFilter?.excludeQuotes = updatedValue
+                timelineQueryFilter?.saveIfPersistent()
                 Task {
                     await forceReload(.activityFilterUpdated)
                 }

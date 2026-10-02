@@ -22,6 +22,7 @@ import Combine
     public var customTimelineModels = [ MastodonTab : TimelineListViewModel]()
     
     public var isLocalTimelineAvailable: Bool = false
+    public var isHomeTimelineFilterAvailable: Bool = false
     public var lists: [Mastodon.Entity.List] = []
     public var followedHashtags: [Mastodon.Entity.Tag] = []
     
@@ -72,7 +73,7 @@ import Combine
         searchModel = SearchViewModel(authenticationBox: authenticatedUser)
         discoveryModel = DiscoveryFeedsViewModel()
         if let authenticatedUser {
-            updateIsLocalTimelineAvailable(authenticatedUser)
+            updateFeatureAvailability(authenticatedUser)
             updateLists(authenticatedUser)
             updateFollowedHashtags(authenticatedUser)
             
@@ -85,7 +86,7 @@ import Combine
                 .receive(on: DispatchQueue.main)
                 .sink{ [weak self] updatedDomain in
                     guard let self, authenticatedUser.domain == updatedDomain else { return }
-                    self.updateIsLocalTimelineAvailable(authenticatedUser)
+                    self.updateFeatureAvailability(authenticatedUser)
                 }.store(in: &_combineSubscriptions)
             
             NotificationCenter.default.publisher(for: .followedTagsDidChange)
@@ -102,8 +103,9 @@ import Combine
         }
     }
     
-    private func updateIsLocalTimelineAvailable(_ authenticatedUser: MastodonAuthenticationBox) {
+    private func updateFeatureAvailability(_ authenticatedUser: MastodonAuthenticationBox) {
         isLocalTimelineAvailable = authenticatedUser.authentication.instanceConfiguration?.isAvailable(.localTimeline) ?? true
+        isHomeTimelineFilterAvailable = authenticatedUser.authentication.instanceConfiguration?.isAvailable(.homeTimelineFilters) ?? false
     }
     
     private var isUpdatingLists = false
