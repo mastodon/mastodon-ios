@@ -12,6 +12,8 @@ public struct MastodonAccount: Identifiable, Codable {
     let bioForDisplay: String
     let bioForEdit: String?
     let _legacyEntity: Mastodon.Entity.Account
+    
+    var username: String { _legacyEntity.username }
 }
 
 struct ImageUrl: Codable {

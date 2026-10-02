@@ -164,7 +164,7 @@ struct MastodonPostRowView: View {
                 }
                 
                 // REPLY
-                viewModel.accessibilityActionButton(.reply, actionHandler: actionHandler, navigator: navigator)
+                viewModel.menuActionButton(.reply, actionHandler: actionHandler, navigator: navigator)
                 
                 // QUOTE
                 if instanceCanQuotePosts {
@@ -180,12 +180,12 @@ struct MastodonPostRowView: View {
                 
                 // ACTION BAR
                 ForEach(MastodonPostMenuAction.actionBarA11yMenuItems(myActions: viewModel.fullPost?.actionablePost?.content.myActions), id: \.self.id) { action in
-                    viewModel.accessibilityActionButton(action, actionHandler: actionHandler, navigator: navigator)
+                    viewModel.menuActionButton(action, actionHandler: actionHandler, navigator: navigator)
                 }
                 
                 // OVERFLOW "..." MENU
                 ForEach(MastodonPostMenuAction.menuItems(forPostBy: relationshipToAuthor, isQuotingMe: viewModel.isQuotingMe, isShowingTranslation: viewModel.isShowingTranslation).flatMap(\.items), id: \.self.id) { action in
-                    viewModel.accessibilityActionButton(action, actionHandler: actionHandler, navigator: navigator)
+                    viewModel.menuActionButton(action, actionHandler: actionHandler, navigator: navigator)
                 }
             }
         }
@@ -485,24 +485,7 @@ private struct ActionBar: View {
                 if let relationship = viewModel.myRelationshipToAuthor {
                     ForEach(submenus(forRelationshipToAuthor: relationship, isQuotingMe: viewModel.isQuotingMe, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { submenu in
                         ForEach(submenu.items, id: \.self) { menuAction in
-                            if let actionablePost = viewModel.fullPost?.actionablePost {
-                                switch menuAction {
-                                case .sharePost:
-                                    let urlString = actionablePost.metaData.url ?? actionablePost.metaData.uriForFediverse
-                                    if let url = URL(string: urlString) {
-                                        ShareLink(item: url) {
-                                            menuActionLabel(menuAction, forPost: actionablePost)
-                                        }
-                                    }
-                                default:
-                                    Button(role: menuAction.isDestructive ? .destructive : nil) {
-                                        actionHandler?.doAction(menuAction, forPost: viewModel, navigator: navigator)
-                                    }
-                                    label: {
-                                        menuActionLabel(menuAction, forPost: actionablePost)
-                                    }
-                                }
-                            }
+                            viewModel.menuActionButton(menuAction, actionHandler: actionHandler, navigator: navigator)
                         }
                         Divider()
                     }
@@ -514,11 +497,6 @@ private struct ActionBar: View {
                     .frame(minWidth: 45, minHeight: 45)
                     .contentShape(Rectangle())
             }
-        }
-        
-        func menuActionLabel(_ menuAction: MastodonPostMenuAction, forPost actionablePost: MastodonContentPost) -> some View {
-            Label(menuAction.labelText(username: actionablePost.metaData.author.displayInfo.displayName, postLanguage: actionablePost.content.language),
-                  icon: menuAction.icon)
         }
         
         func submenus(forRelationshipToAuthor relationship: MastodonAccount.Relationship, isQuotingMe: Bool,  isShowingTranslation: Bool?) -> [MastodonPostMenuAction.Submenu] {

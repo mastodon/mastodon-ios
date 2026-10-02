@@ -210,7 +210,7 @@ enum MastodonPostMenuAction: String {
     }
     
     func labelText(username: String?, postLanguage: String?) -> String {
-        let username = username ?? ""
+        let username = username.map { "@\($0)" } ?? ""
         let postLanguage = postLanguage ?? ""
         switch self {
         case .reply:

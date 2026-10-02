@@ -225,19 +225,26 @@ extension MastodonPostViewModel {
 }
 
 extension MastodonPostViewModel {
-    @ViewBuilder func accessibilityActionButton(_ action: MastodonPostMenuAction, actionHandler: MastodonPostMenuActionHandler?, navigator: MastodonNavigationRouter) -> some View {
-        let actionLabel = action.labelText(username: fullPost?.initialDisplayInfo().actionableAuthorDisplayName, postLanguage: (fullPost?.actionablePost as? MastodonContentPost)?.content.language)
-        switch action {
-        case .sharePost:
-            if let urlString = fullPost?.actionablePost?.metaData.url ?? fullPost?.actionablePost?.metaData.uriForFediverse, let url = URL(string: urlString) {
-                ShareLink(item: url) {
-                    Text(actionLabel)
+    @ViewBuilder func menuActionButton(_ action: MastodonPostMenuAction, actionHandler: MastodonPostMenuActionHandler?, navigator: MastodonNavigationRouter) -> some View {
+        if let actionablePost = fullPost?.actionablePost {
+            let actionLabel = Label(action.labelText(
+                username: actionablePost.metaData.author.username, postLanguage: actionablePost.content.language),
+                                    icon: action.icon
+            )
+            switch action {
+            case .sharePost:
+                if let url = URL(string: actionablePost.metaData.url ?? actionablePost.metaData.uriForFediverse) {
+                    ShareLink(item: url) {
+                        actionLabel
+                    }
                 }
-            }
-        default:
-            Button(actionLabel) { [weak self] in
-                guard let self else { return }
-                actionHandler?.doAction(action, forPost: self, navigator: navigator)
+            default:
+                Button(role: action.isDestructive ? .destructive : nil) { [weak self] in
+                    guard let self else { return }
+                    actionHandler?.doAction(action, forPost: self, navigator: navigator)
+                } label: {
+                    actionLabel
+                }
             }
         }
     }
