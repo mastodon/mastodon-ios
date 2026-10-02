@@ -1556,6 +1556,18 @@
         }
       }
     },
+    "Scene.Timeline.FeedFilter.buttonA11yLabel" : {
+      "comment" : "VoiceOver label for the button that opens the home timeline filter options menu",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter options"
+          }
+        }
+      }
+    },
     "Scene.Timeline.FeedMenu.buttonA11yLabel" : {
       "comment" : "VoiceOver label for the button that opens the timeline feed switching menu",
       "extractionState" : "manual",

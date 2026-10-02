@@ -1377,38 +1377,51 @@ struct FeaturedHashtagsFlow: View {
 struct BoostsAndRepliesFilterButton: View {
     @Environment(TimelineQueryFilter.self) var filterModel
     @Environment(TimelineListViewModel.self) var viewModel
+    @Environment(\.accessibilityVoiceOverEnabled) private var voiceOverEnabled
     
     var body: some View {
         HStack() {
-            Button() {
-                viewModel.isPresentingActivityFilter = !viewModel.isPresentingActivityFilter
-            } label: {
-                HStack() {
-                    Text(viewModel.activityFilterButtonTitle)
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .lineLimit(1)
-                        .fixedSize()
-                    Image(systemName: "chevron.up.chevron.down")
-                        .font(.caption)
-                        .padding(tinySpacing)
-                        .background() {
-                            Circle()
-                                .fill(.secondary.quinary)
-                        }
+            if voiceOverEnabled {
+                Menu {
+                    ActivityFilterToggleRows(showQuotesToggle: false)
+                } label: {
+                    buttonLabel
+                }
+            } else {
+                Button() {
+                    viewModel.isPresentingActivityFilter = !viewModel.isPresentingActivityFilter
+                } label: {
+                   buttonLabel
+                }
+                .popover(isPresented: Binding<Bool>(
+                    get: { viewModel.isPresentingActivityFilter },
+                    set: { isPresented in viewModel.isPresentingActivityFilter = isPresented }
+                ),
+                         arrowEdge: .top) {
+                    ActivityFilterToggles(showQuotesToggle: false)
+                        .environment(viewModel)
                 }
             }
-            .popover(isPresented: Binding<Bool>(
-                get: { viewModel.isPresentingActivityFilter },
-                set: { isPresented in viewModel.isPresentingActivityFilter = isPresented }
-            ),
-                     arrowEdge: .top) {
-                ActivityFilterToggles(showQuotesToggle: false)
-                    .environment(viewModel)
-            }
-            
             Spacer()
                 .frame(maxWidth: .infinity)
+        }
+    }
+    
+    var buttonLabel: some View {
+        HStack() {
+            Text(viewModel.activityFilterButtonTitle)
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .lineLimit(1)
+                .fixedSize()
+            Image(systemName: "chevron.up.chevron.down")
+                .font(.caption)
+                .padding(tinySpacing)
+                .background() {
+                    Circle()
+                        .fill(.secondary.quinary)
+                }
+                .accessibilityHidden(true)
         }
     }
 }

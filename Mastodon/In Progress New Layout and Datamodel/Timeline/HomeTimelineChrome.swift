@@ -127,19 +127,32 @@ struct HomeTimelineChrome: ViewModifier {
 
 struct HomeFeedFilterButton: View {
     @Environment(TimelineListViewModel.self) var viewModel
+    @Environment(\.accessibilityVoiceOverEnabled) private var voiceOverEnabled
     
     var body: some View {
-        Button {
-            viewModel.isPresentingActivityFilter = !viewModel.isPresentingActivityFilter
-        } label: {
-            Label("", phosphor: .slidersHorizontal)
+        if voiceOverEnabled {
+            Menu {
+                ActivityFilterToggleRows(showQuotesToggle: true)
+            } label: {
+                buttonLabel
+            }
+        } else {
+            Button {
+                viewModel.isPresentingActivityFilter = !viewModel.isPresentingActivityFilter
+            } label: {
+                buttonLabel
+            }
+            .popover(isPresented: Binding<Bool>(
+                get: { viewModel.isPresentingActivityFilter },
+                set: { isPresented in viewModel.isPresentingActivityFilter = isPresented }
+            )) {
+                ActivityFilterToggles(showQuotesToggle: true)
+                    .environment(viewModel)
+            }
         }
-        .popover(isPresented: Binding<Bool>(
-            get: { viewModel.isPresentingActivityFilter },
-            set: { isPresented in viewModel.isPresentingActivityFilter = isPresented }
-        )) {
-            ActivityFilterToggles(showQuotesToggle: true)
-                .environment(viewModel)
-        }
+    }
+    
+    private var buttonLabel: some View {
+        Label(L10nLookup.Timeline.FeedFilter.buttonA11yLabel, phosphor: .slidersHorizontal)
     }
 }

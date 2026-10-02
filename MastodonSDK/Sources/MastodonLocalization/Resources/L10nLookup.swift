@@ -996,6 +996,12 @@ public extension L10nLookup {
                 tr("Localizable-Timeline", "Scene.Timeline.FeedMenu.customFeeds")
             }()
         }
+        
+        public struct FeedFilter {
+            public static let buttonA11yLabel: String = {
+               tr("Localizable-Timeline", "Scene.Timeline.FeedFilter.buttonA11yLabel")
+            }()
+        }
     }
 }
 
