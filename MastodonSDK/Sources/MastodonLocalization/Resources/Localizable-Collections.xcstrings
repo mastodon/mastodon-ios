@@ -13,8 +13,8 @@
         },
         "ar" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "by %1$(authorHandle)@"
+            "state" : "translated",
+            "value" : "من %1$(authorHandle)@"
           }
         },
         "be" : {
@@ -61,8 +61,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "by %1$(authorHandle)@"
+            "state" : "translated",
+            "value" : "από %1$(authorHandle)@"
           }
         },
         "en" : {
@@ -325,8 +325,8 @@
         },
         "ar" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(collectionAuthor)@ added you on %2$(date)@"
+            "state" : "translated",
+            "value" : "أضافك %1$(collectionAuthor)@ في %2$(date)@"
           }
         },
         "be" : {
@@ -529,8 +529,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(collectionAuthor)@ added you on %2$(date)@"
+            "state" : "translated",
+            "value" : "%1$(collectionAuthor)@ heeft je op %2$(date)@ toegevoegd"
           }
         },
         "pl" : {
@@ -636,8 +636,8 @@
         },
         "ar" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
+            "state" : "translated",
+            "value" : "تتيح لك مزيّة المجموعات (التي ستتوفر في ماستودون ٤٫٦) إنشاء قوائمك الخاصة من الحسابات التي يمكنك التوصية بها للآخرين."
           }
         },
         "be" : {
@@ -947,8 +947,8 @@
         },
         "ar" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
+            "state" : "translated",
+            "value" : "المجموعات قوائم مُنسَّقة من الحسابات لمساعدة الآخرين على اكتشاف المزيد من شبكة فيديفيرس."
           }
         },
         "be" : {
@@ -1258,8 +1258,8 @@
         },
         "ar" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This action can’t be undone. This user will still be able to add you to other collections, unless you block them."
+            "state" : "translated",
+            "value" : "لا يمكن التراجع عن هذا الإجراء. سيظل بإمكان هذا المستخدم إضافتك إلى مجموعات أخرى، ما لم تحظره."
           }
         },
         "be" : {
@@ -1462,8 +1462,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This action can’t be undone. This user will still be able to add you to other collections, unless you block them."
+            "state" : "translated",
+            "value" : "Deze bewerking kan niet ongedaan worden gemaakt. Deze gebruiker kan je nog steeds aan andere verzamelingen toevoegen, tenzij je de gebruiker blokkeert."
           }
         },
         "pl" : {
@@ -1570,8 +1570,8 @@
         },
         "ar" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Remove yourself from “%1$(collectionName)@”?"
+            "state" : "translated",
+            "value" : "هل أنت متأكد من رغبتك في إزالة نفسك من ”%1$(collectionName)@“؟"
           }
         },
         "be" : {
@@ -1774,8 +1774,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Remove yourself from “%1$(collectionName)@”?"
+            "state" : "translated",
+            "value" : "Jezelf uit '%1$(collectionName)@' verwijderen?"
           }
         },
         "pl" : {
@@ -1858,8 +1858,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Remove yourself from “%1$(collectionName)@”?"
+            "state" : "translated",
+            "value" : "将自己从“%1$(collectionName)@”中移除吗？"
           }
         },
         "zh-Hant" : {
@@ -2086,8 +2086,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a Collection"
+            "state" : "translated",
+            "value" : "Maak een verzameling aan"
           }
         },
         "pl" : {
@@ -2398,8 +2398,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Hide this tab instead"
+            "state" : "translated",
+            "value" : "Verberg dit tabblad"
           }
         },
         "pl" : {
@@ -2981,12 +2981,6 @@
         "he" : {
           "variations" : {
             "plural" : {
-              "many" : {
-                "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%1$(count)lld accounts"
-                }
-              },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
@@ -3241,13 +3235,13 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
+                  "state" : "translated",
                   "value" : "%1$(count)lld account"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
+                  "state" : "translated",
                   "value" : "%1$(count)lld accounts"
                 }
               }
@@ -4084,8 +4078,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Remove me"
+            "state" : "translated",
+            "value" : "Verwijder mij"
           }
         },
         "pl" : {
@@ -4396,8 +4390,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Report collection"
+            "state" : "translated",
+            "value" : "Rapporteer verzameling"
           }
         },
         "pl" : {
@@ -4708,8 +4702,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Sensitive content"
+            "state" : "translated",
+            "value" : "Gevoelige inhoud"
           }
         },
         "pl" : {
@@ -5020,8 +5014,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The description and accounts may not be suitable for all viewers."
+            "state" : "translated",
+            "value" : "De omschrijving en accounts zijn mogelijk niet voor iedereen geschikt."
           }
         },
         "pl" : {
@@ -5331,8 +5325,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Stay tuned for Collections"
+            "state" : "translated",
+            "value" : "Binnenkort: verzamelingen"
           }
         },
         "pl" : {
@@ -5643,8 +5637,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You’re featured in this collection"
+            "state" : "translated",
+            "value" : "Je wordt in deze verzameling uitgelicht"
           }
         },
         "pl" : {
@@ -5727,8 +5721,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You’re featured in this collection"
+            "state" : "translated",
+            "value" : "您被添加到了此收藏列表"
           }
         },
         "zh-Hant" : {
