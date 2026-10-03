@@ -185,13 +185,13 @@
             "value" : "Add personal note"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add personal note"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add personal note"
@@ -247,8 +247,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add personal note"
+            "state" : "translated",
+            "value" : "Добавить заметку для себя"
           }
         },
         "si" : {
@@ -497,13 +497,13 @@
             "value" : "Block domain %1$(domainName)@"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Block domain %1$(domainName)@"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Block domain %1$(domainName)@"
@@ -559,8 +559,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Block domain %1$(domainName)@"
+            "state" : "translated",
+            "value" : "Заблокировать домен %1$(domainName)@"
           }
         },
         "si" : {
@@ -631,61 +631,61 @@
         "an" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "be" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Вам трэба падпісацца на %1$(username)@ перад тым, як дадаваць яго (яе) ў спіс."
+            "state" : "new",
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "ckb-IR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "cy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Du skal følge %1$(username)@, før du kan føje vedkommende til en liste."
+            "state" : "new",
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Du musst %1$(username)@ folgen, um das Profil einer Liste hinzufügen zu können."
+            "state" : "new",
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Πρέπει να ακολουθήσεις τον/την %1$(username)@ πριν τους προσθέσεις σε μια λίστα."
+            "state" : "new",
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "en" : {
@@ -697,241 +697,241 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tenés que seguir a %1$(username)@ antes de agregar su cuenta a una lista."
+            "state" : "translated",
+            "value" : "Tenés que seguir a %1$(username)@ antes de agregar su cuenta a una línea temporal personalizada."
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Enne, kui saad ta loendisse lisada, pead jälgima kasutajat %1$(username)@."
+            "state" : "new",
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Vous devez suivre %1$(username)@ pour l'ajouter à une liste."
+            "state" : "translated",
+            "value" : "Vous devez suivre %1$(username)@ pour l'ajouter à un flux personnalisé."
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Caithfidh tú %1$(username)@ a leanúint roimh iad a chur le liosta."
+            "state" : "new",
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "gd" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "is" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Þú þarft að fylgjast með %1$(username)@  áður en þú getur bætt viðko0mandi á lista."
+            "state" : "translated",
+            "value" : "Þú verður að fylgjast með %1$(username)@  áður en þú bætir viðkomandi við sérsniðið streymi."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Devi seguire %1$(username)@ prima di aggiungerlo/a a una lista."
+            "state" : "translated",
+            "value" : "Devi seguire %1$(username)@ prima di aggiungerlo/a a un feed personalizzato."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "kab" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Je moet %1$(username)@ volgen voordat je deze kunt toevoegen aan een lijst."
+            "state" : "new",
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%1$(username)@ kullanıcısını bir listeye eklemeden önce onu takip etmelisiniz."
+            "state" : "new",
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ви повинні стежити за %1$(username)@ перед додаванням їх до списку."
+            "state" : "new",
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Bạn phải theo dõi %1$(username)@  trước khi thêm họ vào danh sách."
+            "state" : "translated",
+            "value" : "Bạn phải theo dõi %1$(username)@ trước khi thêm họ vào nguồn tin."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a list."
+            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "您必須先跟隨 %1$(username)@  以將他們加入至列表。"
+            "state" : "translated",
+            "value" : "您必須先跟隨 %1$(username)@  以將他們加入至自訂時間軸。"
           }
         }
       }
@@ -1120,13 +1120,13 @@
             "value" : "Follow %1$(username)@ ?"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Follow %1$(username)@ ?"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Follow %1$(username)@ ?"
@@ -1432,16 +1432,16 @@
             "value" : "Ḍfeṛ"
           }
         },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bişopîne"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "팔로우"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bişopîne"
           }
         },
         "lt" : {
@@ -1743,13 +1743,13 @@
             "value" : "%(username)@ will stop following you. Are you sure you want to proceed?"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%(username)@ will stop following you. Are you sure you want to proceed?"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%(username)@ will stop following you. Are you sure you want to proceed?"
@@ -2055,13 +2055,13 @@
             "value" : "Remove follower?"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove follower?"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove follower?"
@@ -2367,13 +2367,13 @@
             "value" : "Show Featured tab"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show Featured tab"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show Featured tab"
@@ -2679,13 +2679,13 @@
             "value" : "Show featured tab?"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show featured tab?"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show featured tab?"
@@ -2990,13 +2990,13 @@
             "value" : "You have hidden your featured tab from other users. Would you like to show it and feature %1$(item)@ ?"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You have hidden your featured tab from other users. Would you like to show it and feature %1$(item)@ ?"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You have hidden your featured tab from other users. Would you like to show it and feature %1$(item)@ ?"
@@ -3302,13 +3302,13 @@
             "value" : "Edit personal note"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit personal note"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit personal note"
@@ -3614,13 +3614,13 @@
             "value" : "Feature on my profile"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Feature on my profile"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Feature on my profile"
@@ -3926,13 +3926,13 @@
             "value" : "Ffer izuzar"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Hide boosts"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Hide boosts"
@@ -4238,13 +4238,13 @@
             "value" : "Account settings"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Account settings"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Account settings"
@@ -4373,61 +4373,61 @@
         "an" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "be" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Дадаць у спіс…"
+            "state" : "new",
+            "value" : "Add to custom feed…"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "ckb-IR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "cy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Føj til liste…"
+            "state" : "new",
+            "value" : "Add to custom feed…"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Zur Liste hinzufügen …"
+            "state" : "new",
+            "value" : "Add to custom feed…"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "en" : {
@@ -4439,241 +4439,241 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Agregar a lista…"
+            "state" : "translated",
+            "value" : "Agregar a línea temporal personalizada…"
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Lisa loendisse…"
+            "state" : "new",
+            "value" : "Add to custom feed…"
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ajouter à la liste…"
+            "state" : "translated",
+            "value" : "Ajouter au flux personnalisé…"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Cuir leis an liosta…"
+            "state" : "new",
+            "value" : "Add to custom feed…"
           }
         },
         "gd" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "is" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Bæta á lista…"
+            "state" : "translated",
+            "value" : "Bæta við sérsniðið streymi…"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Aggiungi alla lista…"
+            "state" : "translated",
+            "value" : "Aggiungi al feed personalizzato…"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "kab" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add to custom feed…"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Voeg toe aan lijst…"
+            "state" : "new",
+            "value" : "Add to custom feed…"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Listeye ekle…"
+            "state" : "new",
+            "value" : "Add to custom feed…"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Додати до списку…"
+            "state" : "new",
+            "value" : "Add to custom feed…"
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Thêm vào danh sách…"
+            "state" : "translated",
+            "value" : "Thêm vào nguồn tin…"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to list…"
+            "value" : "Add to custom feed…"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "新增至列表..."
+            "state" : "translated",
+            "value" : "加入至自訂時間軸..."
           }
         }
       }
@@ -4862,16 +4862,16 @@
             "value" : "Ticraḍ"
           }
         },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şûnpel"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "북마크"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Şûnpel"
           }
         },
         "lt" : {
@@ -5174,16 +5174,16 @@
             "value" : "Sudes"
           }
         },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Binivîsîne"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "작성"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Binivîsîne"
           }
         },
         "lt" : {
@@ -5486,16 +5486,16 @@
             "value" : "Ẓreg"
           }
         },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serrast bike"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "수정"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Serrast bike"
           }
         },
         "lt" : {
@@ -5621,61 +5621,61 @@
         "an" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Favorites"
+            "value" : "Likes"
           }
         },
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "المفضلة"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "be" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Абраныя"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Favorits"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "ckb-IR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Favorites"
+            "value" : "Likes"
           }
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Oblíbení"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "cy" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ffefryn"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Favoritter"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Gefällt"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Αγαπημένα"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "en" : {
@@ -5687,241 +5687,241 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Favorites"
+            "value" : "Likes"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Favoritos"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Favoritos"
+            "state" : "translated",
+            "value" : "«Me gusta»"
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Lemmikud"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "eu" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Gogokoak"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Suosikit"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Favoris"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ceanáin"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "gd" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Annsachdan"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "gl" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Favoritas"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Favorites"
+            "value" : "Likes"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Favorites"
+            "value" : "Likes"
           }
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Kedvelések"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "hy" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Հաւանածներ"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Favorites"
+            "value" : "Likes"
           }
         },
         "is" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Eftirlæti"
+            "state" : "translated",
+            "value" : "Líkar við"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Preferiti"
+            "state" : "translated",
+            "value" : "Mi piace"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "お気に入り"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Imenyafen"
+            "state" : "new",
+            "value" : "Likes"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "즐겨찾기"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Hezkirî"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Favorites"
+            "value" : "Likes"
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Favorites"
+            "value" : "Likes"
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Favorites"
+            "value" : "Likes"
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Favorieten"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ulubione"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "pt" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Favoritos"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Favoritos"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Favorites"
+            "value" : "Likes"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Избранное"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Favorites"
+            "value" : "Likes"
           }
         },
         "sl" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Priljubljeni"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "sq" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Të parapëlqyer"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Favoriter"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "th" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "รายการโปรด"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Favoriler"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Улюблені"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Lượt thích"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "喜欢"
+            "state" : "new",
+            "value" : "Likes"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "最愛"
+            "state" : "translated",
+            "value" : "最愛嘟文"
           }
         }
       }
@@ -6110,13 +6110,13 @@
             "value" : "Followed hashtags"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Followed hashtags"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Followed hashtags"
@@ -6226,8 +6226,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Followed hashtags"
+            "state" : "translated",
+            "value" : "已关注话题"
           }
         },
         "zh-Hant" : {
@@ -6422,16 +6422,16 @@
             "value" : "Tabdart"
           }
         },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qalkirin"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "멘션"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Qalkirin"
           }
         },
         "lt" : {
@@ -6734,13 +6734,13 @@
             "value" : "Open in browser"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Open in browser"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Open in browser"
@@ -6850,8 +6850,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Open in browser"
+            "state" : "translated",
+            "value" : "在浏览器中打开"
           }
         },
         "zh-Hant" : {
@@ -7046,13 +7046,13 @@
             "value" : "Privately mention"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Privately mention"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Privately mention"
@@ -7162,8 +7162,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Privately mention"
+            "state" : "translated",
+            "value" : "私下提及"
           }
         },
         "zh-Hant" : {
@@ -7186,8 +7186,8 @@
         },
         "ar" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Quote"
+            "state" : "translated",
+            "value" : "اقتبس"
           }
         },
         "be" : {
@@ -7358,13 +7358,13 @@
             "value" : "Tanebdurt"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Quote"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Quote"
@@ -7408,8 +7408,8 @@
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Quote"
+            "state" : "translated",
+            "value" : "Citação"
           }
         },
         "ro" : {
@@ -7670,13 +7670,13 @@
             "value" : "Share…"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Share…"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Share…"
@@ -7786,8 +7786,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Share…"
+            "state" : "translated",
+            "value" : "分享…"
           }
         },
         "zh-Hant" : {
@@ -7982,13 +7982,13 @@
             "value" : "View collection"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "View collection"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "View collection"
@@ -8098,8 +8098,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "View collection"
+            "state" : "translated",
+            "value" : "查看收藏列表"
           }
         },
         "zh-Hant" : {
@@ -8294,13 +8294,13 @@
             "value" : "Kkes aneḍfar"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove follower"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove follower"
@@ -8606,13 +8606,13 @@
             "value" : "Sken-d izuzar"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show boosts"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Show boosts"
@@ -8710,8 +8710,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Show boosts"
+            "state" : "translated",
+            "value" : "Показати просування"
           }
         },
         "vi" : {
@@ -8918,13 +8918,13 @@
             "value" : "Stop featuring on my profile"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Stop featuring on my profile"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Stop featuring on my profile"
@@ -9230,13 +9230,13 @@
             "value" : "Unblock domain %1$(domainName)@"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Unblock domain %1$(domainName)@"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Unblock domain %1$(domainName)@"
@@ -9541,13 +9541,13 @@
             "value" : "They can see that they're blocked."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "They can see that they're blocked."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "They can see that they're blocked."
@@ -9852,13 +9852,13 @@
             "value" : "They can't see your content and you won't see theirs."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "They can't see your content and you won't see theirs."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "They can't see your content and you won't see theirs."
@@ -10163,13 +10163,13 @@
             "value" : "You won't see posts from others that mention them."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You won't see posts from others that mention them."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You won't see posts from others that mention them."
@@ -10474,13 +10474,13 @@
             "value" : "You can't mention, follow, or quote each other."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You can't mention, follow, or quote each other."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You can't mention, follow, or quote each other."
@@ -10785,13 +10785,13 @@
             "value" : "Neither of you can add each other to collections. You'll be automatically removed from each others' existing collections, if applicable."
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Neither of you can add each other to collections. You'll be automatically removed from each others' existing collections, if applicable."
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Neither of you can add each other to collections. You'll be automatically removed from each others' existing collections, if applicable."
