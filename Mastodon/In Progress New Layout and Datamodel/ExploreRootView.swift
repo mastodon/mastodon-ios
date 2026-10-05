@@ -55,7 +55,7 @@ struct ExploreRootView: View {
     @ViewBuilder var contents: some View {
         if !searchViewModel.searchText.isEmpty || (searchViewModel.isSearchActive && !searchViewModel.searchHistory.isEmpty) {
             GeometryReader { geo in
-                let useableWidth = min(maxFeedContentWidth, useableWidth(fromGeoProxy: geo))
+                let useableWidth = min(maxFeedContentWidth, geo.size.width)
                 if searchViewModel.searchText.isEmpty {
                     searchHistory(useableWidth: useableWidth)
                 } else {

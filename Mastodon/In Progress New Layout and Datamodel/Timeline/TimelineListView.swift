@@ -138,9 +138,6 @@ enum MastodonTimelineSheet: Identifiable {
 }
 
 fileprivate let avatarSize = AvatarSize.large
-func useableWidth(fromGeoProxy geo: GeometryProxy) -> CGFloat {
-    return geo.size.width - geo.safeAreaInsets.leading - geo.safeAreaInsets.trailing
-}
 
 func contentWidth(forUseableWidth useableWidth: CGFloat) -> CGFloat {
     return max(1, useableWidth - (standardPadding /*left margin*/ + spacingBetweenGutterAndContent /*avatar trailing to content leading*/ + doublePadding /*right margin*/) - avatarSize.rawValue)
@@ -327,6 +324,9 @@ struct TimelineListView: View {
                     .padding(tinySpacing)
                 }
             } // ZStack(alignment: .bottom)
+            .padding(.leading, geo.safeAreaInsets.leading)
+            .padding(.trailing, geo.safeAreaInsets.trailing)
+            .ignoresSafeArea(.container, edges: .horizontal)
         } // GeometryReader
         .onAppear() {
             viewModel.isCurrentlyOnScreen = true
@@ -570,7 +570,7 @@ struct TimelineListView: View {
         DispatchQueue.main.async {
             _pendingGeometryUpdates = false
             if let geo = self._updatedGeometry {
-                self.viewModel.updateUseableWidth(useableWidth(fromGeoProxy: geo))
+                self.viewModel.updateUseableWidth(geo.size.width)
                 self._updatedGeometry = nil
             }
             if let updatedVisibleItems = self._updatedVisibleItems {
@@ -594,7 +594,7 @@ struct TimelineListView: View {
     }
     
     @ViewBuilder func feedContents(_ geo: GeometryProxy) -> some View {
-        let useableWidth = min(maxFeedContentWidth, useableWidth(fromGeoProxy: geo))
+        let useableWidth = min(maxFeedContentWidth, geo.size.width)
         let contentWidth = contentWidth(forUseableWidth: useableWidth)
         
         switch contentConcealModel.currentMode {

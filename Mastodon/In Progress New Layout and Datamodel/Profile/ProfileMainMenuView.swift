@@ -11,20 +11,28 @@ struct ProfileMainMenuView: View {
     @Environment(AuthenticationObserver.self) private var authenticationObserver
     
     var body: some View {
-        ScrollView {
-            LazyVStack(alignment: .leading) {
-                profileButtons
-                Divider()
-                contentButtons
-                Divider()
-                relationshipButtons
-                Divider()
-                alternateAccountButtons
-                addAccountButton
-                Divider()
-                logOutActiveUserButton
+        GeometryReader { geo in
+            let fullWidth = min(maxFeedContentWidth, geo.size.width)
+            ScrollView {
+                LazyVStack(alignment: .leading) {
+                    profileButtons
+                    Divider()
+                    contentButtons
+                    Divider()
+                    relationshipButtons
+                    Divider()
+                    alternateAccountButtons
+                    addAccountButton
+                    Divider()
+                    logOutActiveUserButton
+                }
+                .padding()
+                .frame(width: fullWidth, alignment: .center)
+                .frame(width: geo.size.width, alignment: .center)
             }
-            .padding()
+            .padding(.leading, geo.safeAreaInsets.leading)
+            .padding(.trailing, geo.safeAreaInsets.trailing)
+            .ignoresSafeArea(.container, edges: .horizontal)
         }
     }
     

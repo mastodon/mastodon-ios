@@ -109,8 +109,11 @@ struct ProfileView: View {
                 }
                 .frame(height: max(0, geo.size.height - geo.safeAreaInsets.bottom - 90))
             }
+            .padding(.leading, geo.safeAreaInsets.leading)
+            .padding(.trailing, geo.safeAreaInsets.trailing)
+            .ignoresSafeArea(.container, edges: .horizontal)
         }
-        .ignoresSafeArea()
+        .ignoresSafeArea(edges: .vertical)
         .overlay() {
             if let personalNoteEditingState = viewModel.relationshipViewModel.personalNoteEditingState, personalNoteEditingState.type != .pending {
                 personalNoteEditingView(personalNoteEditingState)
