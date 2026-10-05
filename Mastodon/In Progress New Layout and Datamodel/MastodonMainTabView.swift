@@ -36,6 +36,7 @@ struct MastodonMainTabView: View {
                     .environment(authenticationObserver)
                     .environment(tabViewRouter)
                     .tabViewStyle(.sidebarAdaptable)
+                    .tint(Asset.Colors.accent.swiftUIColor)
                     .tabViewCustomization($tabCustomization)
                     .onChange(of: pendingTabRevealManager.pending, initial: true) { _, newValue in
                         guard let pendingTabReveal = newValue, pendingTabReveal.userGUID == tabViewRouter.userGUID else { return }
@@ -180,6 +181,7 @@ struct MastodonMainTabView: View {
                                 Tab(value: subtab) {
                                     view(forTab: subtab)
                                         .modifier(TabBarPlacementReporter(reportingFromTab: subtab))
+                                        .tint(.primary)
                                 } label: { subtab.label }
                                 .customizationID(subtab.id)
                                 .customizationBehavior(subtab.customizationBehavior, for: .tabBar, .sidebar)
@@ -198,6 +200,7 @@ struct MastodonMainTabView: View {
                     Tab(value: tab) {
                         view(forTab: tab)
                             .modifier(TabBarPlacementReporter(reportingFromTab: tab))
+                            .tint(.primary)
                     } label: {
                         if tab == .profile, let avatar = avatarIconRenderer.prerenderedAccountAvatar(authBox.globallyUniqueUserIdentifier, style: .circular) {
                             Label(tab.title, icon: avatar)
