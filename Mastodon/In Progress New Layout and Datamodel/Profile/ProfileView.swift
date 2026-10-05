@@ -253,7 +253,6 @@ struct ProfileView: View {
                     .onTapGesture {
                         self.viewModel.focusedCustomField = nil
                     }
-                let _ = print("value: \(field.value)")
                 CustomFieldCard(field: field, emojis: viewModel.account?.displayInfo.emojis ?? [], showFullContents: true)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal, doublePadding)
