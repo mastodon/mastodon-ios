@@ -40,10 +40,11 @@ struct ProfileView: View {
             let fullWidth = min(maxFeedContentWidth, geo.size.width)
             let headerContentWidth = max(0, min(maxFeedContentWidth, geo.size.width - doublePadding * 2))
             let timelineContentWidth = max(0, min(maxFeedContentWidth, geo.size.width - doublePadding))
+            let sideMargin = (geo.size.width - fullWidth) / 2.0
             ZStack(alignment: .top) {
                 ScrollView() {
                     VStack(alignment: .center, spacing: 0) {
-                        subview(.bannerAndAvatar, width: fullWidth)
+                        subview(.bannerAndAvatar, width: fullWidth, leadingBleed: geo.safeAreaInsets.leading + sideMargin, trailingBleed: sideMargin + geo.safeAreaInsets.trailing)
                             .id(Subview.bannerAndAvatar)
                             .frame(width: min(maxFeedContentWidth, geo.size.width))
                         
@@ -148,10 +149,10 @@ struct ProfileView: View {
         }
     }
     
-    @ViewBuilder func subview(_ subviewType: Subview, width: CGFloat) -> some View {
+    @ViewBuilder func subview(_ subviewType: Subview, width: CGFloat, leadingBleed: CGFloat = 0, trailingBleed: CGFloat = 0) -> some View {
         switch subviewType {
         case .bannerAndAvatar:
-            ProfileAvatarAndBannerView(maxWidth: width)
+            ProfileAvatarAndBannerView(maxWidth: width, leadingBleed: leadingBleed, trailingBleed: trailingBleed)
                 .environment(viewModel.editingViewModel)
                 .environment(viewModel.relationshipViewModel)
         case .mainInfo:
@@ -296,15 +297,19 @@ struct ProfileAvatarAndBannerView: View {
     
     let avatarSize = AvatarSize.extraLarge
     let maxWidth: CGFloat
+    let leadingBleed: CGFloat
+    let trailingBleed: CGFloat
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) { // to place avatar on top of banner image
             ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) { // for banner edit button
-                bannerView(maxWidth: maxWidth)
-                    .frame(maxWidth: .infinity)
+                bannerView(maxWidth: maxWidth + leadingBleed + trailingBleed)
+                    .frame(width: maxWidth + leadingBleed + trailingBleed)
                     .frame(height: (!profileViewModel.contentDisplayStatus.hideContent && relationshipViewModel.pendingRequestToFollowMe) ? nil : bannerFullHeight)
                     .clipped()
                     .background(.secondary) // in case there is no image
+                    .padding(.leading, -leadingBleed)
+                    .frame(width: maxWidth, alignment: .leading)
                 
                 switch profileViewModel.editingStatus {
                 case .editing:

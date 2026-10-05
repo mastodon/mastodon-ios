@@ -133,8 +133,11 @@ struct ProfileEditingView: View {
     
     var body: some View {
         GeometryReader { geo in
+            let fullWidth = min(maxFeedContentWidth, geo.size.width)
+            let sideMargin = (geo.size.width - fullWidth) / 2.0
             VStack(spacing: 0) {
-                ProfileAvatarAndBannerView(maxWidth: geo.size.width)
+                ProfileAvatarAndBannerView(maxWidth: fullWidth, leadingBleed: geo.safeAreaInsets.leading + sideMargin, trailingBleed: sideMargin + geo.safeAreaInsets.trailing)
+                    .frame(width: fullWidth)
                     .zIndex(2)
                 List {
                     ForEach(allEditRows, id: \.id) { destination in
@@ -145,8 +148,9 @@ struct ProfileEditingView: View {
                     }
                 }
                 .listStyle(.insetGrouped)
+                .frame(width: fullWidth)
             }
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, alignment: .center)
         }
     }
     
