@@ -315,6 +315,7 @@ struct ProfileAvatarAndBannerView: View {
                     }
                     .clipped()
                     .allowsHitTesting(false) // clipping doesn't prevent hit testing in the clipped area, so the invisible overhang can easily end up blocking interaction with elements below it
+                    .accessibilityHidden(true)
                     .background(.secondary) // in case there is no image
                     .padding(.leading, -leadingBleed)
                     .frame(width: maxWidth, alignment: .leading)
@@ -326,6 +327,8 @@ struct ProfileAvatarAndBannerView: View {
                     followRequestButtons
                         .padding(.leading, avatarSize.rawValue + doublePadding * 2)
                         .padding([.trailing, .bottom], doublePadding)
+                        .accessibilityElement(children: .contain)
+                        .accessibilitySortPriority(1)
                 }
             }
             
@@ -333,11 +336,13 @@ struct ProfileAvatarAndBannerView: View {
                 if showingFollowRequest {
                     followRequestApprovalMessage
                         .padding(.horizontal, doublePadding)
+                        .accessibilitySortPriority(2)
                 }
                 
                 ZStack { // for avatar edit button
                     AvatarView(style: .circular, size: avatarSize, avatarSource: avatarSource)
                         .padding(.horizontal, doublePadding)
+                        .accessibilityHidden(true)
                     if showsEditControls && !profileViewModel.isSavingEdits {
                         // if the user has already chosen a new image, let them see it unobscured, but tapping the avatar will still bring up the photo picker
                         let buttonSize = avatarSize.rawValue + (avatarEditButtonSize / 2.0)
@@ -348,6 +353,7 @@ struct ProfileAvatarAndBannerView: View {
                 .offset(.init(width: 0, height: 16))
             }
         }
+        .accessibilityElement(children: .contain)
         .sheet(isPresented: editingViewModel.showCroppingView) {
             if let image = editingViewModel.avatarImageToCrop {
                 PhotoCropperView(originalImage: image) { confirmedImage in
