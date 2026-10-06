@@ -103,7 +103,7 @@ struct HomeTimelineChrome: ViewModifier {
         let navigator = navigationRouter
         if let authBox = AuthenticationObserver.shared.currentActiveUser {
             Button {
-                navigator.presentSheet(.modalCompose(.init(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel), tabViewRouter.currentDraftContentViewModel(authBox: authBox)), afterDeconflictionDelay: false)
+                navigator.presentSheet(.modalCompose(.init(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel), nil), afterDeconflictionDelay: false)
             } label: {
                 Image(phosphor: .penNib)
                     .resizable()
