@@ -570,7 +570,7 @@ struct TimelineListView: View {
         DispatchQueue.main.async {
             _pendingGeometryUpdates = false
             if let geo = self._updatedGeometry {
-                self.viewModel.updateUseableWidth(geo.size.width)
+                self.viewModel.updateUseableWidth(min(maxFeedContentWidth, geo.size.width))
                 self._updatedGeometry = nil
             }
             if let updatedVisibleItems = self._updatedVisibleItems {
