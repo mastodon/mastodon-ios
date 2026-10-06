@@ -91,6 +91,8 @@ struct ProfileEditingDestinationView: View {
         } else {
             contents
                 .padding(destinationType.doNotPad ? 0 : doublePadding)
+                .frame(maxWidth: maxFeedContentWidth)
+                .frame(maxWidth: .infinity)
                 .navigationTitle(profileViewModel.navigationTitle(destinationType))
                 .navigationBarTitleDisplayMode(.inline)
         }
