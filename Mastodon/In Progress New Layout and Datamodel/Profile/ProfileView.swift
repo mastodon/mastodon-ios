@@ -308,6 +308,7 @@ struct ProfileAvatarAndBannerView: View {
                     .frame(width: maxWidth + leadingBleed + trailingBleed)
                     .frame(height: (!profileViewModel.contentDisplayStatus.hideContent && relationshipViewModel.pendingRequestToFollowMe) ? nil : bannerFullHeight)
                     .clipped()
+                    .allowsHitTesting(false) // clipping doesn't prevent hit testing in the clipped area, so the invisible overhang can easily end up blocking interaction with elements below it
                     .background(.secondary) // in case there is no image
                     .padding(.leading, -leadingBleed)
                     .frame(width: maxWidth, alignment: .leading)
