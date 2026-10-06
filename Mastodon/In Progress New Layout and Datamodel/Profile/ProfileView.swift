@@ -38,7 +38,7 @@ struct ProfileView: View {
     var body: some View {
         GeometryReader { geo in
             let fullWidth = min(maxFeedContentWidth, geo.size.width)
-            let headerContentWidth = max(0, min(maxFeedContentWidth, geo.size.width - doublePadding * 2))
+            let headerContentWidth = max(0, fullWidth - doublePadding * 2)
             let timelineContentWidth = max(0, min(maxFeedContentWidth, geo.size.width - doublePadding))
             let sideMargin = (geo.size.width - fullWidth) / 2.0
             ZStack(alignment: .top) {
