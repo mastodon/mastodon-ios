@@ -302,11 +302,17 @@ struct ProfileAvatarAndBannerView: View {
     let showsEditControls: Bool
     
     var body: some View {
+        let showingFollowRequest = !profileViewModel.contentDisplayStatus.hideContent && relationshipViewModel.pendingRequestToFollowMe
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) { // to place avatar on top of banner image
             ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) { // for banner edit button
                 bannerView(maxWidth: maxWidth + leadingBleed + trailingBleed)
                     .frame(width: maxWidth + leadingBleed + trailingBleed)
-                    .frame(height: (!profileViewModel.contentDisplayStatus.hideContent && relationshipViewModel.pendingRequestToFollowMe) ? nil : bannerFullHeight)
+                    .frame(height: bannerFullHeight)
+                    .overlay {
+                        if showingFollowRequest {
+                            Color(UIColor.secondarySystemBackground).opacity(0.5)
+                        }
+                    }
                     .clipped()
                     .allowsHitTesting(false) // clipping doesn't prevent hit testing in the clipped area, so the invisible overhang can easily end up blocking interaction with elements below it
                     .background(.secondary) // in case there is no image
@@ -316,12 +322,17 @@ struct ProfileAvatarAndBannerView: View {
                 if showsEditControls && !profileViewModel.isSavingEdits {
                     bannerEditButton
                         .padding(standardPadding)
+                } else if showingFollowRequest {
+                    followRequestButtons
+                        .padding(.leading, avatarSize.rawValue + doublePadding * 2)
+                        .padding([.trailing, .bottom], doublePadding)
                 }
             }
             
-            VStack(alignment: .leading, spacing: -(16 + standardPadding) /*because the avatar view is offset down and we want a slight overlap*/) {
-                if !profileViewModel.contentDisplayStatus.hideContent && relationshipViewModel.pendingRequestToFollowMe {
-                    followRequestApprovalBanner
+            VStack(alignment: .leading, spacing: -(16 - standardPadding) /*because the avatar view is offset down*/) {
+                if showingFollowRequest {
+                    followRequestApprovalMessage
+                        .padding(.horizontal, doublePadding)
                 }
                 
                 ZStack { // for avatar edit button
@@ -366,50 +377,39 @@ struct ProfileAvatarAndBannerView: View {
         }
     }
     
-    @ViewBuilder var followRequestApprovalBanner: some View {
-        VStack {
-            Spacer()
-                .frame(height: 80)  // to comfortably clear the safe area
-            
-            followRequestApprovalMessage
-            HStack {
-                if isAnsweringFollowRequest {
-                    ProgressView().progressViewStyle(.circular)
-                } else {
-                    RelationshipButtonType.acceptTheirFollowRequest.largeButton(isOpaque: true, isInCollection: false) {
-                        guard let account = profileViewModel.account else { return }
-                        isAnsweringFollowRequest = true
-                        Task {
-                            do {
-                                try await relationshipViewModel.doRelationshipAction(.approveFollowRequest, account: account, navigator: navigator)
-                            } catch {
-                                navigator.didReceiveError(error)
-                            }
-                            isAnsweringFollowRequest = false
+    @ViewBuilder var followRequestButtons: some View {
+        HStack {
+            if isAnsweringFollowRequest {
+                ProgressView().progressViewStyle(.circular)
+            } else {
+                RelationshipButtonType.acceptTheirFollowRequest.largeButton(isOpaque: true, isInCollection: false) {
+                    guard let account = profileViewModel.account else { return }
+                    isAnsweringFollowRequest = true
+                    Task {
+                        do {
+                            try await relationshipViewModel.doRelationshipAction(.approveFollowRequest, account: account, navigator: navigator)
+                        } catch {
+                            navigator.didReceiveError(error)
                         }
+                        isAnsweringFollowRequest = false
                     }
-
-                    RelationshipButtonType.rejectTheirFollowRequest.largeButton(isOpaque: true, isInCollection: false) {
-                        guard let account = profileViewModel.account else { return }
-                        isAnsweringFollowRequest = true
-                        Task {
-                            do {
-                                try await relationshipViewModel.doRelationshipAction(.rejectFollowRequest, account: account, navigator: navigator)
-                            } catch {
-                                navigator.didReceiveError(error)
-                            }
-                            isAnsweringFollowRequest = false
+                }
+                
+                RelationshipButtonType.rejectTheirFollowRequest.largeButton(isOpaque: true, isInCollection: false) {
+                    guard let account = profileViewModel.account else { return }
+                    isAnsweringFollowRequest = true
+                    Task {
+                        do {
+                            try await relationshipViewModel.doRelationshipAction(.rejectFollowRequest, account: account, navigator: navigator)
+                        } catch {
+                            navigator.didReceiveError(error)
                         }
+                        isAnsweringFollowRequest = false
                     }
                 }
             }
         }
-        .padding()
         .frame(maxWidth: .infinity)
-        .background() {
-            Color(UIColor.secondarySystemBackground)
-                .opacity(0.5)
-        }
     }
     
     @ViewBuilder var followRequestApprovalMessage: some View {
