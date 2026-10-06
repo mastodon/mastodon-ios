@@ -18,7 +18,7 @@ import MastodonLocalization
     
     var featuredHashtagsModel = FeaturedHashtagsModel()
     
-    var editingStatus: EditingStatus = .cannotEdit
+    var isSavingEdits = false
     var contentDisplayStatus: ProfileContentStatus = .showAlways
     
     struct HandleDetails {
@@ -113,13 +113,6 @@ import MastodonLocalization
                 navigator.didReceiveError(error)
             }
         }
-        
-        switch relationship {
-        case .isMe:
-            self.editingStatus = .notEditing
-        case .isNotMe:
-            self.editingStatus = .cannotEdit
-        }
       
         Task {
             let handle = account.handle
@@ -191,17 +184,8 @@ import MastodonLocalization
     }
     
     public func checkForEditingChanges(andCommit commit: Bool) {
-        switch editingStatus {
-        case .cannotEdit, .notEditing:
-            return
-        case .editing:
-            break
-        case .pushingChanges(let success):
-            guard success != nil else { return }
-            break
-        }
-        let editingViewModelHasChanges = editingViewModel.checkForChanges()
-        editingStatus = .editing(hasChanges: editingViewModelHasChanges)
+        guard case .isMe = relationshipViewModel.relationship, !isSavingEdits else { return }
+        guard editingViewModel.checkForChanges() else { return }
         if commit {
             Task {
                 do {
@@ -228,7 +212,7 @@ extension Mastodon.Entity.V2.Instance.Configuration.AccountsLimits {
 @Observable
 class ProfileEditingViewModel {
     typealias AccountsLimits = Mastodon.Entity.V2.Instance.Configuration.AccountsLimits
-    var editingStatus: EditingStatus?
+    var hasUnsavedChanges = false
     var showVerifiedLinkTip = true
     var showTabDisplayPreferences = false
     var instanceLimits: AccountsLimits?
@@ -341,19 +325,9 @@ class ProfileEditingViewModel {
         }
 #endif
         
-        switch editingStatus {
-        case .cannotEdit, .notEditing:
-            assertionFailure("did not expect to check for hasChanges while in \(String(describing: editingStatus)) state")
-            break
-        case .none:
-            break
-        case .editing(let oldHasChanges):
-            guard hasChanges != oldHasChanges else { return hasChanges }
-        case .pushingChanges(let success):
-            guard success != nil else { return false }
+        if hasChanges != hasUnsavedChanges {
+            withAnimation { hasUnsavedChanges = hasChanges }
         }
-       
-        withAnimation { editingStatus = .editing(hasChanges: hasChanges) }
         
         return hasChanges
     }
@@ -556,7 +530,7 @@ extension ProfileViewModel {
             fieldsAttributes: customFieldsData
         )
         
-        editingStatus = .pushingChanges(success: nil)
+        isSavingEdits = true
         
         do {
             let response = try await APIService.shared.accountUpdateCredentials(
@@ -567,10 +541,10 @@ extension ProfileViewModel {
             let updatedAccount = MastodonAccount.fromEntity(response.value, authenticatedDomain: domain)
             updateAccount(updatedAccount)
             editingViewModel.setAccount(updatedAccount, textContentDidChange: { self.checkForEditingChanges(andCommit: false) })
-            editingStatus = .pushingChanges(success: true)
+            isSavingEdits = false
             checkForEditingChanges(andCommit: false)
         } catch {
-            editingStatus = .pushingChanges(success: false)
+            isSavingEdits = false
             throw error
         }
     }

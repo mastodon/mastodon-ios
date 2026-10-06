@@ -43,12 +43,7 @@ struct ProfileEditingDestinationView: View {
     let destinationType: ProfileEditDestinationType
     
     private var safeToSwipeToDismiss: Bool {
-        switch editingViewModel.editingStatus?.saveButton {
-        case .canSave, .saveInProgress:
-            false
-        case .noButton, .none:
-            true
-        }
+        !editingViewModel.hasUnsavedChanges && !profileViewModel.isSavingEdits
     }
     
     var body: some View {
@@ -70,10 +65,9 @@ struct ProfileEditingDestinationView: View {
                             }
                             
                             ToolbarItem(placement: .navigationBarTrailing) {
-                                switch editingViewModel.editingStatus?.saveButton {
-                                case .noButton, .none:
-                                    EmptyView()
-                                case .canSave:
+                                if profileViewModel.isSavingEdits {
+                                    ProgressView().progressViewStyle(.circular)
+                                } else if editingViewModel.hasUnsavedChanges {
                                     Button {
                                         Task {
                                             do {
@@ -88,8 +82,6 @@ struct ProfileEditingDestinationView: View {
                                     }
                                     .buttonStyle(.borderedProminent)
                                     .tint(Asset.Colors.accent.swiftUIColor)
-                                case .saveInProgress:
-                                    ProgressView().progressViewStyle(.circular)
                                 }
                             }
                         }

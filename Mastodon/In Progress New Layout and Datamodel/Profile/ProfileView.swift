@@ -152,7 +152,7 @@ struct ProfileView: View {
     @ViewBuilder func subview(_ subviewType: Subview, width: CGFloat, leadingBleed: CGFloat = 0, trailingBleed: CGFloat = 0) -> some View {
         switch subviewType {
         case .bannerAndAvatar:
-            ProfileAvatarAndBannerView(maxWidth: width, leadingBleed: leadingBleed, trailingBleed: trailingBleed)
+            ProfileAvatarAndBannerView(maxWidth: width, leadingBleed: leadingBleed, trailingBleed: trailingBleed, showsEditControls: false)
                 .environment(viewModel.editingViewModel)
                 .environment(viewModel.relationshipViewModel)
         case .mainInfo:
@@ -299,6 +299,7 @@ struct ProfileAvatarAndBannerView: View {
     let maxWidth: CGFloat
     let leadingBleed: CGFloat
     let trailingBleed: CGFloat
+    let showsEditControls: Bool
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) { // to place avatar on top of banner image
@@ -311,12 +312,9 @@ struct ProfileAvatarAndBannerView: View {
                     .padding(.leading, -leadingBleed)
                     .frame(width: maxWidth, alignment: .leading)
                 
-                switch profileViewModel.editingStatus {
-                case .editing:
+                if showsEditControls && !profileViewModel.isSavingEdits {
                     bannerEditButton
                         .padding(standardPadding)
-                case .cannotEdit, .notEditing, .pushingChanges:
-                    EmptyView()
                 }
             }
             
@@ -328,14 +326,11 @@ struct ProfileAvatarAndBannerView: View {
                 ZStack { // for avatar edit button
                     AvatarView(style: .circular, size: avatarSize, avatarSource: avatarSource)
                         .padding(.horizontal, doublePadding)
-                    switch profileViewModel.editingStatus {
-                    case .editing:
+                    if showsEditControls && !profileViewModel.isSavingEdits {
                         // if the user has already chosen a new image, let them see it unobscured, but tapping the avatar will still bring up the photo picker
                         let buttonSize = avatarSize.rawValue + (avatarEditButtonSize / 2.0)
                         avatarEditButton(showButton: editingViewModel.avatarConfirmedCroppedImage == nil)
                             .frame(maxWidth: buttonSize, maxHeight: buttonSize)
-                    case .cannotEdit, .notEditing, .pushingChanges:
-                        EmptyView()
                     }
                 }
                 .offset(.init(width: 0, height: 16))
@@ -1110,45 +1105,6 @@ enum ProfileContentStatus {
         }
     }
 }
-
-enum EditingStatus: Equatable {
-    case cannotEdit
-    case notEditing
-    case editing(hasChanges: Bool)
-    case pushingChanges(success: Bool?)
-    
-    enum SaveButton {
-        case noButton
-        case saveInProgress
-        case canSave
-    }
-    
-    var saveButton: SaveButton {
-        switch self {
-        case .cannotEdit, .notEditing:
-            return .noButton
-        case .pushingChanges:
-            return .saveInProgress
-        case .editing(let hasChanges):
-            if hasChanges {
-                return .canSave
-            } else {
-                return .noButton
-            }
-        }
-    }
-    
-    var showActivityIndicator: Bool {
-        switch self {
-        case .pushingChanges(let success):
-            return success == nil
-        default:
-            return false
-        }
-    }
-}
-
-
 
 extension ProfileViewModel: FeedCoordinatorUpdatable {
     func incorporateUpdate(_ update: UpdatedElement) {

@@ -191,15 +191,7 @@ enum MastodonNavigationDestination: Identifiable {
     }
     
     func push(_ destination: MastodonNavigationDestination) {
-        switch destination {
-        case .legacy:
             navigationPath.append(destination)
-        case .editProfile(let profileViewModel):
-            profileViewModel.editingStatus = .editing(hasChanges: false)
-            fallthrough
-        default:
-            navigationPath.append(destination)
-        }
     }
     
     func pop() {

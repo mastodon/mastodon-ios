@@ -136,7 +136,7 @@ struct ProfileEditingView: View {
             let fullWidth = min(maxFeedContentWidth, geo.size.width)
             let sideMargin = (geo.size.width - fullWidth) / 2.0
             VStack(spacing: 0) {
-                ProfileAvatarAndBannerView(maxWidth: fullWidth, leadingBleed: geo.safeAreaInsets.leading + sideMargin, trailingBleed: sideMargin + geo.safeAreaInsets.trailing)
+                ProfileAvatarAndBannerView(maxWidth: fullWidth, leadingBleed: geo.safeAreaInsets.leading + sideMargin, trailingBleed: sideMargin + geo.safeAreaInsets.trailing, showsEditControls: true)
                     .frame(width: fullWidth)
                     .zIndex(2)
                 List {
