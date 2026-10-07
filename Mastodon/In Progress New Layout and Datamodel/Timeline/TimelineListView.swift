@@ -621,7 +621,7 @@ struct TimelineListView: View {
                         .frame(width: useableWidth, alignment: .leading)
                     
                 case .scopedSearchResults(let queryModel):
-                    ScopedSearchResultsRowView(useableWidth: useableWidth, isStandalone: false)
+                    ScopedSearchResultsRowView(useableWidth: useableWidth)
                         .environment(queryModel)
                         .onTapGesture {
                             navigator.push(.timeline(.search(SearchQueryModel(scope: queryModel.scope, trimmedSearchString: queryModel.trimmedSearchString))))

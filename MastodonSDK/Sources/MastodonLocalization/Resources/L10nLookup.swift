@@ -365,6 +365,18 @@ public struct L10nLookup {
                 return result
             }()
         }
+        
+        public struct Search {
+            public static func searchForPeople(matching searchTerm: String) -> String {
+                return tr("Localizable", "Scene.Search.searchForPeople", searchTerm)
+            }
+            public static func searchForHashtags(matching searchTerm: String) -> String {
+                return tr("Localizable", "Scene.Search.searchForHashtags", searchTerm)
+            }
+            public static func searchForPosts(matching searchTerm: String) -> String {
+                return tr("Localizable", "Scene.Search.searchForPosts", searchTerm)
+            }
+        }
     }
 
     public static func pluralCountPoll(_ count: Int) -> String {

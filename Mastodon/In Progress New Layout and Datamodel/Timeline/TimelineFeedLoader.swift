@@ -871,10 +871,14 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 newBatch = {
                     switch searchModel.scope {
                     case .all:
-                        let combinedResults =
-                        accounts + [scopedResultsEntry(.people)]
-                        + hashtags + [scopedResultsEntry(.hashtags)]
-                        + statuses + [scopedResultsEntry(.posts)]
+                        let combinedResults = [
+                            scopedResultsEntry(.people),
+                            scopedResultsEntry(.hashtags),
+                            scopedResultsEntry(.posts)
+                        ]
+                        + accounts
+                        + hashtags
+                        + statuses
                         return combinedResults
                     default:
                         return accounts + hashtags + statuses

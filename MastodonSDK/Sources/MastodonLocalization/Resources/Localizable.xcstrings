@@ -245912,6 +245912,42 @@
         }
       }
     },
+    "Scene.Search.searchForHashtags" : {
+      "comment" : "appears at the top of search results, tapping it performs a search scoped only to hashtags",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search for hashtags matching \"%1$(searchTerm)@\""
+          }
+        }
+      }
+    },
+    "Scene.Search.searchForPeople" : {
+      "comment" : "appears at the top of search results, tapping it performs a search scoped only to accounts",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search for people matching \"%1$(searchTerm)@\""
+          }
+        }
+      }
+    },
+    "Scene.Search.searchForPosts" : {
+      "comment" : "appears at the top of search results, tapping it performs a search scoped only to posts",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search for posts matching \"%1$(searchTerm)@\""
+          }
+        }
+      }
+    },
     "Scene.Search.Searching.Clear" : {
       "extractionState" : "migrated",
       "localizations" : {

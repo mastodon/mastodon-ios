@@ -4,6 +4,7 @@ import SwiftUI
 import MastodonSDK
 import MastodonCore
 import MastodonAsset
+import MastodonLocalization
 
 struct ExploreRootView: View {
     @Environment(MastodonNavigationRouter.self) var navigationStackNavigator
@@ -80,7 +81,7 @@ struct ExploreRootView: View {
                     TimelineListView()
                         .timelineEnvironment(timelineModel: searchTimelineModel, contentConcealModel: .alwaysShow, filter: searchTimelineModel.timeline.filterModel, asyncRefreshModel: asyncRefreshModel)
                 } else {
-                    LazyVStack {
+                    LazyVStack(spacing: 0) {
                         ForEach([SearchScope.people, .hashtags, .posts], id: \.self) { scope in
                             let rowModel = {
                                 switch scope {
@@ -94,7 +95,7 @@ struct ExploreRootView: View {
                                     searchQueryModel
                                 }
                             }()
-                            ScopedSearchResultsRowView(useableWidth: useableWidth, isStandalone: true)
+                            ScopedSearchResultsRowView(useableWidth: useableWidth)
                                 .environment(rowModel)
                                 .onTapGesture {
                                     navigationStackNavigator.push(.timeline(.search(SearchQueryModel(scope: scope, trimmedSearchString: searchQueryModel.trimmedSearchString))))
@@ -182,18 +183,16 @@ public enum SearchScope: CaseIterable {
 
 public struct ScopedSearchResultsRowView: View {
     let useableWidth: CGFloat
-    let isStandalone: Bool
     @Environment(SearchQueryModel.self) var queryModel
     
     public var body: some View {
         let text = {
             switch queryModel.scope {
-            case .hashtags:
-                isStandalone ? "Hashtags matching \"\(queryModel.trimmedSearchString)\"" : "More hashtags matching \"\(queryModel.trimmedSearchString)\""
+            case .hashtags: L10nLookup.Scene.Search.searchForHashtags(matching: queryModel.trimmedSearchString)
             case .people:
-                isStandalone ? "People matching \"\(queryModel.trimmedSearchString)\"" : "More people matching \"\(queryModel.trimmedSearchString)\""
+                L10nLookup.Scene.Search.searchForPeople(matching: queryModel.trimmedSearchString)
             case .posts:
-                isStandalone ? "Posts matching \"\(queryModel.trimmedSearchString)\"" : "More posts matching \"\(queryModel.trimmedSearchString)\""
+                L10nLookup.Scene.Search.searchForPosts(matching: queryModel.trimmedSearchString)
             case .all:
                 "UNEXPECTED"
             }
@@ -203,15 +202,13 @@ public struct ScopedSearchResultsRowView: View {
             Text(text)
                 .fontWeight(.semibold)
                 .foregroundStyle(Asset.Colors.accent.swiftUIColor)
-            if isStandalone {
-                Spacer()
-            }
-            Image(systemName: "chevron.right")
+            Spacer()
+            Image(systemName: "chevron.forward")
                 .foregroundStyle(.secondary)
         }
         .padding()
         .padding(.bottom, doublePadding)
-        .frame(width: useableWidth, alignment: .trailing)
+        .frame(width: useableWidth, alignment: .leading)
         .contentShape(Rectangle())
     }
 }
