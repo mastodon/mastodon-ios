@@ -157,7 +157,7 @@ struct ProfileMainMenuView: View {
             HStack(alignment: .firstTextBaseline) {
                 Label {
                     Text(title)
-                        .font(.title3)
+                        .font(.body)
                 } icon: {
                     rowIcon(icon)
                         .frame(width: iconSlotSize, height: iconSlotSize)
