@@ -6,6 +6,7 @@ import MastodonLocalization
 struct DiscoveryFeedsView: View {
     @Environment(MastodonNavigationRouter.self) var navigator
     @Environment(DiscoveryFeedsViewModel.self) var viewModel
+    @Environment(SearchViewModel.self) private var searchViewModel
     @Environment(\.dismissSearch) private var dismissSearch
     
     var body: some View {
@@ -29,7 +30,9 @@ struct DiscoveryFeedsView: View {
                 }
             }
             .onAppear {
-                dismissSearch()
+                if searchViewModel.searchHistory.isEmpty {
+                    dismissSearch()
+                }
             }
     }
 }

@@ -22,7 +22,14 @@ struct ExploreRootView: View {
         @Bindable var searchViewModel = searchViewModel
         contents
             .toolbarTitleDisplayMode(.inline)
-            .searchable(text: $searchViewModel.searchText, isPresented: $searchViewModel.isSearchActive)
+            .searchable(text: $searchViewModel.searchText, tokens: $searchViewModel.searchTokens, isPresented: $searchViewModel.isSearchActive) { item in
+                Text(item.searchHistoryString ?? "")
+            }
+            .searchSuggestions {
+                if searchViewModel.searchText.isEmpty {
+                    searchHistorySuggestions
+                }
+            }
             .navigationDestination(for: MastodonNavigationDestination.self) { destination in
                 navigationStackNavigator.destinationView(destination, sceneCoordinator: nil)
             }
@@ -36,11 +43,24 @@ struct ExploreRootView: View {
                 guard searchQueryModel.trimmedSearchString.count > 2 else { return }
                 await searchTimelineModel?.reload()
             }
+            .onChange(of: searchViewModel.searchTokens, { _, newValue in
+                guard let chosenItem = newValue.first else { return }
+                switch chosenItem {
+                case .account(let model):
+                    navigationStackNavigator.push(.profile(account: model.account._legacyEntity, relationship: model.myRelationship))
+                case .hashtag(let model):
+                    navigationStackNavigator.push(.timeline(.hashtag(model.entity, includeHeader: true)))
+                default:
+                    break
+                }
+            })
             .onChange(of: navigationStackNavigator.navigationPath) { oldValue, newValue in
                 // record this as a recent search if appropriate
                 let isNavigatingFromSearchScreen = oldValue.isEmpty
+                let selectedToken = searchViewModel.searchTokens.first
+                searchViewModel.searchTokens.removeAll()
                 let searchIsShowingNewResults = !searchViewModel.searchText.isEmpty
-                guard isNavigatingFromSearchScreen, searchIsShowingNewResults, let authenticatedUser = AuthenticationObserver.shared.currentActiveUser else { return }
+                guard isNavigatingFromSearchScreen, selectedToken != nil || searchIsShowingNewResults, let authenticatedUser = AuthenticationObserver.shared.currentActiveUser else { return }
                 switch newValue.first {
                 case .profile(let account, _):
                     searchViewModel.didSelectSearchResult(authenticatedUser, account: account, hashtag: nil)
@@ -53,36 +73,32 @@ struct ExploreRootView: View {
     }
     
     @ViewBuilder var contents: some View {
-        if !searchViewModel.searchText.isEmpty || (searchViewModel.isSearchActive && !searchViewModel.searchHistory.isEmpty) {
+        if !searchViewModel.searchText.isEmpty {
             GeometryReader { geo in
                 let useableWidth = min(maxFeedContentWidth, geo.size.width)
-                if searchViewModel.searchText.isEmpty {
-                    searchHistory(useableWidth: useableWidth)
+                if let searchTimelineModel, searchTimelineModel.currentDisplaySlice.contains(where: { $0.isRealItem }) {
+                    TimelineListView()
+                        .timelineEnvironment(timelineModel: searchTimelineModel, contentConcealModel: .alwaysShow, filter: searchTimelineModel.timeline.filterModel, asyncRefreshModel: asyncRefreshModel)
                 } else {
-                    if let searchTimelineModel, searchTimelineModel.currentDisplaySlice.contains(where: { $0.isRealItem }) {
-                        TimelineListView()
-                            .timelineEnvironment(timelineModel: searchTimelineModel, contentConcealModel: .alwaysShow, filter: searchTimelineModel.timeline.filterModel, asyncRefreshModel: asyncRefreshModel)
-                    } else {
-                        LazyVStack {
-                            ForEach([SearchScope.people, .hashtags, .posts], id: \.self) { scope in
-                                let rowModel = {
-                                    switch scope {
-                                    case .people:
-                                        peopleQueryModel
-                                    case .hashtags:
-                                        hashtagsQueryModel
-                                    case .posts:
-                                        postsQueryModel
-                                    case .all:
-                                        searchQueryModel
-                                    }
-                                }()
-                                ScopedSearchResultsRowView(useableWidth: useableWidth, isStandalone: true)
-                                    .environment(rowModel)
-                                    .onTapGesture {
-                                        navigationStackNavigator.push(.timeline(.search(SearchQueryModel(scope: scope, trimmedSearchString: searchQueryModel.trimmedSearchString))))
-                                    }
-                            }
+                    LazyVStack {
+                        ForEach([SearchScope.people, .hashtags, .posts], id: \.self) { scope in
+                            let rowModel = {
+                                switch scope {
+                                case .people:
+                                    peopleQueryModel
+                                case .hashtags:
+                                    hashtagsQueryModel
+                                case .posts:
+                                    postsQueryModel
+                                case .all:
+                                    searchQueryModel
+                                }
+                            }()
+                            ScopedSearchResultsRowView(useableWidth: useableWidth, isStandalone: true)
+                                .environment(rowModel)
+                                .onTapGesture {
+                                    navigationStackNavigator.push(.timeline(.search(SearchQueryModel(scope: scope, trimmedSearchString: searchQueryModel.trimmedSearchString))))
+                                }
                         }
                     }
                 }
@@ -92,30 +108,10 @@ struct ExploreRootView: View {
         }
     }
     
-    @ViewBuilder func searchHistory(useableWidth: CGFloat) -> some View {
-        let contentWidth = contentWidth(forUseableWidth: useableWidth)
-        LazyVStack {
-            ForEach(searchViewModel.searchHistory, id: \.mastodonID) { item in
-                switch item {
-                case .account(let model):
-                    AccountRowView(contentWidth: contentWidth, collectionViewModel: nil)
-                        .environment(model)
-                        .onTapGesture {
-                            navigationStackNavigator.push(.profile(account: model.account._legacyEntity, relationship: model.myRelationship))
-                        }
-                case .hashtag(let tagModel):
-                    HashtagRowView()
-                        .padding(EdgeInsets(top: doublePadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
-                        .frame(width: useableWidth)
-                        .environment(tagModel)
-                        .onTapGesture {
-                            navigationStackNavigator.push(.timeline(.hashtag(tagModel.entity, includeHeader: true)))
-                        }
-                default:
-                    Text("Unimplemented search result type")
-                        .foregroundStyle(.red)
-                }
-            }
+    @ViewBuilder var searchHistorySuggestions: some View {
+        ForEach(searchViewModel.searchHistory, id: \.mastodonID) { item in
+            Text(item.searchHistoryString ?? "")
+                .searchCompletion(item)
         }
     }
 }
@@ -125,6 +121,7 @@ struct ExploreRootView: View {
     var searchText = ""
     var isSearchActive: Bool = false
     var searchHistory: [TimelineItem] = []
+    var searchTokens: [TimelineItem] = []
     
     var accountModels = [ Mastodon.Entity.Account.ID : AccountRowViewModel]()
     var hashtagModels = [ String : HashtagRowViewModel ]()
@@ -216,5 +213,19 @@ public struct ScopedSearchResultsRowView: View {
         .padding(.bottom, doublePadding)
         .frame(width: useableWidth, alignment: .trailing)
         .contentShape(Rectangle())
+    }
+}
+
+extension TimelineItem {
+    @MainActor
+    var searchHistoryString: String? {
+        switch self {
+        case .account(let model):
+            "@\(model.account.displayInfo.fullHandle)"
+        case .hashtag(let model):
+            "#\(model.entity.name)"
+        default:
+            nil
+        }
     }
 }
