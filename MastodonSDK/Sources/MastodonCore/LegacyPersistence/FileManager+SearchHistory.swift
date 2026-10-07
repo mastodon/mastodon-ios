@@ -30,9 +30,9 @@ public extension FileManager {
             searchItems.remove(at: index)
         }
 
-        searchItems.append(newSearchItem)
+        searchItems.insert(newSearchItem, at: 0)
 
-        storeJSON(searchItems, .searchHistory(userId))
+        storeJSON(Array(searchItems.prefix(10)), .searchHistory(userId))
     }
 
     func removeSearchHistory(for userId: UserIdentifier) {
