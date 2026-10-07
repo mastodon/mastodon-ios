@@ -30,14 +30,14 @@ struct HomeTimelineChrome: ViewModifier {
                 }
                 if tabViewRouter.currentTabBarPlacement.isSidebarAvailable {
                     ToolbarItem(placement: .topBarTrailing) {
-                        modalComposeButton(diameter: 40)
+                        modalComposeButton(diameter: 40, iconSize: 24)
                     }
                     .sharedBackgroundVisibilityHidden()
                 }
             }
             .overlay(alignment: .bottomTrailing) {
                 if !tabViewRouter.currentTabBarPlacement.isSidebarAvailable {
-                    modalComposeButton(diameter: 50)
+                    modalComposeButton(diameter: 50, iconSize: 24)
                 }
             }
     }
@@ -98,14 +98,13 @@ struct HomeTimelineChrome: ViewModifier {
         }
     }
     
-    @ViewBuilder private func modalComposeButton(diameter: CGFloat) -> some View {
-        let iconSize = diameter * 0.6
+    @ViewBuilder private func modalComposeButton(diameter: CGFloat, iconSize: CGFloat) -> some View {
         let navigator = navigationRouter
         if let authBox = AuthenticationObserver.shared.currentActiveUser {
             Button {
                 navigator.presentSheet(.modalCompose(.init(authenticationBox: authBox, composeContext: .composeStatus(quoting: nil), destination: .topLevel), nil), afterDeconflictionDelay: false)
             } label: {
-                Image(phosphor: .penNib)
+                Image(phosphor: .penNibLight)
                     .resizable()
                     .scaledToFit()
                     .frame(width: iconSize, height: iconSize)
