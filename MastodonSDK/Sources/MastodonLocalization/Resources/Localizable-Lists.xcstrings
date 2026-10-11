@@ -5,10 +5,310 @@
       "comment" : "page title when choosing lists to add this account to",
       "extractionState" : "manual",
       "localizations" : {
+        "an" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "ckb-IR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tilføj %1$(accountName)@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add %1$(accountName)@"
+          }
+        },
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "es-AR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar %1$(accountName)@"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter %1$(accountName)@"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuir %1$(accountName)@ leis"
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bæta við %1$(accountName)@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiungi %1$(accountName)@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "kab" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thêm %1$(accountName)@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$(accountName)@"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加入 %1$(accountName)@"
           }
         }
       }
@@ -197,13 +497,13 @@
             "value" : "Snulfu-d"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create"
@@ -332,61 +632,61 @@
         "an" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "be" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Стварыць спіс"
+            "state" : "new",
+            "value" : "Create custom feed"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "ckb-IR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "cy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Opret liste"
+            "state" : "translated",
+            "value" : "Opret brugerdefineret feed"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Liste erstellen"
+            "state" : "new",
+            "value" : "Create custom feed"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Δημιουργία λίστας"
+            "state" : "new",
+            "value" : "Create custom feed"
           }
         },
         "en" : {
@@ -398,241 +698,241 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Crear lista"
+            "state" : "translated",
+            "value" : "Crear línea temporal personalizada"
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Koosta loend"
+            "state" : "new",
+            "value" : "Create custom feed"
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Créer une liste"
+            "state" : "translated",
+            "value" : "Créer un flux personnalisé"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Cruthaigh liosta"
+            "state" : "translated",
+            "value" : "Cruthaigh fotha saincheaptha"
           }
         },
         "gd" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "is" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Búa til lista"
+            "state" : "translated",
+            "value" : "Útbúa sérsniðið streymi"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Crea una lista"
+            "state" : "translated",
+            "value" : "Crea un feed personalizzato"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Snulfu-d tabdart"
+            "state" : "new",
+            "value" : "Create custom feed"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create custom feed"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Lijst aanmaken"
+            "state" : "new",
+            "value" : "Create custom feed"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Liste oluştur"
+            "state" : "new",
+            "value" : "Create custom feed"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Створити список"
+            "state" : "new",
+            "value" : "Create custom feed"
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tạo danh sách"
+            "state" : "translated",
+            "value" : "Tạo nguồn tin tùy chỉnh"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create list"
+            "value" : "Create custom feed"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "新增列表"
+            "state" : "translated",
+            "value" : "建立自訂時間軸"
           }
         }
       }
@@ -644,61 +944,61 @@
         "an" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "be" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Стварыць новы спіс…"
+            "state" : "new",
+            "value" : "Create new custom feed…"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "ckb-IR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "cy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Opret ny liste…"
+            "state" : "translated",
+            "value" : "Opret nyt brugerdefineret feed…"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Neue Liste erstellen …"
+            "state" : "new",
+            "value" : "Create new custom feed…"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Δημιουργία νέας λίστας…"
+            "state" : "new",
+            "value" : "Create new custom feed…"
           }
         },
         "en" : {
@@ -710,241 +1010,241 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Crear nueva lista…"
+            "state" : "translated",
+            "value" : "Crear nueva línea temporal personalizada…"
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Koosta uus loend…"
+            "state" : "new",
+            "value" : "Create new custom feed…"
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Créer une nouvelle liste…"
+            "state" : "translated",
+            "value" : "Créer un nouveau flux personnalisé…"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Cruthaigh liosta nua…"
+            "state" : "translated",
+            "value" : "Cruthaigh fotha saincheaptha nua…"
           }
         },
         "gd" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "is" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Búa til nýjan lista…"
+            "state" : "translated",
+            "value" : "Útbúa nýtt sérsniðið streymi…"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Crea una nuova lista…"
+            "state" : "translated",
+            "value" : "Crea un nuovo feed personalizzato…"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Snulfu-d tabdart tamaynut…"
+            "state" : "new",
+            "value" : "Create new custom feed…"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create new custom feed…"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Maak nieuwe lijst aan…"
+            "state" : "new",
+            "value" : "Create new custom feed…"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Yeni liste oluştur…"
+            "state" : "new",
+            "value" : "Create new custom feed…"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Створити новий список…"
+            "state" : "new",
+            "value" : "Create new custom feed…"
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tạo danh sách mới…"
+            "state" : "translated",
+            "value" : "Tạo nguồn tin tùy chỉnh mới…"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new list…"
+            "value" : "Create new custom feed…"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "新增列表..."
+            "state" : "translated",
+            "value" : "建立自訂時間軸..."
           }
         }
       }
@@ -955,61 +1255,61 @@
         "an" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "be" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Калі ў гэтым спісе нехта ёсць, схавайце яго ў сваёй Галоўнай стужцы, каб не бачыць яго допісы двойчы."
+            "state" : "new",
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "ckb-IR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "cy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Hvis nogen står på denne liste, kan du skjule dem i dit hjem-feed, så du ikke ser deres opslag to gange."
+            "state" : "translated",
+            "value" : "Hvis nogen er med i dette brugerdefinerede feed, kan du skjule dem i dit hjem-feed, så du undgår at se deres opslag to gange."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Profile, die sich auf dieser Liste befinden, werden nicht im Feed deiner Startseite angezeigt, damit deren Beiträge nicht doppelt erscheinen."
+            "state" : "new",
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Αν κάποιος είναι σε αυτή τη λίστα, απόκρυψέ τον από την Αρχική ροή σου για να αποφύγεις να βλέπεις τις αναρτήσεις του δύο φορές."
+            "state" : "new",
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "en" : {
@@ -1021,241 +1321,241 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Si alguien está en esta lista, ocultá esa cuenta en tu línea temporal principal para evitar que aparezcan sus mensajes dos veces."
+            "state" : "translated",
+            "value" : "Si alguna cuenta está en esta línea temporal personalizada, ocultala de tu línea temporal principal para evitar leer sus mensajes dos veces."
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Kui keegi on selles loendis, peida ta jälgimiste ajajoonelt, vältimaks tema postituste kaks korda nägemist."
+            "state" : "new",
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Si quelqu'un est dans cette liste, les cacher dans votre fil d'actualité pour éviter de voir leurs messages deux fois."
+            "state" : "translated",
+            "value" : "Si une personne est dans ce flux personnalisé, la cacher de votre fil d'actualité pour éviter de voir ses messages deux fois."
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Má tá duine ar an liosta seo, cuir i bhfolach iad i do fhotha Baile ionas nach bhfeicfidh tú a bpoist faoi dhó."
+            "state" : "translated",
+            "value" : "Má tá duine éigin sa bhfueder shaincheaptha seo, folaigh iad i d’fhueder baile chun gan a gcuid postálacha a fheiceáil faoi dhó."
           }
         },
         "gd" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "is" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ef einhver er á þessum lista, geturðu falið viðkomandi í heimastreyminu þínu til að komast hjá því að sjá færslurnar þeirra í tvígang."
+            "state" : "translated",
+            "value" : "Þegar einhver er í þessu sérsniðna streymi, þá ættirðu að fela viðkomandi í heimastreyminu þínu svo þú sjáir ekki færslurnar þeirra tvisvar."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Se qualcuno è presente in questo elenco, nascondilo nel tuo feed Home per evitare di visualizzare i suoi post due volte."
+            "state" : "translated",
+            "value" : "Se qualcuno è presente in questo feed personalizzato, nascondilo dal tuo feed principale della Home per evitare di visualizzare i suoi post due volte."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "kab" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Eğer bu listede bir hesap bulunuyorsa, gönderilerini iki kez görmemek için ana sayfa akışınızda o hesabı gizleyin."
+            "state" : "new",
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Якщо хтось є у цьому списку, сховайте їх на своїй домашній сторінці, щоб не бачити їхні дописи двічі."
+            "state" : "new",
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Nếu ai đó có trong danh sách này, ẩn họ trong bảng tin Trang chủ để tránh thấy tút của họ hiện trùng lặp."
+            "state" : "translated",
+            "value" : "Nếu ai đó có trong nguồn tin tùy chỉnh này, ẩn họ trong Trang chủ để tránh thấy tút của họ hiện trùng lặp."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If someone is on this list, hide them in your Home feed to avoid seeing their posts twice."
+            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "如果某個帳號於此列表中，將自您的首頁時間軸中隱藏此帳號，避免重複見到他們的嘟文。"
+            "state" : "translated",
+            "value" : "如果某個帳號於此自訂時間軸中，將自您的首頁時間軸中隱藏此帳號，避免重複見到他們的嘟文。"
           }
         }
       }
@@ -1444,13 +1744,13 @@
             "value" : "Hide members in Home feed"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Hide members in Home feed"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Hide members in Home feed"
@@ -1579,61 +1879,61 @@
         "an" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "be" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Уключыць адказы ад карыстальнікаў са спіса"
+            "state" : "new",
+            "value" : "Include replies from custom feed members to"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "ckb-IR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "cy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Medtag svar fra listemedlemmer til"
+            "state" : "translated",
+            "value" : "Medtag svar fra medlemmer af brugerdefinerede feeds til"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Antworten von Listenmitgliedern einbeziehen an …"
+            "state" : "new",
+            "value" : "Include replies from custom feed members to"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Συμπερίληψη απαντήσεων από τα μέλη της λίστας προς"
+            "state" : "new",
+            "value" : "Include replies from custom feed members to"
           }
         },
         "en" : {
@@ -1645,241 +1945,241 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Incluir las respuestas de los miembros de la lista a"
+            "state" : "translated",
+            "value" : "Incluir las respuestas de los miembros de la línea temporal personalizada para"
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Kaasa ka loendi liikmete vastused"
+            "state" : "new",
+            "value" : "Include replies from custom feed members to"
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Inclure les réponses des membres de la liste"
+            "state" : "translated",
+            "value" : "Inclure les réponses des membres du flux à"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Cuir san áireamh freagraí ó bhaill an liosta go"
+            "state" : "translated",
+            "value" : "Cuir freagraí ó bhaill bheatha saincheaptha san áireamh i"
           }
         },
         "gd" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "is" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Hafa með svör frá meðlimum lista til"
+            "state" : "translated",
+            "value" : "Hafa með svör frá meðlimum sérsniðna streymisins til"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Includi le risposte dai membri della lista a"
+            "state" : "translated",
+            "value" : "Includi le risposte dai membri del feed personalizzato a"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "kab" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include replies from custom feed members to"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Şu liste için liste üyelerinin yanıtlarını dahil et:"
+            "state" : "new",
+            "value" : "Include replies from custom feed members to"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Включати відповіді зі списку учасників до"
+            "state" : "new",
+            "value" : "Include replies from custom feed members to"
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Bao gồm lượt trả lời từ những tài khoản trong danh sách"
+            "state" : "translated",
+            "value" : "Bao gồm lượt trả lời từ những tài khoản trong nguồn tin"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Include replies from list members to"
+            "value" : "Include replies from custom feed members to"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "包含來自列表成員的回覆至"
+            "state" : "translated",
+            "value" : "包含來自自訂時間軸成員的回覆至"
           }
         }
       }
@@ -1890,61 +2190,61 @@
         "an" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "be" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Немагчыма стварыць спіс: %1$(errorDescription)@ "
+            "state" : "new",
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "ckb-IR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "cy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Kunne ikke oprette liste: %1$(errorDescription)@ "
+            "state" : "translated",
+            "value" : "Det var ikke muligt at oprette et brugerdefineret feed: %1$(errorDescription)@ "
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Liste konnte nicht erstellt werden: %1$(errorDescription)@ "
+            "state" : "new",
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Αδυναμία δημιουργίας λίστας: %1$(errorDescription)@ "
+            "state" : "new",
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "en" : {
@@ -1956,241 +2256,241 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "No se pudo crear la lista: %1$(errorDescription)@ "
+            "state" : "translated",
+            "value" : "No se pudo crear la línea temporal personalizada: %1$(errorDescription)@ "
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Loendi koostamine ei õnnestunud: %1$(errorDescription)@ "
+            "state" : "new",
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Impossible de créer la liste : %1$(errorDescription)@ "
+            "state" : "translated",
+            "value" : "Impossible de créer le flux personnalisé : %1$(errorDescription)@ "
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Níorbh fhéidir liosta a chruthú: %1$(errorDescription)@ "
+            "state" : "translated",
+            "value" : "Níorbh fhéidir fotha saincheaptha a chruthú: %1$(errorDescription)@ "
           }
         },
         "gd" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "is" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tókst ekki að útbúa lista: %1$(errorDescription)@ "
+            "state" : "translated",
+            "value" : "Tókst ekki að útbúa sérsniðið streymi:: %1$(errorDescription)@ "
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Impossibile creare la lista: %1$(errorDescription)@ "
+            "state" : "translated",
+            "value" : "Impossibile creare il feed personalizzato: %1$(errorDescription)@ "
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "kab" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Lijst kon niet worden aangemaakt: %1$(errorDescription)@"
+            "state" : "new",
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Liste oluşturulamadı: %1$(errorDescription)@ "
+            "state" : "new",
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Не вдалося створити список: %1$(errorDescription)@ "
+            "state" : "new",
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Không thể tạo danh sách: %1$(errorDescription)@ "
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Could not create list: %1$(errorDescription)@ "
+            "value" : "Could not create custom feed: %1$(errorDescription)@ "
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "無法新增列表：%1$(errorDescription)@ "
+            "state" : "translated",
+            "value" : "無法新增自訂時間軸：%1$(errorDescription)@ "
           }
         }
       }
@@ -2202,61 +2502,61 @@
         "an" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "be" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Назва спіса"
+            "state" : "new",
+            "value" : "Custom feed name"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "ckb-IR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "cy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Listenavn"
+            "state" : "translated",
+            "value" : "Navn på brugerdefineret feed"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Titel der Liste"
+            "state" : "new",
+            "value" : "Custom feed name"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Όνομα λίστας"
+            "state" : "new",
+            "value" : "Custom feed name"
           }
         },
         "en" : {
@@ -2268,241 +2568,241 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Nombre de la lista"
+            "state" : "translated",
+            "value" : "Nombre de la línea temporal personalizada"
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Loendi nimi"
+            "state" : "new",
+            "value" : "Custom feed name"
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Nom de la liste"
+            "state" : "translated",
+            "value" : "Nom du flux personnalisé"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ainm an liosta"
+            "state" : "translated",
+            "value" : "Ainm saincheaptha an fhíid"
           }
         },
         "gd" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "is" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Heiti lista"
+            "state" : "translated",
+            "value" : "Heiti sérsniðins streymis"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Nome della lista"
+            "state" : "translated",
+            "value" : "Nome del feed personalizzato"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "kab" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Isem n tebdart"
+            "state" : "new",
+            "value" : "Custom feed name"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Custom feed name"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Naam lijst"
+            "state" : "new",
+            "value" : "Custom feed name"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Liste adı"
+            "state" : "new",
+            "value" : "Custom feed name"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Назва списку"
+            "state" : "new",
+            "value" : "Custom feed name"
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tên danh sách"
+            "state" : "translated",
+            "value" : "Tên nguồn tin tùy chỉnh"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List name"
+            "value" : "Custom feed name"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "列表名稱"
+            "state" : "translated",
+            "value" : "自訂時間軸名稱"
           }
         }
       }
@@ -2691,13 +2991,13 @@
             "value" : "Any followed user"
           }
         },
-        "ko" : {
+        "kmr-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Any followed user"
           }
         },
-        "ku-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Any followed user"
@@ -2753,8 +3053,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Any followed user"
+            "state" : "translated",
+            "value" : "Все пользователи, на которых вы подписаны"
           }
         },
         "si" : {
@@ -2826,61 +3126,61 @@
         "an" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "be" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Удзельнікі гэтага спісу"
+            "state" : "new",
+            "value" : "Members of the custom feed"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "ckb-IR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "cy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Listemedlemmer"
+            "state" : "translated",
+            "value" : "Medlemmer af brugerdefineret feed"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Mitglieder der Liste"
+            "state" : "new",
+            "value" : "Members of the custom feed"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Μέλη της λίστας"
+            "state" : "new",
+            "value" : "Members of the custom feed"
           }
         },
         "en" : {
@@ -2892,241 +3192,241 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Miembros de la lista"
+            "state" : "translated",
+            "value" : "Miembros de la línea temporal personalizada"
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Loendi liikmetelt"
+            "state" : "new",
+            "value" : "Members of the custom feed"
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Aux membres de la liste"
+            "state" : "translated",
+            "value" : "Membres du flux personnalisé"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Baill an liosta"
+            "state" : "translated",
+            "value" : "Baill den fhotha shaincheaptha"
           }
         },
         "gd" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "is" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Meðlima listans"
+            "state" : "translated",
+            "value" : "Meðlimir sérsniðna streymisins"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Membri della lista"
+            "state" : "translated",
+            "value" : "Membri del feed personalizzato"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "kab" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
+          }
+        },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members of the custom feed"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Leden van de lijst"
+            "state" : "new",
+            "value" : "Members of the custom feed"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Listenin üyeleri"
+            "state" : "new",
+            "value" : "Members of the custom feed"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Учасники списку"
+            "state" : "new",
+            "value" : "Members of the custom feed"
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tài khoản trong danh sách"
+            "state" : "translated",
+            "value" : "Tài khoản trong nguồn tin"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members of the list"
+            "value" : "Members of the custom feed"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "列表成員"
+            "state" : "translated",
+            "value" : "自訂時間軸成員"
           }
         }
       }
@@ -3315,16 +3615,16 @@
             "value" : "Ula yiwen"
           }
         },
+        "kmr-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ne yek"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "알림 받지않기"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ne yek"
           }
         },
         "lt" : {
