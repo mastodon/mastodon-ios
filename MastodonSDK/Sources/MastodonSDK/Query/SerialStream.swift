@@ -116,6 +116,11 @@ final class SerialStream: NSObject {
                 }
             }
     }
+
+    deinit {
+        buffer.deinitialize(count: Self.bufferSize)
+        buffer.deallocate()
+    }
 }
 
 extension SerialStream {
