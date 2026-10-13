@@ -283,7 +283,7 @@ struct NavigationRow: View {
     }
     var defaultPostLanguageName: String {
         LanguagePicker.availableLanguages()
-            .first { $0.localeId == defaultPostLanguage }?
+            .first { $0.id == defaultPostLanguage }?
             .endonym ?? defaultPostLanguage
     }
     
