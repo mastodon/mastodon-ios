@@ -113,11 +113,8 @@ struct HomeTimelineChrome: ViewModifier {
                     })
                     .foregroundStyle(.white)
                     .frame(width: diameter, height: diameter)
-                    .background {
-                        Circle()
-                            .fill(Asset.Colors.accent.swiftUIColor)
-                    }
             }
+            .glassEffectIfAvailable(.regular(interactive: true), withTint: Asset.Colors.accent.swiftUIColor, in: .circle)
             .padding()
             .accessibilityLabel(L10nLookup.MastodonMenuAction.Navigation.compose)
         }

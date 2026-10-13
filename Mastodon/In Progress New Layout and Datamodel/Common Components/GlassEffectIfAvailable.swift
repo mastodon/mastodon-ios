@@ -24,11 +24,15 @@ struct GlassEffectIfAvailable: ViewModifier {
     
     let shape: any Shape
     let glass: BridgingGlass
+    var tint: Color? = nil
    
     func body(content: Content) -> some View {
         if #available(iOS 26.0, *) {
             content
-                .glassEffect(glass.glass, in: shape)
+                .glassEffect(glass.glass.tint(tint), in: shape)
+        } else if let tint {
+            content
+                .background(tint, in: AnyShape(shape))
         } else {
             content
         }
@@ -36,9 +40,9 @@ struct GlassEffectIfAvailable: ViewModifier {
 }
 
 extension View {
-    func glassEffectIfAvailable(_ glass: GlassEffectIfAvailable.BridgingGlass, in shape: any Shape) -> some View {
+    func glassEffectIfAvailable(_ glass: GlassEffectIfAvailable.BridgingGlass, withTint tint: Color? = nil, in shape: any Shape) -> some View {
         modifier (
-            GlassEffectIfAvailable(shape: shape, glass: glass)
+            GlassEffectIfAvailable(shape: shape, glass: glass, tint: tint)
         )
     }
 }
