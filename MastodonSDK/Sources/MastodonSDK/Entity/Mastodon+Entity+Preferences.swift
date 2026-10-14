@@ -22,6 +22,44 @@ extension Mastodon.Entity {
         public let postingDefaultLanguage: String?      // (ISO 639-1 language two-letter code)
         public let readingExpandMedia: ExpandMedia
         public let readingExpandSpoilers: Bool
+        public let readingAutoplayGIFs: Bool
+
+        enum CodingKeys: String, CodingKey {
+            case postingDefaultVisibility = "posting:default:visibility"
+            case postingDefaultSensitive = "posting:default:sensitive"
+            case postingDefaultLanguage = "posting:default:language"
+            case readingExpandMedia = "reading:expand:media"
+            case readingExpandSpoilers = "reading:expand:spoilers"
+            case readingAutoplayGIFs = "reading:autoplay:gifs"
+        }
+    }
+}
+
+extension Mastodon.Entity.Preferences {
+    public static let `default` = Mastodon.Entity.Preferences(
+        postingDefaultVisibility: .public,
+        postingDefaultSensitive: false,
+        postingDefaultLanguage: nil,
+        readingExpandMedia: .default,
+        readingExpandSpoilers: false,
+        readingAutoplayGIFs: true
+    )
+}
+
+extension Mastodon.Entity.Preferences {
+    // necessary to allow newly added preferences to be decoded if present
+    // and take on their default value if missing
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.postingDefaultVisibility = try container.decode(Visibility.self, forKey: .postingDefaultVisibility)
+        self.postingDefaultSensitive = try container.decode(Bool.self, forKey: .postingDefaultSensitive)
+        self.postingDefaultLanguage = try container.decodeIfPresent(String.self, forKey: .postingDefaultLanguage)
+        self.readingExpandMedia = try container.decode(ExpandMedia.self, forKey: .readingExpandMedia)
+        self.readingExpandSpoilers = try container.decode(Bool.self, forKey: .readingExpandSpoilers)
+        
+        // use the default value for these preferences if not present
+        self.readingAutoplayGIFs = try container.decodeIfPresent(Bool.self, forKey: .readingAutoplayGIFs) ?? Self.default.readingAutoplayGIFs
     }
 }
 
@@ -30,7 +68,7 @@ extension Mastodon.Entity.Preferences {
 }
 
 extension Mastodon.Entity.Preferences {
-    public enum ExpandMedia: RawRepresentable, Codable {
+    public enum ExpandMedia: RawRepresentable, Codable, Equatable {
         case `default`
         case showAll
         case hideAll
@@ -40,8 +78,8 @@ extension Mastodon.Entity.Preferences {
         public init?(rawValue: String) {
             switch rawValue {
             case "default":                 self = .default
-            case "showAll":                 self = .showAll
-            case "hideAll":                 self = .hideAll
+            case "show_all":                self = .showAll
+            case "hide_all":                self = .hideAll
             default:                        self = ._other(rawValue)
             }
         }
@@ -49,8 +87,8 @@ extension Mastodon.Entity.Preferences {
         public var rawValue: String {
             switch self {
             case .default:                      return "default"
-            case .showAll:                      return "showAll"
-            case .hideAll:                      return "hideAll"
+            case .showAll:                      return "show_all"
+            case .hideAll:                      return "hide_all"
             case ._other(let value):            return value
             }
         }
