@@ -1,0 +1,18 @@
+name: PR
+
+on:
+  pull_request:
+    branches:
+    - develop
+
+# macOS environments: https://github.com/actions/virtual-environments/tree/main/images/macos
+
+jobs:
+  build:
+    name: Validate Core Data Models
+    runs-on: macos-12
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: check
+        run: exec ./.github/scripts/check-coredata.sh
