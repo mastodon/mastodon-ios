@@ -17,6 +17,9 @@ extension APIService {
         
         PersistenceManager.shared.cacheAccount(account, forUserID: authenticationBox.authentication.userIdentifier())
         
+        Task { await
+            AuthenticationServiceProvider.shared.fetchPreferences(for: authenticationBox)
+        }
         return account
     }
     
@@ -89,6 +92,9 @@ extension APIService {
             authorization: authorization
         )
         let authBox = await self.saveAndActivateVerifiedUser(account: account, domain: domain, clientID: clientID, clientSecret: clientSecret, authorization: authorization)
+        Task {
+            await AuthenticationServiceProvider.shared.fetchPreferences(for: authBox)
+        }
         return (account, authBox)
     }
     

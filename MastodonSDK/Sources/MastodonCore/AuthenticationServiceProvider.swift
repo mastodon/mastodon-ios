@@ -28,6 +28,9 @@ public class AuthenticationServiceProvider: ObservableObject {
     
     public let updateActiveUserAccountPublisher = PassthroughSubject<Void, Never>()
     
+    
+    public private(set) var activeUserPreferences = Mastodon.Entity.Preferences.default
+    
     private init() {
         prepareForUse()
 
@@ -39,6 +42,13 @@ public class AuthenticationServiceProvider: ObservableObject {
                 Task {
                     let _ = await InstanceService.shared.updateInstance(authBox: authBox)
                 }
+            }
+            .store(in: &disposeBag)
+        
+        currentActiveUser
+            .removeDuplicates() { $0?.globallyUniqueUserIdentifier == $1?.globallyUniqueUserIdentifier }
+            .sink { [weak self] authBox in
+                self?.loadPreferences(for: authBox)
             }
             .store(in: &disposeBag)
     }
@@ -282,6 +292,29 @@ public extension AuthenticationServiceProvider {
         if someUpdated {
             NotificationCenter.default.post(name: .userFetched, object: nil)
         }
+    }
+    
+    internal func fetchPreferences(for authBox: MastodonAuthenticationBox) async {
+        guard let fetched = try? await APIService.shared.preferences(authBox: authBox) else { return }
+        try? await BodegaPersistence.ServerPreferences.saveServerPreferences(fetched, for: authBox)
+        if currentActiveUser.value?.globallyUniqueUserIdentifier == authBox.globallyUniqueUserIdentifier {
+            activeUserPreferences = fetched
+        }
+    }
+    
+    private func loadPreferences(for authBox: MastodonAuthenticationBox?) {
+        activeUserPreferences = .default  // so as not to apply preferences from a different account while fetching the real ones
+        guard let authBox else { return }
+        Task {
+            if let saved = await BodegaPersistence.ServerPreferences.serverPreferences(for: authBox) {
+                guard currentActiveUser.value?.globallyUniqueUserIdentifier == authBox.globallyUniqueUserIdentifier else { return }
+                activeUserPreferences = saved
+            } else {
+                // apparently never fetched, so fetch immediately
+                await fetchPreferences(for: authBox)
+            }
+        }
+        
     }
 }
 

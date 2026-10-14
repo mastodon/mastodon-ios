@@ -24,6 +24,8 @@ public actor BodegaPersistence {
 
     private static let homeFeedFilterStore = ObjectStorage<HomeFeedFilterSettings>(storage: SQLiteStorageEngine(directory: .documents(appendingPath: "HomeFeedFilters"))!)
     
+    private static let serverPreferencesStore = ObjectStorage<Mastodon.Entity.Preferences>(storage: SQLiteStorageEngine(directory: .documents(appendingPath: "ServerPreferences"))!)
+    
 //    private static var timelineCacheRequests = [(UserIdentifier, [TimelineItem])]()
 //    private static var currentlyCaching: (UserIdentifier, [TimelineItem])?
 
@@ -71,6 +73,7 @@ public actor BodegaPersistence {
         try await pushNotificationsPreferenceStore.removeObject(forKey: cacheKey)
         try await recentLanguagesStore.removeObject(forKey: cacheKey)
         try await homeFeedFilterStore.removeObject(forKey: cacheKey)
+        try await serverPreferencesStore.removeObject(forKey: cacheKey)
         if let _currentUserTimelineStore, _currentUserTimelineStore.0 == userID.globallyUniqueUserIdentifier {
             self._currentUserTimelineStore = nil
             Task {
@@ -152,6 +155,16 @@ public actor BodegaPersistence {
         
         public static func saveSettings(_ settings: HomeFeedFilterSettings, for userID: UserIdentifier) async throws {
             try await homeFeedFilterStore.store(settings, forKey: CacheKey(userID.globallyUniqueUserIdentifier))
+        }
+    }
+
+    public struct ServerPreferences {
+        public static func serverPreferences(for userID: UserIdentifier) async -> Mastodon.Entity.Preferences? {
+            return await serverPreferencesStore.object(forKey: CacheKey(userID.globallyUniqueUserIdentifier))
+        }
+        
+        public static func saveServerPreferences(_ preferences: Mastodon.Entity.Preferences, for userID: UserIdentifier) async throws {
+            try await serverPreferencesStore.store(preferences, forKey: CacheKey(userID.globallyUniqueUserIdentifier))
         }
     }
     
