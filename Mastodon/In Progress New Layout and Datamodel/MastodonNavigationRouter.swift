@@ -159,9 +159,11 @@ enum MastodonNavigationDestination: Identifiable {
         case .modalCompose(let model, let contentModel):
             let authBox = model.authenticationBox
             LegacyComposeViewControllerWrapper(authBox: authBox, composeViewModel: model, composeContentViewModel: contentModel)
+                .interactiveDismissDisabled()
         
         case .report(let model):
             LegacyReportFlowViewControllerWrapper(viewModel: model)
+                .interactiveDismissDisabled()
             
         case .welcome:
             LegacyWelcomeFlowWrapper()

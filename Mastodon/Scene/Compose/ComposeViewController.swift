@@ -514,27 +514,6 @@ extension ComposeViewController {
     }
 }
 
-// MARK: - UIAdaptivePresentationControllerDelegate
-extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
-    
-    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        switch traitCollection.horizontalSizeClass {
-        case .compact:
-            return .overFullScreen
-        default:
-            return .pageSheet
-        }
-    }
-    
-    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
-        return composeContentViewModel.dismissWithoutConfirmation
-    }
-    
-    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
-        showDismissConfirmAlertController()
-    }
-}
-
 extension ComposeViewController {
     override var keyCommands: [UIKeyCommand]? {
         composeKeyCommands

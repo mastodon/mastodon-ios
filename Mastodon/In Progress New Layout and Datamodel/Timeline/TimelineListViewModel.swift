@@ -1151,6 +1151,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                             }
                         })
                     navigator.presentSheet(.modalCompose(editStatusViewModel, nil), afterDeconflictionDelay: true)
+                    isPerformingPostAction = nil
                     
                 case .changeQuotePolicy:
                     let activeSheet = MastodonTimelineSheet.postInteractionSettingsEdit(
