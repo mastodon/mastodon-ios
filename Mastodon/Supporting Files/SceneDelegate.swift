@@ -105,9 +105,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // update application badge
         NotificationService.shared.applicationIconBadgeNeedsUpdate.send()
-
-        // trigger status filter update
-        StatusFilterService.shared.filterUpdatePublisher.send()
         
         // trigger authenticated user account update
         AuthenticationServiceProvider.shared.updateActiveUserAccountPublisher.send()

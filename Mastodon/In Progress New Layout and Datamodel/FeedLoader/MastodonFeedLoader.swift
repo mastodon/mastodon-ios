@@ -77,10 +77,9 @@ public enum MastodonFeedLoaderRequest: Equatable {
 /// Consumers subscribe to the `records` and optionally the `currentError` publishers to display the feed. The consumer is also responsible for requesting loads of additional items in the feed, requesting cache updates, and triggering updates of the last read marker. Begin by calling `doFirstLoad()` on the desired subclass of `MastodonFeedLoader`, which will request the (cached) `currentResults` from the cache manager, fetch the last read markers from the server, and request a load of newer items. Consumers should not interact with the `MastodonFeedCacheManager` directly.
 /// Subclasses specify their published type (the `MastodonFeedLoaderResult` published in the feed loader’s records will contain an array of this type, as well as a flag indicating whether there may be older records available to fetch) and the cached type. You will also have to provide an implementation of the `MastodonFeedCacheManager` protocol that works with the specified cached type.
 /// Subclasses must override `fetchResults(for request: MastodonFeedLoaderRequest)` (to connect to the correct API endpoint) and `filteredResults(fromCachedType: CachedType)`  (to apply the user’s filters appropriately to the context).
-/// The provided implementation handles handles removing duplicate records from the feed, fetching the user's filters and updating when they are received, and determining whether there are additional items left to fetch.
+/// The provided implementation handles removing duplicate records from the feed and determining whether there are additional items left to fetch.
 @MainActor
 public class MastodonFeedLoader<PublishedType: Identifiable, CachedType: CacheableFeed> where PublishedType: Sendable {
-    private var activeFilterBoxSubscription: AnyCancellable?
     private var loadRequestQueue = [MastodonFeedLoaderRequest]()
     let cacheManager: (any MastodonFeedCacheManager<CachedType>)
     
@@ -90,16 +89,6 @@ public class MastodonFeedLoader<PublishedType: Identifiable, CachedType: Cacheab
     
     init(_ cacheManager: (any MastodonFeedCacheManager<CachedType>)) {
         self.cacheManager = cacheManager
-        
-        activeFilterBoxSubscription = StatusFilterService.shared
-            .$activeFilterBox
-            .sink { [weak self] _ in
-                guard let self else { return }
-                if let currentResults = cacheManager.currentResults(), currentResults.hasResults {
-                    let refiltered = self.filteredResults(fromCachedType: currentResults)
-                    self.replaceRecords(refiltered, nextBottomLoad: records.nextBottomLoad)
-                }
-            }
     }
     
     private var isFetching: Bool = false {
