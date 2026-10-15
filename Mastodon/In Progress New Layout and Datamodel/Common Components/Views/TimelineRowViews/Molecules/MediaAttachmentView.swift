@@ -291,11 +291,13 @@ struct ImageGridView: View {
     var body: some View {
         // The images
         let useRestrictedHeight = viewModel.useRestrictedHeight(inConcealMode: contentConcealViewModel.currentMode)
-        ProportionalImageGridLayout(spacing: 1, aspectRatios: viewModel.imageAttachments.compactMap(\.imageDetails.originalSize?.aspectRatio), canUseTwoRows: !useRestrictedHeight) {
+        ProportionalImageGridLayout(spacing: 1, aspectRatios: viewModel.imageAttachments.map { $0.imageDetails.originalSize?.aspectRatio ?? 1 }, maxHeight: useRestrictedHeight ? maxHeightForHiddenMedia : nil) {
             ForEach(viewModel.imageAttachments) { img in
                 ZStack(alignment: .bottomLeading) { // places the ALT text button
                     BlurhashImageView(url: img.basicData.fullsizeUrl, imageDetails: img.imageDetails, shareTitle: img.basicData.shareTitle, blurhash: viewModel.blurhashes[img.id], onSuccess: nil)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                         .clipped()
+                        .contentShape(Rectangle())
                         .accessibilityLabel(viewModel.altTextTranslations?[img.id] ?? img.basicData.altText ?? "")
                         .onTapGesture {
                            presentGallery(forImageAttachment: img)
@@ -321,10 +323,8 @@ struct ImageGridView: View {
                         .padding()
                     }
                 }
-                .frame(maxHeight: useRestrictedHeight ? maxHeightForHiddenMedia : nil)
             }
         }
-        .frame(maxHeight: useRestrictedHeight ? maxHeightForHiddenMedia : nil)
         .cornerRadius(CornerRadius.standard)
         .animation(.easeInOut, value: contentConcealViewModel.currentMode.isShowingMedia)
     }
@@ -354,7 +354,7 @@ struct BlurhashImageView: View {
             if let blurhash {
                 Image(uiImage: blurhash)
                     .resizable()
-                    .scaledToFit()
+                    .scaledToFill()
             }
             
             if let url {

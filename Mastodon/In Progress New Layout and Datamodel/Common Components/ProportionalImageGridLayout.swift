@@ -4,18 +4,18 @@ import Foundation
 import SwiftUI
 
 struct ProportionalImageGridLayout: Layout {
-    var canUseTwoRows: Bool
+    let maxHeight: CGFloat? // if set, images will all be set in a single row, no taller than this
     let aspects: [CGFloat]
     let spacing: CGFloat
     
     func doUseTwoRows(forSubviewCount subviewCount: Int) -> Bool {
-        canUseTwoRows && subviewCount > 2
+        maxHeight == nil && subviewCount > 2
     }
     
-    init(spacing: CGFloat, aspectRatios: [CGFloat], canUseTwoRows: Bool) {
+    init(spacing: CGFloat, aspectRatios: [CGFloat], maxHeight: CGFloat?) {
         self.spacing = spacing
-        self.canUseTwoRows = canUseTwoRows
         self.aspects = aspectRatios.map { max($0, 0.01) } // Avoid zero or divide-by-zero
+        self.maxHeight = maxHeight
     }
     
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
@@ -24,7 +24,7 @@ struct ProportionalImageGridLayout: Layout {
         if subviews.count == 1 {
             // Height = width / aspect
             guard let aspect = aspects.first else { return .zero }
-            return CGSize(width: width, height: width / aspect)
+            return CGSize(width: width, height: min(width / aspect, maxHeight ?? .infinity))
         }
         
         if doUseTwoRows(forSubviewCount: subviews.count) {
@@ -43,7 +43,7 @@ struct ProportionalImageGridLayout: Layout {
         } else {
             // One row
             let height = rowHeight(for: aspects, containerWidth: width)
-            return CGSize(width: width, height: height)
+            return CGSize(width: width, height: min(height, maxHeight ?? .infinity))
         }
     }
     
@@ -80,12 +80,12 @@ struct ProportionalImageGridLayout: Layout {
         var x = rect.minX
         for (index, subview) in subviews.enumerated() {
             guard index < aspects.endIndex else { break }
-            let isFirstOrLast = index == subviews.startIndex || index == subviews.endIndex
+            let isFirstOrLast = index == subviews.startIndex || index == subviews.count - 1
             let widthReductionForSpacing = spacing / (isFirstOrLast ? 2 : 1)
             let width = rect.width * (aspects[index] / totalAspect)
             let frame = CGRect(x: x, y: rect.minY, width: width - widthReductionForSpacing, height: rect.height)
             subview.place(at: frame.origin, proposal: ProposedViewSize(width: frame.width, height: frame.height))
-            x += width + spacing
+            x += frame.width + spacing
         }
     }
     
