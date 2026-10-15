@@ -1558,8 +1558,12 @@ extension TimelineFeedLoader {
                     let model = ContentConcealViewModel(contentPost: contentPost, context: timeline.filterContext)
                     switch timeline {
                     case .postHistory:
-                        if !model.currentMode.isShowingContent || !model.currentMode.isShowingMedia {
-                            model.showMore() // note that this assumes filters will not be in use and this will unwrap the content warning/spoiler text
+                        // note that this assumes filters will not be in use and this will unwrap the content warning/spoiler text
+                        if !model.currentMode.isShowingTextContent {
+                            model.showMoreTextContent()
+                        }
+                        if !model.currentMode.isShowingMedia {
+                            model.revealMedia()
                         }
                         break
                     default:

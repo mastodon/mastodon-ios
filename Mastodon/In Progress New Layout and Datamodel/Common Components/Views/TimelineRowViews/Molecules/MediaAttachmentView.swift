@@ -256,14 +256,14 @@ struct ConcealableMediaAttachmentView<Content: View>: View {
             
             // Hide/Show button
             switch contentConcealViewModel.currentMode {
-            case .neverConceal, .concealAll:
+            case .neverConceal, .concealAll(_, showTextAnyway: false, _):
                 EmptyView()
-            case .concealMediaOnly(let showAnyway):
+            case .concealMediaOnly(let showAnyway), .concealAll(reasons: _, showTextAnyway: true, showMediaAnyway: let showAnyway):
                 Button {
                     if showAnyway {
-                        contentConcealViewModel.hide()
+                        contentConcealViewModel.hideMedia()
                     } else {
-                        contentConcealViewModel.showMore()
+                        contentConcealViewModel.revealMedia()
                     }
                 } label: {
                     Text(showAnyway ? L10n.Common.Controls.Status.Actions.hide : L10n.Common.Controls.Status.Actions.show)
@@ -363,13 +363,10 @@ struct BlurhashImageView: View {
                     case .empty:
                         EmptyView() // show blurhash behind
                     case .success(let image):
-                        switch contentConcealViewModel.currentMode {
-                        case .neverConceal, .concealMediaOnly(showAnyway: true), .concealAll(_, showAnyway: true):
+                        if contentConcealViewModel.currentMode.isShowingMedia {
                             image
                                 .resizable()
                                 .scaledToFill()
-                        default:
-                            EmptyView()
                         }
                     case .failure:
                         Image(systemName: "photo.badge.exclamationmark")
@@ -435,12 +432,7 @@ class ImageGalleryViewModel {
     }
     
     func useRestrictedHeight(inConcealMode currentMode: ContentConcealViewModel.ContentDisplayMode) -> Bool {
-        switch currentMode {
-        case .neverConceal:
-            return false
-        case .concealAll(_, let showAnyway), .concealMediaOnly(let showAnyway):
-            return !showAnyway
-        }
+        return !currentMode.isShowingMedia
     }
     
     func frame(forID id: Mastodon.Entity.Attachment.ID) -> CGRect? {

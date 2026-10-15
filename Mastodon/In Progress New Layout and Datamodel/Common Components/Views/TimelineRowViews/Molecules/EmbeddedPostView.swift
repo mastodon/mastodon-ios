@@ -17,7 +17,7 @@ struct EmbeddedPostView: View {
     
     var body: some View {
         if viewModel.fullPost != nil {
-            if !contentConcealViewModel.currentMode.isShowingContent {
+            if !contentConcealViewModel.currentMode.isShowingTextContent {
                 EmbeddedPostContentConcealedView()
             } else {
                 EmbeddedPostContentDisplayedView(layoutWidth: layoutWidth, isSummary: isSummary, actionHandler: actionHandler, accountLinkHandler: accountLinkHandler, linkTapPolicy: linkTapPolicy) // TODO: add blur content option for blur filters and hide-media-only CWs
@@ -334,13 +334,13 @@ struct EmbeddedPostContentConcealedView: View {
 
     var body: some View {
         switch viewModel.currentMode {
-        case .concealAll(let reasons, _):
+        case .concealAll(let reasons, _, _):
             if let buttonTextWhenHiding = viewModel.buttonText(whenHiding: true), let buttonTextWhenShowing = viewModel.buttonText(whenHiding: false) {
                 ShowMoreLozenge(buttonTextWhenHiding: buttonTextWhenHiding, buttonTextWhenShowing: buttonTextWhenShowing, viewModel: ShowMoreViewModel(isShowing: false, isFilter: viewModel.currentModeIsFilter, reasons: reasons, showMore: { show in
                     if show {
-                        viewModel.showMore()
+                        viewModel.showMoreTextContent()
                     } else {
-                        viewModel.hide()
+                        viewModel.hideTextContent()
                     }
                 }))
             }

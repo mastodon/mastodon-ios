@@ -1,18 +1,20 @@
 // Copyright © 2025 Mastodon gGmbH. All rights reserved.
 
 import Foundation
-import MastodonSDK
+import MastodonCore
 import MastodonLocalization
+import MastodonSDK
 
 extension GenericMastodonPost.PostContent.ContentWarned {
-    func displayMode(withShowAnyway showAnyway: Bool) -> ContentConcealViewModel.ContentDisplayMode {
+    func displayMode(withShowTextAnyway showTextAnyway: Bool, showMediaAnyway: Bool?) -> ContentConcealViewModel.ContentDisplayMode {
+        let showMedia = showMediaAnyway ?? true
         switch self {
         case .nothingToWarn:
             return .neverConceal
         case .warnAll(let reasons):
-            return .concealAll(reasons: reasons, showAnyway: showAnyway)
+            return .concealAll(reasons: reasons, showTextAnyway: showTextAnyway, showMediaAnyway: showMedia)
         case .warnMediaAttachmentOnly:
-            return .concealMediaOnly(showAnyway: showAnyway)
+            return .concealMediaOnly(showAnyway: showMedia)
         }
     }
 }
@@ -20,6 +22,8 @@ extension GenericMastodonPost.PostContent.ContentWarned {
 /// Posts can have no concealment, or be content warned (either full post or media only) or filtered, or both.
 /// For a post that carries both a content warning and filter hits, we treat this as a layered reveal, with the actual content at the bottom, a layer of contentWarned protection on top of it, and a layer of filtered on top of that.
 /// Revealing content removes the filtered layer first, then the contentWarned layer. Concealing content replaces both layers at once.
+/// Media is treated separately, requiring its own tap to reveal.
+/// User preferences (set on the web) can override contentWarned behavior (defaulting to show all content, even in warned posts, or to hide all images, even when the post has no warning).
 @MainActor
 @Observable
 class ContentConcealViewModel {
@@ -30,21 +34,21 @@ class ContentConcealViewModel {
     
     public enum ContentDisplayMode {
         case neverConceal
-        case concealAll(reasons: [String], showAnyway: Bool)
+        case concealAll(reasons: [String], showTextAnyway: Bool, showMediaAnyway: Bool)
         case concealMediaOnly(showAnyway: Bool)
         
         var isShowingMedia: Bool {
             switch self {
-            case .neverConceal, .concealMediaOnly(showAnyway: true), .concealAll(_, showAnyway: true):
+            case .neverConceal, .concealMediaOnly(showAnyway: true), .concealAll(_, _, showMediaAnyway: true):
                 return true
             default:
                 return false
             }
         }
         
-        var isShowingContent: Bool {
+        var isShowingTextContent: Bool {
             switch self {
-            case .neverConceal, .concealMediaOnly, .concealAll(_, showAnyway: true):
+            case .neverConceal, .concealMediaOnly, .concealAll(_, showTextAnyway: true, _):
                 return true
             default:
                 return false
@@ -55,7 +59,7 @@ class ContentConcealViewModel {
             switch self {
             case .neverConceal, .concealMediaOnly:
                 return nil
-            case .concealAll(let reasons, _):
+            case .concealAll(let reasons, _, _):
                 return reasons
             }
         }
@@ -64,18 +68,22 @@ class ContentConcealViewModel {
     private let filtered: GenericMastodonPost.PostContent.ContentWarned
     private let contentWarned: GenericMastodonPost.PostContent.ContentWarned
     
-    private var showAnyway: (despiteFiltered: Bool?, despiteContentWarning: Bool?)
+    private var showTextAnyway: (despiteFiltered: Bool?, despiteContentWarning: Bool?)
+    private var showMedia: Bool?
+    private let initialShowMedia: Bool?
     
     private(set) var currentModeIsFilter: Bool
     
-    var currentMode: ContentDisplayMode
+    private(set) var currentMode: ContentDisplayMode
     
-    init(initialHideContent: Bool) {
+    init(initialHideText: Bool, initialHideMedia: Bool) {
         filtered = .nothingToWarn
         contentWarned = .warnAll(reasons: [])
-        showAnyway = (nil, false)
+        showTextAnyway = (nil, !initialHideText)
+        showMedia = !initialHideMedia
+        initialShowMedia = !initialHideMedia
         currentModeIsFilter = false
-        currentMode = initialHideContent ? .concealAll(reasons: [], showAnyway: false) : .concealAll(reasons: [], showAnyway: true)
+        currentMode = .concealAll(reasons: [], showTextAnyway: !initialHideText, showMediaAnyway: !initialHideMedia)
     }
     
     init(contentPost: MastodonContentPost?, context: Mastodon.Entity.FilterContext?) {
@@ -83,7 +91,9 @@ class ContentConcealViewModel {
         guard let contentPost else {
             filtered = .nothingToWarn
             contentWarned = .nothingToWarn
-            showAnyway = (nil, nil)
+            showTextAnyway = (nil, nil)
+            showMedia = nil
+            initialShowMedia = nil
             currentModeIsFilter = false
             currentMode = .neverConceal
             return
@@ -106,8 +116,33 @@ class ContentConcealViewModel {
         currentMode = .neverConceal
         currentModeIsFilter = false
         
-        showAnyway = ContentConcealViewModel.hideAll(filtered: filtered, contentWarned: contentWarned)
-        let (mode, isFilter) = ContentConcealViewModel.updatedMode(filtered: filtered, contentWarned: contentWarned, showAnyway: showAnyway)
+        // Filters always start by hiding. Content warnings can start unhidden if the user's preferences request that.
+        let preferences = AuthenticationServiceProvider.shared.activeUserPreferences
+        var initialShowText: (despiteFiltered: Bool?, despiteContentWarning: Bool?) = ContentConcealViewModel.hideAll(filtered: filtered, contentWarned: contentWarned)
+        if preferences.readingExpandSpoilers, initialShowText.despiteContentWarning == false {
+            initialShowText.despiteContentWarning = true
+        }
+        showTextAnyway = initialShowText
+        
+        let isSensitive: Bool = {
+            switch contentPost.content.contentWarned {
+            case .nothingToWarn:
+                false
+            case .warnAll, .warnMediaAttachmentOnly:
+                true
+            }
+        }()
+        let initialShowMedia: Bool? = {
+            guard case .media(let attachments) = contentPost.content.attachment, !attachments.isEmpty else { return nil }
+            switch preferences.readingExpandMedia {
+            case .showAll: return true
+            case .hideAll: return false
+            default: return !isSensitive
+            }
+        }()
+        showMedia = initialShowMedia
+        self.initialShowMedia = initialShowMedia
+        let (mode, isFilter) = ContentConcealViewModel.updatedMode(filtered: filtered, contentWarned: contentWarned, showTextAnyway: showTextAnyway, showMediaAnyway: showMedia)
         currentModeIsFilter = isFilter
         currentMode = mode
         
@@ -129,28 +164,31 @@ class ContentConcealViewModel {
         }
     }
     
-    private static func updatedMode(filtered: GenericMastodonPost.PostContent.ContentWarned, contentWarned: GenericMastodonPost.PostContent.ContentWarned, showAnyway: (despiteFiltered: Bool?, despiteContentWarning: Bool?)) -> (ContentDisplayMode, isFilter: Bool) {
-        switch showAnyway {
-        case (nil, nil):  // no concealment layers exist
+    private static func updatedMode(filtered: GenericMastodonPost.PostContent.ContentWarned, contentWarned: GenericMastodonPost.PostContent.ContentWarned, showTextAnyway: (despiteFiltered: Bool?, despiteContentWarning: Bool?), showMediaAnyway: Bool?) -> (ContentDisplayMode, isFilter: Bool) {
+        switch showTextAnyway {
+        case (nil, nil):  // no text concealment layers exist
+            if let showMediaAnyway {
+                return (.concealMediaOnly(showAnyway: showMediaAnyway), isFilter: false)
+            }
             return (.neverConceal, isFilter: false)
         case (nil, .some(let overrideCW)): // there is only a content warning
-            return (contentWarned.displayMode(withShowAnyway: overrideCW), isFilter: false)
+            return (contentWarned.displayMode(withShowTextAnyway: overrideCW, showMediaAnyway: showMediaAnyway), isFilter: false)
         case (.some(let overrideFilter), nil):  // there is only a filter
-            return (filtered.displayMode(withShowAnyway: overrideFilter), isFilter: true)
+            return (filtered.displayMode(withShowTextAnyway: overrideFilter, showMediaAnyway: showMediaAnyway), isFilter: true)
         case (false, _): // filter is NOT overridden, so it takes precedence (based on previous cases, we also have a CW, but that doesn't matter)
-            return (filtered.displayMode(withShowAnyway: false), isFilter: true)
+            return (filtered.displayMode(withShowTextAnyway: false, showMediaAnyway: showMediaAnyway), isFilter: true)
         case (.some(let overrideFilter), .some(let overrideCW)): // we have both layers, if filter is not overridden, it takes precedence
             if overrideFilter {
-                return (contentWarned.displayMode(withShowAnyway: overrideCW), isFilter: false)
+                return (contentWarned.displayMode(withShowTextAnyway: overrideCW, showMediaAnyway: showMediaAnyway), isFilter: false)
             } else {
-                return (filtered.displayMode(withShowAnyway: false), isFilter: true)
+                return (filtered.displayMode(withShowTextAnyway: false, showMediaAnyway: showMediaAnyway), isFilter: true)
             }
         }
     }
     
-    func showMore() {
+    func showMoreTextContent() {
         let newShowAnyway: (Bool?, Bool?)
-        switch showAnyway {
+        switch showTextAnyway {
         case (.none, .none), (.some(true), .some(true)), (.some(true), .none), (.none, .some(true)):
             assertionFailure("cannot show something that is not hidden")
             return
@@ -163,19 +201,36 @@ class ContentConcealViewModel {
         case (.none, .some(false)): // only a cw, remove it
             newShowAnyway = (nil, true)
         }
-        setShowAnyway(newShowAnyway)
+        setShowTextAnyway(newShowAnyway)
     }
     
-    func hide() {
+    func hideTextContent() {
+        showMedia = initialShowMedia
         let newShowAnyway = ContentConcealViewModel.hideAll(filtered: filtered, contentWarned: contentWarned)
-        setShowAnyway(newShowAnyway)
+        setShowTextAnyway(newShowAnyway)
         
-        nestedContentConcealModel?.hide()
+        nestedContentConcealModel?.hideTextContent()
     }
     
-    private func setShowAnyway(_ newValue: (Bool?, Bool?)) {
-        showAnyway = newValue
-        let (mode, isFilter) = Self.updatedMode(filtered: filtered, contentWarned: contentWarned, showAnyway: showAnyway)
+    private func setShowTextAnyway(_ newValue: (Bool?, Bool?)) {
+        showTextAnyway = newValue
+        recalculateMode()
+    }
+    
+    func revealMedia() {
+        guard showMedia != nil else { assertionFailure("no media to show"); return }
+        showMedia = true
+        recalculateMode()
+    }
+    
+    func hideMedia() {
+        guard showMedia != nil else { assertionFailure("no media to hide"); return }
+        showMedia = false
+        recalculateMode()
+    }
+    
+    private func recalculateMode() {
+        let (mode, isFilter) = Self.updatedMode(filtered: filtered, contentWarned: contentWarned, showTextAnyway: showTextAnyway, showMediaAnyway: showMedia)
         currentModeIsFilter = isFilter
         currentMode = mode
     }

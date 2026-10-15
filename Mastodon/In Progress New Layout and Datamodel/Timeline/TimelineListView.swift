@@ -587,7 +587,7 @@ struct TimelineListView: View {
     func precalculatedHeight(fromCalculations calculations: [PrecalculatedHeight], contentWidth width: CGFloat, contentConcealMode: ContentConcealViewModel.ContentDisplayMode, isShowingTranslation: Bool) -> CGFloat? {
         return calculations.first(where: { precalculated in
             precalculated.contentWidth == width
-            && precalculated.contentConcealed.isShowingContent == contentConcealMode.isShowingContent
+            && precalculated.contentConcealed.isShowingTextContent == contentConcealMode.isShowingTextContent
             && precalculated.contentConcealed.isShowingMedia == contentConcealMode.isShowingMedia
             && precalculated.showingTranslation == isShowingTranslation
         })?.calculatedHeight
@@ -598,7 +598,7 @@ struct TimelineListView: View {
         let contentWidth = contentWidth(forUseableWidth: useableWidth)
         
         switch contentConcealModel.currentMode {
-        case .concealAll(_, showAnyway: true), .neverConceal, .concealMediaOnly:
+        case .concealAll(_, showTextAnyway: true, _), .neverConceal, .concealMediaOnly:
             ForEach(viewModel.currentDisplaySlice, id: \.self) { item in
                 switch item {
                 case .loadingIndicator:
@@ -758,7 +758,7 @@ struct TimelineListView: View {
                 Color.clear
                     .frame(height: geo.size.height * 0.5)
             }
-        case .concealAll(_, showAnyway: false):
+        case .concealAll(_, showTextAnyway: false, _):
             concealedContentsView()
                 .padding(standardPadding)
         }
@@ -775,7 +775,7 @@ struct TimelineListView: View {
                 buttonText: L10n.Common.Controls.Status.showAnyway,
                 buttonColor: Asset.Colors.FigmaToken.bgWarningSoft.swiftUIColor
             ) {
-                contentConcealModel.currentMode = .concealAll(reasons: [], showAnyway: true)
+                contentConcealModel.showMoreTextContent()
             }
         default:
             EmptyView()
@@ -1531,7 +1531,8 @@ extension MastodonTimelineType {
         switch self {
         case .collection(let viewModel):
             if viewModel.collection.sensitive == true {
-                return ContentConcealViewModel(initialHideContent: true)
+                let ignoreSensitive = AuthenticationServiceProvider.shared.activeUserPreferences.readingExpandSpoilers
+                return ContentConcealViewModel(initialHideText: !ignoreSensitive, initialHideMedia: !ignoreSensitive)
             } else {
                 return ContentConcealViewModel.alwaysShow
             }

@@ -109,7 +109,7 @@ struct MastodonPostRowView: View {
                     contentConcealLozenge
                         .frame(width: contentWidth)
                         .fixedSize(horizontal: false, vertical: true)
-                    if contentConcealModel.currentMode.isShowingContent {
+                    if contentConcealModel.currentMode.isShowingTextContent {
                         MastodonPostContentStackView(contentWidth: contentWidth, actionHandler: actionHandler, navigator: navigator, filterContext: filterContext)
                     }
                     
@@ -331,12 +331,12 @@ extension MastodonPostRowView {
     
     @ViewBuilder var contentConcealLozenge: some View {
         if let whenHiding = contentConcealModel.buttonText(whenHiding: true), let whenShowing = contentConcealModel.buttonText(whenHiding: false) {
-            ShowMoreLozenge(buttonTextWhenHiding: whenHiding, buttonTextWhenShowing: whenShowing, viewModel: ShowMoreViewModel(isShowing: contentConcealModel.currentMode.isShowingContent, isFilter: contentConcealModel.currentModeIsFilter, reasons: contentConcealModel.currentMode.reasons ?? [], showMore: {
+            ShowMoreLozenge(buttonTextWhenHiding: whenHiding, buttonTextWhenShowing: whenShowing, viewModel: ShowMoreViewModel(isShowing: contentConcealModel.currentMode.isShowingTextContent, isFilter: contentConcealModel.currentModeIsFilter, reasons: contentConcealModel.currentMode.reasons ?? [], showMore: {
                 show in
                 if show {
-                    contentConcealModel.showMore()
+                    contentConcealModel.showMoreTextContent()
                 } else {
-                    contentConcealModel.hide()
+                    contentConcealModel.hideTextContent()
                 }
             }))
         }
