@@ -20,7 +20,7 @@ struct EmbeddedPostView: View {
             if !contentConcealViewModel.currentMode.isShowingTextContent {
                 EmbeddedPostContentConcealedView()
             } else {
-                EmbeddedPostContentDisplayedView(layoutWidth: layoutWidth, isSummary: isSummary, actionHandler: actionHandler, accountLinkHandler: accountLinkHandler, linkTapPolicy: linkTapPolicy) // TODO: add blur content option for blur filters and hide-media-only CWs
+                EmbeddedPostContentDisplayedView(layoutWidth: layoutWidth, isSummary: isSummary, actionHandler: actionHandler, accountLinkHandler: accountLinkHandler, linkTapPolicy: linkTapPolicy)
             }
         }
     }
