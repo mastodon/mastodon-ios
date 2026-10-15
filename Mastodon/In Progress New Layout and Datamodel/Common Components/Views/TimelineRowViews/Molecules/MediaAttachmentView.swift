@@ -256,6 +256,25 @@ struct ConcealableMediaAttachmentView<Content: View>: View {
         ZStack(alignment: .topTrailing) { // places the Hide/Show button, if there is one
             
             contentView
+                .overlay {
+                    if !contentConcealViewModel.currentMode.isShowingMedia, !contentConcealViewModel.blurFilterReasons.isEmpty {
+                        VStack(spacing: tinySpacing) {
+                            ForEach(contentConcealViewModel.blurFilterReasons, id: \.self) { title in
+                                Text(L10n.Common.Controls.Status.matchesFilter(title))
+                                    .lineLimit(1)
+                                    .font(.subheadline)
+                                    .foregroundStyle(.white)
+                                    .padding(standardPadding)
+                                    .background {
+                                        RoundedRectangle(cornerRadius: CornerRadius.standard)
+                                            .fill(buttonBackgroundColor)
+                                        
+                                    }
+                                    .allowsHitTesting(false)
+                            }
+                        }
+                    }
+                }
             
             // Hide/Show button
             switch contentConcealViewModel.currentMode {

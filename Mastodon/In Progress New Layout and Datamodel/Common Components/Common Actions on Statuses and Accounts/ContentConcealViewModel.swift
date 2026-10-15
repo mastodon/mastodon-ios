@@ -71,6 +71,7 @@ class ContentConcealViewModel {
     private var showTextAnyway: (despiteFiltered: Bool?, despiteContentWarning: Bool?)
     private var showMedia: Bool?
     private let initialShowMedia: Bool?
+    let blurFilterReasons: [String]
     
     private(set) var currentModeIsFilter: Bool
     
@@ -82,6 +83,7 @@ class ContentConcealViewModel {
         showTextAnyway = (nil, !initialHideText)
         showMedia = !initialHideMedia
         initialShowMedia = !initialHideMedia
+        blurFilterReasons = []
         currentModeIsFilter = false
         currentMode = .concealAll(reasons: [], showTextAnyway: !initialHideText, showMediaAnyway: !initialHideMedia)
     }
@@ -94,21 +96,27 @@ class ContentConcealViewModel {
             showTextAnyway = (nil, nil)
             showMedia = nil
             initialShowMedia = nil
+            blurFilterReasons = []
             currentModeIsFilter = false
             currentMode = .neverConceal
             return
         }
         
-        var filterTitles = [String]()
+        var warnTitles = [String]()
+        var blurTitles = [String]()
         if let filterResults = contentPost.content.filtered, let context {
             for filterResult in filterResults {
                 if filterResult.filter.context.contains(context) {
-                    filterTitles.append(filterResult.filter.title)
+                    if filterResult.filter.filterAction == .blur {
+                        blurTitles.append(filterResult.filter.title)
+                    } else {
+                        warnTitles.append(filterResult.filter.title)
+                    }
                 }
             }
         }
-        if !filterTitles.isEmpty {
-            filtered = .warnAll(reasons: filterTitles)
+        if !warnTitles.isEmpty {
+            filtered = .warnAll(reasons: warnTitles)
         } else {
             filtered = .nothingToWarn
         }
@@ -134,6 +142,7 @@ class ContentConcealViewModel {
         }()
         let initialShowMedia: Bool? = {
             guard case .media(let attachments) = contentPost.content.attachment, !attachments.isEmpty else { return nil }
+            if !blurTitles.isEmpty { return false } // blur filters take precedence over any other settings
             switch preferences.readingExpandMedia {
             case .showAll: return true
             case .hideAll: return false
@@ -142,6 +151,7 @@ class ContentConcealViewModel {
         }()
         showMedia = initialShowMedia
         self.initialShowMedia = initialShowMedia
+        blurFilterReasons = blurTitles
         let (mode, isFilter) = ContentConcealViewModel.updatedMode(filtered: filtered, contentWarned: contentWarned, showTextAnyway: showTextAnyway, showMediaAnyway: showMedia)
         currentModeIsFilter = isFilter
         currentMode = mode

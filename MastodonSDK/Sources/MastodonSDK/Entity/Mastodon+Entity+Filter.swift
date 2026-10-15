@@ -14,12 +14,14 @@ extension Mastodon.Entity {
         public typealias RawValue = String
         case warn
         case hide
+        case blur // since 4.4.0, hides only media attachments
         case _other(String)
         
         public init?(rawValue: String) {
             switch rawValue {
             case "warn": self = .warn
             case "hide": self = .hide
+            case "blur": self = .blur
             default: self = ._other(rawValue)
             }
         }
@@ -28,6 +30,7 @@ extension Mastodon.Entity {
             switch self {
             case .warn: return "warn"
             case .hide: return "hide"
+            case .blur: return "blur"
             case ._other(let value): return value
             }
         }

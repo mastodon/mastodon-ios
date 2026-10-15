@@ -53158,7 +53158,7 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Адпавядае фільтру \\”%(userDefinedFilterTitle)@\\”"
           }
         },
@@ -53176,7 +53176,7 @@
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Odpovídá filtru “%(userDefinedFilterTitle)@\\”"
           }
         },
@@ -53188,26 +53188,26 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Matcher filteret: \\”%(userDefinedFilterTitle)@\\”"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Ausgeblendet wegen deines Filters \\„%(userDefinedFilterTitle)@\\“"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Αντιστοιχεί με το φίλτρο: \\”%(userDefinedFilterTitle)@\\”"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Matches filter: \\”%(userDefinedFilterTitle)@\\”"
+            "value" : "Matches filter: “%(userDefinedFilterTitle)@”"
           }
         },
         "en-US" : {
@@ -53218,19 +53218,19 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Coincide con el filtro: \\”%(userDefinedFilterTitle)@\\”"
           }
         },
         "es-AR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Coincide con el filtro: \\“%(userDefinedFilterTitle)@\\”"
           }
         },
         "et" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Sobib filtriga „%(userDefinedFilterTitle)@\\“"
           }
         },
@@ -53248,19 +53248,19 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Correspond au filtre « %(userDefinedFilterTitle)@ »"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Meaitseálann an scagaire: \\”%(userDefinedFilterTitle)@\\”"
           }
         },
         "gd" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "A’ maidseadh na criathraige: \\”%(userDefinedFilterTitle)@\\”"
           }
         },
@@ -53302,13 +53302,13 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Samsvarar síunni \\“%(userDefinedFilterTitle)@\\”"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Corrisponde al filtro: \\”%(userDefinedFilterTitle)@\\”"
           }
         },
@@ -53344,7 +53344,7 @@
         },
         "lv" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Atbilst filtram: \\”%(userDefinedFilterTitle)@\\”"
           }
         },
@@ -53356,7 +53356,7 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Komt overeen met filter: \"%(userDefinedFilterTitle)@\""
           }
         },
@@ -53386,7 +53386,7 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Соответствует фильтру: \\”%(userDefinedFilterTitle)@\\”"
           }
         },
@@ -53404,7 +53404,7 @@
         },
         "sq" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Përkon me filtrinr: \\”%(userDefinedFilterTitle)@\\”"
           }
         },
@@ -53422,31 +53422,31 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "\\”%(userDefinedFilterTitle)@\\” filtresiyle eşleşiyor"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Збігається з фільтром: \\“%(userDefinedFilterTitle)@\\”"
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Khớp bộ lọc: \\”%(userDefinedFilterTitle)@\\”"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "命中过滤规则：“%(userDefinedFilterTitle)@\\”"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "符合過濾器：「%(userDefinedFilterTitle)@」"
           }
         }
