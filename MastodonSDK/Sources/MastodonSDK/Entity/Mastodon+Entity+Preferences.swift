@@ -42,7 +42,7 @@ extension Mastodon.Entity.Preferences {
         postingDefaultLanguage: nil,
         readingExpandMedia: .default,
         readingExpandSpoilers: false,
-        readingAutoplayGIFs: true
+        readingAutoplayGIFs: false
     )
 }
 
