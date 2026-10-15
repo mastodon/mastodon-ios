@@ -189,6 +189,7 @@ struct MediaAttachmentView: View {
     let mediaAttachment: MediaAttachment
     let containerOverlayBinding: Binding<MastodonFadeInOverlay?>?
     let linkTapPolicy: LinkTapPolicy
+    @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
     @StateObject var playerObserver = PlayerObserver()
     
     var body: some View {
@@ -206,7 +207,9 @@ struct MediaAttachmentView: View {
             ConcealableMediaAttachmentView() {
                 ZStack {
                     VideoPlayerView(playerObserver: playerObserver, media: self.mediaAttachment, originalSize: self.mediaAttachment.attachmentInfo?.imageDetails?.originalSize ?? .zero, containerOverlayBinding: containerOverlayBinding)
-                    playerObserver.playButton(playerObserver.playingState)
+                    if contentConcealViewModel.currentMode.isShowingMedia {
+                        playerObserver.playButton(playerObserver.playingState)
+                    }
                 }
             }
         case .openInBrowser(let url):
@@ -300,7 +303,11 @@ struct ImageGridView: View {
                         .contentShape(Rectangle())
                         .accessibilityLabel(viewModel.altTextTranslations?[img.id] ?? img.basicData.altText ?? "")
                         .onTapGesture {
-                           presentGallery(forImageAttachment: img)
+                            if contentConcealViewModel.currentMode.isShowingMedia {
+                                presentGallery(forImageAttachment: img)
+                            } else {
+                                contentConcealViewModel.revealMedia()
+                            }
                         }
                     if let altText = viewModel.altTextTranslations?[img.id] ?? img.basicData.altText {
                         AltTextButton(drawBorder: false, altText: altText, displayAltText: Binding<String?>(
@@ -624,7 +631,7 @@ struct VideoPlayerView: View {
         ZStack {
             if let player = playerObserver.getPlayer() {
                 VideoPlayer(player: player)
-                    .opacity(playerObserver.isReadyToPlay ? 1 : 0)
+                    .opacity(playerObserver.isReadyToPlay && contentConcealViewModel.currentMode.isShowingMedia ? 1 : 0)
                     .aspectRatio(originalSize.aspectRatio, contentMode: .fit)
                     .background() {
                         if let blurImage = playerObserver.blurImage {
@@ -643,11 +650,15 @@ struct VideoPlayerView: View {
         .clipped() // prevents the blurhash image from overhanging the video if it somehow has a slightly different aspect ratio
         .overlay {
             Button {
-                playerObserver.didPressPause()
-                let overlay = MastodonFadeInOverlay.video(media, PageableZoomableViewModel(pageCount: 1, focusedPage: 0, dismiss: {
-                    containerOverlay?.wrappedValue = nil
-                }))
-                containerOverlay?.wrappedValue = overlay
+                if contentConcealViewModel.currentMode.isShowingMedia {
+                    playerObserver.didPressPause()
+                    let overlay = MastodonFadeInOverlay.video(media, PageableZoomableViewModel(pageCount: 1, focusedPage: 0, dismiss: {
+                        containerOverlay?.wrappedValue = nil
+                    }))
+                    containerOverlay?.wrappedValue = overlay
+                } else {
+                    contentConcealViewModel.revealMedia()
+                }
             } label: {
                 Rectangle().fill(.clear)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -665,6 +676,11 @@ struct VideoPlayerView: View {
         }
         .onDisappear() {
             playerObserver.didPressPause()
+        }
+        .onChange(of: contentConcealViewModel.currentMode.isShowingMedia) { _, newIsShowingMedia in
+            if !newIsShowingMedia {
+                playerObserver.didPressPause()
+            }
         }
     }
     
