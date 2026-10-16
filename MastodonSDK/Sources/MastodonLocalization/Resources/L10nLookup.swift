@@ -111,6 +111,12 @@ public struct L10nLookup {
     }
     
     public struct Scene {
+        public struct ConfirmEmail {
+            public static let accountCreated: String = {
+                let result = tr("Localizable", "Scene.ConfirmEmail.AccountCreated")
+                return result
+            }()
+        }
         public struct Settings {
             public struct Overview {
                 public static func loggedInAs(_ username: String)-> String {

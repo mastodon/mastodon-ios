@@ -141731,6 +141731,17 @@
         }
       }
     },
+    "Scene.ConfirmEmail.AccountCreated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account Created"
+          }
+        }
+      }
+    },
     "Scene.ConfirmEmail.Button.Resend" : {
       "extractionState" : "migrated",
       "localizations" : {
