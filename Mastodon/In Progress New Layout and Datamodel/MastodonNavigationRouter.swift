@@ -298,6 +298,18 @@ extension MastodonNavigationRouter {
     }
 }
 
+extension Error {
+    var isTransientNetworkError: Bool {
+        guard let urlError = self as? URLError else { return false }
+        switch urlError.code {
+        case .timedOut, .networkConnectionLost, .notConnectedToInternet, .cancelled:
+            return true
+        default:
+            return false
+        }
+    }
+}
+
 extension MastodonNavigationRouter {
     @ViewBuilder func alertContents(_ alert: MastodonPostMenuAction.AlertType) -> some View {
         switch alert {

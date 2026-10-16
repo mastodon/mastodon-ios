@@ -445,6 +445,7 @@ import MastodonUI
             .sink { [weak self] error in
                 guard let error else { return }
                 self?.loadDidFail()
+                guard !error.isTransientNetworkError else { return }
                 navigator.didReceiveError(error)
             }
         feedLoader?.doFirstLoad()

@@ -124,6 +124,7 @@ import Combine
             do {
                 lists = try await APIService.shared.getLists(authenticationBox: authenticatedUser).value
             } catch {
+                guard !error.isTransientNetworkError else { return }
                 navigationRouter(forTab: .home).didReceiveError(error)
             }
         }
@@ -145,6 +146,7 @@ import Combine
             do {
                 followedHashtags = try await APIService.shared.getFollowedTags(query: .init(limit: nil), authenticationBox: authenticatedUser).value
             } catch {
+                guard !error.isTransientNetworkError else { return }
                 navigationRouter(forTab: .home).didReceiveError(error)
             }
         }
