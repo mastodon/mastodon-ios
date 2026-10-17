@@ -53176,8 +53176,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Matches filter: “%(userDefinedFilterTitle)@”"
+            "state" : "translated",
+            "value" : "Matcher filteret: “%(userDefinedFilterTitle)@”"
           }
         },
         "de" : {
@@ -53290,8 +53290,8 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Matches filter: “%(userDefinedFilterTitle)@”"
+            "state" : "translated",
+            "value" : "Samsvarar síu: “%(userDefinedFilterTitle)@”"
           }
         },
         "it" : {
