@@ -22,6 +22,7 @@ struct ProfileMainMenuView: View {
                     relationshipButtons
                     Divider()
                     alternateAccountButtons
+                    pendingRegistrationButtons
                     addAccountButton
                     Divider()
                     logOutActiveUserButton
@@ -123,6 +124,20 @@ struct ProfileMainMenuView: View {
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
+            }
+        }
+    }
+    
+    @ViewBuilder private var pendingRegistrationButtons: some View {
+        // List accounts that have been registered using the app but have not yet been verified/approved
+        ForEach(authenticationObserver.pendingRegistrations, id: \.self.globallyUniqueUserIdentifier) { authBox in
+            let account = authBox.cachedAccount
+            menuRow(account.map { "@\($0.acctWithDomain)" } ?? "@\(authBox.authentication.username)@\(authBox.domain)", icon: .avatar(account?.avatarURL)) {
+                navigator.presentSheet(.pendingRegistration(authBox), afterDeconflictionDelay: false)
+            } accessory: {
+                Text(L10nLookup.Scene.Onboarding.AccountNonfunctional.pendingRegistrationTag)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
             }
         }
     }

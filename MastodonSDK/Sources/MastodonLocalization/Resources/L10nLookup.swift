@@ -377,6 +377,16 @@ public struct L10nLookup {
                 return tr("Localizable", "Scene.Search.searchForPosts", searchTerm)
             }
         }
+        
+        public struct Onboarding {
+            public struct AccountNonfunctional {
+                public static let pendingRegistrationTag = tr("Localizable-Onboarding", "Scene.Onboarding.AccountNonfunctional.pendingRegistrationTag")
+                public static let pendingApproval = tr("Localizable-Onboarding", "Scene.Onboarding.AccountNonfunctional.pendingApproval")
+                public static let needsAttention = tr("Localizable-Onboarding", "Scene.Onboarding.AccountNonfunctional.needsAttention")
+                public static let registrationNoLongerValid = tr("Localizable-Onboarding", "Scene.Onboarding.AccountNonfunctional.registrationNoLongerValid")
+                public static let youCanRegisterAgain = tr("Localizable-Onboarding", "Scene.Onboarding.AccountNonfunctional.youCanRegisterAgain")
+            }
+        }
     }
 
     public static func pluralCountPoll(_ count: Int) -> String {

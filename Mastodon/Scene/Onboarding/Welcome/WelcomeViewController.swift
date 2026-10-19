@@ -19,7 +19,8 @@ final class WelcomeViewController: UIViewController {
         static let topAnchorInset: CGFloat = 20
     }
     
-    init() {
+    init(onPendingRegistration: ((MastodonAuthenticationBox) -> Void)? = nil) {
+        self.onPendingRegistration = onPendingRegistration
         super.init(nibName: nil, bundle: nil)
         authenticationStateTask = Task { [weak self] in
             guard let stateStream = self?.authenticationViewModel.stateStream else { return }
@@ -30,6 +31,7 @@ final class WelcomeViewController: UIViewController {
     }
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
+    private let onPendingRegistration: ((MastodonAuthenticationBox) -> Void)?
     private let authenticationViewModel = AuthenticationViewModel()
     private var authenticationStateTask: Task<(), Never>?
     
@@ -176,6 +178,9 @@ extension WelcomeViewController {
                 try await self.authenticationViewModel.joinServer(server, presentationContextProvider: self) }, displayError: { [weak self] error in self?.displayError(error) })), from: self, transition: .show)
         case .confirmingEmail(let viewModel):
             _ = self.sceneCoordinator?.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
+        case .pendingRegistration(let authBox):
+            navigationController?.popToRootViewController(animated: false)
+            onPendingRegistration?(authBox)
         case .authenticatedUser:
             dismiss(animated: true)
         case .authenticatingUser:

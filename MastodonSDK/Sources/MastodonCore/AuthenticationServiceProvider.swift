@@ -24,6 +24,7 @@ public class AuthenticationServiceProvider: ObservableObject {
     public let instanceConfigurationUpdates = PassthroughSubject<String, Never>() // publishes the domain of each instance as updates are received
   
     @Published public var mastodonAuthenticationBoxes: [MastodonAuthenticationBox] = []
+    @Published public var pendingRegistrations: [MastodonAuthenticationBox] = []
     @Published public var didChangeFollowersAndFollowing: String?
     
     public let updateActiveUserAccountPublisher = PassthroughSubject<Void, Never>()
@@ -67,12 +68,13 @@ public class AuthenticationServiceProvider: ObservableObject {
     
     private var authentications: [MastodonAuthentication] = [] {
         didSet {
-            let boxes = authenticationBoxes(authentications)
+            let boxes = authenticationBoxes(authentications.filter { !$0.registrationIsPending })
             let nowActive = boxes.first
             if nowActive?.authentication != self.currentActiveUser.value?.authentication {
                 self.currentActiveUser.send(nowActive)
             }
             mastodonAuthenticationBoxes = boxes
+            pendingRegistrations = authenticationBoxes(authentications.filter { $0.registrationIsPending })
             persist(authentications)
             
             let liveTokens = authentications.map { $0.userAccessToken }
@@ -180,14 +182,24 @@ public class AuthenticationServiceProvider: ObservableObject {
     }
     
     public func activateAuthentication(_ authenticationBox: MastodonAuthenticationBox) {
-        if activateExistingUser(authenticationBox.userID, inDomain: authenticationBox.domain) {
+        assert(!authenticationBox.authentication.registrationIsPending, "pending registrations should be added via addPendingRegistration; a pending registration cannot become the active account")
+        
+        if let pendingIndex = authentications.firstIndex(where: { $0.registrationIsPending && $0.globallyUniqueUserIdentifier == authenticationBox.globallyUniqueUserIdentifier}) {
+            authentications[pendingIndex] = authenticationBox.authentication.updating(activatedAt: .now)
+            NotificationService.shared.requestUpdate(.singleAccount(authenticationBox))
+        } else if activateExistingUser(authenticationBox.userID, inDomain: authenticationBox.domain) {
             return
         } else {
             authentications.insert(authenticationBox.authentication, at: 0)
             _ = activateExistingUser(authenticationBox.userID, inDomain: authenticationBox.domain)
             NotificationService.shared.requestUpdate(.singleAccount(authenticationBox))
         }
-        
+    }
+    
+    public func addPendingRegistration(_ authBox: MastodonAuthenticationBox) {
+        assert(authBox.authentication.registrationIsPending)
+        guard !authentications.contains(where: { $0.globallyUniqueUserIdentifier == authBox.globallyUniqueUserIdentifier }) else { return }
+        authentications.append(authBox.authentication)
     }
 }
 
@@ -215,7 +227,8 @@ public extension AuthenticationServiceProvider {
         if authentications.isEmpty {
             restoreFromKeychain()
         }
-        mastodonAuthenticationBoxes = authenticationBoxes(authentications)
+        mastodonAuthenticationBoxes = authenticationBoxes(authentications.filter { !$0.registrationIsPending })
+        pendingRegistrations = authenticationBoxes(authentications.filter { $0.registrationIsPending })
         currentActiveUser.send(mastodonAuthenticationBoxes.first)
     }
 
@@ -268,7 +281,7 @@ public extension AuthenticationServiceProvider {
     func fetchAccountsIfStale() async {
         let minTimeBetweenAutomaticAccountFetches = TimeInterval( 60 * 60 * 24) // one day
         var someUpdated = false
-        for authentication in authentications {
+        for authentication in authentications where !authentication.registrationIsPending {
             let itHasBeenAwhile: Bool
             if let lastFetch = UserDefaults.shared.lastSuccessfulAccountFetch(forRawAccessToken: authentication.userAccessToken) {
                 itHasBeenAwhile = lastFetch.distance(to: Date.now) > minTimeBetweenAutomaticAccountFetches

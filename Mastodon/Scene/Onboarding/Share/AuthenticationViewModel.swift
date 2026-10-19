@@ -296,6 +296,7 @@ extension AuthenticationViewModel {
         case registering(MastodonRegisterViewModel)
         case showingPrivacyPolicy(PolicyViewModel)
         case confirmingEmail(MastodonConfirmEmailViewModel)
+        case pendingRegistration(MastodonAuthenticationBox)
         case authenticatingUser
         case authenticatedUser(MastodonAuthenticationBox)
     }
@@ -373,25 +374,21 @@ extension AuthenticationViewModel {
                             redirectURI: info.redirectURI,
                             code: code
                         )
-                    let authBox: MastodonAuthenticationBox
-                    do {
-                        authBox = try await AuthenticationViewModel.verifyAndActivateAuthentication(
-                            info: info,
-                            userToken: token
-                        )
-                    } catch let error as Mastodon.API.Error where isSignUp && error.httpResponseStatus == .forbidden {
-                        // the server gives us a code before the email has been confirmed
-                        self.isAuthenticating.value = false
-                        let viewModel = MastodonConfirmEmailViewModel(
-                            email: nil,
-                            authenticateInfo: info,
-                            userToken: token,
-                            updateCredentialQuery: nil
-                        )
-                        self.stateStreamContinuation.yield(.confirmingEmail(viewModel))
-                        return
+                    
+                    if isSignUp {
+                        // the server gives us a code before the email has been confirmed or moderator has approved
+                        let authorization = Mastodon.API.OAuth.Authorization(accessToken: token.accessToken, domain: info.domain)
+                        let account = try await APIService.shared.verifyCredentials(domain: info.domain, allowNonfunctional: true, authorization: authorization)
+                        if account.accountCreationState?.isPendingRegistration == true {
+                            let pendingRegistration = APIService.shared.savePendingRegistration(account: account, domain: info.domain, clientID: info.clientID, clientSecret: info.clientSecret, authorization: authorization)
+                            self.isAuthenticating.value = false
+                            self.stateStreamContinuation.yield(.pendingRegistration(pendingRegistration))
+                            return
+                        }
                     }
                     
+                    
+                    let authBox = try await AuthenticationViewModel.verifyAndActivateAuthentication(info: info, userToken: token)
                     self.stateStreamContinuation.yield(.authenticatedUser(authBox))
                     self.stateStreamContinuation.finish()
                 }

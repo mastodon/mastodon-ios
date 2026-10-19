@@ -147,6 +147,10 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
 
     public let instanceConfiguration: InstanceConfiguration?
     public let accountCreatedAt: Date?
+
+    private let _registrationPending: Bool?
+    
+    public var registrationIsPending: Bool { _registrationPending == true }
     
     public var persistenceIdentifier: String {
         "\(username)@\(domain)"
@@ -160,7 +164,8 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
         userAccessToken: String,
         clientID: String,
         clientSecret: String,
-        accountCreatedAt: Date
+        accountCreatedAt: Date,
+        registrationIsPending: Bool = false
     ) -> Self {
         let now = Date()
         let authentication = MastodonAuthentication(
@@ -176,7 +181,8 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
             activedAt: now,
             userID: userID,
             instanceConfiguration: nil,
-            accountCreatedAt: accountCreatedAt
+            accountCreatedAt: accountCreatedAt,
+            _registrationPending: registrationIsPending ? true : nil
         )
         return authentication
     }
@@ -209,7 +215,8 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
             activedAt: activedAt ?? self.activedAt,
             userID: userID ?? self.userID,
             instanceConfiguration: instanceConfiguration ?? self.instanceConfiguration,
-            accountCreatedAt: accountCreatedAt ?? self.accountCreatedAt
+            accountCreatedAt: accountCreatedAt ?? self.accountCreatedAt,
+            _registrationPending: self._registrationPending
         )
     }
 

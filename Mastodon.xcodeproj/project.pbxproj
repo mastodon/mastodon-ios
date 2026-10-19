@@ -438,6 +438,7 @@
 				MastodonTopLevelOverlay.swift,
 				Notifications/NotificationInfo.swift,
 				Notifications/NotificationsCacheManager.swift,
+				PendingAccountInfoView.swift,
 				PreviewSupport.swift,
 				Profile/NestedScrollViews.swift,
 				Profile/ProfileEditingDestinationView.swift,

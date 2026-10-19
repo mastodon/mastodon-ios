@@ -61,6 +61,7 @@ extension Mastodon.Entity {
         public let suspended: Bool?
         public let limited: Bool?
         public let muteExpiresAt: Date?
+        public let accountCreationState: AccountCreationState? // only provided in verify_credentials responses
         
         public init?(original: Mastodon.Entity.Account, updatedProfileSettings: Mastodon.Entity.Profile)  {
             guard updatedProfileSettings.id == original.id else { return nil }
@@ -103,6 +104,7 @@ extension Mastodon.Entity {
             suspended = original.suspended
             limited = original.limited
             muteExpiresAt = original.muteExpiresAt
+            accountCreationState = original.accountCreationState
         }
     }
 }
@@ -148,6 +150,7 @@ extension Mastodon.Entity.Account: Codable {
         case suspended
         case limited
         case muteExpiresAt = "mute_expires_at"
+        case accountCreationState = "state"
     }
 }
 
@@ -229,6 +232,65 @@ extension Mastodon.Entity.Account {
 
 extension Mastodon.Entity.Account {
     public static let missingImageName = "missing.png"
+}
+
+extension Mastodon.Entity.Account {
+    public struct AccountCreationState: Codable, Sendable, Hashable {
+        public let functional: Bool
+        public let confirmed: Bool
+        public let approved: Bool
+        public let errorCode: AccountCreationStateError?
+        public let localizedErrorDescription: String?
+        
+        public var isPendingRegistration: Bool {
+            errorCode == .pendingApproval || errorCode == .pendingConfirmation
+        }
+        
+        enum CodingKeys: String, CodingKey {
+            case functional
+            case confirmed
+            case approved
+            case errorCode = "error_code"
+            case localizedErrorDescription = "error"
+        }
+    }
+}
+
+public enum AccountCreationStateError: RawRepresentable, Error, Codable, Hashable {
+    case pendingConfirmation
+    case pendingApproval
+    case accountDeleted
+    case accountSuspended
+    case memorial
+    case loginDisabled
+    case twoFactorAuthRequired
+    case _other(String)
+    
+    public init?(rawValue: String) {
+        switch rawValue {
+        case "pending_confirmation": self = .pendingConfirmation
+        case "pending_approval": self = .pendingApproval
+        case "account_deleted": self = .accountDeleted
+        case "account_suspended": self = .accountSuspended
+        case "memorial": self = .memorial
+        case "login_disabled": self = .loginDisabled
+        case "2fa_required": self = .twoFactorAuthRequired
+        default: self = ._other(rawValue)
+        }
+    }
+            
+    public var rawValue: String {
+        switch self {
+        case .pendingConfirmation: return "pending_confirmation"
+        case .pendingApproval: return "pending_approval"
+        case .accountDeleted: return "account_deleted"
+        case .accountSuspended: return "account_suspended"
+        case .memorial: return "memorial"
+        case .loginDisabled: return "login_disabled"
+        case .twoFactorAuthRequired: return "2fa_required"
+        case ._other(let value): return value
+        }
+    }
 }
 
 extension Mastodon.Entity.Account {

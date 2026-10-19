@@ -13,7 +13,7 @@ import MastodonSDK
 extension APIService {
     public func accountInfo(_ authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Entity.Account {
-        let account = try await Mastodon.API.Account.verifyCredentials(session: session, domain: authenticationBox.domain, authorization: authenticationBox.userAuthorization)
+        let account = try await Mastodon.API.Account.verifyCredentials(session: session, domain: authenticationBox.domain, allowNonfunctional: false, authorization: authenticationBox.userAuthorization)
         
         PersistenceManager.shared.cacheAccount(account, forUserID: authenticationBox.authentication.userIdentifier())
         
@@ -89,6 +89,7 @@ extension APIService {
         let account = try await Mastodon.API.Account.verifyCredentials(
             session: session,
             domain: domain,
+            allowNonfunctional: false,
             authorization: authorization
         )
         let authBox = await self.saveAndActivateVerifiedUser(account: account, domain: domain, clientID: clientID, clientSecret: clientSecret, authorization: authorization)
@@ -96,6 +97,31 @@ extension APIService {
             await AuthenticationServiceProvider.shared.fetchPreferences(for: authBox)
         }
         return (account, authBox)
+    }
+    
+    public func verifyCredentials(domain: String, allowNonfunctional: Bool, authorization: Mastodon.API.OAuth.Authorization) async throws -> Mastodon.Entity.Account {
+        try await Mastodon.API.Account.verifyCredentials(session: session, domain: domain, allowNonfunctional: allowNonfunctional, authorization: authorization)
+    }
+    
+    @discardableResult public func savePendingRegistration(account: Mastodon.Entity.Account,
+                                                           domain: String,
+                                                           clientID: String,
+                                                           clientSecret: String,
+                                                           authorization: Mastodon.API.OAuth.Authorization
+    ) -> MastodonAuthenticationBox {
+        let authentication = MastodonAuthentication.createFrom(domain: domain,
+                                                               userID: account.id,
+                                                               username: account.username,
+                                                               appAccessToken: authorization.accessToken, // TODO: this is never actually used, should be deleted
+                                                               userAccessToken: authorization.accessToken,
+                                                               clientID: clientID,
+                                                               clientSecret: clientSecret,
+                                                               accountCreatedAt: account.createdAt,
+                                                               registrationIsPending: true)
+        PersistenceManager.shared.cacheAccount(account, forUserID: authentication.userIdentifier())
+        let authBox = MastodonAuthenticationBox(authentication: authentication)
+        AuthenticationServiceProvider.shared.addPendingRegistration(authBox)
+        return authBox
     }
     
     public func accountUpdateCredentials(

@@ -166,8 +166,13 @@ enum MastodonNavigationDestination: Identifiable {
                 .interactiveDismissDisabled()
             
         case .welcome:
-            LegacyWelcomeFlowWrapper()
+            LegacyWelcomeFlowWrapper(onPendingRegistration: { [weak self] pendingRegistration in
+                self?.presentedSheet = .pendingRegistration(pendingRegistration)
+            })
                 .interactiveDismissDisabled()
+            
+        case .pendingRegistration(let authBox):
+            PendingAccountInfoView(pendingRegistration: authBox, allowsUserDismiss: true)
             
         case .contentUrl(let url):
             SafariView(url: url.url)
@@ -477,6 +482,7 @@ enum MastodonSheet: Identifiable {
     case settings
     case report(ReportViewModel)
     case welcome
+    case pendingRegistration(MastodonAuthenticationBox)
     case contentUrl(ContentURL)
     case notificationPolicy(NotificationPolicyViewModel)
     case makeDonation
@@ -495,6 +501,8 @@ enum MastodonSheet: Identifiable {
             return "report-\(model.account.id)"
         case .welcome:
             return "welcome"
+        case .pendingRegistration(let authBox):
+            return "pending-registration-\(authBox.globallyUniqueUserIdentifier)"
         case .contentUrl(let url):
             return "url-\(url.url.absoluteString)"
         case .notificationPolicy:

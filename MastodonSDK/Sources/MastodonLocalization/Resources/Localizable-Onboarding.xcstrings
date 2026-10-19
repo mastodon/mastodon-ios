@@ -1,0 +1,66 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Scene.Onboarding.AccountNonfunctional.needsAttention" : {
+      "comment" : "Title for the page you see if your account is in an unexpected non-functional state",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your account needs attention"
+          }
+        }
+      }
+    },
+    "Scene.Onboarding.AccountNonfunctional.pendingApproval" : {
+      "comment" : "Title for the screen shown when your new account is pending, waiting for admin approval",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waiting for approval"
+          }
+        }
+      }
+    },
+    "Scene.Onboarding.AccountNonfunctional.pendingRegistrationTag" : {
+      "comment" : "Tag on a new account that has not yet been verified or approved",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pending"
+          }
+        }
+      }
+    },
+    "Scene.Onboarding.AccountNonfunctional.registrationNoLongerValid" : {
+      "comment" : "Title shown when a new account registered using the app is no longer valid (most likely, too much time passed without the user confirming their email address)",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This registration is no longer valid"
+          }
+        }
+      }
+    },
+    "Scene.Onboarding.AccountNonfunctional.youCanRegisterAgain" : {
+      "comment" : "Message shown when a new account registered using the app is no longer valid (most likely, too much time passed without the user confirming their email address)",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can register again or log in with a different account."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.3"
+}

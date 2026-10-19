@@ -125,14 +125,23 @@ extension Mastodon.API.Account {
             .eraseToAnyPublisher()
     }
     
+    struct VerifyCredentialsQuery: GetQuery {
+        let allowNonfunctional: Bool
+        
+        var queryItems: [URLQueryItem]? {
+            allowNonfunctional ? [URLQueryItem(name: "allow_nonfunctional", value: "true")] : nil
+        }
+    }
+    
     public static func verifyCredentials(
         session: URLSession,
         domain: String,
+        allowNonfunctional: Bool,
         authorization: Mastodon.API.OAuth.Authorization
     ) async throws -> Mastodon.Entity.Account {
         let request = Mastodon.API.get(
             url: verifyCredentialsEndpointURL(domain: domain),
-            query: nil,
+            query: VerifyCredentialsQuery(allowNonfunctional: allowNonfunctional),
             authorization: authorization
         )
         RateLimitViewModel.shared.didMakeRequest("verify credentials")

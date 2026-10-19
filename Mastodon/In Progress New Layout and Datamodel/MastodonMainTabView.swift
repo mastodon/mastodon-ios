@@ -69,6 +69,12 @@ struct MastodonMainTabView: View {
                     .ignoresSafeArea()
                     .onAppear() { welcomeFlowIsOnScreen = true }
                     .onDisappear() { welcomeFlowIsOnScreen = false }
+                    .sheet(isPresented: Binding(get: { pendingRegistrationToPresentOverWelcome != nil }, set: {_ in})) {
+                        if let pendingRegistrationToPresentOverWelcome {
+                            PendingAccountInfoView(pendingRegistration: pendingRegistrationToPresentOverWelcome, allowsUserDismiss: false)
+                                .id(pendingRegistrationToPresentOverWelcome.globallyUniqueUserIdentifier)
+                        }
+                    }
             }
         }
         .alert(L10nLookup.CommonAlerts.AuthorizationInvalid.title,
@@ -117,6 +123,11 @@ struct MastodonMainTabView: View {
             guard let newValue else { return }
             reauthenticate(newValue)
         }
+    }
+    
+    private var pendingRegistrationToPresentOverWelcome: MastodonAuthenticationBox? {
+        guard !authenticationObserver.invalidAuthenticationFlowInProgress else { return nil }
+        return authenticationObserver.pendingRegistrations.first
     }
     
     private var reauthenticationNowReady: AuthenticationObserver.PendingReauthorization? {
@@ -660,6 +671,7 @@ extension MastodonTabViewRouter.MastodonTab {
     private(set) var isSwitchingAccounts = false
     private(set) var currentActiveUser: MastodonAuthenticationBox?
     private(set) var allLoggedInUsers = [MastodonAuthenticationBox]()
+    private(set) var pendingRegistrations = [MastodonAuthenticationBox]()
     
     struct PendingReauthorization: Equatable {
         let domain: String
@@ -693,8 +705,10 @@ extension MastodonTabViewRouter.MastodonTab {
         let authenticationServiceProvider = AuthenticationServiceProvider.shared
         currentActiveUser = authenticationServiceProvider.currentActiveUser.value
         allLoggedInUsers = authenticationServiceProvider.mastodonAuthenticationBoxes
+        pendingRegistrations = authenticationServiceProvider.pendingRegistrations
         authenticationServiceProvider.currentActiveUser.assign(to: \.currentActiveUser, on: self).store(in: &subscriptions)
         authenticationServiceProvider.$mastodonAuthenticationBoxes.assign(to: \.allLoggedInUsers, on: self).store(in: &subscriptions)
+        authenticationServiceProvider.$pendingRegistrations.assign(to: \.pendingRegistrations, on: self).store(in: &subscriptions)
         authenticationServiceProvider.$invalidAuthentications.assign(to: \.invalidAuthentications, on: self).store(in: &subscriptions)
     }
     
@@ -802,8 +816,10 @@ struct LegacyReportFlowViewControllerWrapper: UIViewControllerRepresentable {
 }
 
 struct LegacyWelcomeFlowWrapper: UIViewControllerRepresentable {
+    var onPendingRegistration: ((MastodonAuthenticationBox) -> Void)? = nil
+
     func makeUIViewController(context: Context) -> some UIViewController {
-        let rootVC = WelcomeViewController()
+        let rootVC = WelcomeViewController(onPendingRegistration: onPendingRegistration)
         let navigationWrapper = UINavigationController(rootViewController: rootVC)
         return navigationWrapper
     }
