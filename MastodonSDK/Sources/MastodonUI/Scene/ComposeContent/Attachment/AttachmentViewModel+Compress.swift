@@ -9,7 +9,7 @@ import UIKit
 import AVKit
 import MastodonCore
 import SessionExporter
-import Nuke
+import UniformTypeIdentifiers
 
 extension AttachmentViewModel {
     func compressVideo(url: URL) async throws -> URL {
@@ -130,7 +130,7 @@ extension AttachmentViewModel {
                 throw AttachmentError.invalidAttachmentType
             }
 
-            if AssetType(imageData) == .png {
+            if imageData.imageType == .png {
                 // A. png image
                 if imageData.count > maxPayloadSizeInBytes {
                     guard let compressedJpegData = image.jpegData(compressionQuality: 0.8) else {
@@ -156,7 +156,7 @@ extension AttachmentViewModel {
         } while (imageData.count > maxPayloadSizeInBytes)
         
         
-        return .image(imageData, imageKind: AssetType(imageData) == .png ? .png : .jpg)
+        return .image(imageData, imageKind: imageData.imageType == .png ? .png : .jpg)
     }
 }
 

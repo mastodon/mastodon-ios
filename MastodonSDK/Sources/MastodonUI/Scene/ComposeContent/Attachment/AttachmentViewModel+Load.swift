@@ -8,7 +8,7 @@
 import UIKit
 import AVKit
 import UniformTypeIdentifiers
-import Nuke
+import ImageIO
 
 extension AttachmentViewModel {
     
@@ -39,7 +39,7 @@ extension AttachmentViewModel {
             throw AttachmentError.invalidAttachmentType
         }
         let (imageData, _) = try await URLSession.shared.data(from: url)
-        return .image(imageData, imageKind: AssetType(imageData) == .png ? .png : .jpg)
+        return .image(imageData, imageKind: imageData.imageType == .png ? .png : .jpg)
     }
     
     private static func load(url: URL) async throws -> Output {
@@ -53,7 +53,7 @@ extension AttachmentViewModel {
             }
             defer { url.stopAccessingSecurityScopedResource() }
             let imageData = try Data(contentsOf: url)
-            return .image(imageData, imageKind: AssetType(imageData) == .png ? .png : .jpg)
+            return .image(imageData, imageKind: imageData.imageType == .png ? .png : .jpg)
         } else if uti.conforms(to: .movie) {
             guard url.startAccessingSecurityScopedResource() else {
                 throw AttachmentError.invalidAttachmentType
@@ -87,7 +87,7 @@ extension AttachmentViewModel {
                 }
                 
                 let imageData = result.data
-                let assetType = AssetType(imageData)
+                let assetType = imageData.imageType
 
                 if assetType == .png {
                     return .png
@@ -145,5 +145,15 @@ extension NSItemProvider {
             toTypeIdentifier: UTType.movie.identifier,
             fileOptions: []
         )
+    }
+}
+
+extension Data {
+    var imageType: UTType? {
+        guard let source = CGImageSourceCreateWithData(self as CFData, nil),
+              let identifier = CGImageSourceGetType(source) else {
+            return nil
+        }
+        return UTType(identifier as String)
     }
 }

@@ -13,8 +13,6 @@
 - [Kanna](https://github.com/tid-kijyun/Kanna)
 - [KeychainAccess](https://github.com/kishikawakatsumi/KeychainAccess.git)
 - [MetaTextKit](https://github.com/TwidereProject/MetaTextKit)
-- [Nuke-FLAnimatedImage-Plugin](https://github.com/kean/Nuke-FLAnimatedImage-Plugin)
-- [Nuke](https://github.com/kean/Nuke)
 - [Phosphor Icons](https://github.com/phosphor-icons)
 - [SDWebImage](https://github.com/SDWebImage/SDWebImage)
 - [swift-collections](https://github.com/apple/swift-collections)
