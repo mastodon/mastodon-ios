@@ -139,14 +139,12 @@ struct ProfileMainMenuView: View {
     }
     private let avatarSize = AvatarSize.small
     private var iconSlotSize: CGFloat { avatarSize.rawValue }
-    private var iconImageSize: CGFloat { iconSlotSize * 0.75 }
+    private let iconFontSize: CGFloat = 26
     @ViewBuilder private func rowIcon(_ icon: MenuRowIcon) -> some View {
         switch icon {
         case .image(let image):
             image
-                .resizable()
-                .scaledToFit()
-                .frame(width: iconImageSize, height: iconImageSize)
+                .font(.system(size: iconFontSize))
         case .avatar(let url):
             AvatarView(style: .circular, size: avatarSize, avatarSource: .url(url))
         }

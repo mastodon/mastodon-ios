@@ -4,7 +4,7 @@
 //
 //  Created by Shannon Hughes on 9/24/26.
 //
-// This file uses Phosphor icons (https://phosphoricons.com), converted to .symbolsets and added to our Assets.xcassets in the Phosphor folder. Names match Phosphor at the time of conversion, except that "-fill" versions follow Apple's ".fill" convention so that standard system components can find them (such as for TabBar in compact width).
+// This file uses Phosphor icons (https://phosphoricons.com), converted to .symbolsets and added to our Assets.xcassets in the Phosphor folder. Names match Phosphor at the time of conversion, except that "-fill" versions follow Apple's ".fill" convention so that standard system components can find them (such as for TabBar in compact width). They are imported with a fixed 28-unit margin so that their line widths stay self-consistent.
 // Note: The filled version of arrowsClockwise is our own design, for stronger visual emphasis.
 // Phosphor icons are used under the MIT license:
 //                        
