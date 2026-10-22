@@ -188,13 +188,17 @@ struct PrecalculatedHeight {
     func goToProfile(_ mention: Mastodon.Entity.Mention, navigator: MastodonNavigationRouter) {
         Task {
             guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
-            let account = try await APIService.shared.accountInfo(
-                domain: currentUser.domain,
-                userID:
-                    mention.id,
-                authorization: currentUser.userAuthorization
-            )
-            goToProfile(MastodonAccount.fromEntity(account, authenticatedDomain: currentUser.domain), navigator: navigator)
+            do {
+                let account = try await APIService.shared.accountInfo(
+                    domain: currentUser.domain,
+                    userID:
+                        mention.id,
+                    authorization: currentUser.userAuthorization
+                )
+                navigator.push(.profile(account: account, relationship: nil)) // we don't have the relationship for a mention, only for the post's author
+            } catch {
+                navigator.didReceiveError(error)
+            }
         }
     }
     

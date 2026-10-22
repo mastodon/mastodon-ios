@@ -260,9 +260,10 @@ enum MastodonNavigationDestination: Identifiable {
         if account.globallyUniqueUserIdentifier == AuthenticationServiceProvider.shared.currentActiveUser.value?.globallyUniqueUserIdentifier {
             viewModel.set(account: account, relationship: .isMe, navigator: self)
         } else {
-            viewModel.set(account: account, relationship: .isNotMe(relationship?.info), navigator: self)
+            let relationshipInfo = relationship?.info?.id == account.id ? relationship?.info : nil
+            viewModel.set(account: account, relationship: .isNotMe(relationshipInfo), navigator: self)
             
-            if relationship?.info == nil {
+            if relationshipInfo == nil {
                 Task {
                     let relationshipFetchID = account.id
                     if let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
