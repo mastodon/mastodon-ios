@@ -11,7 +11,6 @@ import MastodonSDK
 import MastodonCore
 import MastodonAsset
 import MastodonLocalization
-import MBProgressHUD
 import SwiftUI
 
 @MainActor
@@ -304,38 +303,6 @@ extension SceneCoordinator {
         }
 
         return viewController
-    }
-}
-
-//MARK: - Loading
-
-public extension SceneCoordinator {
-
-    @MainActor
-    func showLoading() {
-        showLoading(on: rootViewController)
-    }
-
-    @MainActor
-    func showLoading(on viewController: UIViewController?) {
-        guard let viewController else { return }
-        
-        /// Don't add HUD twice
-        guard MBProgressHUD.forView(viewController.view) == nil else { return }
-        
-        MBProgressHUD.showAdded(to: viewController.view, animated: true)
-    }
-
-    @MainActor
-    func hideLoading() {
-        hideLoading(on: rootViewController)
-    }
-
-    @MainActor
-    func hideLoading(on viewController: UIViewController?) {
-        guard let viewController else { return }
-
-        MBProgressHUD.hide(for: viewController.view, animated: true)
     }
 }
 

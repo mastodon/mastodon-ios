@@ -30,7 +30,6 @@
 		357FEEBA29523D660021C9DC /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 357FEEB929523D660021C9DC /* MastodonSDKDynamic */; };
 		9E44C7202967AD17004B2A72 /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 9E44C71F2967AD17004B2A72 /* MastodonSDKDynamic */; };
 		9E44C7222967AD17004B2A72 /* MastodonSDKDynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 9E44C71F2967AD17004B2A72 /* MastodonSDKDynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		D84FA0932AE6915800987F47 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = D84FA0922AE6915800987F47 /* MBProgressHUD */; };
 		D87364F92AE28DB500C8F919 /* Kanna in Frameworks */ = {isa = PBXBuildFile; productRef = D87364F82AE28DB500C8F919 /* Kanna */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
@@ -507,7 +506,6 @@
 				357FEEAF29523D470021C9DC /* MastodonSDKDynamic in Frameworks */,
 				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
 				FBA2EA9B2E1C0CEA005ADEF0 /* MastoParse in Frameworks */,
-				D84FA0932AE6915800987F47 /* MBProgressHUD in Frameworks */,
 				D87364F92AE28DB500C8F919 /* Kanna in Frameworks */,
 				2AAAA34E2B04DE21004C6672 /* VisionKit.framework in Frameworks */,
 			);
@@ -767,7 +765,6 @@
 			packageProductDependencies = (
 				357FEEAE29523D470021C9DC /* MastodonSDKDynamic */,
 				D87364F82AE28DB500C8F919 /* Kanna */,
-				D84FA0922AE6915800987F47 /* MBProgressHUD */,
 				FBA2EA9A2E1C0CEA005ADEF0 /* MastoParse */,
 			);
 			productName = Mastodon;
@@ -989,7 +986,6 @@
 			packageReferences = (
 				2AB501192992322500346092 /* XCRemoteSwiftPackageReference "LightChart" */,
 				D87364F72AE28DB500C8F919 /* XCRemoteSwiftPackageReference "Kanna" */,
-				D84FA0912AE6915800987F47 /* XCRemoteSwiftPackageReference "MBProgressHUD" */,
 				FBA2EA992E1C0CEA005ADEF0 /* XCRemoteSwiftPackageReference "MastoParse" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
@@ -2519,14 +2515,6 @@
 				kind = branch;
 			};
 		};
-		D84FA0912AE6915800987F47 /* XCRemoteSwiftPackageReference "MBProgressHUD" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/jdg/MBProgressHUD.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.0;
-			};
-		};
 		D87364F72AE28DB500C8F919 /* XCRemoteSwiftPackageReference "Kanna" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tid-kijyun/Kanna.git";
@@ -2578,11 +2566,6 @@
 		9E44C71F2967AD17004B2A72 /* MastodonSDKDynamic */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MastodonSDKDynamic;
-		};
-		D84FA0922AE6915800987F47 /* MBProgressHUD */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D84FA0912AE6915800987F47 /* XCRemoteSwiftPackageReference "MBProgressHUD" */;
-			productName = MBProgressHUD;
 		};
 		D87364F82AE28DB500C8F919 /* Kanna */ = {
 			isa = XCSwiftPackageProductDependency;

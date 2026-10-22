@@ -34,7 +34,6 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/will-lumley/FaviconFinder.git", from: "5.1.5"),
         .package(url: "https://github.com/MainasuK/UITextView-Placeholder.git", from: "1.4.1"),
         .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.4.0"),
         .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.1.0"),
@@ -107,7 +106,6 @@ let package = Package(
             dependencies: [
                 "MastodonCore",
                 .product(name: "FLAnimatedImage", package: "FLAnimatedImage"),
-                .product(name: "FaviconFinder", package: "FaviconFinder"),
                 .product(name: "UITextView+Placeholder", package: "UITextView-Placeholder"),
                 .product(name: "OrderedCollections", package: "swift-collections"),
                 .product(name: "MetaTextKit", package: "MetaTextKit"),
