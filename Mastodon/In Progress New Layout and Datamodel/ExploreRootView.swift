@@ -63,9 +63,11 @@ struct ExploreRootView: View {
                 let searchIsShowingNewResults = !searchViewModel.searchText.isEmpty
                 guard isNavigatingFromSearchScreen, selectedToken != nil || searchIsShowingNewResults, let authenticatedUser = AuthenticationObserver.shared.currentActiveUser else { return }
                 switch newValue.first {
-                case .profile(let account, _):
+                case .existingProfile(let model, _):
+                    guard let account = model.account?._legacyEntity else { return }
                     searchViewModel.didSelectSearchResult(authenticatedUser, account: account, hashtag: nil)
-                case .timeline(.hashtag(let tag, _)):
+                case .existingTimeline(let model, _):
+                    guard case .hashtag(let tag, _) = model.timeline else { return }
                     searchViewModel.didSelectSearchResult(authenticatedUser, account: nil, hashtag: tag)
                 default:
                     break

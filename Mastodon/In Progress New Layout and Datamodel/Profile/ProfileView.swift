@@ -11,12 +11,11 @@ import MastodonUI
 import Combine
 
 extension View {
-    func profileEnvironment(_ viewModel: ProfileViewModel,
-                            nestedScroll: NestedScrollInteractionViewModel) -> some View {
+    func profileEnvironment(_ viewModel: ProfileViewModel) -> some View {
         self
             .environment(viewModel)
             .environment(viewModel.relationshipViewModel)
-            .environment(nestedScroll)
+            .environment(viewModel.nestedScrollViewModel)
     }
 }
 

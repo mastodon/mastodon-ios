@@ -12,6 +12,7 @@ enum MastodonNavigationDestination: Identifiable {
     case existingTimeline(TimelineListViewModel, title: String?)
     case myProfile(ProfileViewModel)
     case profile(account: Mastodon.Entity.Account, relationship: MastodonAccount.Relationship?)
+    case existingProfile(ProfileViewModel, guid: String)
     case settings(SettingsDestinationType)
     case donations(DonationFlowDestination)
     case editProfile(profileViewModel: ProfileViewModel)
@@ -75,27 +76,23 @@ enum MastodonNavigationDestination: Identifiable {
     func destinationView(_ destination: MastodonNavigationDestination, sceneCoordinator: SceneCoordinator?) -> some View {
         switch destination {
         case .timeline(let timelineType):
-            let asyncRefreshModel = AsyncRefreshViewModel()
-            let timelineViewModel = TimelineListViewModel(timeline: timelineType, navigator: self, asyncRefreshViewModel: asyncRefreshModel)
-            TimelineListView()
-                .timelineEnvironment(timelineModel: timelineViewModel,
-                                     contentConcealModel: timelineType.contentConcealModel,
-                                     filter: timelineViewModel.timelineQueryFilter,
-                                     asyncRefreshModel: asyncRefreshModel)
-                .navigationTitle(timelineType.navigationTitle ?? "")
-
+            let _ = assertionFailure("this should be converted into a .existingTimeline with view model before being pushed")
+            EmptyView()
+            
         case .existingTimeline(let model, title: let title):
             TimelineListView()
                 .timelineEnvironment(timelineModel: model, contentConcealModel: model.timeline.contentConcealModel, filter: model.timelineQueryFilter, asyncRefreshModel: model.asyncRefreshViewModel)
                 .navigationTitle(title ?? model.timeline.navigationTitle ?? "")
             
         case .profile(let account, let relationship):
-            let viewModel = profileViewModel(account, relationship: relationship)
+            let _ = assertionFailure("this should be converted into a .existingProfile with view model before being pushed")
+            EmptyView()
+        case .existingProfile(let viewModel, _):
             ProfileView()
-                .profileEnvironment(viewModel, nestedScroll: NestedScrollInteractionViewModel())
+                .profileEnvironment(viewModel)
         case .myProfile(let viewModel):
             ProfileView()
-                .profileEnvironment(viewModel, nestedScroll: NestedScrollInteractionViewModel())
+                .profileEnvironment(viewModel)
         case .editProfile(let profileViewModel):
             ProfileEditingView()
                 .profileEditingEnvironment(profileViewModel)
@@ -198,7 +195,15 @@ enum MastodonNavigationDestination: Identifiable {
     }
     
     func push(_ destination: MastodonNavigationDestination) {
+        switch destination {
+        case .timeline(let timelineType):
+            let model = TimelineListViewModel(timeline: timelineType, navigator: self, asyncRefreshViewModel: AsyncRefreshViewModel())
+            navigationPath.append(.existingTimeline(model, title: nil))
+        case .profile(let account, let relationship):
+            navigationPath.append(.existingProfile(profileViewModel(account, relationship: relationship), guid: account.acctWithDomain))
+        default:
             navigationPath.append(destination)
+        }
     }
     
     func pop() {
@@ -451,7 +456,7 @@ extension MastodonNavigationDestination: Hashable {
     var description: String {
         switch self {
         case .timeline(let type):
-            return "timeline(\(type.id))"
+            return "timeline-stub(\(type.id))"
         case .existingTimeline(let model, let title):
             return "existingTimeline-\(title ?? "untitled")(\(ObjectIdentifier(model)))"
         case .profile(let account, let relationship):
@@ -459,7 +464,9 @@ extension MastodonNavigationDestination: Hashable {
                 guard let isMyAccount = relationship?.refersToSameAccount(as: .isMe) else { return "ME_UNKNOWN" }
                 return isMyAccount ? "isMe" : "notMe"
             }()
-            return "profile(\(account.acctWithDomain)-\(isMeString))"
+            return "profile-stub(\(account.acctWithDomain)-\(isMeString))"
+        case .existingProfile(let model, let guid):
+            return "existingProfile-\(guid)(\(ObjectIdentifier(model)))"
         case .myProfile:
             return "myProfile"
         case .editProfile:

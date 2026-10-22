@@ -11,6 +11,7 @@ import MastodonLocalization
 @Observable class ProfileViewModel {
     let uuid = UUID() // helpful for debugging
     let relationshipViewModel = RelationshipViewModel()
+    let nestedScrollViewModel = NestedScrollInteractionViewModel()
     
     let editingViewModel = {
         ProfileEditingViewModel()
