@@ -174,6 +174,14 @@ import MastodonLocalization
         }
     }
     
+    public func resetScroll() {
+        nestedScrollViewModel.reset()
+        postsViewModel?.scrollToTop()
+        mediaViewModel?.scrollToTop()
+        featuredItemsViewModel?.scrollToTop()
+        selectedPage = .activity
+    }
+    
     public func updateMediaFilter() {
         guard let mediaFilter, let account else { return }
         let accountIsExcludingRepliesInMediaTab = !account.metadata.mediaTabIncludesReplies

@@ -287,6 +287,14 @@ enum ScrollInteractionState: Equatable {
     
     var innerScrollDisabled: Bool = true
     
+    func reset() {
+        outerScrollState = nil
+        outerScrollPhase = .idle
+        innerScrollState = nil
+        innerScrollPhase = .idle
+        innerScrollDisabled = true
+    }
+    
     func updateOuterScroll(newSnapshot: ScrollSnapshot, maxOffset: CGFloat) -> ScrollInteractionState {
         guard innerScrollDisabled || outerScrollPhase == .idle else {
             return ScrollInteractionState(previousState: nil, currentSnapshot: newSnapshot, scrollPhase: .idle, maxOffset: maxOffset)

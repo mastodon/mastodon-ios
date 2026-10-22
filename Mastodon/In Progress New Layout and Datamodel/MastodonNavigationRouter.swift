@@ -201,6 +201,9 @@ enum MastodonNavigationDestination: Identifiable {
             navigationPath.append(.existingTimeline(model, title: nil))
         case .profile(let account, let relationship):
             navigationPath.append(.existingProfile(profileViewModel(account, relationship: relationship), guid: account.acctWithDomain))
+        case .myProfile(let model):
+            model.resetScroll()
+            navigationPath.append(destination)
         default:
             navigationPath.append(destination)
         }
