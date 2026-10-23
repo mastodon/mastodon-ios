@@ -488,7 +488,7 @@ extension RelationshipViewModel {
         case .follow:
             await commitFollow(account.id)
         case .unfollow:
-            await doUnfollow(account, askFirst: UserDefaults.standard.askBeforeUnfollowingSomeone, navigator: navigator)
+            await doUnfollow(account, askFirst: UserDefaults.shared.askBeforeUnfollowingSomeone, navigator: navigator)
         case .featureOnMyProfile:
             await doFeature(account, navigator: navigator)
         case .stopFeaturingOnMyProfile:

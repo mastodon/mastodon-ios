@@ -1050,7 +1050,7 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                 case .boost:
                     Task {
                         let canDoQuotePosts = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.quotePosts) ?? false
-                        await boost(actionablePost.id, askFirst: !canDoQuotePosts && UserDefaults.standard.askBeforeBoostingAPost, navigator: navigator)
+                        await boost(actionablePost.id, askFirst: !canDoQuotePosts && UserDefaults.shared.askBeforeBoostingAPost, navigator: navigator)
                     }
                 case .unboost, .favourite, .unfavourite, .bookmark, .unbookmark:
                     let updated: Mastodon.Entity.Status?

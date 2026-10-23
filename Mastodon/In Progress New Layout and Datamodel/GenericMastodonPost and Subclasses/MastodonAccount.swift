@@ -44,7 +44,7 @@ struct ImageUrl: Codable {
     }
 
     var preferredUrl: URL {
-        if UserDefaults.standard.preferredStaticAvatar {
+        if UserDefaults.shared.preferredStaticAvatar {
             return staticUrl
         } else {
             return animatedUrl ?? staticUrl
