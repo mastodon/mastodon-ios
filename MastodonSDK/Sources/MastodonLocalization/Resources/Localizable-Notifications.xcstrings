@@ -403,8 +403,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You have filtered this notification out of your Notifications tab"
+            "state" : "translated",
+            "value" : "Sa oled oma teavituste vahekaardil selle teavituse filtritega välistanud"
           }
         },
         "eu" : {
@@ -715,8 +715,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Get a push notification when…"
+            "state" : "translated",
+            "value" : "Saad tõuketeavituse, kui keegi…"
           }
         },
         "eu" : {
@@ -1026,8 +1026,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone boosted your post"
+            "state" : "translated",
+            "value" : "Annab sinu postitusele hoogu"
           }
         },
         "eu" : {
@@ -1337,8 +1337,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A post you interacted with has been edited"
+            "state" : "translated",
+            "value" : "Muutunud on postitus, millega oled suhestunud"
           }
         },
         "eu" : {
@@ -1648,8 +1648,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A post you quoted has been edited"
+            "state" : "translated",
+            "value" : "Muutunud on postitus, mida oled tsiteerinud"
           }
         },
         "eu" : {
@@ -1959,8 +1959,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone liked your post"
+            "state" : "translated",
+            "value" : "Kellelegi meeldis sinu postitus"
           }
         },
         "eu" : {
@@ -1983,8 +1983,8 @@
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone liked your post"
+            "state" : "translated",
+            "value" : "Thaitin do phostáil le duine éigin"
           }
         },
         "gd" : {
@@ -2157,8 +2157,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone liked your post"
+            "state" : "translated",
+            "value" : "Комусь сподобався ваш допис"
           }
         },
         "vi" : {
@@ -2270,8 +2270,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone requested to follow you"
+            "state" : "translated",
+            "value" : "Keegi soovib sind jälgida"
           }
         },
         "eu" : {
@@ -2581,8 +2581,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone mentioned you"
+            "state" : "translated",
+            "value" : "Keegi mainis sind"
           }
         },
         "eu" : {
@@ -2892,8 +2892,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone followed you"
+            "state" : "translated",
+            "value" : "Keegi alustas sinu jälgimist"
           }
         },
         "eu" : {
@@ -3203,8 +3203,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone you’ve asked to be notified about has posted"
+            "state" : "translated",
+            "value" : "Keegi on postitanud, kelle kohta soovisid teavitust"
           }
         },
         "eu" : {
@@ -3514,8 +3514,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A poll you created or voted in has ended"
+            "state" : "translated",
+            "value" : "Lõppenud on küsitlus, mille koostasid või kus osalesid"
           }
         },
         "eu" : {
@@ -3825,8 +3825,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone quoted you"
+            "state" : "translated",
+            "value" : "Keegi tsiteeris sind"
           }
         },
         "eu" : {

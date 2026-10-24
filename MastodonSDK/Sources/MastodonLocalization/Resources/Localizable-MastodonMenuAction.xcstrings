@@ -714,8 +714,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You must follow %1$(username)@  before adding them to a custom feed."
+            "state" : "translated",
+            "value" : "Enne, kui saad ta oma koostatud sisuvoole lisada, pead jälgima kasutajat %1$(username)@."
           }
         },
         "eu" : {
@@ -4456,8 +4456,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add to custom feed…"
+            "state" : "translated",
+            "value" : "Lisa endakoostatud sisuvoog…"
           }
         },
         "eu" : {
@@ -5704,8 +5704,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Likes"
+            "state" : "translated",
+            "value" : "Meeldimised"
           }
         },
         "eu" : {
@@ -5902,8 +5902,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Likes"
+            "state" : "translated",
+            "value" : "Вподобайки"
           }
         },
         "vi" : {

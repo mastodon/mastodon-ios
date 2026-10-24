@@ -229,8 +229,8 @@
         },
         "pt" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "by %1$(authorHandle)@"
+            "state" : "translated",
+            "value" : "por %1$(authorHandle)@"
           }
         },
         "pt-BR" : {
@@ -541,8 +541,8 @@
         },
         "pt" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(collectionAuthor)@ added you on %2$(date)@"
+            "state" : "translated",
+            "value" : "%1$(collectionAuthor)@ adicionou-o a %2$(date)@"
           }
         },
         "pt-BR" : {
