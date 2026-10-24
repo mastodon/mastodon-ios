@@ -91,8 +91,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add %1$(accountName)@"
+            "state" : "translated",
+            "value" : "Lisa %1$(accountName)@"
           }
         },
         "eu" : {
@@ -715,8 +715,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create custom feed"
+            "state" : "translated",
+            "value" : "Lisa endakoostatud uudisvoog"
           }
         },
         "eu" : {
@@ -1027,8 +1027,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create new custom feed…"
+            "state" : "translated",
+            "value" : "Lisa uus endakoostatud uudisvoog…"
           }
         },
         "eu" : {
@@ -1338,8 +1338,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
+            "state" : "translated",
+            "value" : "Kui keegi on selles sinu koostatud uudisvoos, peida ta jälgimiste ajajoonelt, vältimaks tema postituste kaks korda nägemist."
           }
         },
         "eu" : {
@@ -1962,8 +1962,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies from custom feed members to"
+            "state" : "translated",
+            "value" : "Kaasa ka uudisvoo liikmete vastused"
           }
         },
         "eu" : {
@@ -2273,8 +2273,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Could not create custom feed: %1$(errorDescription)@ "
+            "state" : "translated",
+            "value" : "Oma uudisvoo koostamine ei õnnestunud: %1$(errorDescription)@ "
           }
         },
         "eu" : {
@@ -2585,8 +2585,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom feed name"
+            "state" : "translated",
+            "value" : "Endakoostatud uudisvoo nimi"
           }
         },
         "eu" : {
@@ -3209,8 +3209,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Members of the custom feed"
+            "state" : "translated",
+            "value" : "Endakoostatud uudisvoo liikmed"
           }
         },
         "eu" : {

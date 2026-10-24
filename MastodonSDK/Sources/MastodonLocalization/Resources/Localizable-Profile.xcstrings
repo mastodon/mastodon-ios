@@ -20018,8 +20018,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Blocked Accounts"
+            "state" : "translated",
+            "value" : "Blokeeritud kasutajakontod"
           }
         },
         "eu" : {
@@ -20330,8 +20330,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "View Profile"
+            "state" : "translated",
+            "value" : "Vaata profiili"
           }
         },
         "eu" : {

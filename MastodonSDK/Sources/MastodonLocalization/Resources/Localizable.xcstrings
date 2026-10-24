@@ -1012,7 +1012,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Залишилось %ld символів"
+                  "value" : "Залишилось %ld символи"
                 }
               }
             }
@@ -45442,8 +45442,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Like"
+            "state" : "translated",
+            "value" : "Meeldib"
           }
         },
         "eu" : {
@@ -48863,8 +48863,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Unlike"
+            "state" : "translated",
+            "value" : "Ei meeldi"
           }
         },
         "eu" : {
@@ -53176,8 +53176,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Matches filter: “%(userDefinedFilterTitle)@”"
+            "state" : "translated",
+            "value" : "Matcher filteret: “%(userDefinedFilterTitle)@”"
           }
         },
         "de" : {
@@ -53218,8 +53218,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Matches filter: “%(userDefinedFilterTitle)@”"
+            "state" : "translated",
+            "value" : "Vastab filtrile: „%(userDefinedFilterTitle)@“"
           }
         },
         "eu" : {
@@ -53236,14 +53236,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Matches filter: “%(userDefinedFilterTitle)@”"
+            "state" : "translated",
+            "value" : "Filtre correspondant : « %(userDefinedFilterTitle)@ »"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Matches filter: “%(userDefinedFilterTitle)@”"
+            "state" : "translated",
+            "value" : "Meaitseálann an scagaire: “%(userDefinedFilterTitle)@”"
           }
         },
         "gd" : {
@@ -53290,8 +53290,8 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Matches filter: “%(userDefinedFilterTitle)@”"
+            "state" : "translated",
+            "value" : "Samsvarar síu: “%(userDefinedFilterTitle)@”"
           }
         },
         "it" : {
@@ -53356,8 +53356,8 @@
         },
         "pt" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Matches filter: “%(userDefinedFilterTitle)@”"
+            "state" : "translated",
+            "value" : "Corresponde ao filtro “%(userDefinedFilterTitle)@”"
           }
         },
         "pt-BR" : {
@@ -53422,8 +53422,8 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Matches filter: “%(userDefinedFilterTitle)@”"
+            "state" : "translated",
+            "value" : "Khớp bộ lọc: “%(userDefinedFilterTitle)@”"
           }
         },
         "zh-Hans" : {
@@ -54481,7 +54481,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Affiche le lecteur vidéo. Appuyez deux fois et maintenez enfoncé pour afficher les actions"
+            "value" : "Affiche le lecteur vidéo. Appuyez deux fois et maintenez pour afficher les actions"
           }
         },
         "ga" : {
@@ -93669,14 +93669,14 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "1 like"
+                  "state" : "translated",
+                  "value" : "1 meeldimine"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%ld likes"
+                  "state" : "translated",
+                  "value" : "%ld meeldimist"
                 }
               }
             }
@@ -142836,8 +142836,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Change Email Address"
+            "state" : "translated",
+            "value" : "Muuda e-posti aadressi"
           }
         },
         "eu" : {
@@ -145324,8 +145324,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tap the link we sent you to verify your account. We’ll wait right here."
+            "state" : "translated",
+            "value" : "Klõpsa linki, mille me saatsime sinu kasutajakonto kinnitamiseks. Seni me rahulikult ootame."
           }
         },
         "eu" : {
@@ -154591,8 +154591,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Likes"
+            "state" : "translated",
+            "value" : "Meeldimised"
           }
         },
         "eu" : {
@@ -154789,8 +154789,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Likes"
+            "state" : "translated",
+            "value" : "Вподобайки"
           }
         },
         "vi" : {
@@ -154902,8 +154902,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Liked By"
+            "state" : "translated",
+            "value" : "Selle märkisid meeldivaks"
           }
         },
         "eu" : {
@@ -154926,8 +154926,8 @@
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Liked By"
+            "state" : "translated",
+            "value" : "Ar thaitin le"
           }
         },
         "gd" : {
@@ -155100,8 +155100,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Liked By"
+            "state" : "translated",
+            "value" : "Вподобано"
           }
         },
         "vi" : {
@@ -168330,14 +168330,14 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%(favouriteCount)lld person liked:"
+                  "state" : "translated",
+                  "value" : "%(favouriteCount)lld inimene märkis meeldivaks:"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%(favouriteCount)lld people liked:"
+                  "state" : "translated",
+                  "value" : "%(favouriteCount)lld inimest märkisid meeldivaks:"
                 }
               }
             }
@@ -171729,8 +171729,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%(username)@ liked:"
+            "state" : "translated",
+            "value" : "%(username)@ märkis meeldivaks:"
           }
         },
         "eu" : {
@@ -171753,8 +171753,8 @@
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%(username)@ liked:"
+            "state" : "translated",
+            "value" : "Thaitin %(username)@ leis seo:"
           }
         },
         "gd" : {
@@ -179615,14 +179615,14 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "You and %(othersCount)lld other liked:"
+                  "state" : "translated",
+                  "value" : "Sina ja veel %(othersCount)lld muu kasutaja märkisid meeldivaks:"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "You and %(othersCount)lld others liked:"
+                  "state" : "translated",
+                  "value" : "Sina ja veel %(othersCount)lld muud kasutajat märkisid meeldivaks:"
                 }
               }
             }
@@ -204298,8 +204298,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Show quotes"
+            "state" : "translated",
+            "value" : "Näita tsiteerimisi"
           }
         },
         "eu" : {
@@ -246602,8 +246602,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Search for hashtags matching \"%1$(searchTerm)@\""
+            "state" : "translated",
+            "value" : "Otsi „%1$(searchTerm)@“ päringule vastavaid teemaviited"
           }
         },
         "eu" : {
@@ -246626,8 +246626,8 @@
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Search for hashtags matching \"%1$(searchTerm)@\""
+            "state" : "translated",
+            "value" : "Cuardaigh haischlibeanna a mheaitseálann \"%1$(searchTerm)@\""
           }
         },
         "gd" : {
@@ -246740,8 +246740,8 @@
         },
         "pt" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Search for hashtags matching \"%1$(searchTerm)@\""
+            "state" : "translated",
+            "value" : "Pesquisar por “hashtags” correspondentes \"%1$(searchTerm)@\""
           }
         },
         "pt-BR" : {
@@ -246914,8 +246914,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Search for people matching \"%1$(searchTerm)@\""
+            "state" : "translated",
+            "value" : "Otsi „%1$(searchTerm)@“ päringule vastavaid inimesi"
           }
         },
         "eu" : {
@@ -246938,8 +246938,8 @@
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Search for people matching \"%1$(searchTerm)@\""
+            "state" : "translated",
+            "value" : "Cuardaigh daoine a mheaitseálann \"%1$(searchTerm)@\""
           }
         },
         "gd" : {
@@ -247052,8 +247052,8 @@
         },
         "pt" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Search for people matching \"%1$(searchTerm)@\""
+            "state" : "translated",
+            "value" : "Pesquisar por pessoas correspondentes a \"%1$(searchTerm)@\""
           }
         },
         "pt-BR" : {
@@ -247226,8 +247226,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Search for posts matching \"%1$(searchTerm)@\""
+            "state" : "translated",
+            "value" : "Otsi „%1$(searchTerm)@“ päringule vastavaid postitusi"
           }
         },
         "eu" : {
@@ -247250,8 +247250,8 @@
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Search for posts matching \"%1$(searchTerm)@\""
+            "state" : "translated",
+            "value" : "Cuardaigh poist a mheaitseálann \"%1$(searchTerm)@\""
           }
         },
         "gd" : {
@@ -247364,8 +247364,8 @@
         },
         "pt" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Search for posts matching \"%1$(searchTerm)@\""
+            "state" : "translated",
+            "value" : "Pesquisar por publicações que correspondam \"%1$(searchTerm)@\""
           }
         },
         "pt-BR" : {
