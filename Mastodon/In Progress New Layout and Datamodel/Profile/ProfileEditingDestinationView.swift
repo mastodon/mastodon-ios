@@ -332,10 +332,6 @@ struct ProfileTabSettingsEditor: View {
     @Environment(MastodonNavigationRouter.self) var navigator
     @Environment(ProfileViewModel.self) var profileViewModel
     @Environment(ProfileEditingViewModel.self) var editingViewModel
-    
-    @State var showMediaTabToggleState = false
-    @State var showFeaturedTabToggleState = false
-    @State var showMediaRepliesToggleState = false
 
     @State var isSavingMediaTabSetting = false
     @State var isSavingMediaRepliesSetting = false
@@ -345,73 +341,108 @@ struct ProfileTabSettingsEditor: View {
         List {
             // SHOW/HIDE MEDIA TAB
             Section {
-                toggleRow(label: L10nLookup.Scene.EditProfile.TabSettings.mediaTabTitle, subtitle: L10nLookup.Scene.EditProfile.TabSettings.mediaTabSubtitle, toggleState: $showMediaTabToggleState, isSaving: $isSavingMediaTabSetting)
-                if showMediaTabToggleState {
-                    toggleRow(label: L10nLookup.Scene.EditProfile.TabSettings.includeReplies, subtitle: nil, toggleState: $showMediaRepliesToggleState, isSaving: $isSavingMediaRepliesSetting)
+                toggleRow(.mediaTabVisibility)
+                if editingViewModel.showMediaTab {
+                    toggleRow(.mediaTabIncludesReplies)
                 }
             }
             
             // SHOW/HIDE FEATURED TAB
             Section {
-                toggleRow(label: L10nLookup.Scene.EditProfile.TabSettings.featuredTabTitle, subtitle: L10nLookup.Scene.EditProfile.TabSettings.featuredTabSubtitle, toggleState: $showFeaturedTabToggleState, isSaving: $isSavingFeaturedTabSetting)
+                toggleRow(.featuredTabVisibility)
             } footer: {
                 tipText(L10nLookup.Scene.EditProfile.TabSettings.federationDisclaimer)
             }
         }
-        .task {
-            showMediaTabToggleState = editingViewModel.mediaTabVisibilitySetting == .showMediaTab
-            showMediaRepliesToggleState = editingViewModel.mediaTabRepliesSetting == .includeMyRepliesToOthers
-            showFeaturedTabToggleState = editingViewModel.featuredTabVisibilitySetting == .showFeaturedTab
-        }
-        .onChange(of: showMediaTabToggleState) { oldValue, newValue in
-            let newSetting: ProfileEditingViewModel.MediaTabVisibilitySetting = newValue ? .showMediaTab : .hideMediaTab
-            editingViewModel.setMediaTabVisibilitySetting(newSetting)
-            isSavingMediaTabSetting = true
-            Task {
-                do {
-                    try await profileViewModel.commitTabSettingsChanges()
-                } catch {
-                    navigator.didReceiveError(error)
-                }
-                isSavingMediaTabSetting = false
-            }
-        }
-        .onChange(of: showMediaRepliesToggleState) { oldValue, newValue in
-            let newSetting: ProfileEditingViewModel.MediaTabRepliesSetting = newValue ? .includeMyRepliesToOthers : .showDirectPostsOnly
-            editingViewModel.setMediaTabRepliesSetting(newSetting)
-            isSavingMediaRepliesSetting = true
-            Task {
-                do {
-                    try await profileViewModel.commitTabSettingsChanges()
-                } catch {
-                    navigator.didReceiveError(error)
-                }
-                isSavingMediaRepliesSetting = false
-            }
-        }
-        .onChange(of: showFeaturedTabToggleState) { oldValue, newValue in
-            let newSetting: ProfileEditingViewModel.FeaturedTabVisibilitySetting = newValue ? .showFeaturedTab : .hideFeaturedTab
-            editingViewModel.setFeaturedTabVisibilitySetting(newSetting)
-            isSavingFeaturedTabSetting = true
-            Task {
-                do {
-                    try await profileViewModel.commitTabSettingsChanges()
-                } catch {
-                    navigator.didReceiveError(error)
-                }
-                isSavingFeaturedTabSetting = false
-            }
-        }
-            
     }
     
-    @ViewBuilder func toggleRow(label: String, subtitle: String?, toggleState: Binding<Bool>, isSaving: Binding<Bool>) -> some View {
+    private enum TabSetting {
+        case mediaTabVisibility
+        case mediaTabIncludesReplies
+        case featuredTabVisibility
+        
+        var label: String {
+            switch self {
+            case .mediaTabVisibility: L10nLookup.Scene.EditProfile.TabSettings.mediaTabTitle
+            case .mediaTabIncludesReplies: L10nLookup.Scene.EditProfile.TabSettings.includeReplies
+            case .featuredTabVisibility: L10nLookup.Scene.EditProfile.TabSettings.featuredTabTitle
+            }
+        }
+        
+        var subtitle: String? {
+            switch self {
+            case .mediaTabVisibility: L10nLookup.Scene.EditProfile.TabSettings.mediaTabSubtitle
+            case .mediaTabIncludesReplies: nil
+            case .featuredTabVisibility: L10nLookup.Scene.EditProfile.TabSettings.featuredTabSubtitle
+            }
+        }
+        
+    }
+    
+    private func toggleState(_ setting: TabSetting) -> Binding<Bool> {
+        Binding<Bool>(
+            get: { currentSetting(setting) },
+            set: { newValue in
+               recordAndPushSetting(setting, newValue: newValue)
+            }
+        )
+    }
+    
+    private func setToggleState(_ newValue: Bool, forSetting setting: TabSetting) {
+        switch setting {
+        case .mediaTabVisibility: editingViewModel.setShowMediaTab(newValue)
+        case .mediaTabIncludesReplies: editingViewModel.setIncludeRepliesInMediaTab(newValue)
+        case .featuredTabVisibility: editingViewModel.setShowFeaturedTab(newValue)
+        }
+    }
+    
+    private func isSaving(_ setting: TabSetting) -> Bool {
+        switch setting {
+        case .mediaTabVisibility: isSavingMediaTabSetting
+        case .mediaTabIncludesReplies: isSavingMediaRepliesSetting
+        case .featuredTabVisibility: isSavingFeaturedTabSetting
+        }
+    }
+    
+    private func setIsSaving(_ setting: TabSetting, value: Bool) {
+        switch setting {
+        case .mediaTabVisibility: isSavingMediaTabSetting = value
+        case .mediaTabIncludesReplies: isSavingMediaRepliesSetting = value
+        case .featuredTabVisibility: isSavingFeaturedTabSetting = value
+        }
+    }
+    
+    private func recordAndPushSetting(_ setting: TabSetting, newValue: Bool) {
+        let previousSetting = currentSetting(setting)
+        guard newValue != previousSetting else { return }
+        setToggleState(newValue, forSetting: setting)
+        setIsSaving(setting, value: true)
+        Task {
+            do {
+                try await profileViewModel.commitTabSettingsChanges()
+            } catch {
+                setToggleState(previousSetting, forSetting: setting)
+                navigator.didReceiveError(error)
+            }
+            setIsSaving(setting, value: false)
+        }
+    }
+    
+    private func currentSetting(_ setting: TabSetting) -> Bool {
+        switch setting {
+        case .mediaTabVisibility: editingViewModel.showMediaTab
+        case .mediaTabIncludesReplies: editingViewModel.includeRepliesInMediaTab
+        case .featuredTabVisibility: editingViewModel.showFeaturedTab
+        }
+    }
+    
+    @ViewBuilder private func toggleRow(_ setting: TabSetting) -> some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading) {
-                Text(label)
+                Text(setting.label)
                     .lineLimit(1)
                     .fixedSize(horizontal: true, vertical: false)
-                if let subtitle {
+                if let subtitle = setting.subtitle {
                     Text(subtitle)
                         .lineLimit(1)
                         .fixedSize(horizontal: true, vertical: false)
@@ -424,15 +455,15 @@ struct ProfileTabSettingsEditor: View {
             Spacer()
             
             ZStack(alignment: .trailing) {
-                Toggle(label, isOn: toggleState)
-                    .accessibilityHint(subtitle ?? "")
+                Toggle(setting.label, isOn: toggleState(setting))
+                    .accessibilityHint(setting.subtitle ?? "")
                     .tint(Asset.Colors.accent.swiftUIColor)
                     .labelsHidden()
-                    .opacity(isSaving.wrappedValue ? 0 : 1)
-                    .disabled(isSaving.wrappedValue)
+                    .opacity(isSaving(setting) ? 0 : 1)
+                    .disabled(isSavingMediaTabSetting || isSavingFeaturedTabSetting || isSavingMediaRepliesSetting) // all three settings are pushed to the server at once and the returned results written to the model, so we can't push more than one change at once without breaking things
                 ProgressView().progressViewStyle(.circular)
                     .accessibilityHidden(true)
-                    .opacity(isSaving.wrappedValue ? 1 : 0)
+                    .opacity(isSaving(setting) ? 1 : 0)
             }
         }
         .frame(maxWidth: .infinity)
@@ -644,9 +675,13 @@ struct AddFeaturedHashtagView: View {
         }
         .onTapGesture {
             Task {
-                try await featuredHashtagsModel.addFeaturedHashtag(tagName: hashtag)
-                searchText = ""
-                didFeature = hashtag
+                do {
+                    try await featuredHashtagsModel.addFeaturedHashtag(tagName: hashtag)
+                    searchText = ""
+                    didFeature = hashtag
+                } catch {
+                    navigator.didReceiveError(error)
+                }
             }
         }
     }

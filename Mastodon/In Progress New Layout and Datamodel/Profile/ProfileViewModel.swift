@@ -244,9 +244,9 @@ class ProfileEditingViewModel {
     var showCroppingView: Binding<Bool>
     var presentingAlert: ProfileEditingAlert?
     
-    private(set) var mediaTabVisibilitySetting: MediaTabVisibilitySetting = .showMediaTab
-    private(set) var mediaTabRepliesSetting: MediaTabRepliesSetting = .showDirectPostsOnly
-    private(set) var featuredTabVisibilitySetting: FeaturedTabVisibilitySetting = .showFeaturedTab
+    private(set) var showMediaTab = true
+    private(set) var includeRepliesInMediaTab = false
+    private(set) var showFeaturedTab = true
     
     var customFields: [Mastodon.Entity.Field]? = nil
     var reorderingCustomFields: [Mastodon.Entity.Field] = []
@@ -387,9 +387,9 @@ class ProfileEditingViewModel {
     }
     
     func updateMetaData(account: MastodonAccount) {
-        mediaTabVisibilitySetting = account.metadata.showsMediaTab ? .showMediaTab : .hideMediaTab
-        mediaTabRepliesSetting = account.metadata.mediaTabIncludesReplies ? .includeMyRepliesToOthers : .showDirectPostsOnly
-        featuredTabVisibilitySetting = account.metadata.showsFeaturedTab ? .showFeaturedTab : .hideFeaturedTab
+        showMediaTab = account.metadata.showsMediaTab
+        includeRepliesInMediaTab = account.metadata.mediaTabIncludesReplies
+        showFeaturedTab = account.metadata.showsFeaturedTab
         isAutomatedAccount = account.metadata.isBot
     }
     
@@ -562,7 +562,7 @@ extension ProfileViewModel {
         guard editingViewModel.showTabDisplayPreferences else { return }  // older servers don't know about these settings
         guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { throw APIService.APIError.explicit(.authenticationMissing) }
 
-        let updatedProfile = try await APIService.shared.updateTabDisplaySettings(showFeaturedTab: editingViewModel.featuredTabVisibilitySetting == .showFeaturedTab, showMediaTab: editingViewModel.mediaTabVisibilitySetting == .showMediaTab, showMediaReplies: editingViewModel.mediaTabRepliesSetting == .includeMyRepliesToOthers, authenticationBox: authBox)
+        let updatedProfile = try await APIService.shared.updateTabDisplaySettings(showFeaturedTab: editingViewModel.showFeaturedTab, showMediaTab: editingViewModel.showMediaTab, showMediaReplies: editingViewModel.includeRepliesInMediaTab, authenticationBox: authBox)
         guard let updatedAccount = account?.byUpdatingProfileSettings(updatedProfile) else { return }
         PersistenceManager.shared.cacheAccount(updatedAccount._legacyEntity, forUserID: authBox.authentication.userIdentifier())
         updateAccount(updatedAccount)
@@ -571,19 +571,19 @@ extension ProfileViewModel {
 }
 
 extension ProfileEditingViewModel {
-    func setMediaTabVisibilitySetting(_ newSetting: MediaTabVisibilitySetting) {
-        guard newSetting != mediaTabVisibilitySetting else { return }
-        mediaTabVisibilitySetting = newSetting
+    func setShowMediaTab(_ newSetting: Bool) {
+        guard newSetting != showMediaTab else { return }
+        showMediaTab = newSetting
     }
     
-    func setMediaTabRepliesSetting(_ newSetting: MediaTabRepliesSetting) {
-        guard newSetting != mediaTabRepliesSetting else { return }
-        mediaTabRepliesSetting = newSetting
+    func setIncludeRepliesInMediaTab(_ newSetting: Bool) {
+        guard newSetting != includeRepliesInMediaTab else { return }
+        includeRepliesInMediaTab = newSetting
     }
     
-    func setFeaturedTabVisibilitySetting(_ newSetting: FeaturedTabVisibilitySetting) {
-        guard newSetting != featuredTabVisibilitySetting else { return }
-        featuredTabVisibilitySetting = newSetting
+    func setShowFeaturedTab(_ newSetting: Bool) {
+        guard newSetting != showFeaturedTab else { return }
+        showFeaturedTab = newSetting
     }
 }
 

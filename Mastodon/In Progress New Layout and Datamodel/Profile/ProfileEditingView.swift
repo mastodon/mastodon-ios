@@ -310,23 +310,6 @@ extension ProfileEditingViewModel {
     }
 }
 
-extension ProfileEditingViewModel {
-    enum MediaTabVisibilitySetting: Int {
-        case showMediaTab
-        case hideMediaTab
-    }
-    
-    enum MediaTabRepliesSetting: Int {
-        case showDirectPostsOnly
-        case includeMyRepliesToOthers
-    }
-    
-    enum FeaturedTabVisibilitySetting: Int {
-        case showFeaturedTab
-        case hideFeaturedTab
-    }
-}
-
 func normalize(htmlString: String?) -> String? {
     let _note = htmlString?.replacingOccurrences(of: "<br>|<br />", with: "\u{2028}", options: .regularExpression, range: nil)
         .replacingOccurrences(of: "</p>", with: "</p>\u{2029}", range: nil)

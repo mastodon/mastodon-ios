@@ -1401,6 +1401,7 @@ extension ProfileViewModel {
         guard currentFetchState == nil else { return }
         guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { throw APIService.APIError.explicit(.authenticationMissing) }
         
+        defer { currentFetchState = nil }
         let nextToFetch = fetchQueue.removeFirst()
         currentFetchState = nextToFetch
         switch nextToFetch {
@@ -1418,7 +1419,6 @@ extension ProfileViewModel {
         case .fetchingSuggestedTags:
             suggestedTags = try await APIService.shared.getSuggestedTags(authenticationBox: authBox).value
         }
-        currentFetchState = nil
         
         Task {
             try await doNextFetch()
