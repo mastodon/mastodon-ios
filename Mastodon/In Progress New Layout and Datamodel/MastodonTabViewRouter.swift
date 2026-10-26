@@ -122,7 +122,7 @@ import Combine
                 }
             }
             do {
-                lists = try await APIService.shared.getLists(authenticationBox: authenticatedUser).value
+                lists = try await APIService.shared.getLists(authenticationBox: authenticatedUser).value.sorted { $0.title.localizedStandardCompare($1.title) == .orderedAscending }
             } catch {
                 guard !error.isTransientNetworkError else { return }
                 navigationRouter(forTab: .home).didReceiveError(error)

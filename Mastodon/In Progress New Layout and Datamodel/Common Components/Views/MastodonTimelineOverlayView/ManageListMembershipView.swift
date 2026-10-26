@@ -295,7 +295,7 @@ struct CreateNewListView: View {
             ).singleOutput().value) ?? []
             
             listsIncludingThisAccount = _listsIncludingThisAccount.reduce(into: Set<Mastodon.Entity.List.ID>()) { partialResult, thisList in  partialResult.insert(thisList.id) }
-            lists = _lists
+            lists = _lists.sorted { $0.title.localizedStandardCompare($1.title) == .orderedAscending }
         }
     }
     
