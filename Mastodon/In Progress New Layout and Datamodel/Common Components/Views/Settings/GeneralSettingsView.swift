@@ -208,6 +208,7 @@ struct ToggleRow: View {
     
     var body: some View {
         Toggle(label, isOn: $isOn)
+            .tint(Asset.Colors.accent.swiftUIColor)
     }
 }
 
