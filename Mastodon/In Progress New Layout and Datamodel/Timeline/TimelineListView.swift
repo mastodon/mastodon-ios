@@ -210,7 +210,11 @@ struct TimelineListView: View {
                             }
                             .padding(doublePadding)
                             .frame(maxWidth: geo.size.width)
-                        }.nestedScrollview(viewModel.timeline.isInNestedScrollview ? .inner : .notNested)
+                            .padding(.leading, geo.safeAreaInsets.leading)
+                            .padding(.trailing, geo.safeAreaInsets.trailing)
+                        }
+                        .ignoresSafeArea(.container, edges: .horizontal)
+                        .nestedScrollview(viewModel.timeline.isInNestedScrollview ? .inner : .notNested)
                             .onScrollPhaseChange({ oldPhase, newPhase in
                                 let isNowScrolling = newPhase != .idle
                                 if isNowScrolling != viewModel.isCurrentlyScrolling {
@@ -226,10 +230,15 @@ struct TimelineListView: View {
                         
                         ScrollView(showsIndicators: false) {
                             LazyVStack(spacing: 0) {
-                                feedContents(geo)
+                                Group {
+                                    feedContents(geo)
+                                }
+                                .padding(.leading, geo.safeAreaInsets.leading)
+                                .padding(.trailing, geo.safeAreaInsets.trailing)
                             }
                             .scrollTargetLayout()
                         }
+                        .ignoresSafeArea(.container, edges: .horizontal)
                         .nestedScrollview(viewModel.timeline.isInNestedScrollview ? .inner : .notNested)
                         .onScrollPhaseChange({ oldPhase, newPhase in
                             let isNowScrolling = newPhase != .idle
@@ -324,9 +333,6 @@ struct TimelineListView: View {
                     .padding(tinySpacing)
                 }
             } // ZStack(alignment: .bottom)
-            .padding(.leading, geo.safeAreaInsets.leading)
-            .padding(.trailing, geo.safeAreaInsets.trailing)
-            .ignoresSafeArea(.container, edges: .horizontal)
         } // GeometryReader
         .onAppear() {
             viewModel.isCurrentlyOnScreen = true
