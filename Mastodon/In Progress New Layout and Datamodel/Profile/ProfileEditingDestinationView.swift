@@ -419,20 +419,20 @@ struct ProfileTabSettingsEditor: View {
                         .foregroundStyle(.secondary)
                 }
             }
+            .accessibilityHidden(true)
+            
             Spacer()
             
             ZStack(alignment: .trailing) {
-                if isSaving.wrappedValue {
-                    Toggle("", isOn: toggleState)
-                        .tint(Asset.Colors.accent.swiftUIColor)
-                        .hidden()
-                    ProgressView().progressViewStyle(.circular)
-                } else {
-                    Toggle("", isOn: toggleState) // TODO: A11y
-                        .tint(Asset.Colors.accent.swiftUIColor)
-                    ProgressView().progressViewStyle(.circular)
-                        .hidden()
-                }
+                Toggle(label, isOn: toggleState)
+                    .accessibilityHint(subtitle ?? "")
+                    .tint(Asset.Colors.accent.swiftUIColor)
+                    .labelsHidden()
+                    .opacity(isSaving.wrappedValue ? 0 : 1)
+                    .disabled(isSaving.wrappedValue)
+                ProgressView().progressViewStyle(.circular)
+                    .accessibilityHidden(true)
+                    .opacity(isSaving.wrappedValue ? 1 : 0)
             }
         }
         .frame(maxWidth: .infinity)

@@ -167,12 +167,13 @@ struct NotificationPolicyView: View {
                     .multilineTextAlignment(.leading)
                     .font(.subheadline)
             }
-            .accessibilityElement(children: .combine)
+            .accessibilityHidden(true)
             
             Spacer()
 
             // menu or toggle
             control(settingType)
+                .accessibilityHint(settingType.subtitle)
                 .fixedSize()
         }
         .frame(maxWidth: .infinity)
@@ -193,8 +194,11 @@ struct NotificationPolicyView: View {
                 HStack {
                     Text(viewModel.value(forItem: settingType).displayTitle)
                     Image(systemName: "chevron.up.chevron.down")
+                        .accessibilityHidden(true)
                 }
             }
+            .accessibilityLabel(settingType.title)
+            .accessibilityValue(viewModel.value(forItem: settingType).displayTitle)
             .tint(Asset.Colors.Brand.blurple.swiftUIColor)
             .fixedSize()
             .alignmentGuide(.buttonAlign) { d in return d[VerticalAlignment.center] }
@@ -206,6 +210,7 @@ struct NotificationPolicyView: View {
             }
         case .adminReports, .adminSignups:
             Toggle(
+                settingType.title,
                 isOn: Binding(
                     get: {
                         viewModel.value(forItem: settingType) == .accept
@@ -214,10 +219,11 @@ struct NotificationPolicyView: View {
                         viewModel.setValue(
                             $0 ? .accept : .filter, forItem: settingType)
                     })
-            ) {}
-                .tint(Asset.Colors.Brand.blurple.swiftUIColor)
-                .fixedSize()
-                .alignmentGuide(.toggleAlign) { d in d[.top] }
+            )
+            .labelsHidden()
+            .tint(Asset.Colors.Brand.blurple.swiftUIColor)
+            .fixedSize()
+            .alignmentGuide(.toggleAlign) { d in d[.top] }
         }
     }
     

@@ -186,20 +186,24 @@ struct CreateNewListView: View {
             
             VStack(alignment: .leading, spacing: tinySpacing) {
                 SubsectionHeading(title:  L10nLookup.Scene.Lists.includeRepliesTo, subtitle: nil)
-                Picker(selection: $viewModel.repliesPolicySelection) {
+                    .accessibilityHidden(true)
+                Picker(L10nLookup.Scene.Lists.includeRepliesTo, selection: $viewModel.repliesPolicySelection)
+                {
                     ForEach(CreateNewListViewModel.RepliesPolicy.allCases, id: \.self) { replySetting in
                         Text(replySetting.title)
                     }
-                } label: {
-                    
                 }
+                .labelsHidden()
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
             
             HStack(alignment: .top) {
                 SubsectionHeading(title:  L10nLookup.Scene.Lists.hideMembersInHomeFeed, subtitle:  L10nLookup.Scene.Lists.hideMembersExplainer)
+                    .accessibilityHidden(true)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Toggle("", isOn: $viewModel.removePostsFromHomeFeed)
+                ToggleRow(label: L10nLookup.Scene.Lists.hideMembersInHomeFeed, isOn: $viewModel.removePostsFromHomeFeed)
+                    .accessibilityHint(L10nLookup.Scene.Lists.hideMembersExplainer)
+                    .labelsHidden()
                     .fixedSize()
             }
             
