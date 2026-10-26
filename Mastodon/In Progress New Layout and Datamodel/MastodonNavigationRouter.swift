@@ -231,7 +231,8 @@ enum MastodonNavigationDestination: Identifiable {
     }
     
     public func openUrl(_ url: URL, afterDeconflictionDelay: Bool, forceInBrowser: Bool = false) -> LinkTapPolicy.OpenUrlResult {
-        if forceInBrowser || UserDefaults.shared.preferredUsingDefaultBrowser {
+        guard let scheme = url.scheme?.lowercased() else { return .discarded }
+        if forceInBrowser || UserDefaults.shared.preferredUsingDefaultBrowser || !["http", "https"].contains(scheme) {
             return .needsSystemOpen(url)
         } else {
             presentSheet(.contentUrl(ContentURL(url: url)), afterDeconflictionDelay: afterDeconflictionDelay)
