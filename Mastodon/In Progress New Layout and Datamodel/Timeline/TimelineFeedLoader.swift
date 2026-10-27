@@ -1341,7 +1341,9 @@ struct CacheableTimeline: CacheableFeed {
                 } else {
                     return .pinnedPosts(undeletedModels)
                 }
-            case .notification, .notificationRequest:
+            case .notification(let notificationViewModel):
+                return (notificationViewModel.inlinePostViewModel?.fullPost?.actionablePost?.id == postId) ? nil : item
+            case .notificationRequest:
                 return item
             case .noItem:
                 return nil
