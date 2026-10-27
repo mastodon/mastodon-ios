@@ -98,7 +98,7 @@ import MastodonLocalization
         self.navigator = navigator
         updateAccount(account)
         
-        self.editingViewModel.setAccount(account, textContentDidChange: { self.checkForEditingChanges(andCommit: false) } )
+        self.editingViewModel.setAccount(account, textContentDidChange: { [weak self] in self?.checkForEditingChanges(andCommit: false) } )
        
         self.postsViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: .init(.userPosts(featuredHashtagsModel))), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
         
@@ -549,7 +549,7 @@ extension ProfileViewModel {
             )
             let updatedAccount = MastodonAccount.fromEntity(response.value, authenticatedDomain: domain)
             updateAccount(updatedAccount)
-            editingViewModel.setAccount(updatedAccount, textContentDidChange: { self.checkForEditingChanges(andCommit: false) })
+            editingViewModel.setAccount(updatedAccount, textContentDidChange: { [weak self] in self?.checkForEditingChanges(andCommit: false) })
             isSavingEdits = false
             checkForEditingChanges(andCommit: false)
         } catch {
