@@ -368,7 +368,6 @@
 				"Common Components/Common Actions on Statuses and Accounts/MastodonMenuAction.swift",
 				"Common Components/Common Actions on Statuses and Accounts/MastodonPostMenuAction.swift",
 				"Common Components/Common Actions on Statuses and Accounts/PostActions.swift",
-				"Common Components/EmojiFirstAlphabetical.swift",
 				"Common Components/FlowLayout.swift",
 				"Common Components/GeometryHelpers.swift",
 				"Common Components/GlassEffectIfAvailable.swift",
