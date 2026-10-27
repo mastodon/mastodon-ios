@@ -124,8 +124,7 @@ nonisolated struct MastodonNotificationInfo {
             avatarRowAdditionalElement = .noneNeeded
             if let status {
                 let inlinePost = GenericMastodonPost.fromStatus(status, authenticatedDomain: myAccountDomain)
-                inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo(), displayType: .standard)
-                inlinePostViewModel?.initialSetFullPost(inlinePost)
+                inlinePostViewModel = CentralPostViewModelCache.shared.model(forPost: inlinePost)
                 usePrivateBackground = status.visibility == .direct
             }
         case .adminSignUp, .adminReport, .severedRelationships, .moderationWarning:
@@ -141,9 +140,8 @@ nonisolated struct MastodonNotificationInfo {
             avatarRowAdditionalElement = .noneNeeded
             if let status {
                 let inlinePost = GenericMastodonPost.fromStatus(status, authenticatedDomain: myAccountDomain)
-                inlinePostViewModel = MastodonPostViewModel(inlinePost.initialDisplayInfo(), displayType: .standard)
-                inlinePostViewModel?.initialSetFullPost(inlinePost)
-            }
+                inlinePostViewModel = CentralPostViewModelCache.shared.model(forPost: inlinePost)
+             }
         case .addedToCollection(let collection), .collectionUpdated(let collection):
             if let collection {
                 inlineCollectionViewModel?.updateCollection(collection)
@@ -647,12 +645,11 @@ extension NotificationRowViewModel.NotificationNavigation {
 
 extension NotificationRowViewModel: FeedCoordinatorUpdatable {
     func incorporateUpdate(_ update: UpdatedElement) {
-        
-        inlinePostViewModel?.incorporateUpdate(update)
-        
         switch update {
-        case .hashtag, .deletedPost, .post:
+        case .hashtag, .post:
             break
+        case .deletedPost:
+            inlinePostViewModel?.incorporateUpdate(update) // because these do not go through the CentralPostViewModelCache
         case .relationship(let updated):
             if relationshipViewModel.relationship?.refersToSameAccount(as: updated) == true {
                 relationshipViewModel.prepareForDisplay(relationship: updated, theirAccountIsLocked: _primaryAuthorAccountIsLocked)

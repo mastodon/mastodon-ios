@@ -31,7 +31,7 @@ struct PrecalculatedHeight {
         case donePreparing
     }
     
-    enum DisplayType: Equatable {
+    enum DisplayType: Hashable {
         case standard
         case editHistory(isOriginal: Bool)
     }

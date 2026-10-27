@@ -470,7 +470,6 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
     private var contentConcealViewModels = [Mastodon.Entity.Status.ID : ContentConcealViewModel]()
     
     private var updateSubscription: AnyCancellable?
-    private var postViewModels = [Mastodon.Entity.Status.ID : MastodonPostViewModel]()
     private var notificationViewModels = [Mastodon.Entity.NotificationGroup.ID : NotificationRowViewModel]()
     private var accountViewModels = [Mastodon.Entity.Account.ID : AccountRowViewModel]()
     private var collectionViewModels = [Mastodon.Entity.Collection.ID : CollectionViewModel]()
@@ -550,7 +549,6 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 }
             }
         }()
-        var newPostModels = [Mastodon.Entity.Status.ID : MastodonPostViewModel]()
         var newNotificationModels = [Mastodon.Entity.NotificationGroup.ID : NotificationRowViewModel]()
         var newAccountModels = [Mastodon.Entity.Account.ID : AccountRowViewModel]()
         var newCollectionModels = [Mastodon.Entity.Collection.ID : CollectionViewModel]()
@@ -565,29 +563,10 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             return timelineItem(fromPost: post, isPinned: false, isOriginal: isOriginal)
         }
         func timelineItem(fromPost post: GenericMastodonPost, isPinned: Bool, isOriginal: Bool?) -> TimelineItem {
-            let initialDisplayInfo = post.initialDisplayInfo()
-            let viewModel = {
-                if let existing = postViewModels[initialDisplayInfo.id] {
-                    existing.incorporateUpdate(.post(post))
-                    return existing
-                } else {
-                    // possible that another timeline has a view model for this post, even though we don't
-                    if let existingElsewhere = CentralPostViewModelCache.shared.cachedModel(for: initialDisplayInfo.id) {
-                        existingElsewhere.incorporateUpdate(.post(post))
-                        newPostModels[initialDisplayInfo.id] = existingElsewhere
-                        return existingElsewhere
-                    } else {
-                        let model = MastodonPostViewModel(initialDisplayInfo, displayType: timeline.isHistoryDisplay ? .editHistory(isOriginal: isOriginal == true) : .standard)
-                        model.initialSetFullPost(post)
-                        newPostModels[initialDisplayInfo.id] = model
-                        CentralPostViewModelCache.shared.addToCache(model)
-                        if let collectionModel = model.collectionViewModel {
-                            newCollectionModels[collectionModel.id] = collectionModel
-                        }
-                        return model
-                    }
-                }
-            }()
+            let viewModel = CentralPostViewModelCache.shared.model(forPost: post, displayType: timeline.isHistoryDisplay ? .editHistory(isOriginal: isOriginal == true) : .standard)
+            if let collectionModel = viewModel.collectionViewModel {
+                newCollectionModels[collectionModel.id] = collectionModel
+            }
             let isPinnedByMe = (post as? MastodonContentPost)?.content.myActions.pinnedByMe
             return TimelineItem.post(viewModel, isPinned: isPinned || (isPinnedByMe == true))
         }
@@ -654,6 +633,18 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             return response.value.collections.map { collection in
                 timelineItem(fromCollection: collection, partialAccounts: partialAccounts)
             }
+        }
+        
+        func threadItems(focusing statusID: Mastodon.Entity.Status.ID) async throws -> (items: [TimelineItem], asyncRefresh: Mastodon.Response.AsyncRefreshAvailable?) {
+            async let focusedStatus = APIService.shared.status(statusID: statusID, authenticationBox: authenticatedUser)
+            let statusContextResponse = try await APIService.shared.statusContext(
+                statusID: statusID,
+                authenticationBox: authenticatedUser
+            )
+            let focusedPost = GenericMastodonPost.fromStatus(try await focusedStatus.value, authenticatedDomain: authenticatedUser.domain)
+            let threadModel = ThreadedConversationModel(threadContext: statusContextResponse.value, focusedPost: focusedPost)
+            threadedConversationModel = threadModel
+            return (threadModel.fullThread.map { timelineItem(fromStatus: $0, isPinned: false) }, statusContextResponse.asyncRefreshAvaliable)
         }
 
         let newBatch: [TimelineItem]
@@ -1008,45 +999,26 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
         case .remoteThread(let remoteThreadType):
-            let status: Mastodon.Entity.Status
+            let statusID: Mastodon.Entity.Status.ID
             switch remoteThreadType {
-            case .status(let statusID):
-                status = try await APIService.shared.status(statusID: statusID, authenticationBox: authenticatedUser).value
+            case .status(let id):
+                statusID = id
             case .notification(let notificationID):
                 let notification = try await APIService.shared.notification(notificationID: notificationID, authenticationBox: authenticatedUser).value
-                guard notification.status != nil else { throw APIService.APIError.explicit(.badResponse) }
-                status = notification.status!
+                guard let status = notification.status else { throw APIService.APIError.explicit(.badResponse) }
+                statusID = status.id
             }
-            let post = GenericMastodonPost.fromStatus(status, authenticatedDomain: authenticatedUser.domain)
-            let response = try await APIService.shared.statusContext(
-                statusID: status.id,
-                authenticationBox: authenticatedUser
-            )
-            let context = response.value
-            let threadModel = ThreadedConversationModel(threadContext: context, focusedPost: post)
-            threadedConversationModel = threadModel
-            newBatch = threadModel.fullThread.map { timelineItem(fromStatus: $0, isPinned: false) }
+            let thread = try await threadItems(focusing: statusID)
+            newBatch = thread.items
             newBatchBottomLoad = .nothingMoreToLoad  // pagination is not possible, only reloading
-            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
+            newAsyncRefreshAvailable = thread.asyncRefresh
             
         case .thread(let root):
-            let response = try await APIService.shared.statusContext(
-                statusID: root.id,
-                authenticationBox: authenticatedUser
-            )
-            let context = response.value
-            let threadModel: ThreadedConversationModel
-            if let basicPost = root as? MastodonBasicPost, let quote = basicPost.quotedPost, quote.fullPost == nil, quote.quotedPostID != nil {
-                // likely this is a nested quote that is now being opened and therefore we should refetch the status in hopes of getting the full quoted status to display instead of the placeholder
-                let refetchedStatus = try await APIService.shared.status(statusID: root.id, authenticationBox: authenticatedUser).value
-                threadModel = ThreadedConversationModel(threadContext: context, focusedPost: GenericMastodonPost.fromStatus(refetchedStatus, authenticatedDomain: authenticatedUser.domain))
-            } else {
-                threadModel = ThreadedConversationModel(threadContext: context, focusedPost: root)
-            }
-            threadedConversationModel = threadModel
-            newBatch = threadModel.fullThread.map { timelineItem(fromStatus: $0, isPinned: false) }
+            // the root may be out of date, so we fetch it again
+            let thread = try await threadItems(focusing: root.id)
+            newBatch = thread.items
             newBatchBottomLoad = .nothingMoreToLoad  // pagination is not possible, only reloading
-            newAsyncRefreshAvailable = response.asyncRefreshAvaliable
+            newAsyncRefreshAvailable = thread.asyncRefresh
             
         case .myFollowedHashtags:
             let response = try await {
@@ -1192,7 +1164,6 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         newCache = CacheableTimeline(older: [], olderBottomLoad: newBatchBottomLoad, newer: newBatch, newerBottomLoad: newBatchBottomLoad, discardOlderIfNoOverlap: false)
 #endif
 
-        postViewModels = newPostModels
         collectionViewModels = newCollectionModels
         notificationViewModels = newNotificationModels
         accountViewModels = newAccountModels

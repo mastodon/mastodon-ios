@@ -22,28 +22,41 @@ class CentralPostViewModelCache {
                 default:
                     break
                 }
-                for (key, weakWrapper) in _cache {
-                    if let postModel = weakWrapper.value {
-                        postModel.incorporateUpdate(update)
-                    } else {
-                        _cache.removeValue(forKey: key)
-                    }
-                }
+                incorporateUpdate(update)
             }
     }
     
     private struct WeakPostViewModel {
         weak var value: MastodonPostViewModel?
     }
+    private struct CacheKey: Hashable {
+        let postID: String
+        let displayType: MastodonPostViewModel.DisplayType
+    }
+    private var _cache = [ CacheKey : WeakPostViewModel ]()
     
-    private var _cache = [ String : WeakPostViewModel ]()
-    
-    func cachedModel(for postID: Mastodon.Entity.Status.ID) -> MastodonPostViewModel? {
-        return _cache[postID]?.value
+    func model(forPost post: GenericMastodonPost, displayType: MastodonPostViewModel.DisplayType = .standard) -> MastodonPostViewModel {
+        let actionablePost = post.actionablePost ?? post
+        incorporateUpdate(.post(actionablePost)) // any boosts or notifications will want to know about this potentially newer version of the post
+        let initialDisplayInfo = post.initialDisplayInfo()
+        let key = CacheKey(postID: initialDisplayInfo.id, displayType: displayType)
+        if let existing = _cache[key]?.value {
+            return existing
+        } else {
+            let model = MastodonPostViewModel(initialDisplayInfo, displayType: displayType)
+            model.initialSetFullPost(post)
+            _cache[key] = WeakPostViewModel(value: model)
+            return model
+        }
     }
     
-    func addToCache(_ model: MastodonPostViewModel) {
-        let weakWrapper = WeakPostViewModel(value: model)
-        _cache[model.initialDisplayInfo.id] = weakWrapper
+    private func incorporateUpdate(_ update: UpdatedElement) {
+        for (key, weakWrapper) in _cache {
+            if let postModel = weakWrapper.value {
+                postModel.incorporateUpdate(update)
+            } else {
+                _cache.removeValue(forKey: key)
+            }
+        }
     }
 }
