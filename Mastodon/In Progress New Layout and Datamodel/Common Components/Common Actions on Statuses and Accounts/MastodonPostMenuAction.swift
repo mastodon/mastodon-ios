@@ -19,7 +19,7 @@ enum PostActionFailure: Error {
 }
 
 @MainActor
-protocol MastodonPostMenuActionHandler {
+protocol MastodonPostMenuActionHandler: AnyObject {
     func account(_ id: Mastodon.Entity.Account.ID) -> MastodonAccount?
     func doAction(_ action: MastodonPostMenuAction, forPost postViewModel: MastodonPostViewModel, navigator: MastodonNavigationRouter)
     func commitCurrentQuotePolicyEdit(navigator: MastodonNavigationRouter) async throws

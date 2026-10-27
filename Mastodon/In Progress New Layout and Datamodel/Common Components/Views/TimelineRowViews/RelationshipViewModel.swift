@@ -5,7 +5,7 @@ import SwiftUI
 
 @MainActor
 @Observable class RelationshipViewModel {
-    var actionHandler: MastodonPostMenuActionHandler? = nil
+    weak var actionHandler: MastodonPostMenuActionHandler? = nil
     public private(set) var button: RelationshipButtonType = .updating
     public private(set) var relationship: MastodonAccount.Relationship? = nil
     public var personalNoteEditingState: ProfileView.PersonalNoteEditState?

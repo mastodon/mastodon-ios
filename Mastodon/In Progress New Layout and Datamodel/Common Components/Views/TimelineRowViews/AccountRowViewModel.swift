@@ -9,7 +9,7 @@ import SwiftUI
     private(set) var account: MastodonAccount
     private var relationshipViewModel = RelationshipViewModel()
     private(set) var suggestionReasons: [Mastodon.Entity.V2.SuggestionAccount.SuggestionReason]?
-    var actionHandler: MastodonPostMenuActionHandler?
+    weak var actionHandler: MastodonPostMenuActionHandler?
     var relationshipButton: RelationshipButtonType = .updating
     var accountFollowsMe: Bool? {
         switch relationshipViewModel.relationship {

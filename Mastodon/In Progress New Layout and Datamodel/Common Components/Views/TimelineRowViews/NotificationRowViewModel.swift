@@ -31,7 +31,7 @@ nonisolated struct MastodonNotificationInfo {
 
 @MainActor
 @Observable class NotificationRowViewModel {
-    var actionHandler: MastodonPostMenuActionHandler? {
+    weak var actionHandler: MastodonPostMenuActionHandler? {
         didSet {
             relationshipViewModel.actionHandler = actionHandler
         }
