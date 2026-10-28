@@ -226,7 +226,7 @@ extension MastodonBasicPost: FromStatusEditDerivable {
         
         guard let content = PostContent.fromStatusEdit(statusEdit,  actualStatus: actualStatus, authenticatedDomain: authenticatedDomain), let metaData = PostMetadata.fromStatusEdit(statusEdit, actualStatus: actualStatus, authenticatedDomain: authenticatedDomain) else { return nil }
         
-        return MastodonBasicPost(id: "edit-\(statusEdit.createdAt)", metaData: metaData, content: content, inReplyTo: nil, attachment: PostAttachment.fromStatusEdit(statusEdit, actualStatus: actualStatus, authenticatedDomain: authenticatedDomain), quoted: quoted, _legacyEntity: actualStatus._legacyEntity) as? Self
+        return MastodonBasicPost(id: "edit-\(actualStatus.id)-\(statusEdit.createdAt.timeIntervalSince1970 )", metaData: metaData, content: content, inReplyTo: nil, attachment: PostAttachment.fromStatusEdit(statusEdit, actualStatus: actualStatus, authenticatedDomain: authenticatedDomain), quoted: quoted, _legacyEntity: actualStatus._legacyEntity) as? Self
     }
 }
 

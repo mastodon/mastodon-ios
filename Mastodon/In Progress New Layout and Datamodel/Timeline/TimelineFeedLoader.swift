@@ -994,7 +994,10 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             
         case .postHistory(let post):
             let response = try await APIService.shared.getHistory(forStatusID: post.id, authenticationBox: authenticatedUser)
-            newBatch = response.value.enumerated().compactMap { (index, statusEdit) in timelineItem(fromStatusEdit: statusEdit, actualStatus: post, isOriginal: index == response.value.endIndex - 1) }
+            newBatch = response.value
+                .sorted { $0.createdAt > $1.createdAt } // newest at the top
+                .enumerated()
+                .compactMap { (index, statusEdit) in timelineItem(fromStatusEdit: statusEdit, actualStatus: post, isOriginal: index == response.value.endIndex - 1) }
             newBatchBottomLoad = .nothingMoreToLoad
             newAsyncRefreshAvailable = response.asyncRefreshAvaliable
             
