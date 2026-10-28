@@ -1,0 +1,30 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Scene.Settings.Overview.feedbackSubtitle" : {
+      "comment" : "Subtitle for button that takes you to an external webpage where you can provide feedback on the app or Mastodon service",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tell us what you think!"
+          }
+        }
+      }
+    },
+    "Scene.Settings.Overview.feedbackTitle" : {
+      "comment" : "Title for button that takes you to an external webpage where you can provide feedback on the app or Mastodon service",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feedback"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.3"
+}

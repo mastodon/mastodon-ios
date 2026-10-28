@@ -114,12 +114,13 @@ struct SettingsNavigationView: View {
 
 struct SettingsRootView: View {
     @Environment(MastodonNavigationRouter.self) var navigator
+    @Environment(\.openURL) private var openURL
     let domain: String
     
     var settingsGroups: [SettingsGroup] {
-        let all: [SettingsGroup] = [ .basic, .server, .donations, .betaFeatures ].filter { group in
+        let all: [SettingsGroup] = [ .basic, .server, .donations, .betaFeatures, .feedback ].filter { group in
             switch group {
-            case .basic, .server: return true
+            case .basic, .server, .feedback: return true
             case .donations: return Mastodon.Entity.DonationCampaign.isEligibleForDonationsSettingsSection(domain: domain)
             case .betaFeatures:
                 return UserDefaults.isDebugOrTestflightOrSimulator
@@ -139,7 +140,8 @@ struct SettingsRootView: View {
                                 case .pushDestination(let destination):
                                     navigator.push(.settings(destination))
                                 case .openUrl(let url):
-                                    break
+                                    guard let url else { break }
+                                    openURL(url)
                                 case .makeDonation:
                                     let presentingNavigator = MastodonTabViewRouter.current.navigationRouterForCurrentTab()
                                     presentingNavigator.dismissCurrentModal()
@@ -167,9 +169,9 @@ struct SettingsRootView: View {
                         .foregroundStyle(.secondary)
                 }
             }
-            if setting.isNavigation {
+            if let navigation = setting.navigation {
                 Spacer()
-                Image(systemName: "chevron.right")
+                Image(systemName: navigation == .inApp ? "chevron.right" : "arrow.up.right")
                     .foregroundStyle(.secondary)
                     .frame(maxHeight: .infinity)
             }
@@ -182,6 +184,7 @@ enum SettingsGroup: String, Identifiable {
     case server
     case donations
     case betaFeatures
+    case feedback
     
     func rows(domain: String) -> [SettingsRow] {
         switch self {
@@ -193,6 +196,8 @@ enum SettingsGroup: String, Identifiable {
             [.makeDonation, .manageDonations]
         case .betaFeatures:
             [.manageBetaFeatures]
+        case .feedback:
+            [.openFeedback]
         }
     }
     
@@ -208,6 +213,7 @@ enum SettingsRow: Hashable, Identifiable {
     case makeDonation
     case manageDonations
     case manageBetaFeatures
+    case openFeedback
     
     var id: Self { self }
     
@@ -229,6 +235,8 @@ enum SettingsRow: Hashable, Identifiable {
             return L10n.Scene.Settings.Overview.aboutMastodon
         case .manageBetaFeatures:
             return "Beta Features"
+        case .openFeedback:
+            return L10nLookup.Scene.Settings.Overview.feedbackTitle
         }
     }
     
@@ -240,15 +248,24 @@ enum SettingsRow: Hashable, Identifiable {
             return nil
         case .manageBetaFeatures:
             return nil
+        case .openFeedback:
+            return L10nLookup.Scene.Settings.Overview.feedbackSubtitle
         }
     }
     
-    var isNavigation: Bool {
+    enum NavigationType {
+        case inApp
+        case external
+    }
+
+    var navigation: NavigationType? {
         switch self {
-        case .general, .notifications, .privacySafety, .serverDetails(_), .manageDonations, .aboutMastodon, .manageBetaFeatures:
-            return true
+        case .general, .notifications, .privacySafety, .serverDetails(_), .aboutMastodon, .manageBetaFeatures:
+            return .inApp
+        case .manageDonations, .openFeedback:
+            return .external
         case .makeDonation:
-            return false
+            return nil
         }
     }
     
@@ -270,6 +287,8 @@ enum SettingsRow: Hashable, Identifiable {
             return Image(systemName: "info.circle.fill")
         case .manageBetaFeatures:
             return Image(systemName: "wrench.adjustable.fill")
+        case .openFeedback:
+            return Image(systemName: "bubble.right.fill")
         }
     }
     
@@ -283,7 +302,7 @@ enum SettingsRow: Hashable, Identifiable {
             return .blue
         case .serverDetails(_):
             return .teal
-        case .makeDonation, .manageDonations:
+        case .makeDonation, .manageDonations, .openFeedback:
             return Asset.Colors.accent.swiftUIColor
         case .aboutMastodon:
             return Asset.Colors.accent.swiftUIColor
@@ -295,7 +314,7 @@ enum SettingsRow: Hashable, Identifiable {
     
     var textColor: Color {
         switch self {
-        case .general, .notifications, .privacySafety, .makeDonation, .manageDonations, .aboutMastodon, .serverDetails(_):
+        case .general, .notifications, .privacySafety, .makeDonation, .manageDonations, .aboutMastodon, .serverDetails(_), .openFeedback:
             return .primary
         case .manageBetaFeatures:
             return Asset.Colors.accent.swiftUIColor
@@ -313,16 +332,18 @@ extension SettingsRow {
             return .pushDestination(.notificationsSettings)
         case .privacySafety:
             return .pushDestination(.privacyAndSafety)
-        case .serverDetails(domain: let domain):
+        case .serverDetails:
             return .pushDestination(.serverDetails)
         case .aboutMastodon:
             return .pushDestination(.aboutMastodon)
         case .makeDonation:
             return .makeDonation
         case .manageDonations:
-            return .openUrl(URL(string: "sponsor.joinmastodon.org/donate/manage"))
+            return .openUrl(URL(string: "https://sponsor.joinmastodon.org/donate/manage"))
         case .manageBetaFeatures:
             return .pushDestination(.betaFeatures)
+        case .openFeedback:
+            return .openUrl(URL(string: "https://community.joinmastodon.org/"))
         }
     }
 }

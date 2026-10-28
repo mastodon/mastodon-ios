@@ -122,6 +122,14 @@ public struct L10nLookup {
                     let result = tr("Localizable", "Scene.Settings.Overview.AccountSwitcherTip")
                     return result
                 }
+                
+                public static var feedbackTitle: String {
+                    return tr("Localizable-Settings", "Scene.Settings.Overview.feedbackTitle")
+                }
+                
+                public static var feedbackSubtitle: String {
+                    return tr("Localizable-Settings", "Scene.Settings.Overview.feedbackSubtitle")
+                }
             }
             
             public struct Notifications {
