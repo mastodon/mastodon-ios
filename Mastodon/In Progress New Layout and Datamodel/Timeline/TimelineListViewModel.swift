@@ -462,7 +462,8 @@ import MastodonUI
                     
                     guard notificationCountHasIncreased else { return }
                     
-                    if self.isCurrentlyOnScreen {
+                    if self.isCurrentlyOnScreen || self.timeline == .notifications(scope: .everything) {
+                        // we reload the .everything notifications feed when receiving push notifications, even when off-screen, because that is how the updated stats are fetched and then broadcast to all the other feeds in the app
                         Task {
                             await self.forceReload(.notificationCountUpdated)
                         }
