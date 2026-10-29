@@ -18,6 +18,7 @@ public enum ApiFeature {
 public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
     
     public static let fallbackCharactersReservedPerURL = 23
+    public static let maxAccountsPerCollection = 25
 
     public enum InstanceConfiguration: Codable, Hashable {
         case fromEndpointV1(Mastodon.Entity.Instance)   // an instance returned by querying the v1 endpoint, available from all servers

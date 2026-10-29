@@ -44,6 +44,7 @@ extension Mastodon.Entity {
         public let showMedia: Bool?
         public let showMediaReplies: Bool?
         public let hideCollections: Bool?
+        public let featureApproval: FeatureApproval?
 
         // Statistical
         public let createdAt: Date
@@ -105,6 +106,7 @@ extension Mastodon.Entity {
             limited = original.limited
             muteExpiresAt = original.muteExpiresAt
             accountCreationState = original.accountCreationState
+            featureApproval = original.featureApproval
         }
     }
 }
@@ -134,6 +136,7 @@ extension Mastodon.Entity.Account: Codable {
         case showMedia = "show_media"
         case showMediaReplies = "show_media_replies"
         case hideCollections = "hide_collections"
+        case featureApproval = "feature_approval"
 
         case createdAt = "created_at"
         case lastStatusAt = "last_status_at"
