@@ -8,14 +8,14 @@ import MastodonSDK
     var useStagingForDonations = false
 //    var testUnreadMarkersForNotifications = false
     var showRateLimitTracker = false
-    var showCollections = false
+    var allowCreateCollections = false
     var hasDonationHistory = false
     
     var sections: [BetaTestSettingSection] {
         [
             .init(type: .features, settings: [
                 .showRateLimitTracker,
-                .showCollectionsInFeatureTab]),
+                .allowCreateCollections]),
             .init(type: .donations, settings: [
                 .useStagingForDonations,
                 useStagingForDonations ? .clearPreviousDonationCampaigns : nil
@@ -31,7 +31,7 @@ import MastodonSDK
         useStagingForDonations = UserDefaults.standard.useStagingForDonations
 //        testUnreadMarkersForNotifications = UserDefaults.standard.testUnreadMarkersForNotifications
         showRateLimitTracker = UserDefaults.standard.showRateLimitTracker
-        showCollections = UserDefaults.standard.showCollections
+        allowCreateCollections = UserDefaults.standard.allowCreateCollections
         hasDonationHistory = Mastodon.Entity.DonationCampaign.hasHistory()
     }
     
@@ -53,8 +53,8 @@ import MastodonSDK
         case .clearPreviousDonationCampaigns:
             assertionFailure("this is an action, not a setting")
             break
-        case .showCollectionsInFeatureTab:
-            UserDefaults.standard.toggleShowCollections()
+        case .allowCreateCollections:
+            UserDefaults.standard.toggleAllowCreateCollections()
         }
     }
     
@@ -63,7 +63,7 @@ import MastodonSDK
             switch setting {
             case .useStagingForDonations: useStagingForDonations
             case .showRateLimitTracker: showRateLimitTracker
-            case .showCollectionsInFeatureTab: showCollections
+            case .allowCreateCollections: allowCreateCollections
             case .clearPreviousDonationCampaigns: false
             }
         }
@@ -100,7 +100,7 @@ enum BetaTestSetting: Hashable {
     case clearPreviousDonationCampaigns
     //case testUnreadMarkersForNotifications
     case showRateLimitTracker
-    case showCollectionsInFeatureTab
+    case allowCreateCollections
     
     var labelText: String {
         switch self {
@@ -112,8 +112,8 @@ enum BetaTestSetting: Hashable {
             //            return "Test unread markers for notifications"
         case .showRateLimitTracker:
             return "Show API rate limit tracker"
-        case .showCollectionsInFeatureTab:
-            return "Show Collections"
+        case .allowCreateCollections:
+            return "Allow creating Collections"
         }
     }
 }
@@ -135,7 +135,7 @@ struct BetaFeaturesView: View {
     
     @ViewBuilder func row(_ setting: BetaTestSetting) -> some View {
         switch setting {
-        case .showCollectionsInFeatureTab, .showRateLimitTracker, .useStagingForDonations:
+        case .allowCreateCollections, .showRateLimitTracker, .useStagingForDonations:
             ToggleRow(label: setting.labelText, isOn: viewModel.binding(setting))
         case .clearPreviousDonationCampaigns:
             Button(role: .destructive) {
