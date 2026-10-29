@@ -1065,6 +1065,9 @@ public extension L10nLookup.Scene {
             let result = tr("Localizable-Collections", "Scene.Collections.createCollection")
             return result
         }()
+        public static let newCollectionButton: String = {
+            tr("Localizable-Collections", "Scene.Collections.newCollectionButton")
+        }()
         public static let hideThisTabInstead: String = {
             let result = tr("Localizable-Collections", "Scene.Collections.hideThisTabInstead")
             return result
@@ -1106,6 +1109,38 @@ public extension L10nLookup.Scene {
         public static let confirmRemoveFromCollectionMessage: String = {
             let result = tr("Localizable-Collections", "Scene.Collections.confirmRemoveFromCollectionMessage")
             return result
+        }()
+    }
+}
+
+public extension L10nLookup.Scene {
+    struct CreateCollection {
+        public static let title: String = {
+            tr("Localizable-Collections", "Scene.CreateCollection.title")
+        }()
+        public static func stepNumber(_ stepNumber: Int, ofTotal totalSteps: Int) -> String {
+            tr("Localizable-Collections", "Scene.CreateCollection.stepNumber", stepNumber, totalSteps)
+        }
+        public static let whoWillYouFeature: String = {
+            tr("Localizable-Collections", "Scene.CreateCollection.whoWillYouFeature")
+        }()
+        public static let searchBoxPlaceholder: String = {
+            tr("Localizable-Collections", "Scene.CreateCollection.searchBoxPlaceholder")
+        }()
+        public static let emptyCollectionMessage: String = {
+            tr("Localizable-Collections", "Scene.CreateCollection.emptyCollectionMessage")
+        }()
+        public static func accountLimitMessage(limit: Int) -> String {
+            tr("Localizable-Collections", "Scene.CreateCollection.accountLimitMessage", limit)
+        }
+        public static func accountsAddedCount(_ addedCount: Int, maxCount: Int) -> String {
+            tr("Localizable-Collections", "Scene.CreateCollection.accountsAddedCount", addedCount, maxCount)
+        }
+        public static let canNotAdd: String = {
+            tr("Localizable-Collections", "Scene.CreateCollection.canNotAdd")
+        }()
+        public static let canNotAddExplainer: String = {
+            tr("Localizable-Collections", "Scene.CreateCollection.canNotAddExplainer")
         }()
     }
 }

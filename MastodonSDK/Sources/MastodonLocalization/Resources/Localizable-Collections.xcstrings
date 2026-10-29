@@ -185,13 +185,13 @@
             "value" : "by %1$(authorHandle)@"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "by %1$(authorHandle)@"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "by %1$(authorHandle)@"
@@ -497,13 +497,13 @@
             "value" : "%1$(collectionAuthor)@ added you on %2$(date)@"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$(collectionAuthor)@ added you on %2$(date)@"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$(collectionAuthor)@ added you on %2$(date)@"
@@ -808,13 +808,13 @@
             "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Collections (coming in Mastodon 4.6) allow you to create your own curated lists of accounts to recommend to others."
@@ -1119,13 +1119,13 @@
             "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Collections are curated lists of accounts to help others discover more of the Fediverse."
@@ -1430,13 +1430,13 @@
             "value" : "This action can’t be undone. This user will still be able to add you to other collections, unless you block them."
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This action can’t be undone. This user will still be able to add you to other collections, unless you block them."
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This action can’t be undone. This user will still be able to add you to other collections, unless you block them."
@@ -1742,13 +1742,13 @@
             "value" : "Remove yourself from “%1$(collectionName)@”?"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove yourself from “%1$(collectionName)@”?"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove yourself from “%1$(collectionName)@”?"
@@ -2054,13 +2054,13 @@
             "value" : "Create a Collection"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create a Collection"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create a Collection"
@@ -2366,13 +2366,13 @@
             "value" : "Hide this tab instead"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Hide this tab instead"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Hide this tab instead"
@@ -2490,6 +2490,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "改為隱藏此分頁"
+          }
+        }
+      }
+    },
+    "Scene.Collections.newCollectionButton" : {
+      "comment" : "button text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Collection"
           }
         }
       }
@@ -3134,15 +3146,9 @@
             }
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "variations" : {
             "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%1$(count)lld account"
-                }
-              },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
@@ -3152,9 +3158,15 @@
             }
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "variations" : {
             "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%1$(count)lld account"
+                }
+              },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
@@ -3734,16 +3746,16 @@
             "value" : "Kkes"
           }
         },
-        "kmr-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rake"
-          }
-        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "삭제"
+          }
+        },
+        "ku-TR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rake"
           }
         },
         "lt" : {
@@ -4046,13 +4058,13 @@
             "value" : "Remove me"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove me"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove me"
@@ -4358,13 +4370,13 @@
             "value" : "Report collection"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Report collection"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Report collection"
@@ -4670,13 +4682,13 @@
             "value" : "Sensitive content"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Sensitive content"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Sensitive content"
@@ -4982,13 +4994,13 @@
             "value" : "The description and accounts may not be suitable for all viewers."
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The description and accounts may not be suitable for all viewers."
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The description and accounts may not be suitable for all viewers."
@@ -5293,13 +5305,13 @@
             "value" : "Stay tuned for Collections"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Stay tuned for Collections"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Stay tuned for Collections"
@@ -5605,13 +5617,13 @@
             "value" : "You’re featured in this collection"
           }
         },
-        "kmr-TR" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You’re featured in this collection"
           }
         },
-        "ko" : {
+        "ku-TR" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You’re featured in this collection"
@@ -5729,6 +5741,126 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "您已被加入至此收藏名單"
+          }
+        }
+      }
+    },
+    "Scene.CreateCollection.accountLimitMessage" : {
+      "comment" : "hint text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Add up to %1$(limit)lld account"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Add up to %1$(limit)lld accounts"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Scene.CreateCollection.accountsAddedCount" : {
+      "comment" : "hint text showing limit",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$(addedCount)lld/%2$(maxCount)lld accounts added"
+          }
+        }
+      }
+    },
+    "Scene.CreateCollection.canNotAdd" : {
+      "comment" : "section title for accounts in search results that cannot be added to the collection",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Can’t be added"
+          }
+        }
+      }
+    },
+    "Scene.CreateCollection.canNotAddExplainer" : {
+      "comment" : "section subtitle for accounts in search results that cannot be added to the collection",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "These accounts may have opted out of discovery, or they might be on a server that doesn’t support collections."
+          }
+        }
+      }
+    },
+    "Scene.CreateCollection.emptyCollectionMessage" : {
+      "comment" : "message shown when the collection is empty",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No one is in this collection yet"
+          }
+        }
+      }
+    },
+    "Scene.CreateCollection.searchBoxPlaceholder" : {
+      "comment" : "placeholder text in the search field",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search for an account to add"
+          }
+        }
+      }
+    },
+    "Scene.CreateCollection.stepNumber" : {
+      "comment" : "subtitle of the page, to show current progress",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Step %1$(stepNumber)lld/%2$(totalSteps)lld"
+          }
+        }
+      }
+    },
+    "Scene.CreateCollection.title" : {
+      "comment" : "page title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Collection"
+          }
+        }
+      }
+    },
+    "Scene.CreateCollection.whoWillYouFeature" : {
+      "comment" : "Prompt at top of page where you search for accounts to add to the collection",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Who will you feature in this collection?"
           }
         }
       }
