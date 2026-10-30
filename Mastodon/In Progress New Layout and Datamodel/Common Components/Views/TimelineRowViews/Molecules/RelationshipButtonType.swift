@@ -28,6 +28,17 @@ enum RelationshipButtonType {
         case rejectFollowRequest
         case noAction
         
+        var capsuleProminence: CapsuleButtonStyle.Prominence {
+            switch self {
+            case .follow, .editProfile, .approveFollowRequest:
+                return .prominent
+            case .unfollow, .unmute, .unblock, .rejectFollowRequest:
+                return .subtle
+            case .noAction:
+                return .neutral
+            }
+        }
+        
         var mastodonPostMenuAction: MastodonPostMenuAction? {
             switch self {
             case .follow:
@@ -177,7 +188,10 @@ enum RelationshipButtonType {
             return .rejectFollowRequest
         }
     }
-    
+
+    func capsuleStyle(isLarge: Bool, isInCollection: Bool) -> CapsuleButtonStyle {
+        CapsuleButtonStyle(buttonAction(isInCollection: isInCollection).capsuleProminence, isLarge: isLarge)
+    }
     
     func a11yActionTitle(isInCollection: Bool) -> String? {
         switch self {
@@ -188,7 +202,7 @@ enum RelationshipButtonType {
         }
     }
     
-    @ViewBuilder func button(isOpaque: Bool, isInCollection: Bool, action: @escaping ()->()) -> some View {
+    @ViewBuilder func button(isInCollection: Bool, action: @escaping ()->()) -> some View {
         switch self {
         case .updating:
             Button() {
@@ -196,25 +210,25 @@ enum RelationshipButtonType {
             } label: {
                 ProgressView().progressViewStyle(.circular)
             }
-            .buttonStyle(RelationshipButtonStyle(self, isLarge: false, isOpaque: isOpaque, isInCollection: isInCollection))
+            .buttonStyle(capsuleStyle(isLarge: false, isInCollection: isInCollection))
         case .error:
             Button() {
                 // nothing to do
             } label: {
                 lightwieghtImageView("exclamationmark.triangle", size: AvatarSize.tiny.rawValue)
             }
-            .buttonStyle(RelationshipButtonStyle(self, isLarge: false, isOpaque: isOpaque, isInCollection: isInCollection))
+            .buttonStyle(capsuleStyle(isLarge: false, isInCollection: isInCollection))
         default:
             if let buttonText = buttonText(isLarge: false, isInCollection: isInCollection) {
                 Button(buttonText) {
                     action()
                 }
-                .buttonStyle(RelationshipButtonStyle(self, isLarge: false, isOpaque: isOpaque, isInCollection: isInCollection))
+                .buttonStyle(capsuleStyle(isLarge: false, isInCollection: isInCollection))
             }
         }
     }
     
-    @ViewBuilder func largeButton(isOpaque: Bool, isInCollection: Bool, action: @escaping ()->()) -> some View {
+    @ViewBuilder func largeButton(isInCollection: Bool, action: @escaping ()->()) -> some View {
         switch self {
         case .updating:
             Button() {
@@ -222,7 +236,7 @@ enum RelationshipButtonType {
             } label: {
                 ProgressView().progressViewStyle(.circular)
             }
-            .buttonStyle(RelationshipButtonStyle(self, isLarge: true, isOpaque: isOpaque, isInCollection: isInCollection))
+            .buttonStyle(capsuleStyle(isLarge: true, isInCollection: isInCollection))
         case .error:
             Button() {
                 
@@ -230,13 +244,13 @@ enum RelationshipButtonType {
                 lightwieghtImageView(
                     "exclamationmark.triangle", size: AvatarSize.tiny.rawValue)
             }
-            .buttonStyle(RelationshipButtonStyle(self, isLarge: true, isOpaque: isOpaque, isInCollection: isInCollection))
+            .buttonStyle(capsuleStyle(isLarge: true, isInCollection: isInCollection))
         default:
             if let buttonText = buttonText(isLarge: true, isInCollection: isInCollection) {
                 Button(buttonText) {
                     action()
                 }
-                .buttonStyle(RelationshipButtonStyle(self, isLarge: true, isOpaque: isOpaque, isInCollection: isInCollection))
+                .buttonStyle(capsuleStyle(isLarge: true, isInCollection: isInCollection))
             }
         }
     }

@@ -387,7 +387,7 @@ struct ProfileAvatarAndBannerView: View {
             if isAnsweringFollowRequest {
                 ProgressView().progressViewStyle(.circular)
             } else {
-                RelationshipButtonType.acceptTheirFollowRequest.largeButton(isOpaque: true, isInCollection: false) {
+                RelationshipButtonType.acceptTheirFollowRequest.largeButton(isInCollection: false) {
                     guard let account = profileViewModel.account else { return }
                     isAnsweringFollowRequest = true
                     Task {
@@ -400,7 +400,7 @@ struct ProfileAvatarAndBannerView: View {
                     }
                 }
                 
-                RelationshipButtonType.rejectTheirFollowRequest.largeButton(isOpaque: true, isInCollection: false) {
+                RelationshipButtonType.rejectTheirFollowRequest.largeButton(isInCollection: false) {
                     guard let account = profileViewModel.account else { return }
                     isAnsweringFollowRequest = true
                     Task {
@@ -412,6 +412,7 @@ struct ProfileAvatarAndBannerView: View {
                         isAnsweringFollowRequest = false
                     }
                 }
+                .background(Color(UIColor.secondarySystemBackground), in: .capsule) // prevents the banner image from showing through the semi-opaque button
             }
         }
         .frame(maxWidth: .infinity)
@@ -896,16 +897,15 @@ struct ProfileActionBar: View {
     var body: some View {
         HStack(spacing: standardPadding) {
             if viewModel.contentDisplayStatus.canRevealContent {
-                RelationshipButtonType.hiddenByModerators.largeButton(isOpaque: false, isInCollection: false) {
+                RelationshipButtonType.hiddenByModerators.largeButton(isInCollection: false) {
                     withAnimation {
                         viewModel.contentDisplayStatus = .showAlways
                     }
                 }
-                .buttonStyle(RelationshipButtonStyle(RelationshipButtonType.hiddenByModerators, isLarge: true, isOpaque: false, isInCollection: false))
                 .glassEffectIfAvailable(.regular(interactive: true), in: .capsule)
                 .matchedGeometryEffect(id: "action_button", in: profileActionBarAnimationNamespace)
             } else if let account = viewModel.account {
-                relationshipViewModel.button.largeButton(isOpaque: false, isInCollection: false) {
+                relationshipViewModel.button.largeButton(isInCollection: false) {
                     switch relationshipViewModel.button {
                     case .editMe:
                         navigator.push(.editProfile(profileViewModel: viewModel))
@@ -1033,13 +1033,13 @@ struct TestAllRelationshipButtons: View {
             ForEach(allButtonTypes, id: \.self.description) { buttonType in
                 HStack {
                     Text(buttonType.description)
-                    buttonType.button(isOpaque: false, isInCollection: false) {
+                    buttonType.button(isInCollection: false) {
                     }
-                    buttonType.largeButton(isOpaque: false, isInCollection: false) {
+                    buttonType.largeButton(isInCollection: false) {
                     }
                 }
             }
-            RelationshipButtonType.editMe.button(isOpaque: false, isInCollection: true) {
+            RelationshipButtonType.editMe.button(isInCollection: true) {
             }
         }
     }

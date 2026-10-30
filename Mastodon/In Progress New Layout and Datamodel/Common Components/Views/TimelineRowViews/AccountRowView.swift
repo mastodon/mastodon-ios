@@ -31,7 +31,7 @@ struct AccountRowView: View {
                     HStack(spacing: doublePadding) {
                         AccountStatsView(displayType: .largeStacked, accountMetrics: viewModel.account.metrics, onTapOfMetric: nil)
                         Spacer()
-                        viewModel.relationshipButton.button(isOpaque: false, isInCollection: collectionViewModel != nil) {
+                        viewModel.relationshipButton.button(isInCollection: collectionViewModel != nil) {
                             Task {
                                 if let collectionViewModel {
                                     if let meItem = collectionViewModel.collection.items.first(where: { $0.account_id == viewModel.account.id }) {

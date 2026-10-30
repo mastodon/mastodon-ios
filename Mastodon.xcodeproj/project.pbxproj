@@ -364,6 +364,7 @@
 				AsyncRefreshViewModel.swift,
 				"Common Components/AlignmentGuides.swift",
 				"Common Components/AsyncTapModifier.swift",
+				"Common Components/CapsuleButtonStyle.swift",
 				"Common Components/Common Actions on Statuses and Accounts/ContentConcealViewModel.swift",
 				"Common Components/Common Actions on Statuses and Accounts/MastodonMenuAction.swift",
 				"Common Components/Common Actions on Statuses and Accounts/MastodonPostMenuAction.swift",
