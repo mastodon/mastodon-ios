@@ -1156,7 +1156,7 @@ private func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
     let missingKey = "_MISSING_"
     let format = {
         let localized = Bundle.module.localizedString(forKey: key, value: missingKey, table: table)
-        if localized != missingKey {
+        if localized != missingKey && localized != key /*covers cases with variable substitutions*/ {
             return localized
         } else {
             return englishBundle?.localizedString(forKey: key, value: key, table: table) ?? key
