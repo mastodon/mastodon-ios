@@ -362,6 +362,7 @@
 			membershipExceptions = (
 				AccountInfo.swift,
 				AsyncRefreshViewModel.swift,
+				Collections/CreateCollectionViewModel.swift,
 				"Common Components/AlignmentGuides.swift",
 				"Common Components/AsyncTapModifier.swift",
 				"Common Components/CapsuleButtonStyle.swift",
@@ -372,6 +373,7 @@
 				"Common Components/FlowLayout.swift",
 				"Common Components/GeometryHelpers.swift",
 				"Common Components/GlassEffectIfAvailable.swift",
+				"Common Components/NavigationTitleWithSubtitle.swift",
 				"Common Components/ProminentCircleButtonStyle.swift",
 				"Common Components/ProportionalImageGridLayout.swift",
 				"Common Components/TimestampUpdater.swift",

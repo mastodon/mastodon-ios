@@ -334,6 +334,9 @@ struct TimelineListView: View {
                 }
             } // ZStack(alignment: .bottom)
         } // GeometryReader
+        .toolbar {
+            collectionsToolbar
+        }
         .onAppear() {
             viewModel.isCurrentlyOnScreen = true
             viewModel.clearPendingActions(navigator)
@@ -556,8 +559,50 @@ struct TimelineListView: View {
             EmptyView()
         case .collection:
             EmptyView()
-        case .collections:
-            EmptyView()
+        case .collections(let curatedByUserID):
+            if canCreateCollections(curatedBy: curatedByUserID) {
+                Button {
+                    pushCreateNewCollection()
+                } label: {
+                    Label(L10nLookup.Scene.Collections.newCollectionButton, phosphor: .plus)
+                }
+                .buttonStyle(.prominentCapsule(isLarge: true))
+                .fixedSize()
+                .padding(.top, doublePadding)
+            } else {
+                EmptyView()
+            }
+        }
+    }
+    
+    private func canCreateCollections(curatedBy userID: String) -> Bool {
+        UserDefaults.standard.allowCreateCollections
+        && viewModel.currentRelationship(to: userID)?.isMe == true
+        && viewModel.authenticatedUser?.authentication.instanceConfiguration?.isAvailable(.collections) == true
+    }
+    
+    private func pushCreateNewCollection() {
+        guard let authBox = viewModel.authenticatedUser else { return }
+        navigator.push(.createNewCollection(CreateCollectionViewModel(authBox: authBox), step: CreateCollectionStep.allCases.first!))
+    }
+    
+    @ToolbarContentBuilder private var collectionsToolbar: some ToolbarContent {
+        if case .collections(let curatedByUserID) = viewModel.timeline,
+           viewModel.currentDisplaySlice.contains(where: \.isRealItem),
+           canCreateCollections(curatedBy: curatedByUserID) {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    pushCreateNewCollection()
+                } label: {
+                    Image(phosphor: .plus)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                }
+                .buttonStyle(.prominentCircle(diameter: 40))
+                .accessibilityLabel(L10nLookup.Scene.Collections.newCollectionButton)
+            }
+            .sharedBackgroundVisibilityHidden()
         }
     }
     

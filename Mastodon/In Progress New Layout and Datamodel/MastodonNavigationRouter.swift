@@ -17,6 +17,7 @@ enum MastodonNavigationDestination: Identifiable {
     case donations(DonationFlowDestination)
     case editProfile(profileViewModel: ProfileViewModel)
     case editProfileNavigation(destination: ProfileEditDestinationType)
+    case createNewCollection(CreateCollectionViewModel, step: CreateCollectionStep)
     case legacy(scene: SceneCoordinator.Scene, transition: SceneCoordinator.Transition)
     
     var id: String { description }
@@ -100,6 +101,10 @@ enum MastodonNavigationDestination: Identifiable {
         case .editProfileNavigation(let destination):
             ProfileEditingDestinationView(destinationType: destination)
                 .profileEditingDestinationEnvironment(destination)
+            
+        case .createNewCollection(_, let step):
+            Color.yellow
+                .createCollectionPageTitle(forStep: step)
             
         case .settings:
             let _ = assertionFailure("SettingsNavigationView handles these")
@@ -477,6 +482,8 @@ extension MastodonNavigationDestination: Hashable {
             return "editProfile"
         case .editProfileNavigation(let destination):
             return "editProfile-\(destination.id)"
+        case .createNewCollection(let model, let step):
+            return "newCollection-\(step)-\(ObjectIdentifier(model))"
         case .settings(let type):
             return "settings-\(type)"
         case .donations(let type):
