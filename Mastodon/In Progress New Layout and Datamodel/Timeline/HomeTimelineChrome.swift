@@ -111,10 +111,8 @@ struct HomeTimelineChrome: ViewModifier {
                     .visualEffect({ content, geo in
                         content.offset(x: geo.size.width * 0.04, y: -geo.size.height * 0.04) // compensate for the visual weight of the icon, otherwise it looks off-center
                     })
-                    .foregroundStyle(.white)
-                    .frame(width: diameter, height: diameter)
             }
-            .glassEffectIfAvailable(.regular(interactive: true), withTint: Asset.Colors.accent.swiftUIColor, in: .circle)
+            .buttonStyle(.prominentCircle(diameter: diameter))
             .padding()
             .accessibilityLabel(L10nLookup.MastodonMenuAction.Navigation.compose)
         }
