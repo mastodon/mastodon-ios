@@ -600,8 +600,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You will have to log in to %1$(domainName)@ again to continue using this app with this account (@%2$(username)@)."
+            "state" : "translated",
+            "value" : "Щоб продовжити користуватися цим застосунком із цим обліковим записом (@%2$(username)@), вам доведеться знову увійти на %1$(domainName)@."
           }
         },
         "vi" : {

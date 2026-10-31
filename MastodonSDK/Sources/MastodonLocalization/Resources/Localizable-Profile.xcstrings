@@ -19946,8 +19946,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Blocked Accounts"
+            "state" : "translated",
+            "value" : "Заблакіраваныя ўліковыя запісы"
           }
         },
         "ca" : {
@@ -20018,8 +20018,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Blocked Accounts"
+            "state" : "translated",
+            "value" : "Blokeeritud kasutajakontod"
           }
         },
         "eu" : {
@@ -20258,8 +20258,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "View Profile"
+            "state" : "translated",
+            "value" : "Праглядзець профіль"
           }
         },
         "ca" : {
@@ -20330,8 +20330,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "View Profile"
+            "state" : "translated",
+            "value" : "Vaata profiili"
           }
         },
         "eu" : {
