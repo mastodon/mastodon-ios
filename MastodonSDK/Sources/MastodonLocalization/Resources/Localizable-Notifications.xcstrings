@@ -331,8 +331,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You have filtered this notification out of your Notifications tab"
+            "state" : "translated",
+            "value" : "Вы адфільтравалі гэтае апавяшчэнне са сваёй укладкі апавяшчэнняў"
           }
         },
         "ca" : {
@@ -403,8 +403,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You have filtered this notification out of your Notifications tab"
+            "state" : "translated",
+            "value" : "Sa oled oma teavituste vahekaardil selle teavituse filtritega välistanud"
           }
         },
         "eu" : {
@@ -643,8 +643,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Get a push notification when…"
+            "state" : "translated",
+            "value" : "Атрымліваць push-апавяшчэнне, калі…"
           }
         },
         "ca" : {
@@ -715,8 +715,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Get a push notification when…"
+            "state" : "translated",
+            "value" : "Saad tõuketeavituse, kui keegi…"
           }
         },
         "eu" : {
@@ -954,8 +954,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone boosted your post"
+            "state" : "translated",
+            "value" : "Нехта пашырыў Ваш допіс"
           }
         },
         "ca" : {
@@ -1026,8 +1026,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone boosted your post"
+            "state" : "translated",
+            "value" : "Annab sinu postitusele hoogu"
           }
         },
         "eu" : {
@@ -1265,8 +1265,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A post you interacted with has been edited"
+            "state" : "translated",
+            "value" : "Допіс, з якім Вы ўзаемадзейнічалі, быў адрэдагаваны"
           }
         },
         "ca" : {
@@ -1337,8 +1337,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A post you interacted with has been edited"
+            "state" : "translated",
+            "value" : "Muutunud on postitus, millega oled suhestunud"
           }
         },
         "eu" : {
@@ -1576,8 +1576,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A post you quoted has been edited"
+            "state" : "translated",
+            "value" : "Допіс, які Вы цытавалі, быў адрэдагаваны"
           }
         },
         "ca" : {
@@ -1648,8 +1648,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A post you quoted has been edited"
+            "state" : "translated",
+            "value" : "Muutunud on postitus, mida oled tsiteerinud"
           }
         },
         "eu" : {
@@ -1887,8 +1887,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone liked your post"
+            "state" : "translated",
+            "value" : "Нехта ўпадабаў Ваш допіс"
           }
         },
         "ca" : {
@@ -1959,8 +1959,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone liked your post"
+            "state" : "translated",
+            "value" : "Kellelegi meeldis sinu postitus"
           }
         },
         "eu" : {
@@ -1983,8 +1983,8 @@
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone liked your post"
+            "state" : "translated",
+            "value" : "Thaitin do phostáil le duine éigin"
           }
         },
         "gd" : {
@@ -2157,8 +2157,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone liked your post"
+            "state" : "translated",
+            "value" : "Комусь сподобався ваш допис"
           }
         },
         "vi" : {
@@ -2198,8 +2198,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone requested to follow you"
+            "state" : "translated",
+            "value" : "Нехта даслаў Вам запыт на падпіску"
           }
         },
         "ca" : {
@@ -2270,8 +2270,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone requested to follow you"
+            "state" : "translated",
+            "value" : "Keegi soovib sind jälgida"
           }
         },
         "eu" : {
@@ -2509,8 +2509,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone mentioned you"
+            "state" : "translated",
+            "value" : "Нехта згадаў Вас"
           }
         },
         "ca" : {
@@ -2581,8 +2581,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone mentioned you"
+            "state" : "translated",
+            "value" : "Keegi mainis sind"
           }
         },
         "eu" : {
@@ -2820,8 +2820,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone followed you"
+            "state" : "translated",
+            "value" : "Нехта падпісаўся на Вас"
           }
         },
         "ca" : {
@@ -2892,8 +2892,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone followed you"
+            "state" : "translated",
+            "value" : "Keegi alustas sinu jälgimist"
           }
         },
         "eu" : {
@@ -3131,8 +3131,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone you’ve asked to be notified about has posted"
+            "state" : "translated",
+            "value" : "Нехта, аб кім Вы хацелі атрымліваць апавяшчэнні, зрабіў допіс"
           }
         },
         "ca" : {
@@ -3203,8 +3203,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone you’ve asked to be notified about has posted"
+            "state" : "translated",
+            "value" : "Keegi on postitanud, kelle kohta soovisid teavitust"
           }
         },
         "eu" : {
@@ -3442,8 +3442,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A poll you created or voted in has ended"
+            "state" : "translated",
+            "value" : "Апытанне, якое Вы стварылі або ў якім прынялі ўдзел, скончылася"
           }
         },
         "ca" : {
@@ -3514,8 +3514,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A poll you created or voted in has ended"
+            "state" : "translated",
+            "value" : "Lõppenud on küsitlus, mille koostasid või kus osalesid"
           }
         },
         "eu" : {
@@ -3753,8 +3753,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone quoted you"
+            "state" : "translated",
+            "value" : "Нехта цытаваў Вас"
           }
         },
         "ca" : {
@@ -3825,8 +3825,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone quoted you"
+            "state" : "translated",
+            "value" : "Keegi tsiteeris sind"
           }
         },
         "eu" : {
