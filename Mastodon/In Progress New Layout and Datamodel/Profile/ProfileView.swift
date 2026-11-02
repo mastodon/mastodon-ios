@@ -131,20 +131,20 @@ struct ProfileView: View {
             embeddedActionBarHasCaughtUpToFloatingActionBar = floating >= embedded
         }
         .task(id: viewModel.account?.id) {
-            try? await fetchFamiliarFollowers()
+            await fetchFamiliarFollowers()
         }
         .onChange(of: viewModel.account?.id) {
             Task {
-                try await fetchFamiliarFollowers()
+                await fetchFamiliarFollowers()
             }
         }
     }
     
-    private func fetchFamiliarFollowers() async throws {
+    private func fetchFamiliarFollowers() async {
         if let account = viewModel.account {
             let familiarFollowersModel = TimelineListViewModel(timeline: .familiarFollowers(account.id), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
             viewModel.familiarFollowersViewModel = familiarFollowersModel
-            try await familiarFollowersModel.doInitialLoad(navigator: navigator)
+            await familiarFollowersModel.doInitialLoad(navigator: navigator)
         }
     }
     

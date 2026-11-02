@@ -219,7 +219,7 @@ import MastodonUI
         loadingState = .untracked
         currentDisplaySlice = ArraySlice([.loadingIndicator])
         Task {
-            try await doInitialLoad(navigator: navigator)
+            await doInitialLoad(navigator: navigator)
         }
     }
     
@@ -249,7 +249,7 @@ import MastodonUI
         
         Task {
             await homeQueryFilter?.loadSavedSettings()
-            try await doInitialLoad(navigator: navigator)
+            await doInitialLoad(navigator: navigator)
         }
     }
     
@@ -417,7 +417,7 @@ import MastodonUI
         }
     }
     
-    func doInitialLoad(navigator: MastodonNavigationRouter) async throws {
+    func doInitialLoad(navigator: MastodonNavigationRouter) async {
         guard feedLoader == nil else { return }
         guard let authenticatedUser else { return }
         
