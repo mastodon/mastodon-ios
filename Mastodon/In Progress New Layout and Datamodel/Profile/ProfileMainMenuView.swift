@@ -34,6 +34,10 @@ struct ProfileMainMenuView: View {
             .padding(.leading, geo.safeAreaInsets.leading)
             .padding(.trailing, geo.safeAreaInsets.trailing)
             .ignoresSafeArea(.container, edges: .horizontal)
+            .task(id: authenticationObserver.currentActiveUser?.globallyUniqueUserIdentifier) {
+                guard let authBox = authenticationObserver.currentActiveUser else { return }
+                await checkForCollections(authBox)
+            }
         }
     }
     
@@ -53,14 +57,27 @@ struct ProfileMainMenuView: View {
     
     // MARK: Content buttons
     @ViewBuilder private var contentButtons: some View {
-        if let myUserID = authenticationObserver.currentActiveUser?.userID, authenticationObserver.currentActiveUser?.authentication.instanceConfiguration?.isAvailable(.collections) == true {
+        if let currentUser = authenticationObserver.currentActiveUser, shouldShowCollectionsRow(userGUID: currentUser.globallyUniqueUserIdentifier) {
             // Collections
-            timelineRow(.collections(curatedByUserID: myUserID), image: Image(phosphor: .circlesFour))
+            timelineRow(.collections(curatedByUserID: currentUser.userID), image: Image(phosphor: .circlesFour))
         }
         // Favourited Posts
         timelineRow(.myFavorites, image: Image(phosphor: .heart))
         // Saved Posts
         timelineRow(.myBookmarks, image: Image(phosphor: .bookmarkSimple))
+    }
+    
+    // MARK: Collections
+    @State private var hasCollections: [ String : Bool ] = [:]
+    private var collectionsAreAvailable: Bool {
+        authenticationObserver.currentActiveUser?.authentication.instanceConfiguration?.isAvailable(.collections) == true
+    }
+    private func shouldShowCollectionsRow(userGUID: String) -> Bool {
+        collectionsAreAvailable && (UserDefaults.standard.allowCreateCollections || hasCollections[userGUID] == true)
+    }
+    private func checkForCollections(_ authBox: MastodonAuthenticationBox) async {
+        guard collectionsAreAvailable, let response = try? await APIService.shared.collections(accountID: authBox.userID, authenticationBox: authBox) else { return }
+        hasCollections[authBox.globallyUniqueUserIdentifier] = !response.value.collections.isEmpty
     }
     
     // MARK: Relationship buttons
