@@ -718,7 +718,7 @@ struct NotificationRowView: View {
             case .fetching, .unfetched:
                 ProgressView().progressViewStyle(.circular)
             case .relationshipButton(let button):
-                button.button(isInCollection: false) {
+                button.button() {
                     viewModel.doAvatarRowButtonAction(navigator: navigator)
                 }
             case .followRequestControls(let controls):

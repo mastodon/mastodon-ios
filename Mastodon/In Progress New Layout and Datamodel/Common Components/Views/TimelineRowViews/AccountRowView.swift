@@ -6,11 +6,25 @@ import MastodonSDK
 import MastodonUI
 import SwiftUI
 
+enum AccountRowControl {
+    case relationship
+    case removeFromCollection(()->Void)
+}
+
+struct RemoveFromCollectionButton: View {
+    let action: () -> Void
+    
+    var body: some View {
+        Button(L10nLookup.Scene.Collections.remove, action: action)
+            .buttonStyle(.subtleCapsule(isLarge: false))
+    }
+}
+
 struct AccountRowView: View {
     @Environment(MastodonNavigationRouter.self) private var navigator
     @Environment(AccountRowViewModel.self) var viewModel
     let contentWidth: CGFloat
-    let collectionViewModel: CollectionViewModel?
+    let control: AccountRowControl
   
     var body: some View {
         VStack(alignment: .gutterAlign, spacing: 0) {  // gutterAlign keeps the content properly aligned with the gap between avatar and content
@@ -31,16 +45,19 @@ struct AccountRowView: View {
                     HStack(spacing: doublePadding) {
                         AccountStatsView(displayType: .largeStacked, accountMetrics: viewModel.account.metrics, onTapOfMetric: nil)
                         Spacer()
-                        viewModel.relationshipButton.button(isInCollection: collectionViewModel != nil) {
-                            Task {
-                                if let collectionViewModel {
-                                    if let meItem = collectionViewModel.collection.items.first(where: { $0.account_id == viewModel.account.id }) {
-                                        collectionViewModel.doRemoveMe(meItemID: meItem.id, navigator: navigator)
+                        switch control {
+                        case .relationship:
+                            viewModel.relationshipButton.button() {
+                                Task {
+                                    do {
+                                        try await viewModel.doRelationshipButtonAction(navigator: navigator)
+                                    } catch {
+                                        navigator.didReceiveError(error)
                                     }
-                                } else {
-                                    try await viewModel.doRelationshipButtonAction(navigator: navigator, isInCollection: false)
                                 }
                             }
+                        case .removeFromCollection(let action):
+                            RemoveFromCollectionButton(action: action)
                         }
                     }
                 }

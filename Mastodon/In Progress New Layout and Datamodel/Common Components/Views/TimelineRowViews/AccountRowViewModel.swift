@@ -41,8 +41,8 @@ import SwiftUI
         }
     }
     
-    func doRelationshipButtonAction(navigator: MastodonNavigationRouter, isInCollection: Bool) async throws {
-        if let action = relationshipViewModel.button.buttonAction(isInCollection: isInCollection).mastodonRelationshipMenuAction {
+    func doRelationshipButtonAction(navigator: MastodonNavigationRouter) async throws {
+        if let action = relationshipViewModel.button.buttonAction.mastodonRelationshipMenuAction {
             try await relationshipViewModel.doMenuAction(action, forAccount: account, navigator: navigator)
         }
     }

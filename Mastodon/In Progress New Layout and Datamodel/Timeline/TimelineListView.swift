@@ -575,6 +575,15 @@ struct TimelineListView: View {
         }
     }
     
+    private func accountRowControl(for account: AccountRowViewModel) -> AccountRowControl {
+        guard viewModel.currentRelationship(to: account.id)?.isMe == true else { return .relationship }
+        guard let collectionViewModel = viewModel.timeline.collectionViewModel else { return .relationship }
+        guard let meItem = collectionViewModel.collection.items.first(where: { $0.account_id == account.id }) else { return .relationship }
+        return .removeFromCollection {
+            collectionViewModel.doRemoveMe(meItemID: meItem.id, navigator: navigator)
+        }
+    }
+    
     private func canCreateCollections(curatedBy userID: String) -> Bool {
         UserDefaults.standard.allowCreateCollections
         && viewModel.currentRelationship(to: userID)?.isMe == true
@@ -783,7 +792,7 @@ struct TimelineListView: View {
                         EmptyView()
                     } else {
                         // TODO: larger, more informative view if in a .discovery timeline?
-                        AccountRowView(contentWidth: contentWidth, collectionViewModel: viewModel.timeline.collectionViewModel)
+                        AccountRowView(contentWidth: contentWidth, control: accountRowControl(for: accountViewModel))
                             .environment(accountViewModel)
                             .padding(EdgeInsets(top: standardPadding, leading: doublePadding, bottom: standardPadding, trailing: standardPadding))
                             .frame(width: useableWidth)
