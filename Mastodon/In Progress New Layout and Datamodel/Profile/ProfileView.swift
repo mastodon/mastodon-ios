@@ -142,7 +142,7 @@ struct ProfileView: View {
     
     private func fetchFamiliarFollowers() async throws {
         if let account = viewModel.account {
-            let familiarFollowersModel = TimelineListViewModel(timeline: .familiarFollowers(account.id), navigator: navigator, asyncRefreshViewModel: nil)
+            let familiarFollowersModel = TimelineListViewModel(timeline: .familiarFollowers(account.id), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
             viewModel.familiarFollowersViewModel = familiarFollowersModel
             try await familiarFollowersModel.doInitialLoad(navigator: navigator)
         }

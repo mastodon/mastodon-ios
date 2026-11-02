@@ -8,7 +8,7 @@ import SwiftUI
 import MastodonCore
 
 struct CollectionRowView: View {
-    @Environment(MastodonNavigationRouter.self) private var navigator
+    @Environment(MastodonNavigationRouter.self) private var navigator: MastodonNavigationRouter?
     @Environment(CollectionViewModel.self) var viewModel
     let contentWidth: CGFloat
     let includeMenu: Bool
@@ -52,7 +52,7 @@ struct CollectionRowView: View {
                         return d[HorizontalAlignment.leading]
                     }
                     
-                    if includeMenu {
+                    if includeMenu, let navigator {
                         viewModel.menuButton(isFullCollectionView: false, navigator: navigator, relationshipModel: viewModel.relationshipViewModel)
                     }
                 }
