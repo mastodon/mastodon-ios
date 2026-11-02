@@ -133,11 +133,6 @@ struct ProfileView: View {
         .task(id: viewModel.account?.id) {
             await fetchFamiliarFollowers()
         }
-        .onChange(of: viewModel.account?.id) {
-            Task {
-                await fetchFamiliarFollowers()
-            }
-        }
     }
     
     private func fetchFamiliarFollowers() async {
