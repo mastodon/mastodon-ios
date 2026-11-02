@@ -994,7 +994,7 @@ struct ProfilePaginatingView: View {
                                     .timelineEnvironment(timelineModel: postsTimelineViewModel,
                                                          contentConcealModel: .alwaysShow,
                                                          filter: postsTimelineViewModel.timeline.filterModel,
-                                                         asyncRefreshModel: AsyncRefreshViewModel())
+                                                         asyncRefreshModel: postsTimelineViewModel.asyncRefreshViewModel)
                                     .tag(page)
                                     .frame(width: geo.size.width, height: geo.size.height)
                             }
@@ -1004,7 +1004,7 @@ struct ProfilePaginatingView: View {
                                     .timelineEnvironment(timelineModel: mediaTimelineViewModel,
                                                          contentConcealModel: .alwaysShow,
                                                          filter: mediaTimelineViewModel.timeline.filterModel,
-                                                         asyncRefreshModel: viewModel.mediaViewAsyncRefresh)
+                                                         asyncRefreshModel: mediaTimelineViewModel.asyncRefreshViewModel)
                                     .tag(page)
                                     .frame(width: geo.size.width, height: geo.size.height)
                             }
@@ -1014,7 +1014,7 @@ struct ProfilePaginatingView: View {
                                     .timelineEnvironment(timelineModel: featuredTimelineViewModel,
                                                          contentConcealModel: .alwaysShow,
                                                          filter: featuredTimelineViewModel.timeline.filterModel,
-                                                         asyncRefreshModel: viewModel.featuredItemsAsyncRefresh)
+                                                         asyncRefreshModel: featuredTimelineViewModel.asyncRefreshViewModel)
                                     .tag(page)
                                     .frame(width: geo.size.width, height: geo.size.height)
                             }

@@ -147,7 +147,7 @@ extension View {
     func timelineEnvironment(timelineModel: TimelineListViewModel,
                              contentConcealModel: ContentConcealViewModel,
                              filter: TimelineQueryFilter?,
-                             asyncRefreshModel: AsyncRefreshViewModel?) -> some View {
+                             asyncRefreshModel: AsyncRefreshViewModel) -> some View {
         self
             .environment(timelineModel)
             .environment(contentConcealModel)

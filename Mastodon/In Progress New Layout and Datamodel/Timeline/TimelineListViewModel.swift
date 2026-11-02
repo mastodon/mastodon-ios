@@ -223,12 +223,12 @@ import MastodonUI
         }
     }
     
-    private let _asyncRefreshViewModel: AsyncRefreshViewModel?
-    public var asyncRefreshViewModel: AsyncRefreshViewModel? {
+    private let _asyncRefreshViewModel: AsyncRefreshViewModel
+    public var asyncRefreshViewModel: AsyncRefreshViewModel {
         return _asyncRefreshViewModel
     }
     
-    init(timeline: MastodonTimelineType, navigator: MastodonNavigationRouter, asyncRefreshViewModel: AsyncRefreshViewModel?) {
+    init(timeline: MastodonTimelineType, navigator: MastodonNavigationRouter, asyncRefreshViewModel: AsyncRefreshViewModel) {
         self._asyncRefreshViewModel = asyncRefreshViewModel
         self._timeline = timeline
         self.navigator = navigator
@@ -382,7 +382,7 @@ import MastodonUI
             }
             
         case .requestedAsyncRefreshResults:
-            _asyncRefreshViewModel?.didRefreshFromOriginalEndpoint()
+            _asyncRefreshViewModel.didRefreshFromOriginalEndpoint()
             fallthrough
         case .requestedReloadFromBottom:
             // leave the scrollPosition alone, it should work

@@ -59,10 +59,9 @@ import MastodonLocalization
         }
     }
     private var mediaFilter: TimelineQueryFilter?
-    var mediaViewAsyncRefresh: AsyncRefreshViewModel?
-    
+ 
     var featuredItemsViewModel: TimelineListViewModel?
-    var featuredItemsAsyncRefresh: AsyncRefreshViewModel?
+
     var selectedPage: ProfilePage = .activity
     var focusedCustomField: Mastodon.Entity.Field?
     var handleDetails: HandleDetails?
@@ -148,10 +147,9 @@ import MastodonLocalization
         guard let navigator else { return }
         if account.metadata.showsMediaTab {
             if mediaViewModel == nil {
-                mediaViewAsyncRefresh = AsyncRefreshViewModel()
                 let mediaQueryFilter = TimelineQueryFilter(.mediaOnly)
                 mediaQueryFilter.excludeReplies = !account.metadata.mediaTabIncludesReplies
-                self.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: mediaQueryFilter), navigator: navigator, asyncRefreshViewModel: mediaViewAsyncRefresh!)
+                self.mediaViewModel = TimelineListViewModel(timeline: .userPosts(userID: account.id, queryFilter: mediaQueryFilter), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
             } else {
                 self.updateMediaFilter()
             }
@@ -161,8 +159,7 @@ import MastodonLocalization
         
         if account.metadata.showsFeaturedTab {
             if self.featuredItemsViewModel == nil {
-                featuredItemsAsyncRefresh = AsyncRefreshViewModel()
-                self.featuredItemsViewModel = TimelineListViewModel(timeline: .featuredItems(userID: account.id), navigator: navigator, asyncRefreshViewModel: featuredItemsAsyncRefresh!)
+                self.featuredItemsViewModel = TimelineListViewModel(timeline: .featuredItems(userID: account.id), navigator: navigator, asyncRefreshViewModel: AsyncRefreshViewModel())
             }
         } else {
             self.featuredItemsViewModel = nil
