@@ -1574,8 +1574,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Filter options"
+            "state" : "translated",
+            "value" : "Налады фільтравання"
           }
         },
         "ca" : {
@@ -1646,8 +1646,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Filter options"
+            "state" : "translated",
+            "value" : "Filtri valikud"
           }
         },
         "eu" : {
@@ -1844,8 +1844,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Filter options"
+            "state" : "translated",
+            "value" : "Параметри фільтрування"
           }
         },
         "vi" : {
@@ -1886,8 +1886,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Choose feed"
+            "state" : "translated",
+            "value" : "Выбраць стужку"
           }
         },
         "ca" : {
@@ -1958,8 +1958,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Choose feed"
+            "state" : "translated",
+            "value" : "Vali uudisvoog/ajajoon"
           }
         },
         "eu" : {
@@ -2198,8 +2198,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom Feeds"
+            "state" : "translated",
+            "value" : "Уласныя стужкі"
           }
         },
         "ca" : {
@@ -2270,8 +2270,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom Feeds"
+            "state" : "translated",
+            "value" : "Sinu koostatud uudisvood"
           }
         },
         "eu" : {
