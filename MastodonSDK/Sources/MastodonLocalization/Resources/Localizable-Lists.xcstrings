@@ -19,8 +19,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add %1$(accountName)@"
+            "state" : "translated",
+            "value" : "Дадаць %1$(accountName)@"
           }
         },
         "ca" : {
@@ -91,8 +91,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add %1$(accountName)@"
+            "state" : "translated",
+            "value" : "Lisa %1$(accountName)@"
           }
         },
         "eu" : {
@@ -643,8 +643,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create custom feed"
+            "state" : "translated",
+            "value" : "Стварыць уласную стужку"
           }
         },
         "ca" : {
@@ -715,8 +715,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create custom feed"
+            "state" : "translated",
+            "value" : "Lisa endakoostatud uudisvoog"
           }
         },
         "eu" : {
@@ -955,8 +955,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create new custom feed…"
+            "state" : "translated",
+            "value" : "Стварыць новую ўласную стужку…"
           }
         },
         "ca" : {
@@ -1027,8 +1027,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create new custom feed…"
+            "state" : "translated",
+            "value" : "Lisa uus endakoostatud uudisvoog…"
           }
         },
         "eu" : {
@@ -1266,8 +1266,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
+            "state" : "translated",
+            "value" : "Калі ў гэтай уласнай стужцы нехта ёсць, схавайце яго ў сваёй Галоўнай стужцы, каб не бачыць яго допісы двойчы."
           }
         },
         "ca" : {
@@ -1338,8 +1338,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
+            "state" : "translated",
+            "value" : "Kui keegi on selles sinu koostatud uudisvoos, peida ta jälgimiste ajajoonelt, vältimaks tema postituste kaks korda nägemist."
           }
         },
         "eu" : {
@@ -1890,8 +1890,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies from custom feed members to"
+            "state" : "translated",
+            "value" : "Уключыць адказы ад карыстальнікаў уласнай стужкі ў"
           }
         },
         "ca" : {
@@ -1962,8 +1962,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies from custom feed members to"
+            "state" : "translated",
+            "value" : "Kaasa ka uudisvoo liikmete vastused"
           }
         },
         "eu" : {
@@ -2201,8 +2201,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Could not create custom feed: %1$(errorDescription)@ "
+            "state" : "translated",
+            "value" : "Немагчыма стварыць уласную стужку: %1$(errorDescription)@ "
           }
         },
         "ca" : {
@@ -2273,8 +2273,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Could not create custom feed: %1$(errorDescription)@ "
+            "state" : "translated",
+            "value" : "Oma uudisvoo koostamine ei õnnestunud: %1$(errorDescription)@ "
           }
         },
         "eu" : {
@@ -2513,8 +2513,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom feed name"
+            "state" : "translated",
+            "value" : "Назва ўласнай стужкі"
           }
         },
         "ca" : {
@@ -2585,8 +2585,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom feed name"
+            "state" : "translated",
+            "value" : "Endakoostatud uudisvoo nimi"
           }
         },
         "eu" : {
@@ -3137,8 +3137,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Members of the custom feed"
+            "state" : "translated",
+            "value" : "Удзельнікі ўласнай стужкі"
           }
         },
         "ca" : {
@@ -3209,8 +3209,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Members of the custom feed"
+            "state" : "translated",
+            "value" : "Endakoostatud uudisvoo liikmed"
           }
         },
         "eu" : {
