@@ -91,7 +91,7 @@ public class MastodonFeedLoader<PublishedType: Identifiable, CachedType: Cacheab
         self.cacheManager = cacheManager
     }
     
-    private var isFetching: Bool = false {
+    @Published private(set) var isFetching: Bool = false {
         didSet {
             if !isFetching, let waitingRequest = nextRequestThatCanBeLoadedNow() {
                 Task {

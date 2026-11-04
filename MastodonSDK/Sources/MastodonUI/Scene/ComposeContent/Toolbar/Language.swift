@@ -16,7 +16,7 @@ public struct Language: Identifiable {
         self.localeId = localeId
     }
     
-    init?(id: String) {
+    public init?(id: String) {
         guard let endonym = Locale(identifier: id).localizedString(forIdentifier: id),
               let exonym = Locale.current.localizedString(forIdentifier: id)
         else { return nil }
@@ -34,7 +34,7 @@ public struct Language: Identifiable {
         endonym.caseInsensitiveCompare(exonym) != .orderedSame
     }
     
-    var label: AttributedString {
+    public var label: AttributedString {
         AttributedString(endonym, attributes: AttributeContainer([.languageIdentifier: id]))
         + AttributedString(exonymIsDifferent ? " (\(exonym))" : "")
     }

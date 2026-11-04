@@ -76,6 +76,7 @@ extension Mastodon.Entity.V2.Instance {
         public let translation: Mastodon.Entity.V2.Instance.Configuration.Translation?
         public let timelinesAccess: Mastodon.Entity.V2.Instance.Configuration.TimelinesAccess?
         public let accounts: Mastodon.Entity.V2.Instance.Configuration.AccountsLimits?
+        public let collections: Mastodon.Entity.V2.Instance.Configuration.CollectionsLimits?
     
         enum CodingKeys: String, CodingKey {
             case urls
@@ -85,6 +86,7 @@ extension Mastodon.Entity.V2.Instance {
             case translation
             case timelinesAccess = "timelines_access"
             case accounts
+            case collections
         }
     }
 }
@@ -107,6 +109,20 @@ extension Mastodon.Entity.V2.Instance.Configuration {
             case maxProfileCustomFieldsCount = "max_profile_fields"
             case maxProfileFieldNameLength = "profile_field_name_limit"
             case maxProfileFieldValueLength = "profile_field_value_limit"
+        }
+    }
+}
+
+extension Mastodon.Entity.V2.Instance.Configuration {
+    public struct CollectionsLimits: Codable {
+        public let maxItems: Int?
+        public let maxNameLength: Int?
+        public let maxDescriptionLength: Int?
+        
+        enum CodingKeys: String, CodingKey {
+            case maxItems = "max_items"
+            case maxNameLength = "max_name_length"
+            case maxDescriptionLength = "max_description_length"
         }
     }
 }

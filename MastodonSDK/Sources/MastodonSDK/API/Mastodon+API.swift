@@ -24,6 +24,7 @@ extension Mastodon.API {
     }()
     static let fullDatePreciseISO8601Formatter: ISO8601DateFormatter = {
         let formatter = ISO8601DateFormatter()
+        formatter.timeZone = .current
         formatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
         return formatter
     }()

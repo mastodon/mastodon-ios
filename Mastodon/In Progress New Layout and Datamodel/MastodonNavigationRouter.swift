@@ -18,6 +18,7 @@ enum MastodonNavigationDestination: Identifiable {
     case editProfile(profileViewModel: ProfileViewModel)
     case editProfileNavigation(destination: ProfileEditDestinationType)
     case createNewCollection(CreateCollectionViewModel, step: CreateCollectionStep)
+    case createCollectionLanguagePicker(CreateCollectionViewModel)
     case legacy(scene: SceneCoordinator.Scene, transition: SceneCoordinator.Transition)
     
     var id: String { description }
@@ -102,9 +103,23 @@ enum MastodonNavigationDestination: Identifiable {
             ProfileEditingDestinationView(destinationType: destination)
                 .profileEditingDestinationEnvironment(destination)
             
-        case .createNewCollection(_, let step):
-            Color.yellow
-                .createCollectionPageTitle(forStep: step)
+        case .createNewCollection(let model, let step):
+            switch step {
+            case .addAccounts:
+                CollectionAddAccountsView()
+                    .environment(model)
+            case .details:
+                CollectionEditDetailsView()
+                    .environment(model)
+            }
+            
+        case .createCollectionLanguagePicker(let model):
+            LanguagePicker(selectedLanguage: model.language, canSelectNil: true) { selectedLanguage in
+                model.language = selectedLanguage
+                self.pop()
+            }
+            .navigationTitle(L10nLookup.Scene.CreateCollection.CollectionDetails.languagePlaceholder)
+            .toolbarTitleDisplayMode(.inline)
             
         case .settings:
             let _ = assertionFailure("SettingsNavigationView handles these")
@@ -222,6 +237,19 @@ enum MastodonNavigationDestination: Identifiable {
     func popToRoot() {
         guard !navigationPath.isEmpty else { return }
         navigationPath.removeAll()
+    }
+    
+    func popCreateCollectionFlow(_ model: CreateCollectionViewModel) {
+        let flowStartIndex = navigationPath.firstIndex { destination in
+            switch destination {
+            case .createNewCollection(let onScreenModel, _):
+                return onScreenModel === model
+            default:
+                return false
+            }
+        }
+        guard let flowStartIndex else { return }
+        navigationPath.removeSubrange(flowStartIndex...)
     }
     
     public func presentSheet(_ sheet: MastodonSheet, afterDeconflictionDelay: Bool) {
@@ -484,6 +512,8 @@ extension MastodonNavigationDestination: Hashable {
             return "editProfile-\(destination.id)"
         case .createNewCollection(let model, let step):
             return "newCollection-\(step)-\(ObjectIdentifier(model))"
+        case .createCollectionLanguagePicker(let model):
+            return "newCollection-languagePicker-\(ObjectIdentifier(model))"
         case .settings(let type):
             return "settings-\(type)"
         case .donations(let type):

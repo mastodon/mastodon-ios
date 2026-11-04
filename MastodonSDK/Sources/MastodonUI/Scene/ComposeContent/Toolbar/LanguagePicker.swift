@@ -4,7 +4,7 @@ import MastodonLocalization
 import SwiftUI
 import MastodonAsset
 
-public typealias OnLanguageSelected = (String) -> Void
+public typealias OnLanguageSelected = (String?) -> Void
 
 struct LanguagePickerNavigationView: View {
 
@@ -35,12 +35,14 @@ struct LanguagePickerNavigationView: View {
 
 public struct LanguagePicker: View {
 
-    public init(selectedLanguage: String, onSelect: @escaping OnLanguageSelected) {
+    public init(selectedLanguage: String?, canSelectNil: Bool = false, onSelect: @escaping OnLanguageSelected) {
         self._selectedLanguage = State(initialValue: selectedLanguage)
+        self.noSelectedLanguageTitle = canSelectNil ? L10nLookup.Scene.CreateCollection.CollectionDetails.noLanguageSelected : nil
         self.onSelect = onSelect
     }
     
-    @State private var selectedLanguage: String
+    @State private var selectedLanguage: String?
+    private let noSelectedLanguageTitle: String?
     private let onSelect: OnLanguageSelected
     
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -79,33 +81,38 @@ public struct LanguagePicker: View {
     public var body: some View {
         ScrollViewReader { proxy in
             let filteredLanguages = query.isEmpty ? languages : languages.filter { $0.contains(query) }
-            List(filteredLanguages) { lang in
-                let endonym = Text(lang.endonym)
-                let exonym: Text = {
-                    if lang.exonymIsDifferent {
-                        return Text("(\(lang.exonym))").foregroundColor(.secondary)
-                    }
-                    return Text("")
-                }()
-                Button(action: {
-                    selectedLanguage = lang.id
-                    onSelect(lang.id)
-                }) {
-                    HStack {
-                        ViewThatFits(in: .horizontal) {
-                            HStack(spacing: 0) { endonym; Text(" "); exonym }
-                            VStack(alignment: .leading) { endonym; exonym }
-                        }
-                        if lang.id == selectedLanguage {
-                        Spacer()
-                          Image(systemName: "checkmark")
-                                .foregroundStyle(Asset.Colors.Brand.blurple.swiftUIColor)
-                        }
-                    }
+            List {
+                if let noSelectedLanguageTitle, query.isEmpty {
+                    noSelectionRow(title: noSelectedLanguageTitle)
                 }
-                .tint(.primary)
-                .accessibilityLabel(Text(lang.label))
-                .id(lang.id)
+                ForEach(filteredLanguages) { lang in
+                    let endonym = Text(lang.endonym)
+                    let exonym: Text = {
+                        if lang.exonymIsDifferent {
+                            return Text("(\(lang.exonym))").foregroundColor(.secondary)
+                        }
+                        return Text("")
+                    }()
+                    Button(action: {
+                        selectedLanguage = lang.id
+                        onSelect(lang.id)
+                    }) {
+                        HStack {
+                            ViewThatFits(in: .horizontal) {
+                                HStack(spacing: 0) { endonym; Text(" "); exonym }
+                                VStack(alignment: .leading) { endonym; exonym }
+                            }
+                            if lang.id == selectedLanguage {
+                                Spacer()
+                                Image(systemName: "checkmark")
+                                    .foregroundStyle(Asset.Colors.accent.swiftUIColor)
+                            }
+                        }
+                    }
+                    .tint(.primary)
+                    .accessibilityLabel(Text(lang.label))
+                    .id(lang.id)
+                }
             }
             .listStyle(.plain)
             .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always))
@@ -117,6 +124,25 @@ public struct LanguagePicker: View {
                 }
             }
         }
+    }
+    
+    private func noSelectionRow(title: String) -> some View {
+        Button {
+            selectedLanguage = nil
+            onSelect(nil)
+        } label: {
+            HStack {
+                Text(title)
+                if selectedLanguage == nil {
+                    Spacer()
+                    Image(systemName: "checkmark")
+                        .foregroundStyle(Asset.Colors.accent.swiftUIColor)
+                }
+            }
+        }
+        .tint(.primary)
+        .accessibilityLabel(title)
+        .accessibilityAddTraits(selectedLanguage == nil ? .isSelected : [])
     }
 }
 

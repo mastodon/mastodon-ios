@@ -8,6 +8,7 @@ struct AccountStatsView: View {
     
     enum DisplayType {
         case largeStacked
+        case largeStackedWithLastActive(Date?)
         case smallInline(joinedOn: Date?)
     }
     
@@ -17,7 +18,7 @@ struct AccountStatsView: View {
     
     var body: some View {
         switch displayType {
-        case .largeStacked:
+        case .largeStacked, .largeStackedWithLastActive:
             HStack(spacing: doublePadding) {
                 contents
             }
@@ -44,6 +45,8 @@ struct AccountStatsView: View {
         switch displayType {
         case .largeStacked:
             [.followersCount, .followingCount, .postCount]
+        case .largeStackedWithLastActive:
+            [.followersCount, .postCount, .lastActive]
         case .smallInline:
             [.followersCount, .followingCount, .postCount, .joinedOn]
         }
@@ -51,7 +54,7 @@ struct AccountStatsView: View {
     
     @ViewBuilder func statsView(_ stat: StatType) -> some View {
         switch displayType {
-        case .largeStacked:
+        case .largeStacked, .largeStackedWithLastActive:
             VStack(spacing: 0) {
                 Text(statValue(stat))
                     .font(.headline)
@@ -74,7 +77,7 @@ struct AccountStatsView: View {
         }
     }
     
-    func formattedJoinedDate(_ joinedDate: Date) -> String {
+    func formattedStatDate(_ joinedDate: Date) -> String {
         let joinedYear = Calendar.current.component(.year, from: joinedDate)
         let currentYear = Calendar.current.component(.year, from: .now)
         
@@ -99,11 +102,22 @@ struct AccountStatsView: View {
             count = accountMetrics.followersCount
         case .joinedOn:
             switch displayType {
-            case .largeStacked:
+            case .largeStacked, .largeStackedWithLastActive:
                 return unknownValue
             case .smallInline(let joinedOn):
                 if let joinedOn {
-                    return formattedJoinedDate(joinedOn)
+                    return formattedStatDate(joinedOn)
+                } else {
+                    return unknownValue
+                }
+            }
+        case .lastActive:
+            switch displayType {
+            case .largeStacked, .smallInline:
+                return unknownValue
+            case .largeStackedWithLastActive(let lastActive):
+                if let lastActive {
+                    return formattedStatDate(lastActive)
                 } else {
                     return unknownValue
                 }
@@ -117,6 +131,7 @@ struct AccountStatsView: View {
         case followersCount
         case followingCount
         case joinedOn
+        case lastActive
         
         var label: String {
             // TODO: localization
@@ -129,6 +144,8 @@ struct AccountStatsView: View {
                 "Followers"
             case .joinedOn:
                 "Joined"
+            case .lastActive:
+                "Last Active"
             }
         }
     }

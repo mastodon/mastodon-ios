@@ -524,7 +524,7 @@ struct ProfileInfoView: View {
                     AccountStatsView(displayType: .smallInline(joinedOn: viewModel.account?.metadata.createdAt), accountMetrics: viewModel.account?.metrics) { stat in
                         guard let accountID = viewModel.account?.id else { return }
                         switch stat {
-                        case .postCount, .joinedOn:
+                        case .postCount, .joinedOn, .lastActive:
                             break
                         case .followersCount:
                             if let count = viewModel.account?.metrics.followersCount, count > 0 {

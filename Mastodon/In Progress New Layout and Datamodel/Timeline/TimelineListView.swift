@@ -592,7 +592,10 @@ struct TimelineListView: View {
     
     private func pushCreateNewCollection() {
         guard let authBox = viewModel.authenticatedUser else { return }
-        navigator.push(.createNewCollection(CreateCollectionViewModel(authBox: authBox), step: CreateCollectionStep.allCases.first!))
+        let createModel = CreateCollectionViewModel(authBox: authBox, didCreateCollection: { [weak viewModel] in
+            viewModel?.needsReloadOnNextAppear = .collectionsChanged
+        })
+        navigator.push(.createNewCollection(createModel, step: CreateCollectionStep.allCases.first!))
     }
     
     @ToolbarContentBuilder private var collectionsToolbar: some ToolbarContent {

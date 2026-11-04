@@ -79,29 +79,34 @@ struct ExploreRootView: View {
         if !searchViewModel.searchText.isEmpty {
             GeometryReader { geo in
                 let useableWidth = min(maxFeedContentWidth, geo.size.width)
-                if let searchTimelineModel, searchTimelineModel.currentDisplaySlice.contains(where: { $0.isRealItem }) {
-                    TimelineListView()
-                        .timelineEnvironment(timelineModel: searchTimelineModel, contentConcealModel: .alwaysShow, filter: searchTimelineModel.timeline.filterModel, asyncRefreshModel: asyncRefreshModel)
-                } else {
-                    LazyVStack(spacing: 0) {
-                        ForEach([SearchScope.people, .hashtags, .posts], id: \.self) { scope in
-                            let rowModel = {
-                                switch scope {
-                                case .people:
-                                    peopleQueryModel
-                                case .hashtags:
-                                    hashtagsQueryModel
-                                case .posts:
-                                    postsQueryModel
-                                case .all:
-                                    searchQueryModel
-                                }
-                            }()
-                            ScopedSearchResultsRowView(useableWidth: useableWidth)
-                                .environment(rowModel)
-                                .onTapGesture {
-                                    navigationStackNavigator.push(.timeline(.search(SearchQueryModel(scope: scope, trimmedSearchString: searchQueryModel.trimmedSearchString))))
-                                }
+                VStack(spacing: 0) {
+                    if let searchTimelineModel, searchTimelineModel.isFetching, searchTimelineModel.loadingState != .requestedReloadFromTop /*pull-to-refresh shows its own spinner*/ {
+                        SearchInProgressIndicatorRow()
+                    }
+                    if let searchTimelineModel, searchTimelineModel.currentDisplaySlice.contains(where: { $0.isRealItem }) {
+                        TimelineListView()
+                            .timelineEnvironment(timelineModel: searchTimelineModel, contentConcealModel: .alwaysShow, filter: searchTimelineModel.timeline.filterModel, asyncRefreshModel: asyncRefreshModel)
+                    } else {
+                        LazyVStack(spacing: 0) {
+                            ForEach([SearchScope.people, .hashtags, .posts], id: \.self) { scope in
+                                let rowModel = {
+                                    switch scope {
+                                    case .people:
+                                        peopleQueryModel
+                                    case .hashtags:
+                                        hashtagsQueryModel
+                                    case .posts:
+                                        postsQueryModel
+                                    case .all:
+                                        searchQueryModel
+                                    }
+                                }()
+                                ScopedSearchResultsRowView(useableWidth: useableWidth)
+                                    .environment(rowModel)
+                                    .onTapGesture {
+                                        navigationStackNavigator.push(.timeline(.search(SearchQueryModel(scope: scope, trimmedSearchString: searchQueryModel.trimmedSearchString))))
+                                    }
+                            }
                         }
                     }
                 }
@@ -212,6 +217,15 @@ public struct ScopedSearchResultsRowView: View {
         .padding(.bottom, doublePadding)
         .frame(width: useableWidth, alignment: .leading)
         .contentShape(Rectangle())
+    }
+}
+
+struct SearchInProgressIndicatorRow: View {
+    var body: some View {
+        ProgressView()
+            .progressViewStyle(.circular)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, standardPadding)
     }
 }
 

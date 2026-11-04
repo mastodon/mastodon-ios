@@ -117,4 +117,72 @@ extension Mastodon.API.Collections {
         try Mastodon.API.decodeEmpty(from: data, response: response)
         return
     }
+    
+    public struct CreateCollectionQuery: Codable, PostQuery {
+        public let name: String
+        public let description: String?
+        public let language: String?
+        public let tagName: String?
+        public let sensitive: Bool
+        public let discoverable: Bool
+        public let accountIDs: [Mastodon.Entity.Account.ID]
+        
+        enum CodingKeys: String, CodingKey {
+            case name
+            case description
+            case language
+            case tagName = "tag_name"
+            case sensitive
+            case discoverable
+            case accountIDs = "account_ids"
+        }
+        
+        public init(
+            name: String,
+            description: String?,
+            language: String?,
+            tagName: String?,
+            sensitive: Bool,
+            discoverable: Bool,
+            accountIDs: [Mastodon.Entity.Account.ID]
+        ) {
+            self.name = name
+            self.description = description
+            self.language = language
+            self.tagName = tagName
+            self.sensitive = sensitive
+            self.discoverable = discoverable
+            self.accountIDs = accountIDs
+        }
+    }
+    
+    private struct CollectionResponse: Decodable {
+        let collection: Mastodon.Entity.Collection
+    }
+    
+    /// Create a collection
+    ///
+    /// - Since: 4.6.0
+    /// - Version: 4.6.0
+    /// # Last Update
+    ///  2026/11/12
+    /// # [Document](https://docs.joinmastodon.org/methods/collections/#create)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain
+    ///   - query: the new collection's details and the accounts to feature
+    ///   - authorization: User token
+    /// - Returns: the new `Mastodon.Entity.Collection`, unwrapped from the response
+    public static func createCollection(
+        session: URLSession,
+        domain: String,
+        query: CreateCollectionQuery,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Collection> {
+        let request = Mastodon.API.post(url: collectionsEndpointURL(domain: domain, useBetaEndpoint: false), query: query, authorization: authorization)
+        RateLimitViewModel.shared.didMakeRequest("create collection")
+        let (data, response) = try await session.data(for: request)
+        let value = try Mastodon.API.decode(type: CollectionResponse.self, from: data, response: response)
+        return Mastodon.Response.Content(value: value.collection, response: response)
+    }
 }

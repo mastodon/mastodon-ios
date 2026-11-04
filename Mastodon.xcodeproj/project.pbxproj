@@ -362,6 +362,8 @@
 			membershipExceptions = (
 				AccountInfo.swift,
 				AsyncRefreshViewModel.swift,
+				Collections/CollectionAddAccountsView.swift,
+				Collections/CollectionEditDetailsView.swift,
 				Collections/CreateCollectionViewModel.swift,
 				"Common Components/AlignmentGuides.swift",
 				"Common Components/AsyncTapModifier.swift",

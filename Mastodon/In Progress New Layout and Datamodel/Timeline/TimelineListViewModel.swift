@@ -101,6 +101,7 @@ import MastodonUI
         case asyncRefreshResultsRequested
         case activityFilterUpdated
         case mediaFilterUpdated
+        case collectionsChanged
     }
     
     public var presentDonationDialog: ((Mastodon.Entity.DonationCampaign) -> ())?
@@ -174,12 +175,14 @@ import MastodonUI
     fileprivate var feedLoader: TimelineFeedLoader?
     private var feedLoaderResultsSubscription: AnyCancellable?
     private var feedLoaderErrorSubscription: AnyCancellable?
+    private var feedLoaderIsFetchingSubscription: AnyCancellable?
     private var notificationCountUpdateSubscription: AnyCancellable?
     
     private var currentlyPreparingForDisplay: [String]?
     private var displayPrepRequested: [MastodonPostViewModel]? // only keep the latest batch requested, to avoid getting bogged down while fast scrolling
     
     public var loadingState: LoadingState = .initializing
+    private(set) var isFetching = false
     
     public var threadedConversationModel: ThreadedConversationModel? {
         return feedLoader?.threadedConversationModel
@@ -216,6 +219,7 @@ import MastodonUI
         feedLoader = nil
         feedLoaderErrorSubscription?.cancel()
         feedLoaderResultsSubscription?.cancel()
+        feedLoaderIsFetchingSubscription?.cancel()
         loadingState = .untracked
         currentDisplaySlice = ArraySlice([.loadingIndicator])
         Task {
@@ -448,6 +452,13 @@ import MastodonUI
                 guard !error.isTransientNetworkError else { return }
                 navigator.didReceiveError(error)
             }
+        
+        feedLoaderIsFetchingSubscription = feedLoader?.$isFetching
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isFetching in
+                self?.isFetching = isFetching
+            }
+        
         feedLoader?.doFirstLoad()
         
         if timeline.canDisplayUnreadNotifications {
@@ -530,7 +541,7 @@ import MastodonUI
         }
         needsReloadOnNextAppear = nil
         switch reason {
-        case .feedRelationshipsChanged:
+        case .feedRelationshipsChanged, .collectionsChanged:
             loadingState = .requestedReloadFromTop
             feedLoader.requestLoad(.reload)
         case .notificationCountUpdated:

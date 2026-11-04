@@ -77,6 +77,7 @@ struct SettingsNavigationView: View {
                                 .environment(generalSettingsViewModel)
                         case .languageSelection:
                             LanguagePicker(selectedLanguage: generalSettingsViewModel.defaultPostLanguage, onSelect: { selected in
+                                guard let selected else { return }
                                 generalSettingsViewModel.defaultPostLanguage = selected
                                 navigator.pop()
                             })

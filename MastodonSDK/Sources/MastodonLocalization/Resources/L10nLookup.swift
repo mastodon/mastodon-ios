@@ -1121,27 +1121,90 @@ public extension L10nLookup.Scene {
         public static func stepNumber(_ stepNumber: Int, ofTotal totalSteps: Int) -> String {
             tr("Localizable-Collections", "Scene.CreateCollection.stepNumber", stepNumber, totalSteps)
         }
-        public static let whoWillYouFeature: String = {
-            tr("Localizable-Collections", "Scene.CreateCollection.whoWillYouFeature")
-        }()
-        public static let searchBoxPlaceholder: String = {
-            tr("Localizable-Collections", "Scene.CreateCollection.searchBoxPlaceholder")
-        }()
-        public static let emptyCollectionMessage: String = {
-            tr("Localizable-Collections", "Scene.CreateCollection.emptyCollectionMessage")
-        }()
-        public static func accountLimitMessage(limit: Int) -> String {
-            tr("Localizable-Collections", "Scene.CreateCollection.accountLimitMessage", limit)
+        
+        public struct AddAccounts {
+            public static let whoWillYouFeature: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.AddAccounts.whoWillYouFeature")
+            }()
+            public static let searchBoxPlaceholder: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.AddAccounts.searchBoxPlaceholder")
+            }()
+            public static let emptyCollectionMessage: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.AddAccounts.emptyCollectionMessage")
+            }()
+            public static func accountLimitMessage(limit: Int) -> String {
+                tr("Localizable-Collections", "Scene.CreateCollection.AddAccounts.accountLimitMessage", limit)
+            }
+            public static func accountsAddedCount(_ addedCount: Int, maxCount: Int) -> String {
+                tr("Localizable-Collections", "Scene.CreateCollection.AddAccounts.accountsAddedCount", addedCount, maxCount)
+            }
+            public static let canNotAdd: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.AddAccounts.canNotAdd")
+            }()
+            public static let canNotAddExplainer: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.AddAccounts.canNotAddExplainer")
+            }()
+            public static let alreadyAdded: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.AddAccounts.alreadyAdded")
+            }()
         }
-        public static func accountsAddedCount(_ addedCount: Int, maxCount: Int) -> String {
-            tr("Localizable-Collections", "Scene.CreateCollection.accountsAddedCount", addedCount, maxCount)
+        
+        public struct CollectionDetails {
+            public static let title: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.Details.title")
+            }()
+            public static let contentWarning: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.Details.contentWarning")
+            }()
+            public static let createCollection: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.Details.createCollection")
+            }()
+            public static let descriptionPlaceholder: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.Details.descriptionPlaceholder")
+            }()
+            public static let languagePlaceholder: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.Details.languagePlaceholder")
+            }()
+            public static let noLanguageSelected: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.Details.noLanguageSelected")
+            }()
+            public static let markSensitive: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.Details.markSensitive")
+            }()
+            public static let namePlaceholder: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.Details.namePlaceholder")
+            }()
+            public static let sensitiveExplainer: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.Details.sensitiveExplainer")
+            }()
+            public static let topicPlaceholder: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.Details.topicPlaceholder")
+            }()
+            public static let topicHint: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.Details.topicHint")
+            }()
+            public static func characterLimit(_ limit: Int) -> String {
+                tr("Localizable-Collections", "Scene.CreateCollection.Details.characterLimit", limit)
+            }
+            
+            public struct Visibility {
+                public static let publicExplainer: String = {
+                    tr("Localizable-Collections", "Scene.CreateCollection.Details.Visibility.publicExplainer")
+                }()
+                public static let publicSetting: String = {
+                    tr("Localizable-Collections", "Scene.CreateCollection.Details.Visibility.publicSetting")
+                }()
+                public static let title: String = {
+                    tr("Localizable-Collections", "Scene.CreateCollection.Details.Visibility.title")
+                }()
+                public static let unlistedExplainer: String = {
+                    tr("Localizable-Collections", "Scene.CreateCollection.Details.Visibility.unlistedExplainer")
+                }()
+                public static let unlistedSetting: String = {
+                    tr("Localizable-Collections", "Scene.CreateCollection.Details.Visibility.unlistedSetting")
+                }()
+            }
         }
-        public static let canNotAdd: String = {
-            tr("Localizable-Collections", "Scene.CreateCollection.canNotAdd")
-        }()
-        public static let canNotAddExplainer: String = {
-            tr("Localizable-Collections", "Scene.CreateCollection.canNotAddExplainer")
-        }()
     }
 }
 

@@ -42,6 +42,18 @@ extension APIService {
         
         return
     }
+    
+    public func createCollection(
+        _ query: Mastodon.API.Collections.CreateCollectionQuery,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Collection> {
+        let authorization = authenticationBox.userAuthorization
+        let response = try await Mastodon.API.Collections.createCollection(session: session,
+                                                                           domain: authenticationBox.domain,
+                                                                           query: query,
+                                                                           authorization: authorization)
+        return response
+    }
 }
 
 fileprivate extension MastodonAuthenticationBox {

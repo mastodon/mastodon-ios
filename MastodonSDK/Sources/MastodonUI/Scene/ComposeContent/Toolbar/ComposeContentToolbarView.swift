@@ -125,8 +125,10 @@ struct ComposeContentToolbarView: View {
                                 .frame(width: 48, height: 48)
                                 .popover(isPresented: $showingLanguagePicker) {
                                     let picker = LanguagePickerNavigationView(selectedLanguage: viewModel.language) { newLanguage in
-                                        viewModel.language = newLanguage
-                                        didChangeLanguage = true
+                                        if let newLanguage {
+                                            viewModel.language = newLanguage
+                                            didChangeLanguage = true
+                                        }
                                         showingLanguagePicker = false
                                     }
                                     if verticalSizeClass == .regular && horizontalSizeClass == .regular {

@@ -18,7 +18,9 @@ public enum ApiFeature {
 public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
     
     public static let fallbackCharactersReservedPerURL = 23
-    public static let maxAccountsPerCollection = 25
+    public static let fallbackMaxAccountsPerCollection = 25
+    public static let fallbackMaxCollectionNameLength = 40
+    public static let fallbackMaxCollectionDescriptionLength = 100
 
     public enum InstanceConfiguration: Codable, Hashable {
         case fromEndpointV1(Mastodon.Entity.Instance)   // an instance returned by querying the v1 endpoint, available from all servers
@@ -127,6 +129,15 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
                 return instance.configuration?.statuses?.charactersReservedPerURL ?? fallbackCharactersReservedPerURL
             }
         }
+        
+        public var collectionLimits: Mastodon.Entity.V2.Instance.Configuration.CollectionsLimits? {
+            switch self {
+            case .fromEndpointV1:
+                return nil
+            case .fromEndpointV2(let instance, _):
+                return instance.configuration?.collections
+            }
+        }
     }
     
     public typealias ID = UUID
@@ -155,6 +166,18 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
     
     public var persistenceIdentifier: String {
         "\(username)@\(domain)"
+    }
+    
+    public var maxAccountsPerCollection: Int {
+        instanceConfiguration?.collectionLimits?.maxItems ?? Self.fallbackMaxAccountsPerCollection
+    }
+    
+    public var maxCollectionNameLength: Int {
+        instanceConfiguration?.collectionLimits?.maxNameLength ?? Self.fallbackMaxCollectionNameLength
+    }
+    
+    public var maxCollectionDescriptionLength: Int {
+        instanceConfiguration?.collectionLimits?.maxDescriptionLength ?? Self.fallbackMaxCollectionDescriptionLength
     }
     
     public static func createFrom(
