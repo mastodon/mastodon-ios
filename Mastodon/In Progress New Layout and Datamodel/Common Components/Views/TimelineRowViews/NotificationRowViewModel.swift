@@ -229,35 +229,11 @@ extension NotificationRowViewModel {
         var actions = [A11yActionInfo]()
         if let primaryNavigationTitle = primaryNavigation?.a11yTitle { actions.append(A11yActionInfo(title: primaryNavigationTitle, doAction: { [weak self] in self?.doPrimaryNavigation(navigator) }))
         }
-        // TODO: replace the below
-//        for component in self.headerComponents + self.contentComponents {
-//            actions.append(contentsOf: a11yActions(forComponent: component))
-//        }
+        if let sourceAccounts = avatarRowSourceAccounts {
+            actions.append(contentsOf: a11yActions(forRelationshipElement: avatarRowAdditionalElement, isGrouped: sourceAccounts.totalActorCount > 1, navigator: navigator))
+        }
         return actions
     }
-
-//    private func a11yActions(forComponent component: NotificationViewComponent?) -> [A11yActionInfo]  {
-//        switch component {
-//        case .none:
-//            return []
-//        case let .avatarRow(sourceAccounts, relationshipElement):
-//            let relationshipActions = a11yActions(forRelationshipElement: relationshipElement, isGrouped: sourceAccounts.totalActorCount > 1)
-//            let accountNavigations = sourceAccounts.accounts.compactMap { account in
-//                A11yActionInfo(title: L10n.Common.Controls.Status.MetaEntity.mention(account.displayName(whenViewedBy: nil)?.plainString ?? ""), doAction: {
-//                    Task { [weak self] in
-//                        try await self?.navigateToProfile(account)
-//                    }
-//                })
-//            }
-//            return relationshipActions + accountNavigations
-//        case let .status(statusViewModel):
-//            return [A11yActionInfo(title: L10n.Common.Controls.Status.showPost, doAction: { statusViewModel.navigateToStatus() })]
-//        case .hyperlink(_, _):
-//            return []
-//        case .text, .textAndTimeLabel, .timeSinceLabel, .weightedText, ._other:
-//            return []
-//        }
-//    }
     
     private func a11yActions(forRelationshipElement relationshipElement: RelationshipElement, isGrouped: Bool, navigator: MastodonNavigationRouter) -> [A11yActionInfo] {
         

@@ -299,12 +299,9 @@ enum FollowRequestControls {
             } else {
                 return L10n.Scene.Notification.FollowRequest.reject
             }
-        case .iHaveAnsweredTheirRequestToFollowMe(let accepted):
-            if accepted {
-                return L10n.Scene.Notification.FollowRequest.accepted
-            } else {
-                return L10n.Scene.Notification.FollowRequest.rejected
-            }
+        case .iHaveAnsweredTheirRequestToFollowMe:
+            // this status is reported by the headline's accessibility value
+            return nil
         }
     }
 }
@@ -542,6 +539,7 @@ struct FilteredNotificationsRowView: View {
 struct NotificationRowView: View {
     @Environment(MastodonNavigationRouter.self) private var navigator
     @Environment(NotificationRowViewModel.self) var viewModel
+    @Environment(\.accessibilityVoiceOverEnabled) private var voiceOverEnabled
     let contentWidth: CGFloat
     let actionHandler: MastodonPostMenuActionHandler?
     
@@ -563,6 +561,23 @@ struct NotificationRowView: View {
         .onTapGesture {
             viewModel.doPrimaryNavigation(navigator)
         }
+        .accessibilityElement(children: .contain)
+        .accessibilityActions {
+            ForEach(viewModel.a11yActions(navigator: navigator)) { action in
+                Button(action.title, action: action.doAction)
+            }
+        }
+    }
+    
+    private var followRequestAcceptanceStatusA11yLabel: String? {
+        switch viewModel.avatarRowAdditionalElement {
+        case .followRequestControls(.theyHaveRequestedToFollowMe(iFollowThem: true)):
+            L10n.Common.Controls.Friendship.following
+        case .followRequestControls(.iHaveAnsweredTheirRequestToFollowMe(let didAccept)):
+            didAccept ? L10n.Scene.Notification.FollowRequest.accepted : L10n.Scene.Notification.FollowRequest.rejected
+        default:
+            nil
+        }
     }
     
     @ViewBuilder
@@ -576,6 +591,8 @@ struct NotificationRowView: View {
             // HEADLINE AND TIMESTAMP
             HStack(spacing: 0) {
                 headlineView
+                    .accessibilityElement(children: .combine)
+                    .accessibilityValue(followRequestAcceptanceStatusA11yLabel ?? "")
                 if let timestamp = viewModel.notification.timestamp {
                     Spacer(minLength: standardPadding)
                     VisibilityAndTimestamp(referenceDate: timestamp, visibility: nil)
@@ -699,7 +716,6 @@ struct NotificationRowView: View {
                 Spacer().frame(minWidth: 0, maxWidth: .infinity)
                 avatarRowTrailingElement(
                     trailingElement, grouped: accountInfo.totalActorCount > 1)
-                .accessibilityHidden(true)
             }
         }
         .frame(height: stackedAvatarSize.rawValue)  // this keeps GeometryReader from causing inconsistent visual spacing in the VStack
@@ -717,10 +733,12 @@ struct NotificationRowView: View {
                 EmptyView()
             case .fetching, .unfetched:
                 ProgressView().progressViewStyle(.circular)
+                    .accessibilityHidden(true)
             case .relationshipButton(let button):
                 button.button() {
                     viewModel.doAvatarRowButtonAction(navigator: navigator)
                 }
+                .accessibilityHidden(voiceOverEnabled || button.a11yActionTitle == nil)
             case .followRequestControls(let controls):
                 switch controls {
                 case .theyHaveRequestedToFollowMe(let iFollowThem):
@@ -731,7 +749,7 @@ struct NotificationRowView: View {
                             }
                             .buttonStyle(.subtleCapsule(isLarge: false))
                             .fixedSize()
-                            .accessibilityLabel(L10n.Common.Controls.Friendship.following)
+                            .accessibilityHidden(true)
                         }
                         
                         Button(action: {
@@ -742,6 +760,7 @@ struct NotificationRowView: View {
                         .buttonStyle(
                             ImageButton(
                                 foregroundColor: .secondary, backgroundColor: .clear))
+                        .accessibilityLabel(L10n.Scene.Notification.FollowRequest.reject)
                         
                         Button(action: {
                             viewModel.doAvatarRowButtonAction(true, navigator: navigator)
@@ -752,14 +771,16 @@ struct NotificationRowView: View {
                         .buttonStyle(
                             ImageButton(
                                 foregroundColor: .secondary, backgroundColor: .clear))
+                        .accessibilityLabel(L10n.Scene.Notification.FollowRequest.accept)
                     }
+                    .accessibilityHidden(voiceOverEnabled)
                 case .iHaveAnsweredTheirRequestToFollowMe(let didAccept):
                     if didAccept {
                         lightwieghtImageView("checkmark", size: stackedAvatarSize.rawValue)
-                            .accessibilityLabel(L10n.Scene.Notification.FollowRequest.accepted)
+                            .accessibilityHidden(true)
                     } else {
                         lightwieghtImageView("xmark", size: stackedAvatarSize.rawValue)
-                            .accessibilityLabel(L10n.Scene.Notification.FollowRequest.rejected)
+                            .accessibilityHidden(true)
                     }
                 }
             }
