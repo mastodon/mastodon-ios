@@ -5722,8 +5722,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Likes"
+            "state" : "translated",
+            "value" : "J'aime"
           }
         },
         "ga" : {

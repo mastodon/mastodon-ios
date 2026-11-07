@@ -2512,8 +2512,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "New Collection"
+            "state" : "translated",
+            "value" : "Новая Калекцыя"
           }
         },
         "ca" : {
@@ -2542,8 +2542,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "New Collection"
+            "state" : "translated",
+            "value" : "Ny samling"
           }
         },
         "de" : {
@@ -2602,14 +2602,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "New Collection"
+            "state" : "translated",
+            "value" : "Nouvelle collection"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "New Collection"
+            "state" : "translated",
+            "value" : "Bailiúchán Nua"
           }
         },
         "gd" : {
@@ -2656,8 +2656,8 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "New Collection"
+            "state" : "translated",
+            "value" : "Nýtt safn"
           }
         },
         "it" : {
@@ -2788,8 +2788,8 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "New Collection"
+            "state" : "translated",
+            "value" : "Gói Khởi đầu mới"
           }
         },
         "zh-Hans" : {
@@ -6114,26 +6114,26 @@
             "plural" : {
               "few" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "Add up to %1$(limit)lld accounts"
+                  "state" : "translated",
+                  "value" : "Дадайце да %1$(limit)lld уліковых запісаў"
                 }
               },
               "many" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "Add up to %1$(limit)lld accounts"
+                  "state" : "translated",
+                  "value" : "Дадайце да %1$(limit)lld уліковых запісаў"
                 }
               },
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "Add up to %1$(limit)lld account"
+                  "state" : "translated",
+                  "value" : "Дадайце да %1$(limit)lld уліковага запісу"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "Add up to %1$(limit)lld accounts"
+                  "state" : "translated",
+                  "value" : "Дадайце да %1$(limit)lld уліковых запісаў"
                 }
               }
             }
@@ -6252,14 +6252,14 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "Add up to %1$(limit)lld account"
+                  "state" : "translated",
+                  "value" : "Tilføj op til %1$(limit)lld konto"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "Add up to %1$(limit)lld accounts"
+                  "state" : "translated",
+                  "value" : "Tilføj op til %1$(limit)lld konti"
                 }
               }
             }
@@ -6432,14 +6432,14 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "Add up to %1$(limit)lld account"
+                  "state" : "translated",
+                  "value" : "Ajoutez jusqu'à %1$(limit)lld compte"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "Add up to %1$(limit)lld accounts"
+                  "state" : "translated",
+                  "value" : "Ajoutez jusqu'à %1$(limit)lld comptes"
                 }
               }
             }
@@ -6450,32 +6450,32 @@
             "plural" : {
               "few" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "Add up to %1$(limit)lld accounts"
+                  "state" : "translated",
+                  "value" : "Cuir suas le %1$(limit)lld chuntas leis"
                 }
               },
               "many" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "Add up to %1$(limit)lld accounts"
+                  "state" : "translated",
+                  "value" : "Cuir suas le %1$(limit)lld chuntas leis"
                 }
               },
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "Add up to %1$(limit)lld account"
+                  "state" : "translated",
+                  "value" : "Cuir suas le %1$(limit)lld chuntas leis"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "Add up to %1$(limit)lld accounts"
+                  "state" : "translated",
+                  "value" : "Cuir suas le %1$(limit)lld chuntas leis"
                 }
               },
               "two" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "Add up to %1$(limit)lld accounts"
+                  "state" : "translated",
+                  "value" : "Cuir suas le %1$(limit)lld chuntas leis"
                 }
               }
             }
@@ -6624,14 +6624,14 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "Add up to %1$(limit)lld account"
+                  "state" : "translated",
+                  "value" : "Bættu við allt að %1$(limit)lld aðgangi"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "Add up to %1$(limit)lld accounts"
+                  "state" : "translated",
+                  "value" : "Bættu við allt að %1$(limit)lld aðgöngum"
                 }
               }
             }
@@ -7068,8 +7068,8 @@
             "plural" : {
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "Add up to %1$(limit)lld accounts"
+                  "state" : "translated",
+                  "value" : "Thêm tối đa %1$(limit)lld tài khoản"
                 }
               }
             }
@@ -7119,8 +7119,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(addedCount)lld/%2$(maxCount)lld accounts added"
+            "state" : "translated",
+            "value" : "%1$(addedCount)lld/%2$(maxCount)lld уліковых запісаў было дададзена"
           }
         },
         "ca" : {
@@ -7149,8 +7149,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(addedCount)lld/%2$(maxCount)lld accounts added"
+            "state" : "translated",
+            "value" : "%1$(addedCount)lld/%2$(maxCount)lld konti tilføjet"
           }
         },
         "de" : {
@@ -7209,14 +7209,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(addedCount)lld/%2$(maxCount)lld accounts added"
+            "state" : "translated",
+            "value" : "%1$(addedCount)lld/%2$(maxCount)lld comptes ajoutés"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(addedCount)lld/%2$(maxCount)lld accounts added"
+            "state" : "translated",
+            "value" : "%1$(addedCount)lld/%2$(maxCount)lld cuntas curtha leis"
           }
         },
         "gd" : {
@@ -7263,8 +7263,8 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(addedCount)lld/%2$(maxCount)lld accounts added"
+            "state" : "translated",
+            "value" : "%1$(addedCount)lld/%2$(maxCount)lld aðgöngum bætt við"
           }
         },
         "it" : {
@@ -7395,8 +7395,8 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$(addedCount)lld/%2$(maxCount)lld accounts added"
+            "state" : "translated",
+            "value" : "%1$(addedCount)lld/%2$(maxCount)lld tài khoản đã được thêm"
           }
         },
         "zh-Hans" : {
@@ -7431,8 +7431,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can’t be added"
+            "state" : "translated",
+            "value" : "Немагчыма дадаць"
           }
         },
         "ca" : {
@@ -7461,8 +7461,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can’t be added"
+            "state" : "translated",
+            "value" : "Kan ikke tilføjes"
           }
         },
         "de" : {
@@ -7521,14 +7521,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can’t be added"
+            "state" : "translated",
+            "value" : "Ne peut pas être ajouté"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can’t be added"
+            "state" : "translated",
+            "value" : "Ní féidir a chur leis"
           }
         },
         "gd" : {
@@ -7575,14 +7575,14 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can’t be added"
+            "state" : "translated",
+            "value" : "Er ekki hægt að bæta við"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can’t be added"
+            "state" : "translated",
+            "value" : "Non è possibile aggiungere"
           }
         },
         "ja" : {
@@ -7707,8 +7707,8 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can’t be added"
+            "state" : "translated",
+            "value" : "Không thể thêm"
           }
         },
         "zh-Hans" : {
@@ -7743,8 +7743,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These accounts may have opted out of discovery, or they might be on a server that doesn’t support collections."
+            "state" : "translated",
+            "value" : "Магчыма, гэтыя ўліковыя запісы схаваныя ад рэкамендацый або знаходзяцца на серверы, які не падтрымлівае калекцыі."
           }
         },
         "ca" : {
@@ -7773,8 +7773,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These accounts may have opted out of discovery, or they might be on a server that doesn’t support collections."
+            "state" : "translated",
+            "value" : "Disse konti kan have fravalgt opdagelse, eller de kan være på en server, der ikke understøtter samlinger."
           }
         },
         "de" : {
@@ -7833,14 +7833,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These accounts may have opted out of discovery, or they might be on a server that doesn’t support collections."
+            "state" : "translated",
+            "value" : "Ces comptes peuvent avoir choisi de ne pas être découverts, ou ils peuvent être sur un serveur qui ne supporte pas les collections."
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These accounts may have opted out of discovery, or they might be on a server that doesn’t support collections."
+            "state" : "translated",
+            "value" : "D’fhéadfadh sé go bhfuil na cuntais seo tar éis roghnú gan a bheith le fáil trí fhionnachtain, nó b’fhéidir go bhfuil siad ar fhfreastalaí nach dtacaíonn le bailiúcháin."
           }
         },
         "gd" : {
@@ -7887,14 +7887,14 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These accounts may have opted out of discovery, or they might be on a server that doesn’t support collections."
+            "state" : "translated",
+            "value" : "Þessir aðgangar gætu hafa skráð sig úr almennri birtingu eða gætu verið á netþjónum sem ekki styðja söfn."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These accounts may have opted out of discovery, or they might be on a server that doesn’t support collections."
+            "state" : "translated",
+            "value" : "Questi account potrebbero aver scelto di non essere scoperti, oppure potrebbero trovarsi su un server che non supporta le collezioni."
           }
         },
         "ja" : {
@@ -8019,8 +8019,8 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These accounts may have opted out of discovery, or they might be on a server that doesn’t support collections."
+            "state" : "translated",
+            "value" : "Những tài khoản này không muốn khám phá, hoặc họ ở trên máy chủ chưa hỗ trợ gói khởi đầu."
           }
         },
         "zh-Hans" : {
@@ -8055,8 +8055,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "No one is in this collection yet"
+            "state" : "translated",
+            "value" : "У гэтай калекцыі пакуль нікога няма"
           }
         },
         "ca" : {
@@ -8085,8 +8085,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "No one is in this collection yet"
+            "state" : "translated",
+            "value" : "Ingen er i denne samling endnu"
           }
         },
         "de" : {
@@ -8145,14 +8145,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "No one is in this collection yet"
+            "state" : "translated",
+            "value" : "Il n'y a personne dans cette collection"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "No one is in this collection yet"
+            "state" : "translated",
+            "value" : "Níl aon duine sa bhailiúchán seo go fóill"
           }
         },
         "gd" : {
@@ -8199,14 +8199,14 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "No one is in this collection yet"
+            "state" : "translated",
+            "value" : "Enginn er enn í þessu safni"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "No one is in this collection yet"
+            "state" : "translated",
+            "value" : "In questa collezione non c'è ancora nessuno"
           }
         },
         "ja" : {
@@ -8331,8 +8331,8 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "No one is in this collection yet"
+            "state" : "translated",
+            "value" : "Chưa có ai trong gói khởi đầu này"
           }
         },
         "zh-Hans" : {
@@ -8367,8 +8367,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Search for an account to add"
+            "state" : "translated",
+            "value" : "Адшукайце ўліковы запіс, каб дадаць яго сюды"
           }
         },
         "ca" : {
@@ -8397,8 +8397,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Search for an account to add"
+            "state" : "translated",
+            "value" : "Søg efter en konto at tilføje"
           }
         },
         "de" : {
@@ -8457,14 +8457,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Search for an account to add"
+            "state" : "translated",
+            "value" : "Recherchez un compte à ajouter"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Search for an account to add"
+            "state" : "translated",
+            "value" : "Cuardaigh cuntas le cur leis"
           }
         },
         "gd" : {
@@ -8511,14 +8511,14 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Search for an account to add"
+            "state" : "translated",
+            "value" : "Leitaðu að aðgangi til að bæta við"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Search for an account to add"
+            "state" : "translated",
+            "value" : "Cerca un account da aggiungere"
           }
         },
         "ja" : {
@@ -8643,8 +8643,8 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Search for an account to add"
+            "state" : "translated",
+            "value" : "Tìm tài khoản để thêm"
           }
         },
         "zh-Hans" : {
@@ -8679,8 +8679,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Step %1$(stepNumber)lld/%2$(totalSteps)lld"
+            "state" : "translated",
+            "value" : "Крок %1$(stepNumber)lld/%2$(totalSteps)lld"
           }
         },
         "ca" : {
@@ -8709,8 +8709,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Step %1$(stepNumber)lld/%2$(totalSteps)lld"
+            "state" : "translated",
+            "value" : "Trin %1$(stepNumber)lld/%2$(totalSteps)lld"
           }
         },
         "de" : {
@@ -8769,14 +8769,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Step %1$(stepNumber)lld/%2$(totalSteps)lld"
+            "state" : "translated",
+            "value" : "Étape %1$(stepNumber)lld/%2$(totalSteps)lld"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Step %1$(stepNumber)lld/%2$(totalSteps)lld"
+            "state" : "translated",
+            "value" : "Céim %1$(stepNumber)lld/%2$(totalSteps)lld"
           }
         },
         "gd" : {
@@ -8823,13 +8823,13 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Step %1$(stepNumber)lld/%2$(totalSteps)lld"
+            "state" : "translated",
+            "value" : "Skref %1$(stepNumber)lld/%2$(totalSteps)lld"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Step %1$(stepNumber)lld/%2$(totalSteps)lld"
           }
         },
@@ -8955,8 +8955,8 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Step %1$(stepNumber)lld/%2$(totalSteps)lld"
+            "state" : "translated",
+            "value" : "Bước %1$(stepNumber)lld/%2$(totalSteps)lld"
           }
         },
         "zh-Hans" : {
@@ -8991,8 +8991,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "New Collection"
+            "state" : "translated",
+            "value" : "Новая Калекцыя"
           }
         },
         "ca" : {
@@ -9021,8 +9021,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "New Collection"
+            "state" : "translated",
+            "value" : "Ny samling"
           }
         },
         "de" : {
@@ -9081,14 +9081,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "New Collection"
+            "state" : "translated",
+            "value" : "Nouvelle collection"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "New Collection"
+            "state" : "translated",
+            "value" : "Bailiúchán Nua"
           }
         },
         "gd" : {
@@ -9135,8 +9135,8 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "New Collection"
+            "state" : "translated",
+            "value" : "Nýtt safn"
           }
         },
         "it" : {
@@ -9267,8 +9267,8 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "New Collection"
+            "state" : "translated",
+            "value" : "Gói Khởi đầu mới"
           }
         },
         "zh-Hans" : {
@@ -9303,8 +9303,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Who will you feature in this collection?"
+            "state" : "translated",
+            "value" : "Каго Вы ўключыце ў гэтую калекцыю?"
           }
         },
         "ca" : {
@@ -9333,8 +9333,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Who will you feature in this collection?"
+            "state" : "translated",
+            "value" : "Hvem vil du fremhæve i denne samling?"
           }
         },
         "de" : {
@@ -9393,14 +9393,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Who will you feature in this collection?"
+            "state" : "translated",
+            "value" : "Qui voulez-vous mettre en avant dans cette collection ?"
           }
         },
         "ga" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Who will you feature in this collection?"
+            "state" : "translated",
+            "value" : "Cé a chuirfidh tú i láthair sa bhailiúchán seo?"
           }
         },
         "gd" : {
@@ -9447,14 +9447,14 @@
         },
         "is" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Who will you feature in this collection?"
+            "state" : "translated",
+            "value" : "Hvern vilt þú gera áberandi í þessu safni?"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Who will you feature in this collection?"
+            "state" : "translated",
+            "value" : "Chi includerai in questa collezione?"
           }
         },
         "ja" : {
@@ -9579,8 +9579,8 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Who will you feature in this collection?"
+            "state" : "translated",
+            "value" : "Bạn sẽ chọn ai để giới thiệu trong gói khởi đầu này?"
           }
         },
         "zh-Hans" : {
