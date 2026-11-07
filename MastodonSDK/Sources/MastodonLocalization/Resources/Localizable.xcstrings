@@ -45370,8 +45370,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Like"
+            "state" : "translated",
+            "value" : "Падаб."
           }
         },
         "ca" : {
@@ -45460,8 +45460,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Like"
+            "state" : "translated",
+            "value" : "J'aime"
           }
         },
         "ga" : {
@@ -48791,8 +48791,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Unlike"
+            "state" : "translated",
+            "value" : "Не падаб."
           }
         },
         "ca" : {
@@ -48881,8 +48881,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Unlike"
+            "state" : "translated",
+            "value" : "Ne plus aimer"
           }
         },
         "ga" : {
@@ -52985,7 +52985,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Carica l'incorporato"
+            "value" : "Carica il contenuto incorporato"
           }
         },
         "ja" : {
@@ -93405,26 +93405,26 @@
             "plural" : {
               "few" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%ld likes"
+                  "state" : "translated",
+                  "value" : "%ld упадабанні"
                 }
               },
               "many" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%ld likes"
+                  "state" : "translated",
+                  "value" : "%ld упадабанняў"
                 }
               },
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "1 like"
+                  "state" : "translated",
+                  "value" : "1 упадабанне"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%ld likes"
+                  "state" : "translated",
+                  "value" : "%ld упадабанняў"
                 }
               }
             }
@@ -93723,14 +93723,14 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "1 like"
+                  "state" : "translated",
+                  "value" : "1 J'aime"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%ld likes"
+                  "state" : "translated",
+                  "value" : "%ld J'aime"
                 }
               }
             }
@@ -154609,8 +154609,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Likes"
+            "state" : "translated",
+            "value" : "J'aime"
           }
         },
         "ga" : {
@@ -154920,8 +154920,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Liked By"
+            "state" : "translated",
+            "value" : "Aimé par"
           }
         },
         "ga" : {
@@ -168072,8 +168072,8 @@
               },
               "many" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%(favouriteCount)lld people liked:"
+                  "state" : "translated",
+                  "value" : "%(favouriteCount)lld чалавек упадабалі:"
                 }
               },
               "one" : {
@@ -168384,14 +168384,14 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%(favouriteCount)lld person liked:"
+                  "state" : "translated",
+                  "value" : "%(favouriteCount)lld personne a aimé :"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%(favouriteCount)lld people liked:"
+                  "state" : "translated",
+                  "value" : "%(favouriteCount)lld personnes ont aimé :"
                 }
               }
             }
@@ -171747,8 +171747,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%(username)@ liked:"
+            "state" : "translated",
+            "value" : "%(username)@ a aimé :"
           }
         },
         "ga" : {
@@ -179357,8 +179357,8 @@
               },
               "many" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "You and %(othersCount)lld others liked:"
+                  "state" : "translated",
+                  "value" : "Вы і %(othersCount)lld іншых упадабалі:"
                 }
               },
               "one" : {
@@ -179669,14 +179669,14 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "You and %(othersCount)lld other liked:"
+                  "state" : "translated",
+                  "value" : "Vous et %(othersCount)lld autre ont aimé :"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "You and %(othersCount)lld others liked:"
+                  "state" : "translated",
+                  "value" : "Vous et %(othersCount)lld autres ont aimé :"
                 }
               }
             }
@@ -189754,7 +189754,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Scarta definitivamente, per non essere mai più visto"
+            "value" : "Scarta definitivamente, per non vederle mai più"
           }
         },
         "ja" : {
@@ -190376,7 +190376,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Invia alla casella di posta delle notifiche filtrate"
+            "value" : "Invia alla casella delle notifiche filtrate"
           }
         },
         "ja" : {

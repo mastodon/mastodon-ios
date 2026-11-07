@@ -1977,8 +1977,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone liked your post"
+            "state" : "translated",
+            "value" : "Quelqu'un a aimé votre message"
           }
         },
         "ga" : {

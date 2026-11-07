@@ -19,8 +19,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tell us what you think!"
+            "state" : "translated",
+            "value" : "Раскажыце, што вы думаеце!"
           }
         },
         "ca" : {
@@ -49,8 +49,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tell us what you think!"
+            "state" : "translated",
+            "value" : "Del din mening med os!"
           }
         },
         "de" : {
@@ -331,8 +331,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Feedback"
+            "state" : "translated",
+            "value" : "Водгук"
           }
         },
         "ca" : {
@@ -361,7 +361,7 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Feedback"
           }
         },
