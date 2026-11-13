@@ -267,7 +267,7 @@ extension Mastodon.API {
             }
             
             let httpResponseStatus = HTTPResponseStatus(statusCode: httpURLResponse.statusCode)
-            if let error = try? Mastodon.API.decoder.decode(Mastodon.Entity.Error.self, from: data) {
+            if let error = Mastodon.API.decodeErrorEntity(from: data) {
                 throw Mastodon.API.Error(httpResponseStatus: httpResponseStatus, error: error)
             }
             
@@ -284,10 +284,21 @@ extension Mastodon.API {
         guard httpURLResponse.statusCode != 200 && httpURLResponse.statusCode != 204 else { /*intentionally empty response*/ return }
         
         let httpResponseStatus = HTTPResponseStatus(statusCode: httpURLResponse.statusCode)
-        if let error = try? Mastodon.API.decoder.decode(Mastodon.Entity.Error.self, from: data) {
+        if let error = Mastodon.API.decodeErrorEntity(from: data) {
             throw Mastodon.API.Error(httpResponseStatus: httpResponseStatus, error: error)
         }
         
         return
+    }
+    
+    static func decodeErrorEntity(from data: Data) -> Mastodon.Entity.Error? {
+        if let error = try? Mastodon.API.decoder.decode(Mastodon.Entity.Error.self, from: data) {
+            return error
+        }
+        return try? Mastodon.API.decoder.decode(WrappedErrorEntity.self, from: data).error
+    }
+    
+    private struct WrappedErrorEntity: Decodable {
+        let error: Mastodon.Entity.Error
     }
 }

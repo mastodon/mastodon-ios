@@ -22,7 +22,7 @@ extension Mastodon.Entity.Error.Detail: LocalizedError {
             reasonErrorDescriptions,
         ]
         
-        guard !reasons.isEmpty else {
+        guard reasons.contains(where: { !$0.isEmpty }) else {
             return nil
         }
         

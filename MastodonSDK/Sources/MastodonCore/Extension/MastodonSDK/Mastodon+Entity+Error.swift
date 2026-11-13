@@ -20,7 +20,7 @@ extension Mastodon.API.Error: LocalizedError {
         }
         switch mastodonError {
         case .generic(let error):
-            if let _ = error.details {
+            if error.details?.failureReason != nil {
                 return nil  // Duplicated with the details
             } else {
                 return error.error
@@ -40,8 +40,8 @@ extension Mastodon.API.Error: LocalizedError {
         }
         switch mastodonError {
         case .generic(let error):
-            if let details = error.details {
-                return details.failureReason
+            if let detailsReason = error.details?.failureReason {
+                return detailsReason
             } else {
                 return error.errorDescription
             }
