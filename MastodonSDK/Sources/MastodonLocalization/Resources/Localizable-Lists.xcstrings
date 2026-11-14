@@ -913,8 +913,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create custom feed"
+            "state" : "translated",
+            "value" : "Створити власну стрічку"
           }
         },
         "vi" : {
@@ -1225,8 +1225,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create new custom feed…"
+            "state" : "translated",
+            "value" : "Створити нову власну стрічку…"
           }
         },
         "vi" : {
@@ -1536,8 +1536,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
+            "state" : "translated",
+            "value" : "Якщо хтось є у цій власній стрічці, приховайте цю особу у своїй головній стрічці, щоб не бачити її дописи двічі."
           }
         },
         "vi" : {
@@ -2160,8 +2160,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies from custom feed members to"
+            "state" : "translated",
+            "value" : "Включати відповіді учасників власної стрічки до"
           }
         },
         "vi" : {
@@ -2783,8 +2783,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom feed name"
+            "state" : "translated",
+            "value" : "Назва власної стрічки"
           }
         },
         "vi" : {
@@ -3407,8 +3407,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Members of the custom feed"
+            "state" : "translated",
+            "value" : "Члени власної стрічки"
           }
         },
         "vi" : {
