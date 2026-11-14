@@ -8040,7 +8040,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d выявы не маюць альтэрнатыўны тэкст. Усё роўна апублікаваць?"
+            "value" : "%d з вашых выяў не мае(-юць) альтэрнатыўны тэкст. Усё роўна апублікаваць?"
           }
         },
         "ca" : {
@@ -20014,7 +20014,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Copia foto"
+            "value" : "Copia la foto"
           }
         },
         "ja" : {
@@ -45210,7 +45210,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Copia il link"
+            "value" : "Copia il collegamento"
           }
         },
         "ja" : {
@@ -45370,8 +45370,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Like"
+            "state" : "translated",
+            "value" : "Падаб."
           }
         },
         "ca" : {
@@ -45460,8 +45460,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Like"
+            "state" : "translated",
+            "value" : "J'aime"
           }
         },
         "ga" : {
@@ -48791,8 +48791,8 @@
         },
         "be" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Unlike"
+            "state" : "translated",
+            "value" : "Не падаб."
           }
         },
         "ca" : {
@@ -48881,8 +48881,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Unlike"
+            "state" : "translated",
+            "value" : "Ne plus aimer"
           }
         },
         "ga" : {
@@ -52985,7 +52985,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Carica l'incorporato"
+            "value" : "Carica il contenuto incorporato"
           }
         },
         "ja" : {
@@ -61234,7 +61234,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Схавана адным з Вашых фільтраў"
+            "value" : "Схавана адным з вашых фільтраў"
           }
         },
         "ca" : {
@@ -61856,7 +61856,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "На Mastodon Вы можаце кантраляваць, хто можа цытаваць Вас. Гэты допіс будзе чакаць ухвалення, пакуль аўтар арыгінала не дасць дазвол."
+            "value" : "На Mastodon вы можаце кантраляваць, хто можа цытаваць вас. Гэты допіс будзе чакаць ухвалення, пакуль аўтар арыгінала не дасць дазвол."
           }
         },
         "ca" : {
@@ -70714,7 +70714,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inizio"
+            "value" : "Home"
           }
         },
         "ja" : {
@@ -90241,25 +90241,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%ld уліковыя запісы, на якія Вы падпісаныя"
+                  "value" : "%ld уліковыя запісы, на якія вы падпісаныя"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%ld уліковых запісаў, на якія Вы падпісаныя"
+                  "value" : "%ld уліковых запісаў, на якія вы падпісаныя"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "1 уліковы запіс, на які Вы падпісаныя"
+                  "value" : "1 уліковы запіс, на які вы падпісаныя"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%ld уліковых запісаў, на якія Вы падпісаныя"
+                  "value" : "%ld уліковых запісаў, на якія вы падпісаныя"
                 }
               }
             }
@@ -93405,26 +93405,26 @@
             "plural" : {
               "few" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%ld likes"
+                  "state" : "translated",
+                  "value" : "%ld упадабанні"
                 }
               },
               "many" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%ld likes"
+                  "state" : "translated",
+                  "value" : "%ld упадабанняў"
                 }
               },
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "1 like"
+                  "state" : "translated",
+                  "value" : "1 упадабанне"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%ld likes"
+                  "state" : "translated",
+                  "value" : "%ld упадабанняў"
                 }
               }
             }
@@ -93723,14 +93723,14 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "1 like"
+                  "state" : "translated",
+                  "value" : "1 J'aime"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%ld likes"
+                  "state" : "translated",
+                  "value" : "%ld J'aime"
                 }
               }
             }
@@ -102151,25 +102151,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%ld Вашыя падпісчыкі"
+                  "value" : "%ld вашыя падпісчыкі"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%ld Вашых падпісчыкаў"
+                  "value" : "%ld вашых падпісчыкаў"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "1 Ваш падпісчык"
+                  "value" : "1 ваш падпісчык"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%ld Вашых падпісчыкаў"
+                  "value" : "%ld вашых падпісчыкаў"
                 }
               }
             }
@@ -134359,7 +134359,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Асоба, якую Вы цытуеце, і іншыя, хто быў узгаданы, атрымаюць апавяшчэнні і змогуць пабачыць Ваш допіс, нават калі яны не падпісаныя на Вас."
+            "value" : "Асоба, якую вы цытуеце, і іншыя, хто быў згаданы, атрымаюць апавяшчэнні і змогуць пабачыць ваш допіс, нават калі яны не падпісаныя на вас."
           }
         },
         "ca" : {
@@ -134982,7 +134982,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Калі Вы захавайце бягучыя налады, прымацаваная цытата будзе пераробленая ў спасылку."
+            "value" : "Калі вы захавайце бягучыя налады, прымацаваная цытата будзе пераробленая ў спасылку."
           }
         },
         "ca" : {
@@ -145253,7 +145253,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Націсніце на спасылку, якую мы адправілі Вам, каб пацвердзіць Ваш уліковы запіс. Мы пачакаем Вас тут."
+            "value" : "Націсніце на спасылку, якую мы адправілі вам, каб пацвердзіць ваш уліковы запіс. Мы пачакаем вас тут."
           }
         },
         "ca" : {
@@ -145564,7 +145564,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Націсніце на спасылку, якую мы адправілі вам для праверкі %@. Мы чакаем вас тут."
+            "value" : "Націсніце на спасылку, якую мы адправілі вам для праверкі %@. Мы пачакаем вас тут."
           }
         },
         "ca" : {
@@ -146958,7 +146958,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Per Te"
+            "value" : "Per te"
           }
         },
         "ja" : {
@@ -149607,7 +149607,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Нам вельмі шкада, але адбылася памылка, і мы не змаглі апрацаваць Вашае ахвяраванне.\n\nКалі ласка, паспрабуйце яшчэ праз некалькі хвілін."
+            "value" : "Нам вельмі шкада, але адбылася памылка, і мы не змаглі апрацаваць вашае ахвяраванне.\n\nКалі ласка, паспрабуйце зноў праз некалькі хвілін."
           }
         },
         "ca" : {
@@ -150540,7 +150540,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "У бліжэйшы час Вы атрымаеце электронны ліст з пацвярджэннем Вашага ахвяравання."
+            "value" : "У бліжэйшы час вы атрымаеце электронны ліст з пацвярджэннем вашага ахвяравання."
           }
         },
         "ca" : {
@@ -150851,7 +150851,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Дзякуй за Ваш унёсак!"
+            "value" : "Дзякуй за ваш унёсак!"
           }
         },
         "ca" : {
@@ -153205,25 +153205,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(followersCount)lld падпісчыкі, якіх Вы ведаеце"
+                  "value" : "%(followersCount)lld падпісчыкі, якіх вы ведаеце"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(followersCount)lld падпісчыкаў, якіх Вы ведаеце"
+                  "value" : "%(followersCount)lld падпісчыкаў, якіх вы ведаеце"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(followersCount)lld падпісчык, якога Вы ведаеце"
+                  "value" : "%(followersCount)lld падпісчык, якога вы ведаеце"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(followersCount)lld падпісчыкаў, якіх Вы ведаеце"
+                  "value" : "%(followersCount)lld падпісчыкаў, якіх вы ведаеце"
                 }
               }
             }
@@ -154609,8 +154609,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Likes"
+            "state" : "translated",
+            "value" : "J'aime"
           }
         },
         "ga" : {
@@ -154920,8 +154920,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Liked By"
+            "state" : "translated",
+            "value" : "Aimé par"
           }
         },
         "ga" : {
@@ -161512,7 +161512,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inizio"
+            "value" : "Home"
           }
         },
         "ja" : {
@@ -166339,7 +166339,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$(collectionAuthor)@ дадаў(-ла) Вас у калекцыю"
+            "value" : "%1$(collectionAuthor)@ дадаў(-ла) вас у калекцыю"
           }
         },
         "ca" : {
@@ -168072,8 +168072,8 @@
               },
               "many" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%(favouriteCount)lld people liked:"
+                  "state" : "translated",
+                  "value" : "%(favouriteCount)lld чалавек упадабалі:"
                 }
               },
               "one" : {
@@ -168384,14 +168384,14 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%(favouriteCount)lld person liked:"
+                  "state" : "translated",
+                  "value" : "%(favouriteCount)lld personne a aimé :"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%(favouriteCount)lld people liked:"
+                  "state" : "translated",
+                  "value" : "%(favouriteCount)lld personnes ont aimé :"
                 }
               }
             }
@@ -169071,7 +169071,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%(newFollowerCount)lld людзей падпісалася на Вас"
+            "value" : "%(newFollowerCount)lld людзей падпісаліся на вас"
           }
         },
         "ca" : {
@@ -169439,31 +169439,31 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(pollAuthor)@ правёў(-ла) апытанне, дзе Вы і %(otherVotersCount)lld іншыя прагаласавалі"
+                  "value" : "%(pollAuthor)@ правёў(-яла) апытанне, дзе вы і %(otherVotersCount)lld іншыя прагаласавалі"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(pollAuthor)@ правёў(-ла) апытанне, дзе Вы і %(otherVotersCount)lld іншых прагаласавалі"
+                  "value" : "%(pollAuthor)@ правёў(-яла) апытанне, дзе вы і %(otherVotersCount)lld іншых прагаласавалі"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(pollAuthor)@ правёў(-ла) апытанне, дзе Вы і 1 іншы(-ая) прагаласавалі"
+                  "value" : "%(pollAuthor)@ правёў(-яла) апытанне, дзе вы і 1 іншы(-ая) прагаласавалі"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(pollAuthor)@ правёў(-ла) апытанне, дзе Вы і %(otherVotersCount)lld іншых прагаласавалі"
+                  "value" : "%(pollAuthor)@ правёў(-яла) апытанне, дзе вы і %(otherVotersCount)lld іншых прагаласавалі"
                 }
               },
               "zero" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%(pollAuthor)@ правёў(-ла) апытанне, дзе Вы прагаласавалі"
+                  "value" : "%(pollAuthor)@ правёў(-яла) апытанне, дзе вы прагаласавалі"
                 }
               }
             }
@@ -171036,7 +171036,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ адрэдагаваў допіс, з якім вы ўзаемадзейнічалі"
+            "value" : "%@ адрэдагаваў(-ла) допіс, з якім вы ўзаемадзейнічалі"
           }
         },
         "ca" : {
@@ -171347,7 +171347,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ адрэдагаваў(-ла) допіс, які Вы цытавалі"
+            "value" : "%@ адрэдагаваў(-ла) допіс, які вы цытавалі"
           }
         },
         "ca" : {
@@ -171747,8 +171747,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%(username)@ liked:"
+            "state" : "translated",
+            "value" : "%(username)@ a aimé :"
           }
         },
         "ga" : {
@@ -171969,7 +171969,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ падпісаўся(-лась) на Вас"
+            "value" : "%@ падпісаўся(-лася) на вас"
           }
         },
         "ca" : {
@@ -172280,7 +172280,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ згадаў(-ла) Вас"
+            "value" : "%@ згадаў(-ла) вас"
           }
         },
         "ca" : {
@@ -172902,7 +172902,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ цытаваў(-ла) Вас"
+            "value" : "%@ цытаваў(-ла) вас"
           }
         },
         "ca" : {
@@ -173213,7 +173213,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ адправіў(-ла) запыт на падпіску"
+            "value" : "%@ адправіў(-ла) вам запыт на падпіску"
           }
         },
         "ca" : {
@@ -177934,7 +177934,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$(collectionAuthor)@ рэдагаваў(-ла) калекцыю, у якой ёсць Вы"
+            "value" : "%1$(collectionAuthor)@ рэдагаваў(-ла) калекцыю, у якой вы ёсць"
           }
         },
         "ca" : {
@@ -178296,25 +178296,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "пашырылі Вы і %ld іншыя"
+                  "value" : "пашырылі вы і %ld іншыя"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "пашырылі Вы і %ld іншых"
+                  "value" : "пашырылі вы і %ld іншых"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "пашырылі Вы і 1 іншы(-ая)"
+                  "value" : "пашырылі вы і 1 іншы(-ая)"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "пашырылі Вы і %ld іншых"
+                  "value" : "пашырылі вы і %ld іншых"
                 }
               }
             }
@@ -179352,13 +179352,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Вы і %(othersCount)lld іншыя ўпадабалі:"
+                  "value" : "Вы і %(othersCount)lld іншых упадабалі:"
                 }
               },
               "many" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "You and %(othersCount)lld others liked:"
+                  "state" : "translated",
+                  "value" : "Вы і %(othersCount)lld іншых упадабалі:"
                 }
               },
               "one" : {
@@ -179669,14 +179669,14 @@
             "plural" : {
               "one" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "You and %(othersCount)lld other liked:"
+                  "state" : "translated",
+                  "value" : "Vous et %(othersCount)lld autre ont aimé :"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
-                  "value" : "You and %(othersCount)lld others liked:"
+                  "state" : "translated",
+                  "value" : "Vous et %(othersCount)lld autres ont aimé :"
                 }
               }
             }
@@ -185021,7 +185021,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "згадаў вас"
+            "value" : "згадаў(-ла) вас"
           }
         },
         "ca" : {
@@ -186097,25 +186097,25 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "translated",
-                      "value" : "%arg Вашыя падпісчыкі"
+                      "value" : "%arg вашыя падпісчыкі"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "translated",
-                      "value" : "%arg Вашых падпісчыкаў"
+                      "value" : "%arg вашых падпісчыкаў"
                     }
                   },
                   "one" : {
                     "stringUnit" : {
                       "state" : "translated",
-                      "value" : "%arg Ваш падпісчык"
+                      "value" : "%arg ваш падпісчык"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
                       "state" : "translated",
-                      "value" : "%arg Вашых падпісчыкаў"
+                      "value" : "%arg вашых падпісчыкаў"
                     }
                   }
                 }
@@ -186129,25 +186129,25 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "translated",
-                      "value" : "%arg уліковыя запісы, на якія Вы падпісаныя"
+                      "value" : "%arg уліковыя запісы, на якія вы падпісаныя"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "translated",
-                      "value" : "%arg уліковых запісаў, на якія Вы падпісаныя"
+                      "value" : "%arg уліковых запісаў, на якія вы падпісаныя"
                     }
                   },
                   "one" : {
                     "stringUnit" : {
                       "state" : "translated",
-                      "value" : "%arg уліковы запіс, на які Вы падпісаныя"
+                      "value" : "%arg уліковы запіс, на які вы падпісаныя"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
                       "state" : "translated",
-                      "value" : "%arg уліковых запісаў, на якія Вы падпісаныя"
+                      "value" : "%arg уліковых запісаў, на якія вы падпісаныя"
                     }
                   }
                 }
@@ -188671,7 +188671,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "адправіў запыт на падпіску"
+            "value" : "адправіў(-ла) вам запыт на падпіску"
           }
         },
         "ca" : {
@@ -189754,7 +189754,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Scarta definitivamente, per non essere mai più visto"
+            "value" : "Scarta definitivamente, per non vederle mai più"
           }
         },
         "ja" : {
@@ -190376,7 +190376,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Invia alla casella di posta delle notifiche filtrate"
+            "value" : "Invia alla casella delle notifiche filtrate"
           }
         },
         "ja" : {
@@ -190998,7 +190998,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Limitato dai moderatori del server"
+            "value" : "Limitati dai moderatori del server"
           }
         },
         "ja" : {
@@ -192092,7 +192092,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Уключаючы людзей, якія падпісаны на вас менш за 3 дні"
+            "value" : "Уключаючы людзей, якія падпісаныя на вас менш за 3 дні"
           }
         },
         "ca" : {
@@ -192403,7 +192403,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Людзі, якія не падпісаны на вас"
+            "value" : "Людзі, якія не падпісаныя на вас"
           }
         },
         "ca" : {
@@ -193025,7 +193025,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Людзі, на якіх вы не падпісаны"
+            "value" : "Людзі, на якіх вы не падпісаныя"
           }
         },
         "ca" : {
@@ -193336,7 +193336,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Фільтруецца за выключэннем адказу на вашае згадванне ці калі вы падпісаны на адпраўніка"
+            "value" : "Фільтруецца за выключэннем адказу на вашае згадванне ці калі вы падпісаныя на адпраўніка"
           }
         },
         "ca" : {
@@ -200489,7 +200489,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Калі ласка, прачытайце ўмовы выкарыстання **%(domainName)@**. Калі Вы з імі не згодныя, Вы можаце вярнуцца і выбраць іншы сервер."
+            "value" : "Калі ласка, прачытайце ўмовы выкарыстання **%(domainName)@**. Калі вы з імі не згодныя, вы можаце вярнуцца і выбраць іншы сервер."
           }
         },
         "ca" : {
@@ -204496,8 +204496,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Show quotes"
+            "state" : "translated",
+            "value" : "Показувати цитати"
           }
         },
         "vi" : {
@@ -209827,7 +209827,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Гэтак жа, як Вы можаце дасылаць электронныя лісты людзям, у якіх паштовыя скрыні ад іншых правайдараў, Вы можаце ўзаемадзейнічаць з людзьмі з іншых сервераў Mastodon і з усімі, хто карыстаецца іншымі праграмамі Федэральнага сусвету."
+            "value" : "Гэтак жа, як вы можаце дасылаць электронныя лісты людзям, у якіх паштовыя скрыні ад іншых правайдараў, вы можаце ўзаемадзейнічаць з людзьмі з іншых сервераў Mastodon і з усімі, хто карыстаецца іншымі праграмамі Федэсвету."
           }
         },
         "ca" : {
@@ -211072,7 +211072,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Падпісаны(-а) на вас"
+            "value" : "Падпісаны(-ая) на вас"
           }
         },
         "ca" : {
@@ -216672,7 +216672,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Рэкамендаванае"
+            "value" : "Рэкамендацыі"
           }
         },
         "ca" : {
@@ -225382,7 +225382,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Мы павінны пераканацца, што вам не менш за %1$d, каб далучыцца да %2$@. Пасля рэгістрацыі гэта не будзе захавана."
+            "value" : "Мы мусім пераканацца, што вам не менш за %1$d гадоў, каб далучыцца да %2$@. Пасля рэгістрацыі гэта не будзе захавана."
           }
         },
         "ca" : {
@@ -233779,7 +233779,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Яны больш не змогуць падпісвацца на вас або бачыць вашыя допісы, але змогуць бачыць, што яны былі заблакіраваны."
+            "value" : "Яны больш не змогуць падпісвацца на вас або бачыць вашыя допісы, але змогуць бачыць, што яны былі заблакіраваныя."
           }
         },
         "ca" : {
@@ -272035,7 +272035,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Людзей, на якіх вы падпісаны"
+            "value" : "Людзей, на якіх вы падпісаныя"
           }
         },
         "ca" : {
@@ -272346,7 +272346,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Людзей, якія падпісаны на вас"
+            "value" : "Людзей, якія падпісаныя на вас"
           }
         },
         "ca" : {
@@ -277634,7 +277634,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Толькі Вашыя падпісчыкі"
+            "value" : "Толькі вашыя падпісчыкі"
           }
         },
         "ca" : {
@@ -279500,7 +279500,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Калі людзі будуць цытаваць Вас, іх допіс таксама будзе схаваны ад трэндавых стужак."
+            "value" : "Калі людзі будуць цытаваць вас, іх допіс таксама будзе схаваны ад трэндавых стужак."
           }
         },
         "ca" : {
@@ -279811,7 +279811,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Гэтыя налады будуць ужывацца па змаўчанні, калі Вы будзеце ствараць новыя допісы, але Вы зможаце змяняць іх для кожнага допісу ў акне для напісання."
+            "value" : "Гэтыя налады будуць выкарыстоўвацца як прадвызначаныя, калі вы будзеце ствараць новыя допісы, але вы зможаце змяняць іх для кожнага допісу ў акне для напісання."
           }
         },
         "ca" : {
@@ -286653,7 +286653,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Кожны акаўнт Mastodon размяшчаецца на серверы - кожны са сваімі каштоўнасцямі, правіламі і адміністратарамі. Незалежна ад таго, які сервер вы вылучыце, вы можаце сачыць і ўзаемадзейнічаць з людзьмі на любым серверы."
+            "value" : "Кожны ўліковы запіс Mastodon размяшчаецца на адным з сервераў — кожным са сваімі каштоўнасцямі, правіламі і адміністратарамі. Незалежна ад таго, які сервер вы выберыце, вы зможаце сачыць і ўзаемадзейнічаць з людзьмі з любога серверу."
           }
         },
         "ca" : {

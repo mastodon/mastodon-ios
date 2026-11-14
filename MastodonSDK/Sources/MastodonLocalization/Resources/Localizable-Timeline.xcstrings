@@ -19,7 +19,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Гэты ўліковы запіс пакуль нічога не адабраў для паказу."
+            "value" : "Гэты ўліковы запіс пакуль нічога не рэкамендуе."
           }
         },
         "ca" : {
@@ -330,7 +330,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$(username)@ пакуль нічога не адабраў(-ла) для паказу."
+            "value" : "%1$(username)@ пакуль нічога не рэкамендуе."
           }
         },
         "ca" : {
@@ -952,7 +952,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Паказаць Вашыя ўлюбёныя ўліковыя запісы"
+            "value" : "Паказаць вашыя ўлюбёныя ўліковыя запісы"
           }
         },
         "ca" : {
@@ -2156,8 +2156,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Choose feed"
+            "state" : "translated",
+            "value" : "Вибрати стрічку"
           }
         },
         "vi" : {
@@ -2468,8 +2468,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom Feeds"
+            "state" : "translated",
+            "value" : "Власні стрічки"
           }
         },
         "vi" : {
