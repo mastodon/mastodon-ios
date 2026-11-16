@@ -17,8 +17,8 @@ enum MastodonNavigationDestination: Identifiable {
     case donations(DonationFlowDestination)
     case editProfile(profileViewModel: ProfileViewModel)
     case editProfileNavigation(destination: ProfileEditDestinationType)
-    case createNewCollection(CreateCollectionViewModel, step: CreateCollectionStep)
-    case createCollectionLanguagePicker(CreateCollectionViewModel)
+    case collectionEditor(CreateCollectionViewModel, step: CreateCollectionStep)
+    case collectionLanguagePicker(CreateCollectionViewModel)
     case legacy(scene: SceneCoordinator.Scene, transition: SceneCoordinator.Transition)
     
     var id: String { description }
@@ -103,7 +103,7 @@ enum MastodonNavigationDestination: Identifiable {
             ProfileEditingDestinationView(destinationType: destination)
                 .profileEditingDestinationEnvironment(destination)
             
-        case .createNewCollection(let model, let step):
+        case .collectionEditor(let model, let step):
             switch step {
             case .addAccounts:
                 CollectionAddAccountsView()
@@ -113,7 +113,7 @@ enum MastodonNavigationDestination: Identifiable {
                     .environment(model)
             }
             
-        case .createCollectionLanguagePicker(let model):
+        case .collectionLanguagePicker(let model):
             LanguagePicker(selectedLanguage: model.language, canSelectNil: true) { selectedLanguage in
                 model.language = selectedLanguage
                 self.pop()
@@ -242,7 +242,7 @@ enum MastodonNavigationDestination: Identifiable {
     func popCreateCollectionFlow(_ model: CreateCollectionViewModel) {
         let flowStartIndex = navigationPath.firstIndex { destination in
             switch destination {
-            case .createNewCollection(let onScreenModel, _):
+            case .collectionEditor(let onScreenModel, _):
                 return onScreenModel === model
             default:
                 return false
@@ -250,6 +250,16 @@ enum MastodonNavigationDestination: Identifiable {
         }
         guard let flowStartIndex else { return }
         navigationPath.removeSubrange(flowStartIndex...)
+    }
+    
+    func popCollection(_ popID: Mastodon.Entity.Collection.ID) {
+        switch navigationPath.last {
+        case .timeline(.collection(let onScreenCollection)):
+            guard onScreenCollection.id == popID else { return }
+            pop()
+        default:
+            return
+        }
     }
     
     public func presentSheet(_ sheet: MastodonSheet, afterDeconflictionDelay: Bool) {
@@ -384,6 +394,22 @@ extension MastodonNavigationRouter {
                 didConfirm(true)
             } label: {
                 Text(L10nLookup.Scene.Collections.removeMe)
+                }
+            
+        case .confirmDeleteCollection(_, let didConfirm):
+            cancelButton(didConfirm)
+            Button(role: .destructive) {
+                didConfirm(true)
+            } label: {
+                Text(L10n.Common.Controls.Actions.delete)
+            }
+            
+        case .confirmRemoveAccountFromCollection(username: _, let didConfirm):
+            cancelButton(didConfirm)
+            Button(role: .destructive) {
+                didConfirm(true)
+            } label: {
+                Text(L10n.Common.Controls.Actions.remove)
             }
             
         case .confirmDeleteOfPost(let didConfirm):
@@ -510,9 +536,9 @@ extension MastodonNavigationDestination: Hashable {
             return "editProfile"
         case .editProfileNavigation(let destination):
             return "editProfile-\(destination.id)"
-        case .createNewCollection(let model, let step):
+        case .collectionEditor(let model, let step):
             return "newCollection-\(step)-\(ObjectIdentifier(model))"
-        case .createCollectionLanguagePicker(let model):
+        case .collectionLanguagePicker(let model):
             return "newCollection-languagePicker-\(ObjectIdentifier(model))"
         case .settings(let type):
             return "settings-\(type)"

@@ -46,7 +46,7 @@ struct CollectionEditDetailsView: View {
             // LANGUAGE
             Section {
                 Button {
-                    navigator.push(.createCollectionLanguagePicker(viewModel))
+                    navigator.push(.collectionLanguagePicker(viewModel))
                 } label: {
                     NavigationRow(label: L10nLookup.Scene.CreateCollection.CollectionDetails.languagePlaceholder, sublabel: viewModel.languageName ?? L10nLookup.Scene.CreateCollection.CollectionDetails.noLanguageSelected)
                 }
@@ -91,24 +91,29 @@ struct CollectionEditDetailsView: View {
         .frame(maxWidth: maxFeedContentWidth)
         .frame(maxWidth: .infinity)
         .background(Color(UIColor.systemGroupedBackground))
-        .createCollectionPageTitle(forStep: .details)
-        .navigationBarBackButtonHidden(viewModel.isCreating)
+        .createCollectionPageTitle(forStep: .details, mode: viewModel.mode)
+        .navigationBarBackButtonHidden(viewModel.isSaving)
     }
     
     @ViewBuilder private var createButton: some View {
         Button {
-            viewModel.createCollection(navigator: navigator)
+            viewModel.saveDetails(navigator: navigator)
         } label: {
-            if viewModel.isCreating {
+            if viewModel.isSaving {
                 ProgressView()
                     .tint(.white)
             } else {
-                Text(L10nLookup.Scene.CreateCollection.CollectionDetails.createCollection)
+                switch viewModel.mode {
+                case .create:
+                    Text(L10nLookup.Scene.CreateCollection.CollectionDetails.createCollection)
+                case .edit:
+                    Text(L10n.Common.Controls.Actions.save)
+                }
             }
         }
         .buttonStyle(CapsuleButtonStyle(viewModel.detailsValid ? .prominent : .subtle, isLarge: true))
-        .disabled(!viewModel.detailsValid || viewModel.isCreating)
-        .accessibilityLabel(L10nLookup.Scene.CreateCollection.CollectionDetails.createCollection)
+        .disabled(!viewModel.detailsValid || viewModel.isSaving)
+        .accessibilityLabel(viewModel.mode == .create ? L10nLookup.Scene.CreateCollection.CollectionDetails.createCollection : L10n.Common.Controls.Actions.save)
     }
     
     @ViewBuilder private func limitCaption(_ limit: Int, isOverLimit: Bool) -> some View {

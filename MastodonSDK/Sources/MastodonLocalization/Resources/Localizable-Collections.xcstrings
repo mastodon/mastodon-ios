@@ -1247,6 +1247,42 @@
         }
       }
     },
+    "Scene.Collections.confirmDeleteCollectionMessage" : {
+      "comment" : "confirmation alert message",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This action can’t be undone."
+          }
+        }
+      }
+    },
+    "Scene.Collections.confirmDeleteCollectionTitle" : {
+      "comment" : "confirmation alert title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete “%1$(collectionName)@”?"
+          }
+        }
+      }
+    },
+    "Scene.Collections.confirmRemoveAccountFromCollectionTitle" : {
+      "comment" : "confirmation alert title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove %1$(username)@ from this collection?"
+          }
+        }
+      }
+    },
     "Scene.Collections.confirmRemoveFromCollectionMessage" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2178,6 +2214,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "建立收藏名單"
+          }
+        }
+      }
+    },
+    "Scene.Collections.deleteCollection" : {
+      "comment" : "menu option",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete collection"
           }
         }
       }
@@ -5122,6 +5170,18 @@
         }
       }
     },
+    "Scene.Collections.shareCollection" : {
+      "comment" : "menu option",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share collection"
+          }
+        }
+      }
+    },
     "Scene.Collections.stayTunedForCollections" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5829,6 +5889,42 @@
         }
       }
     },
+    "Scene.CreateCollection.AddAccounts.pendingAccountsNoteMessage" : {
+      "comment" : "Message that displays when some accounts in your collection are pending",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accounts may appear as pending when we’re awaiting a response from the user or their server. Only you can see pending accounts."
+          }
+        }
+      }
+    },
+    "Scene.CreateCollection.AddAccounts.pendingAccountsNoteTitle" : {
+      "comment" : "Message heading that displays when some accounts in your collection are pending",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Why am I seeing pending accounts?"
+          }
+        }
+      }
+    },
+    "Scene.CreateCollection.AddAccounts.pendingBadge" : {
+      "comment" : "Badge on an account that you have added to a collection but has not yet been accepted by the account holder",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pending"
+          }
+        }
+      }
+    },
     "Scene.CreateCollection.AddAccounts.searchBoxPlaceholder" : {
       "comment" : "placeholder text in the search field",
       "extractionState" : "manual",
@@ -6084,6 +6180,30 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "New Collection"
+          }
+        }
+      }
+    },
+    "Scene.EditCollection.editDetailsTitle" : {
+      "comment" : "page title when editing the collection’s title, description, and settings",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit details"
+          }
+        }
+      }
+    },
+    "Scene.EditCollection.manageAccountsTitle" : {
+      "comment" : "page title when adding and removing accounts for an existing collection",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage accounts"
           }
         }
       }

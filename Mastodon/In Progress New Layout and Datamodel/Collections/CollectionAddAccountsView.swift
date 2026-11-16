@@ -54,12 +54,12 @@ struct CollectionAddAccountsView: View {
             }
         }
         .background(isSearching ? Color(UIColor.systemGroupedBackground) : Color(UIColor.systemBackground))
-        .createCollectionPageTitle(forStep: .addAccounts)
+        .createCollectionPageTitle(forStep: .addAccounts, mode: viewModel.mode)
         .toolbar {
-            if !viewModel.accounts.isEmpty {
+            if viewModel.mode == .create, !viewModel.accounts.isEmpty {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        navigator.push(.createNewCollection(viewModel, step: .details))
+                        navigator.push(.collectionEditor(viewModel, step: .details))
                     } label: {
                         Image(phosphor: .arrowRight)
                             .resizable()
@@ -86,6 +86,9 @@ struct CollectionAddAccountsView: View {
     @ViewBuilder private var hintHeader: some View {
         VStack(alignment: .leading, spacing: standardPadding) {
             Text(L10nLookup.Scene.CreateCollection.AddAccounts.whoWillYouFeature)
+            if viewModel.hasPendingAccounts && !isSearching {
+                PendingAccountsNote()
+            }
             if viewModel.canAddMoreAccounts {
                 searchField
             }
@@ -140,8 +143,8 @@ struct CollectionAddAccountsView: View {
                 Section {
                     ForEach(viewModel.availableResults, id: \.id) { accountModel in
                         if viewModel.isAlreadyAdded(accountModel) {
-                            CreateCollectionAccountRow(account: accountModel.account, dimmedReason: .alreadyAdded) {
-                                viewModel.remove(accountModel)
+                            CreateCollectionAccountRow(account: accountModel.account, dimmedReason: .alreadyAdded, isUpdating: viewModel.isUpdating(accountModel)) {
+                                confirmRemove(accountModel)
                             }
                         } else {
                             Button {
@@ -182,13 +185,26 @@ struct CollectionAddAccountsView: View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 0) {
                 ForEach(viewModel.accounts, id: \.id) { accountModel in
-                    CreateCollectionAccountRow(account: accountModel.account, showsStats: true) {
-                        withAnimation {
-                            viewModel.remove(accountModel)
-                        }
+                    CreateCollectionAccountRow(account: accountModel.account, showsStats: true, isUpdating: viewModel.isUpdating(accountModel), isPending: viewModel.isPending(accountModel)) {
+                        confirmRemove(accountModel)
                     }
                     .padding(sectionInsets)
                 }
+            }
+        }
+    }
+    
+    private func confirmRemove(_ accountModel: AccountRowViewModel) {
+        switch viewModel.mode {
+        case .edit:
+            navigator.activeAlert = .confirmRemoveAccountFromCollection(username: "@"+accountModel.account.handle, didConfirm: { [viewModel] confirmed in
+                guard confirmed else { return }
+                viewModel.remove(accountModel)
+            })
+        case .create:
+            // no need to confirm
+            withAnimation {
+                viewModel.remove(accountModel)
             }
         }
     }
@@ -218,6 +234,8 @@ struct CreateCollectionAccountRow: View {
     let account: MastodonAccount
     var dimmedReason: DimmedReason?
     var showsStats = false
+    var isUpdating = false
+    var isPending = false
     var onRemove: (() -> Void)? = nil
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOverEnabled
     
@@ -242,17 +260,23 @@ struct CreateCollectionAccountRow: View {
                     AvatarView(style: .circular, size: .large, avatarSource: .url(account.avatarURL))
                         .accessibilityHidden(true)
                     AccountDisplayNameAndHandle(account: account, includeVerifiedLink: false)
+                    if isPending {
+                        PendingBadge()
+                            .fixedSize()
+                    }
                 }
-                .opacity(dimmedReason != nil ? 0.4 : 1)
+                .opacity(dimmedReason != nil || isUpdating ? 0.4 : 1)
                 .accessibilityElement(children: .combine)
                 .accessibilityValue(dimmedReason?.label ?? "")
                 .accessibilityActions {
-                    if let onRemove {
+                    if let onRemove, !isUpdating {
                         Button(L10nLookup.Scene.Collections.remove, action: onRemove)
                     }
                 }
-            
-                if let onRemove {
+
+                if isUpdating {
+                    ProgressView()
+                } else if let onRemove {
                     RemoveFromCollectionButton(action: onRemove)
                         .accessibilityHidden(voiceOverEnabled)
                 }
@@ -283,5 +307,44 @@ private struct VerifiedLinkLozenge: View {
             Capsule()
                 .fill(.secondary.opacity(0.2))
         }
+    }
+}
+
+private struct PendingBadge: View {
+    var body: some View {
+        Text(L10nLookup.Scene.CreateCollection.AddAccounts.pendingBadge)
+            .font(.caption)
+            .fontWeight(.semibold)
+            .foregroundStyle(.secondary)
+            .padding(.vertical, 2)
+            .padding(.horizontal, standardPadding)
+            .background {
+                Capsule()
+                    .fill(.secondary.opacity(0.2))
+            }
+    }
+}
+
+private struct PendingAccountsNote: View {
+    var body: some View {
+        HStack(alignment: .top, spacing: standardPadding) {
+            Image(systemName: "questionmark")
+                .font(.subheadline.weight(.semibold))
+                .frame(width: 28, height: 28)
+                .background(Color(UIColor.tertiarySystemFill), in: .circle)
+                .accessibilityHidden(true)
+            VStack(alignment: .leading, spacing: tinySpacing) {
+                Text(L10nLookup.Scene.CreateCollection.AddAccounts.pendingAccountsNoteTitle)
+                    .fontWeight(.semibold)
+                
+                Text(L10nLookup.Scene.CreateCollection.AddAccounts.pendingAccountsNoteMessage)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .padding()
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+        .background(Asset.Colors.FigmaToken.bgSecondary.swiftUIColor, in: .rect(cornerRadius: CornerRadius.large))
+        .accessibilityElement(children: .combine)
     }
 }

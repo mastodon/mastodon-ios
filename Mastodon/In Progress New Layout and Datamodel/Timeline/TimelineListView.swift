@@ -39,6 +39,8 @@ extension MastodonPostMenuAction {
         case confirmUnmute(username: String, didConfirm: (Bool)->())
         case confirmRemoveQuote(username: String, didConfirm: (Bool)->())
         case confirmRemoveMeFromCollection(collectionName: String, didConfirm: (Bool)->())
+        case confirmDeleteCollection(collectionName: String, didConfirm: (Bool)->())
+        case confirmRemoveAccountFromCollection(username: String, didConfirm: (Bool)->())
         case confirmBlock(username: String, didConfirm: (Bool)->())
         case confirmUnblock(username: String, didConfirm: (Bool)->())
         case confirmDomainBlock(account: MastodonAccount, didConfirm: (Bool)->())
@@ -67,6 +69,10 @@ extension MastodonPostMenuAction {
                 L10n.Common.Alerts.ConfirmRemoveQuote.title
             case .confirmRemoveMeFromCollection(let collectionName, _):
                 L10nLookup.Scene.Collections.confirmRemoveFromCollectionTitle(collectionName: collectionName)
+            case .confirmDeleteCollection(let collectionName, _):
+                L10nLookup.Scene.Collections.confirmDeleteCollectionTitle(collectionName: collectionName)
+            case .confirmRemoveAccountFromCollection(let username, _):
+                L10nLookup.Scene.Collections.confirmRemoveAccountFromCollectionTitle(username: username)
             case .confirmBlock:
                 L10n.Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.title
             case .confirmUnblock:
@@ -86,7 +92,7 @@ extension MastodonPostMenuAction {
         
         var messageText: String? {
             switch self {
-            case .confirmUnfollow, .confirmBoostOfPost:
+            case .confirmUnfollow, .confirmBoostOfPost, .confirmRemoveAccountFromCollection:
                 nil
                 
             case .confirmMute(let username, _):
@@ -105,6 +111,8 @@ extension MastodonPostMenuAction {
                 L10n.Common.Alerts.ConfirmRemoveQuote.message
             case .confirmRemoveMeFromCollection:
                 L10nLookup.Scene.Collections.confirmRemoveFromCollectionMessage
+            case .confirmDeleteCollection:
+                L10nLookup.Scene.Collections.confirmDeleteCollectionMessage
             case .confirmDeleteOfPost:
                 L10n.Common.Alerts.DeletePost.message
             case .confirmUnhideFeatureTabBeforeFeaturing(let item, _):
@@ -335,7 +343,7 @@ struct TimelineListView: View {
             } // ZStack(alignment: .bottom)
         } // GeometryReader
         .toolbar {
-            collectionsToolbar
+            timelineToolbar
         }
         .onAppear() {
             viewModel.isCurrentlyOnScreen = true
@@ -348,6 +356,9 @@ struct TimelineListView: View {
             if viewModel.timeline.canDisplayUnreadNotifications, let authenticatedUser = viewModel.authenticatedUser {
                 // clear the notification dot on the tab icon
                 NotificationService.shared.clearNotificationCount(for: authenticatedUser)
+            }
+            if viewModel.isShowingDeletedCollection {
+                viewModel.needsReloadOnNextAppear = .collectionsChanged
             }
             if let reloadReason = viewModel.needsReloadOnNextAppear {
                 viewModel.needsReloadOnNextAppear = nil
@@ -593,14 +604,20 @@ struct TimelineListView: View {
     private func pushCreateNewCollection() {
         guard let authBox = viewModel.authenticatedUser else { return }
         let createModel = CreateCollectionViewModel(authBox: authBox, didCreateCollection: { [weak viewModel] in
-            viewModel?.needsReloadOnNextAppear = .collectionsChanged
+            viewModel?.collectionsDidChange()
         })
-        navigator.push(.createNewCollection(createModel, step: CreateCollectionStep.allCases.first!))
+        navigator.push(.collectionEditor(createModel, step: CreateCollectionStep.allCases.first!))
     }
     
-    @ToolbarContentBuilder private var collectionsToolbar: some ToolbarContent {
-        if case .collections(let curatedByUserID) = viewModel.timeline,
-           viewModel.currentDisplaySlice.contains(where: \.isRealItem),
+    @ToolbarContentBuilder private var timelineToolbar: some ToolbarContent {
+        if case .collections(let curatedBy) = viewModel.timeline {
+            collectionsListToolbar(curatedBy: curatedBy)
+        } else if case .collection(let collectionViewModel) = viewModel.timeline { singleCollectionToolbar(collectionViewModel)
+        }
+    }
+    
+    @ToolbarContentBuilder private func collectionsListToolbar(curatedBy curatedByUserID: String) -> some ToolbarContent {
+        if viewModel.currentDisplaySlice.contains(where: \.isRealItem),
            canCreateCollections(curatedBy: curatedByUserID) {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
@@ -615,6 +632,23 @@ struct TimelineListView: View {
                 .accessibilityLabel(L10nLookup.Scene.Collections.newCollectionButton)
             }
             .sharedBackgroundVisibilityHidden()
+        }
+    }
+    
+    @ToolbarContentBuilder private func singleCollectionToolbar(_ collectionViewModel: CollectionViewModel) -> some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            collectionViewModel.menuButton(
+                isFullCollectionView: true,
+                navigator: navigator,
+                relationshipModel: collectionViewModel.relationshipViewModel,
+                didChangeCollection: { [weak viewModel, weak navigator] change in
+                    switch change {
+                    case .edited:
+                        viewModel?.collectionsDidChange()
+                    case .deleted:
+                        navigator?.popCollection(collectionViewModel.id)
+                    }
+                })
         }
     }
     
@@ -804,11 +838,18 @@ struct TimelineListView: View {
                             }
                     }
                 case .collection(let collectionViewModel):
-                    CollectionRowView(contentWidth: contentWidth, includeMenu: true)
+                    CollectionRowView(contentWidth: contentWidth,
+                                      includeMenu: true,
+                                      didChangeCollection: { [weak viewModel = viewModel] _ in
+                        viewModel?.collectionsDidChange()
+                    })
                         .environment(collectionViewModel)
                         .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
                         .frame(width: useableWidth)
                         .onTapGesture {
+                            navigator.push(.timeline(.collection(collectionViewModel)))
+                        }
+                        .accessibilityAction {
                             navigator.push(.timeline(.collection(collectionViewModel)))
                         }
                     

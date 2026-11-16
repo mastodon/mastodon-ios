@@ -18,29 +18,25 @@ extension APIService {
             session: session,
             domain: authenticationBox.domain,
             accountID: accountID,
-            authorization: authorization,
-            useBetaEndpoint: !authenticationBox.instanceSupportsNonBetaCollectionsAPI
+            authorization: authorization
         )
         
         return response
     }
     
     public func removeFromCollection(
-        collectionId: Mastodon.Entity.Collection.ID,
-        collectionMemberId: Mastodon.Entity.CollectionMember.ID,
+        collectionID: Mastodon.Entity.Collection.ID,
+        collectionMemberID: Mastodon.Entity.CollectionMember.ID,
         authenticationBox: MastodonAuthenticationBox
     ) async throws {
         let authorization = authenticationBox.userAuthorization
         try await Mastodon.API.Collections.removeFromCollection(
             session: session,
             domain: authenticationBox.domain,
-            collectionID: collectionId,
-            itemID: collectionMemberId,
-            authorization: authorization,
-            useBetaEndpoint: !authenticationBox.instanceSupportsNonBetaCollectionsAPI
+            collectionID: collectionID,
+            itemID: collectionMemberID,
+            authorization: authorization
         )
-        
-        return
     }
     
     public func createCollection(
@@ -54,12 +50,42 @@ extension APIService {
                                                                            authorization: authorization)
         return response
     }
-}
-
-fileprivate extension MastodonAuthenticationBox {
-    @MainActor
-    var instanceSupportsNonBetaCollectionsAPI: Bool {
-        guard let isFeatureAvailable = authentication.instanceConfiguration?.isAvailable(.collections) else { return false }
-        return isFeatureAvailable
+    
+    public func collection(
+        id: Mastodon.Entity.Collection.ID,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.CollectionWithAccounts> {
+        try await Mastodon.API.Collections.getCollection(session: session, domain: authenticationBox.domain, collectionID: id, authorization: authenticationBox.userAuthorization)
+    }
+    
+    public func updateCollection(
+        collectionID: Mastodon.Entity.Collection.ID,
+        query: Mastodon.API.Collections.UpdateCollectionQuery,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Collection> {
+        try await Mastodon.API.Collections.updateCollection(session: session, domain: authenticationBox.domain, collectionID: collectionID, query: query, authorization: authenticationBox.userAuthorization)
+    }
+    
+    public func addAccountToCollection(
+        collectionID: Mastodon.Entity.Collection.ID,
+        accountID: Mastodon.Entity.Account.ID,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.CollectionMember> {
+        try await Mastodon.API.Collections.addAccountToCollection(session: session, domain: authenticationBox.domain, collectionID: collectionID, accountID: accountID, authorization: authenticationBox.userAuthorization)
+    }
+    
+    public func deleteCollectionItem(
+        collectionID: Mastodon.Entity.Collection.ID,
+        itemID: Mastodon.Entity.CollectionMember.ID,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws {
+        try await Mastodon.API.Collections.deleteCollectionItem(session: session, domain: authenticationBox.domain, collectionID: collectionID, itemID: itemID, authorization: authenticationBox.userAuthorization)
+    }
+    
+    public func deleteCollection(
+        collectionID: Mastodon.Entity.Collection.ID,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws {
+        try await Mastodon.API.Collections.deleteCollection(session: session, domain: authenticationBox.domain, collectionID: collectionID, authorization: authenticationBox.userAuthorization)
     }
 }

@@ -69,9 +69,51 @@ extension Mastodon.Entity {
     public struct CollectionMember: Codable, Sendable {
         public typealias ID = String
         public let id: ID
-        public let state: String // needs an enum
+        public let state: MemberState
         public let created_at: Date
         public let account_id: Mastodon.Entity.Account.ID?
+        
+        public enum MemberState: RawRepresentable, Codable, Sendable, Hashable {
+            case accepted
+            case pending
+            case rejected
+            case revoked
+            case _other(String)
+            
+            public init?(rawValue: String) {
+                switch rawValue {
+                case "accepted": self = .accepted
+                case "pending": self = .pending
+                case "rejected": self = .rejected
+                case "revoked": self = .revoked
+                default: self = ._other(rawValue)
+                }
+            }
+            
+            public var rawValue: String {
+                switch self {
+                case .accepted: "accepted"
+                case .pending: "pending"
+                case .rejected: "rejected"
+                case .revoked: "revoked"
+                case ._other(let value): value
+                }
+            }
+            
+            public var isAccepted: Bool {
+                switch self {
+                case .accepted: true
+                default: false
+                }
+            }
+        }
+    }
+}
+
+extension Mastodon.Entity {
+    public struct CollectionWithAccounts: Codable, Sendable {
+        public let collection: Collection
+        public let accounts: [Account] // includes the owner's account
     }
 }
 

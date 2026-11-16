@@ -106,6 +106,9 @@ enum MastodonMenuAction: Hashable {
     enum CollectionMenuAction: String {
         case reportCollection
         case removeMyself
+        case manageAccounts
+        case editDetails
+        case deleteCollection
         
         var labelText: String {
             switch self {
@@ -113,6 +116,19 @@ enum MastodonMenuAction: Hashable {
                 L10nLookup.Scene.Collections.reportCollection
             case .removeMyself:
                 L10nLookup.Scene.Collections.removeMe
+            case .manageAccounts:
+                L10nLookup.Scene.EditCollection.manageAccountsTitle
+            case .editDetails:
+                L10nLookup.Scene.EditCollection.editDetailsTitle
+            case .deleteCollection:
+                L10nLookup.Scene.Collections.deleteCollection
+            }
+        }
+        
+        var isDestructive: Bool {
+            switch self {
+            case .deleteCollection: true
+            default: false
             }
         }
     }
@@ -130,13 +146,13 @@ enum MastodonMenuAction: Hashable {
         var labelText: String {
             switch self {
             case .copyLink:
-                "Copy link"
+                L10nLookup.MastodonMenuAction.copyLink
             }
         }
     }
     
-    @ViewBuilder static public func menuButton(systemImageName: String?, text: String, action: @escaping ()->()) -> some View {
-        Button {
+    @ViewBuilder static public func menuButton(systemImageName: String?, text: String, role: ButtonRole? = nil, action: @escaping ()->()) -> some View {
+        Button(role: role) {
             action()
         } label: {
             Text(text)
@@ -196,6 +212,8 @@ extension MastodonMenuAction.NavigationalMenuAction: Equatable, Hashable {
 extension MastodonMenuAction {
     enum SubmenuType: String {
         case sharingActions
+        case editingActions
+        case deletingActions
         case navigationActions
         case accountMentionActions
         case accountFeatureAndNotes
@@ -388,30 +406,18 @@ extension CollectionViewModel {
         collection.accountId == AuthenticationServiceProvider.shared.currentActiveUser.value?.userID
     }
     
-    func collectionRowMenuActions() -> [MastodonMenuAction.Submenu] {
-        return [
-            .init(.sharingActions, items: [
-                .navigationalAction(.collection(self)),
-                .share(collection.url)
-            ]),
-            .init(.blockingOptions, items: isMyCollection ? nil : [
-                .collectionAction(.reportCollection),
-                .relationshipAction(.blockUser)
-            ])
-        ].compactMap { $0 }
+    var canEditCollection: Bool {
+        isMyCollection && UserDefaults.standard.allowCreateCollections && AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.collections) == true
     }
     
     func collectionMenuActions() -> [MastodonMenuAction.Submenu] {
-        let openInBrowser: MastodonMenuAction.NavigationalMenuAction? = {
-            guard let url = URL(string: collection.url) else { return nil }
-            return MastodonMenuAction.NavigationalMenuAction.openInBrowser(url)
-        }()
-        let navigations: MastodonMenuAction.Submenu? = {
-            guard let openInBrowser else { return nil }
-            return .init(.navigationActions, items: [.navigationalAction(openInBrowser)])
-        }()
         return [
-            navigations,
+            .init(.sharingActions, items: [
+                .share(collection.url),
+                .miscellaneous(.copyLink)
+            ]),
+            .init(.editingActions, items: canEditCollection ? [ .collectionAction(.manageAccounts), .collectionAction(.editDetails) ] : nil),
+            .init(.deletingActions, items: canEditCollection ? [.collectionAction(.deleteCollection)] : nil),
             .init(.blockingOptions, items: isMyCollection ? nil : [
                 .collectionAction(.reportCollection),
                 .relationshipAction(.blockUser)

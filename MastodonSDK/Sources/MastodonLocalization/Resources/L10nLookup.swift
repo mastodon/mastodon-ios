@@ -816,6 +816,9 @@ public extension L10nLookup {
             let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.confirmRemoveFollowerMessage", username)
             return result
         }
+        public static let copyLink: String = {
+            tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.copyLink")
+        }()
         public static let confirmShowFeaturedTabButton: String = {
             let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.confirmShowFeaturedTabButton")
             return result
@@ -1110,6 +1113,21 @@ public extension L10nLookup.Scene {
             let result = tr("Localizable-Collections", "Scene.Collections.confirmRemoveFromCollectionMessage")
             return result
         }()
+        public static let shareCollection: String = {
+            tr("Localizable-Collections", "Scene.Collections.shareCollection")
+        }()
+        public static let deleteCollection: String = {
+           tr("Localizable-Collections", "Scene.Collections.deleteCollection")
+        }()
+        public static func confirmDeleteCollectionTitle(collectionName: String) -> String {
+            tr("Localizable-Collections", "Scene.Collections.confirmDeleteCollectionTitle", collectionName)
+        }
+        public static let confirmDeleteCollectionMessage: String = {
+           tr("Localizable-Collections", "Scene.Collections.confirmDeleteCollectionMessage")
+        }()
+        public static func confirmRemoveAccountFromCollectionTitle(username: String) -> String {
+            tr("Localizable-Collections", "Scene.Collections.confirmRemoveAccountFromCollectionTitle", username)
+        }
     }
 }
 
@@ -1146,6 +1164,15 @@ public extension L10nLookup.Scene {
             }()
             public static let alreadyAdded: String = {
                 tr("Localizable-Collections", "Scene.CreateCollection.AddAccounts.alreadyAdded")
+            }()
+            public static let pendingBadge: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.AddAccounts.pendingBadge")
+            }()
+            public static let pendingAccountsNoteTitle: String = {
+                tr("Localizable-Collections", "Scene.CreateCollection.AddAccounts.pendingAccountsNoteTitle")
+            }()
+            public static let pendingAccountsNoteMessage: String = {
+               tr("Localizable-Collections", "Scene.CreateCollection.AddAccounts.pendingAccountsNoteMessage")
             }()
         }
         
@@ -1205,6 +1232,15 @@ public extension L10nLookup.Scene {
                 }()
             }
         }
+    }
+    
+    struct EditCollection {
+        public static let manageAccountsTitle: String = {
+           tr("Localizable-Collections", "Scene.EditCollection.manageAccountsTitle")
+        }()
+        public static let editDetailsTitle: String = {
+            tr("Localizable-Collections", "Scene.EditCollection.editDetailsTitle")
+        }()
     }
 }
 

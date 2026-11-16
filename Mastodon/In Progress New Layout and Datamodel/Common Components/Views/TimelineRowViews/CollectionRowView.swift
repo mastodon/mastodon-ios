@@ -12,6 +12,7 @@ struct CollectionRowView: View {
     @Environment(CollectionViewModel.self) var viewModel
     let contentWidth: CGFloat
     let includeMenu: Bool
+    var didChangeCollection: ((CollectionChange) -> Void)? = nil
     
     let avatarSize = AvatarSize.extraSmall
     
@@ -31,6 +32,7 @@ struct CollectionRowView: View {
                             .aspectRatio(contentMode: .fit)
                             .padding(3)
                             .frame(width: avatarSize.rawValue)
+                            .accessibilityLabel(L10nLookup.Scene.Collections.sensitiveContentHeading)
                     }
                 }
                 
@@ -53,13 +55,21 @@ struct CollectionRowView: View {
                     }
                     
                     if includeMenu, let navigator {
-                        viewModel.menuButton(isFullCollectionView: false, navigator: navigator, relationshipModel: viewModel.relationshipViewModel)
+                        viewModel.menuButton(isFullCollectionView: false, navigator: navigator, relationshipModel: viewModel.relationshipViewModel, didChangeCollection: didChangeCollection)
+                            .accessibilityHidden(true)
                     }
                 }
             }
         }
         .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
+        .accessibilityActions {
+            if includeMenu, let navigator {
+                ForEach(viewModel.collectionMenuActions().flatMap(\.items), id: \.self) { menuAction in
+                    viewModel.menuItem(menuAction, navigator: navigator, relationshipModel: viewModel.relationshipViewModel, didChangeCollection: didChangeCollection)
+                }
+            }
+        }
     }
     
     let avatarSpacing: CGFloat = 2
@@ -99,14 +109,20 @@ struct CollectionRowView: View {
     var authorAccount: MastodonAccount?
     private var partialAccounts: [AccountInfo] = []
     var accountAvatarUrls: [URL] = []
-    var iHaveRemovedMyself = false
+    private var removedMyItemID: Mastodon.Entity.CollectionMember.ID?
+    var iHaveRemovedMyself: Bool {
+        guard let removedMyItemID else { return false }
+        return collection.items.contains { $0.id == removedMyItemID }
+    }
+    @ObservationIgnored private var isPreparingEditFlow = false
+    private(set) var isDeleted = false
     
+    var displayedItems: [Mastodon.Entity.CollectionMember] {
+        collection.items.filter { $0.state != .pending && $0.id != removedMyItemID }
+    }
+
     var itemCount: Int {
-        if iHaveRemovedMyself {
-            return collection.itemCount - 1
-        } else {
-            return collection.itemCount
-        }
+        displayedItems.count
     }
     
     init(collection: Mastodon.Entity.Collection) {
@@ -114,77 +130,90 @@ struct CollectionRowView: View {
         self.collection = collection
     }
     
-    @ViewBuilder func menuButton(isFullCollectionView: Bool, navigator: MastodonNavigationRouter, relationshipModel: RelationshipViewModel?) -> some View {
+    @ViewBuilder func menuButton(isFullCollectionView: Bool, navigator: MastodonNavigationRouter, relationshipModel: RelationshipViewModel?, didChangeCollection: ((CollectionChange) -> Void)? = nil) -> some View {
         Menu {
-            let submenus = isFullCollectionView ? collectionMenuActions() : collectionRowMenuActions()
-            ForEach(submenus, id: \.self.id) { submenu in
+            ForEach(collectionMenuActions(), id: \.self.id) { submenu in
                 ForEach(submenu.items, id: \.self) { menuAction in
-                    switch menuAction {
-                    case .miscellaneous:
-                        EmptyView()
-                    case .share(let urlString):
-                        if let url = URL(string: urlString) {
-                            ShareLink(item: url) {
-                                Label(L10nLookup.MastodonMenuAction.Navigation.share, systemImage: "square.and.arrow.up")
-                            }
-                        }
-                    case .navigationalAction(let navAction):
-                        let domainName: String? = {
-                            guard let relationshipModel else { return nil }
-                            switch relationshipModel.relationship {
-                            case .isMe, .none:
-                                return nil
-                            case .isNotMe:
-                                return self.authorAccount?.domain == AuthenticationServiceProvider.shared.currentActiveUser.value?.domain ? nil : self.authorAccount?.domain
-                            }
-                        }()
-                        navigator.menuItem(navAction, notMyDomainName: domainName)
-                    case .postAction:
-                        EmptyView()
-                    case .collectionAction(let action):
-                        switch action {
-                        case .reportCollection:
-                            MastodonMenuAction.menuButton(systemImageName: nil, text: action.labelText) {
-                                Task {
-                                    do {
-                                        try await self.doMenuAction(action, navigator: navigator)
-                                    } catch {
-                                        navigator.didReceiveError(error)
-                                    }
-                                }
-                            }
-                        case .removeMyself:
-                            if !self.iHaveRemovedMyself {
-                                MastodonMenuAction.menuButton(systemImageName: nil, text: action.labelText) {
-                                    Task {
-                                        do {
-                                            try await self.doMenuAction(action, navigator: navigator)
-                                        } catch {
-                                            navigator.didReceiveError(error)
-                                        }
-                                    }
-                                }
-                            } else {
-                                EmptyView()
-                            }
-                        }
-                    case .relationshipAction(let relAction):
-                        if let relationshipModel, let account = self.authorAccount {
-                            relationshipModel.menuItem(relAction, forAccount: account, navigator: navigator)
-                        } else {
-                            EmptyView()
-                        }
-                    }
+                    self.menuItem(menuAction, navigator: navigator, relationshipModel: relationshipModel, didChangeCollection: didChangeCollection)
                 }
                 Divider()
             }
         } label: {
-            Image(systemName: "ellipsis")
-                .frame(width: 44, height: 44, alignment: .topTrailing)
+            if isFullCollectionView {
+                Image(systemName: "ellipsis")
+            } else {
+                Image(systemName: "ellipsis")
+                    .frame(width: 44, height: 44)
+                    .contentShape(Rectangle())
+            }
         }
     }
     
-    func doMenuAction(_ action: MastodonMenuAction.CollectionMenuAction, navigator: MastodonNavigationRouter) async throws {
+    @ViewBuilder func menuItem(_ menuAction: MastodonMenuAction, navigator: MastodonNavigationRouter, relationshipModel: RelationshipViewModel?, didChangeCollection: ((CollectionChange) -> Void)?) -> some View {
+        switch menuAction {
+        case .miscellaneous(let action):
+            switch action {
+            case .copyLink:
+                MastodonMenuAction.menuButton(systemImageName: action.iconSystemName, text: action.labelText) {
+                    UIPasteboard.general.string = self.collection.url
+                }
+            }
+        case .share(let urlString):
+            if let url = URL(string: urlString) {
+                ShareLink(item: url) {
+                    Label(L10nLookup.Scene.Collections.shareCollection, systemImage: "square.and.arrow.up")
+                }
+            }
+        case .navigationalAction(let navAction):
+            let domainName: String? = {
+                guard let relationshipModel else { return nil }
+                switch relationshipModel.relationship {
+                case .isMe, .none:
+                    return nil
+                case .isNotMe:
+                    return self.authorAccount?.domain == AuthenticationServiceProvider.shared.currentActiveUser.value?.domain ? nil : self.authorAccount?.domain
+                }
+            }()
+            navigator.menuItem(navAction, notMyDomainName: domainName)
+        case .postAction:
+            EmptyView()
+        case .collectionAction(let action):
+            switch action {
+            case .reportCollection, .manageAccounts, .editDetails, .deleteCollection:
+                MastodonMenuAction.menuButton(systemImageName: nil, text: action.labelText, role: action.isDestructive ? .destructive : nil) {
+                    Task {
+                        do {
+                            try await self.doMenuAction(action, navigator: navigator, didChangeCollection: didChangeCollection)
+                        } catch {
+                            navigator.didReceiveError(error)
+                        }
+                    }
+                }
+            case .removeMyself:
+                if !self.iHaveRemovedMyself {
+                    MastodonMenuAction.menuButton(systemImageName: nil, text: action.labelText) {
+                        Task {
+                            do {
+                                try await self.doMenuAction(action, navigator: navigator)
+                            } catch {
+                                navigator.didReceiveError(error)
+                            }
+                        }
+                    }
+                } else {
+                    EmptyView()
+                }
+            }
+        case .relationshipAction(let relAction):
+            if let relationshipModel, let account = self.authorAccount {
+                relationshipModel.menuItem(relAction, forAccount: account, navigator: navigator)
+            } else {
+                EmptyView()
+            }
+        }
+    }
+    
+    func doMenuAction(_ action: MastodonMenuAction.CollectionMenuAction, navigator: MastodonNavigationRouter, didChangeCollection: ((CollectionChange) -> Void)? = nil) async throws {
         switch action {
         case .reportCollection:
             guard let relationship = relationshipViewModel.relationship, let account = authorAccount else { return }
@@ -194,7 +223,22 @@ struct CollectionRowView: View {
             if let meItem = collection.items.first(where: { $0.account_id == AuthenticationServiceProvider.shared.currentActiveUser.value?.userID }) {
                 doRemoveMe(meItemID: meItem.id, navigator: navigator)
             }
+        case .manageAccounts:
+            try await pushEditFlow(step: .addAccounts, navigator: navigator, didChangeCollection: didChangeCollection)
+        case .editDetails:
+            try await pushEditFlow(step: .details, navigator: navigator, didChangeCollection: didChangeCollection)
+        case .deleteCollection:
+            confirmDelete(navigator: navigator, didChangeCollection: didChangeCollection)
         }
+    }
+    
+    func pushEditFlow(step: CreateCollectionStep, navigator: MastodonNavigationRouter, didChangeCollection: ((CollectionChange) -> Void)?) async throws {
+        guard !isPreparingEditFlow, let authenticationBox = navigator.authenticationBox else { return }
+        isPreparingEditFlow = true
+        defer { isPreparingEditFlow = false }
+        let freshlyFetchedCollection = try await APIService.shared.collection(id: id, authenticationBox: authenticationBox).value
+        let editModel = CreateCollectionViewModel(authBox: authenticationBox, editing: freshlyFetchedCollection, didChangeCollection: { didChangeCollection?(.edited) }, didReceiveError: { [weak navigator] error in navigator?.didReceiveError(error) })
+        navigator.push(.collectionEditor(editModel, step: step))
     }
     
     func prepareForDisplay(withRelationship relationship: MastodonAccount.Relationship) {
@@ -216,8 +260,7 @@ struct CollectionRowView: View {
         if let updatedPartialAccounts {
             partialAccounts = updatedPartialAccounts
         }
-        let firstFourAvatars = collection.items.compactMap({ member -> URL? in
-            guard !iHaveRemovedMyself || member.account_id != AuthenticationServiceProvider.shared.currentActiveUser.value?.userID else { return nil }
+        let firstFourAvatars = displayedItems.compactMap({ member -> URL? in
             guard let partialAccount = partialAccounts.first(where: { $0.id ==  member.account_id }) else { return nil }
             return partialAccount.avatarURL
         }).prefix(4)
@@ -240,16 +283,41 @@ struct CollectionRowView: View {
     
     func commitRemoveMe(meItemID: Mastodon.Entity.CollectionMember.ID) async throws {
         guard let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
-        try await APIService.shared.removeFromCollection(collectionId: collection.id, collectionMemberId: meItemID, authenticationBox: authBox)
-        didFinishRemovingMyself()
+        try await APIService.shared.removeFromCollection(collectionID: collection.id, collectionMemberID: meItemID, authenticationBox: authBox)
+        didFinishRemovingMyself(meItemID: meItemID)
     }
     
-    private func didFinishRemovingMyself() {
+    private func didFinishRemovingMyself(meItemID: Mastodon.Entity.CollectionMember.ID) {
         withAnimation {
-            self.iHaveRemovedMyself = true
+            self.removedMyItemID = meItemID
             self.updateAvatarUrls(nil)
         }
     }
+    
+    private func confirmDelete(navigator: MastodonNavigationRouter, didChangeCollection: ((CollectionChange) -> Void)?) {
+        guard let authenticationBox = navigator.authenticationBox else { return }
+        navigator.activeAlert = .confirmDeleteCollection(collectionName: collection.name ?? "", didConfirm: { confirmed in
+            guard confirmed else { return }
+            Task {
+                do {
+                    try await self.commitDelete(authenticationBox: authenticationBox)
+                    didChangeCollection?(.deleted)
+                } catch {
+                    navigator.didReceiveError(error)
+                }
+            }
+        })
+    }
+    
+    private func commitDelete(authenticationBox: MastodonAuthenticationBox) async throws {
+        try await APIService.shared.deleteCollection(collectionID: id, authenticationBox: authenticationBox)
+        isDeleted = true
+    }
+}
+
+enum CollectionChange {
+    case edited
+    case deleted
 }
 
 extension Mastodon.Entity.PartialAccountWithAvatar {

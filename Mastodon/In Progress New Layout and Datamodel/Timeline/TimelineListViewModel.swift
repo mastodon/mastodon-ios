@@ -533,6 +533,27 @@ import MastodonUI
         feedLoader.requestLoad(.reload)
     }
     
+    func collectionsDidChange() {
+        if isCurrentlyOnScreen {
+            Task {
+                await forceReload(.collectionsChanged)
+            }
+        } else {
+            needsReloadOnNextAppear = .collectionsChanged
+        }
+    }
+    
+    var isShowingDeletedCollection: Bool {
+        currentDisplaySlice.contains { item in
+            switch item {
+            case .collection(let model):
+                model.isDeleted
+            default:
+                false
+            }
+        }
+    }
+    
     func forceReload(_ reason: ReloadReason) async {
         guard let feedLoader else {
             resetToUntrackedAfterDelay(from: loadingState)
@@ -767,7 +788,7 @@ extension TimelineListViewModel {
         func processCollectionModel(_ collectionModel: CollectionViewModel) {
             accountsToFetch.insert(collectionModel.collection.accountId)
             relationshipsToFetch.insert(collectionModel.collection.accountId)
-            for includedAccount in collectionModel.collection.items.prefix(4) {
+            for includedAccount in collectionModel.displayedItems.prefix(4) {
                 if let accountID = includedAccount.account_id {
                     accountsToFetch.insert(accountID)
                 }
@@ -806,7 +827,7 @@ extension TimelineListViewModel {
                     relationshipsToFetch.insert(needsRelationshipTo.id)
                 }
                 if let embeddedCollectionViewModel = notificationViewModel.inlineCollectionViewModel {
-                    for accountId in embeddedCollectionViewModel.collection.items.prefix(4).compactMap({ $0.account_id}) {
+                    for accountId in embeddedCollectionViewModel.displayedItems.prefix(4).compactMap({ $0.account_id}) {
                         accountsToFetch.insert(accountId)
                     }
                 }
