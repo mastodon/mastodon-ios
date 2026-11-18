@@ -54,13 +54,13 @@ platform :ios do
     xcodebuild(
       clean: true,
       build: true,
-      destination: "platform=iOS Simulator,name=iPhone 16 Pro",
+      destination: "platform=iOS Simulator,name=iPhone 18 Pro",
       scheme: "#{$appName}"
     )
   end
 
   lane :build_tests do
-    destination = "platform=iOS Simulator,name=iPhone 16 Pro"
+    destination = "platform=iOS Simulator,name=iPhone 18 Pro"
     # Mastodon iOS Tests
     scan(
       build_for_testing: true,

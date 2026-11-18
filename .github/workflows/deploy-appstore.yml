@@ -8,7 +8,7 @@ on:
 jobs:
   deploy_appstore:
     name: Deploy App Store
-    runs-on: macos-15
+    runs-on: xcode-27
     steps:
       - name: Install SSH key
         uses: webfactory/ssh-agent@v0.5.3
@@ -25,7 +25,7 @@ jobs:
           NotificationEndpointRelease: ${{ secrets.NotificationEndpointRelease }}
         run: exec ./.github/scripts/setup.sh
       - name: Select required Xcode version
-        run: sudo xcode-select -switch /Applications/Xcode_26.2.app
+        run: sudo xcode-select -switch /Applications/Xcode_27.1.app
       - name: Confirm Xcode and Swift versions
         run: |
           xcodebuild -version
