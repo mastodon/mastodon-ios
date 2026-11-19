@@ -316,7 +316,9 @@ import Combine
     var activeOverlayID: UUID? = nil
     var activeOverlay: MastodonFadeInOverlay? = nil
     func setActiveOverlay(_ overlay: MastodonFadeInOverlay?, animated: Bool) {
-        activeOverlayID = overlay == nil ? nil : UUID()
+        if overlay != nil { // clearing this causes the view to redisplay as it is dismissing, so we leave the old ID in place until a new one is shown
+            activeOverlayID = UUID()
+        }
         if animated {
             withAnimation { activeOverlay = overlay }
         } else {

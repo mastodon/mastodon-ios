@@ -420,7 +420,7 @@ struct MastodonMainTabView: View {
     }
     
     @ViewBuilder func overlayContents(_ overlay: MastodonFadeInOverlay) -> some View {
-        MastodonTopLevelOverlay(didRequestDismiss: { tabViewRouter.setActiveOverlay(nil, animated: true) }) {
+        MastodonTopLevelOverlay(didRequestDismiss: { tabViewRouter.setActiveOverlay(nil, animated: true) }, backdropOpacity: { overlay.backdropOpacity }) {
             overlayView(overlay)
         }
     }

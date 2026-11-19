@@ -13,11 +13,13 @@ enum MastodonFadeInOverlay {
 
 struct MastodonTopLevelOverlay<Content: View> : View {
     let didRequestDismiss: ()->()
+    let backdropOpacity: () -> Double
     @ViewBuilder let content: Content
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            Color.dimmingBackground
+            Color.mediaOverlayBackground
+                .opacity(backdropOpacity())
                 .ignoresSafeArea()
                 .contentShape(Rectangle())
                 .onTapGesture {
@@ -34,6 +36,22 @@ struct MastodonTopLevelOverlay<Content: View> : View {
                     .foregroundStyle(.white)
             }
             .padding(standardPadding)
+            .accessibilityLabel(L10n.Common.Controls.Actions.done)
+        }
+        .accessibilityAddTraits(.isModal)
+        .accessibilityAction(.escape) {
+            didRequestDismiss()
+        }
+    }
+}
+
+extension MastodonFadeInOverlay {
+    @MainActor var backdropOpacity: Double {
+        switch self {
+        case .images(_, let pagingViewModel), .video(_, let pagingViewModel):
+            1 - pagingViewModel.dismissDragProgress
+        case .altText:
+            0.6
         }
     }
 }

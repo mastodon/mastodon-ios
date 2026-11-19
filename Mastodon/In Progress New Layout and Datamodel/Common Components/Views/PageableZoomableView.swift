@@ -20,7 +20,8 @@ import MastodonSDK
     public var focusedPageLiveZoomAnchor: UnitPoint?
     
     private var excessScrollDirection: Axis?
-
+    var dismissDragProgress: Double = 0
+    
     private(set) var pagingPageSize: CGSize = .zero
     private(set) var contentPageSizes: [CGSize]
     private(set) var contentsFittingSizes: [CGSize]
@@ -49,11 +50,15 @@ import MastodonSDK
         contentPageSizes[index] = newSize
         reclampExistingOffsetsAndScales()
     }
+
+    var focusedPagePagingOffset: CGSize {
+        CGSize(width: -pagingPageSize.width * CGFloat(focusedPageIndex), height: 0)
+    }
     
     func updatePagingPageSizeAndReturnNewFocusedPageOffset(_ newSize: CGSize) -> CGSize {
         pagingPageSize = newSize
         reclampExistingOffsetsAndScales()
-        return CGSize(width: -pagingPageSize.width * CGFloat(focusedPageIndex), height: 0)
+        return focusedPagePagingOffset
     }
     
     func reclampExistingOffsetsAndScales() {
@@ -313,8 +318,13 @@ struct PageableZoomableView<Content: View, Controls: View>: View {
     @GestureState private var liveOffset: CGSize = .zero
     @State private var lastLiveOffset: CGSize = .zero  // this allows us to smoothly animate page changes when the drag gesture ends
     @State private var offset: CGSize = .zero
+    @State private var isFadingOut: Bool = false
     
     private let dismissThreshold: CGFloat = 90
+    private let flickDismissDistance: CGFloat = 250
+    private var controlsHidden: Bool {
+        pageableZoomableViewModel.dismissDragProgress > 0
+    }
     
     let contentView: Content
     let controlsView: Controls
@@ -330,6 +340,7 @@ struct PageableZoomableView<Content: View, Controls: View>: View {
                 contentView
                     .environment(\.pageSize, geo.size)
                     .offset(offset + (liveOffset == .zero ? lastLiveOffset : liveOffset))
+                    .opacity(isFadingOut ? 0 : 1)
                 
                 ZStack {
                     Color.clear
@@ -346,12 +357,17 @@ struct PageableZoomableView<Content: View, Controls: View>: View {
                         .onTapGesture(count: 2) { location in
                             pageableZoomableViewModel.toggleZoomIfPointIsInsideContent(location)
                         }
+                        .allowsHitTesting(!isFadingOut)
                     
                     controlsView // in order to receive touch events, the controls have to be above the clear overlay that holds the zoomAndPan gesture
+                        .opacity(controlsHidden ? 0 : 1)
+                        .allowsHitTesting(!controlsHidden)
+                        .animation(.easeOut(duration: 0.15), value: controlsHidden)
                 }
             }
             .onAppear() {
                 offset = pageableZoomableViewModel.updatePagingPageSizeAndReturnNewFocusedPageOffset(geo.size)
+                pageableZoomableViewModel.dismissDragProgress = 0
             }
             .onChange(of: geo.size) { _, newValue in
                 offset = pageableZoomableViewModel.updatePagingPageSizeAndReturnNewFocusedPageOffset(newValue)
@@ -376,21 +392,43 @@ struct PageableZoomableView<Content: View, Controls: View>: View {
                     let excessOffset = pageableZoomableViewModel.absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: value.translation, currentPagingOffset: offset, gestureIsEnded: false)
                     state = excessOffset
                     lastLiveOffset = excessOffset
+                    let progress = min(1, abs(excessOffset.height) / fadeDistance)
+                    if pageableZoomableViewModel.dismissDragProgress != progress {
+                        pageableZoomableViewModel.dismissDragProgress = progress
+                    }
                 }
                 .onEnded { value in
                     offset = offset + lastLiveOffset
                     lastLiveOffset = .zero
                     withAnimation {
                         let excessOffset = pageableZoomableViewModel.absorbLiveUpdateOffsetIntoFocusedPageAndReturnExcess(liveOffset: value.translation, currentPagingOffset: offset, gestureIsEnded: true)
-                        if abs(excessOffset.height) > dismissThreshold {
-                            pageableZoomableViewModel.dismiss()
+                        
+                        // check for flick
+                        let additionalExpectedMomentumTranslation = value.predictedEndTranslation.height - value.translation.height
+                        let isFlick = excessOffset.height != 0
+                        && (excessOffset.height > 0) == (additionalExpectedMomentumTranslation > 0) // the momentum has to be continuing in the direction of the original drag. changing your mind mid-drag should recenter instead of dismissing
+                        && abs(excessOffset.height + additionalExpectedMomentumTranslation) > flickDismissDistance
+                        if abs(excessOffset.height) > dismissThreshold || isFlick {
+                            let releaseSpeed = value.velocity.height / pageableZoomableViewModel.restingPageContentsScale(pageableZoomableViewModel.focusedPageIndex)
+                            let expectedFadeDuration = (fadeDistance - abs(excessOffset.height)) / max(abs(releaseSpeed), 1 /*effectively stationary, but 0 would cause problems*/)
+                            let clampedFadeDuration = min(max(expectedFadeDuration, 0.15), 0.4)
+                            withAnimation(.linear(duration: TimeInterval(clampedFadeDuration))) {
+                                offset.height += releaseSpeed * clampedFadeDuration
+                                pageableZoomableViewModel.dismissDragProgress = 1 // fade backdrop completely
+                                isFadingOut = true // fade image completely
+                            } completion: {
+                                pageableZoomableViewModel.dismiss()
+                            }
                         } else {
-                            offset = CGSize(width: excessOffset.width, height: 0)
+                            offset = pageableZoomableViewModel.focusedPagePagingOffset
+                            pageableZoomableViewModel.dismissDragProgress = 0
                         }
                     }
                 }
         )
     }
+    
+    var fadeDistance: CGFloat { max(pageableZoomableViewModel.pagingPageSize.height / 2, 1) }
 }
 
 struct ZoomableContentView<Content: View>: View {

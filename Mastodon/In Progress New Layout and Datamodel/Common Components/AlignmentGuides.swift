@@ -33,5 +33,6 @@ extension HorizontalAlignment {
 }
 
 extension Color {
-    static var dimmingBackground = Color.black.opacity(0.6)
+    static let dimmingBackground = Color.black.opacity(0.6)
+    static let mediaOverlayBackground = Color.black
 }
