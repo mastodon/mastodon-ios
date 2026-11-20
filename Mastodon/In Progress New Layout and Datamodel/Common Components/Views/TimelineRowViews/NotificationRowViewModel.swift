@@ -206,7 +206,13 @@ struct A11yActionInfo: Identifiable {
 extension NotificationRowViewModel {
     
     func navigateToProfile(_ info: AccountInfo, navigator: MastodonNavigationRouter) async throws {
-        guard let account = info.fullAccount else { return }
+        let account: Mastodon.Entity.Account
+        if let fullAccount = info.fullAccount {
+            account = fullAccount
+        } else {
+            guard let authenticationBox = navigator.authenticationBox else { return }
+            account = try await APIService.shared.accountInfo(domain: authenticationBox.domain, userID: info.id, authorization: authenticationBox.userAuthorization)
+        }
         navigator.push(.profile(account: account, relationship: relationshipViewModel.relationship))
     }
     
