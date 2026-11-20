@@ -121,10 +121,11 @@ extension AttachmentViewModel {
         
         let attachment = output.asAttachment
 
+        let trimmedCaption = caption.trimmingCharacters(in: .whitespacesAndNewlines)
         let query = Mastodon.API.Media.UploadMediaQuery(
             file: attachment,
             thumbnail: nil,
-            description: caption.trimmingCharacters(in: .whitespacesAndNewlines),
+            description: trimmedCaption.isEmpty ? nil : trimmedCaption,
             focus: nil
         )
         

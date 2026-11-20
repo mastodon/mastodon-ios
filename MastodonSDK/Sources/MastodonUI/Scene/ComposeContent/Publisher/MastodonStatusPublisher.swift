@@ -123,17 +123,20 @@ extension MastodonStatusPublisher: StatusPublisher {
                 case let .uploadedMastodonAttachment(attachment):
                     attachmentIDs.append(attachment.id)
 
-                    _ = try await api.updateMedia(
-                        domain: authenticationBox.domain,
-                        attachmentID: attachment.id,
-                        query: .init(
-                            file: nil,
-                            thumbnail: nil,
-                            description: attachmentViewModel.caption,
-                            focus: nil
-                        ),
-                        mastodonAuthenticationBox: authenticationBox
-                    ).singleOutput()
+                    let caption = attachmentViewModel.caption.trimmingCharacters(in: .whitespacesAndNewlines)
+                    if caption != (attachment.description ?? "") { // only update if caption has changed
+                        _ = try await api.updateMedia(
+                            domain: authenticationBox.domain,
+                            attachmentID: attachment.id,
+                            query: .init(
+                                file: nil,
+                                thumbnail: nil,
+                                description: caption,
+                                focus: nil
+                            ),
+                            mastodonAuthenticationBox: authenticationBox
+                        ).singleOutput()
+                    }
                     
                     // TODO: allow background upload
                     // let attachment = try await attachmentViewModel.upload(context: uploadContext)

@@ -118,6 +118,13 @@ extension Mastodon.API.Statuses {
             self.id = id
             self.description = description
         }
+        
+        /// The default implementation would not send a nil description, which would not clear an existing value on the server
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encode(id, forKey: .id)
+            try container.encode(description, forKey: .description)
+        }
     }
 
     public struct Poll: Codable {

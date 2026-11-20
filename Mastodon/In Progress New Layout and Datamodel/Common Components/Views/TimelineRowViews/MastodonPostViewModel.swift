@@ -141,7 +141,9 @@ struct PrecalculatedHeight {
         guard let attachmentTranslations = translation?.mediaAttachments else { return nil }
         
         let dictionary = attachmentTranslations.reduce(into: [ String : String]()) { partialResult, attachment in
-            partialResult[attachment.id] = attachment.description
+            if !attachment.description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                partialResult[attachment.id] = attachment.description
+            }
         }
         return dictionary
     }

@@ -86,7 +86,7 @@ struct MastodonAttachmentBasicData {
         fullsizeUrl = url(nullableString: entity.url)
         previewUrl = url(nullableString:entity.previewURL)
         remoteUrl = url(nullableString:entity.remoteURL)
-        altText = entity.description
+        altText = entity.description.flatMap { $0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : $0 }
         blurhash = entity.blurhash
     }
 }

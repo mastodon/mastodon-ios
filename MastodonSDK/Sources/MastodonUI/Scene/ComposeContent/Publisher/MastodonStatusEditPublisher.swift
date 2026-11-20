@@ -121,20 +121,20 @@ extension MastodonEditStatusPublisher: StatusPublisher {
                 case let .uploadedMastodonAttachment(attachment):
                     attachmentIDs.append(attachment.id)
 
-                    let caption = attachmentViewModel.caption
-                    guard !caption.isEmpty else { continue }
-
-                    _ = try await api.updateMedia(
-                        domain: authenticationBox.domain,
-                        attachmentID: attachment.id,
-                        query: .init(
-                            file: nil,
-                            thumbnail: nil,
-                            description: caption,
-                            focus: nil
-                        ),
-                        mastodonAuthenticationBox: authenticationBox
-                    ).singleOutput()
+                    let caption = attachmentViewModel.caption.trimmingCharacters(in: .whitespacesAndNewlines)
+                    if caption != (attachment.description ?? "") {
+                        _ = try await api.updateMedia(
+                            domain: authenticationBox.domain,
+                            attachmentID: attachment.id,
+                            query: .init(
+                                file: nil,
+                                thumbnail: nil,
+                                description: caption,
+                                focus: nil
+                            ),
+                            mastodonAuthenticationBox: authenticationBox
+                        ).singleOutput()
+                    }
 
                     // TODO: allow background upload
                     // let attachment = try await attachmentViewModel.upload(context: uploadContext)
@@ -162,7 +162,8 @@ extension MastodonEditStatusPublisher: StatusPublisher {
 
         let mediaAttributes: [Mastodon.API.Statuses.MediaAttributes] = attachmentViewModels.compactMap {
             if case let .mastodonAssetUrl(url: _, attachmentId: attachmentId) = $0.input {
-                return Mastodon.API.Statuses.MediaAttributes(id: attachmentId, description: $0.caption)
+                let caption = $0.caption.trimmingCharacters(in: .whitespacesAndNewlines)
+                return Mastodon.API.Statuses.MediaAttributes(id: attachmentId, description: caption.isEmpty ? nil : caption)
             } else {
                 return nil
             }
