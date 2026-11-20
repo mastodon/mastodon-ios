@@ -33,6 +33,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
     public let quotePolicy: Mastodon.Entity.Source.QuotePolicy?
     // language
     public let language: String
+    let idempotency: PublishIdempotency
     
     // Output
     let _progress = Progress()
@@ -56,7 +57,8 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
         pollMultipleConfigurationOption: PollComposeItem.MultipleConfiguration.Option,
         visibility: Mastodon.Entity.Status.Visibility,
         quotePolicy: Mastodon.Entity.Source.QuotePolicy?,
-        language: String
+        language: String,
+        idempotency: PublishIdempotency
     ) {
         self.replyTo = replyTo
         self.isContentWarningComposing = isContentWarningComposing
@@ -72,6 +74,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
         self.visibility = visibility
         self.quotePolicy = quotePolicy
         self.language = language
+        self.idempotency = idempotency
     }
     
 }
@@ -83,8 +86,6 @@ extension MastodonStatusPublisher: StatusPublisher {
         api: APIService,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> StatusPublishResult {
-        let idempotencyKey = UUID().uuidString
-        
         let publishStatusTaskStartDelayWeight: Int64 = 20
         let publishStatusTaskStartDelayCount: Int64 = publishStatusTaskStartDelayWeight
         
@@ -180,6 +181,7 @@ extension MastodonStatusPublisher: StatusPublisher {
                 language: language
             )
             
+            let idempotencyKey = idempotency.key(for: query)
             let publishResponse = try await api.publishStatus(
                 domain: authenticationBox.domain,
                 idempotencyKey: idempotencyKey,
@@ -193,5 +195,20 @@ extension MastodonStatusPublisher: StatusPublisher {
             _state = .failure(error)
             throw error
         }
+    }
+}
+
+public final class PublishIdempotency {
+    private var lastQuery: Mastodon.API.Statuses.PublishStatusQuery?
+    private var lastKey = UUID().uuidString
+    
+    init() {}
+    
+    func key(for query: Mastodon.API.Statuses.PublishStatusQuery) -> String {
+        if query != lastQuery {
+            lastQuery = query
+            lastKey = UUID().uuidString
+        }
+        return lastKey
     }
 }

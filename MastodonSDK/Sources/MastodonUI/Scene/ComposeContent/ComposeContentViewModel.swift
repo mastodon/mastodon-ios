@@ -28,7 +28,8 @@ public protocol ComposeContentViewModelDelegate: AnyObject {
 @MainActor
 public final class ComposeContentViewModel: NSObject, ObservableObject {
     
-    public private(set) var isPublishing: Bool = false
+    @Published public private(set) var isPublishing: Bool = false
+    private let publishIdempotency = PublishIdempotency()
 
     public enum ComposeContext {
         case composeStatus(quoting: (Mastodon.Entity.Status, ()->(AnyView))?)
@@ -680,7 +681,8 @@ extension ComposeContentViewModel {
             pollMultipleConfigurationOption: pollMultipleConfigurationOption,
             visibility: interactionSettingsModel.interactionSettings.visibility,
             quotePolicy: AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration?.isAvailable(.quotePosts) == true ? interactionSettingsModel.interactionSettings.quotability : nil,
-            language: language
+            language: language,
+            idempotency: publishIdempotency
         )
     }
 

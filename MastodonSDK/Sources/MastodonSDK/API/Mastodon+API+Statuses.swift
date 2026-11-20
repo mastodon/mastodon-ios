@@ -99,7 +99,7 @@ extension Mastodon.API.Statuses {
             .eraseToAnyPublisher()
     }
     
-    public struct PublishStatusQuery: Codable, PostQuery {
+    public struct PublishStatusQuery: Codable, Equatable, PostQuery {
         public let status: String?
         public let mediaIDs: [String]?
         public let pollOptions: [String]?

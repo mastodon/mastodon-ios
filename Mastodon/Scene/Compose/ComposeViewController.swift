@@ -252,9 +252,18 @@ extension ComposeViewController {
             .store(in: &disposeBag)
 
         // bind publish bar button state
-        composeContentViewModel.$isPublishBarButtonItemEnabled
+        Publishers.CombineLatest(composeContentViewModel.$isPublishBarButtonItemEnabled, composeContentViewModel.$isPublishing)
+            .map { isValid, isPublishing in isValid && !isPublishing }
             .receive(on: DispatchQueue.main)
-            .assign(to: \.isEnabled, on: publishButton)
+            .sink { [weak self] isEnabled in
+                guard let self else { return }
+                if #available(iOS 26.0, *) {
+                    self.rightBarButtonItemForCurrentContext.isEnabled = isEnabled
+                } else {
+                    self.publishButton.isEnabled = isEnabled
+                    self.saveButton.isEnabled = isEnabled
+                }
+            }
             .store(in: &disposeBag)
     }
 }
