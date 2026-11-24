@@ -29,6 +29,7 @@ protocol MastodonPostMenuActionHandler: AnyObject {
     var containerOverlayBinding: Binding<MastodonFadeInOverlay?> { get }
     func vote(poll: Mastodon.Entity.Poll, choices: [Int], containingPostID: Mastodon.Entity.Status.ID) async throws -> Mastodon.Entity.Poll
     func currentRelationship(to account: Mastodon.Entity.Account.ID) -> MastodonAccount.Relationship?
+    var isShowingNotifications: Bool { get }
 }
 
 
@@ -38,6 +39,7 @@ enum MastodonPostMenuAction: String {
         case edit
         case translate
         case postActions
+        case conversationActions
         case relationshipActions
         case defensiveActions
         case delete
@@ -77,6 +79,10 @@ enum MastodonPostMenuAction: String {
     case copyTranslatedText
     case openPostInBrowser
     case copyLinkToPost
+    
+    // CONVERSATION
+    case muteConversation
+    case unmuteConversation
 
     // RELATIONSHIP ACTIONS
     case follow
@@ -113,6 +119,9 @@ enum MastodonPostMenuAction: String {
         case .sharePost, .copyOriginalText, .copyTranslatedText, .openPostInBrowser, .copyLinkToPost:
             false
             
+        case .muteConversation, .unmuteConversation:
+            false
+            
         case .removeQuote:
             false
             
@@ -146,6 +155,9 @@ enum MastodonPostMenuAction: String {
             
         case .sharePost, .copyOriginalText, .copyTranslatedText, .openPostInBrowser, .copyLinkToPost:
             false
+            
+        case .muteConversation, .unmuteConversation:
+            true
             
         case .blockUser, .unblockUser:
             false
@@ -206,6 +218,10 @@ enum MastodonPostMenuAction: String {
             Image(systemName: "link")
         case .openPostInBrowser:
             Image(systemName: "safari")
+        case .muteConversation:
+            Image(systemName: "bell.slash")
+        case .unmuteConversation:
+            Image(systemName: "bell")
         }
     }
     
@@ -262,6 +278,10 @@ enum MastodonPostMenuAction: String {
             return L10n.Common.Controls.Status.Actions.copyLink
         case .openPostInBrowser:
             return L10n.Common.Controls.Actions.openInBrowser
+        case .muteConversation:
+            return L10nLookup.MastodonMenuAction.muteConversation
+        case .unmuteConversation:
+            return L10nLookup.MastodonMenuAction.unmuteConversation
         }
     }
     
@@ -274,7 +294,7 @@ enum MastodonPostMenuAction: String {
         }
     }
     
-    static func menuItems(forPostBy relationship: MastodonAccount.Relationship, isQuotingMe: Bool, isShowingTranslation: Bool?) -> [MastodonPostMenuAction.Submenu] {
+    static func menuItems(forPostBy relationship: MastodonAccount.Relationship, isQuotingMe: Bool, isShowingTranslation: Bool?, isConversationMuted: Bool?, canMuteConversation: Bool) -> [MastodonPostMenuAction.Submenu] {
         
         let editActions: [MastodonPostMenuAction]? =  {
             switch relationship {
@@ -291,7 +311,11 @@ enum MastodonPostMenuAction: String {
         }()
         
         let postActions = [MastodonPostMenuAction.sharePost, .copyLinkToPost, isShowingTranslation == true ? .copyTranslatedText : .copyOriginalText, .openPostInBrowser]
-        
+        let conversationActions: [MastodonPostMenuAction]? = {
+            guard let isConversationMuted else { return nil }
+            if isConversationMuted { return [.unmuteConversation] }
+            return canMuteConversation ? [ .muteConversation ] : nil
+        }()
         let relationshipActions: [MastodonPostMenuAction]?
         let defensiveActions: [MastodonPostMenuAction]?
         
@@ -329,6 +353,7 @@ enum MastodonPostMenuAction: String {
             .init(.edit, items: editActions),
             .init(.translate, items: translateAction),
             .init(.postActions, items: postActions),
+            .init(.conversationActions, items: conversationActions),
             .init(.relationshipActions, items: relationshipActions),
             .init(.defensiveActions, items: defensiveActions),
             .init(.delete, items: deleteAction)

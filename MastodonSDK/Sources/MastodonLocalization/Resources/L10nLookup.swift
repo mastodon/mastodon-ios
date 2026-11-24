@@ -755,6 +755,12 @@ public extension L10nLookup {
             let result = tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.showBoosts")
             return result
         }()
+        public static let muteConversation: String = {
+            tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.muteConversation")
+        }()
+        public static let unmuteConversation: String = {
+           tr("Localizable-MastodonMenuAction", "Common.Controls.Actions.unmuteConversation")
+        }()
         public static func mute(_ username: String) -> String {
             return L10n.Common.Controls.Friendship.muteUser(username)
         }

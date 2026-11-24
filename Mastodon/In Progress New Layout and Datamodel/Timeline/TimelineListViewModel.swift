@@ -1011,6 +1011,13 @@ extension TimelineListViewModel {
 
 extension TimelineListViewModel: MastodonPostMenuActionHandler {
     
+    var isShowingNotifications: Bool {
+        switch timeline {
+        case .notifications: true
+        default: false
+        }
+    }
+    
     func publishUpdate(_ update: UpdatedElement) {
         FeedCoordinator.shared.publishUpdate(update)
     }
@@ -1241,6 +1248,12 @@ extension TimelineListViewModel: MastodonPostMenuActionHandler {
                 case .sharePost:
                     assertionFailure("The share option should be rendered by a ShareLink")
                     break
+
+                    // MARK: CONVERSATION ACTIONS
+                case .muteConversation, .unmuteConversation:
+                    let updated = try await APIService.shared.muteConversation(action == .muteConversation, actionableStatusID: actionablePost.id, authenticationBox: authenticatedUser)
+                    publishUpdate(.post(GenericMastodonPost.fromStatus(updated, authenticatedDomain: authenticatedUser.domain)))
+                    clearPendingActions(navigator)
                     
                     // MARK: RELATIONSHIP ACTIONS
                     

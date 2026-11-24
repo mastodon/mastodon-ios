@@ -4066,6 +4066,18 @@
         }
       }
     },
+    "Common.Controls.Actions.muteConversation" : {
+      "comment" : "menu option to block notifications from the current thread",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mute conversation"
+          }
+        }
+      }
+    },
     "Common.Controls.Actions.Navigation.accountSettings" : {
       "comment" : "menu option to open account settings",
       "extractionState" : "manual",
@@ -9366,6 +9378,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "解除封鎖網域 %1$(domainName)@"
+          }
+        }
+      }
+    },
+    "Common.Controls.Actions.unmuteConversation" : {
+      "comment" : "menu option to remove the block on receiving notifications regarding this thread",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unmute conversation"
           }
         }
       }

@@ -184,7 +184,7 @@ struct MastodonPostRowView: View {
                 }
                 
                 // OVERFLOW "..." MENU
-                ForEach(MastodonPostMenuAction.menuItems(forPostBy: relationshipToAuthor, isQuotingMe: viewModel.isQuotingMe, isShowingTranslation: viewModel.isShowingTranslation).flatMap(\.items), id: \.self.id) { action in
+                ForEach(MastodonPostMenuAction.menuItems(forPostBy: relationshipToAuthor, isQuotingMe: viewModel.isQuotingMe, isShowingTranslation: viewModel.isShowingTranslation, isConversationMuted: viewModel.isConversationMuted, canMuteConversation: actionHandler?.isShowingNotifications == true).flatMap(\.items), id: \.self.id) { action in
                     viewModel.menuActionButton(action, actionHandler: actionHandler, navigator: navigator)
                 }
             }
@@ -483,7 +483,7 @@ private struct ActionBar: View {
         var body: some View {
             Menu {
                 if let relationship = viewModel.myRelationshipToAuthor {
-                    ForEach(submenus(forRelationshipToAuthor: relationship, isQuotingMe: viewModel.isQuotingMe, isShowingTranslation: viewModel.isShowingTranslation), id: \.self.id) { submenu in
+                    ForEach(submenus(forRelationshipToAuthor: relationship, isQuotingMe: viewModel.isQuotingMe, isShowingTranslation: viewModel.isShowingTranslation, isConversationMuted: viewModel.isConversationMuted, canMuteConversation: actionHandler?.isShowingNotifications == true), id: \.self.id) { submenu in
                         ForEach(submenu.items, id: \.self) { menuAction in
                             viewModel.menuActionButton(menuAction, actionHandler: actionHandler, navigator: navigator)
                         }
@@ -499,8 +499,8 @@ private struct ActionBar: View {
             }
         }
         
-        func submenus(forRelationshipToAuthor relationship: MastodonAccount.Relationship, isQuotingMe: Bool,  isShowingTranslation: Bool?) -> [MastodonPostMenuAction.Submenu] {
-            return MastodonPostMenuAction.menuItems(forPostBy: relationship, isQuotingMe: isQuotingMe, isShowingTranslation: isShowingTranslation)
+        func submenus(forRelationshipToAuthor relationship: MastodonAccount.Relationship, isQuotingMe: Bool,  isShowingTranslation: Bool?, isConversationMuted: Bool?, canMuteConversation: Bool) -> [MastodonPostMenuAction.Submenu] {
+            return MastodonPostMenuAction.menuItems(forPostBy: relationship, isQuotingMe: isQuotingMe, isShowingTranslation: isShowingTranslation, isConversationMuted: isConversationMuted, canMuteConversation: canMuteConversation)
         }
     }
     

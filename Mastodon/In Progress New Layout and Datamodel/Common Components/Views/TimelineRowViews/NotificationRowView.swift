@@ -566,6 +566,9 @@ struct NotificationRowView: View {
             ForEach(viewModel.a11yActions(navigator: navigator)) { action in
                 Button(action.title, action: action.doAction)
             }
+            if let postViewModel = viewModel.inlinePostViewModel, let isMuted = postViewModel.isConversationMuted {
+                postViewModel.menuActionButton(isMuted ? .unmuteConversation : .muteConversation, actionHandler: actionHandler, navigator: navigator)
+            }
         }
     }
     
@@ -716,6 +719,10 @@ struct NotificationRowView: View {
                 Spacer().frame(minWidth: 0, maxWidth: .infinity)
                 avatarRowTrailingElement(
                     trailingElement, grouped: accountInfo.totalActorCount > 1)
+                if let postViewModel = viewModel.inlinePostViewModel {
+                    PostNotificationMenuButton(actionHandler: actionHandler)
+                        .environment(postViewModel)
+                }
             }
         }
         .frame(height: stackedAvatarSize.rawValue)  // this keeps GeometryReader from causing inconsistent visual spacing in the VStack
@@ -923,6 +930,29 @@ extension Mastodon.Entity.Status {
             case .unknown, ._other:
                 self = .generic(1)
             }
+        }
+    }
+}
+
+struct PostNotificationMenuButton: View {
+    @Environment(MastodonNavigationRouter.self) private var navigator
+    @Environment(MastodonPostViewModel.self) private var postViewModel
+    @Environment(\.accessibilityVoiceOverEnabled) private var voiceOverEnabled
+    let actionHandler: MastodonPostMenuActionHandler?
+    
+    var body: some View {
+        if let isMuted = postViewModel.isConversationMuted {
+            Menu {
+                postViewModel.menuActionButton(isMuted ? .unmuteConversation : .muteConversation, actionHandler: actionHandler, navigator: navigator)
+            } label: {
+                Image(phosphor: .dotsThree)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .frame(minWidth: 45, maxHeight: .infinity)
+                    .contentShape(Rectangle())
+            }
+            .accessibilityLabel(L10n.Common.Controls.Status.Actions.menu)
+            .accessibilityHidden(voiceOverEnabled)
         }
     }
 }

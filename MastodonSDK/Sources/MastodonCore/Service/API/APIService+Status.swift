@@ -93,4 +93,18 @@ extension APIService {
             
     }
 
+    public func muteConversation(
+        _ mute: Bool,
+        actionableStatusID: Mastodon.Entity.Status.ID,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Entity.Status {
+        try await Mastodon.API.Statuses.muteConversation(
+            mute,
+            session: session,
+            domain: authenticationBox.domain,
+            statusID: actionableStatusID,
+            authorization: authenticationBox.userAuthorization
+        ).value
+        
+    }
 }

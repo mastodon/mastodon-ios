@@ -79,6 +79,10 @@ struct PrecalculatedHeight {
             return false
         }
     }
+    
+    var isConversationMuted: Bool? {
+        fullPost?.actionablePost?.content.myActions.muted
+    }
 
     var displayPrepStatus: DisplayPrepStatus = .unprepared
     var isShowingTranslation: Bool? = nil

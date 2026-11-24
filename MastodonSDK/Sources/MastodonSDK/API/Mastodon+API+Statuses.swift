@@ -383,3 +383,27 @@ extension Mastodon.API.Statuses {
     }
     
 }
+
+extension Mastodon.API.Statuses {
+ 
+    /// Mute or unmute a conversation
+    ///
+    /// Stops or resumes notifications for the thread this post belongs to.
+    ///
+    /// # Reference
+    /// [Document](https://docs.joinmastodon.org/methods/statuses/#mute)
+    public static func muteConversation(
+        _ mute: Bool,
+        session: URLSession,
+        domain: String,
+        statusID: Mastodon.Entity.Status.ID,
+        authorization:  Mastodon.API.OAuth.Authorization
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {
+        let url = statusEndpointURL(domain: domain, statusID: statusID).appendingPathComponent(mute ? "mute" : "unmute")
+        let request = Mastodon.API.post(url: url, authorization: authorization)
+        RateLimitViewModel.shared.didMakeRequest("\(mute ? "mute" : "unmute") conversation \(statusID)")
+        let (data, response) = try await session.data(for: request)
+        let value = try Mastodon.API.decode(type: Mastodon.Entity.Status.self, from: data, response: response)
+        return Mastodon.Response.Content(value: value, response: response)
+    }
+}
