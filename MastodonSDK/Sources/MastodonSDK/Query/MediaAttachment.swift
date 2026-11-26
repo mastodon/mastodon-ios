@@ -1,6 +1,6 @@
 //
 //  MediaAttachment.swift
-//  
+//
 //
 //  Created by jk234ert on 2/9/21.
 //
@@ -43,7 +43,7 @@ extension Mastodon.Query.MediaAttachment {
 
     public var mimeType: String {
         switch self {
-        case .jpeg: return "image/jpg"
+        case .jpeg: return "image/jpeg"
         case .gif: return "image/gif"
         case .png: return "image/png"
         case .other(_, _, let mimeType): return mimeType
@@ -53,7 +53,7 @@ extension Mastodon.Query.MediaAttachment {
     var base64EncondedString: String? {
         return data.map { "data:" + mimeType + ";base64," + $0.base64EncodedString() }
     }
-    
+
     public var sizeInByte: Int? {
         switch self {
         case .jpeg(let data), .gif(let data), .png(let data):
