@@ -21,6 +21,15 @@ final class MastodonConfirmEmailViewController: UIViewController {
 
     let stackView = UIStackView()
 
+    private(set) lazy var headlineLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFontMetrics(forTextStyle: .title1).scaledFont(for: UIFont.systemFont(ofSize: 28, weight: .bold))
+        label.textColor = .label
+        label.numberOfLines = 0
+        label.text = L10n.Scene.ConfirmEmail.title
+        return label
+    }()
+
     private(set) lazy var subtitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 17))
@@ -82,6 +91,7 @@ extension MastodonConfirmEmailViewController {
         stackView.spacing = 10
         stackView.layoutMargins = UIEdgeInsets(top: 10, left: 0, bottom: 23, right: 0)
         stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.addArrangedSubview(headlineLabel)
         stackView.addArrangedSubview(subtitleLabel)
         stackView.addArrangedSubview(emailImageView)
         stackView.addArrangedSubview(resendEmailButton)
@@ -118,7 +128,7 @@ extension MastodonConfirmEmailViewController {
             }
             .store(in: &self.disposeBag)
         
-        title = L10n.Scene.ConfirmEmail.title
+        title = L10nLookup.Scene.ConfirmEmail.accountCreated
     }
 
     override func viewDidAppear(_ animated: Bool) {
