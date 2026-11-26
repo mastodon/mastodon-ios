@@ -11,7 +11,7 @@ public enum MastodonRegex {
     /// mention,  hashtag.
     /// @...
     /// #...
-    public static let highlightPattern = "(?:@([a-zA-Z0-9_]+)(@[a-zA-Z0-9_.-]+)?|#([^\\s.]+))"
+    public static let highlightPattern = "(?:@([\\p{L}\\p{M}\\p{N}_]+)(@[\\p{L}\\p{M}\\p{N}_.-]+)?|#([^\\s.]+))"
     /// emoji
     /// :shortcode:
     /// accept ^\B: or \s: but not accept \B: to force user input a space to make emoji take effect
@@ -21,7 +21,7 @@ public enum MastodonRegex {
     /// @…
     /// #…
     /// :…
-    public static let autoCompletePattern = "(?:@([a-zA-Z0-9_]+)(@[a-zA-Z0-9_.-]+)?|#([^\\s.]+))|(^\\B:|\\s:)([a-zA-Z0-9_]+)"
+    public static let autoCompletePattern = "(?:@([\\p{L}\\p{M}\\p{N}_]+)(@[\\p{L}\\p{M}\\p{N}_.-]+)?|#([^\\s.]+))|(^\\B:|\\s:)([a-zA-Z0-9_]+)"
 
     public enum Search {
         public static let username = "^@?[a-z0-9_-]+(@[\\S]+)?$"
