@@ -19,7 +19,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Гэты ўліковы запіс пакуль нічога не адабраў для паказу."
+            "value" : "Гэты ўліковы запіс пакуль нічога не рэкамендуе."
           }
         },
         "ca" : {
@@ -330,7 +330,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$(username)@ пакуль нічога не адабраў(-ла) для паказу."
+            "value" : "%1$(username)@ пакуль нічога не рэкамендуе."
           }
         },
         "ca" : {
@@ -952,7 +952,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Паказаць Вашыя ўлюбёныя ўліковыя запісы"
+            "value" : "Паказаць вашыя ўлюбёныя ўліковыя запісы"
           }
         },
         "ca" : {
@@ -1838,8 +1838,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Filter options"
+            "state" : "translated",
+            "value" : "Filtre seçenekleri"
           }
         },
         "uk" : {
@@ -2150,14 +2150,14 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Choose feed"
+            "state" : "translated",
+            "value" : "Akış seç"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Choose feed"
+            "state" : "translated",
+            "value" : "Вибрати стрічку"
           }
         },
         "vi" : {
@@ -2462,14 +2462,14 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom Feeds"
+            "state" : "translated",
+            "value" : "Özel Akışlar"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom Feeds"
+            "state" : "translated",
+            "value" : "Власні стрічки"
           }
         },
         "vi" : {
