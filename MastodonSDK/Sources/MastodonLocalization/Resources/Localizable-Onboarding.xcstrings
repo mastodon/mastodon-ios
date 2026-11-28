@@ -91,8 +91,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Your account needs attention"
+            "state" : "translated",
+            "value" : "Sinu kasutajakonto vajab tähelepanu"
           }
         },
         "eu" : {
@@ -283,8 +283,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Your account needs attention"
+            "state" : "translated",
+            "value" : "Hesabınızla ilgilenmeniz gerekiyor"
           }
         },
         "uk" : {
@@ -403,8 +403,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Waiting for approval"
+            "state" : "translated",
+            "value" : "Kinnituse ootel"
           }
         },
         "eu" : {
@@ -595,8 +595,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Waiting for approval"
+            "state" : "translated",
+            "value" : "Onay bekliyor"
           }
         },
         "uk" : {
@@ -1027,8 +1027,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This registration is no longer valid"
+            "state" : "translated",
+            "value" : "See registreerumine pole enam kehtiv"
           }
         },
         "eu" : {
@@ -1219,8 +1219,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This registration is no longer valid"
+            "state" : "translated",
+            "value" : "Bu kayıt artık geçerli değil"
           }
         },
         "uk" : {
@@ -1339,8 +1339,8 @@
         },
         "et" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You can register again or log in with a different account."
+            "state" : "translated",
+            "value" : "Sa võid uuesti registreeruda või logida sisse mõne muu kasutajakontoga."
           }
         },
         "eu" : {
@@ -1531,8 +1531,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You can register again or log in with a different account."
+            "state" : "translated",
+            "value" : "Tekrar kayıt olabilir veya farklı bir hesapla giriş yapabilirsiniz."
           }
         },
         "uk" : {

@@ -289,8 +289,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "View %1$(count)lld notifications"
+            "state" : "translated",
+            "value" : "Переглянути %1$(count)lld сповіщень"
           }
         },
         "vi" : {
@@ -595,8 +595,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You have filtered this notification out of your Notifications tab"
+            "state" : "translated",
+            "value" : "Bu bildirimi \"Bildirimler\" sekmenizden filtrelediniz"
           }
         },
         "uk" : {
@@ -907,8 +907,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Get a push notification when…"
+            "state" : "translated",
+            "value" : "Şu durumlarda anlık bildirim al…"
           }
         },
         "uk" : {
@@ -955,7 +955,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Нехта пашырыў Ваш допіс"
+            "value" : "Нехта пашырыў ваш допіс"
           }
         },
         "ca" : {
@@ -1218,8 +1218,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone boosted your post"
+            "state" : "translated",
+            "value" : "Birisi gönderinizi yeniden paylaştığında"
           }
         },
         "uk" : {
@@ -1266,7 +1266,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Допіс, з якім Вы ўзаемадзейнічалі, быў адрэдагаваны"
+            "value" : "Допіс, з якім вы ўзаемадзейнічалі, быў адрэдагаваны"
           }
         },
         "ca" : {
@@ -1529,8 +1529,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A post you interacted with has been edited"
+            "state" : "translated",
+            "value" : "Etkileşime girdiğiniz bir gönderi düzenlendiğinde"
           }
         },
         "uk" : {
@@ -1577,7 +1577,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Допіс, які Вы цытавалі, быў адрэдагаваны"
+            "value" : "Допіс, які вы цытавалі, быў адрэдагаваны"
           }
         },
         "ca" : {
@@ -1840,8 +1840,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A post you quoted has been edited"
+            "state" : "translated",
+            "value" : "Alıntıladığınız bir gönderi düzenlendiğinde"
           }
         },
         "uk" : {
@@ -1888,7 +1888,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Нехта ўпадабаў Ваш допіс"
+            "value" : "Нехта ўпадабаў ваш допіс"
           }
         },
         "ca" : {
@@ -1977,8 +1977,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone liked your post"
+            "state" : "translated",
+            "value" : "Quelqu'un a aimé votre message"
           }
         },
         "ga" : {
@@ -2151,8 +2151,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone liked your post"
+            "state" : "translated",
+            "value" : "Birisi gönderinizi favorilendiğinde"
           }
         },
         "uk" : {
@@ -2199,7 +2199,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Нехта даслаў Вам запыт на падпіску"
+            "value" : "Нехта даслаў вам запыт на падпіску"
           }
         },
         "ca" : {
@@ -2462,8 +2462,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone requested to follow you"
+            "state" : "translated",
+            "value" : "Birisi size takip etme isteği gönderdiğinde"
           }
         },
         "uk" : {
@@ -2510,7 +2510,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Нехта згадаў Вас"
+            "value" : "Нехта згадаў вас"
           }
         },
         "ca" : {
@@ -2773,8 +2773,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone mentioned you"
+            "state" : "translated",
+            "value" : "Birisi sizden bahsettiğinde"
           }
         },
         "uk" : {
@@ -2821,7 +2821,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Нехта падпісаўся на Вас"
+            "value" : "Нехта падпісаўся на вас"
           }
         },
         "ca" : {
@@ -3084,8 +3084,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone followed you"
+            "state" : "translated",
+            "value" : "Birisi sizi takip ettiğinde"
           }
         },
         "uk" : {
@@ -3132,7 +3132,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Нехта, аб кім Вы хацелі атрымліваць апавяшчэнні, зрабіў допіс"
+            "value" : "Нехта, аб кім вы хацелі атрымліваць апавяшчэнні, зрабіў допіс"
           }
         },
         "ca" : {
@@ -3395,8 +3395,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone you’ve asked to be notified about has posted"
+            "state" : "translated",
+            "value" : "Bildirim almak istediğiniz bir kişi bir gönderi paylaştığında"
           }
         },
         "uk" : {
@@ -3443,7 +3443,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Апытанне, якое Вы стварылі або ў якім прынялі ўдзел, скончылася"
+            "value" : "Апытанне, якое вы стварылі або ў якім прынялі ўдзел, скончылася"
           }
         },
         "ca" : {
@@ -3706,8 +3706,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A poll you created or voted in has ended"
+            "state" : "translated",
+            "value" : "Oluşturduğunuz veya oy verdiğiniz bir anket sona erdiğinde"
           }
         },
         "uk" : {
@@ -3754,7 +3754,7 @@
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Нехта цытаваў Вас"
+            "value" : "Нехта цытаваў вас"
           }
         },
         "ca" : {

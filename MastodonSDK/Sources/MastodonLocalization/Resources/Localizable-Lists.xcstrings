@@ -283,14 +283,14 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add %1$(accountName)@"
+            "state" : "translated",
+            "value" : "%1$(accountName)@ kullanıcısını ekle"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add %1$(accountName)@"
+            "state" : "translated",
+            "value" : "Додати %1$(accountName)@"
           }
         },
         "vi" : {
@@ -907,14 +907,14 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create custom feed"
+            "state" : "translated",
+            "value" : "Özel akış oluştur"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create custom feed"
+            "state" : "translated",
+            "value" : "Створити власну стрічку"
           }
         },
         "vi" : {
@@ -1219,14 +1219,14 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create new custom feed…"
+            "state" : "translated",
+            "value" : "Yeni özel akış oluştur…"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create new custom feed…"
+            "state" : "translated",
+            "value" : "Створити нову власну стрічку…"
           }
         },
         "vi" : {
@@ -1530,14 +1530,14 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
+            "state" : "translated",
+            "value" : "Eğer bu özel akışta birisi bulunuyorsa, gönderilerini iki kez görmemek için Ana Sayfa akışınızda o hesabı gizleyin."
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If someone is in this custom feed, hide them in your Home feed to avoid seeing their posts twice."
+            "state" : "translated",
+            "value" : "Якщо хтось є у цій власній стрічці, приховайте цю особу у своїй головній стрічці, щоб не бачити її дописи двічі."
           }
         },
         "vi" : {
@@ -2154,14 +2154,14 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies from custom feed members to"
+            "state" : "translated",
+            "value" : "Şu akış için akış üyelerinin yanıtlarını dahil et:"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Include replies from custom feed members to"
+            "state" : "translated",
+            "value" : "Включати відповіді учасників власної стрічки до"
           }
         },
         "vi" : {
@@ -2465,14 +2465,14 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Could not create custom feed: %1$(errorDescription)@ "
+            "state" : "translated",
+            "value" : "Özel akış oluşturulamadı: %1$(errorDescription)@ "
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Could not create custom feed: %1$(errorDescription)@ "
+            "state" : "translated",
+            "value" : "Не вдалося створити власну стрічку: %1$(errorDescription)@"
           }
         },
         "vi" : {
@@ -2777,14 +2777,14 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom feed name"
+            "state" : "translated",
+            "value" : "Özel akış adı"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Custom feed name"
+            "state" : "translated",
+            "value" : "Назва власної стрічки"
           }
         },
         "vi" : {
@@ -3401,14 +3401,14 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Members of the custom feed"
+            "state" : "translated",
+            "value" : "Özel akışın üyeleri"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Members of the custom feed"
+            "state" : "translated",
+            "value" : "Члени власної стрічки"
           }
         },
         "vi" : {
